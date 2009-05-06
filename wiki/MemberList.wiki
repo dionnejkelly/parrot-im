@@ -8,7 +8,6 @@ TEMPLATE<p>
   * ahmad@sidiqi.net(also msn)
   * 2.5 years Computing Science
   * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
-  * add a link to a picture or something?  
 
 * Full Name *
   * contact: sfu email, msn email (if applicable)
