@@ -1,9 +1,9 @@
 TEMPLATE<p>
 
-Ahmad Sidiqi
-  ahmad@sidiqi.net(also msn)
-  2.5 years Computing Science
-  Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
+* Ahmad Sidiqi *
+  * ahmad@sidiqi.net(also msn)
+  * 2.5 years Computing Science
+  * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
 
 * Full Name *
   * contact: sfu email, msn email (if applicable)
