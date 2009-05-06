@@ -4,10 +4,10 @@
 
 TEMPLATE<p>
 
-* Full Name *
-  * contact: sfu email, msn email (if applicable)
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so..
+* Ahmad Sidiqi
+  * ahmad@sidiqi.net(also msn)
+  * 2.5 years Computing Science
+  * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
   * add a link to a picture or something?  
 
 * Full Name *
