@@ -1,0 +1,37 @@
+#Short biography of members in our group
+
+= Members/Developers of Parrot-IM =
+
+TEMPLATE<p>
+
+* Full Name *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+  * add a link to a picture or something?  
+
+* Full Name *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+
+* Full Name *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+
+* Full Name *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+
+* Full Name *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so.. 
+
+<br>
+<br>
+
+= Formatting =
+refer to http://code.google.com/p/support/wiki/WikiSyntax
