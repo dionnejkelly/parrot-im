@@ -1,7 +1,0 @@
-#summary One-sentence summary of this page.
-
-== Vision statement ==
-==Architectural Diagram ==
-==List of features==
-==Scope of phased release==
-==Features that will not be implemented==
