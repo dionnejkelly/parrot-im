@@ -1,3 +1,5 @@
+#summary Minutes from our meeting on 2009-May-6
+
 == Agenda ==
  * Decide on project name
  * Create project web page via Google Code
