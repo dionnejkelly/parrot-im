@@ -7,10 +7,12 @@ NOTE: Please provide at least a one-line summary for each feature that you add.
  * XMPP protocol
  * Tabbed windows
  * Friend list
+ * Status
+   Allows the user to set their status (i.e. available, busy, away, etc)
  * Chat log
    Allows the user to keep the history of each conversation
  * Block another user
-   Allows the user to block other users from contacting them
+   Allows the user to block other user(s) from contacting them
  * Chatroom/Conference 
    Allows the user to create their own chatroom so that they can talk to more than one users in the chatroom
  * File transfer
