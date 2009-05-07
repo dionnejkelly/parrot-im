@@ -15,7 +15,7 @@ Add your content here.  Format your content with:
 
 == Vision and Scope Document: ==
 
-*[http://code.google.com/p/parrot-im/w/edit/ProblemDescription Problem Description]
+*[ProblemDescription]
 
 [VisionOfSolution]
 
