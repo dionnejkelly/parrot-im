@@ -1,5 +1,8 @@
 ==Project Background:==
 ==Stakeholders:==
+ * Our programming team members
+ * The Parror-IM client who wants the software to be completed
+ * Users that use the software as a means of entertainment and an extensible instant messaging  
 ==Users:==
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
 ==Risks:==
