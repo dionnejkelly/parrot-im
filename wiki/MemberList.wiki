@@ -1,4 +1,5 @@
-Note: Members typed in alphabetical order by last name.
+Note: Members typed in alphabetical order by last name.<br>
+* Tell us a little about yourself and any related interests it will help with role assignment later in the project (IE. graphics design, html.. etc) *
 
 <hr>
 
@@ -53,7 +54,7 @@ Note: Members typed in alphabetical order by last name.
 * Aaron Siu *
   * contact: khs2@sfu.ca msn: nubpotato@hotmail.com
   * 2nd year Software Systems Computer Science
-  * I started off here doing Mechatronics Engineering, but realizing my lack of interest in physics was not a very good thing <br> I landed myself into computer science since programming was more my thing.  So far in terms of programming languages <br> I've used C++ and Java, I've also done a little bit of HTML, CSS, and Javascript in elective IAT courses.  I also consider myself <br> a decent writer if the Documentation department requires help.
+  * I started off here doing Mechatronics Engineering, but realizing my lack of interest in physics was not a very good thing <br> I landed myself into computer science since programming was more my thing.  So far in terms of programming languages <br> I've used C++ and Java, I've also done a little bit of photoshop graphics, HTML, CSS, and Javascript in elective IAT courses.  I also consider myself <br> a decent writer if the Documentation department requires help.
 <hr>
 
 * Wei Zhang *
