@@ -69,10 +69,10 @@ Note: Members typed in alphabetical order by last name.<br>
 <hr>
 
 * Wei Zhang *
-  * contact: sfu email, msn email (if applicable)
+  * contact: wza23@sfu.ca, rockleechang@hotmail.com
   * Student number
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so..
+  * Second Degree in Computing Science
+  * I am a Second Degree Computing Science student and this semester is my 3rd semester in SFU. I have learned about programming language like VB, C/C++ and java. I desire to learn how to use a programming language or software in the real life. I think I will have the chance to learn more in this semester. 
 <hr>
 
 <br>
