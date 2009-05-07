@@ -1,6 +1,5 @@
 
 
-
 == Vision Statement: ==
 
 
@@ -9,6 +8,11 @@
 
 
 == List of Features: ==
+ * gui
+ * chatbot
+ * xmpp protocol
+ * tabbed windows
+ * friend list
 
 
 == Scope of Phased Release: ==
