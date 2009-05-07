@@ -1,10 +1,5 @@
 Creating our team's project website, and writing a scope and vision document.
 
-== Introduction: ==
-
-Add your content here.
-
-
 == Details: ==
 
 Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here.]
