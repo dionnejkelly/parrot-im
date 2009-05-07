@@ -1,4 +1,5 @@
 #summary test anything on this page
 #labels test
 
-[http://parrot-im.googlecode.com/files/usb-parrot.jpg Parrot Logo]
+[http://parrot-im.googlecode.com/files/usb-parrot.jpg]
+Is there anyway to make images display directly in the wiki?
