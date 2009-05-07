@@ -2,20 +2,48 @@
 
 NOTE: Please provide at least a one-line summary for each feature that you add.
 
+= High Priority =
+Must be implemented in first iteration of project.
  * GUI
- * Chatbot
- * XMPP protocol
- * Tabbed windows
+   Working messaging interface, ie: type box, text output box
  * Friend list
- * Status
-   Allows the user to set their status (i.e. available, busy, away, etc)
- * Chat log
-   Allows the user to keep the history of each conversation
- * Block another user
-   Allows the user to block other user(s) from contacting them
- * Chatroom/Conference 
-   Allows the user to create their own chatroom so that they can talk to more than one users in the chatroom
+   List that displays buddies
+ * XMPP protocol
+   Messaging protocol to be decided, most likely MSN?
+ * Live instant messaging
+   Ability to hold a one-on-one conversation with a buddy on given protocol   
+<hr>
+= Medium Priority =
+Would like to have done by final iteration.
+ * Friend Groups
+   Allows user to put their buddies into different groups on the friends list
  * File transfer
    Allows the user to send some files to another user
+ * Status
+   Allows the user to set their status (i.e. available, busy, away, etc)
+ * Block another user
+   Allows the user to block other user(s) from contacting them
+ * Add/Remove another user
+   Allows the user to add or remove new contacts
+ * Chatroom/Conference 
+   Allows the user to create their own chatroom so that they can talk to more than one 
+ * Chat log
+   Allows the user to keep the history of each conversation users in the chatroom
+ * Customize Font
+   Allows user to change size, family, and colour of their typing font.
+
+<hr>
+= Low Priority =
+Will do when if we have extra time.
  * Customize UI
    Allows the user to choose the GUI depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour of the window, etc. In the later development, we might try to develop other GUI, so the user would have some options which GUI to use. (Can anyone expand this idea? Or is it too difficult to implement? If it is, then you can just remove this feature)
+ * Additional Protocol Modules
+   Optional software modules that allows adding accounts from different instant messaging protocols and login simultaneously
+<hr>
+
+- Features Dump
+
+ * Chatbot
+   Automatic response systems (ie. away messages)
+ * Tabbed windows
+   Collapse multiple conversations into a single window separated into tabs
