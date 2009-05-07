@@ -5,7 +5,7 @@ Member List
 * Jihoon Choi *
   * contact: jhc20@sfu.ca, littletomato89@hotmail.com
   * 2nd year of Computing Science
-  * -experienced with Java and Python obtained through university education and has a strong willingness to learn to obtain new skills in various areas
+  * -experienced with Java and Python obtained through university education <br> -has a strong willingness to learn to obtain new skills in various areas
 <hr>
 
 * Ahmad Sidiqi *
