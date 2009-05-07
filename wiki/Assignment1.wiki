@@ -15,8 +15,8 @@ Add your content here.  Format your content with:
 
 == Vision and Scope Document: ==
 
-*[Problem Description]
+*[ProblemDescription]
 
-*[Vision Of Solution]
+*[VisionOfSolution]
 
 [ListOfFeatures]
