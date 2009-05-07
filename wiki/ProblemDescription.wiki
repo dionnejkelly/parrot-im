@@ -3,7 +3,7 @@
 ==Users:==
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
 ==Risks:==
-
+ *Risk Table:
 || *Risk* || *Likelihood* || *Severity* || *Prevention* || *Resolution* ||
 || Risk #1||  
 || Risk #3|| 
