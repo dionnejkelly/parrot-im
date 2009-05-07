@@ -5,8 +5,6 @@ Creating our team's project website, and writing a scope and vision document.
 Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here.]
 <hr>
 
- * Team name: `CodeMonkeys` (temporary?)
- * Member List: [MemberList] (copy to this page after complete)
 
 == Vision and Scope Document: ==
 
