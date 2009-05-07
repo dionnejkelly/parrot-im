@@ -9,7 +9,7 @@ Note: Members typed in alphabetical order by last name.
 <hr>
 
 * Ahmad Sidiqi *
-  * ahmad@sidiqi.net(also msn)
+  * contact: ahmad@sidiqi.net(also msn)
   * 2.5 years Computing Science
   * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
 <hr>
