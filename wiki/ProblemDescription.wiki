@@ -15,6 +15,6 @@ Risk Table:
 
 ==Assumptions:==
 The list of all the important assumptions can be divided into three different categories:
- * The programmers (our team members):
- * The client:
- * The users:
+ * The programmers (our team members)- Description to be added
+ * The client - Description to be added
+ * The users - Description to be added
