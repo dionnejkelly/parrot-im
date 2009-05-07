@@ -2,10 +2,40 @@ Note: Members typed in alphabetical order by last name.
 
 <hr>
 
+* Rakan Alkheliwi *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+<hr>
+
+* William Chen *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+<hr>
+
 * Jihoon Choi *
   * contact: jhc20@sfu.ca, littletomato89@hotmail.com
   * 2nd year of Computing Science
   * -experienced with Java and Python obtained through university education <br> -has a strong willingness to learn to obtain new skills in various areas
+<hr>
+
+* Kevin Fahy *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+<hr>
+
+* Jordan Fox *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
+<hr>
+
+* Chenny Huang *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so..
 <hr>
 
 * Vera Lukman *
@@ -26,28 +56,10 @@ Note: Members typed in alphabetical order by last name.
   * I started off here doing Mechatronics Engineering, but realizing my lack of interest in physics was not a very good thing <br> I landed myself into computer science since programming was more my thing.  So far in terms of programming languages <br> I've used C++ and Java, I've also done a little bit of HTML, CSS, and Javascript in elective IAT courses.  I also consider myself <br> a decent writer if the Documentation department requires help.
 <hr>
 
-* Full Name *
+* Wei Zhang *
   * contact: sfu email, msn email (if applicable)
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so..
-<hr>
-
-* Full Name *
-  * contact: sfu email, msn email (if applicable)
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so.. 
-<hr>
-
-* Full Name *
-  * contact: sfu email, msn email (if applicable)
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so.. 
-<hr>
-
-* Full Name *
-  * contact: sfu email, msn email (if applicable)
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so.. 
 <hr>
 
 <br>
