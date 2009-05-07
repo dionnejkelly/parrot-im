@@ -1,6 +1,7 @@
 ==Project Background:==
 ==Stakeholders:==
 ==Users:==
+*The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software.
 ==Risks:==
 
 || *Risk* || *Likelihood* || *Severity* || *Prevention* || *Resolution* ||
