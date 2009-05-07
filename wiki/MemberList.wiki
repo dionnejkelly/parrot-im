@@ -22,9 +22,9 @@ Note: Members typed in alphabetical order by last name.<br>
 <hr>
 
 * Kevin Fahy *
-  * contact: sfu email, msn email (if applicable)
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so..
+    * contact: kjf9@sfu.ca, kevin_fahy@hotmail.com
+    * 3rd year Computing Science
+    * I am proficient in C/C++ and Java. I have so far taken CMPT 126, 150, and 225 at SFU. I have also taken non-transferrable computing science classes from a previous school that roughly covered the same content. I have always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
 <hr>
 
 * Jordan Fox *
