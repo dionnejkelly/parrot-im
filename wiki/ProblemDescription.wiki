@@ -1,9 +1,18 @@
-== Vision Statement ==
 
-==Architectural Diagram ==
 
-==List of Features==
 
-==Scope of Phased Release==
+== Vision Statement: ==
 
-==Features that will not be implemented==to other wiki pages
+
+== Architectural Diagram: ==
+
+
+
+== List of Features: ==
+
+
+== Scope of Phased Release: ==
+
+
+
+== Features that will not be implemented: ==
