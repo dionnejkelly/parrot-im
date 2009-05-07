@@ -29,10 +29,7 @@ Note: Members typed in alphabetical order by last name.
 * Jordan Fox *
   * contact: jrf2@sfu.ca, jrf02@hotmail.com
   * 3rd year Computer Science Major
-  * I am familiar with Java, C++ and C#. I have an interest in computer graphics. <br>
-    I have worked a bit with graphics in my free time but have not taken a graphics <br>
-    course at university yet. I am also interested in learn as much about other areas <br>
-    of computer science as possible.
+  * I am familiar with Java, C++ and C#. I have an interest in computer graphics. I have worked a bit with graphics in my free time but have not taken a graphics course at university yet. I am also interested in learn as much about other areas of computer science as possible.
 <hr>
 
 * Chenny Huang *
