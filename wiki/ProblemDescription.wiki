@@ -1,13 +1,9 @@
-#summary One-sentence summary of this page.
+== Vision Statement ==
 
-= Introduction =
+==Architectural Diagram ==
 
-Add your content here.
+==List of Features==
 
+==Scope of Phased Release==
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+==Features that will not be implemented==to other wiki pages
