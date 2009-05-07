@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Features of Parrot-IM
 
 NOTE: Please provide at least a one-line summary for each feature that you add.
 
