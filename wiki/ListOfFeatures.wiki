@@ -1,6 +1,6 @@
 #summary One-sentence summary of this page.
- *gui
- *chatbot
- *xmpp protocol
- *tabbed windows
- *friend list
+ * gui
+ * chatbot
+ * xmpp protocol
+ * tabbed windows
+ * friend list
