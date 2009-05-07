@@ -18,4 +18,4 @@ NOTE: Please provide at least a one-line summary for each feature that you add.
  * File transfer
    Allows the user to send some files to another user
  * Customize UI
-   Allows the user to choose the GUI depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour of the window, etc. In the later development, we might try to develop other GUI, so the user would have some options which GUI to use. (Can anyone expand this idea? Or is it too difficult to implant? If it is, then you can just remove this feature)
+   Allows the user to choose the GUI depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour of the window, etc. In the later development, we might try to develop other GUI, so the user would have some options which GUI to use. (Can anyone expand this idea? Or is it too difficult to implement? If it is, then you can just remove this feature)
