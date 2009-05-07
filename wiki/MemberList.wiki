@@ -5,60 +5,70 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Rakan Alkheliwi *
   * contact: sfu email, msn email (if applicable)
+  * Student number
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so..
 <hr>
 
 * William Chen *
   * contact: sfu email, msn email (if applicable)
+  * Student number
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so..
 <hr>
 
 * Jihoon Choi *
   * contact: jhc20@sfu.ca, littletomato89@hotmail.com
+  * Student number
   * 2nd year of Computing Science
   * -experienced with Java and Python obtained through university education <br> -has a strong willingness to learn to obtain new skills in various areas
 <hr>
 
 * Kevin Fahy *
-    * contact: kjf9@sfu.ca, kevin_fahy@hotmail.com
-    * 3rd year Computing Science
-    * I am proficient in C/C++ and Java. I have so far taken CMPT 126, 150, and 225 at SFU. I have also taken non-transferrable computing science classes from a previous school that roughly covered the same content. I have always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
+  * contact: kjf9@sfu.ca, kevin_fahy@hotmail.com
+  * Student number: 301082485
+  * 3rd year Computing Science
+  * I am proficient in C/C++ and Java. I have so far taken CMPT 126, 150, and 225 at SFU. I have also taken non-transferrable computing science classes from a previous school that roughly covered the same content. I have always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
 <hr>
 
 * Jordan Fox *
   * contact: jrf2@sfu.ca, jrf02@hotmail.com
+  * Student number
   * 3rd year Computer Science
   * I am familiar with Java, C++ and C#. I have an interest in computer graphics. I have worked a bit with graphics in my free time but have not taken a graphics course at university yet. I am also interested in learn as much about other areas of computer science as possible.
 <hr>
 
 * Chenny Huang *
   * contact: sfu email, msn email (if applicable)
+  * Student number
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so..
 <hr>
 
 * Vera Lukman *
   * contact: vla24@sfu.ca, tuna_shichan@hotmail.com
+  * Student number
   * 2nd year of Computing Science
   * I am fluent in Python, Java, and C/C++. My area of interest is User Interface, but lately I have developed more interest in Inter Process Communication (IPC). I took Operating System course last term, hopefully that will be helpful for our project.
 <hr>
 
 * Ahmad Sidiqi *
   * contact: ahmad@sidiqi.net(also msn)
+  * Student number
   * 2.5 years Computing Science
   * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
 <hr>
 
 * Aaron Siu *
   * contact: khs2@sfu.ca msn: nubpotato@hotmail.com
+  * Student number
   * 2nd year Software Systems Computer Science
   * I started off here doing Mechatronics Engineering, but realizing my lack of interest in physics was not a very good thing <br> I landed myself into computer science since programming was more my thing.  So far in terms of programming languages <br> I've used C++ and Java, I've also done a little bit of photoshop graphics, HTML, CSS, and Javascript in elective IAT courses.  I also consider myself <br> a decent writer if the Documentation department requires help.
 <hr>
 
 * Wei Zhang *
   * contact: sfu email, msn email (if applicable)
+  * Student number
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so..
 <hr>
