@@ -11,7 +11,9 @@ Must be implemented in first iteration of project.
  * XMPP protocol
    Messaging protocol to be decided, most likely MSN?
  * Live instant messaging
-   Ability to hold a one-on-one conversation with a buddy on given protocol   
+   Ability to hold a one-on-one conversation with a buddy on given protocol
+ * Multiple Users
+   Maintain a database to allow multiple users to log in, each with their unique friend lists.   
 <hr>
 = Medium Priority =
 Would like to have done by final iteration.
