@@ -1,3 +1,5 @@
+#summary Listing of all members with their name, student number, year of studies, and technical background
+
 Note: Members typed in alphabetical order by last name.<br>
 * Tell us a little about yourself and any related interests it will help with role assignment later in the project (IE. graphics design, html.. etc) *
 
