@@ -35,6 +35,8 @@ Would like to have done by final iteration.
    Allows user to change size, family, and colour of their typing font.
  * Sound Notification
    Play a short sound clip upon certain events occurring, such as receiving a message.
+ * Search
+   Allows user to efficiently and intuitively search previous conversations for anything.
 
 <hr>
 = Low Priority =
