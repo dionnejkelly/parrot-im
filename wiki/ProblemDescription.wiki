@@ -1,22 +1,11 @@
+==Project Background:==
+==Stakeholders:==
+==Users:==
+==Risks:==
 
+|| *Year* || *Temperature (low)* || *Temperature (high)* ||
+|| 1900 || -10 || 25 |||| 1910 || -15 || 30 ||
+|| 1920 || -10 || 32 |||| 1930 || _N/A_ || _N/A_ ||
+|| 1940 || -2 || 40 ||
 
-== Vision Statement: ==
-
-
-== Architectural Diagram: ==
-
-
-
-== List of Features: ==
- * gui
- * chatbot
- * xmpp protocol
- * tabbed windows
- * friend list
-
-
-== Scope of Phased Release: ==
-
-
-
-== Features that will not be implemented: ==
+==Assumptions:==
