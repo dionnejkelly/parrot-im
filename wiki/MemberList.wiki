@@ -11,7 +11,7 @@ Note: Members typed in alphabetical order by last name.
 * Vera Lukman *
   * contact: vla24@sfu.ca, tuna_shichan@hotmail.com
   * 2nd year of Computing Science
-  * I am fluent in Python, Java, and C. I have also been practicing C++ recently, and understand how Object Oriented Programming works in C++. My area of interest is User Interface, but lately I am starting to be interested in InterProcess Communication (IPC). I have done a proposal regarding software development, hopefully that will be helpful for our project.
+  * I am fluent in Python, Java, and C. I have also been practicing C++ recently, and understand how Object Oriented Programming works in C++. My area of interest is User Interface, but lately I have developed more interest in Inter Process Communication (IPC). I have done a proposal regarding software development, hopefully that will be helpful for our project.
 <hr>
 
 * Ahmad Sidiqi *
