@@ -6,7 +6,7 @@ Add your content here.
 
 
 == Details: ==
-Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here]
+Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here.]
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
@@ -14,7 +14,8 @@ Add your content here.  Format your content with:
   * Automatic links to other wiki pages
 
 == Vision and Scope Document: ==
-[ProblemDescription]
+
+*[http://code.google.com/p/parrot-im/w/edit/ProblemDescription Problem Description]
 
 [VisionOfSolution]
 
