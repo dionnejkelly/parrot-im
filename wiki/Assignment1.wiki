@@ -1,11 +1,11 @@
 #summary One-sentence summary of this page.
 
-= Introduction: =
+== Introduction: ==
 
 Add your content here.
 
 
-= Details: =
+== Details: ==
 Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here]
 
 Add your content here.  Format your content with:
