@@ -31,6 +31,8 @@ Would like to have done by final iteration.
    Allows the user to keep the history of each conversation users in the chatroom
  * Customize Font
    Allows user to change size, family, and colour of their typing font.
+ * Sound Notification
+   Play a short sound clip upon certain events occurring, such as receiving a message.
 
 <hr>
 = Low Priority =
