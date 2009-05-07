@@ -2,4 +2,3 @@
 #labels test
 
 [http://parrot-im.googlecode.com/files/usb-parrot.jpg]
-Is there anyway to make images display directly in the wiki?
