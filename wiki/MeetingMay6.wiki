@@ -1,0 +1,20 @@
+== Agenda ==
+ * Decide on project name
+ * Create project web page via Google Code
+ * Discuss project's vision
+ * Brainstorm an initial feature list
+
+== Minutes ==
+ * Welcomed Ahmad and Aaron to our group!
+ * Voted on team name. The name, "Chit-Chat", won, but was taken. We agreed on the alternative, "Parrot". The name represents our program's ability to "talk," as a parrot can, and also draws a likeness to Twitter, which this program aims to work with. Since "parrot" was rejected by Google Code, we chose "parrot-im" as the project name.
+ * Thanks to William for creating the Google Code page for our group. 
+ * We all created Google accounts and became project owners.
+ * Set up wiki for communication and submission purposes.
+ * Vera drew a quick GUI for our client, and we discussed features. Subsequent ideas will be added to the wiki at [ListOfFeatures].
+ * Aaron reminded us to not get too ahead of ourselves with GUI, and to focus more on basic functionality.
+ * We agreed that our alpha version should aim to facilitate basic instant messaging, and that we should focus on other features for later releases.
+ * Kevin volunteered to handle the presentation for assignment 1.
+
+== Future Action ==
+ * Called next meeting for Friday, May 8. Will discuss features that we have brainstormed. (We should also discuss roles for the project development. Everybody please submit your technical information on the [MemberList].)
+ * Continue to update wiki with features and work on vision document concurrently.
