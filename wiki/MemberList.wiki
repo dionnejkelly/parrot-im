@@ -1,30 +1,48 @@
 Member List
 
+<hr>
 
 * Ahmad Sidiqi *
   * ahmad@sidiqi.net(also msn)
   * 2.5 years Computing Science
   * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
+<hr>
+
+* Aaron Siu *
+  * contact: khs2@sfu.ca msn: nubpotato@hotmail.com
+  * 2nd year Software Systems Computer Science
+  * I started off here doing Mechatronics Engineering, but realizing my lack of interest in physics was not a very good thing <br> I landed myself into computer science since programming was more my thing.  So far in terms of programming languages <br> I've used C++ and Java, I've also done a little bit of HTML, CSS, and Javascript in elective IAT courses.  I also consider myself <br> a decent writer if the Documentation department requires help.
+<hr>
 
 * Full Name *
   * contact: sfu email, msn email (if applicable)
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so..
+<hr>
 
 * Full Name *
   * contact: sfu email, msn email (if applicable)
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so..
-
-* Full Name *
-  * contact: sfu email, msn email (if applicable)
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so..
+<hr>
 
 * Full Name *
   * contact: sfu email, msn email (if applicable)
   * first/2nd/3rd/4th yr   --  current major of studies
   * insert stuff about yourself here, keep it to 5 lines or so.. 
+<hr>
+
+* Full Name *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so.. 
+<hr>
+
+* Full Name *
+  * contact: sfu email, msn email (if applicable)
+  * first/2nd/3rd/4th yr   --  current major of studies
+  * insert stuff about yourself here, keep it to 5 lines or so.. 
+<hr>
 
 <br>
 <br>
