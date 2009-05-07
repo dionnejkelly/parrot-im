@@ -1,3 +1,4 @@
 #summary test anything on this page
+#labels test
 
-[usb_parrot.jpg]
+[http://parrot-im.googlecode.com/files/usb-parrot.jpg Parrot Logo]
