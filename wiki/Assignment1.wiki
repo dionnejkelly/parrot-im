@@ -6,7 +6,7 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
 <hr>
 
 == Inside Our Team ==
- * Assignment Lead: 
+ * Assignment Lead: Kevin Fahy
  * (Each person's role)
  * (How the group is structured)
  * (How we make decisions)
