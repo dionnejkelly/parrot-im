@@ -9,11 +9,14 @@ Must be implemented in first iteration of project.
  * Friend list
    List that displays buddies
  * XMPP protocol
-   Messaging protocol to be decided, most likely MSN?
+   the same protocol Google Talk used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
+   ~~Messaging protocol to be decided, most likely MSN?~~
  * Live instant messaging
    Ability to hold a one-on-one conversation with a buddy on given protocol
  * Multiple Users
    Maintain a database to allow multiple users to log in, each with their unique friend lists.   
+ * Modular Design or Plug-in system
+   protocol, or network can be added easily without changing the core program
 <hr>
 = Medium Priority =
 Would like to have done by final iteration.
@@ -51,6 +54,7 @@ Will do when if we have extra time.
 
  * Chatbot
    Automatic response systems (ie. away messages)
+   like a answering machine
  * Tabbed windows
    Collapse multiple conversations into a single window separated into tabs
  * Multiple networks
