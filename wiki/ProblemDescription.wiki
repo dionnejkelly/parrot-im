@@ -9,7 +9,7 @@
 ==Risks:==
 Risk Table:
 || *Risk* || *Likelihood* || *Severity* || *Prevention* || *Resolution* ||
-|| Risk #1||  
+|| Risk #1 Poor time management||  
 || Risk #3|| 
 || Risk #4|| 
 || Risk #5|| 
