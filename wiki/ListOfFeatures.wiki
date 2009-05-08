@@ -59,3 +59,5 @@ Will do when if we have extra time.
    Collapse multiple conversations into a single window separated into tabs
  * Multiple networks
    Allows user to log in into different networks (ie. log in into YM and MSN using the application)
+ * Profile system
+   users can create their own profiles. Every profile is password-protected. It stores the configuration and also the account and the password of different IM network users setup. so the program can login to several IM network once it's launched.
