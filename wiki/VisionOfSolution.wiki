@@ -15,7 +15,7 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 
 
 == Scope of Phased Release: ==
- * *Alpha* -
+ * *Alpha:* Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces.
  * *Beta* -
  * *Final* -
  
