@@ -10,7 +10,7 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
  * (Each person's role)
  * (How the group is structured)
  * (How we make decisions)
- * (Meeting information)
+ * [http://code.google.com/p/parrot-im/wiki/MeetingNotes Meeting information]
 
 == About Our Project ==
  * (Talk about GPL2)
