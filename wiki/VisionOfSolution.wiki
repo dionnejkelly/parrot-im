@@ -15,7 +15,10 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 
 
 == Scope of Phased Release: ==
-
+ * *Alpha* -
+ * *Beta* -
+ * *Final* -
+ 
 
 
 == Features that will not be implemented: ==
