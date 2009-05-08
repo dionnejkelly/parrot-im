@@ -6,7 +6,7 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 
 
 
-== List of Features: ==
+== List of Features ( > 30): ==
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and bouse
  * *Chatbot* - allows the user to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users 
  * *XMPP Protocol* -
