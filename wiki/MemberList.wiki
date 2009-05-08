@@ -49,7 +49,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Vera Lukman *
   * contact: vla24@sfu.ca, tuna_shichan@hotmail.com
-  * Student number
+  * 301067659
   * 2nd year of Computing Science
   * I am fluent in Python, Java, and C/C++. My area of interest is User Interface, but lately I have developed more interest in Inter Process Communication (IPC). I took Operating System course last term, hopefully that will be helpful for our project.
 <hr>
