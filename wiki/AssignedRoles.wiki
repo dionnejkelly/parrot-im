@@ -1,13 +1,48 @@
-#summary One-sentence summary of this page.
+The assigned roles and duties of all our team members:
 
-= Introduction =
-
-Add your content here.
+Note: Members typed in alphabetical order by last name.<br>
 
 
-= Details =
+<hr>
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+* Rakan Alkheliwi *
+  * 
+<hr>
+
+* William Chen *
+  *
+<hr>
+
+* Jihoon Choi *
+  * 
+
+* Kevin Fahy *
+  * 
+<hr>
+
+* Jordan Fox *
+  * 
+<hr>
+
+* Chenny Huang *
+  *
+<hr> 
+
+* Vera Lukman *
+  * 
+<hr>
+
+* Ahmad Sidiqi *
+  * 
+<hr>
+
+* Aaron Siu *
+  * 
+<hr>
+
+* Wei Zhang *
+  * 
+<hr>
+
+<br>
+<br>
