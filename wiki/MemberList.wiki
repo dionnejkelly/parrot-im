@@ -8,15 +8,15 @@ Note: Members typed in alphabetical order by last name.<br>
 * Rakan Alkheliwi *
   * contact: rma30@sfu.ca, rmamnk@hotmail.com
   * Student number
-  * 2nd yearr of Computing Science, and Minor in Business
+  * 2nd year of Computing Science, and Minor in Business
   * Faimiliar with Java and Python. I am interested in working in Computing systems, Software engineering and Project managment. So far I finished all lower division requirments except this course, and took CMPT 310 and 384.
 <hr>
 
 * William Chen *
-  * contact: sfu email, msn email (if applicable)
+  * contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
   * Student number
-  * first/2nd/3rd/4th yr   --  current major of studies
-  * insert stuff about yourself here, keep it to 5 lines or so..
+  * 2nd year of Computing Science
+  * I am familiar with Java, C++, and Python. I also have some experience in django, html, and CSS. I am interesting in website development and operating system
 <hr>
 
 * Jihoon Choi *
