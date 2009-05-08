@@ -21,7 +21,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Jihoon Choi *
   * contact: jhc20@sfu.ca, littletomato89@hotmail.com
-  * Student number
+  * Student number: 301071560
   * 2nd year of Computing Science
   * -experienced with Java and Python obtained through university education <br> -has a strong willingness to learn to obtain new skills in various areas
 <hr>
@@ -49,7 +49,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Vera Lukman *
   * contact: vla24@sfu.ca, tuna_shichan@hotmail.com
-  * 301067659
+  * Student number: 301067659
   * 2nd year of Computing Science
   * I am fluent in Python, Java, and C/C++. My area of interest is User Interface, but lately I have developed more interest in Inter Process Communication (IPC) as I took Operating System course last term. I used to develop some websites when I was in high school. I am also responsible for ChicTech 2009 designs.
 <hr>
