@@ -10,8 +10,9 @@
 Risk Table:
 || *Risk* || *Likelihood* || *Severity* || *Prevention* || *Resolution* ||
 || Risk #1 Poor time management|| High chance || Catastrophic || Obey the schedule || Have a group meeting to find out the solution ||  
-|| Risk #3|| 
-|| Risk #4|| 
+|| Risk #2 Lack of experience of some technology  || High chance || High || Try to find out what tool or software we will use in this project || Try to use other tools which we are familiar with || 
+|| Risk #4 Unsolvable technical issue || Medium || Medium || Try to have multiple plans ||
+ Try to use other plans || 
 || Risk #5|| 
 
 ==Assumptions:==
