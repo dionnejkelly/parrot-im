@@ -35,7 +35,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Jordan Fox *
   * contact: jrf2@sfu.ca, jrf02@hotmail.com
-  * Student number
+  * Student number: 301 077 347
   * 3rd year Computer Science and a minor in Math
   * I am familiar with Java, C++ and C#. I have an interest in computer graphics. I have worked a bit with graphics in my free time but have not taken a graphics course at university yet. I have experiance with HTML and javascript from making my own websites in my free time. I am also interested in learning as much about other areas of computer science as possible.
 <hr>
