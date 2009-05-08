@@ -5,6 +5,7 @@ Creating our team's project website, and writing a scope and vision document.
 Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here.]
 <hr>
 
+Assignment Lead: 
 == Inside Our Team ==
  * (Each person's role)
  * (How the group is structured)
