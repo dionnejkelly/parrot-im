@@ -53,3 +53,5 @@ Will do when if we have extra time.
    Automatic response systems (ie. away messages)
  * Tabbed windows
    Collapse multiple conversations into a single window separated into tabs
+ * Multiple networks
+   Allows user to log in into different networks (ie. log in into YM and MSN using the application)
