@@ -9,7 +9,7 @@
 ==Risks:==
 Risk Table:
 || *Risk* || *Likelihood* || *Severity* || *Prevention* || *Resolution* ||
-|| Risk #1 Poor time management||  
+|| Risk #1 Poor time management|| High chance || Catastrophic || Obey the schedule || Have a group meeting to find out the solution ||  
 || Risk #3|| 
 || Risk #4|| 
 || Risk #5|| 
