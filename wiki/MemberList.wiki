@@ -16,7 +16,7 @@ Note: Members typed in alphabetical order by last name.<br>
   * contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
   * Student number
   * 2nd year of Computing Science
-  * I am familiar with Java, C++, and Python. I also have some experience in django, html, and CSS. I am interesting in website development and operating system
+  * I am familiar with Java, C++, and Python. I also have some experience in django, html, and CSS. I am interested in website development and operating system
 <hr>
 
 * Jihoon Choi *
