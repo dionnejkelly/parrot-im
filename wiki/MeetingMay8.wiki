@@ -1,0 +1,7 @@
+#summary Minutes from our meeting on 2009-May-8
+
+== Agenda ==
+ * Assign members to subgroups (network, database, graphics, test framework)
+ * Discuss assignment 1 requirements, such as the diagrams 
+ * Encourage brainstorming of features that we will NOT implement. For example, think of all the features we don't like from existing programs.
+ 
