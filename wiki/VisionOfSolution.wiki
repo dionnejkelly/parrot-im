@@ -8,9 +8,9 @@
 == List of Features: ==
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and bouse
  * *Chatbot* - allows the user to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users 
- * xmpp protocol
- * tabbed windows
- * friend list - tracks the list of users' friends, family, co-workers, and associates in an organized manner
+ * *XMPP Protocol* -
+ * *Tabbed Windows* -
+ * *Friend List* - tracks the list of users' friends, family, co-workers, and associates in an organized manner
 
 
 == Scope of Phased Release: ==
