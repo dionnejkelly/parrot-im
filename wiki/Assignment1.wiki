@@ -6,7 +6,7 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
 <hr>
 
 == Inside Our Team ==
- * Assignment Lead: [kjf9@sfu.ca Kevin Fahy]
+ * Assignment Lead: Kevin Fahy
  * [http://code.google.com/p/parrot-im/wiki/AssignedRoles?ts=1241806986&updated=AssignedRoles Each person's role]
  * [http://code.google.com/p/parrot-im/wiki/GroupStructure?ts=1241807260&updated=GroupStructure How the group is structured]
  * [http://code.google.com/p/parrot-im/wiki/Decision?ts=1241807289&updated=Decision How we make decisions]
