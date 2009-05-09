@@ -34,7 +34,7 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 }}}
-    * Additionally, a message must display during interactive use of the program that indicates the program is covered under this license. 
+    * Additionally, a message must be displayed during interactive use of the program that indicates the program is covered under this license. 
  * Access to [http://code.google.com/p/parrot-im/source/browse/ Subversion repository]
     * To browse through any of the code, simply follow the link above, or click on the [http://code.google.com/p/parrot-im/source/checkout Source] tab and then click on [http://code.google.com/p/parrot-im/source/browse/ Browse].
     * Alternatively, project owners can make changes to the repository with the following commands:
