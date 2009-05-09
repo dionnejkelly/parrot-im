@@ -7,35 +7,35 @@ Note: _Members typed in alphabetical order by last name._
 *Rakan Alkheliwi* <br>
 Subgroup: Core -- Communication Protocols
  * Current tasks:
-    * Research XMPP protocol
+    * Researching XMPP protocol
  
 <hr>
 
 *William Chen* <br>
 Subgroup: Core -- Communication Protocols
  * Current tasks:
-    * Research XMPP protocol
+    * Researching XMPP protocol
  
 <hr>
 
 *Jihoon Choi* <br>
 Subgroup: Core -- Communication Protocols
  * Current tasks:
-    * Research XMPP protocol
+    * Researching XMPP protocol
  
 <hr>
 
 *Kevin Fahy* <br>
 Subgroup: Quality Assurance
  * Current tasks:
-    * Prepare rough copy of presentation for [Assignment1 Assignment One]
+    * Preparing rough copy of presentation for [Assignment1 Assignment One]
 
 <hr>
 
 *Jordan Fox*  <br>
 Subgroup: GUI
  * Current tasks:
-    * Digitize architectural diagram
+    * Digitalizing architectural diagram
   
 <hr>
 
