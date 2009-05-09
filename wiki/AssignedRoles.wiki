@@ -1,52 +1,69 @@
 The assigned roles and duties of all our team members:
 
-Note: Members typed in alphabetical order by last name.<br>
+Note: _Members typed in alphabetical order by last name._
 
+<hr>
 
-* Rakan Alkheliwi *
-  * Subgroup: Core -- Communication Protocols
+*Rakan Alkheliwi* <br>
+Subgroup: Core -- Communication Protocols
+ * Current tasks:
+    * Research XMPP protocol
  
 <hr>
 
-* William Chen *
-  * Subgroup: Core -- Communication Protocols
+*William Chen* <br>
+Subgroup: Core -- Communication Protocols
+ * Current tasks:
+    * Research XMPP protocol
  
 <hr>
 
-* Jihoon Choi *
-  * Subgroup: Core -- Communication Protocols
+*Jihoon Choi* <br>
+Subgroup: Core -- Communication Protocols
+ * Current tasks:
+    * Research XMPP protocol
  
 <hr>
 
-* Kevin Fahy *
-  * Subgroup: Quality Assurance
- 
+*Kevin Fahy* <br>
+Subgroup: Quality Assurance
+ * Current tasks:
+    *Prepare rough copy of presentation for [Assignment1 Assignment One]
+
 <hr>
 
-* Jordan Fox *
-  * Subgroup: GUI
+*Jordan Fox*  <br>
+Subgroup: GUI
+ * Current tasks:
+    *Digitize architectural diagram
   
 <hr>
 
-* Chenny Huang *
-  * Subgroup: GUI
+*Chenny Huang* <br>
+Subgroup: GUI
+ * Current tasks:
  
 <hr> 
 
-* Vera Lukman *
-  * Subgroup: GUI
+*Vera Lukman* <br>
+Subgroup: GUI
+ * Current tasks:
  
 <hr>
 
-* Ahmad Sidiqi *
-  * Subgroup: Database
+*Ahmad Sidiqi* <br>
+Subgroup: Database
+ * Current tasks:
  
 <hr>
 
-* Aaron Siu *
-  * Subgroup: Database
+*Aaron Siu* <br>
+Subgroup: Database
+ * Current tasks:
  
 <hr>
 
-* Wei Zhang *
-  * Subgroup: Core -- Communication Protocols
+*Wei Zhang* <br>
+Subgroup: Core -- Communication Protocols
+ * Current tasks:
+    * Research XMPP protocol
