@@ -8,6 +8,7 @@
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
 ==Risks:==
 Risk Table:
+Note: Feel free to add more risk factors into this table.
 || *Risk* || *Likelihood of the risk occuring* || *Severity of the risk* || *Prevention* || *Resolution* ||
 || Poor time management|| High chance || Catastrophic || Obey the schedule. Those who don't obey will be penalized (e.g. treat the whole group for lunch) || Have a group meeting to find out the solution ||  
 || Lack of technology experience   || High chance || High || Try to find out what tool or software we will be used in this project || Try to use other tools which we are familiar and comfortable with || 
