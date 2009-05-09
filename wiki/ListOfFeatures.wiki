@@ -1,6 +1,8 @@
 #summary Features of Parrot-IM
 
-*Total Features so far: 28*<br>
+*Total Features so far: 28*
+*The Requirement: > 30
+*The Difference: 2<br>
 NOTE: Please provide at least a one-line summary for each feature that you add. Don't forget to update the number of features we have so far, so we can easily keep track of the number.
 <hr>
 
