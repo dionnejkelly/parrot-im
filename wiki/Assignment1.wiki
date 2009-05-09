@@ -35,8 +35,10 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 }}}
     * Additionally, a message must display during interactive use of the program that indicates the program is covered under this license. 
- * [ Link to GPL2]
- * (Link to SVN)
+ * Access to [http://code.google.com/p/parrot-im/source/browse/ Subversion repository]
+    * To browse through any of the code, simply follow the link above, or click on the [http://code.google.com/p/parrot-im/source/checkout Source] tab and then click on [http://code.google.com/p/parrot-im/source/browse/ Browse].
+    * Alternatively, project owners can make changes to the repository with the following commands:
+       # (unfinished)
  * [http://www.google.com/calendar/embed?src=nq1c2mh2402meqim7qa2gt8ro4%40group.calendar.google.com&ctz=America/Los_Angeles Link to calendar]
  * (Link to planning diagram)
 
