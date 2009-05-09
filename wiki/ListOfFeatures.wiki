@@ -4,62 +4,62 @@ NOTE: Please provide at least a one-line summary for each feature that you add.
 
 = High Priority =
 Must be implemented in first iteration of project.
- * GUI
-   Working messaging interface, ie: type box, text output box
- * Friend list
-   List that displays buddies
- * XMPP protocol
-   the same protocol Google Talk used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
+ * *GUI*
+   *Working messaging interface, ie: type box, text output box
+ * *Friend List*
+   *List that displays buddies
+ * *XMPP Protocol*
+   *The same protocol Google Talk used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
    ~~Messaging protocol to be decided, most likely MSN?~~
- * Live instant messaging
-   Ability to hold a one-on-one conversation with a buddy on given protocol
- * Multiple Users
-   Maintain a database to allow multiple users to log in, each with their unique friend lists.   
- * Modular Design or Plug-in system
-   protocol, or network can be added easily without changing the core program
+ * *Live Instant Messaging*
+   *Ability to hold a one-on-one conversation with a buddy on given protocol
+ * *Multiple Users*
+   *Maintain a database to allow multiple users to log in, each with their unique friend lists.   
+ * *Modular Design or Plug-in system*
+   *Protocol, or network can be added easily without changing the core program
 <hr>
 = Medium Priority =
 Would like to have done by final iteration.
- * Friend Groups
-   Allows user to put their buddies into different groups on the friends list
- * File transfer
-   Allows the user to send some files to another user
- * Status
-   Allows the user to set their status (i.e. available, busy, away, etc)
- * Block another user
-   Allows the user to block other user(s) from contacting them
- * Add/Remove another user
-   Allows the user to add or remove new contacts
- * Chatroom/Conference 
-   Allows the user to create their own chatroom so that they can talk to more than one 
- * Chat log
-   Allows the user to keep the history of each conversation users in the chatroom
- * Customize Font
-   Allows user to change size, family, and colour of their typing font.
- * Sound Notification
-   Play a short sound clip upon certain events occurring, such as receiving a message.
- * Search
-   Allows user to efficiently and intuitively search previous conversations for anything.
+ * *Friend Groups*
+   *Allows user to put their buddies into different groups on the friends list
+ * *File Transfer*
+   *Allows the user to send some files to another user
+ * *Status*
+   *Allows the user to set their status (i.e. available, busy, away, etc)
+ * *Blocking another user*
+   *Allows the user to block other user(s) from contacting them
+ * *Add/Remove another user*
+   *Allows the user to add or remove new contacts
+ * *Chatroom/Conference* 
+   *Allows the user to create their own chatroom so that they can talk to more than one 
+ * *Chat Log*
+   *Allows the user to keep the history of each conversation users in the chatroom
+ * *Font Customization*
+   *Allows user to change size, family, and colour of their typing font.
+ * *Sound Notification*
+   *Play a short sound clip upon certain events occurring, such as receiving a message.
+ * *Search*
+   *Allows user to efficiently and intuitively search previous conversations for anything.
 
 <hr>
 = Low Priority =
 Will do when if we have extra time.
- * Customize UI
-   Allows the user to choose the GUI depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour of the window, etc. In the later development, we might try to develop other GUI, so the user would have some options which GUI to use. (Can anyone expand this idea? Or is it too difficult to implement? If it is, then you can just remove this feature)
- * Additional Protocol Modules
-   Optional software modules that allows adding accounts from different instant messaging protocols and login simultaneously
+ * *UI Customization*
+   *Allows the user to choose the GUI depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour of the window, etc. In the later development, we might try to develop other GUI, so the user would have some options which GUI to use. (Can anyone expand this idea? Or is it too difficult to implement? If it is, then you can just remove this feature)
+ * *Additional Protocol Modules*
+   *Optional software modules that allows adding accounts from different instant messaging protocols and login simultaneously
 <hr>
 
 - Features Dump
 
- * Chatbot
-   Automatic response systems (ie. away messages)
+ * *Chatbot*
+   *Automatic response systems (i.e. away messages)
    like a answering machine
- * Tabbed windows
-   Collapse multiple conversations into a single window separated into tabs
- * Multiple networks
-   Allows user to log in into different networks (ie. log in into YM and MSN using the application)
- * Profile system
-   users can create their own profiles. Every profile is password-protected. It stores the configuration and also the account and the password of different IM network users setup. so the program can login to several IM network once it's launched.
- * Offline messaging
-   Allows user to leave messages to another user(s).
+ * *Tabbed windows*
+   *Collapse multiple conversations into a single window separated into tabs
+ * *Multiple Networks*
+   *Allows user to log in into different networks (ie. log in into YM and MSN using the application)
+ * *Profile System*
+   * Allow users to create their own profiles. Every profile is password-protected. It stores the configuration and also the account and the password of different IM network users setup. so the program can login to several IM network once it's launched.
+ * *Offline Messaging*
+   *Allows user to leave messages to another user(s).
