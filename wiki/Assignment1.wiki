@@ -45,7 +45,7 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
        # To add a new file, use: svn add fileOrDirectoryName. Alternatively, an entire directory can be added to the repository by way of the svn import command.
     * The Subversion repository works by storing a base file and then keeping track of each revision to the entire repository. This means that every version of a particular file can be found on the repository. It also allows multiple users to work on the same file at once. If two people update the same file, then SVN will not erase anyone's changes; instead, it will attempt to merge the files together.
     * By updating your working copy, you can never overwrite your code. SVN will alert you if there is a conflicting file. This ensures that each user is always aware of the latest version of any file.
- * [http://www.google.com/calendar/embed?src=nq1c2mh2402meqim7qa2gt8ro4%40group.calendar.google.com&ctz=America/Los_Angeles Link to calendar]
+ * Team [http://www.google.com/calendar/embed?src=nq1c2mh2402meqim7qa2gt8ro4%40group.calendar.google.com&ctz=America/Los_Angeles schedule], with meeting dates, assignment deadlines, internal deadlines, and other significant dates.
  * (Link to planning diagram)
 
 == Vision and Scope Document: ==
