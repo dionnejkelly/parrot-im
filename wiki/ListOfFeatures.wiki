@@ -15,6 +15,7 @@ NOTE: Please provide at least a one-line summary for each feature that you add.
 <hr>
 = Medium Priority =
 *Note:* Hoping to complete the implementation by final iteration.
+ * *Remember User Information* - Allows user to save their username and password.
  * *Friend Groups* - Allows user to put their buddies into different groups on the friends list
  * *File Transfer* - Allows the user to send some files to another user
  * *Status* - Allows the user to set their status (i.e. available, busy, away, etc)
@@ -41,3 +42,6 @@ NOTE: Please provide at least a one-line summary for each feature that you add.
  * *Multiple Networks* - Allows user to log in into different networks (ie. log in into YM and MSN using the application)
  * *Profile System* - Allow users to create their own profiles. Every profile is password-protected. It stores the configuration and also the account and the password of different IM network users setup. so the program can login to several IM network once it's launched.
  * *Offline Messaging* - Allows user to leave messages to another user(s).
+ * *Right-click options* - Right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
+ * *Typing* - Tells user whether the person they are chatting with is typing. This information will be displayed at the bottom of the chat window.
+ * *Auto Sign-in* - Automatic sign-in upon start up.
