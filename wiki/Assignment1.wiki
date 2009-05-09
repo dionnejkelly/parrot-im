@@ -38,7 +38,13 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
  * Access to [http://code.google.com/p/parrot-im/source/browse/ Subversion repository]
     * To browse through any of the code, simply follow the link above, or click on the [http://code.google.com/p/parrot-im/source/checkout Source] tab and then click on [http://code.google.com/p/parrot-im/source/browse/ Browse].
     * Alternatively, project owners can make changes to the repository with the following commands:
-       # (unfinished)
+       # Get a working-copy of the code: svn checkout https://parrot-im.googlecode.com/svn/trunk/ parrot-im --username yourAccount. Then, input your googlecode-generated password.
+       # Navigate the local computer's working copy and edit any file. 
+       # Type the following command to update, or commit, the changes: svn commit -m "Your log message here".
+       # To view an updated repository, type: svn update.
+       # To add a new file, use: svn add fileOrDirectoryName. Alternatively, an entire directory can be added to the repository by way of the svn import command.
+    * The Subversion repository works by storing a base file and then keeping track of each revision to the entire repository. This means that every version of a particular file can be found on the repository. It also allows multiple users to work on the same file at once. If two people update the same file, then SVN will not erase anyone's changes; instead, it will attempt to merge the files together.
+    * By updating your working copy, you can never overwrite your code. SVN will alert you if there is a conflicting file. This ensures that each user is always aware of the latest version of any file.
  * [http://www.google.com/calendar/embed?src=nq1c2mh2402meqim7qa2gt8ro4%40group.calendar.google.com&ctz=America/Los_Angeles Link to calendar]
  * (Link to planning diagram)
 
