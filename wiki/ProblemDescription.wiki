@@ -32,6 +32,6 @@ The list of all the important assumptions can be divided into three different ca
   * Our team members assuming that the software will provide a completely featured communication client
  
  * *The client:*
-  * Description to be added
+  * The client is assuming that the project is capable of implementing the specficiations
  * *The users:* 
   * Description to be added
