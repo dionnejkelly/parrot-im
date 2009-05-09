@@ -7,19 +7,19 @@ Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmp
 
 == Inside Our Team ==
 Our group consists of 10 members, all of whom are currently second or third year SFU Computing Science students. Our project, Parrot IM, requires different skills to create including networking, database, graphics, and testing. Based on our skills and interests, we have assigned our members to the following initial subgroups:
-    * *Core - Communication Protocols (XMPP)*
+    * *Core -- Communication Protocols*
        * Wei
        * Rakan
        * Jihoon
        * William
-    * *Database (SQL)*
+    * *Database*
        * Ahmad
        * Aaron
-    * *Graphical User Interface (GUI)*
+    * *Graphical User Interface*
        * Vera
        * Chenny
        * Jordan
-    * *Quality Assurance Framework*
+    * *Quality Assurance*
        * Kevin
 Initially, we will conduct research in each of the above areas so that we can accurately design our chat client. Afterwards, we may reassign some members to other subgroups to more adequately handle the work-load. 
 
