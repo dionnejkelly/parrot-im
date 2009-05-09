@@ -15,9 +15,9 @@ Risk Table:
 || One or more member(s) leave for vacation|| Low chance || High || Have each member of the group inform their schedules in advance || Reassign role ||
 || One or more member(s) is sick|| Medium chance || High || Stay healthy (e.g. rest) || Reassign role ||
 || Team members not coming to consensus || Medium chance || High || Strive to be as democratic as possible in our meetings|| Voting ||
-|| All source code being lost || Low chance || Massive Destruction || store back-up data in repository || Check our own local copies ||
-|| Team members having trouble with their assigned role || High chance || Medium || team members inform each other in advance || team members help each other ||
-
+|| All source code being lost || Low chance || Massive Destruction || Store back-up data in repository || Check our own local copies ||
+|| Team members having trouble with their assigned role || High chance || Medium || Team members inform each other in advance || team members help each other ||
+|| SVN Repository is down || Low chance || High|| Team members store back-up data in thir local computers|| Use our own local copies to update ||
 
 ==Assumptions:==
 The list of all the important assumptions can be divided into three different categories:
