@@ -19,7 +19,7 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
 <hr>
 = Medium Priority (11) =
 *Note:* Hoping to complete this implementation by final iteration.
- * *Remember User Information* - allows users to save their username and password.
+ * *Storing User Information* - allows users to save their username and password.
  * *Friend Groups* - allows users to organize their buddies into different groups on the friends list.
  * *File Transfer* - allows users to send their files to another user.
  * *Status* - allows users to set their status (i.e. available, busy, away, etc.).
@@ -39,11 +39,11 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
 <hr>
 
 - Features Dump (8)
- * *Chatbot* - allows the user to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
+ * *Chatbot* - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
  * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
  * *Multiple Networks* - allows users to log in into different networks (i.e. log in into YM and MSN using the application)
  * *Profile System* - allow users to create their own profiles. Every profile is secured by password-protection. It stores the configuration, the account ID and the password of different IM network users' profile. Therefore, the program allows users to login to several IM network once it's launched.
- * *Offline Messaging* -allows users to leave messages to another user(s).
+ * *Offline Messaging* - allows users to leave messages to another user(s).
  * *Right-click options* - right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
  * *Typing* - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
  * *Auto Sign-in* - automatic sign-in upon start up.
