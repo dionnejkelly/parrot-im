@@ -28,14 +28,14 @@ Subgroup: Core -- Communication Protocols
 *Kevin Fahy* <br>
 Subgroup: Quality Assurance
  * Current tasks:
-    *Prepare rough copy of presentation for [Assignment1 Assignment One]
+    * Prepare rough copy of presentation for [Assignment1 Assignment One]
 
 <hr>
 
 *Jordan Fox*  <br>
 Subgroup: GUI
  * Current tasks:
-    *Digitize architectural diagram
+    * Digitize architectural diagram
   
 <hr>
 
