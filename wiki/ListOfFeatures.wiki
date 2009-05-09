@@ -18,7 +18,7 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Modular Design or Plug-in System* - protocol, or network can be easily added without changing the core program.
 <hr>
 = Medium Priority (11) =
-*Note:* Hoping to complete the implementation by final iteration.
+*Note:* Hoping to complete this implementation by final iteration.
  * *Remember User Information* - allows users to save their username and password.
  * *Friend Groups* - allows users to organize their buddies into different groups on the friends list.
  * *File Transfer* - allows users to send their files to another user.
