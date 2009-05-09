@@ -3,47 +3,50 @@ The assigned roles and duties of all our team members:
 Note: Members typed in alphabetical order by last name.<br>
 
 
-<hr>
-
 * Rakan Alkheliwi *
-  * 
+  * Subgroup: Core -- Communication Protocols
+ 
 <hr>
 
 * William Chen *
-  *
+  * Subgroup: Core -- Communication Protocols
+ 
 <hr>
 
 * Jihoon Choi *
-  * 
+  * Subgroup: Core -- Communication Protocols
+ 
 <hr>
 
 * Kevin Fahy *
-  * 
+  * Subgroup: Quality Assurance
+ 
 <hr>
 
 * Jordan Fox *
-  * 
+  * Subgroup: GUI
+  
 <hr>
 
 * Chenny Huang *
-  *
+  * Subgroup: GUI
+ 
 <hr> 
 
 * Vera Lukman *
-  * 
+  * Subgroup: GUI
+ 
 <hr>
 
 * Ahmad Sidiqi *
-  * 
+  * Subgroup: Database
+ 
 <hr>
 
 * Aaron Siu *
-  * 
+  * Subgroup: Database
+ 
 <hr>
 
 * Wei Zhang *
-  * 
-<hr>
-
-<br>
-<br>
+  * Subgroup: Core -- Communication Protocols
