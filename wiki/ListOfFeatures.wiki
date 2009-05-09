@@ -5,7 +5,7 @@ NOTE: Please provide at least a one-line summary for each feature that you add.
 
 = High Priority =
 *Note:* Must be implemented in the first iteration of project.
- * *GUI* - Working messaging interface, ie: type box, text output box
+ * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse (i.e. type box, text output box)
  * *Friend List* - List that displays buddies
  * *XMPP Protocol* - The same protocol Google Talk used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
    ~~Messaging protocol to be decided, most likely MSN?~~
