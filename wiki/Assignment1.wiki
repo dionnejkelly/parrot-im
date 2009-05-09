@@ -1,11 +1,32 @@
 #summary Creating our team's project website, and writing a scope and vision document.
 
-== Details: ==
+== Details ==
 
-Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here.]
+Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here.]
 <hr>
 
 == Inside Our Team ==
+Our group consists of 10 members, all of whom are currently second or third year SFU Computing Science students. Our project, Parrot IM, requires different skills to create including networking, database, graphics, and testing. Based on our skills and interests, we have assigned our members to the following initial subgroups:
+    * *Core - Communication Protocols (XMPP)*
+       * Wei
+       * Rakan
+       * Jihoon
+       * William
+    * *Database (SQL)*
+       * Ahmad
+       * Aaron
+    * *Graphical User Interface (GUI)*
+       * Vera
+       * Chenny
+       * Jordan
+    * *Quality Assurance Framework*
+       * Kevin
+Initially, we will conduct research in each of the above areas so that we can accurately design our chat client. Afterwards, we may reassign some members to other subgroups to more adequately handle the work-load. 
+
+As we are all learning to become software engineers, our group structure differs from a traditional company, which has a few leaders and many followers. Instead, we strive to be as democratic as possible in our meetings, ensuring that everyone's ideas are heard and that everyone's voice is equal.
+
+We usually meet three times per week, with meetings of 30-45 minutes in length. We strive to come to a consensus on most decisions and problems, but we will vote on issues as necessary. We have scheduled meetings every Monday, Wednesday, and Friday after our CMPT 275 lecture. Minutes are taken from each meeting, and members add the notes to the wiki page. 
+
  * Assignment Lead: Kevin Fahy
  * [http://code.google.com/p/parrot-im/wiki/AssignedRoles?ts=1241806986&updated=AssignedRoles Each person's role]
  * [http://code.google.com/p/parrot-im/wiki/GroupStructure?ts=1241807260&updated=GroupStructure How the group is structured]
