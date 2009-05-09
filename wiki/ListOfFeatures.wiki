@@ -1,6 +1,7 @@
 #summary Features of Parrot-IM
 
 NOTE: Please provide at least a one-line summary for each feature that you add.
+<hr>
 
 = High Priority =
 *Note:* Must be implemented in the first iteration of project.
