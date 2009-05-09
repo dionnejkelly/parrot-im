@@ -16,22 +16,23 @@ Details about assignement 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cm
  * Open Source License: [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License v2.0]
     * This license essentially guarantees that the program is and always will be free to run, and that its source code is free to view and modify. The license serves in both (a) copyrighting the software, and (b) allowing anybody to copy, distribute, and modify the program's code. However, if an organization uses this program privately, then the license does not force the organization to publicly release the executable or source code; this is one of the minor differences between GPL v2.0 and GPL v3.0. Furthermore, it is permissible to charge a fee for the act of physically transferring a copy, but illegal to charge for the copy itself. If released as an executable file, the program must have its source code released, also. Finally, the license must persist in future iterations of the code, even if transferred to other projects.
     * The following must be present in all source code for the program: 
-{{{ one line to give the program's name and an idea of what it does.
-Copyright (C) yyyy  name of author
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+{{{
+// Parrot IM -- An easy-to-use and feature-rich chat client for multiple protocols.
+// Copyright (C) 2009  Pirate Captains
+// 
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 }}}
     * Additionally, a message must display during interactive use of the program that indicates the program is covered under this license. 
  * [ Link to GPL2]
