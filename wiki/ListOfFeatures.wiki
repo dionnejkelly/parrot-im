@@ -3,7 +3,7 @@
 NOTE: Please provide at least a one-line summary for each feature that you add.
 
 = High Priority =
-*Note:* Must be implemented in first iteration of project.
+*Note:* Must be implemented in the first iteration of project.
  * *GUI* - Working messaging interface, ie: type box, text output box
  * *Friend List* - List that displays buddies
  * *XMPP Protocol* - The same protocol Google Talk used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
