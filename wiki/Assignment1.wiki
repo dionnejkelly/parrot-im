@@ -1,4 +1,4 @@
-Creating our team's project website, and writing a scope and vision document.
+#summary Creating our team's project website, and writing a scope and vision document.
 
 == Details: ==
 
