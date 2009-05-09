@@ -7,12 +7,12 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
 = High Priority (6) =
 *Note:* Must be implemented in the first iteration of project.
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse (i.e. type box, text output box)
- * *Friend List* - List that displays buddies
- * *XMPP Protocol* - The same protocol Google Talk used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
+ * *Friend List* - tracks the list of users' friends, family, co-workers, and associates in an organized manner 
+ * *XMPP Protocol* - the same protocol as Google Talk has used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
    ~~Messaging protocol to be decided, most likely MSN?~~
- * *Live Instant Messaging* - Ability to hold a one-on-one conversation with a buddy on given protocol
- * *Multiple Users* - Maintain a database to allow multiple users to log in, each with their unique friend lists.   
- * *Modular Design or Plug-in system* - Protocol, or network can be added easily without changing the core program
+ * *Live Instant Messaging* - ability to hold a one-on-one conversation with a buddy on given protocol
+ * *Multiple Users* - maintain a database to allow multiple users to log in, each with their own unique friend lists.   
+ * *Modular Design or Plug-in System* - protocol, or network can be easily added without changing the core program
 <hr>
 = Medium Priority (11) =
 *Note:* Hoping to complete the implementation by final iteration.
