@@ -8,11 +8,16 @@
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
 ==Risks:==
 Risk Table:
-|| *Risk* || *Likelihood* || *Severity* || *Prevention* || *Resolution* ||
-|| Risk #1 Poor time management|| High chance || Catastrophic || Obey the schedule. Those who don't obey will be penalized (e.g. treat the whole group for lunch) || Have a group meeting to find out the solution ||  
-|| Risk #2 Lack of experience of some technology  || High chance || High || Try to find out what tool or software we will use in this project || Try to use other tools which we are familiar with || 
-|| Risk #3 Unsolvable technical issue || Medium || Medium || Try to have multiple plans ||Try to use other plans || 
-|| Risk #4|| 
+|| *Risk* || *Likelihood of the risk occuring* || *Severity of the risk* || *Prevention* || *Resolution* ||
+|| Poor time management|| High chance || Catastrophic || Obey the schedule. Those who don't obey will be penalized (e.g. treat the whole group for lunch) || Have a group meeting to find out the solution ||  
+|| Lack of technology experience   || High chance || High || Try to find out what tool or software we will be used in this project || Try to use other tools which we are familiar and comfortable with || 
+|| Unsolvable technical issue || Medium chance || Medium || Try to have multiple plans ||Try to use other plans || 
+|| One or more member(s) leave for vacation|| Low chance || High || Have each member of the group inform their schedules in advance || Reassign role 
+|| One or more member(s) is sick|| Medium chance || High || Stay healthy (e.g. rest) || Reassign role 
+|| Team members not coming to consensus || Medium chance || High || Strive to be as democratic as possible in our meetings|| Voting
+|| All source code being lost || Low chance || Massive Destruction || store back-up data in repository || Check our own local copies
+|| Team members having trouble with their assigned role || High chance || Medium || team members inform each other in advance || team members help each other
+
 
 ==Assumptions:==
 The list of all the important assumptions can be divided into three different categories:
