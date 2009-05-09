@@ -38,7 +38,9 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Additional Protocol Modules* - optional software modules that allows users to add accounts from different instant messaging protocols and login simultaneously.
 <hr>
 
-- Features Dump (8)
+= Features Dump (8) =
+*Note:* Chatbot is one of the required specification.
+
  * *Chatbot* - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
  * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
  * *Multiple Networks* - allows users to log in into different networks (i.e. log in into YM and MSN using the application)
