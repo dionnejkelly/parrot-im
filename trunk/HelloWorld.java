@@ -7,5 +7,11 @@ public class HelloWorld
       System.out.println("Hello, World!");
       
       System.out.println("Testing: If this prints = SUCCESS!!");
+      
+      // Nice features to have in Eclipse
+      
+      
+      // For instruction of how to use Subversion with Eclipse visit: 
+      // http://www.ibm.com/developerworks/opensource/library/os-ecl-subversion/
    }
 }
