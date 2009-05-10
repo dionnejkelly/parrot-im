@@ -23,4 +23,4 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 
 
 == Features that will not be implemented: ==
- * *Multiple Language Selection* - To minimize the complicated implementation of choosing multiple languages in our software. As mentioned in the assumptions section, the programmers are assuming that English-speaking users use the program.
+ * *Multiple Language Selection* - to minimize the complicated implementation and ensure that our software can be run on any system. As mentioned in the assumptions section, the programmers are assuming that English-speaking users use the program.
