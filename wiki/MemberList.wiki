@@ -7,14 +7,14 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Rakan Alkheliwi *
   * contact: rma30@sfu.ca, rmamnk@hotmail.com
-  * Student number
+  * Student number:
   * 2nd year of Computing Science, and Minor in Business
   * Faimiliar with Java and Python. I am interested in working in Computing systems, Software engineering and Project managment. So far I finished all lower division requirments except this course, and took CMPT 310 and 384.
 <hr>
 
 * William Chen *
   * contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
-  * Student number
+  * Student number:
   * 2nd year of Computing Science
   * I am familiar with Java, C++, and Python. I also have some experience in django, html, and CSS. I am interested in website development and operating system
 <hr>
@@ -35,14 +35,14 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Jordan Fox *
   * contact: jrf2@sfu.ca, jrf02@hotmail.com
-  * Student number: 301 077 347
+  * Student number: 301077347
   * 3rd year Computer Science and a minor in Math
   * I am familiar with Java, C++ and C#. I have an interest in computer graphics. I have worked a bit with graphics in my free time but have not taken a graphics course at university yet. I have experiance with HTML and javascript from making my own websites in my free time. I am also interested in learning as much about other areas of computer science as possible.
 <hr>
 
 * Chenny Huang *
   * contact: pengtzuh@sfu.ca, MSN: hellochenny@hotmail.com
-  * Student number
+  * Student number:
   * 2nd year   --  current major of Science (Physics) + minor of computer science
   * I am familiar with Java,Python,HTML and alittle bit of C++.<br>So far I've taken CMPT120,125,165,150,225, and currently taking CMPT363 and IAT100 (^^)
 <hr>
@@ -56,7 +56,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Ahmad Sidiqi *
   * contact: ahmad@sidiqi.net(also msn)
-  * Student number
+  * Student number:
   * 2.5 years Computing Science
   * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
 <hr>
