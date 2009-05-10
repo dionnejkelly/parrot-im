@@ -12,15 +12,15 @@ Risk Table:
 *Note*: Please feel free to add more risk factors into this table.
 || *Risk* || *Likelihood of the risk occuring* || *Severity of the risk* || *Prevention* || *Resolution* ||
 || Poor time management|| High chance || Catastrophic || Obey the schedule. Those who don't obey will be penalized (e.g. treat the whole group for lunch) || Have a group meeting to find out the solution ||  
-|| Lack of technology experience   || High chance || High || Try to find out what tool or software we will be used in this project || Try to use other tools which we are familiar and comfortable with || 
-|| Unsolvable technical issue || Medium chance || Medium || Try to have multiple plans ||Try to use other plans || 
-|| One or more member(s) leaves for vacation|| Low chance || High || Have each member of the group inform their schedules in advance || Reassign role ||
-|| One or more member(s) is sick|| Medium chance || High || Stay healthy (e.g. rest) || Reassign role ||
-|| Team members not coming to consensus || Medium chance || High || Strive to be as democratic as possible in our meetings|| Voting ||
-|| All source code being lost || Low chance || Massive Destruction || Store back-up data in repository || Check our own local copies ||
-|| Team members having trouble with their assigned role || High chance || Medium || Team members inform each other in advance || Team members help each other ||
-|| SVN Repository is down || Low chance || High|| Team members store back-up data in thir local computers|| Team members come up with consensus and use our own local copies to update ||
-|| Team members having trouble with implementation || High chance || High || Prepare good project management with well thought out plans || Team members help each other and as a last resort consult the TA or the instructor ||
+|| Lack of technology experience   || High chance || Serious || Try to find out what tool or software we will be used in this project || Try to use other tools which we are familiar and comfortable with || 
+|| Unsolvable technical issue || Medium chance || Tolerable || Try to have multiple plans ||Try to use other plans || 
+|| One or more member(s) leaves for vacation|| Low chance || Serious || Have each member of the group inform their schedules in advance || Reassign role ||
+|| One or more member(s) is sick|| Medium chance || Serious || Stay healthy (e.g. rest) || Reassign role ||
+|| Team members not coming to consensus || Medium chance || Serious || Strive to be as democratic as possible in our meetings|| Voting ||
+|| All source code being lost || Low chance || Catastrophic  || Store back-up data in repository || Check our own local copies ||
+|| Team members having trouble with their assigned role || High chance || Tolerable || Team members inform each other in advance || Team members help each other ||
+|| SVN Repository is down || Low chance || Serious || Team members store back-up data in thir local computers|| Team members come up with consensus and use our own local copies to update ||
+|| Team members having trouble with implementation || High chance || Serious || Prepare good project management with well thought out plans || Team members help each other and as a last resort consult the TA or the instructor ||
 
 
 ==Assumptions:==
