@@ -26,5 +26,5 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 <br>
 *Note* - Please feel free to add any more features that will not be implemented in our software.
  * *Multiple Language Selection* - to minimize the complicated implementation and ensure that our software can be run on any system. As mentioned in the _problem description_, the programmers are assuming that English-speaking users use the program.
- * *Multiple Computer Platforms Compatibility* - to maximize the efficiency in Windows Operating System (especially, the CMPT 275 lecture's computer).
+ * *Multiple Computer Platforms Compatibility* - to maximize the efficiency in Windows Operating System (specially made to support the CMPT 275 lecture's computer).
  * *Webcam Chat* - to eliminate the low video quality and minimize the hardware requirements for using our software.
