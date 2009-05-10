@@ -9,7 +9,7 @@
 ==Risks:==
 Risk Table:
 
-*Note*: Feel free to add more risk factors into this table.
+*Note*: Please feel free to add more risk factors into this table.
 || *Risk* || *Likelihood of the risk occuring* || *Severity of the risk* || *Prevention* || *Resolution* ||
 || Poor time management|| High chance || Catastrophic || Obey the schedule. Those who don't obey will be penalized (e.g. treat the whole group for lunch) || Have a group meeting to find out the solution ||  
 || Lack of technology experience   || High chance || High || Try to find out what tool or software we will be used in this project || Try to use other tools which we are familiar and comfortable with || 
@@ -25,6 +25,7 @@ Risk Table:
 
 ==Assumptions:==
 The list of all the important assumptions can be divided into three different categories:
+*Note*: Please feel free to add more assumptions into the following categories.
  * *The programmers (our team members):*
   * Our team members having passion and eagerness to throughly complete this project.
   * Our team members putting a maximum effort to finish the project.
@@ -38,4 +39,4 @@ The list of all the important assumptions can be divided into three different ca
  * *The users:* 
   * The users are assuming that the program will provide a feature-rich instant messaging program that is compatible with multiple protocols.
   * The users are assuming that the program will be updated occasionally with new features and bug-free software.
-  * The users are assuming that the software is not harmful or provoke any negative effects to influence their health or behaviors.
+  * The users are assuming that the software is not harmful or provoke any negative effects to influence their health or behaviors while using the program.
