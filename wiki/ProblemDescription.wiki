@@ -31,7 +31,7 @@ The list of all the important assumptions can be divided into three different ca
   * Our team members putting a maximum effort to finish the project.
   * Our team members understanding more about the software development as we go along with the project.
   * Our team members assuming that the software will provide a completely featured communication client.
- 
+  * Our team members assuming that the software will be used by English-speaking population.
  * *The client:*
   * The client is assuming that the project is capable of implementing the specficiations.
   * The client is assuming that the project will be thoroughly completed within the due date.
