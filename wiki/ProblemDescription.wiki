@@ -24,7 +24,7 @@ Risk Table:
 
 
 ==Assumptions:==
-The list of all the important assumptions can be divided into three different categories:
+The list of all the important assumptions can be divided into three different categories:<br>
 *Note*: Please feel free to add more assumptions into the following categories.
  * *The programmers (our team members):*
   * Our team members having passion and eagerness to throughly complete this project.
