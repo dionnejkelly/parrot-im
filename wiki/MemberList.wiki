@@ -56,7 +56,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Ahmad Sidiqi *
   * contact: ahmad(at)sidiqi(dot)net (also msn)
-  * Student number:
+  * Student number: *Please Add*
   * 2.5 years Computing Science
   * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
 <hr>
