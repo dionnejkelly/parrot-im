@@ -42,7 +42,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Chenny Huang *
   * contact: pengtzuh(at)sfu(dot)ca, msn: hellochenny(at)hotmail(dot)com
-  * Student number: *Please Add*
+  * Student number:200103936
   * 2nd year major of Science (Physics) and minor of Computing Science
   * I am familiar with Java,Python,HTML and alittle bit of C++.<br>So far I've taken CMPT120,125,165,150,225, and currently taking CMPT363 and IAT100 (^^)
 <hr>
