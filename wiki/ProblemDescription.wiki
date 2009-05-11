@@ -1,8 +1,10 @@
+#summary Problem description for assignment one
+
 ==Project Background:==
  * This project is aiming to create a completely featured instant messaging client, such as MSN, ICQ, Twitter. Also, this communication client should be able to combine other communication tools. The ultimate goal of this project is that this communication client should be error free, full-featured and everybody in the world should be able to use it anytime anywhere. However, this goal is hard to reach because some problems, namely time constraint, team composition, and lack of technical expertise of the team members.  So, the basic goal of this project is to create a working bug-free communication client for the users and ensure the basic functions of this communication client work smoothly.   
 ==Stakeholders:==
  * Our programming team members
- * The Parror-IM client who wants the software to be completed
+ * The Parrot-IM client who wants the software to be completed
  * Users that use the software as a means of entertainment and an extensible instant messaging  
 ==Users:==
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
