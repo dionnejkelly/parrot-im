@@ -32,7 +32,7 @@ The list of all the important assumptions can be divided into three different ca
   * Our team members having passion and eagerness to throughly complete this project.
   * Our team members putting a maximum effort to finish the project.
   * Our team members understanding more about the software development as we go along with the project.
-  * Our team members assuming that the software will provide a completely featured communication client.
+  * ~~Our team members assuming that the software will provide a completely featured communication client.~~
   * Our team members assuming that the software will be used by English-speaking population.
   * Our team members are assuming that XMPP is the only protocol we will need in order for the instant messaging client to function to our needs.
  * *The client:*
