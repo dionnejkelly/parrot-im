@@ -1,8 +1,8 @@
 #summary Features of Parrot-IM
 
-*Total Features so far: 28*<br>
+*Total Features so far: 29*<br>
 *The Requirement: > 30*<br>
-*The Difference: 2*<br>
+*The Difference: 1*<br>
 
 NOTE: Please provide at least a one-line summary for each feature that you add. Don't forget to update the number of features we have so far, so we can easily keep track of the number.
 <hr>
@@ -49,3 +49,5 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Right-click options* - right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
  * *Typing* - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
  * *Auto Sign-in* - automatic sign-in upon start up.
+ * *Avatar picture* - allow user to set avatar picture
+ * *Emoticon* - can insert a graphical emoticon into chat
