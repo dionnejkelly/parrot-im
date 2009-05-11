@@ -1,31 +1,31 @@
 #summary Presentation rough notes.
 
-* Introduction
-   * Why make another chat client? There are already many programs that do the following:
-      * have many users and have decent functionality (e.g. MSN, AOL, ICQ)
-      * can work with multiple protocols (e.g. Trillium)
-      * ... Twitter, Facebook, IRC...
-   * _show pictures and functionality of other programs_
-   * Can do better. We need a feature-rich, but easy-to-use, chat client that works with multiple protocols and operates efficiently.
+ * Introduction
+    * Why make another chat client? There are already many programs that do the following:
+       * have many users and have decent functionality (e.g. MSN, AOL, ICQ)
+       * can work with multiple protocols (e.g. Trillium)
+       * ... Twitter, Facebook, IRC...
+    * _show pictures and functionality of other programs_
+    * Can do better. We need a feature-rich, but easy-to-use, chat client that works with multiple protocols and operates efficiently.
 
-* How we communicate...
-   * Should be:
-      * fun
-      * easy
-      * accessible 
+ * How we communicate...
+    * Should be:
+       * fun
+       * easy
+       * accessible 
 
-* We present: Parrot-IM 
+ * We present: Parrot-IM 
 
-* Feature list
-   * Refer to architectural diagram
+ * Feature list
+    * Refer to architectural diagram
 
-* How are we doing this
-   * Talk about our group.
-      * All learning to be software engineers.
-      * Group organized into subgroups, but everyone has an equal voice
-      * Roles...
-   * Problem description
-      * ...
-   * Vision of solution
-      * ...
-* ...
+ * How are we doing this
+    * Talk about our group.
+       * All learning to be software engineers.
+       * Group organized into subgroups, but everyone has an equal voice
+       * Roles...
+    * Problem description
+       * ...
+    * Vision of solution
+       * ...
+ * ...
