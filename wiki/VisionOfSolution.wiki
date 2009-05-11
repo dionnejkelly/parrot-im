@@ -18,7 +18,7 @@ Explanation: The boxes of the diagram represent the GUI Components and the bulle
 == Scope of Phased Release: ==
  * *Alpha* - Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces.
  * *Beta* -
- * *Final* -
+ * *Final* - User interface customization of colors and window formats. 
  
 
 
