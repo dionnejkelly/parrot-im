@@ -12,9 +12,9 @@ Note: Members typed in alphabetical order by last name.<br>
   * Familiar with Java and Python. I am interested in working in Computing systems, Software engineering and Project management. So far I finished all lower division requirements except this course, and took CMPT 310 and 384.
 <hr>
 
-* William Chen *
+* William(Wei-Lun) Chen *
   * contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
-  * Student number: *Please Add*
+  * Student number: 301080781
   * 2nd year of Computing Science
   * I am familiar with Java, C++, and Python. I also have some experience in django, html, and CSS. I am interested in website development and operating system
 <hr>
