@@ -17,7 +17,7 @@ Explanation: The boxes of the diagram represent the GUI Components and the bulle
 
 == Scope of Phased Release: ==
  * *Alpha* - Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces.
- * *Beta* -
+ * *Beta* - Simple chat bot with response to certain commands and ability to search through old conversations. Ability to block people, add "friends", and adjust status.
  * *Final* - User interface customization of colors, fonts and window formats. Help pages and features to make the program easy-to-use.
  
 
