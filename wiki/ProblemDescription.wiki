@@ -21,7 +21,7 @@ Risk Table:
 || Team members not coming to consensus || Medium chance || Serious || Strive to be as democratic as possible in our meetings|| Voting ||
 || All source code being lost || Low chance || Catastrophic  || Store back-up data in repository || Check our own local copies ||
 || Team members having trouble with their assigned role || High chance || Tolerable || Team members inform each other in advance || Team members help each other ||
-|| SVN Repository is down || Low chance || Serious || Team members store back-up data in thir local computers|| Team members come up with consensus and use our own local copies to update ||
+|| SVN Repository is down || Low chance || Serious || Team members store back-up data in their local computers|| Team members come up with consensus and use our own local copies to update ||
 || Team members having trouble with implementation || High chance || Serious || Prepare good project management with well thought out plans || Team members help each other and as a last resort consult the TA or the instructor ||
 
 
