@@ -1,5 +1,5 @@
 ==Project Background:==
- * This project is aiming to create a completely featured communication client, such as MSN, ICQ, Twitter. Also, this communication client should be able to combine other communication tools. The ultimate goal of this project is that this communication client should be error free, full-featured and everybody in the world should be able to use it anytime anywhere. However, the ultimate goal is hard to reach because some problems, such as time issue, team issue and some technical issues. So, the basic goal of this project is to create a completely featured communication client for the users and ensure the basic function of this communication client work smoothly.   
+ * This project is aiming to create a completely featured instant messaging client, such as MSN, ICQ, Twitter. Also, this communication client should be able to combine other communication tools. The ultimate goal of this project is that this communication client should be error free, full-featured and everybody in the world should be able to use it anytime anywhere. However, this goal is hard to reach because some problems, namely time constraint, team composition, and lack of technical expertise of the team members.  So, the basic goal of this project is to create a working bug-free communication client for the users and ensure the basic functions of this communication client work smoothly.   
 ==Stakeholders:==
  * Our programming team members
  * The Parror-IM client who wants the software to be completed
@@ -32,6 +32,7 @@ The list of all the important assumptions can be divided into three different ca
   * Our team members understanding more about the software development as we go along with the project.
   * Our team members assuming that the software will provide a completely featured communication client.
   * Our team members assuming that the software will be used by English-speaking population.
+  * Our team members are assuming that XMPP is the only protocol we will need in order for the instant messaging client to function to our needs.
  * *The client:*
   * The client is assuming that the project is capable of implementing the specficiations.
   * The client is assuming that the project will be thoroughly completed within the due date.
