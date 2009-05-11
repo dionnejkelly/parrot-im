@@ -3,7 +3,7 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 
 
 == Architectural Diagram: ==
-<img src="http://mail.google.com/mail/?attid=0.1&disp=emb&view=att&th=1212dca22d5f1430">
+<img src="http://i628.photobucket.com/albums/uu1/jrfox02/Diagram.png?t=1242014056">
 
 
 == List of Features ( > 30): ==
