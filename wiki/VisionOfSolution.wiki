@@ -4,7 +4,7 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 
 == Architectural Diagram: ==
 <img src="http://i628.photobucket.com/albums/uu1/jrfox02/Diagram.png?t=1242014056">
-
+(Explanation: The boxes of the diagram represent the GUI Components and the bulleted lists are the other components connected to the specific GUI Component.)
 
 == List of Features ( > 30): ==
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse.
