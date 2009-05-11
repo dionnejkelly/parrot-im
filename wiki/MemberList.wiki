@@ -6,70 +6,70 @@ Note: Members typed in alphabetical order by last name.<br>
 <hr>
 
 * Rakan Alkheliwi *
-  * contact: rma30@sfu.ca, rmamnk@hotmail.com
-  * Student number:
+  * contact: rma30(at)sfu(dot)ca, msn: rmamnk(at)hotmail(dot)com
+  * Student number: *Please Add*
   * 2nd year of Computing Science, and Minor in Business
-  * Faimiliar with Java and Python. I am interested in working in Computing systems, Software engineering and Project managment. So far I finished all lower division requirments except this course, and took CMPT 310 and 384.
+  * Familiar with Java and Python. I am interested in working in Computing systems, Software engineering and Project management. So far I finished all lower division requirements except this course, and took CMPT 310 and 384.
 <hr>
 
 * William Chen *
   * contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
-  * Student number:
+  * Student number: *Please Add*
   * 2nd year of Computing Science
   * I am familiar with Java, C++, and Python. I also have some experience in django, html, and CSS. I am interested in website development and operating system
 <hr>
 
 * Jihoon Choi *
-  * contact: jhc20@sfu.ca, littletomato89@hotmail.com
+  * contact: jhc20(at)sfu(dot)ca, msn: littletomato89(at)hotmail(dot)com
   * Student number: 301071560
   * 2nd year of Computing Science
   * -experienced with Java and Python obtained through university education <br> -has a strong willingness to learn to obtain new skills in various areas
 <hr>
 
 * Kevin Fahy *
-  * contact: kjf9@sfu.ca, kevin_fahy@hotmail.com
+  * contact: kjf9(at)sfu(dot)ca, msn: kevin_fahy(at)hotmail(dot)com
   * Student number: 301082485
-  * 3rd year Computing Science
-  * I am proficient in C/C++ and Java. I have so far taken CMPT 126, 150, and 225 at SFU. I have also taken non-transferrable computing science classes from a previous school that roughly covered the same content. I have always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
+  * 3rd year of Computing Science
+  * I am proficient in C/C++ and Java. I have so far taken CMPT 126, 150, and 225 at SFU. I have also taken non-transferable computing science classes from a previous school that roughly covered the same content. I have always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
 <hr>
 
 * Jordan Fox *
-  * contact: jrf2@sfu.ca, jrf02@hotmail.com
+  * contact: jrf2(at)sfu(dot)ca, msn: jrf02(at)hotmail(dot)com
   * Student number: 301077347
-  * 3rd year Computer Science and a minor in Math
-  * I am familiar with Java, C++ and C#. I have an interest in computer graphics. I have worked a bit with graphics in my free time but have not taken a graphics course at university yet. I have experiance with HTML and javascript from making my own websites in my free time. I am also interested in learning as much about other areas of computer science as possible.
+  * 3rd year of ComputIng Science and a minor in Math
+  * I am familiar with Java, C++ and C#. I have an interest in computer graphics. I have worked a bit with graphics in my free time but have not taken a graphics course at university yet. I have experience with HTML and javascript from making my own websites in my free time. I am also interested in learning as much about other areas of computer science as possible.
 <hr>
 
 * Chenny Huang *
-  * contact: pengtzuh@sfu.ca, MSN: hellochenny@hotmail.com
-  * Student number:
-  * 2nd year   --  current major of Science (Physics) + minor of computer science
+  * contact: pengtzuh(at)sfu(dot)ca, msn: hellochenny(at)hotmail(dot)com
+  * Student number: *Please Add*
+  * 2nd year major of Science (Physics) and minor of Computing Science
   * I am familiar with Java,Python,HTML and alittle bit of C++.<br>So far I've taken CMPT120,125,165,150,225, and currently taking CMPT363 and IAT100 (^^)
 <hr>
 
 * Vera Lukman *
-  * contact: vla24@sfu.ca, tuna_shichan@hotmail.com
+  * contact: vla24(at)sfu(dot)ca, tuna_shichan(at)hotmail(dot)com
   * Student number: 301067659
   * 2nd year of Computing Science
   * I am fluent in Python, Java, and C/C++. My area of interest is User Interface, but lately I have developed more interest in Inter Process Communication (IPC) as I took Operating System course last term. I used to develop some websites when I was in high school. I am also responsible for ChicTech 2009 designs.
 <hr>
 
 * Ahmad Sidiqi *
-  * contact: ahmad@sidiqi.net(also msn)
+  * contact: ahmad(at)sidiqi(dot)net (also msn)
   * Student number:
   * 2.5 years Computing Science
   * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
 <hr>
 
 * Aaron Siu *
-  * contact: khs2@sfu.ca msn: nubpotato@hotmail.com
+  * contact: khs2(at)sfu(dot)ca, msn: nubpotato(at)hotmail(dot)com
   * Student number: 301065638
   * 2nd year Software Systems Computer Science
   * I started off here doing Mechatronics Engineering, but realizing my lack of interest in physics was not a very good thing <br> I landed myself into computer science since programming was more my thing.  So far in terms of programming languages <br> I've used C++ and Java, I've also done a little bit of photoshop graphics, HTML, CSS, and Javascript in elective IAT courses.  I also consider myself <br> a decent writer if the Documentation department requires help.
 <hr>
 
 * Wei Zhang *
-  * contact: wza23@sfu.ca, rockleechang@hotmail.com
+  * contact: wza23(at)sfu(dot)ca, rockleechang(at)hotmail(dot)com
   * Student number: 301103937
   * Second Degree in Computing Science
   * I am a Second Degree Computing Science student and this semester is my 3rd semester in SFU. I have learned about programming language like VB, C/C++ and java. I desire to learn how to use a programming language or software in the real life. I think I will have the chance to learn more in this semester. 
@@ -77,6 +77,3 @@ Note: Members typed in alphabetical order by last name.<br>
 
 <br>
 <br>
-
-= Formatting =
-refer to http://code.google.com/p/support/wiki/WikiSyntax
