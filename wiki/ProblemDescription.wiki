@@ -44,4 +44,4 @@ The list of all the important assumptions can be divided into three different ca
   * ~~ The users are assuming that the program will provide a feature-rich instant messaging program that is compatible with multiple protocols. ~~
   * The users are assuming that the program will be updated occasionally with new features and bug-free software.
   * The users are assuming that the software is not harmful or provoke any negative effects to influence their health or behaviors while using the program.
-  * The users are assumed to have XMPP accounts
+  * The users are assumed to have XMPP accounts that allow them to use the software.
