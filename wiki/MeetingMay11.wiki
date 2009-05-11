@@ -1,0 +1,13 @@
+#summary Minutes from our meeting on 2009-May-11
+
+Location: SUR3086 (Thanks, Vera, for booking the room for us!)
+
+== Agenda ==
+ * Discuss the "activities diagram" from the Assignment page (not the same as the architectural diagram).
+ * Confirm that the presentation outline agrees with the group's interests.
+
+== Minutes ==
+ * 
+
+== Future Action ==
+ * 
