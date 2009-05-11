@@ -36,7 +36,9 @@ The list of all the important assumptions can be divided into three different ca
   * The client is assuming that the project is capable of implementing the specficiations.
   * The client is assuming that the project will be thoroughly completed within the due date.
   * The client is assuming that the users will enjoy using our software.
+  * The client is assumed to use the software.
  * *The users:* 
   * The users are assuming that the program will provide a feature-rich instant messaging program that is compatible with multiple protocols.
   * The users are assuming that the program will be updated occasionally with new features and bug-free software.
   * The users are assuming that the software is not harmful or provoke any negative effects to influence their health or behaviors while using the program.
+  * The users are assumed to have an XMPP account
