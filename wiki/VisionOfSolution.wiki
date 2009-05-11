@@ -14,6 +14,7 @@ Explanation: The boxes of the diagram represent the GUI Components and the bulle
  * *Friend List* - tracks the list of users' friends, family, co-workers, and associates in an organized manner
  * *To view our complete features:* [http://code.google.com/p/parrot-im/wiki/UnderConstruction?ts=1241895172&updated=UnderConstruction click here.]
 
+ * (Temporary list of features: [ListOfFeatures])
 
 == Scope of Phased Release: ==
  * *Alpha* - Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces.
