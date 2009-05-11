@@ -20,17 +20,25 @@
           * accessible 
     * Can do better. We need a feature-rich, but easy-to-use, chat client that works with multiple protocols and operates efficiently. All of this should be open source.
 
+==The Solution==
+
  * We present: Parrot Instant Messenger
     * Main goals
        * easy to use - Running Parrot IM should allow you to chat to everyone who uses a computer. No technical skills should be required--the interface should be intuitive and clear.
        * full of useful features - Want to let your friends know what you're doing, but don't want to announce it to the world? Get the Chatbot to tell them for you! Forgot where you're supposed to meet your friend? Don't parse the chat logs with your eyes! Search for "friday meet Alice where" and find out in less than a second. Parrot IM can do anything you need, but will not complicate your chatting.
        * be enjoyable! - Chatting in real life is fun. Why should it be anything less on the computer? With Parrot IM, you have all the tools you need at your fingertips to express yourself. You do not need a technical background to use our software.
 
-    
  * Feature list
-    * Refer to architectural diagram
+    * Refer to architectural diagram, talk about individual features
 
- * How are we doing this
+==Behind the Scenes==
+
+ * What's in a name; why Parrot IM?
+    * You can teach a parrot to say anything in any language. Parrot IM is similar in that you can use it to do many things; you do not need to rely on an array of programs to talk to your friends.
+    * Parrots are attractive, and so is our user interface. Chatting is more than just protocols and text. 
+
+ * Who is responsible for creating Parrot IM?
+    * Well, Pirates, of course!
     * Talk about our group.
        * All learning to be software engineers.
        * Group organized into subgroups, but everyone has an equal voice
