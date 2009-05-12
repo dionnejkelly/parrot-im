@@ -1,8 +1,8 @@
 #summary Features of Parrot-IM
 
-*Total Features so far: 29*<br>
+*Total Features so far: 31*<br>
 *The Requirement: > 30*<br>
-*The Difference: 1*<br>
+*The Difference: -1*<br>
 
 NOTE: Please provide at least a one-line summary for each feature that you add. Don't forget to update the number of features we have so far, so we can easily keep track of the number.
 <hr>
@@ -32,11 +32,13 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Search Engine* - allows users to efficiently and intuitively search previous conversations (temporary) for anything.
 
 <hr>
-= Low Priority (2) =
+= Low Priority (4) =
 *Note:* Implemented if the time permits.
  * *UI Customization* - allows users to customize the GUI settings depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour or theme of the window, etc. In the later development, we might try to develop other GUI features, so the user would have some options which GUI to use. (Can anyone expand this idea? Or is it too difficult to implement? If it is, then you can just remove this feature)
  * *Additional Protocol Modules* - optional software modules that allows users to add accounts from different instant messaging protocols and login simultaneously.
 <hr>
+ * *Juke Box* - an easy-to-use music box that allows users to choose their own musics and listen to it while chatting.
+ * *Calculator* - a simple button calculator that allows users to compute up to 8 (temporary) digits of accuracy.  
 
 = Features Dump (10) =
 *Note:* Chatbot is one of the required specification.
