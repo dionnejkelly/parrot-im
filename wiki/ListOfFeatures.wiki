@@ -1,8 +1,8 @@
 #summary Features of Parrot-IM
 
-*Total Features so far: 31*<br>
+*Total Features so far: 32*<br>
 *The Requirement: > 30*<br>
-*The Difference: -1*<br>
+*The Difference: -2*<br>
 
 NOTE: Please provide at least a one-line summary for each feature that you add. Don't forget to update the number of features we have so far, so we can easily keep track of the number.
 <hr>
@@ -53,3 +53,4 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Auto Sign-in* - automatic sign-in upon start up.
  * *Avatar picture* - allow user to set avatar picture
  * *Emoticon* - can insert a graphical emoticon into chat
+ * *Keyboard control* - use keyboard to control some parts of the program. eg. press enter while the pointer is in message text box to send out a message or shift+enter to enter a new line without sending it. 
