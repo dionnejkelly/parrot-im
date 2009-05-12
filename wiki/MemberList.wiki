@@ -7,7 +7,7 @@ Note: Members typed in alphabetical order by last name.<br>
 
 * Rakan Alkheliwi *
   * contact: rma30(at)sfu(dot)ca, msn: rmamnk(at)hotmail(dot)com
-  * Student number: *Please Add*
+  * Student number: 301081716
   * 2nd year of Computing Science, and Minor in Business
   * Familiar with Java and Python. I am interested in working in Computing systems, Software engineering and Project management. So far I finished all lower division requirements except this course, and took CMPT 310 and 384.
 <hr>
