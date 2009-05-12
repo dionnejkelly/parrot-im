@@ -3,11 +3,22 @@
 Location: SUR3086 (Thanks, Vera, for booking the room for us!)
 
 == Agenda ==
+ * Review the architectural diagram (thanks for creating it, Jordan!)
  * Discuss the "activities diagram" from the Assignment page (not the same as the architectural diagram).
  * Confirm that the presentation outline agrees with the group's interests.
 
 == Minutes ==
- * 
+ * All agreed with the content of the architectural diagram.
+ * Based on the lecture, we realized that there should be more technical and implementation details on the diagram, and not only focused on usability.
+ * Brainstormed ideas for the "bird's-eye" diagram. Agreed that we needed more information on future assignments to effectively design the diagram. Wei drew a conceptual diagram in which the three releases were separated, and the activities of all subgroups were shown. We will implement the diagram after Wednesday.
+ * Vera brought up a user assumption that should be removed. All agreed.
+ * It was suggested that the GUI need not be complete for the alpha release; the core functionality had to be finished. While true, we agreed that it would be nice to have a base GUI functional.
+ * Vera also brought up the point that the beta release is scheduled for only two weeks after the alpha, meaning that all the features we had planned to implement between the two versions might not be possible. We suggested to create an internal deadline for a pre-alpha release that has basic functionality, so that the workload for the final three assignments is not as heavy. Will wait until more design is done to solidify schedule.
+ * Ideas for new features: slash commands (IRC-style), bug reporting, password encryption. Agreed that MSN nudges are very, very annoying.
+ * Discussed release plan. Noted that the final release should have more testing than we had previously allocated.
 
 == Future Action ==
- * 
+ * Kevin will finish a rough powerpoint and upload.
+ * Jordan will add some technical implementation details to the architectural diagram.
+ * Everyone will help add ~10 more features to the [ListOfFeatures].
+ * If we have spare time, we will research XMPP and other aspects of the project, and also test out the SVN repository.
