@@ -1,5 +1,5 @@
 #summary Features of Parrot-IM
-#labels Featured,Phase-Requirements
+#labels Phase-Requirements
 
 *Total Features so far: 34*<br>
 *The Requirement: > 30*<br>
