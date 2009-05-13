@@ -19,7 +19,7 @@ Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne.ppt ROUG
           * Many clients are proprietary, and you have no way of knowing the source code
        * Confusing--too many buttons, but none of the buttons do what you want
           * Need a simple interface without sacrificing function
-       * Most of them have ads and spyware
+       * Most of them have ads and spywares
     * How we communicate...
        * Should be:
           * fun
