@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jnlp spec="1.0+" codebase="http://www.x2d.org/java/4k" href="bridge4k.jnlp">
+
+  <information>
+     <title>Bridge4k</title>
+     <vendor>Mans Olson</vendor>
+     <homepage href="http://www.x2d.org" />
+     <description>Bridge4k</description>
+   </information>
+
+  <resources>
+     <j2se version="1.4.2+"/>
+     <jar href="Bridge4k.jar" main="true" />
+   </resources>
+
+<resources os="Windows">
+    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.4.2+"/> 
+    <property name="sun.java2d.noddraw" value="true"/>
+  </resources>  
+  
+  <applet-desc main-class="Bridge4k" name="Bridge4k" width="640" height="480" />
+  
+</jnlp>
