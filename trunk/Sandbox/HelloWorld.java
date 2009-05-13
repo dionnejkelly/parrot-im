@@ -7,6 +7,7 @@ public class HelloWorld
       System.out.println("Hello, World!");
       
       System.out.println("Testing: If this prints = SUCCESS!!");
+      System.out.println("Hello Chenny!");
       
       // Nice features to have in Eclipse
       
