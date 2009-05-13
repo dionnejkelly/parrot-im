@@ -16,6 +16,8 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Live Instant Messaging* - ability to hold a one-on-one conversation with a buddy on given protocol.
  * *Multiple Users* - maintain a database to allow multiple users to log in, each with their own unique friend lists.   
  * *Modular Design or Plug-in System* - protocol, or network can be easily added without changing the core program.
+ * *Chatbot* - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
+
 <hr>
 = Medium Priority (11) =
 *Note:* Hoping to complete this implementation by final iteration.
@@ -41,18 +43,16 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
 <hr>
 
 = Features Dump (12) =
-*Note:* Chatbot is one of the required specification.
 
- * *Chatbot* - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
- * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
- * *Multiple Networks* - allows users to log in into different networks (i.e. log in into YM and MSN using the application)
- * *Profile System* - allow users to create/select their own profiles. Each profile is secured by password-protection. It stores the configuration, the account ID and the password of different IM network users' profile. Therefore, the program allows users to login to several IM network once a profile is selected.
- * *Offline Messaging* - allows users to leave messages to another user(s).
- * *Right-click options* - right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
- * *Typing* - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
- * *Auto Sign-in* - automatic sign-in upon start up.
- * *Avatar picture* - allow user to set avatar picture
- * *Emoticon* - can insert a graphical emoticon into chat
- * *Keyboard control* - use keyboard to control some parts of the program. eg. press enter while the pointer is in message text box to send out a message or shift+enter to enter a new line without sending it. 
- * *Bug Report* - allow user to report when they found a bug or when the program crashes
- * */command* - allow user to type /command (eg. /me blah = *user name blah)
+  * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
+  * *Multiple Networks* - allows users to log in into different networks (i.e. log in into YM and MSN using the application)
+  * *Profile System* - allow users to create/select their own profiles. Each profile is secured by password-protection. It stores the configuration, the account ID and the password of different IM network users' profile. Therefore, the program allows users to login to several IM network once a profile is selected.
+  * *Offline Messaging* - allows users to leave messages to another user(s).
+  * *Right-click options* - right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
+  * *Typing* - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
+  * *Auto Sign-in* - automatic sign-in upon start up.
+  * *Avatar picture* - allow user to set avatar picture
+  * *Emoticon* - can insert a graphical emoticon into chat
+  * *Keyboard control* - use keyboard to control some parts of the program. eg. press enter while the pointer is in message text box to send out a message or shift+enter to enter a new line without sending it. 
+  * *Bug Report* - allow user to report when they found a bug or when the program crashes
+  * */command* - allow user to type /command (eg. /me blah = *user name blah)
