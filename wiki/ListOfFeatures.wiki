@@ -43,7 +43,7 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Calculator* - a simple button calculator that allows users to compute up to 8 (temporary) digits of accuracy.  
 <hr>
 
-= Features Dump (11) =
+= Features Dump (12) =
 
   * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
   * *Multiple Networks* - allows users to log in into different networks (i.e. log in into YM and MSN using the application)
