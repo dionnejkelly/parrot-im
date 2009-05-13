@@ -6,7 +6,6 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 
 == Architectural Diagram: ==
 [http://parrot-im.googlecode.com/files/Diagram2.png]<br>
-[http://parrot-im.googlecode.com/files/Diagram.png]<br>
 
 == List of Features ( > 30): ==
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse.
