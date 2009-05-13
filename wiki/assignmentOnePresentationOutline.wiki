@@ -85,7 +85,10 @@ Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne.ppt ROUG
   * For whatever program you chose to use, online communication should be fun, easy, and useful. Just like in real life.
  # What is the solution?
   * Now, how does all of this relate to making another chat program?
-  * We believe that there is a void that we can fill.
-  * 
-
-* I have asked you why the world needs another messaging client. We believe that th
+  * There is a void that can be filled.
+  * A new messaging client that is easy to learn to use, attractive, and filled with useful features would be successful if it could connect you to all of your friends, regardless of their networks. Oh, and this program would have to be efficient and transparent also. 
+ # We present to you... 
+  * We are creating this program.
+  * It is called Parrot Instant Messenger, or Parrot IM for short.
+ # Parrot IM is...
+  * Let's take a look at how our program will differ from the existing programs...
