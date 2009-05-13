@@ -19,6 +19,8 @@ Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne.ppt ROUG
           * Many clients are proprietary, and you have no way of knowing the source code
        * Confusing--too many buttons, but none of the buttons do what you want
           * Need a simple interface without sacrificing function
+       * Customization
+          * Certain more 'computer-literate' individuals often like to personalize their own software, instant messengers included
        * Most of them have ads and spywares
     * How we communicate...
        * Should be:
@@ -31,7 +33,7 @@ Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne.ppt ROUG
 
  * We present: Parrot Instant Messenger
     * Main goals
-       * easy to use - Running Parrot IM should allow you to chat to everyone who uses a computer. No technical skills should be required--the interface should be intuitive and clear.
+       * easy to use - Running Parrot IM should allow you to chat to everyone who uses a computer. No technical skills should be required--the interface should be intuitive and clear.  Users shouldn't be made to navigate through a bunch of useless tabs, buttons, and flashy ads just to find the chat log button.
        * full of useful features - Want to let your friends know what you're doing, but don't want to announce it to the world? Get the Chatbot to tell them for you! Forgot where you're supposed to meet your friend? Don't parse the chat logs with your eyes! Search for "friday meet Alice where" and find out in less than a second. Parrot IM can do anything you need, but will not complicate your chatting.
        * be enjoyable! - Chatting in real life is fun. Why should it be anything less on the computer? With Parrot IM, you have all the tools you need at your fingertips to express yourself. You do not need a technical background to use our software.
 
