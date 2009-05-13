@@ -92,3 +92,21 @@ Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne.ppt ROUG
   * It is called Parrot Instant Messenger, or Parrot IM for short.
  # Parrot IM is...
   * Let's take a look at how our program will differ from the existing programs...
+  * An essential requirement that Parrot IM has to fill is connectivity to multiple protocols. In layman's terms, this means that Parrot IM needs to connect clients using a variety of networks, including XMPP (Google Talk, Jabber), ICQ, and Twitter. Obviously, not all of these networks operate the same, so Parrot IM needs to account for these differences.
+ # What's in a name
+  * The name, Parrot IM, is not random either. It reflects what we believe to be the most important features of a messaging program.
+ 
+ # Goals of Parrot IM
+  * Let's talk some more about some of the defining aspects of Parrot IM.
+  * Firstly, Simplicity is king. An identical feature can be made much better if it were accessed in a more simple manner. Therefore, we are creating a clean, attractive GUI that will allow the user to do things faster and more elegantly than before.
+ # More Goals of Parrot IM
+  * Features is another important aspect. As we have mentioned, almost every feature conceivable has been implemented in one form or another. Therefore, we need to do two things: (1) Implement only the good, useful features, and leave out the junk, and (2) make innovations in how certain features work. One example of the second category is Chatbot. Basically, this lets you have the program say specific things to people who chat to you while you are away or busy, without appearing robotic or annoying. Another useful feature is our search function, which will find anything for you, be it contact information or a snippet of a previous conversation, from one convenient search box. 
+ # More Goals of Parrot IM (2)
+  * Finally, the most important, yet often ignored, priority of Parrot IM is for it to be fun to use. We want your chatting experience to be as natural as it can be. To do this, we  need not only a great-looking UI, but we need a functional UI also, one that aims to help you find information rather than file and hide it. But at the end of the day, Parrot IM's chatting experience must be as fun as possible.
+ # Target Audience
+  * With all that said, we are targeting Parrot IM at everybody. Not just internet or tech savvy youngsters, but to anybody in the world that wants a superior online communication service.
+ # Feature List
+  * To get a picture of what Parrot IM can do, have a look at our initial feature list.
+ # Behind the Scenes
+  * Up to now, all of this has been talk. Anybody can dream about the perfect messaging client, but it takes significant planning and correct software engineering practices to make it reality.
+  * 
