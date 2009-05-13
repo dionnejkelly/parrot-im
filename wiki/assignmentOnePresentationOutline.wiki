@@ -58,3 +58,34 @@ Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne.ppt ROUG
     * Vision of solution
        * ...
  * ...
+
+
+=Speech Matched Up With Slides=
+
+ # Title Page
+  * Introduce ourselves.
+  * Ask audience: how many people have used MSN, AIM, Facebook, ICQ, Twitter, IRC, Pidgin. How many of you know other communication tools I have not mentioned?
+  * There's a lot out there, and you can do almost anything you want on them, so....
+ # "We're making another chat program"
+  * Instead of expanding the pool of instant messengers, shouldn't we be consolidating them, and agree on one, good messenger to use universally? 
+ # "Why make another chat program?"
+  * Before we answer this, let's get a picture of what's already out there.
+  * Just as you all have indicated, everyone uses online communication tools these days. Many people use multiple programs or websites just to stay in touch with all of their friends. 
+  * But there are also some very smart programs that do this for you; one program can connect to many networks, and you can chat with anybody who is online on anything.
+  * Not only can you chat, but you can share pictures, send files, talk, see, and play games with your friends. Not only that, but each program has its own unique features.
+  * And all of this ... is free. Well, mostly. You can use most of these programs for no monetary cost at all.
+ # However, they have their flaws
+  * But, nothing in life is perfect, and computer programs are certainly not the exception.
+  * There are a few minor flaws and grimaces with some programs. For instance, some programs restrict you to talking to friends in just one network. To talk to others, you need to download multiple programs.
+ # More flaws...
+  * Also, even though most programs are free, they are mostly not open sourced. This means that you don't actually know what they are doing on your computer. You trust that they aren't data mining your private data, and you hope that they aren't slowing down your computer with inefficient code.
+ # Another flaw
+  * And then some programs just are filled with so much stuff, that it's challenging to do what you actually want. In a perfect world, you would control what appears on your program's interface, not the company's advertising partners.
+ # Communication should be...
+  * For whatever program you chose to use, online communication should be fun, easy, and useful. Just like in real life.
+ # What is the solution?
+  * Now, how does all of this relate to making another chat program?
+  * We believe that there is a void that we can fill.
+  * 
+
+* I have asked you why the world needs another messaging client. We believe that th
