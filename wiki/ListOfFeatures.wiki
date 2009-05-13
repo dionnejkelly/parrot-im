@@ -1,8 +1,8 @@
 #summary Features of Parrot-IM
 
-*Total Features so far: 32*<br>
+*Total Features so far: 34*<br>
 *The Requirement: > 30*<br>
-*The Difference: -2*<br>
+*The Difference: -4*<br>
 
 NOTE: Please provide at least a one-line summary for each feature that you add. Don't forget to update the number of features we have so far, so we can easily keep track of the number.
 <hr>
@@ -40,7 +40,7 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Calculator* - a simple button calculator that allows users to compute up to 8 (temporary) digits of accuracy.  
 <hr>
 
-= Features Dump (11) =
+= Features Dump (12) =
 *Note:* Chatbot is one of the required specification.
 
  * *Chatbot* - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
