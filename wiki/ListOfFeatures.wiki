@@ -7,7 +7,7 @@
 NOTE: Please provide at least a one-line summary for each feature that you add. Don't forget to update the number of features we have so far, so we can easily keep track of the number.
 <hr>
 
-= High Priority (6) =
+= High Priority (7) =
 *Note:* Must be implemented in the first iteration of project.
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse (i.e. type box, text output box).
  * *Friend List* - tracks the list of users' friends, family, co-workers, and associates in an organized manner. 
@@ -42,7 +42,7 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Calculator* - a simple button calculator that allows users to compute up to 8 (temporary) digits of accuracy.  
 <hr>
 
-= Features Dump (12) =
+= Features Dump (11) =
 
   * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
   * *Multiple Networks* - allows users to log in into different networks (i.e. log in into YM and MSN using the application)
