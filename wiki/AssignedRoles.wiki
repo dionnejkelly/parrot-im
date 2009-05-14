@@ -6,9 +6,8 @@ Note: _Members typed in alphabetical order by last name._
 <hr>
 
 *Rakan Alkheliwi* <br>
-Subgroup: Core -- Communication Protocols
+Subgroup: Quality Assurance
  * Current tasks:
-    * Researching XMPP protocol
  
 <hr>
 
