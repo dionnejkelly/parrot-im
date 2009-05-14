@@ -33,9 +33,7 @@ We usually meet three times per week, with meetings of 30-45 minutes in length. 
 
 == About Our Project ==
  * Open Source License: [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License v2.0]
-
     * This license essentially guarantees that the program is and always will be free to run, and that its source code is free to view and modify. The license serves in both (a) copyrighting the software, and (b) allowing anybody to copy, distribute, and modify the program's code. However, if an organization uses this program privately, then the license does not force the organization to publicly release the executable or source code; this is one of the minor differences between GPL v2.0 and GPL v3.0. Furthermore, it is permissible to charge a fee for the act of physically transferring a copy, but illegal to charge for the copy itself. If released as an executable file, the program must have its source code released, also. Finally, the license must persist in future iterations of the code, even if transferred to other projects.
-
     * The following must be present in all source code for the program: 
 {{{
 // Parrot IM -- An easy-to-use and feature-rich chat client for multiple protocols.
@@ -56,23 +54,17 @@ We usually meet three times per week, with meetings of 30-45 minutes in length. 
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 }}}
     * Additionally, a message must be displayed during interactive use of the program that indicates the program is covered under this license. 
-
  * Access to [http://code.google.com/p/parrot-im/source/browse/ Subversion repository]
-
     * To browse through any of the code, simply follow the link above, or click on the [http://code.google.com/p/parrot-im/source/checkout Source] tab and then click on [http://code.google.com/p/parrot-im/source/browse/ Browse].
-
     * Alternatively, project owners can make changes to the repository with the following commands:
        # Get a working-copy of the code: svn checkout https://parrot-im.googlecode.com/svn/trunk/ parrot-im --username yourAccount. Then, input your googlecode-generated password.
        # Navigate the local computer's working copy and edit any file. 
        # Type the following command to update, or commit, the changes: svn commit -m "Your log message here".
        # To view an updated repository, type: svn update.
        # To add a new file, use: svn add fileOrDirectoryName. Alternatively, an entire directory can be added to the repository by way of the svn import command.
-
     * The Subversion repository works by storing a base file and then keeping track of each revision to the entire repository. This means that every version of a particular file can be found on the repository. It also allows multiple users to work on the same file at once. If two people update the same file, then SVN will not erase anyone's changes; instead, it will attempt to merge the files together.
-
     * By updating your working copy, you can never overwrite your code. SVN will alert you if there is a conflicting file. This ensures that each user is always aware of the latest version of any file.
  * Team [http://www.google.com/calendar/embed?src=nq1c2mh2402meqim7qa2gt8ro4%40group.calendar.google.com&ctz=America/Los_Angeles schedule], with meeting dates, assignment deadlines, internal deadlines, and other significant dates.
-
  * Planning "Bird's-Eye View" Diagram:<br>
 [http://parrot-im.googlecode.com/files/Diagram3.png]
 
