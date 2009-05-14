@@ -10,10 +10,9 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
 
 = High Priority (7) =
 *Note:* Must be implemented in the first iteration of project.
- * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse (i.e. type box, text output box).
+ * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse (e.g. type box, text output box).
  * *Friend List* - tracks the list of users' friends, family, co-workers, and associates in an organized manner. 
  * *XMPP Protocol* - the same protocol as Google Talk has used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
-   ~~Messaging protocol to be decided, most likely MSN?~~
  * *Live Instant Messaging* - ability to hold a one-on-one conversation with a buddy on given protocol.
  * *Multiple Users* - maintain a database to allow multiple users to log in, each with their own unique friend lists.   
  * *Modular Design or Plug-in System* - protocol, or network can be easily added without changing the core program.
@@ -32,28 +31,26 @@ NOTE: Please provide at least a one-line summary for each feature that you add. 
  * *Chat Log* - allows users to keep the history of each conversation in the chatroom.
  * *Font Customization* - allows users to customize font size, font, family, and colour of their typing font.
  * *Sound Notification* - plays a short sound clip upon certain events occurring, such as receiving a message.
- * *Search Engine* - allows users to efficiently and intuitively search previous conversations (temporary) for anything.
+ * *Search Engine* - allows users to efficiently and intuitively search previous conversations or the friends list for anything.
+ * *Twitter and ICQ protocol* - allows users to communicate to people using twitter and ICQ.
+ * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
+ * *Profile System* - allow users to create/select their own profiles. Each profile is secured by password-protection. It stores the configuration, the account ID and the password of different IM network users' profiles. Therefore, the program allows users to login to several IM networks once a profile is selected.
+ * *Right-click options* - right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
+ * *Is Typing* - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
+ * *Auto Sign-in* - automatic sign-in upon start up.
+ * *Avatar picture* - allow user to set avatar picture.
+ * *Emoticon* - can insert a graphical emoticon into chat
+ * *Bug Report* - allow user to report when they found a bug or when the program crashes
 
 <hr>
+
 = Low Priority (4) =
 *Note:* Implemented if the time permits.
- * *UI Customization* - allows users to customize the GUI settings depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour or theme of the window, etc. In the later development, we might try to develop other GUI features, so the user would have some options which GUI to use. (Can anyone expand this idea? Or is it too difficult to implement? If it is, then you can just remove this feature)
+ * *UI Customization* - allows users to customize the GUI settings depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour or theme of the window, etc. In the later development, we might try to develop other GUI features, so the user would have some options which GUI to use. 
  * *Additional Protocol Modules* - optional software modules that allows users to add accounts from different instant messaging protocols and login simultaneously.
- * *Juke Box* - an easy-to-use music box that allows users to choose their own musics and listen to it while chatting.
- * *Calculator* - a simple button calculator that allows users to compute up to 8 (temporary) digits of accuracy.  
+~~ * *Juke Box* - an easy-to-use music box that allows users to choose their own musics and listen to it while chatting.~~
+ * *Calculator* - a simple button calculator that allows users to compute up to 8 digits of accuracy. Also allows for in-chat calculation if desired.
+ * *Offline Messaging* - allows users to leave messages to another user.
+ * *Keyboard control* - use keyboard to control some parts of the program. e.g. press enter while the pointer is in message text box to send out a message or shift+enter to enter a new line without sending it. 
+ * */command* - allow user to type /command (eg. /me blah = *user name blah)
 <hr>
-
-= Features Dump (12) =
-
-  * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
-  * *Multiple Networks* - allows users to log in into different networks (i.e. log in into YM and MSN using the application)
-  * *Profile System* - allow users to create/select their own profiles. Each profile is secured by password-protection. It stores the configuration, the account ID and the password of different IM network users' profile. Therefore, the program allows users to login to several IM network once a profile is selected.
-  * *Offline Messaging* - allows users to leave messages to another user(s).
-  * *Right-click options* - right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
-  * *Typing* - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
-  * *Auto Sign-in* - automatic sign-in upon start up.
-  * *Avatar picture* - allow user to set avatar picture
-  * *Emoticon* - can insert a graphical emoticon into chat
-  * *Keyboard control* - use keyboard to control some parts of the program. eg. press enter while the pointer is in message text box to send out a message or shift+enter to enter a new line without sending it. 
-  * *Bug Report* - allow user to report when they found a bug or when the program crashes
-  * */command* - allow user to type /command (eg. /me blah = *user name blah)
