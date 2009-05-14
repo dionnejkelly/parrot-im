@@ -73,7 +73,7 @@ We usually meet three times per week, with meetings of 30-45 minutes in length. 
     * By updating your working copy, you can never overwrite your code. SVN will alert you if there is a conflicting file. This ensures that each user is always aware of the latest version of any file.
  * Team [http://www.google.com/calendar/embed?src=nq1c2mh2402meqim7qa2gt8ro4%40group.calendar.google.com&ctz=America/Los_Angeles schedule], with meeting dates, assignment deadlines, internal deadlines, and other significant dates.
 
- * Planning "Bird's-Eye View" Diagram:
+ * Planning "Bird's-Eye View" Diagram:<br> *Note* -there is a typo in the phase 2 "Intented Audience" should be changed to "Intended Audience"
 [http://parrot-im.googlecode.com/files/Diagram3.png]
 
 == Vision and Scope Document: ==
