@@ -23,7 +23,7 @@
  * *Blocking another user* - allows users to block other user(s) from contacting them.
  * *Add/Remove another user* - allows users to add or remove new contacts.
  * *Chatroom/Conference* - allows users to create their own chatroom for private conference with more than one user.
- * *Chat Log* - allows users to keep the history of each conversation in the chatroom.
+ * *Chat Log* - allows users to keep the history of each conversation in the chatroom. Users are not forced to log all chats, and can turn them off or on when desired.
  * *Font Customization* - allows users to customize font size, font, family, and colour of their typing font.
  * *Sound Notification* - plays a short sound clip upon certain events occurring, such as receiving a message.
  * *Search Engine* - allows users to efficiently and intuitively search previous conversations or the friends list for anything.
