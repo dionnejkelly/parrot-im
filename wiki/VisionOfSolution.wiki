@@ -8,7 +8,9 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
 == Architectural Diagram: ==
 [http://parrot-im.googlecode.com/files/Diagram2.png]<br>
 
-== List of Features ( > 30): ==
+== List of Features: ==
+[http://parrot-im.googlecode.com/files/Diagram.png]
+
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse.
  * *Chatbot* - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users. 
  * *XMPP Protocol* - the same protocol as Google Talk has used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
