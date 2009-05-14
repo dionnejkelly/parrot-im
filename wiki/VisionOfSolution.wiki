@@ -16,7 +16,7 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
  * *XMPP Protocol* - the same protocol as Google Talk has used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
  * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs. 
  * *Friend List* - tracks the list of users' friends, family, co-workers, and associates in an organized manner
- * *To view our complete features:* [http://code.google.com/p/parrot-im/wiki/UnderConstruction?ts=1241895172&updated=UnderConstruction click here.]
+ * *To view our complete list of features:* [ListOfFeatures]
 
  * (Temporary list of features: [ListOfFeatures])
 
