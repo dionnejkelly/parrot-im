@@ -13,10 +13,10 @@
 Risk Table:
 <br>
 *Note*: Please feel free to add more risk factors into this table.
-|| *Risk* || *Likelihood of the risk occuring* || *Severity of the risk* || *Prevention* || *Resolution* ||
+|| *Risk* || *Likelihood of the risk occurring* || *Severity of the risk* || *Prevention* || *Resolution* ||
 || Poor time management|| High chance || Catastrophic || Obey the schedule. Those who don't obey will be penalized (e.g. treat the whole group for lunch) || Have a group meeting to find out the solution ||  
 || Lack of technology experience   || High chance || Serious || Try to find out what tool or software we will be used in this project || Try to use other tools which we are familiar and comfortable with || 
-|| Unsolvable technical issue || Medium chance || Tolerable || Try to have multiple plans ||Try to use other plans || 
+|| Unsolvable technical issue || Medium chance || Tolerable || Stay ahead of schedule so that unsolvable issues can be identified quickly || Try a different approach, research other methods, or alter design to work around the issue || 
 || One or more member(s) leaves for vacation|| Low chance || Serious || Have each member of the group inform their schedules in advance || Reassign role ||
 || One or more member(s) is sick|| Medium chance || Serious || Stay healthy (e.g. rest) || Reassign role ||
 || Team members not coming to consensus || Medium chance || Serious || Strive to be as democratic as possible in our meetings|| Voting ||
@@ -24,7 +24,11 @@ Risk Table:
 || Team members having trouble with their assigned role || High chance || Tolerable || Team members inform each other in advance || Team members help each other ||
 || SVN Repository is down || Low chance || Serious || Team members store back-up data in their local computers|| Team members come up with consensus and use our own local copies to update ||
 || Team members having trouble with implementation || High chance || Serious || Prepare good project management with well thought out plans || Team members help each other and as a last resort consult the TA or the instructor ||
-
+|| Forget to implement a feature || Low chance || Serious || Regularly review the design documents || Dedicate more resources to implement the feature ||
+|| Integration of components is difficult || High chance || Tolerable || Communicate accurately to teammates from other groups about design || Review code together and determine a better method of integration ||
+|| Program runs slowly || Low chance || Catastrophic || Test for speed throughout production on as many machines as possible || Reexamine low-level code and determine methods to make the code more efficient ||
+|| Program does not function the way users want || Medium chance || Catastrophic || Design from the users' perspective and have as many people test the program as possible || Review the specifications, then remove and add features to implement ||
+|| A member uploads the wrong code || Medium chance || Tolerable || Ensure that working copy is up to date and that one file at a time is being worked on || Revert the repository to a previous version ||
 
 ==Assumptions:==
 The list of all the important assumptions can be divided into three different categories:<br>
