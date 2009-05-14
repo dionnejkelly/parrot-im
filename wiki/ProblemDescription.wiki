@@ -2,12 +2,17 @@
 #labels Phase-Requirements
 
 ==Project Background==
- * This project is aiming to create a completely featured instant messaging client, such as MSN, ICQ, Twitter. Also, this communication client should be able to combine other communication tools. The ultimate goal of this project is that this communication client should be error free, full-featured and everybody in the world should be able to use it anytime anywhere. However, this goal is hard to reach because some problems, namely time constraint, team composition, and lack of technical expertise of the team members.  So, the basic goal of this project is to create a working bug-free communication client for the users and ensure the basic functions of this communication client work smoothly.   
+Currently, many messaging clients exist, and a wide variety are used by the world's population. With so many different clients, effectively speaking different languages (i.e. using different protocols), it is challenging to allow everybody to communicate with each other. However, there are programs that can connect to multiple networks. The goal of this project is to make a program that can do just that, but do so most effectively; the resulting program must be natural and intuitive to use without sacrificing functionality.
+
+The goal of this project is to create a well-tested and bug-free communication program that:
+ * Can connect to multiple networks simultaneously
+ * Has simple, useful features but no useless features
+ * Is easy to learn and intuitive to use
 
 ==Stakeholders==
- * Our programming team members
- * The Parrot-IM client who wants the software to be completed
- * Users that use the software as a means of entertainment and an extensible instant messaging  
+ * Our programming team members.
+ * The client that requested a communication program to be built, namely Professor Donaldson.
+~~ * Users that use the software as a means of entertainment and an extensible instant messaging~~ Reason for removal: Toby mentioned in class Wednesday that in our case the users do not have a stake in the success of our project.
 
 ==Users==
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
