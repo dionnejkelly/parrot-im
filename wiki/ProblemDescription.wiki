@@ -12,10 +12,29 @@ The goal of this project is to create a well-tested and bug-free communication p
 ==Stakeholders==
  * Our programming team members.
  * The client that requested a communication program to be built, namely Professor Donaldson.
-~~ * Users that use the software as a means of entertainment and an extensible instant messaging~~ Reason for removal: Toby mentioned in class Wednesday that in our case the users do not have a stake in the success of our project.
+ * ~~Users that use the software as a means of entertainment and an extensible instant messaging ~~
+
 
 ==Users==
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
+ * Example users, along with the features they demand in a messaging program.
+   * Meet Joshua. He is a busy university student that also works on the side. He is very knowledgeable about computers, and enjoys online games whenever he has free time. However, his free time is limited, and when he wants to communicate with his friends, he wants to do so effortlessly and effectively.
+     * Relies on multiple-network functionality; does not have the time to open multiple programs to track down his friends.
+     * Makes heavy use of the search function to find contacts or important details from previous conversations.
+     * Uses slash-commands to speed up his messaging experience.
+     * Employs Chatbot to send different messages to different groups of friends while he is away.
+     * Appreciates the simple and clean user interface to boost his productivity.
+   * Meet Phyllis. She is a grandmother who is looking forward to see her grandchildren graduate from university. She enjoys staying in touch with her grandchildren and loves seeing their pictures. She cannot type quickly, and has never fully grasped the new computer technology.
+     * Pleased that the chat program's interface is simple and easy to navigate. It only takes a few mouse clicks on clear, well-defined buttons to see her grandchildren.
+     * Enjoys seeing her grandchildren's display pictures when she's talking to them.
+     * Impressed with the ease of seeing pictures that her grandchildren send to her while chatting.
+   * Meet Timmy. He is currently in grade four, and really likes to play soccer. He also likes kangaroos. He often talks to his friends about topics such as these, and thinks it's so cool that he can chat with them on a computer, too. 
+     * Learns new words or proper spellings to words through the spellcheck function.
+     * Likes the cool fonts and emoticons that he can use in his chats.
+     * Is not bored by the user interface.
+     * Thinks the %&#$ symbols are really cool-looking! (Profanity filter)
+     * Is annoyed that he can't chat after 9pm on school nights! His parents must have made the program not work after this time.
+     
 
 ==Risks==
 || *Risk* || *Likelihood of the risk occurring* || *Severity of the risk* || *Prevention* || *Resolution* ||
