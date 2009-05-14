@@ -1,7 +1,7 @@
 #summary Presentation rough notes.
 #labels Phase-Requirements
 
-Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne_v2.ppt ROUGH copy (v2)] of presentation. It has no slide transitions yet, nor background, and looks ugly. Will fix. Need to change content, make it less wordy, and associate speech to the slide. Ending is rough. Please make any comments with regards to content, and give ideas for anything. Feel free to make changes to the file or edit this page. Possible edits:
+Link to [http://parrot-im.googlecode.com/files/parrotIM_PresentationOne_v3.ppt ROUGH copy (v3)] of presentation. It has no slide transitions yet, nor background, and looks ugly. Will fix. Need to change content, make it less wordy, and associate speech to the slide. Ending is rough. Please make any comments with regards to content, and give ideas for anything. Feel free to make changes to the file or edit this page. Possible edits:
  # Suggestion for Theme Background
 
 
