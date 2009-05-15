@@ -72,6 +72,6 @@ Please see a full feature list below:
 == Features That Will Not Be Implemented ==
 
  * *Webcam Chat* - to eliminate the low video quality and minimize the hardware requirements for using our software.
- * *Audio Chat* - to cut down on development time to instead focus on the important aspects of the chat program.
+ * *Voice Chat* - to cut down on development time to instead focus on the important aspects of the chat program.
  * *Multiplayer Games* - would only be compatible with other users that run Parrot IM. This goes against our philosophy: you should be able to connect with any user, regardless of chat client.
  * *Music Player* - would require additional work to design and implement the player, but there are already good solutions out there.
