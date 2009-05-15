@@ -1,4 +1,4 @@
-#summary Problem description for assignment one
+#summary Problem description for Assignment One
 #labels Phase-Requirements
 
 ==Project Background==
@@ -12,8 +12,6 @@ The goal of this project is to create a well-tested and bug-free communication p
 ==Stakeholders==
  * Our programming team members.
  * The client that requested a communication program to be built, namely Professor Donaldson.
- * ~~Users that use the software as a means of entertainment and an extensible instant messaging ~~
-
 
 ==Users==
  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
