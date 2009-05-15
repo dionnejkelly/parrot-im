@@ -4,4 +4,4 @@
   * Contact: vla24(at)sfu(dot)ca, tuna_shichan(at)hotmail(dot)com
   * Student number: 301067659
   * 2nd year of Computing Science
-  * Vera is fluent in Python, Java, and C/C++. Her area of interest is User Interface, but lately she has developed more of an interest in Inter Process Communication (IPC) because she took an Operating System course last term. she used to develop some websites when she was in high school. She is also responsible for ChicTech 2009 designs.
+  * Vera is fluent in Python, Java, and C/C++. Her area of interest is User Interface, but lately she has developed more of an interest in Inter Process Communication (IPC) because she took an Operating System course last term. she used to develop some websites when she was in high school. She is also responsible for !ChicTech 2009 designs.
