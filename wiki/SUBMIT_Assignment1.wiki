@@ -1,4 +1,5 @@
 #summary To create our team's project website, and write a Vision and Scope document.
+#labels Phase-Requirements,Requirements
 
 == Details ==
 
