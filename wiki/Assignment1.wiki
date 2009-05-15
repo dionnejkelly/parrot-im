@@ -5,7 +5,7 @@
 
 Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentOne/ here.]
 
-This [http://parrot-im.googlecode.com/files/CMPT%20275%20Assignment%201%20Presentation.pptx presentation] was given in class on Friday, May 15.
+This [http://parrot-im.googlecode.com/files/CMPT%20275%20Assignment%201%20Presentation%20Final%20Version.pptx presentation] was given in class on Friday, May 15.
 <hr>
 
 == Inside Our Team ==
