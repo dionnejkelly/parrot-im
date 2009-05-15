@@ -32,7 +32,6 @@ Note: Members typed in alphabetical order by last name.<br>
   * Kevin is proficient in C++ and Java. So far he has taken CMPT 126, 150, and 225 at SFU. He also has programming experience from some computing science classes from a previous school. He has always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
 <hr>
 
-<a name="jordanFox">
 * Jordan Fox *
   * Contact: jrf2(at)sfu(dot)ca, msn: jrf02(at)hotmail(dot)com
   * Student number: 301077347
