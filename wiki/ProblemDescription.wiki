@@ -1,5 +1,5 @@
 #summary Problem description for Assignment One
-#labels Phase-Requirements
+#labels Phase-Requirements,Requirements
 
 ==Project Background==
 Currently, many messaging clients exist, and a wide variety are used by the world's population. With so many different clients, effectively speaking different languages (i.e. using different protocols), it is challenging to allow everybody to communicate with each other. However, there are programs that can connect to multiple networks. The goal of this project is to make a program that can do just that, but do so most effectively; the resulting program must be natural and intuitive to use without sacrificing functionality.
