@@ -1,5 +1,5 @@
 #summary Creating our team's project website, and writing a scope and vision document.
-#labels Phase-Requirements
+#labels Phase-Requirements,Requirements
 
 == Details ==
 
