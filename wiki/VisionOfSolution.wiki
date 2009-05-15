@@ -1,14 +1,15 @@
 #summary Vision of Solution document for assignment one.
 #labels Phase-Requirements
 
-== Vision Statement: ==
-To create a new, easy-to-use, fun, and feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, to target any age and audience. Our program hopes to provide a simple yet powerful communication client program that would allow many users to enjoy their conversation in everyday life.
+== Vision Statement ==
+To create a new, easy-to-use, fun, and feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, to target any age and audience. We aim to provide a simple, yet powerful, communication program that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face. 
 
+We expect to implement all of our proposed features, including the low-priority features, by Parrot IM's final release. We expect that users will run Parrot IM whenever they wish to be connected to their friends. Also, we expect that they will prefer to run Parrot IM over existing messaging solutions, such as ICQ and Google Talk.
 
-== Architectural Diagram: ==
+== Architectural Diagram ==
 [http://parrot-im.googlecode.com/files/Diagram2.png]<br>
 
-== List of Features: ==
+== List of Features ==
 [http://parrot-im.googlecode.com/files/Diagram.png]
 
  * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse.
@@ -24,10 +25,10 @@ To create a new, easy-to-use, fun, and feature-rich instant messaging program th
  * *Final* - User interface customization of colors, fonts and window formats. Help pages and features to make the program easy-to-use.
  
 
-
-== Features that will not be implemented: ==
+== Features that will not be implemented ==
 <br>
-*Note* - Please feel free to add any more features that will not be implemented in our software.
- * *Multiple Language Selection* - to minimize the complicated implementation and ensure that our software can be run on any system. As mentioned in the _problem description_, the programmers are assuming that English-speaking users use the program.
- * *Multiple Computer Platforms Compatibility* - to maximize the efficiency in Windows Operating System (specially made to support the CMPT 275 lecture's computer).
+
  * *Webcam Chat* - to eliminate the low video quality and minimize the hardware requirements for using our software.
+ * *Audio Chat* - to cut down on development time to instead focus on the important aspects of the chat program.
+ * *Multiplayer Games* - would only be compatible with other users that run Parrot IM. This goes against our philosophy: you should be able to connect with any user, regardless of chat client.
+ * *Music Player* - would require additional work to design and implement the player, but there are already good solutions out there.
