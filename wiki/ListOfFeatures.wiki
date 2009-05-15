@@ -53,6 +53,8 @@
  * *Spam Filter* - Temporarily blocks user after suspected spamming. This is mainly to help prevent the spread of viruses.
  * *Email Notifier* - if the user is connected to any networks in which he or she also has an email account, an email notification will display upon new emails being received.
  * *Program Updates* - provides automatic updates that do not disrupt the user's chatting experience, while also not secretly hogging system resources.
+ * *Multiple Language Selection* - Localized language selection will be included for Parrot IM to display in the user's native language.
+ * *Multiple Computer Platforms Compatibility* - Parrot IM will run on Windows, Linux, and Mac OS X.
 <hr>
 
 == Features Pending Removal (1) ==
