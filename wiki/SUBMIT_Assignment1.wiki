@@ -71,6 +71,6 @@ We usually meet three times per week, with meetings of 30-45 minutes in length. 
 
 == Vision and Scope Document ==
 
-*[ProblemDescription Problem Description]
+*[SUBMIT_ProblemDescription Problem Description]
 
-*[VisionOfSolution Vision of Solution]
+*[SUBMIT_VisionOfSolution Vision of Solution]
