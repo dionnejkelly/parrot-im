@@ -63,14 +63,13 @@ Please see a full feature list below:
  * *Multiple Language Selection* - Localized language selection will be included for Parrot IM to display in the user's native language.
  * *Multiple Computer Platforms Compatibility* - Parrot IM will run on Windows, Linux, and Mac OS X.
 
-== Scope of Phased Release: ==
+== Scope of Phased Release ==
  * *Alpha* - Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces.
  * *Beta* - Simple chat bot with response to certain commands and ability to search through old conversations. Ability to block people, add "friends", and adjust status.
  * *Final* - User interface customization of colors, fonts and window formats. Help pages and features to make the program easy-to-use.
  
 
-== Features that will not be implemented ==
-<br>
+== Features That Will Not Be Implemented ==
 
  * *Webcam Chat* - to eliminate the low video quality and minimize the hardware requirements for using our software.
  * *Audio Chat* - to cut down on development time to instead focus on the important aspects of the chat program.
