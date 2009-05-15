@@ -1,0 +1,81 @@
+#summary Vision of Solution document for assignment one.
+
+== Vision Statement ==
+To create a new, easy-to-use, fun, and feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, to target any age and audience. We aim to provide a simple, yet powerful, communication program that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face. 
+
+We expect to implement all of our proposed features, including the low-priority features, by Parrot IM's final release. We expect that users will run Parrot IM whenever they wish to be connected to their friends. Also, we expect that they will prefer to run Parrot IM over existing messaging solutions, such as ICQ and Google Talk.
+
+== Architectural Diagram ==
+[http://parrot-im.googlecode.com/files/Diagram2.png]<br>
+
+== List of Features ==
+[http://parrot-im.googlecode.com/files/Diagram.png]
+
+Please see a full feature list below:
+
+*Total Features far: 42*<br>
+
+=== High Priority (7) ===
+*Note:* Must be implemented in the first iteration of project.
+ * *GUI* - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse (e.g. type box, text output box).
+ * *Friend List* - tracks the list of users' friends, family, co-workers, and associates in an organized manner. 
+ * *XMPP Protocol* - the same protocol as Google Talk has used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
+ * *Live Instant Messaging* - ability to hold a one-on-one conversation with a buddy on given protocol.
+ * *Multiple Users* - maintain a database to allow multiple users to log in, each with their own unique friend lists.   
+ * *Modular Design or Plug-in System* - protocol, or network can be easily added without changing the core program.
+ * *Chatbot* - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
+
+=== Medium Priority (22) ===
+*Note:* Hoping to complete this implementation by final iteration.
+ * *Storing User Information* - allows users to save their username and password.
+ * *Friend Groups* - allows users to organize their buddies into different groups on the friends list.
+ * *File Transfer* - allows users to send their files to another user.
+ * *Status* - allows users to set their status (i.e. available, busy, away, etc.).
+ * *Blocking another user* - allows users to block other user(s) from contacting them.
+ * *Add/Remove another user* - allows users to add or remove new contacts.
+ * *Chatroom/Conference* - allows users to create their own chatroom for private conference with more than one user.
+ * *Chat Log* - allows users to keep the history of each conversation in the chatroom. Users are not forced to log all chats, and can turn them off or on when desired.
+ * *Font Customization* - allows users to customize font size, font, family, and colour of their typing font.
+ * *Sound Notification* - plays a short sound clip upon certain events occurring, such as receiving a message.
+ * *Search Engine* - allows users to efficiently and intuitively search previous conversations or the friends list for anything.
+ * *Twitter and ICQ protocol* - allows users to communicate to people using twitter and ICQ.
+ * *Tabbed Windows* - collapse multiple conversations into a single window separated into tabs.
+ * *Profile System* - allow users to create/select their own profiles. Each profile is secured by password-protection. It stores the configuration, the account ID and the password of different IM network users' profiles. Therefore, the program allows users to login to several IM networks once a profile is selected.
+ * *Right-click options* - right-click on the name of another user to access options such as remove/block contact, send file, start chatting, etc.
+ * *Is Typing* - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
+ * *Auto Sign-in* - automatic sign-in upon start up.
+ * *Avatar picture* - allow user to set avatar picture.
+ * *Emoticon* - can insert a graphical emoticon into chat
+ * *Bug Report* - allow user to report when they found a bug or when the program crashes
+ * *Spellchecker* - adds a red underline for text that is not in the dictionary. Assists user in selecting the correct word. Aids the search function in identifying "close" matches to words.
+ * *Profanity Filter* - replaces incoming profane words with symbols.
+
+=== Low Priority (13) ===
+*Note:* Implemented if the time permits.
+ * *UI Customization* - allows users to customize the GUI settings depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour or theme of the window, etc. In the later development, we might try to develop other GUI features, so the user would have some options which GUI to use. 
+ * *Additional Protocol Modules* - optional software modules that allows users to add accounts from different instant messaging protocols and login simultaneously.
+ * *Calculator* - a simple button calculator that allows users to compute up to 8 digits of accuracy. Also allows for in-chat calculation if desired.
+ * *Offline Messaging* - allows users to leave messages to another user.
+ * *Keyboard control* - use keyboard to control some parts of the program. e.g. press enter while the pointer is in message text box to send out a message or shift+enter to enter a new line without sending it. 
+ * */command* - allow user to type /command (eg. /me blah = `*`user name blah)
+ * *Timed Access Mode* - restricts use during predefined times. Generally, an administrator will set the program to function only during certain times of the day or days of the week. Access to modify these settings will be password protected.
+ * *Advanced/Simplified Modes* - To use all the program's features, advanced mode must be turned on. This helps to prevent the user from being overwhelmed with all the options upon first using the program.
+ * *Spam Filter* - Temporarily blocks user after suspected spamming. This is mainly to help prevent the spread of viruses.
+ * *Email Notifier* - if the user is connected to any networks in which he or she also has an email account, an email notification will display upon new emails being received.
+ * *Program Updates* - provides automatic updates that do not disrupt the user's chatting experience, while also not secretly hogging system resources.
+ * *Multiple Language Selection* - Localized language selection will be included for Parrot IM to display in the user's native language.
+ * *Multiple Computer Platforms Compatibility* - Parrot IM will run on Windows, Linux, and Mac OS X.
+
+== Scope of Phased Release: ==
+ * *Alpha* - Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces.
+ * *Beta* - Simple chat bot with response to certain commands and ability to search through old conversations. Ability to block people, add "friends", and adjust status.
+ * *Final* - User interface customization of colors, fonts and window formats. Help pages and features to make the program easy-to-use.
+ 
+
+== Features that will not be implemented ==
+<br>
+
+ * *Webcam Chat* - to eliminate the low video quality and minimize the hardware requirements for using our software.
+ * *Audio Chat* - to cut down on development time to instead focus on the important aspects of the chat program.
+ * *Multiplayer Games* - would only be compatible with other users that run Parrot IM. This goes against our philosophy: you should be able to connect with any user, regardless of chat client.
+ * *Music Player* - would require additional work to design and implement the player, but there are already good solutions out there.
