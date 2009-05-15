@@ -1,79 +1,75 @@
 #summary Listing of all members with their name, student number, year of studies, and technical background
 
 Note: Members typed in alphabetical order by last name.<br>
-* Tell us a little about yourself and any related interests it will help with role assignment later in the project (IE. graphics design, html.. etc) *
 
-<hr>
+----
 
 * Rakan Alkheliwi *
-  * contact: rma30(at)sfu(dot)ca, msn: rmamnk(at)hotmail(dot)com
+  * Contact: rma30(at)sfu(dot)ca, msn: rmamnk(at)hotmail(dot)com
   * Student number: 301081716
-  * 2nd year of Computing Science, and Minor in Business
-  * Familiar with Java and Python. I am interested in working in Computing systems, Software engineering and Project management. So far I finished all lower division requirements except this course, and took CMPT 310 and 384.
+  * 2nd year of Computing Science, minor in Business
+  * Rakan is familiar with Java and Python, and is interested in working in Computing Systems, Software Engineering and Project Management. So far he has finished all lower division requirements except this course, and he has also completed CMPT 310 and 384.
 <hr>
 
 * William(Wei-Lun) Chen *
-  * contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
+  * Contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
   * Student number: 301080781
   * 2nd year of Computing Science
-  * I am familiar with Java, C++, and Python. I also have some experience in django, html, and CSS. I am interested in website development and operating system
+  * William is familiar with Java, C++, and Python. He also has some experience in django, html, and CSS. He is interested in website development and operating systems.
 <hr>
 
 * Jihoon Choi *
-  * contact: jhc20(at)sfu(dot)ca, msn: littletomato89(at)hotmail(dot)com
+  * Contact: jhc20(at)sfu(dot)ca, msn: littletomato89(at)hotmail(dot)com
   * Student number: 301071560
   * 2nd year of Computing Science
-  * -experienced with Java and Python obtained through university education <br> -has a strong willingness to learn to obtain new skills in various areas
+  * Jihoon has experience in Java and Python, which was obtained through university education. He has a strong willingness to learn to obtain new skills in various areas. His passion and desire for learning more in computing science will help fuel the team's morale throughout the project.
 <hr>
 
 * Kevin Fahy *
-  * contact: kjf9(at)sfu(dot)ca, msn: kevin_fahy(at)hotmail(dot)com
+  * Contact: kjf9(at)sfu(dot)ca, msn: kevin_fahy(at)hotmail(dot)com
   * Student number: 301082485
   * 3rd year of Computing Science
-  * I am proficient in C/C++ and Java. I have so far taken CMPT 126, 150, and 225 at SFU. I have also taken non-transferable computing science classes from a previous school that roughly covered the same content. I have always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
+  * Kevin is proficient in C++ and Java. So far he has taken CMPT 126, 150, and 225 at SFU. He also has programming experience from some computing science classes from a previous school. He has always had an interest in software engineering--how a large group of talented people can create programs that would be impossible to code alone.
 <hr>
 
 * Jordan Fox *
-  * contact: jrf2(at)sfu(dot)ca, msn: jrf02(at)hotmail(dot)com
+  * Contact: jrf2(at)sfu(dot)ca, msn: jrf02(at)hotmail(dot)com
   * Student number: 301077347
-  * 3rd year of ComputIng Science and a minor in Math
-  * I am familiar with Java, C++ and C#. I have an interest in computer graphics. I have worked a bit with graphics in my free time but have not taken a graphics course at university yet. I have experience with HTML and javascript from making my own websites in my free time. I am also interested in learning as much about other areas of computer science as possible.
+  * 3rd year of Computing Science, minor in Mathematics
+  * Jordan is familiar with Java, C++, and C#. He is interested in computer graphics. He has worked a bit with graphics in his free time but has not taken a graphics course at university yet. He has experience with HTML and Javascript gained from making his own websites in his free time. He is also interested in learning as much about other areas of computer science as possible.
 <hr>
 
 * Chenny Huang *
-  * contact: pengtzuh(at)sfu(dot)ca, msn: hellochenny(at)hotmail(dot)com
+  * Contact: pengtzuh(at)sfu(dot)ca, msn: hellochenny(at)hotmail(dot)com
   * Student number: 200103936
-  * 2nd year major of Science (Physics) and minor of Computing Science
-  * I am familiar with Java,Python,HTML and alittle bit of C++.<br>So far I've taken CMPT120,125,165,150,225, and currently taking CMPT363 and IAT100 (^^)
+  * 2nd year of Physics, minor in Computing Science
+  * Chenny is familiar with Java, Python, HTML and a little bit of C++. So far she has taken CMPT 120, 125, 165, 150, and 225. She is currently taking CMPT 363 and IAT 100, which is an asset to the team's graphical user interface development.
 <hr>
 
 * Vera Lukman *
-  * contact: vla24(at)sfu(dot)ca, tuna_shichan(at)hotmail(dot)com
+  * Contact: vla24(at)sfu(dot)ca, tuna_shichan(at)hotmail(dot)com
   * Student number: 301067659
   * 2nd year of Computing Science
-  * I am fluent in Python, Java, and C/C++. My area of interest is User Interface, but lately I have developed more interest in Inter Process Communication (IPC) as I took Operating System course last term. I used to develop some websites when I was in high school. I am also responsible for ChicTech 2009 designs.
+  * Vera is fluent in Python, Java, and C/C++. Her area of interest is User Interface, but lately she has developed more of an interest in Inter Process Communication (IPC) because she took an Operating System course last term. she used to develop some websites when she was in high school. She is also responsible for ChicTech 2009 designs.
 <hr>
 
 * Ahmad Sidiqi *
-  * contact: ahmad(at)sidiqi(dot)net (also msn)
+  * Contact: ahmad(at)sidiqi(dot)net (also msn)
   * Student number: 301082875
-  * 2.5 years Computing Science
-  * Knowledge of PHP, C++, JAVA, Javascript, MySQL, HTML, CSS
+  * 2nd year of Computing Science
+  * Ahmad has thorough knowledge of PHP, C++, Java, Javascript, MySQL, HTML, and CSS. His SQL knowledge makes him an asset to the team's database development.
 <hr>
 
 * Aaron Siu *
-  * contact: khs2(at)sfu(dot)ca, msn: nubpotato(at)hotmail(dot)com
+  * Contact: khs2(at)sfu(dot)ca, msn: nubpotato(at)hotmail(dot)com
   * Student number: 301065638
-  * 2nd year Software Systems Computer Science
-  * I started off here doing Mechatronics Engineering, but realizing my lack of interest in physics was not a very good thing <br> I landed myself into computer science since programming was more my thing.  So far in terms of programming languages <br> I've used C++ and Java, I've also done a little bit of photoshop graphics, HTML, CSS, and Javascript in elective IAT courses.  I also consider myself <br> a decent writer if the Documentation department requires help.
+  * 2nd year of Software Systems Computer Science
+  * Aaron started off at SFU doing Mechatronics Engineering, but realized that his lack of interest in physics was not a very good thing. So, he landed himself into computer science since programming was more his thing. So far, in terms of programming languages, he has used C++ and Java, and he's also done a little bit of Photoshop graphics, HTML, CSS, and Javascript in elective IAT courses. He is a good writer, which will help the documentation of the project immensely.
 <hr>
 
 * Wei Zhang *
-  * contact: wza23(at)sfu(dot)ca, rockleechang(at)hotmail(dot)com
+  * Contact: wza23(at)sfu(dot)ca, rockleechang(at)hotmail(dot)com
   * Student number: 301103937
   * Second Degree in Computing Science
-  * I am a Second Degree Computing Science student and this semester is my 3rd semester in SFU. I have learned about programming language like VB, C/C++ and java. I desire to learn how to use a programming language or software in the real life. I think I will have the chance to learn more in this semester. 
+  * Wei is a Second Degree Computing Science student and this semester is his 3rd semester in SFU. He has learned about programming languages such as VB, C/C++ and Java. He desires to learn how programming languages and software are developed and used in real life. He thinks he will have the chance to learn more in this semester. Currently taking a computing science course in Networking, he will be an asset to the project's core communication protocol team.
 <hr>
-
-<br>
-<br>
