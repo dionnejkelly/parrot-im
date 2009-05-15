@@ -1,4 +1,5 @@
 #summary Vision of Solution document for assignment one.
+#labels Phase-Requirements,Requirements
 
 == Vision Statement ==
 To create a new, easy-to-use, fun, and feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, to target any age and audience. We aim to provide a simple, yet powerful, communication program that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face. 
