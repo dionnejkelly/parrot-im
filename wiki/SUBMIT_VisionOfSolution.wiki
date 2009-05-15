@@ -64,9 +64,9 @@ Please see a full feature list below:
  * *Multiple Computer Platforms Compatibility* - Parrot IM will run on Windows, Linux, and Mac OS X.
 
 == Scope of Phased Release ==
- * *Alpha* - Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces.
- * *Beta* - Simple chat bot with response to certain commands and ability to search through old conversations. Ability to block people, add "friends", and adjust status.
- * *Final* - User interface customization of colors, fonts and window formats. Help pages and features to make the program easy-to-use.
+ * *Alpha* - Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces. All high-priority features, with as many medium-priority features included as possible.
+ * *Beta* - More features will be added, and the database will be made as efficient as possible. The GUI may still lack polish at this stage, but will be completely functional. All high and medium-priority features will be implemented, with as many low-priority features included as possible. Adjustments to features may be done due to user feedback from the alpha release.
+ * *Final* - All features will be added, including GUI features in which the user interface customization of colors, fonts and window formats will be allowed. Help pages will be polished and usable, and the program will be as bug-free as possible.
  
 
 == Features That Will Not Be Implemented ==
