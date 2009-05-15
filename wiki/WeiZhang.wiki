@@ -1,0 +1,7 @@
+#summary Wei's biography
+
+* Wei Zhang *
+  * Contact: wza23(at)sfu(dot)ca, rockleechang(at)hotmail(dot)com
+  * Student number: 301103937
+  * Second Degree in Computing Science
+  * Wei is a Second Degree Computing Science student and this semester is his 3rd semester in SFU. He has learned about programming languages such as VB, C/C++ and Java. He desires to learn how programming languages and software are developed and used in real life. He thinks he will have the chance to learn more in this semester. Currently taking a computing science course in Networking, he will be an asset to the project's core communication protocol team.
