@@ -1,7 +1,7 @@
 #summary Features of Parrot-IM
 #labels Phase-Requirements
 
-*Total Features so far: 40*<br>
+*Total Features so far: 42*<br>
 
 == High Priority (7) ==
 *Note:* Must be implemented in the first iteration of project.
@@ -40,7 +40,7 @@
  * *Profanity Filter* - replaces incoming profane words with symbols.
 <hr>
 
-== Low Priority (11) ==
+== Low Priority (13) ==
 *Note:* Implemented if the time permits.
  * *UI Customization* - allows users to customize the GUI settings depending on their preferences. In the early development, the user would be allowed to choose their favourite menu to be shown on the main window or choose the colour or theme of the window, etc. In the later development, we might try to develop other GUI features, so the user would have some options which GUI to use. 
  * *Additional Protocol Modules* - optional software modules that allows users to add accounts from different instant messaging protocols and login simultaneously.
