@@ -1,0 +1,7 @@
+#summary Ahmad's biography
+
+* Ahmad Sidiqi *
+  * Contact: ahmad(at)sidiqi(dot)net (also msn)
+  * Student number: 301082875
+  * 2nd year of Computing Science
+  * Ahmad has thorough knowledge of PHP, C++, Java, Javascript, MySQL, HTML, and CSS. His SQL knowledge makes him an asset to the team's database development.
