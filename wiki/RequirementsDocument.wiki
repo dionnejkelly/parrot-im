@@ -1,4 +1,4 @@
-_*Writing a user manual that is useful for both end-users and system designers .*_
+_Writing a user manual that is useful for both end-users and system designers ._
 
 
 ==User Manual Contents==
