@@ -1,2 +1,16 @@
-_*Will be updated shortly in the near future.*_
- Assignment description can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentTwo/ here.]
+#summary To create our project's initial requirements and design.
+
+== Details ==
+
+Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentTwo/ here.]
+
+
+
+
+== Three Documents ==
+
+*[RequirementsDocument Requirements Document]
+
+*[DesignDocument Design Document]
+
+*[QualityAssurancePlan Quality Assurance Plan]
