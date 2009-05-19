@@ -2,7 +2,7 @@
 
 == Details ==
 
-Details about assignment 1 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentTwo/ here.]
+Details about assignment 2 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentTwo/ here.]
 
 
 
