@@ -1,1 +1,12 @@
 _Writing a design document that outlines the high-level organization of our system, and it is what the programmers will refere to during implementation._ 
+
+
+==Design Document Contents==
+
+[Guidlines Guidlines ]
+
+[SystemDiagrams  System Diagrams]
+
+[DataRequirements  Data Requirements]
+
+[FeaturePriority  Feature Priority]
