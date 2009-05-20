@@ -21,7 +21,7 @@ public class SendTest {
             if(message.getType().equals(Message.Type.chat) && message.getBody() != null) {
                 System.out.println("Received: " + message.getBody());
                 try {
-                    msg.setBody("I am a Java bot. You said: " + message.getBody());
+                    msg.setBody(". You said: " + message.getBody());
                     chat.sendMessage(msg);
                 } catch (XMPPException ex) {
                     //ex.printStackTrace();
