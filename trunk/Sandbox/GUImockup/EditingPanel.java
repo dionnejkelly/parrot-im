@@ -12,7 +12,7 @@ public class EditingPanel extends JPanel {
 		JButton underlineButton = new JButton("U");
 		JButton colorButton = new JButton("Color");
 		
-		String[] fontList = {"Ariel", "Times New Roman", "Comic Sans MS"};
+		String[] fontList = {"Arial", "Times New Roman", "Comic Sans MS"};
 		JComboBox fontSelect = new JComboBox(fontList);
 		fontSelect.setEditable(true);
 		
