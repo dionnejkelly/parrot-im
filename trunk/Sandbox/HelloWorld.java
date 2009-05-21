@@ -4,6 +4,7 @@ public class HelloWorld
 {
    public static void main(String[] args)
    {
+	  System.out.println("Helloworld!");
       System.out.println("Hello, World!");
       
       System.out.println("Testing: If this prints = SUCCESS!!");
