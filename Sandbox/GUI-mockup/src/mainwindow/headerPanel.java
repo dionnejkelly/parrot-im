@@ -15,7 +15,7 @@ public class headerPanel extends JPanel{
 		//logo-avatar
 		JLabel avatar = new JLabel ();
 		avatar.setHorizontalAlignment(JLabel.CENTER);
-		avatar.setIcon(new ImageIcon ("logo.png"));
+		avatar.setIcon(new ImageIcon (getcwd() + "\\src\\mainwindow\\logo.png"));
 		avatar.setSize(100,100);
 		
 		//status
@@ -29,5 +29,9 @@ public class headerPanel extends JPanel{
 		add(avatar, BorderLayout.CENTER);
 		
 	}
-
+	
+	public static String getcwd() { 
+	    String cwd = System.getProperty("user.dir"); 
+	    return cwd; 
+	}
 }
