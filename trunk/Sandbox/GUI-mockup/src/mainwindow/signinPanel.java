@@ -12,6 +12,7 @@ public class signinPanel extends JPanel{
 		
 		add(new headerPanel(), BorderLayout.NORTH);
 		add(new manageAccountPanel(), BorderLayout.CENTER);
+		add(new miscPanel(), BorderLayout.SOUTH);
 	}
 
 }

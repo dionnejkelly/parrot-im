@@ -1,10 +1,10 @@
 package mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -13,7 +13,7 @@ public class headerPanel extends JPanel{
 
 	public headerPanel() {
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
+		setBorder(BorderFactory.createEmptyBorder(50,50,25,50));
 		
 		//logo-avatar
 		JLabel avatar = new JLabel ();
@@ -23,10 +23,12 @@ public class headerPanel extends JPanel{
 		
 		//status
 		status = new JLabel("You are not signed in", JLabel.CENTER);
+		status.setPreferredSize(new Dimension(status.WIDTH,30));
 		
 		//add to panel
-		add(status, BorderLayout.NORTH);
-		add(avatar, BorderLayout.CENTER);
+		add(avatar, BorderLayout.NORTH);
+		add(status, BorderLayout.CENTER);
+
 		
 	}
 	
