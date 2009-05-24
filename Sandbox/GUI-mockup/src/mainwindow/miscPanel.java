@@ -1,6 +1,7 @@
 package mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,12 +16,12 @@ public class miscPanel extends JPanel{
 	public miscPanel(){
 		
 		setLayout (new BorderLayout());
-		setBorder(BorderFactory.createEmptyBorder(30, 40, 100, 40));
+		setBorder(BorderFactory.createEmptyBorder(10, 40, 50, 40));
 		
 		
 		//line separator
 		JSeparator line = new JSeparator();
-		//line.setBorder(new EmptyBorder(0,100,0,0));
+		line.setBorder(new EmptyBorder(20,0,0,0));
 		
 		//manage account
 		JButton options = new JButton ("Options");//underline?
