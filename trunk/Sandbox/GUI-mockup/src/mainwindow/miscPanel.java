@@ -48,16 +48,16 @@ public class miscPanel extends JPanel{
 	}
 	public void options_ActionPerformed(ActionEvent e) {
 		JFrame accMAN = new JFrame ("Options");
+		accMAN.setLocation(100,100);
 		accMAN.getContentPane().add(new optionPanel());
-		
 		
 		accMAN.pack();
 		accMAN.setVisible(true);
 	} 
 	public void help_ActionPerformed(ActionEvent e) {
 		JFrame accMAN = new JFrame ("Help");
+		accMAN.setLocation(100,100);
 		accMAN.getContentPane().add(new helpPanel());
-		
 		
 		accMAN.pack();
 		accMAN.setVisible(true);
