@@ -18,15 +18,15 @@ public class headerPanel extends JPanel{
 		setBorder(BorderFactory.createEmptyBorder(50,50,25,50));
 		
 		//logo-avatar
-		JLabel avatar = new JLabel ();
-		avatar.setHorizontalAlignment(JLabel.CENTER);
-		avatar.setIcon(new ImageIcon (getcwd() + "/src/mainwindow/logo.png"));
-		avatar.setPreferredSize(new Dimension(100,100));
-		//avatar.setBorder(BorderFactory.createLineBorder(Color.black));
+		JLabel avatarDisplay = new JLabel ();
+		avatarDisplay.setHorizontalAlignment(JLabel.CENTER);
+		ImageIcon avatar = new ImageIcon (getcwd() + "/src/mainwindow/fb.jpg");
+		//set auto scaling + border later
+		avatarDisplay.setIcon(avatar);
 		
 		
 		//add to panel
-		add(avatar, BorderLayout.NORTH);
+		add(avatarDisplay, BorderLayout.NORTH);
 
 		
 	}
