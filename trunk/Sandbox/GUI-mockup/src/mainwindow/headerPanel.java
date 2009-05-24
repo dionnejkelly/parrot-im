@@ -1,15 +1,17 @@
 package mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 public class headerPanel extends JPanel{
-	protected JLabel status;
 
 	public headerPanel() {
 		setLayout(new BorderLayout());
@@ -19,15 +21,12 @@ public class headerPanel extends JPanel{
 		JLabel avatar = new JLabel ();
 		avatar.setHorizontalAlignment(JLabel.CENTER);
 		avatar.setIcon(new ImageIcon (getcwd() + "/src/mainwindow/logo.png"));
-		avatar.setSize(100,100);
+		avatar.setPreferredSize(new Dimension(100,100));
+		//avatar.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		//status
-		status = new JLabel("You are not signed in", JLabel.CENTER);
-		status.setPreferredSize(new Dimension(status.WIDTH,30));
 		
 		//add to panel
 		add(avatar, BorderLayout.NORTH);
-		add(status, BorderLayout.CENTER);
 
 		
 	}
