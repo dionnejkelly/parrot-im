@@ -9,6 +9,7 @@ public class Main
 		JFrame mainFrame = new JFrame("Buddy List");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setMinimumSize(new Dimension(300,600));
+		mainFrame.setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/logo.png").getImage());
 		
 		//MENU BAR
 		JPanel menuPanel = new JPanel();
