@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -49,6 +50,7 @@ public class miscPanel extends JPanel{
 		JFrame accMAN = new JFrame ("Options");
 		accMAN.setLocation(100,100);
 		accMAN.getContentPane().add(new optionPanel());
+		accMAN.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		
 		accMAN.pack();
 		accMAN.setVisible(true);
@@ -57,8 +59,13 @@ public class miscPanel extends JPanel{
 		JFrame accMAN = new JFrame ("Help");
 		accMAN.setLocation(100,100);
 		accMAN.getContentPane().add(new helpPanel());
+		accMAN.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		
 		accMAN.pack();
 		accMAN.setVisible(true);
 	} 
+	public static String getcwd() { 
+	    String cwd = System.getProperty("user.dir"); 
+	    return cwd; 
+	}
 }
