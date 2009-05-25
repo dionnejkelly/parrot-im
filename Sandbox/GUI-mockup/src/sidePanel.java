@@ -10,7 +10,7 @@ public class sidePanel extends JPanel {
 		
 		JPanel panel1 = new JPanel();
 		panel1.setBackground(Color.WHITE);
-		String[] names = {"PersonA", "PersonB"};
+		String[] names = {"PersonA (You)", "PersonB"};
 		JList thisConversation = new JList(names);
 		thisConversation.setLayoutOrientation(JList.VERTICAL);
 		panel1.add(thisConversation, BorderLayout.CENTER);
