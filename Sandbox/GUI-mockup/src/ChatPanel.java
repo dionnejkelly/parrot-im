@@ -22,15 +22,16 @@ public class ChatPanel extends JPanel {
 		SpinnerModel fontSizemodel = new SpinnerNumberModel(12, 6, 72, 1);
 		JSpinner fontSize = new JSpinner(fontSizemodel);
 
-		JTextArea txt1 = new JTextArea();
+		final JTextArea txt1 = new JTextArea();
 		txt1.setColumns(25);
 		txt1.setRows(9);
 		txt1.setLineWrap(true);
+		txt1.setToolTipText("Enter text and HTML tags here");
 		
 		JButton sendButton = new JButton("SEND");
 		sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	displayPanel.addMessage("test");
+            	displayPanel.addMessage(txt1.getText());
             }
         });
 		
