@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -59,6 +60,7 @@ public class mainwindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension (300,500));
 		frame.setResizable(false);
+		frame.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		//frame.setMinimumSize(new Dimension (300,500)); // how to set the minimum size to be resized?
 		
 		//call SignIn Panel
@@ -133,6 +135,7 @@ public class mainwindow {
 		accMAN.setLocation(100, 100);
 		accMAN.setPreferredSize(new Dimension(500,300));
 		accMAN.setResizable(false);
+		accMAN.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		
 		//set main panel
 		accPanel = new JPanel ();
@@ -153,6 +156,7 @@ public class mainwindow {
 		GAL.setPreferredSize(new Dimension (400,250));
 		GAL.setLocation(100, 100);
 		GAL.setResizable(false);
+		GAL.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		
 		//select server
 		JComboBox server = new JComboBox (serverList);
@@ -379,6 +383,11 @@ public class mainwindow {
     		accList.updateUI();
 			//accMAN.setVisible(false);
 		}
+	}
+	
+	public static String getcwd() { 
+	    String cwd = System.getProperty("user.dir"); 
+	    return cwd; 
 	}
 }
 
