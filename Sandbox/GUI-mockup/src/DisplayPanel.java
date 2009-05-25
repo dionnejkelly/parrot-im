@@ -3,18 +3,19 @@ import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 
 public class DisplayPanel extends JPanel {
-
+	private JEditorPane txtPane;
+	
 	public DisplayPanel() {
 		setLayout(new BorderLayout());
 		
-		JEditorPane txtPane = new JEditorPane();
+		txtPane = new JEditorPane();
 		txtPane.setPreferredSize(new Dimension(250, 300));
 		txtPane.setEditable(false);
 		txtPane.setEditorKit(new HTMLEditorKit());
 		txtPane.setText("<font face=\"Ariel\">" +
 				"<U>PersonA:</U>   How is it going?<br><br>" +
 				"<U>PersonB:</U><font color=\"blue\"><b>   Good, you?</b></font><br><br>" +
-				"<U>PersonA:</U>   not bad, lol...");
+				"<U>PersonA:</U>   not bad, lol...<br><br>");
 		
 		JLabel title = new JLabel("Conversation 1 (2 friends)                           view: ");
 		
@@ -36,5 +37,10 @@ public class DisplayPanel extends JPanel {
 		add(bar1, BorderLayout.NORTH);
 		add(txtPane, BorderLayout.CENTER);
 		add(bar2, BorderLayout.SOUTH);
+	}
+	
+	public void addMessage(String text){
+		txtPane.setText(txtPane.getText() + "<U>PersonA:</U> "
+				+ text + "<br><br>");
 	}
 }
