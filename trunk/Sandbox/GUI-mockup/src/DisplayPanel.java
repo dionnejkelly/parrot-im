@@ -4,6 +4,7 @@ import javax.swing.text.html.HTMLEditorKit;
 
 public class DisplayPanel extends JPanel {
 	private JEditorPane txtPane;
+	private String previousText;
 	
 	public DisplayPanel() {
 		setLayout(new BorderLayout());
@@ -12,10 +13,11 @@ public class DisplayPanel extends JPanel {
 		txtPane.setPreferredSize(new Dimension(250, 300));
 		txtPane.setEditable(false);
 		txtPane.setEditorKit(new HTMLEditorKit());
-		txtPane.setText("<font face=\"Ariel\">" +
+		previousText = "<font face=\"Ariel\">" +
 				"<U>PersonA:</U>   How is it going?<br><br>" +
 				"<U>PersonB:</U><font color=\"blue\"><b>   Good, you?</b></font><br><br>" +
-				"<U>PersonA:</U>   not bad, lol...<br><br>");
+				"<U>PersonA:</U>   not bad, lol...<br><br>";
+		txtPane.setText(previousText);
 		
 		JLabel title = new JLabel("Conversation 1 (2 friends)                           view: ");
 		
@@ -40,7 +42,9 @@ public class DisplayPanel extends JPanel {
 	}
 	
 	public void addMessage(String text){
-		txtPane.setText(txtPane.getText() + "<U>PersonA:</U> "
-				+ text + "<br><br>");
+		if(text.length() > 0){
+			previousText = previousText + "<U>PersonA:</U> " + text + "<br><br>";
+			txtPane.setText(previousText);
+		}
 	}
 }
