@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,11 +28,11 @@ public class mainwindow extends JFrame{
 	private Vector<String> serverList;
 	private JPanel signinPanel;
 	//Account Options part (in Sign In Panel)
-	private JButton manageAccount;
-	private JButton guestAccount;
+	private JLabel manageAccount;
+	private JLabel guestAccount;
 	//Account Manager pop-up window
 	private JFrame accMAN;
-	private JPanel accPanel;
+	private JPanel accMANPanel;
 	private JList accList;
 	private JTextField UNField; 	//Account Manager - rightPanelMAN
 	private JPasswordField pwdField;//Account Manager - rightPanelMAN
@@ -61,7 +62,6 @@ public class mainwindow extends JFrame{
 		setPreferredSize(new Dimension (300,500));
 		setResizable(false);
 		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
-		//frame.setMinimumSize(new Dimension (300,500)); // how to set the minimum size to be resized?
 		
 		//call SignIn Panel
 		init_SignInPanel ();
@@ -77,60 +77,65 @@ public class mainwindow extends JFrame{
 		manageAccountPanel();
 		
 		signinPanel.add(new headerPanel(), BorderLayout.NORTH);
-		signinPanel.add(accPanel, BorderLayout.CENTER);
+
 		signinPanel.add(new miscPanel(), BorderLayout.SOUTH);
 		getContentPane().add(signinPanel);
 	}
 	
 	private void manageAccountPanel (){
-		accPanel = new JPanel ();
-		accPanel.setLayout(new GridLayout(4,1));
-		accPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 20, 50));
-		
+		JPanel accPanel = new JPanel();
+		accPanel.setLayout(new BoxLayout(accPanel, BoxLayout.Y_AXIS));
+		accPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 50, 50));
 		//list of accounts
 		JComboBox account_select = new JComboBox (account_list);
+		account_select.setAlignmentY(JComboBox.CENTER_ALIGNMENT);
+		
+		//accOPTPanel (part of accPanel)
+		JPanel accOptPanel = new JPanel ();
+		accOptPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 150, 0));
+		GridLayout accLayout = new GridLayout(3,1);
+		accOptPanel.setLayout (accLayout);
+		//accLayout.setVgap(10);
+		
+		//manage account
+		manageAccount = new JLabel ("Add/Manage Accounts", JLabel.CENTER); //underline?
+		manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manageAccount_MouseClicked(evt);
+            }
+        });
+		
+		//guest account
+		guestAccount = new JLabel ("Connect Guest Account", JLabel.CENTER); //underline?
+		guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                guestAccount_MouseClicked(evt);
+            }
+        });
 		
 		//connect button
 		JPanel connectPanel = new JPanel();
-		connectPanel.setBorder(BorderFactory.createEmptyBorder(5, 50, 5, 50));
 		JButton connectButton = new JButton("Sign In");
+		connectButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		connectPanel.add(connectButton);
-		
-		//somehow try to set the button size
 		connectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 signIn_ActionPerformed(evt);
             }
         });
 		
-		//manage account
-		manageAccount = new JButton ("Add/Manage Accounts"); //underline?
-		manageAccount.setBorderPainted(false);
-		manageAccount.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                manageAccount_ActionPerformed(evt);
-            }
-        });
-		manageAccount.setBorder(BorderFactory.createEmptyBorder(30,0,20,0));
+		//add components to accOptPanel
+		accOptPanel.add(manageAccount);
+		accOptPanel.add(guestAccount);
+		accOptPanel.add(connectPanel);
 		
-		//guest account
-		guestAccount = new JButton ("Connect Guest Account"); //underline?
-		guestAccount.setBorderPainted(false);
-		guestAccount.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                guestAccount_ActionPerformed(evt);
-            }
-        });
-		guestAccount.setBorder(BorderFactory.createEmptyBorder(20,0,30,0));
-		
-		//add components
+		//add components to accPanel
 		accPanel.add(account_select);
-		accPanel.add(manageAccount);
-		accPanel.add(guestAccount);
-		accPanel.add(connectPanel);
+		accPanel.add(accOptPanel);
 
+		signinPanel.add(accPanel, BorderLayout.CENTER);
 	}
-	private void manageAccount_ActionPerformed(ActionEvent e) {
+	private void manageAccount_MouseClicked(java.awt.event.MouseEvent e) {
 		accMAN = new JFrame ("Account Manager");
 		accMAN.setLocation(100, 100);
 		accMAN.setPreferredSize(new Dimension(500,300));
@@ -138,19 +143,19 @@ public class mainwindow extends JFrame{
 		accMAN.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		
 		//set main panel
-		accPanel = new JPanel ();
-		accPanel.setLayout(new BorderLayout());
-		accPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+		accMANPanel = new JPanel ();
+		accMANPanel.setLayout(new BorderLayout());
+		accMANPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 		//manage account panel
 		leftPanelMAN();
 		rightPanelMAN();
 		
-		accMAN.getContentPane().add(accPanel);
+		accMAN.getContentPane().add(accMANPanel);
 		accMAN.pack();
 		accMAN.setVisible(true);
 	} 
 
-	private void guestAccount_ActionPerformed(ActionEvent e) {
+	private void guestAccount_MouseClicked(java.awt.event.MouseEvent e) {
 		//set Frame
 		GAL = new JFrame ("Guest Account Login");
 		GAL.setPreferredSize(new Dimension (400,250));
@@ -264,7 +269,7 @@ public class mainwindow extends JFrame{
 		leftPanel.add(addremovePanel,BorderLayout.SOUTH);
 		
 		//add to account manager pop up main panel
-		accPanel.add(leftPanel,BorderLayout.WEST);
+		accMANPanel.add(leftPanel,BorderLayout.WEST);
 	}
 	
 	private void rightPanelMAN() {
@@ -365,17 +370,17 @@ public class mainwindow extends JFrame{
 		rightPanel.add(buttonsPanel, BorderLayout.SOUTH);
 		
 		//add to account manager pop up main panel
-		accPanel.add(rightPanel,BorderLayout.EAST);
+		accMANPanel.add(rightPanel,BorderLayout.EAST);
 	}
 	private void signIn_ActionPerformed(ActionEvent e) {
 		//TODO: set buddylist as JPANEL
-		//buddylist buddyWin = new buddylist();
-		//getContentPane().remove(signinPanel);
-		//this.add(buddyWin);
-		//getContentPane().add(buddyWin);
+		/*buddylist buddyWin = new buddylist();
+		getContentPane().remove(signinPanel);
+		this.add(buddyWin);
+		getContentPane().add(buddyWin); */
 		
 		this.setVisible(false);
-		buddylist buddyWin = new buddylist();
+		buddylist buddyWin = new buddylist();//pops buddylist window
 		
 		
 	} 
