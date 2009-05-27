@@ -3,6 +3,7 @@ package mainwindow;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,37 +12,36 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 
 public class miscPanel extends JPanel{
 	public miscPanel(){
-		setLayout (new BoxLayout(this, BoxLayout.Y_AXIS));
+		GridLayout miscLayout = new GridLayout(3,1);
+		miscLayout.setVgap(10);
+		setLayout (miscLayout);
 		setBorder(BorderFactory.createEmptyBorder(10, 40, 50, 40));
-		
+		this.setOpaque(false);
 		
 		//line separator
 		JSeparator line = new JSeparator();
-		line.setBorder(new EmptyBorder(20,0,0,0));
 		
+		//TODO : set them to center alignment
 		//manage account
-		JButton options = new JButton ("Options");//underline?
-		options.setAlignmentX(JButton.CENTER_ALIGNMENT);
-		//options.setBorderPainted(false);
-		options.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	options_ActionPerformed(evt);
+		JLabel options = new JLabel ("Options", JLabel.CENTER);
+		options.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				options_MouseClicked(evt);
             }
         });
 		
 		//guest account
-		JButton help = new JButton ("Help"); //underline?
-		help.setAlignmentX(JButton.CENTER_ALIGNMENT);
-		help.setBorderPainted(false);
-		help.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                help_ActionPerformed(evt);
+		JLabel help = new JLabel ("Help", JLabel.CENTER);
+		help.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	help_MouseClicked(evt);
             }
         });
 		
@@ -49,7 +49,7 @@ public class miscPanel extends JPanel{
 		add (options);
 		add (help);
 	}
-	public void options_ActionPerformed(ActionEvent e) {
+	private void options_MouseClicked(java.awt.event.MouseEvent evt){
 		JFrame accMAN = new JFrame ("Options");
 		accMAN.setLocation(100,100);
 		accMAN.getContentPane().add(new optionPanel());
@@ -58,7 +58,7 @@ public class miscPanel extends JPanel{
 		accMAN.pack();
 		accMAN.setVisible(true);
 	} 
-	public void help_ActionPerformed(ActionEvent e) {
+	public void help_MouseClicked(java.awt.event.MouseEvent e) {
 		JFrame accMAN = new JFrame ("Help");
 		accMAN.setLocation(100,100);
 		accMAN.getContentPane().add(new helpPanel());
