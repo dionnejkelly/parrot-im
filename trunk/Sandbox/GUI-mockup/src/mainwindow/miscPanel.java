@@ -1,10 +1,13 @@
 package mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,8 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 public class miscPanel extends JPanel{
 	public miscPanel(){
-		
-		setLayout (new BorderLayout());
+		setLayout (new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createEmptyBorder(10, 40, 50, 40));
 		
 		
@@ -25,7 +27,8 @@ public class miscPanel extends JPanel{
 		
 		//manage account
 		JButton options = new JButton ("Options");//underline?
-		options.setBorderPainted(false);
+		options.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		//options.setBorderPainted(false);
 		options.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	options_ActionPerformed(evt);
@@ -34,6 +37,7 @@ public class miscPanel extends JPanel{
 		
 		//guest account
 		JButton help = new JButton ("Help"); //underline?
+		help.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		help.setBorderPainted(false);
 		help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -41,10 +45,9 @@ public class miscPanel extends JPanel{
             }
         });
 		
-		add (options, BorderLayout.CENTER);
-		add (help, BorderLayout.SOUTH);
-		add (line, BorderLayout.NORTH);
-		
+		add (line);
+		add (options);
+		add (help);
 	}
 	public void options_ActionPerformed(ActionEvent e) {
 		JFrame accMAN = new JFrame ("Options");
