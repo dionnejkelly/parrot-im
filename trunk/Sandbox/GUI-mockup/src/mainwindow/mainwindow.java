@@ -1,4 +1,5 @@
 package mainwindow;
+import buddylist.buddylist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -367,7 +368,16 @@ public class mainwindow extends JFrame{
 		accPanel.add(rightPanel,BorderLayout.EAST);
 	}
 	private void signIn_ActionPerformed(ActionEvent e) {
-		//TODO: set frame to signing in panel or to buddylist panel     
+		//TODO: set buddylist as JPANEL
+		//buddylist buddyWin = new buddylist();
+		//getContentPane().remove(signinPanel);
+		//this.add(buddyWin);
+		//getContentPane().add(buddyWin);
+		
+		this.setVisible(false);
+		buddylist buddyWin = new buddylist();
+		
+		
 	} 
 	private void addACC_ActionPerformed(ActionEvent e) {
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
