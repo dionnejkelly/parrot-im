@@ -7,9 +7,9 @@ public class buddylist extends JFrame{
 
 	public buddylist(){
 		
-		JFrame mainFrame = new JFrame("Buddy List");
-		mainFrame.setMinimumSize(new Dimension(300,600));
-		mainFrame.setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/logo.png").getImage());
+		this.setTitle("Buddy List");
+		setMinimumSize(new Dimension(300,600));
+		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/logo.png").getImage());
 		
 		//MENU BAR
 		JPanel menuPanel = new JPanel();
@@ -93,9 +93,9 @@ public class buddylist extends JFrame{
 		mainPanel.add(test, BorderLayout.SOUTH);
 		mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 		
-		mainFrame.getContentPane().add(mainPanel);
-		mainFrame.pack();
-		mainFrame.setVisible(true);
+		getContentPane().add(mainPanel);
+		pack();
+		setVisible(true);
 	}
 
 }
