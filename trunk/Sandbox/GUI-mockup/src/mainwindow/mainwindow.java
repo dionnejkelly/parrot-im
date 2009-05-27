@@ -85,17 +85,27 @@ public class mainwindow extends JFrame{
 	private void manageAccountPanel (){
 		JPanel accPanel = new JPanel();
 		accPanel.setLayout(new BoxLayout(accPanel, BoxLayout.Y_AXIS));
-		accPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 50, 50));
+		accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 50, 50));
 		//list of accounts
 		JComboBox account_select = new JComboBox (account_list);
 		account_select.setAlignmentY(JComboBox.CENTER_ALIGNMENT);
+		//connect button
+		JPanel connectPanel = new JPanel();
+		JButton connectButton = new JButton("Sign In");
+		connectButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		connectPanel.add(connectButton);
+		connectButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                signIn_ActionPerformed(evt);
+            }
+        });
 		
 		//accOPTPanel (part of accPanel)
 		JPanel accOptPanel = new JPanel ();
-		accOptPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 150, 0));
-		GridLayout accLayout = new GridLayout(3,1);
+		accOptPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+		GridLayout accLayout = new GridLayout(2,1);
+		accLayout.setVgap(10);
 		accOptPanel.setLayout (accLayout);
-		//accLayout.setVgap(10);
 		
 		//manage account
 		manageAccount = new JLabel ("Add/Manage Accounts", JLabel.CENTER); //underline?
@@ -113,25 +123,14 @@ public class mainwindow extends JFrame{
             }
         });
 		
-		//connect button
-		JPanel connectPanel = new JPanel();
-		JButton connectButton = new JButton("Sign In");
-		connectButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-		connectPanel.add(connectButton);
-		connectButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                signIn_ActionPerformed(evt);
-            }
-        });
-		
 		//add components to accOptPanel
 		accOptPanel.add(manageAccount);
 		accOptPanel.add(guestAccount);
-		accOptPanel.add(connectPanel);
 		
 		//add components to accPanel
 		accPanel.add(account_select);
 		accPanel.add(accOptPanel);
+		accPanel.add(connectPanel);
 
 		signinPanel.add(accPanel, BorderLayout.CENTER);
 	}

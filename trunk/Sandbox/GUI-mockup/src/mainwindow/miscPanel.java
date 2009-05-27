@@ -22,7 +22,7 @@ public class miscPanel extends JPanel{
 		GridLayout miscLayout = new GridLayout(3,1);
 		miscLayout.setVgap(10);
 		setLayout (miscLayout);
-		setBorder(BorderFactory.createEmptyBorder(10, 40, 50, 40));
+		setBorder(BorderFactory.createEmptyBorder(0, 40, 50, 40));
 		this.setOpaque(false);
 		
 		//line separator
