@@ -21,25 +21,24 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class mainwindow {
-	private static JFrame frame;
-	private static Vector <String> account_list;
-	private static Vector<String> serverList;
-	private static JPanel signinPanel;
+public class mainwindow extends JFrame{
+	private Vector<String> account_list;
+	private Vector<String> serverList;
+	private JPanel signinPanel;
 	//Account Options part (in Sign In Panel)
-	private static JButton manageAccount;
-	private static JButton guestAccount;
+	private JButton manageAccount;
+	private JButton guestAccount;
 	//Account Manager pop-up window
-	private static JFrame accMAN;
-	private static JPanel accPanel;
-	private static JList accList;
-	private static JTextField UNField; 		//Account Manager - rightPanelMAN
-	private static JPasswordField pwdField; //Account Manager - rightPanelMAN
-	private static JComboBox serviceField;	//Account Manager - rightPanelMAN
+	private JFrame accMAN;
+	private JPanel accPanel;
+	private JList accList;
+	private JTextField UNField; 	//Account Manager - rightPanelMAN
+	private JPasswordField pwdField;//Account Manager - rightPanelMAN
+	private JComboBox serviceField;	//Account Manager - rightPanelMAN
 	//Guest Account login pop-up window
-	private static JFrame GAL;
+	private JFrame GAL;
 	
-	public static void main (String [] args){
+	public mainwindow (){
 		//set server list
 		serverList = new Vector<String>();
 		serverList.add ("msn");
@@ -56,21 +55,21 @@ public class mainwindow {
 		account_list.add("connect all");
 		
 		//set Main Window Frame
-		frame = new JFrame ("Parrot-IM");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension (300,500));
-		frame.setResizable(false);
-		frame.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
+		setTitle("Parrot-IM");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(new Dimension (300,500));
+		setResizable(false);
+		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		//frame.setMinimumSize(new Dimension (300,500)); // how to set the minimum size to be resized?
 		
 		//call SignIn Panel
 		init_SignInPanel ();
 		
-		frame.pack();
-		frame.setVisible(true);
+		pack();
+		setVisible(true);
 	}
 	
-	public static void init_SignInPanel (){
+	private void init_SignInPanel (){
 		//set signin Panel
 		signinPanel = new JPanel ();
 		signinPanel.setLayout (new BorderLayout());
@@ -79,10 +78,10 @@ public class mainwindow {
 		signinPanel.add(new headerPanel(), BorderLayout.NORTH);
 		signinPanel.add(accPanel, BorderLayout.CENTER);
 		signinPanel.add(new miscPanel(), BorderLayout.SOUTH);
-		frame.getContentPane().add(signinPanel);
+		getContentPane().add(signinPanel);
 	}
 	
-	public static void manageAccountPanel (){
+	private void manageAccountPanel (){
 		accPanel = new JPanel ();
 		accPanel.setLayout(new GridLayout(4,1));
 		accPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 20, 50));
@@ -130,7 +129,7 @@ public class mainwindow {
 		accPanel.add(connectPanel);
 
 	}
-	private static void manageAccount_ActionPerformed(ActionEvent e) {
+	private void manageAccount_ActionPerformed(ActionEvent e) {
 		accMAN = new JFrame ("Account Manager");
 		accMAN.setLocation(100, 100);
 		accMAN.setPreferredSize(new Dimension(500,300));
@@ -150,7 +149,7 @@ public class mainwindow {
 		accMAN.setVisible(true);
 	} 
 
-	private static void guestAccount_ActionPerformed(ActionEvent e) {
+	private void guestAccount_ActionPerformed(ActionEvent e) {
 		//set Frame
 		GAL = new JFrame ("Guest Account Login");
 		GAL.setPreferredSize(new Dimension (400,250));
@@ -215,7 +214,7 @@ public class mainwindow {
 		
 	} 
 	
-	private static void leftPanelMAN(){
+	private void leftPanelMAN(){
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new BorderLayout());
 		
@@ -267,7 +266,7 @@ public class mainwindow {
 		accPanel.add(leftPanel,BorderLayout.WEST);
 	}
 	
-	private static void rightPanelMAN() {
+	private void rightPanelMAN() {
 		//setting right panel
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
@@ -367,10 +366,10 @@ public class mainwindow {
 		//add to account manager pop up main panel
 		accPanel.add(rightPanel,BorderLayout.EAST);
 	}
-	private static void signIn_ActionPerformed(ActionEvent e) {
+	private void signIn_ActionPerformed(ActionEvent e) {
 		//TODO: set frame to signing in panel or to buddylist panel     
 	} 
-	private static void addACC_ActionPerformed(ActionEvent e) {
+	private void addACC_ActionPerformed(ActionEvent e) {
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
 			String newACC = serverList.get(serviceField.getSelectedIndex())+": "+UNField.getText();
@@ -385,7 +384,7 @@ public class mainwindow {
 		}
 	}
 	
-	public static String getcwd() { 
+	private String getcwd() { 
 	    String cwd = System.getProperty("user.dir"); 
 	    return cwd; 
 	}
