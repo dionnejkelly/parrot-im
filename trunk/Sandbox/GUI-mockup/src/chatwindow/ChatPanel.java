@@ -20,9 +20,11 @@ public class ChatPanel extends JPanel {
 		String[] fontList = {"Ariel", "Times New Roman", "Comic Sans MS"};
 		JComboBox fontSelect = new JComboBox(fontList);
 		fontSelect.setEditable(true);
+		fontSelect.setMaximumSize(new Dimension(130,28));
 		
 		SpinnerModel fontSizemodel = new SpinnerNumberModel(12, 6, 72, 1);
 		JSpinner fontSize = new JSpinner(fontSizemodel);
+		fontSize.setMaximumSize(new Dimension(45,30));
 
 		final JTextArea txt1 = new JTextArea();
 		txt1.setColumns(25);
@@ -47,7 +49,9 @@ public class ChatPanel extends JPanel {
 		
 		JToolBar bar1 = new JToolBar();
 		bar1.add(fontSelect);
+		bar1.addSeparator();
 		bar1.add(fontSize);
+		bar1.addSeparator();
 		bar1.add(boldButton);
 		bar1.add(italicsButton);
 		bar1.add(underlineButton);
