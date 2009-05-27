@@ -17,7 +17,7 @@ public class chatwindow extends JFrame{
 		setVisible(true);
 	}
 	
-	public void addNewConversation(){
+	public void addNewConversation(String title, String[] users){
 		
 	}
 	
