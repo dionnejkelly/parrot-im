@@ -275,12 +275,11 @@ public class mainwindow extends JFrame{
 		//setting right panel
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
-		
 		/*TOP PART*/
 		//account setupLabel setting Panel
+		JPanel setupLabelPanel = new JPanel();
 		GridLayout setupLabelLayout = new GridLayout (3,1);
 		setupLabelLayout.setVgap(10);
-		JPanel setupLabelPanel = new JPanel();
 		setupLabelPanel.setLayout(setupLabelLayout);
 		setupLabelPanel.setPreferredSize(new Dimension (75,75));
 		JLabel serviceLabel = new JLabel("Service:");
@@ -291,9 +290,10 @@ public class mainwindow extends JFrame{
 		setupLabelPanel.add(pwdLabel);
 		
 		//account setupField setting Panel
-		GridLayout setupFieldLayout = new GridLayout (3,1);
-		setupFieldLayout.setVgap(2);
 		JPanel setupFieldPanel = new JPanel();
+		BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
+		//GridLayout setupFieldLayout = new GridLayout (3,1);
+		//setupFieldLayout.setVgap(2);
 		setupFieldPanel.setLayout(setupFieldLayout);
 		serviceField = new JComboBox (serverList);
 		serviceField.setPreferredSize(new Dimension(170,27));
@@ -305,7 +305,7 @@ public class mainwindow extends JFrame{
 		
 		//account setup Panel
 		JPanel setupPanel = new JPanel();
-		setupPanel.setLayout(new FlowLayout());
+		setupPanel.setLayout(new BoxLayout (setupPanel, BoxLayout.X_AXIS));
 		setupPanel.add(setupLabelPanel);
 		setupPanel.add(setupFieldPanel);
 		
@@ -392,6 +392,8 @@ public class mainwindow extends JFrame{
 				if (account_list.get(i).compareTo(newACC)==0) match = true;
 			}
 			if (match) return;
+			UNField.setText("");
+			pwdField.setText("");
     		account_list.add(account_list.size()-1, newACC);
     		accList.updateUI();
 			//accMAN.setVisible(false);
