@@ -17,6 +17,10 @@ public class chatwindow extends JFrame{
 		setVisible(true);
 	}
 	
+	public void addNewConversation(){
+		
+	}
+	
 	public static String getcwd() { 
 		String cwd = System.getProperty("user.dir"); 
 		return cwd; 
