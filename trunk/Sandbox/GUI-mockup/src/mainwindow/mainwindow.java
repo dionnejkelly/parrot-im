@@ -104,7 +104,7 @@ public class mainwindow extends JFrame{
 		JPanel accOptPanel = new JPanel ();
 		accOptPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 		GridLayout accLayout = new GridLayout(2,1);
-		accLayout.setVgap(10);
+		accLayout.setVgap(15);
 		accOptPanel.setLayout (accLayout);
 		
 		//manage account
