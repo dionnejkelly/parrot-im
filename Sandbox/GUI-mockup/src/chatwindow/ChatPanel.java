@@ -17,7 +17,7 @@ public class ChatPanel extends JPanel {
 		JPanel editingPanel = new JPanel();
 		editingPanel.setLayout(new BorderLayout());
 		
-		String[] fontList = {"Ariel", "Times New Roman", "Comic Sans MS"};
+		String[] fontList = {"Arial", "Times New Roman", "Comic Sans MS"};
 		JComboBox fontSelect = new JComboBox(fontList);
 		fontSelect.setEditable(true);
 		fontSelect.setMaximumSize(new Dimension(130,28));
