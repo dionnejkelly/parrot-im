@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -226,29 +227,32 @@ public class mainwindow extends JFrame{
 		//saved account list
 		accList = new JList(account_list);
 		accList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		accList.setPreferredSize(new Dimension (150,200));
+		accList.setPreferredSize(new Dimension (180,200));
 		
 		//add-remove button panel
 		JPanel addremovePanel = new JPanel();
 		GridLayout ARlayout= new GridLayout(1,2);
 		addremovePanel.setLayout(ARlayout);
-		ARlayout.setHgap(5);
-		addremovePanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
+		addremovePanel.setPreferredSize(new Dimension(180,50));
+		//ARlayout.setHgap(5);
+		addremovePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 		
 		//add button
-		JButton addButton = new JButton("+");
-		addButton.setPreferredSize(new Dimension(50, 30));
+		JButton addButton = new JButton("edit");
+		//addButton.setPreferredSize(new Dimension(50, 20));
 		addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	//TODO: sorry, I have no idea what this thing is supposed to do
-            	addACC_ActionPerformed(evt);
-            	
-            }
+			public void actionPerformed(ActionEvent evt) {
+			//TODO: sorry, I have no idea what this thing is supposed to do
+			
+			//I make it as an edit button, which take the info to the right panel
+			//for use later
+				editACC_ActionPerformed(evt);
+			}
 		});
 		
 		//remove button
-		JButton removeButton = new JButton ("-");
-		removeButton.setPreferredSize(new Dimension(50, 30));
+		JButton removeButton = new JButton ("remove");
+		//removeButton.setPreferredSize(new Dimension(50, 20));
 		removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	int selected = accList.getSelectedIndex();
@@ -291,13 +295,15 @@ public class mainwindow extends JFrame{
 		
 		//account setupField setting Panel
 		JPanel setupFieldPanel = new JPanel();
-		BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
-		//GridLayout setupFieldLayout = new GridLayout (3,1);
-		//setupFieldLayout.setVgap(2);
+		//BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
+		GridLayout setupFieldLayout = new GridLayout (3,1);
+		setupFieldLayout.setVgap(2);
 		setupFieldPanel.setLayout(setupFieldLayout);
 		serviceField = new JComboBox (serverList);
 		serviceField.setPreferredSize(new Dimension(170,27));
 		UNField = new JTextField();
+		UNField.setPreferredSize(new Dimension (75,20));
+		
 		pwdField = new JPasswordField();
 		setupFieldPanel.add(serviceField);
 		setupFieldPanel.add(UNField);
@@ -392,11 +398,38 @@ public class mainwindow extends JFrame{
 				if (account_list.get(i).compareTo(newACC)==0) match = true;
 			}
 			if (match) return;
+			// TODO: pops a window that will ask if the user wants to modify it
 			UNField.setText("");
 			pwdField.setText("");
     		account_list.add(account_list.size()-1, newACC);
     		accList.updateUI();
 			//accMAN.setVisible(false);
+		}
+	}
+	private void editACC_ActionPerformed(ActionEvent e) {
+		int selected = accList.getSelectedIndex();
+		if (selected>=0 && selected < account_list.size()-1){
+			String tempAccount = account_list.get(selected);
+			StringTokenizer token = new StringTokenizer(tempAccount, " :");
+			String serviceName = token.nextToken();
+			int serviceNum = -1;
+			
+			if (serviceName.compareTo("msn") == 0){
+				serviceNum = 0;
+			}
+			else if (serviceName.compareTo("aim") == 0){
+				serviceNum = 1;
+			}
+			else if (serviceName.compareTo("twitter") == 0){
+				serviceNum = 2;
+			}
+			else if (serviceName.compareTo("icq") == 0){
+				serviceNum = 3;
+			}
+			String userID = token.nextToken();
+			UNField.setText(userID);
+			pwdField.setText("password here");//retrieved from database
+			serviceField.setSelectedIndex(serviceNum);
 		}
 	}
 	
