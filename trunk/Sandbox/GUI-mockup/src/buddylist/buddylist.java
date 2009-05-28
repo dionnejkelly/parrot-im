@@ -1,17 +1,38 @@
 package buddylist;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 
 public class buddylist extends JFrame{
-
+	JMenuBar menu;
+	
 	public buddylist(){
-		
+
 		this.setTitle("Buddy List");
 		setMinimumSize(new Dimension(300,600));
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/logo.png").getImage());
 		
+		JPanel buddylistPanel = new JPanel();
+		buddylistPanel.setLayout(new BorderLayout());
+		
 		//MENU BAR
+		menu = new JMenuBar();
+		init_menutools();
+		
+	    //INSIDE PANEL
+		JPanel accInfo = new JPanel();
+		accInfo.setLayout(new BoxLayout(accInfo, BoxLayout.Y_AXIS));
+		
+		
+		
+	    
+	    //add to buddylistPanel
+		buddylistPanel.add(menu, BorderLayout.NORTH);
+		buddylistPanel.add(accInfo, BorderLayout.CENTER);
+		
+		/*//MENU BAR
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBackground(Color.green);
 		menuPanel.setMinimumSize(new Dimension(300,50));
@@ -94,8 +115,48 @@ public class buddylist extends JFrame{
 		mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 		
 		getContentPane().add(mainPanel);
+		*/
+		
+		getContentPane().add(buddylistPanel);
 		pack();
 		setVisible(true);
+	}
+
+	private void init_menutools() {
+		JMenu fileMenu = new JMenu("File");
+	    fileMenu.setMnemonic(KeyEvent.VK_F);
+	    menu.add(fileMenu);
+	    JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+	    fileMenu.addSeparator();
+	    fileMenu.add(exitItem1);
+	    
+		JMenu editMenu = new JMenu("Edit");
+	    editMenu.setMnemonic(KeyEvent.VK_F);
+	    menu.add(editMenu);
+	    //JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+	    //fileMenu.addSeparator();
+	    //fileMenu.add(exitItem1);
+		
+		JMenu connectMenu = new JMenu("Connect");
+		connectMenu.setMnemonic(KeyEvent.VK_F);
+	    menu.add(connectMenu);
+	    //JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+	    //fileMenu.addSeparator();
+	    //fileMenu.add(exitItem1);
+	    
+		JMenu optionsMenu = new JMenu("Options");
+	    optionsMenu.setMnemonic(KeyEvent.VK_F);
+	    menu.add(optionsMenu);
+	    //JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+	    //fileMenu.addSeparator();
+	    //fileMenu.add(exitItem1);
+	    
+		JMenu helpMenu = new JMenu("Help");
+	    helpMenu.setMnemonic(KeyEvent.VK_F);
+	    menu.add(helpMenu);
+	    //JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+	    //fileMenu.addSeparator();
+	    //fileMenu.add(exitItem1);
 	}
 
 }
