@@ -3,8 +3,8 @@
 = Contents =<br>
 [RequirementsDocument#intro Introduction]<br>
 [RequirementsDocument#features features]<br>
-[RequirementsDocument#nonfunctional Non-Functionial Requirements]<br>
-[RequirementsDocument#audience Intended Audience]<br>
+[RequirementsDocument#non Non-Functionial Requirements]<br>
+[RequirementsDocument#aud Intended Audience]<br>
 [RequirementsDocument#tutorials Example Tutorials]<br>
 [RequirementsDocument#glossary Glossary]<br>
 
@@ -81,7 +81,7 @@ For instance, Parrot IM will provide the following essential features that allow
 [Feature_SlashCommands Slash Commands]
 
 ----
-<a name="audience">
+<a name="aud"/>
 = Intended Audience =
 
 The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
@@ -186,7 +186,7 @@ The users of our feature-rich instant messaging program that is compatible with 
     * Has a home network connection available.
 
 ----
-<a name="nonfunctional">
+<a name="non"/>
 = Non-Functional Requirements =
 
 === Product Requirements ===
