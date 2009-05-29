@@ -1,0 +1,5 @@
+#summary Feature: Live Instant Messaging
+
+Live Instant Messaging allows you to hold a one-on-one conversation with a friend from your list.  After either you initiate a conversation with a friend, or a friend starts chatting with you, the Chat Window will show all correspondence between you and this friend. Printed on this window is your current conversation. Messages from your friend will be displayed in this window with the friend's name shown before it. To send messages back, first click the chat box so that your cursor is shown, then type your message, and finally click the send button or press enter. You will see your message printed above, just after your friend's messages, and your friend will see your message on his or her computer.
+
+If you are talking to multiple friends at once, then the left-hand side of the window will show a list of friends that you are having conversations with. To talk to any friend, first click their name, and then the chat window will show your conversation with this friend. After this, you can use the chat box to send messages to them.
