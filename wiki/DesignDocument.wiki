@@ -41,9 +41,11 @@ Parrot IM will be constructed using the following technical tools:
 
 = System Diagrams =
 
-A Sequence Diagram: http://commons.wikimedia.org/wiki/File:CMPT_275_Assignment_2_Sequence_Diagram_Revised.png#file
+A Sequence Diagram: 
+http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram.png
 
-A UML diagram that shows how the major modules, classes, and functions of our system relate and share data: http://commons.wikimedia.org/wiki/File:ClassDiagram.png
+A UML diagram that shows how the major modules, classes, and functions of our system relate and share data: 
+http://parrot-im.googlecode.com/files/classDiagram_v2.png
 
 ----
 
