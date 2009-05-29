@@ -228,51 +228,10 @@ Metrics for specifying non-functional requirements:
 
 The following tutorials will walk you through the basic functions of Parrot IM.
 
-*Creating a User Profile and logging in*
-
-Upon opening Parrot IM, you will see the following window:
-
-(Picture: ss-2.jpg)
-
-At the middle of the window, it shows an existing account with an associated avatar picture above it. Below that, there are several options: 
-* Add/Manage Accounts
-* Connect Guest Account
-* Sign In
-* Options
-* Help
-
-1. Click the Add/Manage Accounts option.
-
-(ss-5.jpg)
-
-A new Account Manager window will appear. The left-hand side shows the accounts saved to the program, with the information on the right-hand side of the window.
-
-2. Click the "add" button at the bottom-left part of the window. A new entry will appear in the list: <New Account>
-
-3. Select the protocol you with to use (e.g. Jabber, Twitter, ICQ) by clicking the Service drop-down box and selecting whichever one you'd like.
-
-4. Enter your account's username below, in the Username field.
-
-5. Enter in your password in the Password field.
-
-6. If you wish the program to save your password so that you do not have to enter it in every time you log in, check the "Remember Password" box.
-
-7. To skip the log-in window when you open the program and automatically sign in with this account check the "Auto Sign-in" box.
-
-(ss-6.jpg)
-
-8. You're now finished adding your account! To proceed, click the OK button.
-
-(ss-3.jpg)
-
-9. Now, you will see just the log-in screen. If it is not already selected, click the drop-down box in the middle and select your account.
-
-(ss-7.jpg)
-
-10. Once selected, click the log-in screen.
-
-11. You will be logged in to your account as long as your username and password were accepted by the server. Afterwards, you will see the main Friend List window, and you will be able to chat with your friends.
-
+  * [Tutorial_CreateAccount How to create an account?]
+  * [Tutorial_LogIn How to log in?]
+  * [Tutorial_Chat How to chat?]
+  * [Tutorial_Exit How to exit Parrot IM?]
 ----
 <a name="glossary">
 = Glossary =
