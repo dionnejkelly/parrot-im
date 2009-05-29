@@ -48,7 +48,7 @@ For instance, Parrot IM will provide the following essential features that allow
 
 [Feature_Spellchecker Spellchecker]
 
-[Feature_ConfereceChatting Conference Chatting]
+[Feature_ConferenceChatting Conference Chatting]
 
 [Feature_FileTransfer File Transfer]
 
