@@ -82,14 +82,14 @@ The following data will be saved locally:
 Each account saves its friend list and other profile information on their own servers, so there is no need to store it in the local database.
 
 To store the above data locally, we will use the relational database SQLite, which will use the following file format:
-  * File Name: profiles.db
+  * File Name: parrot.db
 Only one file is required to store all the user profiles.
 
 
 The chat log will initially be stored in the profile, but an option will be given to export the log to a text file:
   * File Name: chatlog_`<`profileName>.txt
 This file will contain all chats that were saved under the corresponding user profile. 
- 
+
 === Save Users Profile File Format ===
 User profile will be organized in the following manner.
 
