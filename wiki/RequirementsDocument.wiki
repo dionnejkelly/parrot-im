@@ -28,7 +28,7 @@ For instance, Parrot IM will provide the following essential features that allow
 
 [Feature_AutoSignIn Auto Sign-in] 
 
-[Feature_AvatarPicture Avatar picture]
+[Feature_AvatarPicture Avatar picture] 
  
 [Feature_TabbedWindows Tabbed Windows] 
 
