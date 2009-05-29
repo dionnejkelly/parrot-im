@@ -3,6 +3,7 @@
 = Contents =<br>
 [RequirementsDocument#intro Introduction]<br>
 [RequirementsDocument#features features]<br>
+[RequirementsDocument#nonfunctional Non-Functionial Requirements]<br>
 [RequirementsDocument#audience Intended Audience]<br>
 [RequirementsDocument#tutorials Example Tutorials]<br>
 [RequirementsDocument#glossary Glossary]<br>
@@ -80,7 +81,7 @@ For instance, Parrot IM will provide the following essential features that allow
 [Feature_SlashCommands Slash Commands]
 
 ----
-
+<a name="audience">
 = Intended Audience =
 
 The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
@@ -185,7 +186,7 @@ The users of our feature-rich instant messaging program that is compatible with 
     * Has a home network connection available.
 
 ----
-
+<a name="nonfunctional">
 = Non-Functional Requirements =
 
 === Product Requirements ===
@@ -229,7 +230,7 @@ Metrics for specifying non-functional requirements:
 || Security || All stored passwords are encrypted inside the database. ||
 
 ----
-
+<a name="tutorials">
 = Example Tutorials =
 
 The following tutorials will walk you through the basic functions of Parrot IM.
@@ -280,7 +281,7 @@ A new Account Manager window will appear. The left-hand side shows the accounts 
 11. You will be logged in to your account as long as your username and password were accepted by the server. Afterwards, you will see the main Friend List window, and you will be able to chat with your friends.
 
 ----
-
+<a name="glossary">
 = Glossary =
 
 List of all technical terms and their precise definition.
