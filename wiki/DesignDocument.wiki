@@ -47,7 +47,7 @@ A Sequence Diagram:
  * Labelled arrows indicate operations (the sequeunce of operations is from top to bottom).
  * In this scenario, the Parrot IM user accesses the software to create ID, login, add/delete, chat, and exit under the user requests. 
 
-http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram_Revised.png
+http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram.png
 
 A UML diagram that shows how the major modules, classes, and functions of our system relate and share data: 
 http://parrot-im.googlecode.com/files/classDiagram_v2.png
