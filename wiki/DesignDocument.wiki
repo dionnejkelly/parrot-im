@@ -42,10 +42,10 @@ Parrot IM will be constructed using the following technical tools:
 = System Diagrams =
 
 A Sequence Diagram: 
-* To model the behavior of Parrot IM objects, the sequence diagram has been used to show the sequence of messages exchanged by objects. 
-* Objects and actors are aligned along the top of the diagram.
-* Labelled arrows indicate operations (the sequeunce of operations is from top to bottom).
-* In this scenario, the Parrot IM user accesses the software to create ID, login, add/delete, chat, and exit under the user requests. 
+ * To model the behavior of Parrot IM objects, the sequence diagram has been used to show the sequence of messages exchanged by objects. 
+ * Objects and actors are aligned along the top of the diagram.
+ * Labelled arrows indicate operations (the sequeunce of operations is from top to bottom).
+ * In this scenario, the Parrot IM user accesses the software to create ID, login, add/delete, chat, and exit under the user requests. 
 
 http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram.png
 
