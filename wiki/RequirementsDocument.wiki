@@ -1,7 +1,7 @@
 #summary Writing a user manual that is useful for both end-users and system designers.
 
 Quick Links
-[RequirementsDocument#features]
+[RequirementsDocument#features features]
 
 = Introduction =
 
