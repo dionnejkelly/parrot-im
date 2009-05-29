@@ -1,0 +1,24 @@
+#summary Feature: GUI
+
+Parrot IM includes a helpful, easy-to-use graphical user interface (GUI) that allows you to interact with the program with your keyboard and mouse. The GUI has graphical icons and visual indicators to fully represent the information and actions available to you.
+
+The parts of the GUI are used as follows:
+
+(add ss of all 3 windows)
+
+*Log-In Window* <br>
+This is the first screen that appears when you open the program. Either select an existing profile, or create a new one, and then click the log-in button to use the instant messenger.
+
+*Main Window/Friend List* <br>
+All of your friends are listed on this window, as well as your current avatar picture and status. In addition, you can search, add friends, and access the main options from this window.
+
+(add chat window ss)
+
+*Chat Window* <br>
+After initiating a chat with a friend, or a friend starts chatting to you, a new Chat Window appears that shows three components: who you are chatting to, the chat history for this conversation, and the chat box for typing new messages to your friend. Also, if you are holding multiple conversations with other friends, all of the names will be shown on the left-hand side of the screen in the area that shows who you are chatting to. To talk to somebody else, and to see your chat history with that person, simply click on their name.
+
+*Add-a-Friend Window* <br>
+When adding a friend, specific account information is required to successfully add him or her to your list. This window aids you in letting you select which protocol (e.g. Jabber, Twitter, ICQ) the friend uses, and the username of your friend. After successfully adding this information, your friend will be notified that you have added him or her.
+
+*Options Window* <br>
+This window holds all of the options and configuration settings for Parrot IM. The window is organized by headings, which appear on the left-hand side of the window in a vertical column. In each heading, there are numerous options that can be set. For instance, you can alter that chatbot settings, change the user interface colours and background image, choose to delete, export, or view your chat logs, and choose whether the program automatically logs you in or not when you start the program.
