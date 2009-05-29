@@ -1,4 +1,3 @@
-#summary Writing a document that details everything our team will do to ensure the quality of our project.
 
 There are three phases of testing that Parrot IM will be subjected to:
 
