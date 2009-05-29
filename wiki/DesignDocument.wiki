@@ -240,7 +240,7 @@ Features:
 
   * [Feature_SoundNotification Sound Notification] - plays a short sound clip upon certain events occurring, such as receiving a message.  
     * Requires a new main class, !SoundEngine. The core has the ability to call for sounds to be played, and the GUI can communicate with the !SoundEngine to synchronize the audio and visual aspects of the program. Java's Sound Sampled library allows for wave files to be played. The !SoundEngine will rely on this class to handle the output of sound to the user.
-  * [Feature_Search Engine Search Engine] - allows users to efficiently and intuitively search previous conversations or the friends list for anything. 
+  * [Feature_Search_Engine Search Engine] - allows users to efficiently and intuitively search previous conversations or the friends list for anything. 
     * The search is a feature that we'd like to have as refined and polished as possible, but is pushed back to a beta release because of its complexity. We will implement multiple search methods to scan information in the database and return it in intuitive locations in the GUI. This will primarily be a function of the database classes, with minimal involvement of the core.
   * [Feature_TwitterAndICQProtocols Twitter and ICQ Protocol] - allows users to communicate to people using Twitter and ICQ. 
     * These protocols will be implemented similarly to XMPP. The XMPP protocol is implemented in a modular fashion so that adding the Twitter and ICQ protocols only require minor modifications to the core. Some of the core's methods will only work when users of a certain protocol are given as parameters, as each network is capable of different functions. The !UserProfile class will be updated with !TwitterUsers and ICQUsers which inherit methods and parameters from the !UserProfile. Using inheritance, the model and core classes will not have to change methods that return or use !UserProfiles as parameters, but code will be added to check the instance of the !UserProfiles to determine their type.
@@ -250,7 +250,7 @@ Features:
     * With the help of Softcorporation's Suggester Spellcheck, the GUI will be updated to show errors in words that are currently being typed by the user. A right-click menu will also be implemented to show the suggestions for erroneous words. All of this will occur in any GUI classes that have user typing capability.
   * [Feature_OfflineMessaging Offline Messaging] - allows users to leave messages to another user. 
     * The core communication class will rely on methods from the implemented protocol libraries to send offline messages. The GUI must be updated to show that these messages were not received by the user yet.
-  * [Feature_ConferenceChatting Conference Chatting] - allows users to create their own chat room for private conference with more than one user
+  * [Feature_ConfereceChatting Conference Chatting] - allows users to create their own chat room for private conference with more than one user
     * Requires both core and GUI methods to be created to represent both a chat with multiple users and to allow for the communication with them. 
   * [Feature_ChatLog Chat Log] - logs all chat history with friends.
     * The database will store all chat logs. A new interface for viewing chat history must be constructed in the GUI.
@@ -278,7 +278,7 @@ Main Clases to Implement:
 All features will be added, including GUI features in which the user interface customization of colors, fonts and window formats will be allowed. Help pages will be polished and usable, and the program will be as bug-free as possible. 
 
 Features:
-* [Feature_EmailNotification Email Notification] - if the user is connected to any networks in which he or she also has an email account, an email notification will display upon new emails being received.  
+  * [Feature_EmailNotification Email Notification] - if the user is connected to any networks in which he or she also has an email account, an email notification will display upon new emails being received.  
     * Requires interfacing of the core to the email notifications received in other networks. The core needs to gather the number of new emails and the sender of them. The core must communicate this data to the GUI, which provides buttons to check the email. The GUI must also cause the default internet browser to open so that the user can look at the email.
   * [Feature_AdvancedAndSimplifiedModes Advanced/Simplified Modes] - To use all the program's features, advanced mode must be turned on. This helps to prevent the user from being overwhelmed with all the options upon first using the program.  
     * The current mode is saved in the database, and the GUI must be configured to check this mode before displaying certain features. The features themselves do not have to be disabled, but the means for accessing them need to be disabled in simplified mode. 
