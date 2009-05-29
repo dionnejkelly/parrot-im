@@ -100,7 +100,7 @@ The users of our feature-rich instant messaging program that is compatible with 
 
 === Phyllis Lin (University Student) ===
   * *Age:* 19
-  * *Gender:* Male
+  * *Gender:* Female
   * *Education:* First Year Computing Science student
   * *Experience:* Familiar with Windows Live Messenger.
   * *Expertise:* 
