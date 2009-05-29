@@ -140,7 +140,7 @@ The users of our feature-rich instant messaging program that is compatible with 
     * Occasionally busy having TA's office hours during exam periods.
     * Has a home network connection available.
 
-=== James Power (Third Party Developer)
+=== James Power (Third Party Developer) ===
   * *Age:* 39
   * *Gender:* Male
   * *Education:* PhD in Computer Science.
@@ -179,33 +179,29 @@ The users of our feature-rich instant messaging program that is compatible with 
 
 == Non-Functional Requirements ==
 
-Product requirement (See page 123 for more details): 
-*'''Usability: '''The user interface for Parrot IM shall be implemented as simple features, yet powerful, that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face.
-*'''Usability: ''' The Parrot IM is compatible with multiple protocols, including XMPP, to target any age and audience.
-*'''Performance Requirements:''' The program will execute, and the log-in window will show within 8 seconds.
-*'''Performance Requirements:''' The program will occupy between 10 MB and 30 MB of RAM while running.
-*'''Reliability Requirements:''' The number of faults found during testing (i.e., before delivery) will be no more than ___ based upon programmer information regarding failures found before release of the software.
-*'''Reliability Requirements:''' The failures (or other problems) reported by users after delivery will be no more than ___ based upon customer information regarding failures found after release of the software.
-*'''Portability Requirements:''' Parrot IM is able to run particularly by the CMPT 275’s lecture computer (This is a temporary statement.).
+=== Product Requirements ===
+  * *Usability:* The user interface for Parrot IM shall be implemented as simple features, yet powerful, that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face.
+  * *Usability:* The Parrot IM is compatible with multiple protocols, including XMPP, to target any age and audience.
+  * *Performance Requirements:* The program will execute, and the log-in window will show within 8 seconds.
+  * *Performance Requirements:* The program will occupy between 10 MB and 30 MB of RAM while running.
+  * *Reliability Requirements:* The number of faults found during testing (i.e., before delivery) will be no more than 50 based upon programmer information regarding failures found before release of the software.
+  * *Reliability Requirements:* The failures (or other problems) reported by users after delivery will be no more than 20 based upon customer information regarding failures found after release of the software.
+  * *Portability Requirements:* Parrot IM is able to run on Windows, Macintosh, and Linux operating environments.
 
+=== Organizational Requirements === 
+  * *Process Standards:* The system development process and deliverable documents shall conform to the process and deliverables defined in Design Document.
+  * *Process Standards:* Parrot IM will follow the conventional programming style of Java [http://java.sun.com/docs/codeconv/ coding].
+  * *Implementation Requirements:* Java programming language will be used in Eclipse IDE. (We also need which design method is going to be used)
+  * *Delivery Requirements:* 
+    * Alpha Release: June 26th, 2009 
+    * Beta Release: July 17th, 2009 
+    * Final Release: July 31st, 2009
 
-Organizational requirement: 
-
-'''Note:''' In the book it discusses about these requirements into two categories: Developer and User. We have to ask ourselves if we should divide it into two categories as the book mentions (also the other group has followed the book guildline).
-
-*'''Process Standards:''' The system development process and deliverable documents shall conform to the process and deliverables defined in Design Document.
-*'''Process Standards:''' Parrot IM will follow the conventional (programming?) style of Java [http://java.sun.com/docs/codeconv/ coding].
-*'''Implementation Requirements:''' Java programming language will be used in Eclipse IDE. (We also need which design method is going to be used)
-*'''Delivery Requirements:''' 
-      Alpha Release: June 26th, 2009 
-      Beta Release: July 17th, 2009 
-      Final Release: July 31st, 2009
-
-External requirement: 
-*'''Interoperability Requirements:''' The program shall not disclose any personal information about program users apart from their name and email address to the Parrot IM users who use the program.
-*'''Interoperability Requirements:''' Parrot IM will only be releasing our source code under the GPL V2 and interact with systems in other organizations using SQLiteJDBC v054 driver and Smack 3.1.0 interface.
-*'''Legislative Requirements:''' The program should not use our technical skills and abilities to behave in a dishonest way that misuses other people's computers. 
-*'''Ethical Requirements:''' The Parrot IM software engineers shall be bounded by the Code of Academic Integrity and Good Conduct to participate in lifelong learning regarding the pratice of their profession and shall promote an ethical approach to the pratice of the profession. 
+=== External requirements === 
+  * *Interoperability Requirements:* The program shall not disclose any personal information about program users apart from their name and email address to the Parrot IM users who use the program.
+  * *Interoperability Requirements:* Parrot IM will only be releasing our source code under the GPL V2 and interact with systems in other organizations using SQLiteJDBC v054 driver and Smack 3.1.0 interface.
+  * *Legislative Requirements:* The program should not use our technical skills and abilities to behave in a dishonest way that misuses other people's computers. 
+  * *Ethical Requirements:* The Parrot IM software engineers shall be bounded by the Code of Academic Integrity and Good Conduct to participate in lifelong learning regarding the practice of their profession and shall promote an ethical approach to the practice of the profession. 
 
 A program goal: The program should be easy to use by any controllers (experienced or inexperienced) and should be organized in such a way that errors are minimized.
 
