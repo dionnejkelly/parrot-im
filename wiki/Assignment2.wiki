@@ -4,10 +4,9 @@
 
 Details about assignment 2 can be found [http://cs-tjd-web2.cs.surrey.sfu.ca/cmpt275summer09/wiki/AssignmentTwo/ here.]
 
+== Documents ==
 
-
-
-== Three Documents ==
+The following documents outline the initial requirements and design of Parrot IM:
 
 *[RequirementsDocument Requirements Document]
 
