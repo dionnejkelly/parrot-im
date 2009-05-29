@@ -53,7 +53,7 @@ A UML diagram that shows how the major modules, classes, and functions of our sy
  * Object-oriented modelling is used to identify the classes of object that are important in the Parrot IM domain.
  * The classes of object are organized into a taxonomy to show how an object class is related to other classes through common attributes and services.
  * To display this taxonomy, the classes are organized into an inheritance hierarchy with the most general object classes at the top of the hierarchy.
- * Specialized objects inherit the attributes and services from the top hiearchy classes and may have their own attributes and services as well.
+ * Specialized objects inherit the attributes and services from their top hiearchy class and may have their own attributes and services as well.
 
 http://parrot-im.googlecode.com/files/classDiagram_v2.png
 
