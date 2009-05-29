@@ -1,0 +1,14 @@
+#summary Feature: Friend List
+
+The Friend List is a part of one of the two main windows of Parrot IM. It is a list of all your friends, family, co-workers, and associates. In addition to being able to organize this list in any way you want--you can create groups and assign friends to certain groups, or you can have the list shown by username or email address--you can also enter in keywords to search for your friends from this list. This is especially useful as your Friend List grows large. In addition, the Friend List has the following components:
+
+  * Chat
+    * Simply double-click a friend from your list to initiate a chat with them. Doing so will open up a new chat window. This feature can also be accessed by right-clicking on the friend.
+  * Add a Friend
+    * This button is on the bottom of the Friend List. Clicking it will open a new window where you can enter in the account information of a friend you'd like to add.
+  * Search Box
+    * Sometimes your friends will change their display name, and it can be hard to find them. You can use the search box to enter in part of their information, for example, username, real name, or email address, and you can find your friend on the list easily. Also, this search will show any matching keywords from your previous chats.
+  * Friend Information
+    * Access by right-clicking a friend on the list. Holds all information about your friend, including real name, email address, user name, or any other information you keep.
+  * Remove a friend
+    * Access by right-clicking a friend on the list. Removes a friend from your list.
