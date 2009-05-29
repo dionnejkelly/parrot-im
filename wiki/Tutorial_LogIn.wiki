@@ -1,0 +1,7 @@
+#summary Tutorial: How to log in
+
+
+
+10. Once selected, click the log-in screen.
+
+11. You will be logged in to your account as long as your username and password were accepted by the server. Afterwards, you will see the main Friend List window, and you will be able to chat with your friends.
