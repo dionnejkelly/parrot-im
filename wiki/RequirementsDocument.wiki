@@ -207,7 +207,7 @@ The users of our feature-rich instant messaging program that is compatible with 
   * *Legislative Requirements:* The program should not use our technical skills and abilities to behave in a dishonest way that misuses other people's computers. 
   * *Ethical Requirements:* The Parrot IM software engineers shall be bounded by the Code of Academic Integrity and Good Conduct to participate in lifelong learning regarding the practice of their profession and shall promote an ethical approach to the practice of the profession. 
 
-A program goal: The program should be easy to use by any controllers (experienced or inexperienced) and should be organized in such a way that errors are minimized.
+A program goal: The program should be easy to use by anyone (experienced or inexperienced) and should be organized in such a way that errors are minimized.
 
 A verifiable non-functional requirement: Any (experienced or inexperienced) controllers shall be able to use all the system functions after a total of 1 hour’s (temporary) training. After this training, the average number of errors made by any users shall not exceed one (temporary) per day.
 
