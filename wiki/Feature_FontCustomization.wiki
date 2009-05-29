@@ -1,0 +1,3 @@
+#summary Feature: Font Customization
+
+Font Customization allows you to change your font's size, type, family, and colour. After changing your font, all messages you type to friends will be shown with this font, and your friends will see the font you selected, as long as it is supported in their computer. Your font selection will be automatically saved in your user profile, so that the next time you use Parrot IM you will chat with the same font.
