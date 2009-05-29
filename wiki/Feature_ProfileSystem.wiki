@@ -1,0 +1,13 @@
+#summary Feature: Profile System
+
+Parrot IM allows multiple users to log-in to their messaging accounts, and can store each user's profile in the program. You can choose which profile to log-in with at the Log-In Window. Each profile stores each messaging account (e.g. Twitter, Google Talk, ICQ) so that you can quickly log-in and chat upon starting the program. The profiles also store the following information from each user:
+  * Font 
+  * Additional friend information
+  * Custom user interface
+  * Friend list groups
+  * Options
+  * Chatbot messages
+
+By default, the program will prompt you for your password of each of your accounts, but you can use the Auto Sign-In feature to automate this.
+
+New user profiles can also be created at the Log-In Window. Alternatively, other users can sign in on a Guest Profile if they do not want their account information saved on that computer. After asking for account information, including username and password, Parrot IM will load with the default settings. None of this information will be saved for future use.
