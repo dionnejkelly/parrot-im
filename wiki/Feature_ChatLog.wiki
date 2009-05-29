@@ -1,0 +1,5 @@
+#summary Feature: Chat Log
+
+You can choose to have all of your chats logged, which allows you to read the contents of any conversation you've had on Parrot IM. You can selectively choose to log or not log any conversation; there is a button in the Chat Window that controls this for each conversation. 
+
+To access the full logs, use the options menu to navigate to Chat Log to find all logs sorted by date and friend. Alternatively, the logs can be searched for key words at any time by using the search box in the Friend List. So that the logs do not take up too much space, it is possible to also delete olds logs through the options menu. Alternatively, you can export the logs to an xml file so that they can be read outside of the program.
