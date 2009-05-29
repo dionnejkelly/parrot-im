@@ -1,0 +1,5 @@
+#summary Feature: Auto Sign-in
+
+Auto Sign-in is a feature that allows users to automatically sign-in with their user profile upon starting up Parrot IM. If selected, the program will not show the Log-In Window, but instead immediately show the main Friend List after executing the program. Your password will not be requested, but instead will be saved in the program. To use, check the "Automatically sign-in" box on the Log-In Window beside your user profile.
+
+This feature is mainly useful for people that don't have anybody else use their computer, because it skips the screen that allows you to change users. Please do not enable this feature on a public computer, because then anybody can log in as you after you use Parrot IM.
