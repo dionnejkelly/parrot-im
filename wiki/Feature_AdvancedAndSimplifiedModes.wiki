@@ -1,0 +1,9 @@
+#summary Feature: Advanced and Simplified Modes
+
+When learning something new, it is best to learn the basics first, and then investigate the more advanced aspects. Otherwise, it can be overwhelming when it feels like there is so much to know. Parrot IM alleviates this stress by beginning in a simplified mode, in which there are as few buttons as possible to provide the basic chatting functionality. In simplified mode, you can do the following:
+  * Create a user profile
+  * Add a friend
+  * Chat with friends
+  * Change your display name, status, and picture
+
+In advanced mode, all the functionality of Parrot IM is unlocked, and with it comes many more buttons on the user interface. The advanced mode can easily be turned on or off in the options menu.
