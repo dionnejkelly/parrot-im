@@ -250,7 +250,7 @@ Features:
     * With the help of Softcorporation's Suggester Spellcheck, the GUI will be updated to show errors in words that are currently being typed by the user. A right-click menu will also be implemented to show the suggestions for erroneous words. All of this will occur in any GUI classes that have user typing capability.
   * [Feature_OfflineMessaging Offline Messaging] - allows users to leave messages to another user. 
     * The core communication class will rely on methods from the implemented protocol libraries to send offline messages. The GUI must be updated to show that these messages were not received by the user yet.
-  * [Feature_ConfereceChatting Conference Chatting] - allows users to create their own chat room for private conference with more than one user
+  * [Feature_ConferenceChatting Conference Chatting] - allows users to create their own chat room for private conference with more than one user
     * Requires both core and GUI methods to be created to represent both a chat with multiple users and to allow for the communication with them. 
   * [Feature_ChatLog Chat Log] - logs all chat history with friends.
     * The database will store all chat logs. A new interface for viewing chat history must be constructed in the GUI.
