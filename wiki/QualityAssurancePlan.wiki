@@ -9,7 +9,7 @@ We start from the lowest level, testing the individual methods in each of our cl
   * Every state of an object is functional, and does not cause errors in methods that interact with that object
   * Objects should be able to interact with each other properly.
 
-As an example, consider our UserProfile class, which interacts with Users inside its !FriendList. Our first goal is to ensure that each method in these classes operates normally, and so we design test cases for each method to assert its return value or its change in state. Our second goal indicates that the objects should be tested in a variety of states. One possible test is to verify the operation of all the User class's methods when the User is classified as online, away, busy, and offline. Our final goal is to test the interaction of objects. We should test each method in UserProfile that interacts with Users, and try to test these while each are in as many different states as possible.
+As an example, consider our !UserProfile class, which interacts with Users inside its !FriendList. Our first goal is to ensure that each method in these classes operates normally, and so we design test cases for each method to assert its return value or its change in state. Our second goal indicates that the objects should be tested in a variety of states. One possible test is to verify the operation of all the User class's methods when the User is classified as online, away, busy, and offline. Our final goal is to test the interaction of objects. We should test each method in !UserProfile that interacts with Users, and try to test these while each are in as many different states as possible.
 
 == JUnit ==
 
@@ -17,7 +17,7 @@ Just testing these two objects alone amounts for a significant amount of test ca
 
 JUnit version 4.6 will be used to conduct automatic unit testing. JUnit simplifies unit testing by providing a framework in which test classes and test methods can be invoked to verify the correctness of our program's classes. For instance, most classes will have a corresponding test class. This test class will contain methods that assert the correct function of the program class's methods. These test cases can be run upon command, with no additional user input required.
 
-JUnit is fully [http://junit.org/junit/javadoc/4.5/ documented] via JavaDoc. There is also a very useful [http://junit.sourceforge.net/doc/faq/faq.htm FAQ] to get started with using JUnit.
+JUnit is fully [http://junit.org/junit/javadoc/4.5/ documented] via !JavaDoc. There is also a very useful [http://junit.sourceforge.net/doc/faq/faq.htm FAQ] to get started with using JUnit.
 
 To use JUnit, first we must make a test class. Each test class should contain the following import statements:
 {{{
@@ -34,7 +34,7 @@ Each method of the test class needs to be annotated with one of the following:
 
 The test methods will contain an assert method, such as assertTrue or assertEquals. When executing JUnit with this test class, these assertions will be verified, and the results will be shown.
 
-Here is an example method that could appear in a test class for Parrot IM's UserProfile class, it confirms that clearStatusMessage() correctly sets the status String to the empty string:
+Here is an example method that could appear in a test class for Parrot IM's !UserProfile class, it confirms that clearStatusMessage() correctly sets the status String to the empty string:
 
 {{{
 @Test
@@ -47,7 +47,7 @@ public void testUserStatusChange
    assertTrue(userProfile.getStatusMessage().isEmpty());
 }
 }}}
-If this method were a part of a test class named TestUserProfile, it could be executed as follows from a terminal window:
+If this method were a part of a test class named !TestUserProfile, it could be executed as follows from a terminal window:
 {{{
   java org.junit.runner.JUnitCore TestUserProfile
 }}}
