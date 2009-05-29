@@ -1,0 +1,3 @@
+#summary Feature: Tabbed Windows
+
+Tabbed Windows allows you to collapse multiple conversations into a single window separated into tabs to navigate between them. By default, these tabs are shown in a vertical column on the left-hand side of the Chat Window. Each tab has a friend's display name on it, and clicking the tab will make the Chat Window show the conversation with this friend, and allow you to chat with him or her.
