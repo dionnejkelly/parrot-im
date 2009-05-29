@@ -4,7 +4,7 @@ After you've logged in, you will see your main Friend List, which shows all of y
 
 http://parrot-im.googlecode.com/files/handrawnMockupEdit_BuddyList.jpg
 
-1. From the Friend List, double-click on one of the online friends in your list. In the screenshot below, if you want to talk to "BillyBob123," simply double click his name, and a Chat Window will appear.
+1. From the Friend List, double-click on one of the online friends in your list. In the screenshot above, if you want to talk to "PersonB", simply double click his name, and a Chat Window will appear.
 
 http://parrot-im.googlecode.com/files/mockup1_chatWindow1.jpg
 
@@ -15,7 +15,7 @@ The Chat Window has three main components:
 
 2. To send messages to your friend, click the empty box in the bottom-right part of the screen, type your message, and then click the send button or press enter.
 
-3. Messages to and from your friend will appear above this space, in the upper-right part of the window. 
+3. Messages to and from your friend will appear above this space, in the upper-right part of the window.
 
 4. To finish your conversation, simply close the window. One way to do this is to click File --> close.
 
