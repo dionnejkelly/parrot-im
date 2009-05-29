@@ -1,4 +1,4 @@
-#Writing a user manual that is useful for both end-users and system designers.
+#summary Writing a user manual that is useful for both end-users and system designers.
 
 = Introduction =
 
@@ -6,7 +6,7 @@ The Parrot IM program is a new, easy-to-use, fun, and feature-rich instant messa
 
 The program is expected to implement all of our proposed features, including the low-priority features, by Parrot IM's final release. Also, the program is expected to provide services to users who will run Parrot IM whenever they wish to be connected to their friends and that they will prefer to run Parrot IM over existing messaging solutions, such as ICQ and Google Talk.
 
----- 
+----
 
 = Features =
 
@@ -80,94 +80,65 @@ The users of our feature-rich instant messaging program that is compatible with 
 
 == List of the Kinds of Users ==
 
-*Name:* Jenny Bits (Elementary Student)
-*Age:* 10
+=== Jenny Bits (Elementary Student) ===
+  * *Age:* 10
+  * *Gender:* Female
+  * *Education:* Grade 4 Elementary School.
+  * *Experience:* Familiar with a simple chat program.
+  * *Expertise:*
+    * Operate computer equipment. 
+  * *Goal:* 
+    *Wants to communicate with her friends online. 
+    *Wants to learn new words or proper spelling to words through the spellcheck function.
+    *Wants to use the cool fonts and emoticons that she can use in her chats.
+  * *Assumptions:* 
+    * Ability to operate basic applications on her personal computer in Windows OS. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a password.
+    * Has a home network connection available.
 
-'''Gender:''' Female
+=== Phyllis Lin (University Student) ===
+  * *Age:* 19
+  * *Gender:* Male
+  * *Education:* First Year Computing Science student
+  * *Experience:* Familiar with Windows Live Messenger.
+  * *Expertise:* 
+    * Operate and maintain computer equipment. 
+    * Ability to customize systems according to her specific needs. 
+  * *Goal:* 
+    * Wants to communicate with her friends effortlessly and effectively. 
+    * Does not want to spend the time to open multiple programs to track down her friends. 
+    * Wants to use the search function to find her contacts or important details from previous conversations. 
+    * Wants to use a simple and clean user interface to boost her productivity.
+  * *Assumptions:* 
+    * Ability to operate basic applications on her personal computer in Windows OS. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a password.
+    * Knowledgeable about how to search for information using a keyword.
+    * Has a home network connection available.
 
-'''Education:''' Grade 4 Elementary School.
-
-'''Experience:''' Familiar with a simple chat program.
-
-'''Expertise:''' 
-*Operate computer equipment. 
-
-'''Goal:''' 
-*Wants to communicate with her friends online. 
-*Wants to learn new words or proper spelling to words through the spellcheck function.
-*Wants to use the cool fonts and emoticons that she can use in her chats.
-
-'''Assumption:''' 
-*Ability to operate basic applications on her personal computer in Windows OS. 
-*Ability to operate a keyboard and a mouse.
-*Knowledgeable about how to create an account with a password.
-*Has a home network connection available.
-
-----
-
-(We should add high-school student; they are our prime market!)
-
-----
-
-'''Name:''' Phyllis Lin [University Student]
-
-'''Age:''' 19
-
-'''Gender:''' Female
-
-'''Education:''' First Year Computing Science student
-
-'''Experience:''' Familiar with Windows Live Messenger.
-
-'''Expertise:''' 
-*Operate and maintain computer equipment. 
-*Ability to customize systems according to her specific needs. 
-
-'''Goal:''' 
-*Wants to communicate with her friends effortlessly and effectively. 
-*Does not want to spend the time to open multiple programs to track down her friends. 
-*Wants to use the search function to find her contacts or important details from previous conversations. 
-*Wants to use a simple and clean user interface to boost her productivity.
-
-'''Assumption:''' 
-*Ability to operate basic applications on her personal computer in Windows OS. 
-*Ability to operate a keyboard and a mouse.
-*Knowledgeable about how to create an account with a password.
-*Knowledgeable about how to search for information using a keyword.
-*Has a home network connection available.
-
-
-----
-
-'''Name:''' Tim Bucks [Teaching Assistant]
-
-'''Age:''' 27
-
-'''Gender:''' Male
-
-'''Education:''' Master's Degree in Computer Science.
-
-'''Experience:''' Familiar with many different chat programs.
-
-'''Expertise:''' 
-*Operate and repair computer equipment. 
-*Ability to write and test computer programs in major programming languages. 
-*Four years troubleshooting experience and extensive knowledge of web server and database.
-
-'''Goal:''' 
-*Wants to maintain and update programs. 
-*Wants to rely on multiple-network functionality.
-*Does not want to spend the time to open multiple programs to track down his friends. 
-*Wants to employ chatbot to send different messages to his different groups of contacts while he is away.
-*Wants to use slash-commands to boost his messaging experience.
-
-'''Assumption:''' 
-*Ability to operate most of applications on his personal computer in Windows, Linux, and Mac OS. 
-*Ability to operate a keyboard and a mouse.
-*Knowledgeable about how to create an account with a secure password.
-*Knowledgeable about slash-commands in different Operating Systems.
-*Occasionally busy having TA's office hours during exam periods.
-*Has a home network connection available.
+=== Tim Bucks (Teaching Assistant) ===
+  * *Age:* 27
+  * *Gender:* Male
+  * *Education:* Master's Degree in Computer Science.
+  * *Experience:* Familiar with many different chat programs.
+  * *Expertise:* 
+    * Operate and repair computer equipment. 
+    * Ability to write and test computer programs in major programming languages. 
+    * Four years troubleshooting experience and extensive knowledge of web server and database.
+  * *Goal:* 
+    * Wants to maintain and update programs. 
+    * Wants to rely on multiple-network functionality.
+    * Does not want to spend the time to open multiple programs to track down his friends. 
+    * Wants to employ chatbot to send different messages to his different groups of contacts while he is away.
+    * Wants to use slash-commands to boost his messaging experience.
+  * *Assumptions:* 
+    * Ability to operate most of applications on his personal computer in Windows, Linux, and Mac OS. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a secure password.
+    * Knowledgeable about slash-commands in different Operating Systems.
+    * Occasionally busy having TA's office hours during exam periods.
+    * Has a home network connection available.
 
 ----
 
