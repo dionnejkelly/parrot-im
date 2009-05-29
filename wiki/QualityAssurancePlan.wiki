@@ -197,13 +197,13 @@ To measure our software's complexity, we will use the [http://metrics.sourceforg
 Below are graphs of the projected software metrics for all versions of the program:
 
 Classes: 
-http://commons.wikimedia.org/wiki/File:Classes.jpg
+http://parrot-im.googlecode.com/files/Classes.jpg
 
 Lines of code: 
-http://commons.wikimedia.org/wiki/File:Lines_of_code.jpg
+http://parrot-im.googlecode.com/files/Lines%20of%20code.jpg
 
 Methods: 
-http://commons.wikimedia.org/wiki/File:Methods.jpg
+http://parrot-im.googlecode.com/files/Methods.jpg
 
 
 = References =
