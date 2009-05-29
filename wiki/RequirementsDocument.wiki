@@ -1,16 +1,507 @@
-_Writing a user manual that is useful for both end-users and system designers._
+#Writing a user manual that is useful for both end-users and system designers.
+
+== Introduction ==
+
+The Parrot IM program is a new, easy-to-use, fun, and feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, to target any age and audience. The program is aim to provide a simple, yet powerful, communication program that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face.
+
+The program is expected to implement all of our proposed features, including the low-priority features, by Parrot IM's final release. Also, the program is expected to provide services to users who will run Parrot IM whenever they wish to be connected to their friends and that they will prefer to run Parrot IM over existing messaging solutions, such as ICQ and Google Talk.
+
+== Features ==
+
+For instance, Parrot IM will provide the following essential features that allow users to experience a full-featured communication client program:
+
+[GUI Graphical User Interface]
+
+[FriendList Friend List]
+
+[LiveInstantMessaging Live Instant Messaging] 
+
+[XMPP XMPP Protocol]
+
+[Chatbot Chatbot]
+
+[ProfileSystem Profile System]
+
+[FontCustomization Font Customization] 
+
+[AutoSignIn Auto Sign-in] 
+
+[AvatarPicture Avatar picture]
+ 
+[TabbedWindows Tabbed Windows] 
+
+[BlockingAnotherUser Blocking another user] 
+
+[Status Status]
+
+[ChatLog Chat Log]
+
+[SearchEngine Search Engine]
+
+[TwitterAndICQProtocols Twitter and ICQ Protocols]
+
+[IsTyping "Is Typing" Notification Option]
+
+[Emoticons Emoticons]
+
+[Spellchecker Spellchecker]
+
+[ConfereceChatting Conference Chatting]
+
+[FileTransfer File Transfer]
+
+[SoundNotification Sound Notification]
+
+[UICustomization UI Customization]
+
+[AdditionalProtocolModules Additional Protocol Modules]
+
+[OfflineMessaging Offline Messaging]
+
+[AdvancedAndSimplifiedModes Advanced/Simplified Modes]
+
+[SpamFilter Spam Filter]
+
+[MultipleOSCompatibility Multiple OS Compatibility]
+
+[LanguageLocalization Language Localization]
+
+[EmailNotification Email Notification]
+
+[SlashCommands Slash Commands]
+
+== Intended Audience ==
+
+The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
 
 
-==User Manual Contents==
 
-[Introduction Introduction]
+'''List of the Kinds of Users'''
 
-[IntendedAudience Intended Audience]
+'''Note:''' Please feel free to add/modify more intended users in the following. This is not an exhausitive list nor a complete list that highlights all intended users about our application. Some of the intended users shown below might have been an overkill, but it may be helpful to consider users that range from a child who began to use a computer to a senior who is not yet so familiar with a computer. 
 
-[Features Features]
+----
 
-[NonFunctionalRequirements Non-Functional Requirements]
+'''Name:''' Jenny Bits [Elementary Student]
 
-[ExampleTutorials Example Tutorials]
+'''Age:''' 10
 
-[Glossary Glossary]
+'''Gender:''' Female
+
+'''Education:''' Grade 4 Elementary School.
+
+'''Experience:''' Familiar with a simple chat program.
+
+'''Expertise:''' 
+*Operate computer equipment. 
+
+'''Goal:''' 
+*Wants to communicate with her friends online. 
+*Wants to learn new words or proper spelling to words through the spellcheck function.
+*Wants to use the cool fonts and emoticons that she can use in her chats.
+
+'''Assumption:''' 
+*Ability to operate basic applications on her personal computer in Windows OS. 
+*Ability to operate a keyboard and a mouse.
+*Knowledgeable about how to create an account with a password.
+*Has a home network connection available.
+
+----
+
+(We should add high-school student; they are our prime market!)
+
+----
+
+'''Name:''' Phyllis Lin [University Student]
+
+'''Age:''' 19
+
+'''Gender:''' Female
+
+'''Education:''' First Year Computing Science student
+
+'''Experience:''' Familiar with Windows Live Messenger.
+
+'''Expertise:''' 
+*Operate and maintain computer equipment. 
+*Ability to customize systems according to her specific needs. 
+
+'''Goal:''' 
+*Wants to communicate with her friends effortlessly and effectively. 
+*Does not want to spend the time to open multiple programs to track down her friends. 
+*Wants to use the search function to find her contacts or important details from previous conversations. 
+*Wants to use a simple and clean user interface to boost her productivity.
+
+'''Assumption:''' 
+*Ability to operate basic applications on her personal computer in Windows OS. 
+*Ability to operate a keyboard and a mouse.
+*Knowledgeable about how to create an account with a password.
+*Knowledgeable about how to search for information using a keyword.
+*Has a home network connection available.
+
+
+----
+
+'''Name:''' Tim Bucks [Teaching Assistant]
+
+'''Age:''' 27
+
+'''Gender:''' Male
+
+'''Education:''' Master's Degree in Computer Science.
+
+'''Experience:''' Familiar with many different chat programs.
+
+'''Expertise:''' 
+*Operate and repair computer equipment. 
+*Ability to write and test computer programs in major programming languages. 
+*Four years troubleshooting experience and extensive knowledge of web server and database.
+
+'''Goal:''' 
+*Wants to maintain and update programs. 
+*Wants to rely on multiple-network functionality.
+*Does not want to spend the time to open multiple programs to track down his friends. 
+*Wants to employ chatbot to send different messages to his different groups of contacts while he is away.
+*Wants to use slash-commands to boost his messaging experience.
+
+'''Assumption:''' 
+*Ability to operate most of applications on his personal computer in Windows, Linux, and Mac OS. 
+*Ability to operate a keyboard and a mouse.
+*Knowledgeable about how to create an account with a secure password.
+*Knowledgeable about slash-commands in different Operating Systems.
+*Occasionally busy having TA's office hours during exam periods.
+*Has a home network connection available.
+
+----
+
+'''Name:''' James Power [Third Party Developer]
+
+'''Age:''' 39
+
+'''Gender:''' Male
+
+'''Education:''' PhD in Computer Science.
+
+'''Experience:''' Recently created a new chat client protocol.
+
+'''Expertise:''' 
+*Operate and repair computer equipment. 
+*Ability to write and test computer programs in major programming languages. 
+*Many experience with software engineering process. 
+*Three years of experience in web server and database development.
+
+'''Goal:''' 
+*Wants to adapt his own existing protocol to plugin to Parrot IM system with minimal modification. 
+*Wants to expand Parrot IM on multiple-network functionality.
+
+'''Assumption:''' 
+*Ability to operate most of applications on his personal computer in Windows, Linux, and Mac OS. 
+*Ability to operate a keyboard and a mouse.
+*Knowledgeable about how to create an account with a secure password.
+*Knowledgeable about a plug-in to interact with a host application.
+*Has a home network connection available.
+
+
+----
+
+'''Name:''' Linda Bytes [Grandmother]
+
+'''Age:''' 71
+
+'''Gender:''' Female
+
+'''Education:''' Bachelor's Degree in English.
+
+'''Experience:''' Familiar with a simple chat program.
+
+'''Expertise:''' 
+*Operate computer equipment. 
+
+'''Goal:''' 
+*Wants to communicate with her grandchildren online. 
+*Wants to see pictures of her grandchildren.
+*Wants to use a simple and easy to navigate chat program's interface.
+
+'''Assumption:''' 
+*Ability to operate basic applications on her personal computer in Mac OS X. 
+*Ability to operate a keyboard and a mouse.
+*Knowledgeable about how to create an account with a password.
+*Has a home network connection available.
+
+== Non-Functional Requirements ==
+
+Product requirement (See page 123 for more details): 
+*'''Usability: '''The user interface for Parrot IM shall be implemented as simple features, yet powerful, that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face.
+*'''Usability: ''' The Parrot IM is compatible with multiple protocols, including XMPP, to target any age and audience.
+*'''Performance Requirements:''' The program will execute, and the log-in window will show within 8 seconds.
+*'''Performance Requirements:''' The program will occupy between 10 MB and 30 MB of RAM while running.
+*'''Reliability Requirements:''' The number of faults found during testing (i.e., before delivery) will be no more than ___ based upon programmer information regarding failures found before release of the software.
+*'''Reliability Requirements:''' The failures (or other problems) reported by users after delivery will be no more than ___ based upon customer information regarding failures found after release of the software.
+*'''Portability Requirements:''' Parrot IM is able to run particularly by the CMPT 275’s lecture computer (This is a temporary statement.).
+
+
+Organizational requirement: 
+
+'''Note:''' In the book it discusses about these requirements into two categories: Developer and User. We have to ask ourselves if we should divide it into two categories as the book mentions (also the other group has followed the book guildline).
+
+*'''Process Standards:''' The system development process and deliverable documents shall conform to the process and deliverables defined in Design Document.
+*'''Process Standards:''' Parrot IM will follow the conventional (programming?) style of Java [http://java.sun.com/docs/codeconv/ coding].
+*'''Implementation Requirements:''' Java programming language will be used in Eclipse IDE. (We also need which design method is going to be used)
+*'''Delivery Requirements:''' 
+      Alpha Release: June 26th, 2009 
+      Beta Release: July 17th, 2009 
+      Final Release: July 31st, 2009
+
+External requirement: 
+*'''Interoperability Requirements:''' The program shall not disclose any personal information about program users apart from their name and email address to the Parrot IM users who use the program.
+*'''Interoperability Requirements:''' Parrot IM will only be releasing our source code under the GPL V2 and interact with systems in other organizations using SQLiteJDBC v054 driver and Smack 3.1.0 interface.
+*'''Legislative Requirements:''' The program should not use our technical skills and abilities to behave in a dishonest way that misuses other people's computers. 
+*'''Ethical Requirements:''' The Parrot IM software engineers shall be bounded by the Code of Academic Integrity and Good Conduct to participate in lifelong learning regarding the pratice of their profession and shall promote an ethical approach to the pratice of the profession. 
+
+A program goal: The program should be easy to use by any controllers (experienced or inexperienced) and should be organized in such a way that errors are minimized.
+
+A verifiable non-functional requirement: Any (experienced or inexperienced) controllers shall be able to use all the system functions after a total of 1 hour’s (temporary) training. After this training, the average number of errors made by any users shall not exceed one (temporary) per day.
+
+Metrics for specifying non-functional requirements:
+
+{| border="1"
+|+ '''The Non-functional Requirements Table'''
+! Property !! Measure !! 
+|-
+! Speed
+| User/Event response time. Messages should be sent within 1 second, and then it will be received by the user as long as their connection is currently stable. The program will execute, and the log-in window will show within 8 seconds on any computer of a Pentium 4 class or higher, or around 1 GHz of CPU capability. Parrot IM will log-in on all selected networks in maximum 30 seconds before the connection times out. Ideally, the client will log-in under 10 seconds.
+|-
+! Size
+| Hard disk Requirements = The program will take up to 20 MB on the computer's hard drive to function all the features of Parrot IM that includes storing users' profile and their preference, sound notification, and images.
+|-
+!
+| Memory Requirements = The program will occupy between 10 MB and 30 MB of RAM while running.
+|-
+! Ease of Use
+| Training time = A user who has had no exposure to other instant messaging programs will learn to create a user profile, log-in, add friends, and chat with their friends within 1 hour of training from the Parrot instructor.
+|-
+! Reliability
+| Mean time to failure = The number of faults found during testing (i.e., before delivery) will be no more than ___ based upon programmer information regarding failures found before release of the software. The failures (or other problems) reported by users after delivery will be no more than ___ based upon customer information regarding failures found after release of the software.
+|-
+! Robustness
+| Time to restart after failure = The program will take up to ___ second(s) to restart after a software failure.
+|-
+!
+| Percentage of events causing failure = ___% of internal (i.e., incorrect input data)/external (i.e., power failure)/events causing software failure.
+|-
+! Portability
+| Can be used particularly by the CMPT 275’s lecture computer.
+|-
+! Security
+| The amount of protection of user information/ user access to our program = ___
+|-
+
+|}
+
+== Example Tutorials ==
+
+The following tutorials will walk you through the basic functions of Parrot IM.
+
+'''Creating a User Profile and logging in'''
+
+Upon opening Parrot IM, you will see the following window:
+
+(Picture: ss-2.jpg)
+
+At the middle of the window, it shows an existing account with an associated avatar picture above it. Below that, there are several options: 
+* Add/Manage Accounts
+* Connect Guest Account
+* Sign In
+* Options
+* Help
+
+1. Click the Add/Manage Accounts option.
+
+(ss-5.jpg)
+
+A new Account Manager window will appear. The left-hand side shows the accounts saved to the program, with the information on the right-hand side of the window.
+
+2. Click the "add" button at the bottom-left part of the window. A new entry will appear in the list: <New Account>
+
+3. Select the protocol you with to use (e.g. Jabber, Twitter, ICQ) by clicking the Service drop-down box and selecting whichever one you'd like.
+
+4. Enter your account's username below, in the Username field.
+
+5. Enter in your password in the Password field.
+
+6. If you wish the program to save your password so that you do not have to enter it in every time you log in, check the "Remember Password" box.
+
+7. To skip the log-in window when you open the program and automatically sign in with this account check the "Auto Sign-in" box.
+
+(ss-6.jpg)
+
+8. You're now finished adding your account! To proceed, click the OK button.
+
+(ss-3.jpg)
+
+9. Now, you will see just the log-in screen. If it is not already selected, click the drop-down box in the middle and select your account.
+
+(ss-7.jpg)
+
+10. Once selected, click the log-in screen.
+
+11. You will be logged in to your account as long as your username and password were accepted by the server. Afterwards, you will see the main Friend List window, and you will be able to chat with your friends.
+
+
+
+9.
+
+== Glossary ==
+
+List of all technical terms and their precise definition.
+
+'''Note:''' Please feel free to add/modify more technical terms in the following. This is not an exhausitive list nor a complete list that highlights all technical terms about our application. Some of the technical terms shown below might have been an overkill, but it may be helpful to consider users who are not yet familiar with the terms.
+
+=== Technical terms ===
+
+'''Bold:''' Makes words in a text darker to emphasize users text.
+
+
+'''Italic:''' Makes words in a text slightly slanted to emphasize users text.
+
+
+'''Underline''' Makes horizontal lines immediately below users text.
+
+
+'''Friend/Buddy List:''' Tracks the users' contact list of friends, family, co-workers, and associates in an organized manner.
+
+
+'''Send:''' Allows users to transfer their message to other users via online.
+
+
+'''Add:''' Allows users to include other user(s) contact.
+
+
+'''Remove:''' Allows users to delete other user(s) contact.
+
+
+'''Block:''' Allows users to block other user(s) from contacting them.
+ 
+
+'''Is Typing:''' Informs users whether the person they are chatting is typing in the prompt window.
+
+
+'''Profile System:''' Allows multiple users to log-in to their messaging accounts, and store/select their profile in the program (locally?). Each profile stores each messaging account (e.g. Twitter, Google Talk, ICQ) so that users can quickly log-in and chat upon starting the program. 
+
+
+'''Chat Log:''' Allows users to keep the history of each conversation in the chatroom so that they can track their previous conversation. 
+
+
+'''Chatbot:''' Allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users.
+
+
+'''Auto Sign-in:''' Allows users to automatically sign-in upon Parrot IM start up. 
+
+
+'''Offline Messaging:''' Allows users to leave messages to another users when they are offline. 
+
+
+'''Advanced/Simplified Modes:''' Allows users to choose their own minimum or maximum program's features.
+
+
+'''Spam Filter:''' Temporarily blocks users (either in their contact list or not in their contact list) after suspected spamming.
+
+
+'''Email Notifier:''' Sends an email notification to users who are connected to any networks in which he or she also has an email account (This one needs to be more clear).
+
+
+'''Program Updates:''' Provides automatic updates (i.e., bug fixes/new feautures) that do not disrupt the user's chatting experience.
+
+
+'''Conference Chatting:''' Allows users to have a conversation with multiple friends so that they can all communicate together at the same time.
+
+
+'''Sound Notification:''' Allows users to turn on/off of their different sound notifications that will play upon the particular events. 
+
+
+'''UI Customization:''' The user interface comes included with a default background image, and preset colours for the windows.
+
+
+'''Spellchecker:''' As user(s) type to their friends in the Chat Window, a red underline will appear under words that are not in Parrot IM's dictionary. 
+
+
+'''Emoticons:''' Allow users to add colourful icons to represent them and their friends' emotions as they are chatting,
+
+
+'''Search Engine:''' The Search Engine can be accessed via a search box on the Friend List, and it will search both users contacts and chat logs for key words.
+
+
+'''Status:''' Allows users to set their current situation (e.g. available, busy, away, custom message) to be shown to all friends.
+
+
+'''GUI:''' A graphical user interface that allows users to interact with the program with their keyboard and mouse. The GUI has graphical icons and visual indicators to fully represent the information and actions available to users.
+
+
+'''XMPP Protocol:''' An open standard system that allows users to communicate with the Extensible Messaging and Presence Protocol to chat with their friends that use Jabber, Google Talk, or any other program that implements this protocol.
+
+
+'''Twitter and ICQ Protocol:''' A service that allows users to connect them to friends from a variety of different instant messaging networks or social networking websites, including ICQ and Twitter. 
+
+
+'''Avatar Picture:''' Allows users to associate their profile picture to their user account that is diplayed to everybody they chat with.
+
+
+'''Java 5:''' Version 5 of the Java programming language, also known as J2SE 1.5. 
+
+
+'''Java Swing:''' Built-in graphics library in the Java standard library. 
+
+
+'''Eclipse IDE 3.4.2.:''' A software application or tools for Java developers that allow them to facilitate in creating JEE and Web applications, including a Java IDE.
+
+
+'''Metrics 1.3.6:''' A plug-in for Eclipse that provides software metrics of a project.
+
+
+'''JUnit 4.6:''' An industry-standard automatic testing framework primarily used to aid unit testing. 
+
+
+'''SQLite 3.6.14.2:''' A relational database management system used to store data as a single cross-platform file on a host machine.
+
+
+'''SQLiteJDBC v054:''' A driver used to interface SQLite with Java. 
+
+
+'''Smack 3.1.0:''' A Java library that provides XMPP interfacing methods.
+
+
+'''Google Code Hosting:''' A free software project hosting website provided by Google.
+
+
+'''Subversion:''' Google Code provides subversion to serve as a version control system for open source projects. 
+
+
+'''GPLV2:''' A widely used free software license that guarantees that the program is and always will be free to run, and that its source code is free to view and modify. The license serves in both (a) copyrighting the software, and (b) allowing anybody to copy, distribute, and modify the program's code.
+
+
+'''.db:''' The relational database SQLite file format.
+
+
+=== Include API/Java libraries? ===
+
+
+
+
+
+
+
+
+
+ 
+
+
+-----------
+
+(old links)
+
+[[Introduction]] <br>
+[[Intended Audience]]<br>
+[[Features]]<br>
+[[Non-Functional Requirements]]<br>
+[[Example Tutorials]]<br>
+[[Glossary]]<br>
