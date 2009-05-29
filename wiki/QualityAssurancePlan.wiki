@@ -1,3 +1,4 @@
+#summary Quality Assurance Plan
 
 There are three phases of testing that Parrot IM will be subjected to:
 
