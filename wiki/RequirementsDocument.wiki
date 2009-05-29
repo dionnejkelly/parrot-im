@@ -177,7 +177,9 @@ The users of our feature-rich instant messaging program that is compatible with 
     * Knowledgeable about how to create an account with a password.
     * Has a home network connection available.
 
-== Non-Functional Requirements ==
+----
+
+= Non-Functional Requirements =
 
 === Product Requirements ===
   * *Usability:* The user interface for Parrot IM shall be implemented as simple features, yet powerful, that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face.
@@ -209,45 +211,23 @@ A verifiable non-functional requirement: Any (experienced or inexperienced) cont
 
 Metrics for specifying non-functional requirements:
 
-{| border="1"
-|+ '''The Non-functional Requirements Table'''
-! Property !! Measure !! 
-|-
-! Speed
-| User/Event response time. Messages should be sent within 1 second, and then it will be received by the user as long as their connection is currently stable. The program will execute, and the log-in window will show within 8 seconds on any computer of a Pentium 4 class or higher, or around 1 GHz of CPU capability. Parrot IM will log-in on all selected networks in maximum 30 seconds before the connection times out. Ideally, the client will log-in under 10 seconds.
-|-
-! Size
-| Hard disk Requirements = The program will take up to 20 MB on the computer's hard drive to function all the features of Parrot IM that includes storing users' profile and their preference, sound notification, and images.
-|-
-!
-| Memory Requirements = The program will occupy between 10 MB and 30 MB of RAM while running.
-|-
-! Ease of Use
-| Training time = A user who has had no exposure to other instant messaging programs will learn to create a user profile, log-in, add friends, and chat with their friends within 1 hour of training from the Parrot instructor.
-|-
-! Reliability
-| Mean time to failure = The number of faults found during testing (i.e., before delivery) will be no more than ___ based upon programmer information regarding failures found before release of the software. The failures (or other problems) reported by users after delivery will be no more than ___ based upon customer information regarding failures found after release of the software.
-|-
-! Robustness
-| Time to restart after failure = The program will take up to ___ second(s) to restart after a software failure.
-|-
-!
-| Percentage of events causing failure = ___% of internal (i.e., incorrect input data)/external (i.e., power failure)/events causing software failure.
-|-
-! Portability
-| Can be used particularly by the CMPT 275’s lecture computer.
-|-
-! Security
-| The amount of protection of user information/ user access to our program = ___
-|-
+=== The Non-functional Requirements Table ===
+|| Property || Measure ||
+|| Speed || User/Event response time. Messages should be sent within 1 second, and then it will be received by the user as long as their connection is currently stable. The program will execute, and the log-in window will show within 8 seconds on any computer of a Pentium 4 class or higher, or around 1 GHz of CPU capability. Parrot IM will log-in on all selected networks in maximum 30 seconds before the connection times out. Ideally, the client will log-in under 10 seconds. ||
+|| Size || Hard disk Requirements = The program will take up to 20 MB on the computer's hard drive to function all the features of Parrot IM that includes storing users' profile and their preference, sound notification, and images. <br> Memory Requirements = The program will occupy between 10 MB and 30 MB of RAM while running. ||
+|| Ease of Use || Training time = A user who has had no exposure to other instant messaging programs will learn to create a user profile, log-in, add friends, and chat with their friends within 1 hour of training from the Parrot instructor. ||
+|| Reliability || Mean time to failure = The number of faults found during testing (i.e., before delivery) will be no more than 50 based upon programmer information regarding failures found before release of the software. The failures (or other problems) reported by users after delivery will be no more than 20 based upon customer information regarding failures found after release of the software. ||
+|| Robustness || Time to restart after failure = The program will take up to 15 seconds to restart after a software failure. <br> Percentage of events causing failure  = 2% of internal (i.e., incorrect input data)/external (i.e., power failure)/events causing software failure. ||
+|| Portability || Can be used on Windows, Macintosh, and Linux operating environments. ||
+|| Security || All stored passwords are encrypted inside the database. ||
 
-|}
+----
 
-== Example Tutorials ==
+= Example Tutorials =
 
 The following tutorials will walk you through the basic functions of Parrot IM.
 
-'''Creating a User Profile and logging in'''
+*Creating a User Profile and logging in*
 
 Upon opening Parrot IM, you will see the following window:
 
@@ -292,161 +272,132 @@ A new Account Manager window will appear. The left-hand side shows the accounts 
 
 11. You will be logged in to your account as long as your username and password were accepted by the server. Afterwards, you will see the main Friend List window, and you will be able to chat with your friends.
 
+----
 
-
-9.
-
-== Glossary ==
+= Glossary =
 
 List of all technical terms and their precise definition.
 
-'''Note:''' Please feel free to add/modify more technical terms in the following. This is not an exhausitive list nor a complete list that highlights all technical terms about our application. Some of the technical terms shown below might have been an overkill, but it may be helpful to consider users who are not yet familiar with the terms.
-
 === Technical terms ===
 
-'''Bold:''' Makes words in a text darker to emphasize users text.
+*Bold:* Makes words in a text darker to emphasize users text.
 
 
-'''Italic:''' Makes words in a text slightly slanted to emphasize users text.
+*Italic:* Makes words in a text slightly slanted to emphasize users text.
 
 
-'''Underline''' Makes horizontal lines immediately below users text.
+*Underline* Makes horizontal lines immediately below users text.
 
 
-'''Friend/Buddy List:''' Tracks the users' contact list of friends, family, co-workers, and associates in an organized manner.
+*Friend/Buddy List:* Tracks the users' contact list of friends, family, co-workers, and associates in an organized manner.
 
 
-'''Send:''' Allows users to transfer their message to other users via online.
+*Send:* Allows users to transfer their message to other users via online.
 
 
-'''Add:''' Allows users to include other user(s) contact.
+*Add:* Allows users to include other user(s) contact.
 
 
-'''Remove:''' Allows users to delete other user(s) contact.
+*Remove:* Allows users to delete other user(s) contact.
 
 
-'''Block:''' Allows users to block other user(s) from contacting them.
+*Block:* Allows users to block other user(s) from contacting them.
  
 
-'''Is Typing:''' Informs users whether the person they are chatting is typing in the prompt window.
+*Is Typing:* Informs users whether the person they are chatting is typing in the prompt window.
 
 
-'''Profile System:''' Allows multiple users to log-in to their messaging accounts, and store/select their profile in the program (locally?). Each profile stores each messaging account (e.g. Twitter, Google Talk, ICQ) so that users can quickly log-in and chat upon starting the program. 
+*Profile System:* Allows multiple users to log-in to their messaging accounts, and store/select their profile in the program. Each profile stores each messaging account (e.g. Twitter, Google Talk, ICQ) so that users can quickly log-in and chat upon starting the program. 
 
 
-'''Chat Log:''' Allows users to keep the history of each conversation in the chatroom so that they can track their previous conversation. 
+*Chat Log:* Allows users to keep the history of each conversation in the chatroom so that they can track their previous conversation. 
 
 
-'''Chatbot:''' Allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users.
+*Chatbot:* Allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users.
 
 
-'''Auto Sign-in:''' Allows users to automatically sign-in upon Parrot IM start up. 
+*Auto Sign-in:* Allows users to automatically sign-in upon Parrot IM start up. 
 
 
-'''Offline Messaging:''' Allows users to leave messages to another users when they are offline. 
+*Offline Messaging:* Allows users to leave messages to another users when they are offline. 
 
 
-'''Advanced/Simplified Modes:''' Allows users to choose their own minimum or maximum program's features.
+*Advanced/Simplified Modes:* Allows users to choose their own minimum or maximum program's features.
 
 
-'''Spam Filter:''' Temporarily blocks users (either in their contact list or not in their contact list) after suspected spamming.
+*Spam Filter:* Temporarily blocks users (either in their contact list or not in their contact list) after suspected spamming.
 
 
-'''Email Notifier:''' Sends an email notification to users who are connected to any networks in which he or she also has an email account (This one needs to be more clear).
+*Email Notifier:* Sends an email notification to users who are connected to any networks in which he or she also has an email account (This one needs to be more clear).
 
 
-'''Program Updates:''' Provides automatic updates (i.e., bug fixes/new feautures) that do not disrupt the user's chatting experience.
+*Program Updates:* Provides automatic updates (i.e., bug fixes/new feautures) that do not disrupt the user's chatting experience.
 
 
-'''Conference Chatting:''' Allows users to have a conversation with multiple friends so that they can all communicate together at the same time.
+*Conference Chatting:* Allows users to have a conversation with multiple friends so that they can all communicate together at the same time.
 
 
-'''Sound Notification:''' Allows users to turn on/off of their different sound notifications that will play upon the particular events. 
+*Sound Notification:* Allows users to turn on/off of their different sound notifications that will play upon the particular events. 
 
 
-'''UI Customization:''' The user interface comes included with a default background image, and preset colours for the windows.
+*UI Customization:* The user interface comes included with a default background image, and preset colours for the windows.
 
 
-'''Spellchecker:''' As user(s) type to their friends in the Chat Window, a red underline will appear under words that are not in Parrot IM's dictionary. 
+*Spellchecker:* As user(s) type to their friends in the Chat Window, a red underline will appear under words that are not in Parrot IM's dictionary. 
 
 
-'''Emoticons:''' Allow users to add colourful icons to represent them and their friends' emotions as they are chatting,
+*Emoticons:* Allow users to add colourful icons to represent them and their friends' emotions as they are chatting,
 
 
-'''Search Engine:''' The Search Engine can be accessed via a search box on the Friend List, and it will search both users contacts and chat logs for key words.
+*Search Engine:* The Search Engine can be accessed via a search box on the Friend List, and it will search both users contacts and chat logs for key words.
 
 
-'''Status:''' Allows users to set their current situation (e.g. available, busy, away, custom message) to be shown to all friends.
+*Status:* Allows users to set their current situation (e.g. available, busy, away, custom message) to be shown to all friends.
 
 
-'''GUI:''' A graphical user interface that allows users to interact with the program with their keyboard and mouse. The GUI has graphical icons and visual indicators to fully represent the information and actions available to users.
+*GUI:* A graphical user interface that allows users to interact with the program with their keyboard and mouse. The GUI has graphical icons and visual indicators to fully represent the information and actions available to users.
 
 
-'''XMPP Protocol:''' An open standard system that allows users to communicate with the Extensible Messaging and Presence Protocol to chat with their friends that use Jabber, Google Talk, or any other program that implements this protocol.
+*XMPP Protocol:* An open standard system that allows users to communicate with the Extensible Messaging and Presence Protocol to chat with their friends that use Jabber, Google Talk, or any other program that implements this protocol.
 
 
-'''Twitter and ICQ Protocol:''' A service that allows users to connect them to friends from a variety of different instant messaging networks or social networking websites, including ICQ and Twitter. 
+*Twitter and ICQ Protocol:* A service that allows users to connect them to friends from a variety of different instant messaging networks or social networking websites, including ICQ and Twitter. 
 
 
-'''Avatar Picture:''' Allows users to associate their profile picture to their user account that is diplayed to everybody they chat with.
+*Avatar Picture:* Allows users to associate their profile picture to their user account that is diplayed to everybody they chat with.
 
 
-'''Java 5:''' Version 5 of the Java programming language, also known as J2SE 1.5. 
+*Java 5:* Version 5 of the Java programming language, also known as J2SE 1.5. 
 
 
-'''Java Swing:''' Built-in graphics library in the Java standard library. 
+*Java Swing:* Built-in graphics library in the Java standard library. 
 
 
-'''Eclipse IDE 3.4.2.:''' A software application or tools for Java developers that allow them to facilitate in creating JEE and Web applications, including a Java IDE.
+*Eclipse IDE 3.4.2:* A software application or tools for Java developers that allow them to facilitate in creating JEE and Web applications, including a Java IDE.
 
 
-'''Metrics 1.3.6:''' A plug-in for Eclipse that provides software metrics of a project.
+*Metrics 1.3.6:* A plug-in for Eclipse that provides software metrics of a project.
 
 
-'''JUnit 4.6:''' An industry-standard automatic testing framework primarily used to aid unit testing. 
+*JUnit 4.6:* An industry-standard automatic testing framework primarily used to aid unit testing. 
 
 
-'''SQLite 3.6.14.2:''' A relational database management system used to store data as a single cross-platform file on a host machine.
+*SQLite 3.6.14.2:* A relational database management system used to store data as a single cross-platform file on a host machine.
 
 
-'''SQLiteJDBC v054:''' A driver used to interface SQLite with Java. 
+*SQLiteJDBC v054:* A driver used to interface SQLite with Java. 
 
 
-'''Smack 3.1.0:''' A Java library that provides XMPP interfacing methods.
+*Smack 3.1.0:* A Java library that provides XMPP interfacing methods.
 
 
-'''Google Code Hosting:''' A free software project hosting website provided by Google.
+*Google Code Hosting:* A free software project hosting website provided by Google.
 
 
-'''Subversion:''' Google Code provides subversion to serve as a version control system for open source projects. 
+*Subversion:* Google Code provides subversion to serve as a version control system for open source projects. 
 
 
-'''GPLV2:''' A widely used free software license that guarantees that the program is and always will be free to run, and that its source code is free to view and modify. The license serves in both (a) copyrighting the software, and (b) allowing anybody to copy, distribute, and modify the program's code.
+*GPLV2:* A widely used free software license that guarantees that the program is and always will be free to run, and that its source code is free to view and modify. The license serves in both (a) copyrighting the software, and (b) allowing anybody to copy, distribute, and modify the program's code.
 
 
-'''.db:''' The relational database SQLite file format.
-
-
-=== Include API/Java libraries? ===
-
-
-
-
-
-
-
-
-
- 
-
-
------------
-
-(old links)
-
-[[Introduction]] <br>
-[[Intended Audience]]<br>
-[[Features]]<br>
-[[Non-Functional Requirements]]<br>
-[[Example Tutorials]]<br>
-[[Glossary]]<br>
+*.db:* The relational database SQLite file format.
