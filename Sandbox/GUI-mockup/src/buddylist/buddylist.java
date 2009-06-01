@@ -10,25 +10,25 @@ public class buddylist extends JFrame{
 	
 	public buddylist()
 	{
-
 		this.setTitle("Buddy List");
-		setMinimumSize(new Dimension(300,600));
+		this.setMinimumSize(new Dimension(300,600));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/logo.png").getImage());
 		
 		JPanel buddylistPanel = new JPanel();
 		buddylistPanel.setLayout(new BorderLayout());
+		buddylistPanel.setPreferredSize(new Dimension(300,600));
 		
 		//MENU BAR
 		menu = new JMenuBar();
 		init_menutools();
 		
 	    //INSIDE PANEL
-		JPanel mainListPanel = new buddyPanel();		
+		JPanel mainListPanel = new buddyPanel();	
 	    
 	    //add to buddylistPanel
 		buddylistPanel.add(menu, BorderLayout.NORTH);
 		buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
-		
 		getContentPane().add(buddylistPanel);
 		pack();
 		setVisible(true);
