@@ -5,7 +5,8 @@ import javax.swing.JFrame;
 
 public class chatwindow extends JFrame{
 	
-	public chatwindow(){
+	public chatwindow()
+	{
 		super("chatWindow Mockup");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
