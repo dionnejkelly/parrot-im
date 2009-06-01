@@ -15,6 +15,8 @@ public class accInfo extends JPanel
 	
 	public accInfo()
 	{
+		this.setBackground(Color.DARK_GRAY);
+		this.setPreferredSize(new Dimension(300,100));
 		setLayout(new BorderLayout());
 		
 	}

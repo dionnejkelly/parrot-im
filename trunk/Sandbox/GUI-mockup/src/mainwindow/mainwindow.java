@@ -40,49 +40,50 @@ public class mainwindow extends JFrame{
 	private JComboBox serviceField;	//Account Manager - rightPanelMAN
 	//Guest Account login pop-up window
 	private JFrame GAL;
-
+	
 	public mainwindow (){
 		//set server list
 		serverList = new Vector<String>();
+		serverList.add ("Select a service");
 		serverList.add ("msn");
 		serverList.add ("aim");
 		serverList.add ("twitter");
 		serverList.add ("icq");
-
+		
 		//list of accounts
 		account_list = new Vector<String>();
 		account_list.add("msn: test@hotmail.com");
 		account_list.add("aim: test");
-		account_list.add("twitter: test@sth");
+		//account_list.add("twitter: test@sth");
 		account_list.add("icq: 712859");
-		account_list.add("connect all");
-
+		account_list.add("aim: Billybob123");
+		
 		//set Main Window Frame
 		setTitle("Parrot-IM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension (300,500));
 		setResizable(false);
 		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
-
+		
 		//call SignIn Panel
 		init_SignInPanel ();
-
+		
 		pack();
 		setVisible(true);
 	}
-
+	
 	private void init_SignInPanel (){
 		//set signin Panel
 		signinPanel = new JPanel ();
 		signinPanel.setLayout (new BorderLayout());
 		manageAccountPanel();
-
+		
 		signinPanel.add(new headerPanel(), BorderLayout.NORTH);
 
 		signinPanel.add(new miscPanel(), BorderLayout.SOUTH);
 		getContentPane().add(signinPanel);
 	}
-
+	
 	private void manageAccountPanel (){
 		JPanel accPanel = new JPanel();
 		accPanel.setLayout(new BoxLayout(accPanel, BoxLayout.Y_AXIS));
@@ -100,14 +101,14 @@ public class mainwindow extends JFrame{
                 signIn_ActionPerformed(evt);
             }
         });
-
+		
 		//accOPTPanel (part of accPanel)
 		JPanel accOptPanel = new JPanel ();
 		accOptPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 		GridLayout accLayout = new GridLayout(2,1);
 		accLayout.setVgap(15);
 		accOptPanel.setLayout (accLayout);
-
+		
 		//manage account
 		manageAccount = new JLabel ("Add/Manage Accounts", JLabel.CENTER); //underline?
 		manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -115,7 +116,7 @@ public class mainwindow extends JFrame{
                 manageAccount_MouseClicked(evt);
             }
         });
-
+		
 		//guest account
 		guestAccount = new JLabel ("Connect Guest Account", JLabel.CENTER); //underline?
 		guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,11 +124,11 @@ public class mainwindow extends JFrame{
                 guestAccount_MouseClicked(evt);
             }
         });
-
+		
 		//add components to accOptPanel
 		accOptPanel.add(manageAccount);
 		accOptPanel.add(guestAccount);
-
+		
 		//add components to accPanel
 		accPanel.add(account_select);
 		accPanel.add(accOptPanel);
@@ -141,7 +142,7 @@ public class mainwindow extends JFrame{
 		accMAN.setPreferredSize(new Dimension(500,300));
 		accMAN.setResizable(false);
 		accMAN.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
-
+		
 		//set main panel
 		accMANPanel = new JPanel ();
 		accMANPanel.setLayout(new BorderLayout());
@@ -149,11 +150,11 @@ public class mainwindow extends JFrame{
 		//manage account panel
 		leftPanelMAN();
 		rightPanelMAN();
-
+		
 		accMAN.getContentPane().add(accMANPanel);
 		accMAN.pack();
 		accMAN.setVisible(true);
-	}
+	} 
 
 	private void guestAccount_MouseClicked(java.awt.event.MouseEvent e) {
 		//set Frame
@@ -162,10 +163,10 @@ public class mainwindow extends JFrame{
 		GAL.setLocation(100, 100);
 		GAL.setResizable(false);
 		GAL.setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
-
+		
 		//select server
 		JComboBox server = new JComboBox (serverList);
-
+		
 		//username + password
 		JPanel accountInfoPanel = new JPanel();
 		GridLayout accountLayout = new GridLayout(2,2);
@@ -179,7 +180,7 @@ public class mainwindow extends JFrame{
 		final JPasswordField PwdFieldGuest = new JPasswordField();
 		accountInfoPanel.add(new JLabel("Password:"));
 		accountInfoPanel.add(PwdFieldGuest);
-
+		
 		//set ok-cancel button
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 10, 10));
@@ -205,7 +206,7 @@ public class mainwindow extends JFrame{
             }
 		});
 		buttonsPanel.add(cancelButton);
-
+		
 		//set main panel
 		JPanel GALPanel = new JPanel();
 		GALPanel.setLayout(new GridLayout(3,1));
@@ -213,70 +214,46 @@ public class mainwindow extends JFrame{
 		GALPanel.add (server);
 		GALPanel.add(accountInfoPanel);
 		GALPanel.add (buttonsPanel);
-
+		
 		GAL.getContentPane().add(GALPanel);
 		GAL.pack();
 		GAL.setVisible(true);
-
-	}
-
+		
+	} 
+	
 	private void leftPanelMAN(){
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new BorderLayout());
-
+		
 		//saved account list
 		accList = new JList(account_list);
 		accList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		accList.setPreferredSize(new Dimension (150,200));
-
+		accList.setPreferredSize(new Dimension (180,200));
+		
 		//add-remove button panel
 		JPanel addremovePanel = new JPanel();
 		GridLayout ARlayout= new GridLayout(1,2);
 		addremovePanel.setLayout(ARlayout);
-		ARlayout.setHgap(5);
-		addremovePanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
-
+		addremovePanel.setPreferredSize(new Dimension(180,50));
+		//ARlayout.setHgap(5);
+		addremovePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+		
 		//add button
-		JButton addButton = new JButton("=");
-		addButton.setPreferredSize(new Dimension(50, 30));
+		JButton addButton = new JButton("add");
+		//addButton.setPreferredSize(new Dimension(50, 20));
 		addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	//TODO: sorry, I have no idea what this thing is supposed to do
-            	
-            	//I make it as a edit button, which take the info to the right panel
-            	//for use later
-            	int selected = accList.getSelectedIndex();
-            	if (selected>=0 && selected < account_list.size()-1){
-	    			String tempAccount = account_list.get(selected);
-	    			StringTokenizer token = new StringTokenizer(tempAccount, " :");
-	    			String serviceName = token.nextToken();
-	    			String userId = token.nextToken();
-	    			int serviceNum = 0;
-	    			if (serviceName.compareTo("msn") == 0)
-	    			{
-	    				serviceNum = 0;
-	    			}
-	    			else if (serviceName.compareTo("aim") == 0)
-	    			{
-	    				serviceNum = 1;
-	    			}
-	    			else if (serviceName.compareTo("twitter") == 0)
-	    			{
-	    				serviceNum = 2;
-	    			}
-	    			else if (serviceName.compareTo("icq") == 0)
-	    			{
-	    				serviceNum = 3;
-	    			}
-	    			UNField.setText(userId);
-	    			serviceField.setSelectedIndex(serviceNum);
-            	}
-            }
+			public void actionPerformed(ActionEvent evt) {
+			//TODO: sorry, I have no idea what this thing is supposed to do
+			
+			//I make it as an edit button, which take the info to the right panel
+			//for use later
+				editACC_ActionPerformed(evt);
+			}
 		});
-
+		
 		//remove button
-		JButton removeButton = new JButton ("-");
-		removeButton.setPreferredSize(new Dimension(50, 30));
+		JButton removeButton = new JButton ("remove");
+		//removeButton.setPreferredSize(new Dimension(50, 20));
 		removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	int selected = accList.getSelectedIndex();
@@ -286,19 +263,19 @@ public class mainwindow extends JFrame{
             	}
             }
 		});
-
+		
 		//pack the whole thing
 		addremovePanel.add(addButton);
 		addremovePanel.add(removeButton);
-
+		
 		//add to leftpanel
 		leftPanel.add(accList,BorderLayout.NORTH);
 		leftPanel.add(addremovePanel,BorderLayout.SOUTH);
-
+		
 		//add to account manager pop up main panel
 		accMANPanel.add(leftPanel,BorderLayout.WEST);
 	}
-
+	
 	private void rightPanelMAN() {
 		//setting right panel
 		JPanel rightPanel = new JPanel();
@@ -316,7 +293,7 @@ public class mainwindow extends JFrame{
 		setupLabelPanel.add(serviceLabel);
 		setupLabelPanel.add(UNLabel);
 		setupLabelPanel.add(pwdLabel);
-
+		
 		//account setupField setting Panel
 		JPanel setupFieldPanel = new JPanel();
 		//BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
@@ -327,19 +304,19 @@ public class mainwindow extends JFrame{
 		serviceField.setPreferredSize(new Dimension(170,27));
 		UNField = new JTextField();
 		UNField.setPreferredSize(new Dimension (75,20));
+		
 		pwdField = new JPasswordField();
-		pwdField.setPreferredSize(new Dimension (75,20));
 		setupFieldPanel.add(serviceField);
 		setupFieldPanel.add(UNField);
 		setupFieldPanel.add(pwdField);
-
+		
 		//account setup Panel
 		JPanel setupPanel = new JPanel();
 		setupPanel.setLayout(new BoxLayout (setupPanel, BoxLayout.X_AXIS));
 		setupPanel.add(setupLabelPanel);
 		setupPanel.add(setupFieldPanel);
-
-
+		
+		
 		/*CENTRE PART : remember password + auto sign in*/
 		//other Checkboxes setup Panel
 		JPanel otherCheckPanel = new JPanel ();
@@ -348,7 +325,7 @@ public class mainwindow extends JFrame{
 		JCheckBox autoSignCheck = new JCheckBox();
 		otherCheckPanel.add(rememberPWDCheck);
 		otherCheckPanel.add(autoSignCheck);
-
+		
 		//other Labels setup Panel
 		GridLayout otherLabelLayout = new GridLayout (2,1);
 		JPanel otherLabelPanel = new JPanel ();
@@ -358,14 +335,14 @@ public class mainwindow extends JFrame{
 		JLabel autoSignLabel = new JLabel("Auto Sign-in");
 		otherLabelPanel.add(rememberPWDLabel);
 		otherLabelPanel.add(autoSignLabel);
-
+		
 		//other setups Panel
 		JPanel otherSetupPanel = new JPanel();
 		otherSetupPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 50, 0));
 		otherSetupPanel.setLayout (new FlowLayout());
 		otherSetupPanel.add(otherCheckPanel);
 		otherSetupPanel.add(otherLabelPanel);
-
+		
 		/*BOTTOM PART : OK and Cancel Button*/
 		//set ok-cancel button
 		JPanel buttonsPanel = new JPanel();
@@ -373,7 +350,7 @@ public class mainwindow extends JFrame{
 		GridLayout buttonsLayout = new GridLayout(1,2);
 		buttonsLayout.setHgap(5);
 		buttonsPanel.setLayout(buttonsLayout);
-
+		
 		//OK Button
 		JButton okButton = new JButton ("OK");
 		okButton.addActionListener(new ActionListener() {
@@ -382,7 +359,7 @@ public class mainwindow extends JFrame{
             }
 		});
 		buttonsPanel.add(okButton);
-
+		
 		//Cancel Button
 		JButton cancelButton = new JButton ("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
@@ -391,13 +368,13 @@ public class mainwindow extends JFrame{
             }
 		});
 		buttonsPanel.add(cancelButton);
-
-
+		
+		
 		//adding to rightPanel
 		rightPanel.add(setupPanel, BorderLayout.NORTH);
 		rightPanel.add(otherSetupPanel, BorderLayout.CENTER);
 		rightPanel.add(buttonsPanel, BorderLayout.SOUTH);
-
+		
 		//add to account manager pop up main panel
 		accMANPanel.add(rightPanel,BorderLayout.EAST);
 	}
@@ -407,12 +384,12 @@ public class mainwindow extends JFrame{
 		getContentPane().remove(signinPanel);
 		this.add(buddyWin);
 		getContentPane().add(buddyWin); */
-
+		
 		this.setVisible(false);
 		buddylist buddyWin = new buddylist();//pops buddylist window
-
-
-	}
+		
+		
+	} 
 	private void addACC_ActionPerformed(ActionEvent e) {
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
@@ -421,25 +398,45 @@ public class mainwindow extends JFrame{
 			for (int i=0; i < account_list.size()-1; i++){
 				if (account_list.get(i).compareTo(newACC)==0) match = true;
 			}
-			if (match) 
-			{
-				//if found, then edit the password as manage
-				//TODO:edit password
-			}
-			else
-			{
-				//insert new
-				//UNField.setText("");
-				//pwdField.setText("");
-				account_list.add(account_list.size()-1, newACC);
-				accList.updateUI();
-			}
+			if (match) return;
+			// TODO: pops a window that will ask if the user wants to modify it
+			UNField.setText("");
+			pwdField.setText("");
+    		account_list.add(account_list.size()-1, newACC);
+    		accList.updateUI();
 			//accMAN.setVisible(false);
 		}
 	}
-
-	private String getcwd() {
-	    String cwd = System.getProperty("user.dir");
-	    return cwd;
+	private void editACC_ActionPerformed(ActionEvent e) {
+		int selected = accList.getSelectedIndex();
+		if (selected>=0 && selected < account_list.size()-1){
+			String tempAccount = account_list.get(selected);
+			StringTokenizer token = new StringTokenizer(tempAccount, " :");
+			String serviceName = token.nextToken();
+			int serviceNum = -1;
+			
+			if (serviceName.compareTo("msn") == 0){
+				serviceNum = 0;
+			}
+			else if (serviceName.compareTo("aim") == 0){
+				serviceNum = 1;
+			}
+			else if (serviceName.compareTo("twitter") == 0){
+				serviceNum = 2;
+			}
+			else if (serviceName.compareTo("icq") == 0){
+				serviceNum = 3;
+			}
+			String userID = token.nextToken();
+			UNField.setText(userID);
+			pwdField.setText("password here");//retrieved from database
+			serviceField.setSelectedIndex(serviceNum);
+		}
+	}
+	
+	private String getcwd() { 
+	    String cwd = System.getProperty("user.dir"); 
+	    return cwd; 
 	}
 }
+
