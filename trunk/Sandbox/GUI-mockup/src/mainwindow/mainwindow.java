@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -247,9 +248,9 @@ public class mainwindow extends JFrame{
             	int selected = accList.getSelectedIndex();
             	if (selected>=0 && selected < account_list.size()-1){
 	    			String tempAccount = account_list.get(selected);
-	    			int divideUser = tempAccount.indexOf(": ");
-	    			String userId = tempAccount.substring(divideUser+2);
-	    			String serviceName = tempAccount.substring(0, divideUser);
+	    			StringTokenizer token = new StringTokenizer(tempAccount, " :");
+	    			String serviceName = token.nextToken();
+	    			String userId = token.nextToken();
 	    			int serviceNum = 0;
 	    			if (serviceName.compareTo("msn") == 0)
 	    			{
