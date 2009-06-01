@@ -318,15 +318,16 @@ public class mainwindow extends JFrame{
 
 		//account setupField setting Panel
 		JPanel setupFieldPanel = new JPanel();
-		BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
-		//GridLayout setupFieldLayout = new GridLayout (3,1);
-		//setupFieldLayout.setVgap(2);
+		//BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
+		GridLayout setupFieldLayout = new GridLayout (3,1);
+		setupFieldLayout.setVgap(2);
 		setupFieldPanel.setLayout(setupFieldLayout);
 		serviceField = new JComboBox (serverList);
 		serviceField.setPreferredSize(new Dimension(170,27));
 		UNField = new JTextField();
 		UNField.setPreferredSize(new Dimension (75,20));
 		pwdField = new JPasswordField();
+		pwdField.setPreferredSize(new Dimension (75,20));
 		setupFieldPanel.add(serviceField);
 		setupFieldPanel.add(UNField);
 		setupFieldPanel.add(pwdField);
