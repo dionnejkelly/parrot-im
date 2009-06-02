@@ -21,13 +21,13 @@ public class buddylist extends JFrame{
 		buddylistPanel.setLayout(new BorderLayout());
 		buddylistPanel.setPreferredSize(new Dimension(300,600));
 		
-		
 	    //INSIDE PANEL
-		JPanel mainListPanel = new buddyPanel();	
+		JPanel mainListPanel = new buddyPanel();
+		JPanel accountInfo = new accInfo();
 	    
 	    //add to buddylistPanel
-		//buddylistPanel.add(menu, BorderLayout.NORTH);
-		//buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
+		buddylistPanel.add(accountInfo, BorderLayout.NORTH);
+		buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
 		getContentPane().add(buddylistPanel);   
 		pack();
 		setVisible(true);
