@@ -61,6 +61,7 @@ public class buddyPanel extends JPanel
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());
 		friendItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		friendItem.setBackground(new Color(225, 247, 247));
 		
 		JLabel friendName = new JLabel(name);
 		JLabel friendStatus = new JLabel(" - \"" + status + "\"");
