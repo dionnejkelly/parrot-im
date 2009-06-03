@@ -27,10 +27,26 @@ public class buddyPanel extends JPanel
 		boxes[0].add(FriendItem("Jordan","PlayingXbox"));
 		boxes[0].add(FriendItem("PersonA","Eating Lunch"));
 		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
+		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
 		boxes[0].add(FriendItem("PersonC","Is going to see a movie tonight! who wants to come."));
 		boxes[0].add(FriendItem("PersonD",""));
 		buddyList.add(boxes[0], BorderLayout.NORTH);
 		JScrollPane scroller = new JScrollPane(buddyList);
+		//scroller.createVerticalScrollBar();
+		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		options = OptionsBar();
         
 		//scroller.add(buddyList);
