@@ -18,6 +18,7 @@ public class buddyPanel extends JPanel
 	public buddyPanel()
 	{
 		setLayout(new BorderLayout());
+		setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
 		
 		buddyList = new JPanel();
 		buddyList.setBackground(Color.WHITE);
