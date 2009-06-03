@@ -3,16 +3,18 @@ package chatwindow;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import ChatClient.ChatClient;
+
 public class chatwindow extends JFrame{
-	
-	public chatwindow()
+	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+	public chatwindow(ChatClient c)
 	{
 		super("chatWindow Mockup");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		
-		getContentPane().add(new mainPanel());
+		getContentPane().add(new mainPanel(c));
 		
 		pack();
 		setVisible(true);

@@ -1,4 +1,5 @@
 package mainwindow;
+import ChatClient.ChatClient;
 import buddylist.buddylist;
 
 import java.awt.BorderLayout;
@@ -22,9 +23,20 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
+import org.jivesoftware.smack.XMPPException;
+
+import chatwindow.chatwindow;
 
 public class mainwindow extends JFrame{
+	/*THIS IS FOR CHAT CLIENT*/
+	String username;
+	String password;
+	/*THIS IS FOR CHAT CLIENT*/
+	
 	private Vector<String> account_list;
 	private Vector<String> serverList;
 	private JPanel signinPanel;
@@ -42,19 +54,19 @@ public class mainwindow extends JFrame{
 	private JFrame GAL;
 
 	public mainwindow (){
+		username = new String ("cmpt275testing@gmail.com");
+		password = new String ("abcdefghi");
 		//set server list
 		serverList = new Vector<String>();
 		serverList.add ("msn");
 		serverList.add ("aim");
 		serverList.add ("twitter");
 		serverList.add ("icq");
+		serverList.add ("googleTalk");
 
 		//list of accounts
 		account_list = new Vector<String>();
-		account_list.add("msn: test@hotmail.com");
-		account_list.add("aim: test");
-		account_list.add("twitter: test@sth");
-		account_list.add("icq: 712859");
+		account_list.add("googleTalk: " + username);
 		account_list.add("connect all");
 
 		//set Main Window Frame
@@ -228,6 +240,10 @@ public class mainwindow extends JFrame{
 		accList = new JList(account_list);
 		accList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		accList.setPreferredSize(new Dimension (150,200));
+		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+		JScrollPane listScroller = new JScrollPane(accList);
+		listScroller.setPreferredSize(new Dimension(180, 200));
 
 		//add-remove button panel
 		JPanel addremovePanel = new JPanel();
@@ -237,39 +253,17 @@ public class mainwindow extends JFrame{
 		addremovePanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
 
 		//add button
-		JButton addButton = new JButton("edit");
-		addButton.setPreferredSize(new Dimension(50, 30));
+		JButton addButton = new JButton("+");
+		addButton.setPreferredSize(new Dimension(40, 25));
 		addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	//TODO: sorry, I have no idea what this thing is supposed to do
-            	
-            	//I make it as a edit button, which take the info to the right panel
-            	//for use later
-            	int selected = accList.getSelectedIndex();
-            	if (selected>=0 && selected < account_list.size()-1){
-	    			String tempAccount = account_list.get(selected);
-	    			StringTokenizer token = new StringTokenizer(tempAccount, " :");
-	    			String serviceName = token.nextToken();
-	    			String userId = token.nextToken();
-	    			int serviceNum = 0;
-	    			if (serviceName.compareTo("msn") == 0){
-	    				serviceNum = 0;
-	    			}else if (serviceName.compareTo("aim") == 0){
-	    				serviceNum = 1;
-	    			}else if (serviceName.compareTo("twitter") == 0){
-	    				serviceNum = 2;
-	    			}else if (serviceName.compareTo("icq") == 0){
-	    				serviceNum = 3;
-	    			}
-	    			UNField.setText(userId);
-	    			serviceField.setSelectedIndex(serviceNum);
-            	}
+            	addAccount_actionPerform(evt) ;
             }
 		});
 
 		//remove button
 		JButton removeButton = new JButton ("-");
-		removeButton.setPreferredSize(new Dimension(50, 30));
+		removeButton.setPreferredSize(new Dimension(40, 25));
 		removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	int selected = accList.getSelectedIndex();
@@ -285,7 +279,7 @@ public class mainwindow extends JFrame{
 		addremovePanel.add(removeButton);
 
 		//add to leftpanel
-		leftPanel.add(accList,BorderLayout.NORTH);
+		leftPanel.add(listScroller,BorderLayout.NORTH);
 		leftPanel.add(addremovePanel,BorderLayout.SOUTH);
 
 		//add to account manager pop up main panel
@@ -371,7 +365,7 @@ public class mainwindow extends JFrame{
 		JButton okButton = new JButton ("OK");
 		okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	addACC_ActionPerformed(evt);
+            	addAccount_actionPerform(evt) ;
             }
 		});
 		buttonsPanel.add(okButton);
@@ -395,18 +389,23 @@ public class mainwindow extends JFrame{
 		accMANPanel.add(rightPanel,BorderLayout.EAST);
 	}
 	private void signIn_ActionPerformed(ActionEvent e) {
-		//TODO: set buddylist as JPANEL
-		/*buddylist buddyWin = new buddylist();
-		getContentPane().remove(signinPanel);
-		this.add(buddyWin);
-		getContentPane().add(buddyWin); */
-
-		this.setVisible(false);
-		buddylist buddyWin = new buddylist();//pops buddylist window
-
-
+		//TODO: link with chatclient
+		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+		
+		ChatClient c = new ChatClient();//CORE
+		try {
+			c.login(username, password);
+			this.setVisible(false);
+			//buddylist buddyWin = new buddylist();//pops buddylist window
+			chatwindow chat = new chatwindow(c);
+		} catch (XMPPException e1) {
+			// TODO: throw a warning pop up
+			e1.printStackTrace();
+			System.out.println("sign in failed!");
+		}
+		
 	}
-	private void addACC_ActionPerformed(ActionEvent e) {
+	private void addAccount_actionPerform(ActionEvent evt) {
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
 			String newACC = serverList.get(serviceField.getSelectedIndex())+": "+UNField.getText();
@@ -434,5 +433,28 @@ public class mainwindow extends JFrame{
 	private String getcwd() {
 	    String cwd = System.getProperty("user.dir");
 	    return cwd;
+	}
+	private void editAccount(){
+       	int selected = accList.getSelectedIndex();
+    	if (selected>=0 && selected < account_list.size()-1){
+			String tempAccount = account_list.get(selected);
+			StringTokenizer token = new StringTokenizer(tempAccount, " :");
+			String serviceName = token.nextToken();
+			String userId = token.nextToken();
+			int serviceNum = 0;
+			if (serviceName.compareTo("msn") == 0){
+				serviceNum = 0;
+			}else if (serviceName.compareTo("aim") == 0){
+				serviceNum = 1;
+			}else if (serviceName.compareTo("twitter") == 0){
+				serviceNum = 2;
+			}else if (serviceName.compareTo("icq") == 0){
+				serviceNum = 3;
+			}else if (serviceName.compareTo("googleTalk") == 0){
+				serviceNum = 4;
+			}
+			UNField.setText(userId);
+			serviceField.setSelectedIndex(serviceNum);
+    	}
 	}
 }
