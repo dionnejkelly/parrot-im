@@ -44,7 +44,6 @@ public class ChatPanel extends JPanel {
 		JButton underlineButton = new JButton("U");
 		JButton colorButton = new JButton("Color");
 		JButton emoticons = new JButton(":-)");
-		JButton link = new JButton("Link");
 		JButton pic = new JButton("Pic");
 		
 		JToolBar bar1 = new JToolBar();
@@ -57,7 +56,6 @@ public class ChatPanel extends JPanel {
 		bar1.add(underlineButton);
 		bar1.add(colorButton);
 		bar1.add(emoticons);
-		bar1.add(link);
 		bar1.add(pic);
 		
 		//add to editing panel
