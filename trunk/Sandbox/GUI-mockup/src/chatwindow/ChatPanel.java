@@ -6,9 +6,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class ChatPanel extends JPanel {
+import org.jivesoftware.smack.XMPPException;
 
-	public ChatPanel() {
+import ChatClient.ChatClient;
+
+public class ChatPanel extends JPanel {
+	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+	public ChatPanel(final ChatClient c) {
 		setLayout(new BorderLayout());
 		
 		final DisplayPanel displayPanel = new DisplayPanel();
@@ -35,9 +39,18 @@ public class ChatPanel extends JPanel {
 		JButton sendButton = new JButton("SEND");
 		sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	displayPanel.addMessage(txt1.getText());
+            	String msg =  txt1.getText();
+            	displayPanel.addMessage(msg);
+            	try {
+					c.sendMessage(msg, "shichan.karachu@gmail.com");
+				} catch (XMPPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("failed in sending text");
+				}
             }
         });
+		//displayPanel.addMessage(incoming messages); //TODO
 		
 		JButton boldButton = new JButton("B");
 		JButton italicsButton = new JButton("I");
