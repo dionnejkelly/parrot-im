@@ -29,18 +29,6 @@ public class buddyPanel extends JPanel
 		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
 		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
 		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
 		boxes[0].add(FriendItem("PersonC","Is going to see a movie tonight! who wants to come."));
 		boxes[0].add(FriendItem("PersonD",""));
 		buddyList.add(boxes[0], BorderLayout.NORTH);
@@ -76,7 +64,6 @@ public class buddyPanel extends JPanel
 	public JPanel FriendItem(String name, String status){
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());
-		friendItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		friendItem.setBackground(new Color(225, 247, 247));
 		
 		JLabel friendName = new JLabel(name);
