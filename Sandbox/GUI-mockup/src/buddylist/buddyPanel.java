@@ -45,12 +45,14 @@ public class buddyPanel extends JPanel
         JButton addF = new JButton("Add");
         JButton removeF = new JButton("Del");
         JButton blockF = new JButton("Blk");
+        JButton searchButton = new JButton("Srch");
         
         //add components
         options.add(addF);
         options.add(removeF);
         options.add(blockF);
         options.add(search);
+        options.add(searchButton);
         
         return options;
 	}
