@@ -36,15 +36,9 @@ public class buddyPanel extends JPanel
 		boxes[0].add(FriendItem("PersonC","Is going to see a movie tonight! who wants to come."));
 		boxes[0].add(FriendItem("PersonD",""));
 		
-		
-		boxes[0].getComponent(0).addMouseListener(new SelectListener());
-		boxes[0].getComponent(1).addMouseListener(new SelectListener());
-		boxes[0].getComponent(2).addMouseListener(new SelectListener());
-		boxes[0].getComponent(3).addMouseListener(new SelectListener());
-		boxes[0].getComponent(4).addMouseListener(new SelectListener());
-		boxes[0].getComponent(5).addMouseListener(new SelectListener());
-		boxes[0].getComponent(6).addMouseListener(new SelectListener());
-		
+		for(int i=0; i < boxes[0].getComponentCount(); i++){
+			boxes[0].getComponent(i).addMouseListener(new SelectListener());
+		}
 		
 		buddyList.add(boxes[0], BorderLayout.NORTH);
 		JScrollPane scroller = new JScrollPane(buddyList);
@@ -79,7 +73,7 @@ public class buddyPanel extends JPanel
 	public JPanel FriendItem(String name, String status){
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());
-		friendItem.setBackground(new Color(225, 247, 247));
+		friendItem.setBackground(Color.WHITE);
 		
 		JLabel friendName = new JLabel(name);
 		JLabel friendStatus = new JLabel(" - \"" + status + "\"");
@@ -91,22 +85,31 @@ public class buddyPanel extends JPanel
 	}
 	
 	private class SelectListener implements MouseListener{
-		
-		public void mouseClicked(MouseEvent arg0){}
-
-		public void mouseEntered(MouseEvent event) {
+		public void mouseClicked(MouseEvent event){
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
 				if(event.getSource().equals(boxes[0].getComponent(i))){
-					boxes[0].getComponent(i).setBackground(Color.GREEN);
+					boxes[0].getComponent(i).setBackground(Color.BLUE);
 				}
 			}
 		}
-
-		public void mouseExited(MouseEvent e) {
+		
+		public void mouseEntered(MouseEvent event) {
+			for(int i=0; i < boxes[0].getComponentCount(); i++){
+				if(event.getSource().equals(boxes[0].getComponent(i))){
+					boxes[0].getComponent(i).setBackground(new Color(225, 247, 247));
+				}
+			}
 		}
-
+		
+		public void mouseExited(MouseEvent event) {
+			for(int i=0; i < boxes[0].getComponentCount(); i++){
+				if(event.getSource().equals(boxes[0].getComponent(i))){
+					boxes[0].getComponent(i).setBackground(Color.WHITE);
+				}
+			}
+		}
+		
 		public void mousePressed(MouseEvent e) {}
-
 		public void mouseReleased(MouseEvent e) {}
 	}
 }
