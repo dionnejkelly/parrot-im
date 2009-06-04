@@ -47,6 +47,20 @@ public class ChatClient implements MessageListener
 			System.out.println(r.getUser());
 		}
 	}
+	
+	public ArrayList<String> getBuddyList()
+	{
+		Roster roster = connection.getRoster();
+		Collection<RosterEntry> entries = roster.getEntries();
+		ArrayList<String> buddies = new ArrayList<String>();
+		
+		for(RosterEntry r:entries)
+		{
+			buddies.add(r.getUser());
+		}
+		
+		return buddies;
+	}
 
 	public void disconnect()
 	{
