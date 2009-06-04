@@ -6,13 +6,16 @@ import java.util.Observer;
 
 import javax.swing.*;
 
+import ChatClient.ChatClient;
+
 public class buddylist extends JFrame{
 	JMenuBar menu;
 	
-	public buddylist()
+	public buddylist(ChatClient c)
 	{
 		this.setTitle("Buddy List");
 		this.setMinimumSize(new Dimension(300,600));
+		
 		// Attach the top text menu
 		this.setJMenuBar(this.createMenu());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

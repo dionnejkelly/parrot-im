@@ -146,7 +146,6 @@ public class buddyPanel extends JPanel
 	
 	class RightCickMenuListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent e) {
-	    	chat = new chatwindow();
 	    }
 	}
 }
