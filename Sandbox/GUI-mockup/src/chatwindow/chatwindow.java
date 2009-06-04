@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import org.jivesoftware.smack.RosterEntry;
+
 import ChatClient.ChatClient;
 
 public class chatwindow extends JFrame{
 	private ArrayList<Conversation> conversations;
 	
-	public chatwindow()
+	public chatwindow(String[] names)
 	{
 		super("chatWindow Mockup");
 		
@@ -19,13 +21,20 @@ public class chatwindow extends JFrame{
 		
 		ArrayList<Conversation> conversations = new ArrayList<Conversation>();
 		
+		createNewConversation(conversations, names);
+		
 		getContentPane().add(new mainPanel(conversations));
 		
 		pack();
 		setVisible(true);
 	}
 	
-	public void addNewConversation(String[] users){
-		
+	public void createNewConversation(ArrayList<Conversation> conversations, String[] names){
+		conversations.add(new Conversation());
+		conversations.get(0).addName("You");
+		for(String name: names)
+		{
+			conversations.get(0).addName(name);
+		}
 	}
 }

@@ -26,6 +26,7 @@ public class buddyPanel extends JPanel
 	JPopupMenu rightClickMenu;
 	JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
 	Box boxes[] = new Box[1];
+	String selectedName;
 	
 	public buddyPanel(ChatClient c)
 	{
@@ -98,6 +99,7 @@ public class buddyPanel extends JPanel
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());
 		friendItem.setBackground(Color.WHITE);
+		friendItem.setName(name);
 		
 		JLabel friendName = new JLabel(name);
 		//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
@@ -120,6 +122,7 @@ public class buddyPanel extends JPanel
 						//Right Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
 						rightClickMenu.show(boxes[0].getComponent(i), event.getX(), event.getY());
+						selectedName = boxes[0].getComponent(i).getName();
 					}
 				}
 			}
@@ -147,7 +150,8 @@ public class buddyPanel extends JPanel
 	
 	class RightCickMenuListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent e) {
-	    	chat = new chatwindow();
+	    	String[] test = {selectedName};
+	    	chat = new chatwindow(test);
 	    }
 	}
 }
