@@ -17,10 +17,6 @@ public class sidePanel extends JPanel {
 		chattingWith.setBackground(Color.WHITE);
 		chattingWith.setLayout(new BorderLayout());
 		
-		
-		conversations.add(new Conversation());
-		conversations.get(0).addName("You");
-		
 		boxes[0] = Box.createVerticalBox();
 		for(int i = 0; i < conversations.get(0).getSize(); i++){
 			boxes[0].add(new JLabel(conversations.get(0).getName(i)));
