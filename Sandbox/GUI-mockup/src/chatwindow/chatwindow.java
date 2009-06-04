@@ -7,14 +7,14 @@ import ChatClient.ChatClient;
 
 public class chatwindow extends JFrame{
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-	public chatwindow(ChatClient c)
+	public chatwindow()
 	{
 		super("chatWindow Mockup");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 		
-		getContentPane().add(new mainPanel(c));
+		getContentPane().add(new mainPanel());
 		
 		pack();
 		setVisible(true);

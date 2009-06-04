@@ -12,7 +12,7 @@ import ChatClient.ChatClient;
 
 public class ChatPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-	public ChatPanel(final ChatClient c) {
+	public ChatPanel() {
 		setLayout(new BorderLayout());
 		
 		final DisplayPanel displayPanel = new DisplayPanel();
@@ -41,6 +41,7 @@ public class ChatPanel extends JPanel {
             public void actionPerformed(ActionEvent evt) {
             	String msg =  txt1.getText();
             	displayPanel.addMessage(msg);
+            	/*
             	try {
 					c.sendMessage(msg, "shichan.karachu@gmail.com");
 				} catch (XMPPException e) {
@@ -48,6 +49,7 @@ public class ChatPanel extends JPanel {
 					e.printStackTrace();
 					System.out.println("failed in sending text");
 				}
+				*/
             }
         });
 		//displayPanel.addMessage(incoming messages); //TODO
