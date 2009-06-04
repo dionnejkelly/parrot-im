@@ -3,6 +3,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+import ChatClient.ChatClient;
+
 public class sidePanel extends JPanel {
 	private JPanel chattingWith;
 	private Box boxes[] = new Box[1];
