@@ -9,7 +9,7 @@ import ChatClient.ChatClient;
 
 public class mainPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-	public mainPanel(ChatClient c) {
+	public mainPanel() {
 		setLayout(new BorderLayout());
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -31,7 +31,7 @@ public class mainPanel extends JPanel {
 	    helpMenu.add(helpItem2);
 		
 		JSplitPane sPane = new JSplitPane();
-		sPane.setRightComponent(new ChatPanel(c));
+		sPane.setRightComponent(new ChatPanel());
 		sPane.setLeftComponent(new sidePanel());
 		sPane.setOneTouchExpandable(true);
 		
