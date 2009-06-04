@@ -26,7 +26,7 @@ public class buddylist extends JFrame{
 		buddylistPanel.setPreferredSize(new Dimension(300,600));
 		
 	    //INSIDE PANEL
-		JPanel mainListPanel = new buddyPanel();
+		JPanel mainListPanel = new buddyPanel(c);
 		JPanel accountInfo = new accInfo();
 	    
 	    //add to buddylistPanel
