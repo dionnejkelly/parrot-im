@@ -17,6 +17,8 @@ public class chatwindow extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 		
+		ArrayList<Conversation> conversations = new ArrayList<Conversation>();
+		
 		getContentPane().add(new mainPanel(conversations));
 		
 		pack();

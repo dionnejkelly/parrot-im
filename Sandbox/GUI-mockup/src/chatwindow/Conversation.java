@@ -6,7 +6,7 @@ public class Conversation {
 	ArrayList<String> names;
 	
 	public Conversation() {
-		
+		names = new ArrayList<String>();
 	}
 	
 	public int getSize(){
