@@ -61,6 +61,7 @@ public class buddyPanel extends JPanel
 		menuItem5 = new JMenuItem("View Profile");
 		
 		menuItem1.addMouseListener(new RightCickMenuListener());
+		menuItem2.addMouseListener(new RightCickMenuListener());
 		
 		rightClickMenu.add(menuItem1);
 		rightClickMenu.add(menuItem2);
@@ -103,6 +104,7 @@ public class buddyPanel extends JPanel
 		friendItem.setLayout(new BorderLayout());
 		friendItem.setBackground(Color.WHITE);
 		friendItem.setName(name);
+		friendItem.setToolTipText("Right click to see options for this item");
 		
 		JLabel friendName = new JLabel(name);
 		//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
@@ -152,9 +154,14 @@ public class buddyPanel extends JPanel
 	}
 	
 	class RightCickMenuListener extends MouseAdapter {
-	    public void mousePressed(MouseEvent e) {
-	    	String[] test = {selectedName};
-	    	chat = new chatwindow(test, c);
+	    public void mousePressed(MouseEvent event) {
+	    	if(event.getSource().equals(menuItem1)){
+		    	String[] test = {selectedName};
+		    	chat = new chatwindow(test, c);
+	    	}else if(event.getSource().equals(menuItem2)){
+	    		String[] test = {selectedName};
+		    	chat = new chatwindow(test, c);
+	    	}
 	    }
 	}
 }
