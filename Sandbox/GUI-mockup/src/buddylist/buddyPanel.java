@@ -1,6 +1,8 @@
 package buddylist;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -14,6 +16,7 @@ public class buddyPanel extends JPanel
 	JToolBar options;
 	JScrollPane scroller;
 	JPanel buddyList;
+	Box boxes[] = new Box[1];
 	
 	public buddyPanel()
 	{
@@ -23,7 +26,7 @@ public class buddyPanel extends JPanel
 		buddyList = new JPanel();
 		buddyList.setBackground(Color.WHITE);
 		buddyList.setLayout(new BorderLayout());
-		Box boxes[] = new Box[1];
+		
 		boxes[0] = Box.createVerticalBox();
 		boxes[0].add(FriendItem("Jordan","PlayingXbox"));
 		boxes[0].add(FriendItem("PersonA","Eating Lunch"));
@@ -32,6 +35,17 @@ public class buddyPanel extends JPanel
 		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
 		boxes[0].add(FriendItem("PersonC","Is going to see a movie tonight! who wants to come."));
 		boxes[0].add(FriendItem("PersonD",""));
+		
+		
+		boxes[0].getComponent(0).addMouseListener(new SelectListener());
+		boxes[0].getComponent(1).addMouseListener(new SelectListener());
+		boxes[0].getComponent(2).addMouseListener(new SelectListener());
+		boxes[0].getComponent(3).addMouseListener(new SelectListener());
+		boxes[0].getComponent(4).addMouseListener(new SelectListener());
+		boxes[0].getComponent(5).addMouseListener(new SelectListener());
+		boxes[0].getComponent(6).addMouseListener(new SelectListener());
+		
+		
 		buddyList.add(boxes[0], BorderLayout.NORTH);
 		JScrollPane scroller = new JScrollPane(buddyList);
 		//scroller.createVerticalScrollBar();
@@ -74,5 +88,25 @@ public class buddyPanel extends JPanel
 		friendItem.add(friendStatus,BorderLayout.CENTER);
 		
 		return friendItem;
+	}
+	
+	private class SelectListener implements MouseListener{
+		
+		public void mouseClicked(MouseEvent arg0){}
+
+		public void mouseEntered(MouseEvent event) {
+			for(int i=0; i < boxes[0].getComponentCount(); i++){
+				if(event.getSource().equals(boxes[0].getComponent(i))){
+					boxes[0].getComponent(i).setBackground(Color.GREEN);
+				}
+			}
+		}
+
+		public void mouseExited(MouseEvent e) {
+		}
+
+		public void mousePressed(MouseEvent e) {}
+
+		public void mouseReleased(MouseEvent e) {}
 	}
 }
