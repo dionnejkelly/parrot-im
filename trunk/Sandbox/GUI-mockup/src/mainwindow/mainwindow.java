@@ -396,8 +396,8 @@ public class mainwindow extends JFrame{
 		try {
 			c.login(username, password);
 			this.setVisible(false);
-			//buddylist buddyWin = new buddylist();//pops buddylist window
-			chatwindow chat = new chatwindow(c);
+			buddylist buddyWin = new buddylist(c); //pops buddylist window
+			//chatwindow chat = new chatwindow(c);
 		} catch (XMPPException e1) {
 			// TODO: throw a warning pop up
 			e1.printStackTrace();
