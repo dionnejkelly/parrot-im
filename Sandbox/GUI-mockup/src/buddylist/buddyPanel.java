@@ -27,11 +27,14 @@ public class buddyPanel extends JPanel
 	JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
 	Box boxes[] = new Box[1];
 	String selectedName;
+	ChatClient c;
 	
 	public buddyPanel(ChatClient c)
 	{
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+		
+		this.c = c;
 		
 		friendList = new JPanel();
 		friendList.setBackground(Color.WHITE);
@@ -151,7 +154,7 @@ public class buddyPanel extends JPanel
 	class RightCickMenuListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent e) {
 	    	String[] test = {selectedName};
-	    	chat = new chatwindow(test);
+	    	chat = new chatwindow(test, c);
 	    }
 	}
 }

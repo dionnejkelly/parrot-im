@@ -12,7 +12,7 @@ import ChatClient.ChatClient;
 public class chatwindow extends JFrame{
 	private ArrayList<Conversation> conversations;
 	
-	public chatwindow(String[] names)
+	public chatwindow(String[] names, ChatClient c)
 	{
 		super("chatWindow Mockup");
 		
@@ -23,7 +23,7 @@ public class chatwindow extends JFrame{
 		
 		createNewConversation(conversations, names);
 		
-		getContentPane().add(new mainPanel(conversations));
+		getContentPane().add(new mainPanel(conversations, c));
 		
 		pack();
 		setVisible(true);

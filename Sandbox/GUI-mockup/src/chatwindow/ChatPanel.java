@@ -3,6 +3,7 @@ package chatwindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -12,7 +13,7 @@ import ChatClient.ChatClient;
 
 public class ChatPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-	public ChatPanel() {
+	public ChatPanel(final ArrayList<Conversation> conversations, final ChatClient c) {
 		setLayout(new BorderLayout());
 		
 		final DisplayPanel displayPanel = new DisplayPanel();
@@ -41,15 +42,15 @@ public class ChatPanel extends JPanel {
             public void actionPerformed(ActionEvent evt) {
             	String msg =  txt1.getText();
             	displayPanel.addMessage(msg);
-            	/*
             	try {
-					c.sendMessage(msg, "shichan.karachu@gmail.com");
+            		for(int i = 0; i < conversations.get(0).getSize(); i++){
+            			c.sendMessage(msg, conversations.get(0).getName(i));
+            		}
+					
 				} catch (XMPPException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("failed in sending text");
 				}
-				*/
             }
         });
 		//displayPanel.addMessage(incoming messages); //TODO
