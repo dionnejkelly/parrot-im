@@ -15,7 +15,8 @@ public class buddyPanel extends JPanel
 	 */
 	JToolBar options;
 	JScrollPane scroller;
-	JPanel buddyList;
+	JPanel friendList;
+	JPopupMenu rightClickMenu;
 	Box boxes[] = new Box[1];
 	
 	public buddyPanel()
@@ -23,10 +24,11 @@ public class buddyPanel extends JPanel
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
 		
-		buddyList = new JPanel();
-		buddyList.setBackground(Color.WHITE);
-		buddyList.setLayout(new BorderLayout());
+		friendList = new JPanel();
+		friendList.setBackground(Color.WHITE);
+		friendList.setLayout(new BorderLayout());
 		
+		//add friends to the buddy list
 		boxes[0] = Box.createVerticalBox();
 		boxes[0].add(FriendItem("Jordan","PlayingXbox"));
 		boxes[0].add(FriendItem("PersonA","Eating Lunch"));
@@ -40,13 +42,26 @@ public class buddyPanel extends JPanel
 			boxes[0].getComponent(i).addMouseListener(new SelectListener());
 		}
 		
-		buddyList.add(boxes[0], BorderLayout.NORTH);
-		JScrollPane scroller = new JScrollPane(buddyList);
-		//scroller.createVerticalScrollBar();
+		//rightclick menu
+		rightClickMenu = new JPopupMenu();
+		JMenuItem menuItem1 = new JMenuItem("Start New Conversation");
+		JMenuItem menuItem2 = new JMenuItem("Add to open Conversation");
+		JMenuItem menuItem3 = new JMenuItem("Remove Friend");
+		JMenuItem menuItem4 = new JMenuItem("Block Friend");
+		JMenuItem menuItem5 = new JMenuItem("View Profile");
+		rightClickMenu.add(menuItem1);
+		rightClickMenu.add(menuItem2);
+		rightClickMenu.addSeparator();
+		rightClickMenu.add(menuItem3);
+		rightClickMenu.add(menuItem4);
+		rightClickMenu.addSeparator();
+		rightClickMenu.add(menuItem5);
+		
+		friendList.add(boxes[0], BorderLayout.NORTH);
+		JScrollPane scroller = new JScrollPane(friendList);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		options = OptionsBar();
         
-		//scroller.add(buddyList);
         add(scroller, BorderLayout.CENTER);
         add(options, BorderLayout.SOUTH);
 	}
@@ -86,9 +101,20 @@ public class buddyPanel extends JPanel
 	
 	private class SelectListener implements MouseListener{
 		public void mouseClicked(MouseEvent event){
-			for(int i=0; i < boxes[0].getComponentCount(); i++){
-				if(event.getSource().equals(boxes[0].getComponent(i))){
-					boxes[0].getComponent(i).setBackground(Color.BLUE);
+			//Left click
+			if(event.getButton() == event.BUTTON1){
+				for(int i=0; i < boxes[0].getComponentCount(); i++){
+					if(event.getSource().equals(boxes[0].getComponent(i))){
+						boxes[0].getComponent(i).setBackground(Color.BLUE);
+					}
+				}
+			}
+			//Right click
+			if(event.getButton() == event.BUTTON3){
+				for(int i=0; i < boxes[0].getComponentCount(); i++){
+					if(event.getSource().equals(boxes[0].getComponent(i))){
+						rightClickMenu.show(boxes[0].getComponent(i), event.getX(), event.getY());
+					}
 				}
 			}
 		}
