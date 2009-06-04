@@ -39,9 +39,11 @@ public class DisplayPanel extends JPanel {
 		add(bar2, BorderLayout.SOUTH);
 	}
 	
-	public void addMessage(String text){
+	public void addMessage(String text, String font, String size){
 		if(text.length() > 0){
-			previousText = previousText + "<U>PersonA:</U> " + text + "<br><br>";
+			previousText = previousText + "<U>PersonA:</U> " 
+				+ "<font face=\"" + font + "\" size=\"" + size + "\">" 
+				+ text + "</font><br><br>";
 			txtPane.setText(previousText);
 		}
 	}

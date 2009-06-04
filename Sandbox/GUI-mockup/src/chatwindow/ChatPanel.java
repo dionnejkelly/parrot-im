@@ -13,6 +13,8 @@ import ChatClient.ChatClient;
 
 public class ChatPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+	JComboBox fontSelect;
+	
 	public ChatPanel(final ArrayList<Conversation> conversations, final ChatClient c) {
 		setLayout(new BorderLayout());
 		
@@ -23,11 +25,11 @@ public class ChatPanel extends JPanel {
 		editingPanel.setLayout(new BorderLayout());
 		
 		String[] fontList = {"Arial", "Times New Roman", "Comic Sans MS"};
-		JComboBox fontSelect = new JComboBox(fontList);
+		fontSelect = new JComboBox(fontList);
 		fontSelect.setEditable(true);
 		fontSelect.setMaximumSize(new Dimension(130,28));
 		
-		SpinnerModel fontSizemodel = new SpinnerNumberModel(12, 6, 72, 1);
+		SpinnerModel fontSizemodel = new SpinnerNumberModel(4, 1, 12, 1);
 		JSpinner fontSize = new JSpinner(fontSizemodel);
 		fontSize.setMaximumSize(new Dimension(45,30));
 
@@ -40,8 +42,8 @@ public class ChatPanel extends JPanel {
 		JButton sendButton = new JButton("SEND");
 		sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	String msg =  txt1.getText();
-            	displayPanel.addMessage(msg);
+            	String msg = txt1.getText();
+            	displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
             	try {
             		for(int i = 0; i < conversations.get(0).getSize(); i++){
             			c.sendMessage(msg, conversations.get(0).getName(i));
@@ -51,6 +53,7 @@ public class ChatPanel extends JPanel {
 					e.printStackTrace();
 					System.out.println("failed in sending text");
 				}
+				txt1.setText("");
             }
         });
 		//displayPanel.addMessage(incoming messages); //TODO

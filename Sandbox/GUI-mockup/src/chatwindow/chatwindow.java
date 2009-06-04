@@ -16,7 +16,7 @@ public class chatwindow extends JFrame{
 	{
 		super("chatWindow Mockup");
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 		
 		ArrayList<Conversation> conversations = new ArrayList<Conversation>();
@@ -36,5 +36,12 @@ public class chatwindow extends JFrame{
 		{
 			conversations.get(0).addName(name);
 		}
+	}
+	
+	public void addToConversation(String name){
+		conversations = new ArrayList<Conversation>();
+		conversations.add(new Conversation());
+		conversations.get(0).addName("You");
+		conversations.get(0).addName(name);
 	}
 }
