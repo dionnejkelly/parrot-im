@@ -4,9 +4,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.*;
+
+import ChatClient.ChatClient;
 
 import chatwindow.chatwindow;
 
@@ -24,7 +27,7 @@ public class buddyPanel extends JPanel
 	JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
 	Box boxes[] = new Box[1];
 	
-	public buddyPanel()
+	public buddyPanel(ChatClient c)
 	{
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
@@ -33,15 +36,13 @@ public class buddyPanel extends JPanel
 		friendList.setBackground(Color.WHITE);
 		friendList.setLayout(new BorderLayout());
 		
+		ArrayList<String> buddies = c.getBuddyList();
+		
 		//add friends to the buddy list
 		boxes[0] = Box.createVerticalBox();
-		boxes[0].add(FriendItem("Jordan","PlayingXbox"));
-		boxes[0].add(FriendItem("PersonA","Eating Lunch"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonB","Away From keyboard"));
-		boxes[0].add(FriendItem("PersonC","Is going to see a movie tonight! who wants to come."));
-		boxes[0].add(FriendItem("PersonD",""));
+		for(int i = 0; i < buddies.size(); i++){
+			boxes[0].add(FriendItem(buddies.get(i)));
+		}
 		
 		for(int i=0; i < boxes[0].getComponentCount(); i++){
 			boxes[0].getComponent(i).addMouseListener(new SelectListener());
@@ -93,16 +94,16 @@ public class buddyPanel extends JPanel
         return options;
 	}
 	
-	public JPanel FriendItem(String name, String status){
+	public JPanel FriendItem(String name){
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());
 		friendItem.setBackground(Color.WHITE);
 		
 		JLabel friendName = new JLabel(name);
-		JLabel friendStatus = new JLabel(" - \"" + status + "\"");
+		//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
 		
 		friendItem.add(friendName,BorderLayout.WEST);
-		friendItem.add(friendStatus,BorderLayout.CENTER);
+		//friendItem.add(friendStatus,BorderLayout.CENTER);
 		
 		return friendItem;
 	}
