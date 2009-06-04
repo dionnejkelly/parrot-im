@@ -159,8 +159,7 @@ public class buddyPanel extends JPanel
 		    	String[] test = {selectedName};
 		    	chat = new chatwindow(test, c);
 	    	}else if(event.getSource().equals(menuItem2)){
-	    		String[] test = {selectedName};
-		    	chat = new chatwindow(test, c);
+	    		chat.addToConversation(selectedName);
 	    	}
 	    }
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.jivesoftware.smack.RosterEntry;
 
@@ -11,6 +12,7 @@ import ChatClient.ChatClient;
 
 public class chatwindow extends JFrame{
 	private ArrayList<Conversation> conversations;
+	public JPanel main;
 	
 	public chatwindow(String[] names, ChatClient c)
 	{
@@ -19,17 +21,19 @@ public class chatwindow extends JFrame{
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 		
-		ArrayList<Conversation> conversations = new ArrayList<Conversation>();
+		conversations = new ArrayList<Conversation>();
 		
-		createNewConversation(conversations, names);
+		createNewConversation(names);
 		
-		getContentPane().add(new mainPanel(conversations, c));
+		main = new mainPanel(conversations, c);
+		
+		getContentPane().add(main);
 		
 		pack();
 		setVisible(true);
 	}
 	
-	public void createNewConversation(ArrayList<Conversation> conversations, String[] names){
+	public void createNewConversation(String[] names){
 		conversations.add(new Conversation());
 		conversations.get(0).addName("You");
 		for(String name: names)
@@ -39,9 +43,6 @@ public class chatwindow extends JFrame{
 	}
 	
 	public void addToConversation(String name){
-		conversations = new ArrayList<Conversation>();
-		conversations.add(new Conversation());
-		conversations.get(0).addName("You");
 		conversations.get(0).addName(name);
 	}
 }

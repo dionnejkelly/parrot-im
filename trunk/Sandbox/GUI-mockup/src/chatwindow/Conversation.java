@@ -3,7 +3,7 @@ package chatwindow;
 import java.util.ArrayList;
 
 public class Conversation {
-	ArrayList<String> names;
+	private ArrayList<String> names;
 	
 	public Conversation() {
 		names = new ArrayList<String>();

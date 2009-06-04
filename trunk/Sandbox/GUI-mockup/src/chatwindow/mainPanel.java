@@ -8,9 +8,10 @@ import javax.swing.*;
 
 import ChatClient.ChatClient;
 
-
 public class mainPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+	private JPanel side, chat;
+	
 	public mainPanel(ArrayList<Conversation> conversations, ChatClient c) {
 		setLayout(new BorderLayout());
 		
@@ -33,8 +34,10 @@ public class mainPanel extends JPanel {
 	    helpMenu.add(helpItem2);
 		
 		JSplitPane sPane = new JSplitPane();
-		sPane.setRightComponent(new ChatPanel(conversations, c));
-		sPane.setLeftComponent(new sidePanel(conversations));
+		chat = new ChatPanel(conversations, c);
+		side = new sidePanel(conversations);
+		sPane.setRightComponent(chat);
+		sPane.setLeftComponent(side);
 		sPane.setOneTouchExpandable(true);
 		
 		//add to panel
