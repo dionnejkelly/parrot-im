@@ -2,6 +2,8 @@ package chatwindow;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import ChatClient.ChatClient;
@@ -9,7 +11,7 @@ import ChatClient.ChatClient;
 
 public class mainPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-	public mainPanel() {
+	public mainPanel(ArrayList<Conversation> conversations) {
 		setLayout(new BorderLayout());
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -32,7 +34,7 @@ public class mainPanel extends JPanel {
 		
 		JSplitPane sPane = new JSplitPane();
 		sPane.setRightComponent(new ChatPanel());
-		sPane.setLeftComponent(new sidePanel());
+		sPane.setLeftComponent(new sidePanel(conversations));
 		sPane.setOneTouchExpandable(true);
 		
 		//add to panel

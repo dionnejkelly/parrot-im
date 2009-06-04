@@ -1,30 +1,35 @@
 package chatwindow;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class sidePanel extends JPanel {
-
-	public sidePanel() {
+	private JPanel chattingWith;
+	private Box boxes[] = new Box[1];
+	
+	public sidePanel(ArrayList<Conversation> conversations) {
 		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(120, 500));
 		
-		JTabbedPane tabs = new JTabbedPane();
+		chattingWith = new JPanel();
+		chattingWith.setBackground(Color.WHITE);
+		chattingWith.setLayout(new BorderLayout());
 		
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(Color.WHITE);
-		String[] names = {"PersonA (You)", "PersonB"};
-		JList thisConversation = new JList(names);
-		thisConversation.setLayoutOrientation(JList.VERTICAL);
-		panel1.add(thisConversation, BorderLayout.CENTER);
-		tabs.addTab("Chating with", panel1);
+		//conversations.add(new Conversation());
+		//conversations.get(0).addName("You");
 		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(Color.WHITE);
-		String[] titles = {"Conversation1 (2)", "Conversation2 (5)", "Conversation3 (4)"};
-		JList allConversations = new JList(titles);
-		panel2.add(allConversations, BorderLayout.CENTER);
-		tabs.addTab("All Conversations", panel2);
+		boxes[0] = Box.createVerticalBox();
+		//for(int i = 0; i < conversations.get(0).getSize(); i++){
+			boxes[0].add(new JLabel("You"));
+		//}
 		
+		//for(int i=0; i < boxes[0].getComponentCount(); i++){
+			
+		//}
+		
+		chattingWith.add(boxes[0], BorderLayout.NORTH);
+			
 		//add to panel
-		add(tabs, BorderLayout.CENTER);
+		add(chattingWith, BorderLayout.CENTER);
 	}
 }

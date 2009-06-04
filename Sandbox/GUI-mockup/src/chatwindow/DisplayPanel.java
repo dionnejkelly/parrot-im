@@ -14,13 +14,10 @@ public class DisplayPanel extends JPanel {
 		txtPane.setPreferredSize(new Dimension(250, 300));
 		txtPane.setEditable(false);
 		txtPane.setEditorKit(new HTMLEditorKit());
-		previousText = "<font face=\"Ariel\">" +
-				"<U>PersonA:</U>   How is it going?<br><br>" +
-				"<U>PersonB:</U><font color=\"blue\"><b>   Good, you?</b></font><br><br>" +
-				"<U>PersonA:</U>   not bad, lol...<br><br>";
+		previousText = "";
 		txtPane.setText(previousText);
 		
-		JLabel title = new JLabel("Conversation 1 (2 friends)                           view: ");
+		JLabel title = new JLabel("Conversation 1                           view: ");
 		
 		JButton fullView = new JButton("Full");
 		JButton simpleView = new JButton("Simple");
@@ -33,7 +30,7 @@ public class DisplayPanel extends JPanel {
 		
 		JToolBar bar2 = new JToolBar();
 		bar2.setFloatable(false);
-		JLabel isTyping = new JLabel("PersonA isTyping...");
+		JLabel isTyping = new JLabel("Ready...");
 		bar2.add(isTyping);
 		
 		//add to panel
