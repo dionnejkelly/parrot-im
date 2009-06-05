@@ -57,10 +57,14 @@ public class Model {
 	}
 	
 	public String getUsername() {
+		// FIX ME
+		username = "cmpt275testing@gmail.com";
 		return username;
 	}
 
     public String getPassword() {
+    	// FIX ME
+    	password = "abcdefghi";
     	return password;
     }
 }
