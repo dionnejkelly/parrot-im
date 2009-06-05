@@ -14,6 +14,7 @@ public class buddylist extends JFrame{
 	public buddylist(ChatClient c)
 	{
 		this.setTitle("Buddy List");
+		
 		this.setMinimumSize(new Dimension(300,600));
 		
 		// Attach the top text menu
