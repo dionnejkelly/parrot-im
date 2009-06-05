@@ -1,5 +1,6 @@
 package model;
 import java.util.Vector;
+import java.sql.*;
 
 public class Model {
 	
@@ -10,10 +11,27 @@ public class Model {
 	protected String username;
 	protected String password;
 	
-	public Model(){
-		username = new String ("cmpt275testing@gmail.com");
-		password = new String ("abcdefghi");
-			
+	public Model() throws ClassNotFoundException, SQLException{
+      Class.forName("org.sqlite.JDBC");
+      Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+      Statement stat = conn.createStatement();
+      stat.executeUpdate("drop table if exists people;");
+      stat.executeUpdate("create table people (email);");
+
+
+		String[] username = new String[55];
+		String[] password = new String[55];
+		username[0] = new String ("cmpt275testing@gmail.com");
+		password[0] = new String ("abcdefghi");
+		// ahmad test
+		  int i = 0;
+	      ResultSet rs = stat.executeQuery("select * from people;");
+	      while (rs.next()) {
+	    	  i++;
+	    	  username[i] = rs.getString("email");
+	    	  password[i] = "abcdefghi";
+		}
+		// ahmad test
 		//set server list
 		serverList = new Vector<String>();
 		serverList.add ("msn");
@@ -24,7 +42,10 @@ public class Model {
 
 		//list of accounts
 		accountList = new Vector<String>();
-		accountList.add("googleTalk: " + username);
+		for (int k=0; k<i; k++)
+		{
+		accountList.add("googleTalk: " + username[k]);
+		}
 		accountList.add("connect all");
 	}
 	

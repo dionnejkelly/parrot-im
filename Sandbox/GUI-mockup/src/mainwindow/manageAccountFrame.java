@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import java.sql.*;
 
 import model.Model;
 
@@ -82,7 +83,15 @@ public class manageAccountFrame extends JFrame{
 		addButton.setPreferredSize(new Dimension(40, 25));
 		addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	addAccount_actionPerform(evt) ;
+            	try {
+					addAccount_actionPerform(evt) ;
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 		});
 
@@ -190,7 +199,15 @@ public class manageAccountFrame extends JFrame{
 		JButton okButton = new JButton ("OK");
 		okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	addAccount_actionPerform(evt) ;
+            	try {
+					addAccount_actionPerform(evt) ;
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 		});
 		buttonsPanel.add(okButton);
@@ -215,11 +232,30 @@ public class manageAccountFrame extends JFrame{
 	}
 
 
-	private void addAccount_actionPerform(ActionEvent evt) {
+	private void addAccount_actionPerform(ActionEvent evt) throws ClassNotFoundException, SQLException {
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
 			String newACC = model.getServerList().get(serviceField.getSelectedIndex())+": "+UNField.getText();
 			boolean match = false;
+			
+			
+			//Ahmad TESTING TESTING TESTING
+			
+		      Class.forName("org.sqlite.JDBC");
+		      Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+		      Statement stat = conn.createStatement();
+		      PreparedStatement prep = conn.prepareStatement(
+		          "insert into people values (?);");
+
+		      prep.setString(1, newACC);
+		      prep.addBatch();
+
+		      conn.setAutoCommit(false);
+		      prep.executeBatch();
+		      conn.setAutoCommit(true);
+		      conn.close();
+			
+			//Ahmad TESTING TESTING TESTING
 			for (int i=0; i < model.getAccountList().size()-1; i++){
 				if (model.getAccountList().get(i).compareTo(newACC)==0) match = true;
 			}
