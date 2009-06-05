@@ -12,14 +12,17 @@ import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
+import model.Model;
+
 
 public class ChatClient implements MessageListener
 {
         private XMPPConnection connection;
         private String userName;
+        private Model model; // Unsure if the model is needed here yet.
        
-        public ChatClient(){
-             
+        public ChatClient(Model model){
+            this.model = model;
         }
        
         public void login(String userName, String password) throws XMPPException
@@ -75,8 +78,9 @@ public class ChatClient implements MessageListener
                 System.out.println(chat.getParticipant() + " says: " + message.getBody());
     }
        
+/* Main class unneeded now.
         public static void main(String args[]) throws XMPPException, IOException
-        {
+       {
                 // declare variables
                 ChatClient c = new ChatClient();
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -106,7 +110,7 @@ public class ChatClient implements MessageListener
                 c.disconnect();
                 System.exit(0);
         }
-       
+  */
         public String getUserName(){
                 return userName;
         }

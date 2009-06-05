@@ -24,17 +24,19 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
+import model.Model;
+
 public class manageAccountFrame extends JFrame{
 	private JPanel accMANPanel;
-	private modelstub model;
+	private Model model;
 	
 	private JTextField UNField;
 	private JPasswordField pwdField;
 	private JList accList;
 	private JComboBox serviceField;
 	
-	protected manageAccountFrame (modelstub m){
-		model = m; //database STUB
+	protected manageAccountFrame (Model model){
+		this.model = model;
 		
 		setTitle("Account Manager");
 		setLocation(100, 100);
@@ -61,7 +63,7 @@ public class manageAccountFrame extends JFrame{
 		leftPanel.setLayout(new BorderLayout());
 
 		//saved account list
-		accList = new JList(model.account_list);
+		accList = new JList(model.getAccountList());
 		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
 		JScrollPane listScroller = new JScrollPane(accList);
@@ -90,8 +92,8 @@ public class manageAccountFrame extends JFrame{
 		removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	int selected = accList.getSelectedIndex();
-            	if (selected>=0 && selected < model.account_list.size()-1){
-            		model.account_list.remove(selected);
+            	if (selected>=0 && selected < model.getAccountList().size()-1){
+            		model.getAccountList().remove(selected);
             		accList.updateUI();
             	}
             }
@@ -133,7 +135,7 @@ public class manageAccountFrame extends JFrame{
 		GridLayout setupFieldLayout = new GridLayout (3,1);
 		setupFieldLayout.setVgap(2);
 		setupFieldPanel.setLayout(setupFieldLayout);
-		serviceField = new JComboBox (model.serverList);
+		serviceField = new JComboBox (model.getServerList());
 		serviceField.setPreferredSize(new Dimension(170,27));
 		UNField = new JTextField();
 		UNField.setPreferredSize(new Dimension (85,20));
@@ -216,10 +218,10 @@ public class manageAccountFrame extends JFrame{
 	private void addAccount_actionPerform(ActionEvent evt) {
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
-			String newACC = model.serverList.get(serviceField.getSelectedIndex())+": "+UNField.getText();
+			String newACC = model.getServerList().get(serviceField.getSelectedIndex())+": "+UNField.getText();
 			boolean match = false;
-			for (int i=0; i < model.account_list.size()-1; i++){
-				if (model.account_list.get(i).compareTo(newACC)==0) match = true;
+			for (int i=0; i < model.getAccountList().size()-1; i++){
+				if (model.getAccountList().get(i).compareTo(newACC)==0) match = true;
 			}
 			
 			if (match) {
@@ -229,7 +231,7 @@ public class manageAccountFrame extends JFrame{
 				//insert new
 				UNField.setText("");
 				pwdField.setText("");
-				model.account_list.add(model.account_list.size()-1, newACC);
+				model.getAccountList().add(model.getAccountList().size()-1, newACC);
 				accList.updateUI();
 			}
 			//accMAN.setVisible(false);

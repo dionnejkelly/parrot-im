@@ -8,13 +8,15 @@ import javax.swing.JFrame;
 
 import ChatClient.ChatClient;
 
+import model.Model;
+
 public class mainwindow extends JFrame{
 	/*THIS IS FOR CHAT CLIENT*/
 	String username;
 	String password;
 	/*THIS IS FOR CHAT CLIENT*/
 
-	public mainwindow (ChatClient c){	
+	public mainwindow (ChatClient chatClient, Model model){	
 
 		//set Main Window Frame
 		setTitle("Parrot-IM");
@@ -24,7 +26,7 @@ public class mainwindow extends JFrame{
 		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 
 		//call SignIn Panel
-		getContentPane().add(new signinPanel(this, c));
+		getContentPane().add(new signinPanel(this, chatClient, model));
 		
 		pack();
 		setVisible(true);
