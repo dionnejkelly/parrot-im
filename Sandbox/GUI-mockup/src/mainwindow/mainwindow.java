@@ -6,7 +6,7 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import chatwindow.signinPanel;
+import ChatClient.ChatClient;
 
 public class mainwindow extends JFrame{
 	/*THIS IS FOR CHAT CLIENT*/
@@ -14,7 +14,7 @@ public class mainwindow extends JFrame{
 	String password;
 	/*THIS IS FOR CHAT CLIENT*/
 
-	public mainwindow (){	
+	public mainwindow (ChatClient c){	
 
 		//set Main Window Frame
 		setTitle("Parrot-IM");
@@ -24,7 +24,7 @@ public class mainwindow extends JFrame{
 		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 
 		//call SignIn Panel
-		getContentPane().add(new signinPanel(this));
+		getContentPane().add(new signinPanel(this, c));
 		
 		pack();
 		setVisible(true);
