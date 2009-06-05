@@ -5,8 +5,7 @@ import chatwindow.chatwindow;
 
 public class main {
 
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		mainwindow m = new mainwindow();
 		//buddylist b = new buddylist();
 		//chatwindow chat = new chatwindow();
