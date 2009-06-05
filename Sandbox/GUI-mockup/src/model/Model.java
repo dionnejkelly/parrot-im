@@ -15,8 +15,7 @@ public class Model {
       Class.forName("org.sqlite.JDBC");
       Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
       Statement stat = conn.createStatement();
-      stat.executeUpdate("drop table if exists people;");
-      stat.executeUpdate("create table people (email);");
+    
 
 
 		String[] username = new String[55];
