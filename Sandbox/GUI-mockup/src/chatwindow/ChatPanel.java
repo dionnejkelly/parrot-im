@@ -3,9 +3,12 @@ package chatwindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -14,6 +17,8 @@ import ChatClient.ChatClient;
 public class ChatPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	JComboBox fontSelect;
+	JButton colorButton;
+	JColorChooser colorChooser;
 	
 	public ChatPanel(final ArrayList<Conversation> conversations, final ChatClient c) {
 		setLayout(new BorderLayout());
@@ -62,6 +67,20 @@ public class ChatPanel extends JPanel {
 		JButton italicsButton = new JButton("I");
 		JButton underlineButton = new JButton("U");
 		JButton colorButton = new JButton("Color");
+		colorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+            	JFrame colorFrame = new JFrame("Color chooser");
+            	colorChooser = new JColorChooser();
+            	colorChooser.getSelectionModel().addChangeListener(new ChangeListener(){
+					public void stateChanged(ChangeEvent event) {
+						System.out.print("Helloworld");
+					}
+            	});
+            	colorFrame.add(new JColorChooser());
+            	colorFrame.pack();
+            	colorFrame.setVisible(true);
+            }
+		});
 		JButton emoticons = new JButton(":-)");
 		JButton pic = new JButton("Pic");
 		
