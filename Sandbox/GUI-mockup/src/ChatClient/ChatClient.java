@@ -16,6 +16,7 @@ import org.jivesoftware.smack.XMPPException;
 public class ChatClient implements MessageListener
 {
 	private XMPPConnection connection;
+	private String userName;
 	
 	public ChatClient(){
 		
@@ -28,6 +29,8 @@ public class ChatClient implements MessageListener
 
 		connection.connect();
 		connection.login(userName, password);
+		
+		this.userName = userName;
 	}
 	
 	public void sendMessage(String message, String to) throws XMPPException
@@ -103,5 +106,9 @@ public class ChatClient implements MessageListener
 
 		c.disconnect();
 		System.exit(0);
+	}
+	
+	public String getUserName(){
+		return userName;
 	}
 }
