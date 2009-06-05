@@ -156,7 +156,7 @@ public class buddyPanel extends JPanel
 	class RightCickMenuListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent event) {
 	    	if(event.getSource().equals(menuItem1)){
-		    	String[] test = {selectedName};
+		    	String[] test = {"(You) " + c.getUserName(), selectedName};
 		    	chat = new chatwindow(test, c);
 	    	}else if(event.getSource().equals(menuItem2)){
 	    		chat.addToConversation(selectedName);

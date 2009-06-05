@@ -35,7 +35,6 @@ public class chatwindow extends JFrame{
 	
 	public void createNewConversation(String[] names){
 		conversations.add(new Conversation());
-		conversations.get(0).addName("You");
 		for(String name: names)
 		{
 			conversations.get(0).addName(name);
