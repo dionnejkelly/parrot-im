@@ -123,6 +123,11 @@ public class buddyPanel extends JPanel
 					if(event.getButton() == event.BUTTON1){
 						//Left Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
+						if(event.getClickCount() == 2){
+							selectedName = boxes[0].getComponent(i).getName();
+							String[] test = {"(You) " + c.getUserName(), selectedName};
+					    	chat = new chatwindow(test, c);
+						}
 					}else if(event.getSource().equals(boxes[0].getComponent(i))){
 						//Right Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
