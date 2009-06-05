@@ -28,7 +28,6 @@ public class miscPanel extends JPanel{
 		//line separator
 		JSeparator line = new JSeparator();
 		
-		//TODO : set them to center alignment
 		//manage account
 		JLabel options = new JLabel ("Options", JLabel.CENTER);
 		options.addMouseListener(new java.awt.event.MouseAdapter() {

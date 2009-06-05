@@ -17,14 +17,12 @@ public class headerPanel extends JPanel{
 		JLabel avatarDisplay = new JLabel ();
 		avatarDisplay.setHorizontalAlignment(JLabel.CENTER);
 		ImageIcon avatar = new ImageIcon (getcwd() + "/src/mainwindow/fb.jpg");
-		//set auto scaling + border later
+	
+		//TODO: set auto scaling + border later
 		avatarDisplay.setIcon(avatar);
-		
 		
 		//add to panel
 		add(avatarDisplay, BorderLayout.NORTH);
-
-		
 	}
 	
 	public static String getcwd() { 
