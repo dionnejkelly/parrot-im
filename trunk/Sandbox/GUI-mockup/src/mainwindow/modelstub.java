@@ -12,8 +12,8 @@ public class modelstub {
 	protected String password;
 	
 	protected modelstub(){
-		username = new String ("shichan.karachu@gmail.com");
-		password = new String ("cincoijouy!712");
+		username = new String ("cmpt275testing@gmail.com");
+		password = new String ("abcdefghi");
 			
 		//set server list
 		serverList = new Vector<String>();
