@@ -4,6 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import ChatClient.ChatClient;
+
 public class accInfo extends JPanel
 {
 	/* TODO AccInfo has:
@@ -17,7 +19,7 @@ public class accInfo extends JPanel
 	
 	JTextField statusMessage;
 	
-	public accInfo()
+	public accInfo(ChatClient c)
 	{
 		setBackground(Color.DARK_GRAY);
 		setPreferredSize(new Dimension(300,100));
@@ -29,10 +31,21 @@ public class accInfo extends JPanel
 		avatarDisplay = new JLabel();
 		avatarDisplay.setIcon(avatar);
 		
-		//status
+		//name and status
+		JPanel info = new JPanel();
+		info.setBorder(BorderFactory.createEmptyBorder(15,25,25,25));
+		info.setBackground(Color.DARK_GRAY);
 		
+		JLabel name = new JLabel(c);
+		name.setForeground(Color.WHITE);
+		
+		JLabel status = new JLabel("(Online)");
+		status.setForeground(Color.WHITE);
+		
+		info.add(name);
+		info.add(status);
 		
 		add(avatarDisplay, BorderLayout.WEST);
-		
+		add(info, BorderLayout.CENTER);
 	}
 }
