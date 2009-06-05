@@ -36,7 +36,7 @@ public class accInfo extends JPanel
 		info.setBorder(BorderFactory.createEmptyBorder(15,25,25,25));
 		info.setBackground(Color.DARK_GRAY);
 		
-		JLabel name = new JLabel(c);
+		JLabel name = new JLabel(c.getUserName());
 		name.setForeground(Color.WHITE);
 		
 		JLabel status = new JLabel("(Online)");
