@@ -23,20 +23,22 @@ import buddylist.buddylist;
 
 import ChatClient.ChatClient;
 
+import model.Model;
+
 
 public class signinPanel extends JPanel {
 	protected ChatClient core;
 	private JFrame mainFrame;
-	private modelstub model;
+	private Model model;
 	
 	//Account Options part (in Sign In Panel)
 	private JLabel manageAccount;
 	private JLabel guestAccount;
 	
-	public signinPanel(JFrame frame, ChatClient c){
+	public signinPanel(JFrame frame, ChatClient chatClient, Model model){
 		mainFrame = frame;
-		core = c;//CORE
-		model = new modelstub(); //database stub
+		core = chatClient;//CORE
+		this.model = model;
 		
 		setLayout (new BorderLayout());
 		manageAccountPanel();
@@ -50,7 +52,7 @@ public class signinPanel extends JPanel {
 		accPanel.setLayout(new BoxLayout(accPanel, BoxLayout.Y_AXIS));
 		accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 50, 50));
 		//list of accounts
-		JComboBox account_select = new JComboBox (model.account_list);
+		JComboBox account_select = new JComboBox (model.getAccountList());
 		account_select.setAlignmentY(JComboBox.CENTER_ALIGNMENT);
 		//connect button
 		JPanel connectPanel = new JPanel();
@@ -107,7 +109,7 @@ public class signinPanel extends JPanel {
 	private void signIn_ActionPerformed(ActionEvent e) {
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
-			core.login(model.username, model.password);
+			core.login(model.getUsername(), model.getPassword());
 			mainFrame.setVisible(false);
 			buddylist buddyWin = new buddylist(core);//pops buddylist window
 		} catch (XMPPException e1) {

@@ -17,17 +17,17 @@ import javax.swing.JTextField;
 
 import org.jivesoftware.smack.XMPPException;
 
-
 import ChatClient.ChatClient;
 import buddylist.buddylist;
+import model.Model;
 
 public class guestAccountFrame extends JFrame{
-	modelstub model;
+	Model model;
 	ChatClient core;
 	JFrame mainFrame;
 	
-	public guestAccountFrame(modelstub m, ChatClient c, JFrame main){
-		model = m; //database STUB
+	public guestAccountFrame(Model model, ChatClient c, JFrame main){
+		this.model = model;
 		core = c;
 		mainFrame = main;
 		
@@ -39,7 +39,7 @@ public class guestAccountFrame extends JFrame{
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 
 		//select server
-		JComboBox server = new JComboBox (model.serverList);
+		JComboBox server = new JComboBox (model.getServerList());
 
 		//username + password
 		JPanel accountInfoPanel = new JPanel();
@@ -98,7 +98,7 @@ public class guestAccountFrame extends JFrame{
 	private void signIn_ActionPerformed(ActionEvent e) {
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
-			core.login(model.username, model.password);
+			core.login(model.getUsername(), model.getPassword());
 			mainFrame.setVisible(false);
 			buddylist buddyWin = new buddylist(core);//pops buddylist window
 		} catch (XMPPException e1) {
