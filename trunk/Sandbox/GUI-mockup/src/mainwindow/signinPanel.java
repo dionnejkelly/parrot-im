@@ -73,7 +73,7 @@ public class signinPanel extends JPanel {
 		accOptPanel.setLayout (accLayout);
 
 		//manage account
-		manageAccount = new JLabel ("Add/Manage Accounts", JLabel.CENTER); //underline?
+		manageAccount = new JLabel ("<html><u>Add/Manage Accounts</u></html>", JLabel.CENTER); 
 		manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	//TODO: set this later!!!!!! - shicmap
@@ -85,7 +85,7 @@ public class signinPanel extends JPanel {
         });
 
 		//guest account
-		guestAccount = new JLabel ("Connect Guest Account", JLabel.CENTER); //underline?
+		guestAccount = new JLabel ("<html><u>Connect Guest Account</u></html>", JLabel.CENTER); //underline?
 		guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	//enableFrame(false);

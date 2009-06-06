@@ -29,7 +29,7 @@ public class miscPanel extends JPanel{
 		JSeparator line = new JSeparator();
 		
 		//manage account
-		JLabel options = new JLabel ("Options", JLabel.CENTER);
+		JLabel options = new JLabel ("<html><u>Options</u></html>", JLabel.CENTER);
 		options.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				options_MouseClicked(evt);
@@ -37,7 +37,7 @@ public class miscPanel extends JPanel{
         });
 		
 		//guest account
-		JLabel help = new JLabel ("Help", JLabel.CENTER);
+		JLabel help = new JLabel ("<html><u>Help</u></html>", JLabel.CENTER);
 		help.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	help_MouseClicked(evt);

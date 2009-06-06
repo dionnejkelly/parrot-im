@@ -110,7 +110,7 @@ public class guestAccountFrame extends JFrame{
 		try {
 			core.login(UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()), server.getSelectedIndex());
 			System.out.println(server.getSelectedIndex());
-			mainFrame.setVisible(false);
+			mainFrame.setVisible(false); // TODO: destroy mainFrame
 			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
 		} catch (XMPPException e1) {
 			// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
