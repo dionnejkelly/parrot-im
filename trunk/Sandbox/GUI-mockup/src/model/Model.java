@@ -41,11 +41,9 @@ public class Model {
 
 		//list of accounts
 		accountList = new Vector<String>();
-		for (int k=0; k<i; k++)
-		{
+		for (int k=0; k<i; k++){
 		accountList.add("googleTalk: " + username[k]);
 		}
-		accountList.add("connect all");
 	}
 	
 	public Vector<String> getAccountList() {
