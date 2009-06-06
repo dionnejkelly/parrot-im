@@ -109,7 +109,7 @@ public class signinPanel extends JPanel {
 	private void signIn_ActionPerformed(ActionEvent e) {
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
-			core.login(model.getUsername(), model.getPassword());
+			core.login(model.getUsername(), model.getPassword(), 4); //change 4 to the actual server from model later on
 			mainFrame.setVisible(false);
 			buddylist buddyWin = new buddylist(core);//pops buddylist window
 		} catch (XMPPException e1) {
