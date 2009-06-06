@@ -86,10 +86,8 @@ public class manageAccountFrame extends JFrame{
             	try {
 					addAccount_actionPerform(evt) ;
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
@@ -203,10 +201,8 @@ public class manageAccountFrame extends JFrame{
             	try {
 					addAccount_actionPerform(evt) ;
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
