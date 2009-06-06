@@ -269,7 +269,6 @@ public class manageAccountFrame extends JFrame{
 				accList.updateUI();
         		//TODO: update the JComboBox in siginPanel too!
 			}
-			//accMAN.setVisible(false);
 		}
 	}
 
