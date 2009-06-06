@@ -101,9 +101,10 @@ public class manageAccountFrame extends JFrame{
 		removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	int selected = accList.getSelectedIndex();
-            	if (selected>=0 && selected < model.getAccountList().size()-1){
+            	if (selected>=0 && selected < model.getAccountList().size()){
             		model.getAccountList().remove(selected);
             		accList.updateUI();
+            		//TODO: update the JComboBox in siginPanel too!
             	}
             }
 		});
@@ -235,6 +236,7 @@ public class manageAccountFrame extends JFrame{
 	private void addAccount_actionPerform(ActionEvent evt) throws ClassNotFoundException, SQLException {
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
+			//TODO: newACC is supposed to be an Object that includes server, username, password
 			String newACC = model.getServerList().get(serviceField.getSelectedIndex())+": "+UNField.getText();
 			boolean match = false;
 			
@@ -256,7 +258,7 @@ public class manageAccountFrame extends JFrame{
 		      conn.close();
 			
 			//Ahmad TESTING TESTING TESTING
-			for (int i=0; i < model.getAccountList().size()-1; i++){
+			for (int i=0; i < model.getAccountList().size(); i++){ //checks if the account exists
 				if (model.getAccountList().get(i).compareTo(newACC)==0) match = true;
 			}
 			
@@ -267,8 +269,9 @@ public class manageAccountFrame extends JFrame{
 				//insert new
 				UNField.setText("");
 				pwdField.setText("");
-				model.getAccountList().add(model.getAccountList().size()-1, newACC);
+				model.getAccountList().add(newACC);
 				accList.updateUI();
+        		//TODO: update the JComboBox in siginPanel too!
 			}
 			//accMAN.setVisible(false);
 		}
