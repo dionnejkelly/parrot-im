@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import ChatClient.ChatClient;
+import model.Model;
 
 public class mainPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	private JPanel side, chat;
 	
-	public mainPanel(ArrayList<Conversation> conversations, ChatClient c) {
+	public mainPanel(ArrayList<Conversation> conversations, ChatClient c,
+			         Model model, int id) {
 		setLayout(new BorderLayout());
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -34,8 +36,8 @@ public class mainPanel extends JPanel {
 	    helpMenu.add(helpItem2);
 		
 		JSplitPane sPane = new JSplitPane();
-		chat = new ChatPanel(conversations, c);
-		side = new sidePanel(conversations);
+		chat = new ChatPanel(conversations, c, model, id);
+		side = new sidePanel(conversations, c, model);
 		sPane.setRightComponent(chat);
 		sPane.setLeftComponent(side);
 		sPane.setOneTouchExpandable(true);

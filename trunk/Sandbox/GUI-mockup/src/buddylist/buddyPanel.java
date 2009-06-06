@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.*;
 
 import ChatClient.ChatClient;
+import model.*;
 
 import chatwindow.chatwindow;
 
@@ -28,13 +29,15 @@ public class buddyPanel extends JPanel
 	Box boxes[] = new Box[1];
 	String selectedName;
 	ChatClient c;
+	Model model;
 	
-	public buddyPanel(ChatClient c)
+	public buddyPanel(ChatClient c, Model model)
 	{
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
 		
 		this.c = c;
+		this.model = model;
 		
 		friendList = new JPanel();
 		friendList.setBackground(Color.WHITE);
@@ -117,18 +120,26 @@ public class buddyPanel extends JPanel
 	
 	private class SelectListener implements MouseListener{
 		public void mouseClicked(MouseEvent event){	
+			int id = 0;
+			ChatData chatData = null;
 			//FriendItems
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
 				if(event.getSource().equals(boxes[0].getComponent(i))){
 					if(event.getButton() == event.BUTTON1){
+						
 						//Left Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
 						if(event.getClickCount() == 2){
+							model.incrementOpenChatWindows();
+							id = model.getOpenChatWindows();
 							selectedName = boxes[0].getComponent(i).getName();
-							String[] test = {"(You) " + c.getUserName(), selectedName};
-					    	chat = new chatwindow(test, c);
+							chatData = new ChatData(id, c.getUserName(),
+									                selectedName);
+							model.storeChatParticipants(chatData);
+							chat = new chatwindow(id, c, model);
 						}
 					}else if(event.getSource().equals(boxes[0].getComponent(i))){
+
 						//Right Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
 						rightClickMenu.show(boxes[0].getComponent(i), event.getX(), event.getY());
@@ -160,9 +171,15 @@ public class buddyPanel extends JPanel
 	
 	class RightCickMenuListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent event) {
+	    	int id = 0;
+	    	ChatData chatData = null;
 	    	if(event.getSource().equals(menuItem1)){
-		    	String[] test = {"(You) " + c.getUserName(), selectedName};
-		    	chat = new chatwindow(test, c);
+	    		model.incrementOpenChatWindows();
+				id = model.getOpenChatWindows();
+				chatData = new ChatData(id, c.getUserName(),
+						                selectedName);
+				model.storeChatParticipants(chatData);
+				chat = new chatwindow(id, c, model);
 	    	}else if(event.getSource().equals(menuItem2)){
 	    		chat.addToConversation(selectedName);
 	    	}

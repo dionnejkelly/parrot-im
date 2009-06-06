@@ -1,68 +1,124 @@
+/* Parrot IM -- An easy-to-use chat client for multiple protocols.
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  
+ * 02110-1301, USA.
+ */
+
+
 package model;
+
 import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Observable;
 import java.sql.*;
 
-public class Model {
+/**
+ * The model stores all data and provides it for the view and 
+ * controllers.
+ */
+public class Model extends Observable {
 	
+    private Vector<String> accountList;
+    private Vector<String> serverList;
+    private String username;
+    private String password;
+    private int openChatWindows;
+    private ArrayList<ChatData> chatParticipants; /* temporary */
 
-	//MODEL STUB//
-	protected Vector<String> accountList;
-	protected Vector<String> serverList;
-	protected String username;
-	protected String password;
 	
-	public Model() throws ClassNotFoundException, SQLException{
-      Class.forName("org.sqlite.JDBC");
-      Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-      Statement stat = conn.createStatement();
-    
+    public Model() throws ClassNotFoundException, SQLException {
+        serverList = new Vector<String>();
+	    accountList = new Vector<String>();
+	    int openChatWindows = 0;
+	    chatParticipants = new ArrayList<ChatData>();
+        int i = 0;
+        ArrayList<String> usernames = new ArrayList<String>(); 
+	    ArrayList<String> passwords = new ArrayList<String>();
 
+	    /* Set-up for SQL database */
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        Statement stat = conn.createStatement();
+	    ResultSet rs = null;
 
-		String[] username = new String[55];
-		String[] password = new String[55];
-		username[0] = new String ("cmpt275testing@gmail.com");
-		password[0] = new String ("abcdefghi");
-		// ahmad test
-		  int i = 0;
-	      ResultSet rs = stat.executeQuery("select * from people;");
-	      while (rs.next()) {
-	    	  i++;
-	    	  username[i] = rs.getString("email");
-	    	  password[i] = "abcdefghi";
-		}
-		// ahmad test
-		//set server list
-		serverList = new Vector<String>();
-		serverList.add ("msn");
-		serverList.add ("aim");
-		serverList.add ("twitter");
-		serverList.add ("icq");
-		serverList.add ("googleTalk");
+	    /* Default values for test variables */
+	    this.password = "abcdefghi";
+	    this.username = "cmpt275testing@gmail.com";
 
-		//list of accounts
-		accountList = new Vector<String>();
-		for (int k=0; k<i; k++){
-		accountList.add("googleTalk: " + username[k]);
-		}
-	}
-	
-	public Vector<String> getAccountList() {
-		return accountList;
-	}
-	
-	public Vector<String> getServerList() {
-		return serverList;
-	}
-	
-	public String getUsername() {
-		// FIX ME
-		username = "cmpt275testing@gmail.com";
-		return username;
-	}
+	    // ahmad test
+	    rs = stat.executeQuery("select * from people;");
+	    while (rs.next()) {
+	        usernames.add(rs.getString("email"));
+	        passwords.add("abcdefghi");
+	    }
+
+	   	// ahmad test
+	    // set server list
+	    serverList.add ("msn");
+	    serverList.add ("aim");
+	    serverList.add ("twitter");
+	    serverList.add ("icq");
+	    serverList.add ("googleTalk");
+
+	    //list of accounts
+        for (int k = 0; k < usernames.size(); k++) {
+            accountList.add("googleTalk: " + usernames.get(k));
+        }
+    }
+
+    public Vector<String> getAccountList() {
+        return accountList;
+    }
+
+    public Vector<String> getServerList() {
+       	return serverList;
+    }
+	    
+    public String getUsername() {
+        return username;
+    }
 
     public String getPassword() {
-    	// FIX ME
-    	password = "abcdefghi";
-    	return password;
+        return password;
+    }
+    
+    public int getOpenChatWindows() {
+    	return openChatWindows;
+    }
+    
+    public void incrementOpenChatWindows() {
+    	this.openChatWindows++;
+    	setChanged();
+    	notifyObservers();
+    	return;
+    }
+
+    public void storeChatParticipants(ChatData chatData) {
+    	this.chatParticipants.add(chatData);
+    	return;
+    }
+
+    public ChatData findChatDataByID(int id) {
+    	ChatData toReturn = null;
+    	for (ChatData chatData : this.chatParticipants) {
+    		if (chatData.getWindowID() == id) {
+    			toReturn = chatData;
+    			break;
+    		}
+    	}
+    	return toReturn; /* Could be null, fix! */
     }
 }
