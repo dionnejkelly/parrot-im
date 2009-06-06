@@ -31,6 +31,7 @@ public class guestAccountFrame extends JFrame{
 	private JComboBox server;
 	
 	public guestAccountFrame(Model model, ChatClient c, JFrame main){
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.model = model;
 		core = c;
 		mainFrame = main;
