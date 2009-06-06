@@ -64,6 +64,8 @@ public class accInfo extends JPanel
 		add(info, BorderLayout.CENTER);
 	}
 	
+	
+	
 	// new listener inorder to change the user's status
 	private class statusTestListener implements ActionListener {
 		 public void actionPerformed(ActionEvent evt) {

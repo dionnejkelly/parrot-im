@@ -51,7 +51,7 @@ public class ChatPanel extends JPanel {
 		sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	String msg = txt1.getText();
-            	displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
+            	displayPanel.addMessage(c.getUserName(), msg, fontSelect.getSelectedItem().toString(), "4");
             	try {
             		for(int i = 0; i < conversations.get(0).getSize(); i++){
             			c.sendMessage(msg, conversations.get(0).getName(i));

@@ -50,9 +50,10 @@ public class DisplayPanel extends JPanel implements Observer {
 	    txtPane.setText("TEST");
     	return;	
 	}	
-	public void addMessage(String text, String font, String size){
+	public void addMessage(String userName,String text, String font, String size){
+		String user = userName;
 		if(text.length() > 0){
-			previousText = previousText + "<U>PersonA:</U> " 
+			previousText = previousText + "<U>" + user + ":</U> " 
 				+ "<font face=\"" + font + "\" size=\"" + size + "\">" 
 				+ text + "</font><br><br>";
 			txtPane.setText(previousText);

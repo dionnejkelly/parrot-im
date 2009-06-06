@@ -53,6 +53,7 @@ public class ChatClient implements MessageListener
         {
                 Chat chat = connection.getChatManager().createChat(to, this);
                 chat.sendMessage(message);
+                
         }
        
         public void displayBuddyList()
@@ -90,6 +91,7 @@ public class ChatClient implements MessageListener
         {
                 if(message.getType() == Message.Type.chat)
                 System.out.println(chat.getParticipant() + " says: " + message.getBody());
+                //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
     }
        
 /* Main class unneeded now.
