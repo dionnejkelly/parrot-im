@@ -28,6 +28,7 @@ public class guestAccountFrame extends JFrame{
 	
 	private JTextField UNFieldGuest;
 	private JPasswordField PwdFieldGuest;
+	private JComboBox server;
 	
 	public guestAccountFrame(Model model, ChatClient c, JFrame main){
 		this.model = model;
@@ -42,7 +43,7 @@ public class guestAccountFrame extends JFrame{
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 
 		//select server
-		JComboBox server = new JComboBox (model.getServerList());
+		server = new JComboBox (model.getServerList());
 		server.setPreferredSize(new Dimension (200,20));
 
 		//username + password
@@ -106,12 +107,13 @@ public class guestAccountFrame extends JFrame{
 	private void signIn_ActionPerformed(ActionEvent e) {
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
-			core.login(UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()));
+			core.login(UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()), server.getSelectedIndex());
+			System.out.println(server.getSelectedIndex());
 			mainFrame.setVisible(false);
 			buddylist buddyWin = new buddylist(core);//pops buddylist window
 		} catch (XMPPException e1) {
-			// TODO: throw a warning pop up
-			e1.printStackTrace();
+			// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
+			//e1.printStackTrace();
 			System.out.println("sign in failed!");
 		}	
 	}

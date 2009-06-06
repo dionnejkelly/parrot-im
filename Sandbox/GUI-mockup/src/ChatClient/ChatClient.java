@@ -25,14 +25,28 @@ public class ChatClient implements MessageListener
             this.model = model;
         }
        
-        public void login(String userName, String password) throws XMPPException
-        {
+        public void login(String userName, String password, int server) throws XMPPException
+        {//the "return"s are temporary
+        	if (server==0){//MSN
+        		return;
+        	}
+        	else if (server==1){//AIM
+        		return;
+        	}
+        	else if (server==2){//Twitter
+        		return;
+        	}
+        	else if (server==3){//ICQ
+        		return;
+        	}
+        	else if (server==4){//google talk
                 ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
                 connection = new XMPPConnection(config);
                 connection.connect();
                 connection.login(userName, password);
                
                 this.userName = userName;
+        	}
         }
        
         public void sendMessage(String message, String to) throws XMPPException
