@@ -111,7 +111,7 @@ public class signinPanel extends JPanel {
 		try {
 			core.login(model.getUsername(), model.getPassword(), 4); //change 4 to the actual server from model later on
 			mainFrame.setVisible(false);
-			buddylist buddyWin = new buddylist(core);//pops buddylist window
+			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
 		} catch (XMPPException e1) {
 			// TODO: throw a warning pop up
 			e1.printStackTrace();

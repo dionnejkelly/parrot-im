@@ -7,11 +7,12 @@ import java.util.Observer;
 import javax.swing.*;
 
 import ChatClient.ChatClient;
+import model.Model;
 
 public class buddylist extends JFrame{
 	JMenuBar menu;
 	
-	public buddylist(ChatClient c)
+	public buddylist(ChatClient c, Model model)
 	{
 		this.setTitle("Buddy List");
 		
@@ -27,7 +28,7 @@ public class buddylist extends JFrame{
 		buddylistPanel.setPreferredSize(new Dimension(300,600));
 		
 	    //INSIDE PANEL
-		JPanel mainListPanel = new buddyPanel(c);
+		JPanel mainListPanel = new buddyPanel(c, model);
 		JPanel accountInfo = new accInfo(c);
 	    
 	    //add to buddylistPanel

@@ -9,23 +9,27 @@ import javax.swing.JPanel;
 import org.jivesoftware.smack.RosterEntry;
 
 import ChatClient.ChatClient;
+import model.ChatData;
+import model.Model;
 
 public class chatwindow extends JFrame{
 	private ArrayList<Conversation> conversations;
 	public JPanel main;
+	private Model model;
 	
-	public chatwindow(String[] names, ChatClient c)
+	public chatwindow(int id, ChatClient c, Model model)
 	{
 		super("chatWindow Mockup");
-		
+		this.model = model;
+						
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 		
 		conversations = new ArrayList<Conversation>();
 		
-		createNewConversation(names);
+		createNewConversation(model.findChatDataByID(id));
 		
-		main = new mainPanel(conversations, c);
+		main = new mainPanel(conversations, c, model, id);
 		
 		getContentPane().add(main);
 		
@@ -33,12 +37,10 @@ public class chatwindow extends JFrame{
 		setVisible(true);
 	}
 	
-	public void createNewConversation(String[] names){
+	public void createNewConversation(ChatData chatData){
 		conversations.add(new Conversation());
-		for(String name: names)
-		{
-			conversations.get(0).addName(name);
-		}
+	    conversations.get(0).addName(chatData.getYourUsername());  // Temporary
+	    conversations.get(0).addName(chatData.getOtherUsername());
 	}
 	
 	public void addToConversation(String name){

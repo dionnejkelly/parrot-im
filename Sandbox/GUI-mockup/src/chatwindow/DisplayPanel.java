@@ -1,13 +1,20 @@
 package chatwindow;
 import java.awt.*;
+import java.util.*;
+import model.Model;
+
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 
-public class DisplayPanel extends JPanel {
+public class DisplayPanel extends JPanel implements Observer {
 	private JEditorPane txtPane;
 	private String previousText;
+	private Model model;
 	
-	public DisplayPanel() {
+	public DisplayPanel(Model model, int id) {
+	    this.model = model;
+	    this.model.addObserver(this);
+		
 		setLayout(new BorderLayout());
 		
 		txtPane = new JEditorPane();
@@ -38,7 +45,11 @@ public class DisplayPanel extends JPanel {
 		add(txtPane, BorderLayout.CENTER);
 		add(bar2, BorderLayout.SOUTH);
 	}
-	
+
+    public void update(Observable t, Object o) {
+	    txtPane.setText("TEST");
+    	return;	
+	}	
 	public void addMessage(String text, String font, String size){
 		if(text.length() > 0){
 			previousText = previousText + "<U>PersonA:</U> " 

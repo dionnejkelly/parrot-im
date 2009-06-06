@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -12,6 +13,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jivesoftware.smack.XMPPException;
 
+import model.Model;
 import ChatClient.ChatClient;
 
 public class ChatPanel extends JPanel {
@@ -20,10 +22,11 @@ public class ChatPanel extends JPanel {
 	JButton colorButton;
 	JColorChooser colorChooser;
 	
-	public ChatPanel(final ArrayList<Conversation> conversations, final ChatClient c) {
+	public ChatPanel(final ArrayList<Conversation> conversations, 
+			         final ChatClient c, Model model, int id) {
 		setLayout(new BorderLayout());
 		
-		final DisplayPanel displayPanel = new DisplayPanel();
+		final DisplayPanel displayPanel = new DisplayPanel(model, id);
 		
 		//Editing Panel
 		JPanel editingPanel = new JPanel();
@@ -110,4 +113,5 @@ public class ChatPanel extends JPanel {
 		//add to chat panel
 		add(sPane, BorderLayout.CENTER);	
 	}
+	
 }

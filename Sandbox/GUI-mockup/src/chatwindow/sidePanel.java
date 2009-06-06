@@ -4,15 +4,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.*;
-
+import model.Model;
 import ChatClient.ChatClient;
+import java.util.*;
 
-public class sidePanel extends JPanel {
+public class sidePanel extends JPanel implements Observer {
 	private JPanel chattingWith;
 	private Box boxes[] = new Box[1];
 	private ArrayList<Conversation> conversations;
+	private Model model;
 	
-	public sidePanel(ArrayList<Conversation> conversations) {
+	public sidePanel(ArrayList<Conversation> conversations, ChatClient c, Model model) {
+	    this.model = model;
+		
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(150, 500));
 		setBackground(Color.WHITE);
@@ -41,6 +45,11 @@ public class sidePanel extends JPanel {
 			
 		//add to panel
 		add(chattingWith, BorderLayout.CENTER);
+	}
+	
+	public void update(Observable t, Object o) {
+	    // Add code here to change the namePanels
+		return;	
 	}
 	
 	private class SelectListener implements MouseListener{
