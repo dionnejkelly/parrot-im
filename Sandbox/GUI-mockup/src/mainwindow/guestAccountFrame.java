@@ -43,16 +43,15 @@ public class guestAccountFrame extends JFrame{
 
 		//username + password
 		JPanel accountInfoPanel = new JPanel();
-		GridLayout accountLayout = new GridLayout(2,2);
-		accountLayout.setVgap(5);
-		accountInfoPanel.setLayout(accountLayout);
 		//set username
 		final JTextField UNFieldGuest = new JTextField();
-		accountInfoPanel.add(new JLabel("Username:"));
+		UNFieldGuest.setPreferredSize(new Dimension(200,20));
+		accountInfoPanel.add(new JLabel("Username:     "));
 		accountInfoPanel.add(UNFieldGuest);
 		//set password
 		final JPasswordField PwdFieldGuest = new JPasswordField();
-		accountInfoPanel.add(new JLabel("Password:"));
+		PwdFieldGuest.setPreferredSize(new Dimension(200,20));
+		accountInfoPanel.add(new JLabel("Password:      "));
 		accountInfoPanel.add(PwdFieldGuest);
 
 		//set ok-cancel button
