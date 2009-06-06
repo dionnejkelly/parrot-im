@@ -1,6 +1,8 @@
 package buddylist;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -16,10 +18,15 @@ public class accInfo extends JPanel
 	 */
 	ImageIcon avatar;
 	JLabel avatarDisplay, displayName;
+	JLabel status;
 	
-	JTextField statusMessage;
+	protected JTextField statusMessage;
 	
-	public accInfo(ChatClient c)
+	protected JTextArea textArea;
+	
+	protected String text;
+	
+	public accInfo(ChatClient c) 
 	{
 		setBackground(Color.DARK_GRAY);
 		setPreferredSize(new Dimension(300,100));
@@ -39,13 +46,37 @@ public class accInfo extends JPanel
 		JLabel name = new JLabel(c.getUserName());
 		name.setForeground(Color.WHITE);
 		
-		JLabel status = new JLabel("(Online)");
-		status.setForeground(Color.WHITE);
+		// Allowing users to change their status.
+		// Need to make this text field more intelligent (text field + dropdown box?)
+		statusMessage = new JTextField(13); 
+		//JLabel status = new JLabel("(Online)");
+		
+		statusMessage.setText("<How do you feel today?>");
+		statusMessage.setForeground(Color.black);
+		
+		// new Listener
+		statusMessage.addActionListener(new statusTestListener());
 		
 		info.add(name);
-		info.add(status);
+		info.add(statusMessage);
 		
 		add(avatarDisplay, BorderLayout.WEST);
 		add(info, BorderLayout.CENTER);
 	}
+	
+	// new listener inorder to change the user's status
+	private class statusTestListener implements ActionListener {
+		 public void actionPerformed(ActionEvent evt) {
+		        text = statusMessage.getText();
+		        System.out.println("This has to be displayed in the status screen: " + text);
+		        
+		        // need this method to change the user's status	        
+		        //c.setPresence(text);
+		        
+		    }
+		 
+
+		
+	}
+   
 }
