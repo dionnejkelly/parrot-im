@@ -142,7 +142,7 @@ public class manageAccountFrame extends JFrame{
 		JPanel setupFieldPanel = new JPanel();
 		//BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
 		GridLayout setupFieldLayout = new GridLayout (3,1);
-		setupFieldLayout.setVgap(2);
+		setupFieldLayout.setVgap(5);
 		setupFieldPanel.setLayout(setupFieldLayout);
 		serviceField = new JComboBox (model.getServerList());
 		serviceField.setPreferredSize(new Dimension(170,27));
