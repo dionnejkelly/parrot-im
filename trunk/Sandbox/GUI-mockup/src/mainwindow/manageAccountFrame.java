@@ -37,6 +37,7 @@ public class manageAccountFrame extends JFrame{
 	private JComboBox serviceField;
 	
 	protected manageAccountFrame (Model model){
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.model = model;
 		
 		setTitle("Account Manager");
