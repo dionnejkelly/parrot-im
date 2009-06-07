@@ -37,7 +37,10 @@ public class pmLabel extends JTextField {
 			this.setText(this.getText());
 			this.setEditable(false);
 			this.setEnabled(false);
-			this.setOpaque(false);			
+			this.setOpaque(false);
+			if (this.getText().length()==0){
+				this.setText("(Type your status message)");
+			}
 		}
 	}
 	

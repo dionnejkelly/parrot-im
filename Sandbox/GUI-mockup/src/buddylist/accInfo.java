@@ -51,7 +51,6 @@ public class accInfo extends JPanel
 		statusMessage = new pmLabel(c); 
 		//JLabel status = new JLabel("(Online)");
 		
-		statusMessage.setText("<How do you feel today?>");
 		statusMessage.setForeground(Color.black);
 		
 		// new Listener
