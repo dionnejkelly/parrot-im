@@ -23,8 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
-import styles.closeListener;
-
 import java.sql.*;
 
 import model.Model;

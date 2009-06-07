@@ -1,31 +1,22 @@
 package mainwindow;
-
+//TODO: set so that when the popup window (manage account and guest account popups) 
+//is closed using the close button, mainFrame is set to enable.
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import org.jivesoftware.smack.XMPPException;
 
-import styles.closeListener;
 import styles.linkLabel;
-
 import buddylist.buddylist;
-
 import ChatClient.ChatClient;
-
 import model.Model;
 
 
@@ -110,8 +101,8 @@ public class signinPanel extends JPanel {
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
 			core.login(model.getUsername(), model.getPassword(), 4); //change 4 to the actual server from model later on
-			mainFrame.setVisible(false);
 			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
+			mainFrame.dispose();
 		} catch (XMPPException e1) {
 			// TODO: throw a warning pop up
 			e1.printStackTrace();

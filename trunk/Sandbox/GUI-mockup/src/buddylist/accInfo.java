@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import styles.pmLabel;
+
 import ChatClient.ChatClient;
 
 public class accInfo extends JPanel
@@ -20,10 +22,8 @@ public class accInfo extends JPanel
 	JLabel avatarDisplay, displayName;
 	JLabel status;
 	
-	protected JTextField statusMessage;
-	
+	protected pmLabel statusMessage;
 	protected JTextArea textArea;
-	
 	protected String text;
 	
 	public accInfo(ChatClient c) 
@@ -48,10 +48,10 @@ public class accInfo extends JPanel
 		
 		// Allowing users to change their status.
 		// Need to make this text field more intelligent (text field + dropdown box?)
-		statusMessage = new JTextField(13); 
+		statusMessage = new pmLabel("<How do you feel today?>"); 
 		//JLabel status = new JLabel("(Online)");
 		
-		statusMessage.setText("<How do you feel today?>");
+		//statusMessage.setText("<How do you feel today?>");
 		statusMessage.setForeground(Color.black);
 		
 		// new Listener
