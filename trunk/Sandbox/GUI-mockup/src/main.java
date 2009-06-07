@@ -4,7 +4,6 @@ import ChatClient.ChatClient;
 import buddylist.buddylist;
 import chatwindow.chatwindow;
 import mainwindow.mainwindow;
-import chatwindow.chatwindow;
 import model.Model;
 
 public class main {
