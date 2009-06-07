@@ -3,7 +3,9 @@ package mainwindow;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,12 +24,177 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.WindowConstants;
 
 import java.sql.*;
 
 import model.Model;
 
-public class manageAccountFrame extends JFrame{
+/*                            SORRY TESTING PROFILE MANAGER LAYOUT                         */
+
+
+public class manageAccountFrame extends JFrame
+{
+	private JPanel accMANPanel;
+	private Model model;
+	private mainwindow mainFrame;
+	
+	private JList profileList;
+	private JList accList;
+	
+	protected manageAccountFrame(Model model,mainwindow frame)
+	{
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		this.model = model;
+		mainFrame = frame;
+		
+		setTitle("Profile Manager");
+		setLocation(100, 100);
+		setPreferredSize(new Dimension(600,470));
+		setResizable(false);
+		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
+
+		//set main panel
+		accMANPanel = new JPanel ();
+		accMANPanel.setLayout(new BorderLayout());
+		accMANPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+		//manage account panel
+		//TODO: split them into different panels
+		leftPanelMAN();
+		rightPanelMAN();
+
+		getContentPane().add(accMANPanel);
+		pack();
+		setVisible(true);
+	}
+	
+	private void leftPanelMAN()
+	{
+		JPanel leftPanel = new JPanel();
+		leftPanel.setLayout(new BorderLayout());
+
+		//saved account list
+		profileList = new JList(model.getAccountList());
+		profileList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+		//TODO:   ADD NEW PROFILE LIST TO MODEL
+		
+		JScrollPane listScroller = new JScrollPane(profileList);
+		listScroller.setPreferredSize(new Dimension(140, 360));
+		listScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		//add-remove button panel
+		JPanel addremovePanel = new JPanel();
+		GridLayout ARlayout= new GridLayout(1,2);
+		addremovePanel.setLayout(ARlayout);
+		ARlayout.setHgap(5);
+		addremovePanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
+
+		//add button
+		JButton addButton = new JButton("+");
+		addButton.setPreferredSize(new Dimension(40, 25));
+
+		//remove button
+		JButton removeButton = new JButton ("-");
+		removeButton.setPreferredSize(new Dimension(40, 25));
+
+		//pack the whole thing
+		addremovePanel.add(addButton);
+		addremovePanel.add(removeButton);
+
+		//add to leftpanel
+		leftPanel.add(listScroller,BorderLayout.NORTH);
+		leftPanel.add(addremovePanel,BorderLayout.SOUTH);
+
+		//add to account manager pop up main panel
+		accMANPanel.add(leftPanel,BorderLayout.WEST);
+	}
+
+	private void rightPanelMAN() 
+	{
+		//setting right panel
+		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BorderLayout());
+		
+		/*TOP PART*/
+		//List of accounts on the profile
+		accList = new JList(model.getAccountList());
+		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+		JScrollPane acctListScroller = new JScrollPane(accList);
+		acctListScroller.setPreferredSize(new Dimension(375, 300));
+		acctListScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+
+
+		/*CENTRE PART : Add/Remove Buttons */
+		
+		JPanel addRemoveAcctPanel = new JPanel();
+		addRemoveAcctPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		addRemoveAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
+		
+		JButton newAcctButton = new JButton ("Add");
+		newAcctButton.setPreferredSize(new Dimension(50, 20));
+		JButton remAcctButton = new JButton ("Delete");
+		remAcctButton.setPreferredSize(new Dimension(50, 20));
+		JButton editAcctButton = new JButton ("edit..");
+		editAcctButton.setPreferredSize(new Dimension(50, 20));
+		
+		Insets buttonPadding = new Insets(0,0,0,0);
+		newAcctButton.setMargin(buttonPadding); 
+		remAcctButton.setMargin(buttonPadding);
+		editAcctButton.setMargin(buttonPadding);
+		
+		addRemoveAcctPanel.add(newAcctButton);
+		addRemoveAcctPanel.add(remAcctButton);
+		addRemoveAcctPanel.add(editAcctButton);
+
+		/*BOTTOM PART : OK and Cancel Button*/
+		//set ok-cancel button
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 190, 10, 10));
+		GridLayout buttonsLayout = new GridLayout(1,2);
+		buttonsLayout.setHgap(5);
+		buttonsPanel.setLayout(buttonsLayout);
+
+		//OK Button
+		JButton okButton = new JButton ("OK");
+		buttonsPanel.add(okButton);
+
+		//Cancel Button
+		JButton cancelButton = new JButton ("Cancel");
+		buttonsPanel.add(cancelButton);
+		cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	setVisible(false);
+            	mainFrame.setEnabled(true);
+            }
+		});
+
+
+		//adding to rightPanel
+		rightPanel.add(acctListScroller, BorderLayout.NORTH);
+		rightPanel.add(addRemoveAcctPanel, BorderLayout.CENTER);
+		rightPanel.add(buttonsPanel, BorderLayout.SOUTH);
+
+		//add to account manager pop up main panel
+		accMANPanel.add(rightPanel,BorderLayout.EAST);
+	}
+
+
+}
+
+
+
+
+
+
+
+
+
+//////////////  WORKING CODE BELOW THIS COMMENT 
+
+
+/*{
 	private JPanel accMANPanel;
 	private Model model;
 	private mainwindow mainFrame;
@@ -128,7 +295,7 @@ public class manageAccountFrame extends JFrame{
 		//setting right panel
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
-		/*TOP PART*/
+		//////////////TOP PART
 		//account setupLabel setting Panel
 		JPanel setupLabelPanel = new JPanel();
 		GridLayout setupLabelLayout = new GridLayout (3,1);
@@ -165,7 +332,7 @@ public class manageAccountFrame extends JFrame{
 		setupPanel.add(setupFieldPanel);
 
 
-		/*CENTRE PART : remember password + auto sign in*/
+		//*CENTRE PART : remember password + auto sign in
 		//other Checkboxes setup Panel
 		JPanel otherCheckPanel = new JPanel ();
 		otherCheckPanel.setLayout(new GridLayout (2,1));
@@ -191,7 +358,7 @@ public class manageAccountFrame extends JFrame{
 		otherSetupPanel.add(otherCheckPanel);
 		otherSetupPanel.add(otherLabelPanel);
 
-		/*BOTTOM PART : OK and Cancel Button*/
+		//BOTTOM PART : OK and Cancel Button
 		//set ok-cancel button
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 10, 10));
@@ -278,4 +445,4 @@ public class manageAccountFrame extends JFrame{
 		}
 	}
 
-}
+}  */
