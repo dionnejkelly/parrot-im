@@ -38,7 +38,7 @@ public class ChatWindowData {
     	return;
     }
     
-    public void addText(String addedText) {
+    public void addMessageToText(String addedText) {
     	this.text += addedText; // TODO sort out where the \n goes.
     	return;
     }
