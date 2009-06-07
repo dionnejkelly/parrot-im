@@ -37,6 +37,8 @@ public class Model extends Observable {
     private String password;
     private int openChatWindows;
     private ArrayList<ChatData> chatParticipants; /* temporary */
+    
+    private CurrentProfileData currentProfile;
 
 	
     public Model() throws ClassNotFoundException, SQLException {
@@ -44,7 +46,10 @@ public class Model extends Observable {
         accountList = new Vector<String>();
 	    int openChatWindows = 0;
 	    chatParticipants = new ArrayList<ChatData>();
-        int i = 0;
+        currentProfile = null;
+	    
+	    
+	    int i = 0;
         ArrayList<String> usernames = new ArrayList<String>(); 
 	    ArrayList<String> passwords = new ArrayList<String>();
 
@@ -120,5 +125,26 @@ public class Model extends Observable {
     		}
     	}
     	return toReturn; /* Could be null, fix! */
+    }
+
+    /* Current Profile manipulation */
+    
+    public void useGuestAccount(ServerType server, String accountName,
+    		                    String password) {
+    	// TODO throw exception if currentProfile already exists.
+    	AccountData guestAccount = null;
+    	ArrayList<AccountData> accounts = null;
+    	CurrentProfileData currentProfile = null;
+    	
+    	guestAccount = new AccountData(server, accountName,
+    	                               password);
+    	accounts = new ArrayList<AccountData>();
+    	accounts.add(guestAccount);
+    	currentProfile = new CurrentProfileData(accounts);
+    	return;                                 
+    }
+    
+    public boolean currentProfileExists() {
+    	return (currentProfile != null);
     }
 }
