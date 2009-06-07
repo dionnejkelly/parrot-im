@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,24 +19,28 @@ import javax.swing.JTextField;
 
 import org.jivesoftware.smack.XMPPException;
 
+import styles.closeListener;
+
 import ChatClient.ChatClient;
 import buddylist.buddylist;
 import model.Model;
 
 public class guestAccountFrame extends JFrame{
-	Model model;
-	ChatClient core;
-	JFrame mainFrame;
+	
+	private Model model;
+	private ChatClient core;
+	private mainwindow mainFrame;
+	private JFrame popup;
 	
 	private JTextField UNFieldGuest;
 	private JPasswordField PwdFieldGuest;
 	private JComboBox server;
 	
-	public guestAccountFrame(Model model, ChatClient c, JFrame main){
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	public guestAccountFrame(Model model, ChatClient c, mainwindow frame){
+		popup=this;
 		this.model = model;
 		core = c;
-		mainFrame = main;
+		mainFrame = frame;
 		
 		//set Frame
 		setTitle("Guest Account Login");
@@ -86,7 +92,9 @@ public class guestAccountFrame extends JFrame{
 		cancelButton.setPreferredSize(new Dimension(20, 40));
 		cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	setVisible(false);
+            	mainFrame.setEnabled(true);
+            	popup.removeAll();
+            	popup.dispose();
             }
 		});
 		buttonsPanel.add(cancelButton);
@@ -109,9 +117,8 @@ public class guestAccountFrame extends JFrame{
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
 			core.login(UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()), server.getSelectedIndex());
-			System.out.println(server.getSelectedIndex());
-			mainFrame.setVisible(false); // TODO: destroy mainFrame
 			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
+			mainFrame.dispose();
 		} catch (XMPPException e1) {
 			// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
 			//e1.printStackTrace();
