@@ -8,6 +8,19 @@ import java.util.ArrayList;
  */
 public class CurrentProfileData {
     private ArrayList<AccountData> accountData;
+
+    public CurrentProfileData(ArrayList<AccountData> accountData) {
+    	this.accountData = accountData;
+    }
     
-    //TODO finish this class
+	public void setAccountData(ArrayList<AccountData> accountData) {
+		this.accountData = accountData;
+		return;
+	}
+
+	public ArrayList<AccountData> getAccountData() {
+		return accountData;
+	}
+    
+    
 }
