@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 import org.jivesoftware.smack.XMPPException;
 
+import styles.linkLabel;
+
 import buddylist.buddylist;
 
 import ChatClient.ChatClient;
@@ -32,8 +34,8 @@ public class signinPanel extends JPanel {
 	private Model model;
 	
 	//Account Options part (in Sign In Panel)
-	private JLabel manageAccount;
-	private JLabel guestAccount;
+	private linkLabel manageAccount;
+	private linkLabel guestAccount;
 	
 	public signinPanel(JFrame frame, ChatClient chatClient, Model model){
 		mainFrame = frame;
@@ -73,7 +75,7 @@ public class signinPanel extends JPanel {
 		accOptPanel.setLayout (accLayout);
 
 		//manage account
-		manageAccount = new JLabel ("<html><u>Add/Manage Accounts</u></html>", JLabel.CENTER); 
+		manageAccount = new linkLabel ("Add/Manage Account"); 
 		manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	//TODO: set this later!!!!!! - shicmap
@@ -85,7 +87,7 @@ public class signinPanel extends JPanel {
         });
 
 		//guest account
-		guestAccount = new JLabel ("<html><u>Connect Guest Account</u></html>", JLabel.CENTER); //underline?
+		guestAccount = new linkLabel ("Connect Guest Account"); 
 		guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	//enableFrame(false);

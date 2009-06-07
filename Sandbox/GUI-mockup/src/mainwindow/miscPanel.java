@@ -1,21 +1,16 @@
 package mainwindow;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+
 import java.awt.GridLayout;
-import java.awt.Label;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.border.EmptyBorder;
+
+import styles.linkLabel;
 
 public class miscPanel extends JPanel{
 	public miscPanel(){
@@ -29,7 +24,7 @@ public class miscPanel extends JPanel{
 		JSeparator line = new JSeparator();
 		
 		//manage account
-		JLabel options = new JLabel ("<html><u>Options</u></html>", JLabel.CENTER);
+		linkLabel options = new linkLabel ("Options");
 		options.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				options_MouseClicked(evt);
@@ -37,7 +32,7 @@ public class miscPanel extends JPanel{
         });
 		
 		//guest account
-		JLabel help = new JLabel ("<html><u>Help</u></html>", JLabel.CENTER);
+		linkLabel help = new linkLabel ("Help");
 		help.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	help_MouseClicked(evt);
@@ -57,7 +52,7 @@ public class miscPanel extends JPanel{
 		accMAN.pack();
 		accMAN.setVisible(true);
 	} 
-	public void help_MouseClicked(java.awt.event.MouseEvent e) {
+	private void help_MouseClicked(java.awt.event.MouseEvent e) {
 		JFrame accMAN = new JFrame ("Help");
 		accMAN.setLocation(100,100);
 		accMAN.getContentPane().add(new helpPanel());
