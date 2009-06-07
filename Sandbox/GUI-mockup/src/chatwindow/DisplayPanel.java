@@ -47,7 +47,7 @@ public class DisplayPanel extends JPanel implements Observer {
 	}
 
     public void update(Observable t, Object o) {
-	    txtPane.setText("TEST");
+	    // update txtPane here
     	return;	
 	}	
 	public void addMessage(String userName,String text, String font, String size){

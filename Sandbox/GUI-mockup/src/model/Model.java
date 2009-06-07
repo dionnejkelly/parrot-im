@@ -41,7 +41,7 @@ public class Model extends Observable {
 	
     public Model() throws ClassNotFoundException, SQLException {
         serverList = new Vector<String>();
-	    accountList = new Vector<String>();
+        accountList = new Vector<String>();
 	    int openChatWindows = 0;
 	    chatParticipants = new ArrayList<ChatData>();
         int i = 0;
