@@ -48,10 +48,10 @@ public class accInfo extends JPanel
 		
 		// Allowing users to change their status.
 		// Need to make this text field more intelligent (text field + dropdown box?)
-		statusMessage = new pmLabel("<How do you feel today?>"); 
+		statusMessage = new pmLabel(c); 
 		//JLabel status = new JLabel("(Online)");
 		
-		//statusMessage.setText("<How do you feel today?>");
+		statusMessage.setText("<How do you feel today?>");
 		statusMessage.setForeground(Color.black);
 		
 		// new Listener
