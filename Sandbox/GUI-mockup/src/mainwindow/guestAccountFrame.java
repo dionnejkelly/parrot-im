@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,8 +16,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.jivesoftware.smack.XMPPException;
-
-import styles.closeListener;
 
 import ChatClient.ChatClient;
 import buddylist.buddylist;
