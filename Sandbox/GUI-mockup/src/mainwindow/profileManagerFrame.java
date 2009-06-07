@@ -47,14 +47,13 @@ import model.Model;
  * **********************************************************************************************************
  * */
 
-class profileManagerFrame extends JFrame{
+class profileManagerFrame extends JFrame
+{
 	private JPanel accMANPanel;
 	private Model model;
 	
-	private JTextField UNField;
-	private JPasswordField pwdField;
+	private JList profileList;
 	private JList accList;
-	private JComboBox serviceField;
 	
 	protected profileManagerFrame(Model model)
 	{
@@ -86,10 +85,12 @@ class profileManagerFrame extends JFrame{
 		leftPanel.setLayout(new BorderLayout());
 
 		//saved account list
-		accList = new JList(model.getAccountList());
-		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		profileList = new JList(model.getAccountList());
+		profileList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
-		JScrollPane listScroller = new JScrollPane(accList);
+		//TODO:   ADD NEW PROFILE LIST TO MODEL
+		
+		JScrollPane listScroller = new JScrollPane(profileList);
 		listScroller.setPreferredSize(new Dimension(180, 200));
 		listScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -103,32 +104,10 @@ class profileManagerFrame extends JFrame{
 		//add button
 		JButton addButton = new JButton("+");
 		addButton.setPreferredSize(new Dimension(40, 25));
-		addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	try {
-					addAccount_actionPerform(evt) ;
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-		});
 
 		//remove button
 		JButton removeButton = new JButton ("-");
 		removeButton.setPreferredSize(new Dimension(40, 25));
-		removeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	int selected = accList.getSelectedIndex();
-            	if (selected>=0 && selected < model.getAccountList().size()-1){
-            		model.getAccountList().remove(selected);
-            		accList.updateUI();
-            	}
-            }
-		});
 
 		//pack the whole thing
 		addremovePanel.add(addButton);
@@ -149,67 +128,33 @@ class profileManagerFrame extends JFrame{
 		rightPanel.setLayout(new BorderLayout());
 		
 		/*TOP PART*/
-		//account setupLabel setting Panel
-		JPanel setupLabelPanel = new JPanel();
-		GridLayout setupLabelLayout = new GridLayout (3,1);
-		setupLabelLayout.setVgap(10);
-		setupLabelPanel.setLayout(setupLabelLayout);
-		setupLabelPanel.setPreferredSize(new Dimension (75,75));
-		JLabel serviceLabel = new JLabel("Service:");
-		JLabel UNLabel = new JLabel("Username:");
-		JLabel pwdLabel = new JLabel("Password:");
-		setupLabelPanel.add(serviceLabel);
-		setupLabelPanel.add(UNLabel);
-		setupLabelPanel.add(pwdLabel);
-
-		//account setupField setting Panel
-		JPanel setupFieldPanel = new JPanel();
-		//BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
-		GridLayout setupFieldLayout = new GridLayout (3,1);
-		setupFieldLayout.setVgap(2);
-		setupFieldPanel.setLayout(setupFieldLayout);
-		serviceField = new JComboBox (model.getServerList());
-		serviceField.setPreferredSize(new Dimension(170,27));
-		UNField = new JTextField();
-		UNField.setPreferredSize(new Dimension (85,20));
-		pwdField = new JPasswordField();
-		pwdField.setPreferredSize(new Dimension (100,20));
-		setupFieldPanel.add(serviceField);
-		setupFieldPanel.add(UNField);
-		setupFieldPanel.add(pwdField);
-
-		//account setup Panel
-		JPanel setupPanel = new JPanel();
-		setupPanel.setLayout(new BoxLayout (setupPanel, BoxLayout.X_AXIS));
-		setupPanel.add(setupLabelPanel);
-		setupPanel.add(setupFieldPanel);
+		//List of accounts on the profile
+		accList = new JList(model.getAccountList());
+		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+		JScrollPane acctListScroller = new JScrollPane(accList);
+		acctListScroller.setPreferredSize(new Dimension(300, 200));
+		acctListScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 
 
-		/*CENTRE PART : remember password + auto sign in*/
-		//other Checkboxes setup Panel
-		JPanel otherCheckPanel = new JPanel ();
-		otherCheckPanel.setLayout(new GridLayout (2,1));
-		JCheckBox rememberPWDCheck = new JCheckBox();
-		JCheckBox autoSignCheck = new JCheckBox();
-		otherCheckPanel.add(rememberPWDCheck);
-		otherCheckPanel.add(autoSignCheck);
-
-		//other Labels setup Panel
-		GridLayout otherLabelLayout = new GridLayout (2,1);
-		JPanel otherLabelPanel = new JPanel ();
-		otherLabelPanel.setLayout(otherLabelLayout);
-		otherLabelLayout.setVgap(7);
-		JLabel rememberPWDLabel = new JLabel("Remember password");
-		JLabel autoSignLabel = new JLabel("Auto Sign-in");
-		otherLabelPanel.add(rememberPWDLabel);
-		otherLabelPanel.add(autoSignLabel);
-
-		//other setups Panel
-		JPanel otherSetupPanel = new JPanel();
-		otherSetupPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 50, 0));
-		otherSetupPanel.setLayout (new FlowLayout());
-		otherSetupPanel.add(otherCheckPanel);
-		otherSetupPanel.add(otherLabelPanel);
+		/*CENTRE PART : Add/Remove Buttons */
+		
+		JPanel addRemoveAcctPanel = new JPanel();
+		GridLayout ARlayout= new GridLayout(1,3);
+		addRemoveAcctPanel.setLayout(ARlayout);
+		ARlayout.setHgap(5);
+		addRemoveAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
+		
+		JButton newAcctButton = new JButton ("+");
+		newAcctButton.setPreferredSize(new Dimension(40, 25));
+		JButton remAcctButton = new JButton ("-");
+		remAcctButton.setPreferredSize(new Dimension(40, 25));
+		JButton editAcctButton = new JButton ("e");
+		editAcctButton.setPreferredSize(new Dimension(40, 25));
+		
+		addRemoveAcctPanel.add(newAcctButton);
+		addRemoveAcctPanel.add(remAcctButton);
+		addRemoveAcctPanel.add(editAcctButton);
 
 		/*BOTTOM PART : OK and Cancel Button*/
 		//set ok-cancel button
@@ -221,82 +166,21 @@ class profileManagerFrame extends JFrame{
 
 		//OK Button
 		JButton okButton = new JButton ("OK");
-		okButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	try {
-					addAccount_actionPerform(evt) ;
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-		});
 		buttonsPanel.add(okButton);
 
 		//Cancel Button
 		JButton cancelButton = new JButton ("Cancel");
-		cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	setVisible(false);
-            }
-		});
 		buttonsPanel.add(cancelButton);
 
 
 		//adding to rightPanel
-		rightPanel.add(setupPanel, BorderLayout.NORTH);
-		rightPanel.add(otherSetupPanel, BorderLayout.CENTER);
+		rightPanel.add(acctListScroller, BorderLayout.NORTH);
+		rightPanel.add(addRemoveAcctPanel, BorderLayout.CENTER);
 		rightPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
 		//add to account manager pop up main panel
 		accMANPanel.add(rightPanel,BorderLayout.EAST);
 	}
 
-	
-
-	private void addAccount_actionPerform(ActionEvent evt) throws ClassNotFoundException, SQLException {
-		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
-			//search if it exists or not
-			String newACC = model.getServerList().get(serviceField.getSelectedIndex())+": "+UNField.getText();
-			boolean match = false;
-			
-			
-			//Ahmad TESTING TESTING TESTING
-			
-		      Class.forName("org.sqlite.JDBC");
-		      Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-		      Statement stat = conn.createStatement();
-		      PreparedStatement prep = conn.prepareStatement(
-		          "insert into people values (?);");
-
-		      prep.setString(1, newACC);
-		      prep.addBatch();
-
-		      conn.setAutoCommit(false);
-		      prep.executeBatch();
-		      conn.setAutoCommit(true);
-		      conn.close();
-			
-			//Ahmad TESTING TESTING TESTING
-			for (int i=0; i < model.getAccountList().size()-1; i++){
-				if (model.getAccountList().get(i).compareTo(newACC)==0) match = true;
-			}
-			
-			if (match) {
-				//if found, then edit the password as manage
-				//TODO:edit password
-			}else {
-				//insert new
-				UNField.setText("");
-				pwdField.setText("");
-				model.getAccountList().add(model.getAccountList().size()-1, newACC);
-				accList.updateUI();
-			}
-			//accMAN.setVisible(false);
-		}
-	}
 
 }
