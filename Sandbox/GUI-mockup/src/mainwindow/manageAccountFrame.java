@@ -1,7 +1,6 @@
 package mainwindow;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -23,6 +22,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+
+import styles.closeListener;
+
 import java.sql.*;
 
 import model.Model;
@@ -30,15 +32,17 @@ import model.Model;
 public class manageAccountFrame extends JFrame{
 	private JPanel accMANPanel;
 	private Model model;
+	private mainwindow mainFrame;
 	
 	private JTextField UNField;
 	private JPasswordField pwdField;
 	private JList accList;
 	private JComboBox serviceField;
 	
-	protected manageAccountFrame (Model model){
+	protected manageAccountFrame (Model model, mainwindow frame){
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.model = model;
+		mainFrame = frame;
 		
 		setTitle("Account Manager");
 		setLocation(100, 100);
@@ -59,6 +63,8 @@ public class manageAccountFrame extends JFrame{
 		pack();
 		setVisible(true);
 	}
+	
+	
 	
 	private void leftPanelMAN(){
 		JPanel leftPanel = new JPanel();
@@ -215,6 +221,7 @@ public class manageAccountFrame extends JFrame{
 		cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	setVisible(false);
+            	mainFrame.setEnabled(true);
             }
 		});
 		buttonsPanel.add(cancelButton);

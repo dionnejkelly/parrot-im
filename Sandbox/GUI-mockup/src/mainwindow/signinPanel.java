@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import org.jivesoftware.smack.XMPPException;
 
+import styles.closeListener;
 import styles.linkLabel;
 
 import buddylist.buddylist;
@@ -30,14 +31,14 @@ import model.Model;
 
 public class signinPanel extends JPanel {
 	protected ChatClient core;
-	private JFrame mainFrame;
+	private mainwindow mainFrame;
 	private Model model;
 	
 	//Account Options part (in Sign In Panel)
 	private linkLabel manageAccount;
 	private linkLabel guestAccount;
 	
-	public signinPanel(JFrame frame, ChatClient chatClient, Model model){
+	public signinPanel(mainwindow frame, ChatClient chatClient, Model model){
 		mainFrame = frame;
 		core = chatClient;//CORE
 		this.model = model;
@@ -50,6 +51,7 @@ public class signinPanel extends JPanel {
 	}
 	
 	private void manageAccountPanel (){
+		
 		JPanel accPanel = new JPanel();
 		accPanel.setLayout(new BoxLayout(accPanel, BoxLayout.Y_AXIS));
 		accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 50, 50));
@@ -78,11 +80,8 @@ public class signinPanel extends JPanel {
 		manageAccount = new linkLabel ("Add/Manage Account"); 
 		manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-            	//TODO: set this later!!!!!! - shicmap
-            	//enableFrame(false);
-            	new manageAccountFrame(model);
-                //manageAccount_MouseClicked(evt);
-                //enableFrame(true);
+            	mainFrame.setEnabled(false);
+            	manageAccountFrame popup = new manageAccountFrame(model, mainFrame);
             }
         });
 
@@ -90,9 +89,8 @@ public class signinPanel extends JPanel {
 		guestAccount = new linkLabel ("Connect Guest Account"); 
 		guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-            	//enableFrame(false);
+            	mainFrame.setEnabled(false);
                 new guestAccountFrame(model, core, mainFrame);
-                //enableFrame(true);
             }
         });
 
@@ -119,10 +117,5 @@ public class signinPanel extends JPanel {
 			e1.printStackTrace();
 			System.out.println("sign in failed!");
 		}	
-	}
-	
-	private void enableFrame(boolean b){
-		//enable or disable mainFrame (or the components inside)
-		//TODO: true(enable) false(disable)
 	}
 }
