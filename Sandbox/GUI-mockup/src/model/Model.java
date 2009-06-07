@@ -89,7 +89,8 @@ public class Model extends Observable {
     }
 
     public Vector<String> getServerList() {
-       	return serverList;
+       	return ServerType.getServerList();
+    	// Old Code: return serverList;
     }
 	    
     public String getUsername() {
