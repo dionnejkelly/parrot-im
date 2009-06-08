@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 import model.Model;
 import ChatClient.ChatClient;
@@ -31,6 +32,14 @@ public class sidePanel extends JPanel implements Observer {
 	    DefaultMutableTreeNode top =
 	        new DefaultMutableTreeNode("Conversation1");
 	    tree = new JTree(top);
+	    
+	    //sets Tree Icons
+	    ImageIcon leafIcon = new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/personal.png");
+	    if (leafIcon != null) {
+	        DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+	        renderer.setLeafIcon(leafIcon);
+	        tree.setCellRenderer(renderer);
+	    }
 	    
 	    //original Tutorial
 	    DefaultMutableTreeNode person1 = new DefaultMutableTreeNode(c.getUserName().replace("@gmail.com", ""));
