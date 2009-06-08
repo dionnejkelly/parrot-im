@@ -27,26 +27,28 @@ public class pmLabel extends JTextField {
 	}
 	protected void changePM(boolean b){
 		if (b){//editable
+			if (!this.getText().equals("Type your status message")){
+				this.setText("");
+			}
+			this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			this.setBackground(Color.WHITE);
 			this.setEditable(true);
 			this.setEnabled(true);
 			this.setOpaque(true);
-			this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			this.setBackground(Color.WHITE);
+			
 		}else{//not editable
 			this.setBorder(null);
 			this.setText(this.getText());
 			this.setEditable(false);
 			this.setEnabled(false);
 			this.setOpaque(false);
-			if (this.getText().length()==0){
-				this.setText("(Type your status message)");
-			}
 			//send status to core
 			try {
-				if(!this.getText().equals("(Type your status message)")){
-					core.setPresence(this.getText());
-				}else{
+				if(this.getText().length()==0){
+					this.setText("(Type your status message)");
 					core.setPresence("");
+				}else{
+					core.setPresence(this.getText());
 				}
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
@@ -65,8 +67,6 @@ public class pmLabel extends JTextField {
 		public void mouseClicked(MouseEvent e) {
 			if (!label.isEditable()){
 				label.changePM(true);
-			}else{//pm is editable
-				label.changePM(false);
 			}
 		}
 
@@ -77,6 +77,12 @@ public class pmLabel extends JTextField {
 		public void mouseExited(MouseEvent e) {
 			if (!label.isEditable()){
 				label.setEnabled(false);
+			} else{
+				/*
+				 * PSEUDOCODE
+				 * if (mouseclicked)
+				 * 	label.setEnabled(false);
+				 */
 			}
 		}
 
