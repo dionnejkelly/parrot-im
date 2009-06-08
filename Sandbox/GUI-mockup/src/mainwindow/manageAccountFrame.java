@@ -25,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
+
+import styles.popupWindowListener;
 import model.DatabaseFunctions;
 import java.sql.*;
 
@@ -56,6 +58,7 @@ public class manageAccountFrame extends JFrame
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.model = model;
 		mainFrame = frame;
+		this.addWindowListener(new popupWindowListener(mainFrame, this));
 		
 		setTitle("Account Manager");
 		setLocation(100, 100);
