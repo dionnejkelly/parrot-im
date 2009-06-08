@@ -1,3 +1,5 @@
+package API;
+
 public class ProfileList{
 	private Profile[] profileList;
 
