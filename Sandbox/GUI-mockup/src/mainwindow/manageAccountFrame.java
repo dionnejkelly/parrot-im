@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
-
+import model.DatabaseFunctions;
 import java.sql.*;
 
 import model.Model;
@@ -42,166 +42,14 @@ public class manageAccountFrame extends JFrame
 	private JList profileList;
 	private JList accList;
 	
-	protected manageAccountFrame(Model model,mainwindow frame)
-	{
-		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.model = model;
-		mainFrame = frame;
-		
-		setTitle("Profile Manager");
-		setLocation(100, 100);
-		setPreferredSize(new Dimension(600,470));
-		setResizable(false);
-		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
-
-		//set main panel
-		accMANPanel = new JPanel ();
-		accMANPanel.setLayout(new BorderLayout());
-		accMANPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-		//manage account panel
-		//TODO: split them into different panels
-		leftPanelMAN();
-		rightPanelMAN();
-
-		getContentPane().add(accMANPanel);
-		pack();
-		setVisible(true);
-	}
-	
-	private void leftPanelMAN()
-	{
-		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BorderLayout());
-
-		//saved account list
-		profileList = new JList(model.getAccountList());
-		profileList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        
-		//TODO:   ADD NEW PROFILE LIST TO MODEL
-		
-		JScrollPane listScroller = new JScrollPane(profileList);
-		listScroller.setPreferredSize(new Dimension(140, 360));
-		listScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-		//add-remove button panel
-		JPanel addremovePanel = new JPanel();
-		GridLayout ARlayout= new GridLayout(1,2);
-		addremovePanel.setLayout(ARlayout);
-		ARlayout.setHgap(5);
-		addremovePanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
-
-		//add button
-		JButton addButton = new JButton("+");
-		addButton.setPreferredSize(new Dimension(40, 25));
-
-		//remove button
-		JButton removeButton = new JButton ("-");
-		removeButton.setPreferredSize(new Dimension(40, 25));
-
-		//pack the whole thing
-		addremovePanel.add(addButton);
-		addremovePanel.add(removeButton);
-
-		//add to leftpanel
-		leftPanel.add(listScroller,BorderLayout.NORTH);
-		leftPanel.add(addremovePanel,BorderLayout.SOUTH);
-
-		//add to account manager pop up main panel
-		accMANPanel.add(leftPanel,BorderLayout.WEST);
-	}
-
-	private void rightPanelMAN() 
-	{
-		//setting right panel
-		JPanel rightPanel = new JPanel();
-		rightPanel.setLayout(new BorderLayout());
-		
-		/*TOP PART*/
-		//List of accounts on the profile
-		accList = new JList(model.getAccountList());
-		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        
-		JScrollPane acctListScroller = new JScrollPane(accList);
-		acctListScroller.setPreferredSize(new Dimension(375, 300));
-		acctListScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
-
-
-		/*CENTRE PART : Add/Remove Buttons */
-		
-		JPanel addRemoveAcctPanel = new JPanel();
-		addRemoveAcctPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		addRemoveAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 12, 0, 12));
-		
-		JButton newAcctButton = new JButton ("Add");
-		newAcctButton.setPreferredSize(new Dimension(50, 20));
-		JButton remAcctButton = new JButton ("Delete");
-		remAcctButton.setPreferredSize(new Dimension(50, 20));
-		JButton editAcctButton = new JButton ("edit..");
-		editAcctButton.setPreferredSize(new Dimension(50, 20));
-		
-		Insets buttonPadding = new Insets(0,0,0,0);
-		newAcctButton.setMargin(buttonPadding); 
-		remAcctButton.setMargin(buttonPadding);
-		editAcctButton.setMargin(buttonPadding);
-		
-		addRemoveAcctPanel.add(newAcctButton);
-		addRemoveAcctPanel.add(remAcctButton);
-		addRemoveAcctPanel.add(editAcctButton);
-
-		/*BOTTOM PART : OK and Cancel Button*/
-		//set ok-cancel button
-		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 190, 10, 10));
-		GridLayout buttonsLayout = new GridLayout(1,2);
-		buttonsLayout.setHgap(5);
-		buttonsPanel.setLayout(buttonsLayout);
-
-		//OK Button
-		JButton okButton = new JButton ("OK");
-		buttonsPanel.add(okButton);
-
-		//Cancel Button
-		JButton cancelButton = new JButton ("Cancel");
-		buttonsPanel.add(cancelButton);
-		cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	setVisible(false);
-            	mainFrame.setEnabled(true);
-            }
-		});
-
-
-		//adding to rightPanel
-		rightPanel.add(acctListScroller, BorderLayout.NORTH);
-		rightPanel.add(addRemoveAcctPanel, BorderLayout.CENTER);
-		rightPanel.add(buttonsPanel, BorderLayout.SOUTH);
-
-		//add to account manager pop up main panel
-		accMANPanel.add(rightPanel,BorderLayout.EAST);
-	}
-
-
-}
-
-
-
-
-
-
-
-
 
 //////////////  WORKING CODE BELOW THIS COMMENT 
 
 
-/*{
-	private JPanel accMANPanel;
-	private Model model;
-	private mainwindow mainFrame;
+
 	
 	private JTextField UNField;
 	private JPasswordField pwdField;
-	private JList accList;
 	private JComboBox serviceField;
 	
 	protected manageAccountFrame (Model model, mainwindow frame){
@@ -412,19 +260,8 @@ public class manageAccountFrame extends JFrame
 			
 			//Ahmad TESTING TESTING TESTING
 			
-		      Class.forName("org.sqlite.JDBC");
-		      Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-		      Statement stat = conn.createStatement();
-		      PreparedStatement prep = conn.prepareStatement(
-		          "insert into people values (?);");
-
-		      prep.setString(1, newACC);
-		      prep.addBatch();
-
-		      conn.setAutoCommit(false);
-		      prep.executeBatch();
-		      conn.setAutoCommit(true);
-		      conn.close();
+			  DatabaseFunctions db = new DatabaseFunctions();
+			  db.addUsers(new String(model.getServerList().get(serviceField.getSelectedIndex())), new String(UNField.getText()), new String(pwdField.getPassword()));
 			
 			//Ahmad TESTING TESTING TESTING
 			for (int i=0; i < model.getAccountList().size(); i++){ //checks if the account exists
@@ -445,4 +282,4 @@ public class manageAccountFrame extends JFrame
 		}
 	}
 
-}  */
+}
