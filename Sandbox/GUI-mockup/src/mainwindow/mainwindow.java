@@ -1,6 +1,7 @@
 package mainwindow;
 
 import java.awt.Dimension;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -16,7 +17,7 @@ public class mainwindow extends JFrame{
 	String password;
 	/*THIS IS FOR CHAT CLIENT*/
 
-	public mainwindow (ChatClient chatClient, Model model){
+	public mainwindow (ChatClient chatClient, Model model) throws ClassNotFoundException, SQLException{
 
 		//set Main Window Frame
 		setTitle("Parrot-IM");

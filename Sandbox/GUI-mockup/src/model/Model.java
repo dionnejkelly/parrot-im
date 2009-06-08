@@ -31,10 +31,6 @@ import java.sql.*;
  */
 public class Model extends Observable {
 	
-    private Vector<String> accountList;
-    private Vector<String> serverList;
-    private String username;
-    private String password;
     private int openChatWindows;
     private ArrayList<ChatData> chatParticipants; /* temporary */
     private ArrayList<ChatWindowData> chatWindows; /* Replaces ChatData */
@@ -43,51 +39,23 @@ public class Model extends Observable {
 
 	
     public Model() throws ClassNotFoundException, SQLException {
-        serverList = new Vector<String>();
-        accountList = new Vector<String>();
         int openChatWindows = 0;
         chatParticipants = new ArrayList<ChatData>();
         currentProfile = null;
         chatWindows = new ArrayList<ChatWindowData>();
 	    
 	    
-	    int i = 0;
-        ArrayList<String> usernames = new ArrayList<String>(); 
-	    ArrayList<String> passwords = new ArrayList<String>();
-
 	    /* Set-up for SQL database */
-        Class.forName("org.sqlite.JDBC");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        Statement stat = conn.createStatement();
-	    ResultSet rs = null;
 
-	    /* Default values for test variables */
-	    this.password = "abcdefghi";
-	    this.username = "cmpt275testing@gmail.com";
 
 	    // ahmad test
-	    rs = stat.executeQuery("select * from people;");
-	    while (rs.next()) {
-	        usernames.add(rs.getString("email"));
-	        passwords.add("abcdefghi");
-	    }
 
 	   	// ahmad test
-	    // set server list
-	    serverList.add ("msn");
-	    serverList.add ("aim");
-	    serverList.add ("twitter");
-	    serverList.add ("icq");
-	    serverList.add ("googleTalk");
-
-	    //list of accounts
-        for (int k = 0; k < usernames.size(); k++) {
-            accountList.add(usernames.get(k));
-        }
     }
 
-    public Vector<String> getAccountList() {
-        return accountList;
+    public Vector<String> getAccountList() throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+        return db.getUserList();
     }
 
     /* Phase this method out in favour of the next one */
