@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,6 +25,7 @@ public class signinPanel extends JPanel {
 	protected ChatClient core;
 	private mainwindow mainFrame;
 	private Model model;
+	private JComboBox account_select;
 	
 	//Account Options part (in Sign In Panel)
 	private linkLabel manageAccount;
@@ -47,7 +49,7 @@ public class signinPanel extends JPanel {
 		accPanel.setLayout(new BoxLayout(accPanel, BoxLayout.Y_AXIS));
 		accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 50, 50));
 		//list of accounts
-		JComboBox account_select = new JComboBox (model.getAccountList());
+		account_select = new JComboBox (model.getAccountList());
 		account_select.setAlignmentY(JComboBox.CENTER_ALIGNMENT);
 		//connect button
 		JPanel connectPanel = new JPanel();
@@ -56,7 +58,15 @@ public class signinPanel extends JPanel {
 		connectPanel.add(connectButton);
 		connectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                signIn_ActionPerformed(evt);
+                try {
+					signIn_ActionPerformed(evt);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -97,10 +107,11 @@ public class signinPanel extends JPanel {
 		add(accPanel, BorderLayout.CENTER);
 	}
 	
-	private void signIn_ActionPerformed(ActionEvent e) {
+	private void signIn_ActionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
-			core.login(model.getUsername(), model.getPassword(), 4); //change 4 to the actual server from model later on
+			String username = (String)account_select.getSelectedItem();
+			core.login(username, model.getPassword(username), 4); //change 4 to the actual server from model later on
 			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
 			mainFrame.dispose();
 		} catch (XMPPException e1) {
