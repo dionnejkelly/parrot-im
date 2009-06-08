@@ -11,12 +11,18 @@ public class ChatWindowData {
     private UserData user;
     
     /*
+     * Your own account data. Enclosed is a UserData class.
+     */
+    private AccountData account;
+    
+    /*
      * Chat history for just this session.
      */
     private String text;
     
-    public ChatWindowData(UserData user) {
+    public ChatWindowData(UserData user, AccountData account) {
     	this.user = user;
+    	this.account = account;
     	this.text = "";
     }
     
@@ -27,6 +33,14 @@ public class ChatWindowData {
     public void setUser(UserData user) {
     	this.user = user;
     	return;
+    }
+    
+    public AccountData getAccount() {
+        return account;
+    }
+    
+    public void setAccountData(AccountData account) {
+        this.account = account;
     }
     
     public String getText() {
