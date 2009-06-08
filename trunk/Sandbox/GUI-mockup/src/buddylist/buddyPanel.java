@@ -85,8 +85,7 @@ public class buddyPanel extends JPanel
 	public JToolBar OptionsBar(){
 		JToolBar options = new JToolBar();
 		
-        JTextField search = new JTextField(); 
-        search.setPreferredSize(new Dimension(32,32));
+        JTextField search = new JTextField();
         JButton addF = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/buddylist/add_user.png"));
         JButton removeF = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/buddylist/delete_user.png"));
         JButton blockF = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/buddylist/button_cancel.png"));
