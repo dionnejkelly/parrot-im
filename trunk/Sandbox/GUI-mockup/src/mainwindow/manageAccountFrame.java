@@ -245,8 +245,8 @@ public class manageAccountFrame extends JFrame
 		JButton cancelButton = new JButton ("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	setVisible(false);
             	mainFrame.setEnabled(true);
+            	dispose();
             }
 		});
 		buttonsPanel.add(cancelButton);
