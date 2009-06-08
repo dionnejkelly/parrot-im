@@ -72,6 +72,8 @@ public class pmLabel extends JTextField {
 		public void mousePressed(MouseEvent e) {}
 
 		public void mouseReleased(MouseEvent e) {}
+
+		
 		
 	}
 	
@@ -85,6 +87,15 @@ public class pmLabel extends JTextField {
 
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode()==e.VK_ENTER){
+				// test printing
+				System.out.println("Pressed Enter!");
+				try {
+					core.setPresence(label.getText());
+				} catch (InterruptedException e1) {
+					
+					e1.printStackTrace();
+				}
+				
 				label.changePM(false);
 			}
 		}
@@ -92,6 +103,8 @@ public class pmLabel extends JTextField {
 		public void keyReleased(KeyEvent e) {}
 
 		public void keyTyped(KeyEvent e) {}
+
+		
 		
 	}
 }

@@ -6,5 +6,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/smack.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smackx.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/sqlitejdbc-v054.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/HP_Administrator/Desktop/CMPT 275/smack_3_1_0/smack_3_1_0/smack.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/HP_Administrator/Desktop/CMPT 275/smack_3_1_0/smack_3_1_0/smackx.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/HP_Administrator/Desktop/CMPT 275/smack_3_1_0/smack_3_1_0/smackx-debug.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/HP_Administrator/Desktop/CMPT 275/smack_3_1_0/smack_3_1_0/smackx-jingle.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
