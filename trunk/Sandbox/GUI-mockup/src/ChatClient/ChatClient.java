@@ -125,6 +125,7 @@ public class ChatClient implements MessageListener
         {
                 if(message.getType() == Message.Type.chat)
                 System.out.println(chat.getParticipant() + " says: " + message.getBody());
+                
                 //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
     }
        

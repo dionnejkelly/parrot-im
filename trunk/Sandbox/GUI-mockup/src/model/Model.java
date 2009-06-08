@@ -37,6 +37,7 @@ public class Model extends Observable {
     private String password;
     private int openChatWindows;
     private ArrayList<ChatData> chatParticipants; /* temporary */
+    private ArrayList<ChatWindowData> chatWindows; /* Replaces ChatData */
     
     private CurrentProfileData currentProfile;
 
@@ -44,9 +45,10 @@ public class Model extends Observable {
     public Model() throws ClassNotFoundException, SQLException {
         serverList = new Vector<String>();
         accountList = new Vector<String>();
-	    int openChatWindows = 0;
-	    chatParticipants = new ArrayList<ChatData>();
+	int openChatWindows = 0;
+	chatParticipants = new ArrayList<ChatData>();
         currentProfile = null;
+        chatWindows = new ArrayList<ChatWindowData>();
 	    
 	    
 	    int i = 0;
@@ -108,6 +110,13 @@ public class Model extends Observable {
 
     public String getPassword() {
         return password;
+    }
+    
+    /* Chat Window manipulation */    
+    public void addChatWindow(AccountData account, UserData user) {
+        ChatWindowData newChatWindow = new ChatWindowData(account, user);
+        chatWindows.add(newChatWindow);
+        return;
     }
     
     public int getOpenChatWindows() {

@@ -20,7 +20,7 @@ public class ChatWindowData {
      */
     private String text;
     
-    public ChatWindowData(UserData user, AccountData account) {
+    public ChatWindowData(AccountData account, UserData user) {
     	this.user = user;
     	this.account = account;
     	this.text = "";
