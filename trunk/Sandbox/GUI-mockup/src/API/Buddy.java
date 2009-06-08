@@ -21,4 +21,8 @@ public class Buddy{
 	{
 		return this.channel;
 	}
+	public String toString(){
+		return username;
+		
+	}
 }
