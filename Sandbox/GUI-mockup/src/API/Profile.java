@@ -3,9 +3,23 @@ package API;
 public class Profile{
 
 	private BuddyList buddyList;
-	private String accountData;
 	private String settings;
-
+	private String name;
+	private String password;
+	private Boolean chkpassword;
+	
+	public Profile(BuddyList buddyList,String settings, String name){
+		this(buddyList,settings, name, "",false);
+	}
+	
+	public Profile(BuddyList buddyList,String settings, String name, String password, Boolean chkpassword){
+		this.buddyList = buddyList;
+		this.settings = settings;
+		this.name = name;
+		this.password = password;
+		this.chkpassword = chkpassword;
+	}
+	
 	public void setBuddyList(BuddyList bl)
 	{
 		this.buddyList = bl;
@@ -14,14 +28,30 @@ public class Profile{
 	{
 		return this.buddyList;
 	}
-	public void setAccountData(String a)
-	{
-		this.accountData = a;
+	public String getName() {
+		return name;
 	}
-	public String getAccountData()
-	{
-		return this.accountData;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Boolean getChkpassword() {
+		return chkpassword;
+	}
+
+	public void setChkpassword(Boolean chkpassword) {
+		this.chkpassword = chkpassword;
+	}
+
 	public void setSettings(String s)
 	{
 		this.settings = s;

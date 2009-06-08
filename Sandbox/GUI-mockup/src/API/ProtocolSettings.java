@@ -5,7 +5,12 @@ public class ProtocolSettings{
 	private String protocol;
 	private String username;
 	private String password;
-
+	
+	public ProtocolSettings(String protocol, String username, String password) {
+		this.protocol = protocol;
+		this.username = username;
+		this.password = password;
+	}
 	public void setProtocol(String p)
 	{
 		this.protocol = p;
