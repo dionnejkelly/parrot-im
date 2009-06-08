@@ -13,7 +13,7 @@ import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
-import model.Model;
+import model.*;
 
 
 public class ChatClient implements MessageListener
@@ -59,6 +59,30 @@ public class ChatClient implements MessageListener
                
                 this.userName = userName;
         	}
+        }
+        
+        // Overloaded, temporary
+        public void login() throws XMPPException
+        {
+        	// TODO FIX THIS METHOD, should work with all protocols.
+        	/* Checks current profile to determine which accounts to login */
+        	CurrentProfileData currentProfile = null;
+        	
+        	currentProfile = model.getCurrentProfile();
+        	for (AccountData a : currentProfile.getAccountData()) {
+        		// try to connect
+        		ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
+                connection = new XMPPConnection(config);
+                connection.connect();
+                connection.login(a.getAccountName(), a.getPassword());
+                
+                // If connected...
+                model.connectAccount(a);
+                
+                this.userName = a.getAccountName();
+        		
+        	}
+            return;            
         }
        
         public void sendMessage(String message, String to) throws XMPPException
