@@ -5,14 +5,14 @@ package model;
  */
 public class ChatWindowData {
     
-	/*
-	 * The other user that you are talking to, not yourself.
-	 */
-	private UserData user;
-	
-	/*
-	 * Chat history for just this session.
-	 */
+    /*
+     * The other user that you are talking to, not yourself.
+     */
+    private UserData user;
+    
+    /*
+     * Chat history for just this session.
+     */
     private String text;
     
     public ChatWindowData(UserData user) {

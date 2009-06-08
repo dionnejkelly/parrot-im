@@ -8,19 +8,27 @@ import java.util.ArrayList;
  */
 public class CurrentProfileData {
     private ArrayList<AccountData> accountData;
+    private String profileName;
 
     public CurrentProfileData(ArrayList<AccountData> accountData) {
     	this.accountData = accountData;
     }
     
-	public void setAccountData(ArrayList<AccountData> accountData) {
-		this.accountData = accountData;
-		return;
-	}
+    public void setAccountData(ArrayList<AccountData> accountData) {
+	this.accountData = accountData;
+	return;
+    }
 
-	public ArrayList<AccountData> getAccountData() {
-		return accountData;
-	}
-    
-    
+    public ArrayList<AccountData> getAccountData() {
+	return accountData;
+    }
+
+    public void setProfileName(String profileName) {
+	this.profileName = profileName;
+	return;
+    }
+
+    public String getProfileName() {
+        return profileName;
+    }    
 }
