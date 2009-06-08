@@ -86,9 +86,9 @@ public class buddyPanel extends JPanel
 		JToolBar options = new JToolBar();
 		
         JTextField search = new JTextField(); 
-        JButton addF = new JButton("Add");
-        JButton removeF = new JButton("Del");
-        JButton blockF = new JButton("Blk");
+        JButton addF = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/buddylist/add_user.png"));
+        JButton removeF = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/buddylist/delete_user.png"));
+        JButton blockF = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/buddylist/button_cancel.png"));
         JButton searchButton = new JButton("Srch");
         
         //add components
