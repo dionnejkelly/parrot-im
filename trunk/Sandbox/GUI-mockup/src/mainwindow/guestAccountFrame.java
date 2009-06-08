@@ -44,6 +44,7 @@ public class guestAccountFrame extends JFrame{
 		
 		//set Frame
 		setTitle("Guest Account Login");
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setPreferredSize(new Dimension (400,250));
 		setLocation(100, 100);
 		setResizable(false);

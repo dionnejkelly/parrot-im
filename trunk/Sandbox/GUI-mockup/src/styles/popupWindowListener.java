@@ -23,41 +23,16 @@ public class popupWindowListener implements WindowListener {
 		this.popup = popup;
 	}
 
-
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void windowClosed(WindowEvent e) {
 		mainFrame.setEnabled(true);
-		popup.setVisible(false);
-		System.out.println("Entered");
+		mainFrame.setAlwaysOnTop(true);
+	    mainFrame.setAlwaysOnTop(false);
 	}
 
-	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void windowClosing(WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {}
+	public void windowDeiconified(WindowEvent e) {}
+	public void windowIconified(WindowEvent e) {}
+	public void windowOpened(WindowEvent e) {}
+	public void windowActivated(WindowEvent e) {}
 }
