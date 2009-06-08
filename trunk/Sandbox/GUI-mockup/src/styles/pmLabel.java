@@ -43,7 +43,11 @@ public class pmLabel extends JTextField {
 			}
 			//send status to core
 			try {
-				core.setPresence(this.getText());
+				if(!this.getText().equals("(Type your status message)")){
+					core.setPresence(this.getText());
+				}else{
+					core.setPresence("");
+				}
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
