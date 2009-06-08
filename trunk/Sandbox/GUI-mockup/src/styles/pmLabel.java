@@ -41,6 +41,13 @@ public class pmLabel extends JTextField {
 			if (this.getText().length()==0){
 				this.setText("(Type your status message)");
 			}
+			//send status to core
+			try {
+				core.setPresence(this.getText());
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			
 		}
 	}
 	
@@ -89,13 +96,6 @@ public class pmLabel extends JTextField {
 			if (e.getKeyCode()==e.VK_ENTER){
 				// test printing
 				System.out.println("Pressed Enter!");
-				try {
-					core.setPresence(label.getText());
-				} catch (InterruptedException e1) {
-					
-					e1.printStackTrace();
-				}
-				
 				label.changePM(false);
 			}
 		}
