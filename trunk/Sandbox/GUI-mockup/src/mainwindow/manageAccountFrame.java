@@ -52,7 +52,7 @@ public class manageAccountFrame extends JFrame
 	private JPasswordField pwdField;
 	private JComboBox serviceField;
 	
-	protected manageAccountFrame (Model model, mainwindow frame){
+	protected manageAccountFrame (Model model, mainwindow frame) throws ClassNotFoundException, SQLException{
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.model = model;
 		mainFrame = frame;
@@ -79,12 +79,13 @@ public class manageAccountFrame extends JFrame
 	
 	
 	
-	private void leftPanelMAN(){
+	private void leftPanelMAN() throws ClassNotFoundException, SQLException{
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new BorderLayout());
 
 		//saved account list
 		accList = new JList(model.getAccountList());
+		System.out.println(model.getAccountList().size());
 		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
 		JScrollPane listScroller = new JScrollPane(accList);
@@ -119,11 +120,19 @@ public class manageAccountFrame extends JFrame
 		removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	int selected = accList.getSelectedIndex();
-            	if (selected>=0 && selected < model.getAccountList().size()){
-            		model.getAccountList().remove(selected);
-            		accList.updateUI();
-            		//TODO: update the JComboBox in siginPanel too!
-            	}
+            	try {
+					if (selected>=0 && selected < model.getAccountList().size()){
+						model.getAccountList().remove(selected);
+						accList.updateUI();
+						//TODO: update the JComboBox in siginPanel too!
+					}
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 		});
 
@@ -254,7 +263,6 @@ public class manageAccountFrame extends JFrame
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
 			//TODO: newACC is supposed to be an Object that includes server, username, password
-			String newACC = model.getServerList().get(serviceField.getSelectedIndex())+": "+UNField.getText();
 			boolean match = false;
 			
 			
@@ -264,9 +272,7 @@ public class manageAccountFrame extends JFrame
 			  db.addUsers(new String(model.getServerList().get(serviceField.getSelectedIndex())), new String(UNField.getText()), new String(pwdField.getPassword()));
 			
 			//Ahmad TESTING TESTING TESTING
-			for (int i=0; i < model.getAccountList().size(); i++){ //checks if the account exists
-				if (model.getAccountList().get(i).compareTo(newACC)==0) match = true;
-			}
+			  // check if account already exists
 			
 			if (match) {
 				//if found, then edit the password as manage
@@ -275,7 +281,6 @@ public class manageAccountFrame extends JFrame
 				//insert new
 				UNField.setText("");
 				pwdField.setText("");
-				model.getAccountList().add(newACC);
 				accList.updateUI();
         		//TODO: update the JComboBox in siginPanel too!
 			}

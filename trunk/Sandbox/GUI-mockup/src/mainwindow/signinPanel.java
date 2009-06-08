@@ -32,7 +32,7 @@ public class signinPanel extends JPanel {
 	private linkLabel manageAccount;
 	private linkLabel guestAccount;
 	
-	public signinPanel(mainwindow frame, ChatClient chatClient, Model model){
+	public signinPanel(mainwindow frame, ChatClient chatClient, Model model) throws ClassNotFoundException, SQLException{
 		mainFrame = frame;
 		core = chatClient;//CORE
 		this.model = model;
@@ -44,7 +44,7 @@ public class signinPanel extends JPanel {
 		add(new miscPanel(), BorderLayout.SOUTH);
 	}
 	
-	private void manageAccountPanel (){
+	private void manageAccountPanel () throws ClassNotFoundException, SQLException{
 		
 		JPanel accPanel = new JPanel();
 		//BoxLayout accLayout = new BoxLayout(accPanel, BoxLayout.Y_AXIS);
@@ -87,7 +87,15 @@ public class signinPanel extends JPanel {
 		manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	mainFrame.setEnabled(false);
-            	manageAccountFrame popup = new manageAccountFrame(model, mainFrame);
+            	try {
+					manageAccountFrame popup = new manageAccountFrame(model, mainFrame);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
