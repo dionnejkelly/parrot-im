@@ -37,7 +37,6 @@ public class Model extends Observable {
     private String password;
     private int openChatWindows;
     private ArrayList<ChatData> chatParticipants; /* temporary */
-    private ArrayList<ChatWindowData> chatWindows; /* Replaces ChatData */
     
     private CurrentProfileData currentProfile;
 
@@ -45,10 +44,9 @@ public class Model extends Observable {
     public Model() throws ClassNotFoundException, SQLException {
         serverList = new Vector<String>();
         accountList = new Vector<String>();
-	int openChatWindows = 0;
-	chatParticipants = new ArrayList<ChatData>();
+	    int openChatWindows = 0;
+	    chatParticipants = new ArrayList<ChatData>();
         currentProfile = null;
-        chatWindows = new ArrayList<ChatWindowData>();
 	    
 	    
 	    int i = 0;
@@ -108,15 +106,14 @@ public class Model extends Observable {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-    
-    /* Chat Window manipulation */    
-    public void addChatWindow(AccountData account, UserData user) {
-        ChatWindowData newChatWindow = new ChatWindowData(account, user);
-        chatWindows.add(newChatWindow);
-        return;
+    public String getPassword(String username) throws ClassNotFoundException, SQLException {
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        Statement stat = conn.createStatement();
+	    ResultSet rs = null;
+	    rs = stat.executeQuery("select * from people where email='" + username + "'");
+		return rs.getString("password");
+	    
     }
     
     public int getOpenChatWindows() {
@@ -148,20 +145,19 @@ public class Model extends Observable {
 
     /* Current Profile manipulation */
     
-    public void clearCurrentProfile() {
-        currentProfile = new CurrentProfileData();
-        return;
-    }
-    
-    public void createCurrentProfile(AccountData account, 
-                                     String profileName) {
-        currentProfile = new CurrentProfileData(account, profileName);
-        return;
-    }
-    
-    public void addAccountToCurrentProfile(AccountData account) {
-        currentProfile.addAccount(account);
-        return;
+    public void useGuestAccount(ServerType server, String accountName,
+    		                    String password) {
+    	// TODO throw exception if currentProfile already exists.
+    	AccountData guestAccount = null;
+    	ArrayList<AccountData> accounts = null;
+    	currentProfile = null;
+    	
+    	guestAccount = new AccountData(server, accountName,
+    	                               password);
+    	accounts = new ArrayList<AccountData>();
+    	accounts.add(guestAccount);
+    	currentProfile = new CurrentProfileData(accounts);
+    	return;                                 
     }
     
     public CurrentProfileData getCurrentProfile() {
