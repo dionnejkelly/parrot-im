@@ -2,7 +2,11 @@ package API;
 
 public class BuddyList{
 	private Buddy[] buddyList;
-
+	
+	public BuddyList(Buddy[] buddyList) {
+		this.buddyList = buddyList;
+	}
+	
 	public void setBuddyList(Buddy[] bl)
 	{
 		this.buddyList = bl;
@@ -17,4 +21,5 @@ public class BuddyList{
 	public void delBuddy(int n){
 		this.buddyList[n] = null;
 	}
+
 }

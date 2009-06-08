@@ -4,7 +4,11 @@ public class Buddy{
 	private String username;
 	private String channel;
 	//channel : twitter, icq, msn
-
+	public Buddy(String username, String channel) {
+		this.username = username;
+		this.channel = channel;
+	}
+	
 	public void setUsername(String u)
 	{
 		this.username = u;
@@ -25,4 +29,5 @@ public class Buddy{
 		return username;
 		
 	}
+
 }
