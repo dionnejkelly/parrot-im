@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 
 import org.jivesoftware.smack.XMPPException;
 
+import styles.popupWindowListener;
+
 import ChatClient.ChatClient;
 import buddylist.buddylist;
 import model.*;
@@ -38,6 +40,7 @@ public class guestAccountFrame extends JFrame{
 		this.model = model;
 		core = c;
 		mainFrame = frame;
+		this.addWindowListener(new popupWindowListener(mainFrame, this));
 		
 		//set Frame
 		setTitle("Guest Account Login");
