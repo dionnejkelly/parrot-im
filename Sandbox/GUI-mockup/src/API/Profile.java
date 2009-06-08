@@ -1,3 +1,5 @@
+package API;
+
 public class Profile{
 
 	private BuddyList buddyList;

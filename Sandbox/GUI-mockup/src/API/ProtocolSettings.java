@@ -1,3 +1,5 @@
+package API;
+
 public class ProtocolSettings{
 
 	private String protocol;
