@@ -1,3 +1,5 @@
+package API;
+
 public class Buddy{
 	private String username;
 	private String channel;
