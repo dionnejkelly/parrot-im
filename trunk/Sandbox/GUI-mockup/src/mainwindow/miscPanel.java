@@ -1,6 +1,7 @@
 package mainwindow;
 
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -25,6 +26,7 @@ public class miscPanel extends JPanel{
 		
 		//manage account
 		linkLabel options = new linkLabel ("Options");
+		options.setPreferredSize(new Dimension(30,options.HEIGHT));
 		options.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				options_MouseClicked(evt);

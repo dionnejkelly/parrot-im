@@ -2,6 +2,7 @@ package mainwindow;
 //TODO: set so that when the popup window (manage account and guest account popups) 
 //is closed using the close button, mainFrame is set to enable.
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,8 +47,12 @@ public class signinPanel extends JPanel {
 	private void manageAccountPanel (){
 		
 		JPanel accPanel = new JPanel();
-		accPanel.setLayout(new BoxLayout(accPanel, BoxLayout.Y_AXIS));
-		accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 50, 50));
+		//BoxLayout accLayout = new BoxLayout(accPanel, BoxLayout.Y_AXIS);
+		//GridLayout accLayout = new GridLayout(3,1);
+		FlowLayout accLayout = new FlowLayout();
+		accLayout.setAlignment(FlowLayout.CENTER);
+		accPanel.setLayout(accLayout);
+		accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
 		//list of accounts
 		account_select = new JComboBox (model.getAccountList());
 		account_select.setAlignmentY(JComboBox.CENTER_ALIGNMENT);
@@ -73,9 +78,9 @@ public class signinPanel extends JPanel {
 		//accOPTPanel (part of accPanel)
 		JPanel accOptPanel = new JPanel ();
 		accOptPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-		GridLayout accLayout = new GridLayout(2,1);
-		accLayout.setVgap(15);
-		accOptPanel.setLayout (accLayout);
+		GridLayout accOptLayout = new GridLayout(2,1);
+		accOptLayout.setVgap(15);
+		accOptPanel.setLayout (accOptLayout);
 
 		//manage account
 		manageAccount = new linkLabel ("Add/Manage Account"); 
