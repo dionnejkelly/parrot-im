@@ -72,9 +72,9 @@ public class Model extends Observable {
     	return servers;
     }
 	    
-    public String getUsername() {
-        return username;
-    }
+    //public String getUsername() {
+    //    return username;
+    //}
 
     public String getPassword(String username) throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");

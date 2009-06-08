@@ -55,7 +55,7 @@ class profileManagerFrame extends JFrame
 	private JList profileList;
 	private JList accList;
 	
-	protected profileManagerFrame(Model model)
+	protected profileManagerFrame(Model model) throws ClassNotFoundException, SQLException
 	{
 		this.model = model;
 		
@@ -79,7 +79,7 @@ class profileManagerFrame extends JFrame
 		setVisible(true);
 	}
 	
-	private void leftPanelMAN()
+	private void leftPanelMAN() throws ClassNotFoundException, SQLException
 	{
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new BorderLayout());
@@ -121,7 +121,7 @@ class profileManagerFrame extends JFrame
 		accMANPanel.add(leftPanel,BorderLayout.WEST);
 	}
 
-	private void rightPanelMAN() 
+	private void rightPanelMAN() throws ClassNotFoundException, SQLException 
 	{
 		//setting right panel
 		JPanel rightPanel = new JPanel();
