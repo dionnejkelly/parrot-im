@@ -62,26 +62,24 @@ public class ChatClient implements MessageListener
         }
         
         // Overloaded, temporary
-        public void login() throws XMPPException
-        {
-        	// TODO FIX THIS METHOD, should work with all protocols.
-        	/* Checks current profile to determine which accounts to login */
-        	CurrentProfileData currentProfile = null;
+        public void login(AccountData account) throws XMPPException {
+            // TODO FIX THIS METHOD, should work with all protocols.
         	
-        	currentProfile = model.getCurrentProfile();
-        	for (AccountData a : currentProfile.getAccountData()) {
-        		// try to connect
-        		ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
+            if (account.getServer() == ServerType.GOOGLE_TALK) {
+                ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
                 connection = new XMPPConnection(config);
                 connection.connect();
-                connection.login(a.getAccountName(), a.getPassword());
-                
+                connection.login(account.getAccountName(), account.getPassword());
+                    
                 // If connected...
-                model.connectAccount(a);
-                
-                this.userName = a.getAccountName();
-        		
-        	}
+                model.connectAccount(account);
+                    
+                this.userName = account.getAccountName();
+            }       
+            else {
+                // handle other types of servers
+            }
+     	
             return;            
         }
        

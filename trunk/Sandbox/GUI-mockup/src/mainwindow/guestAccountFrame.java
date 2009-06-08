@@ -19,8 +19,8 @@ import org.jivesoftware.smack.XMPPException;
 
 import ChatClient.ChatClient;
 import buddylist.buddylist;
-import model.Model;
-import model.ServerType;
+import model.*;
+
 
 public class guestAccountFrame extends JFrame{
 	
@@ -111,19 +111,29 @@ public class guestAccountFrame extends JFrame{
 	}
 	
 	private void signIn_ActionPerformed(ActionEvent e) {
-		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-		try {
-			// core.login(UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()), server.getSelectedIndex());
-			model.useGuestAccount((ServerType) server.getSelectedItem(),
-					UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()));
-			core.login();
-			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
-			mainFrame.dispose();
-		} catch (XMPPException e1) {
-			// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
-			//e1.printStackTrace();
-			System.out.println("sign in failed!");
-		}	
+	    /*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+	    AccountData guestAccount = null;
+	    
+	    try {
+		
+	        /* Log into the server */
+	        guestAccount = new AccountData(
+		         (ServerType) server.getSelectedItem(),
+		         UNFieldGuest.getText(),
+		         password(PwdFieldGuest.getPassword()));
+	        model.createCurrentProfile(guestAccount, "Guest");
+		core.login(guestAccount);
+		
+		/* Populate the buddy list */
+		    // Incomplete
+		
+		buddylist buddyWin = new buddylist(core, model);//pops buddylist window
+		mainFrame.dispose();
+	    } catch (XMPPException e1) {
+		// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
+		//e1.printStackTrace();
+		System.out.println("sign in failed!");
+	    }	
 	}
 
 	private String password (char [] pass){

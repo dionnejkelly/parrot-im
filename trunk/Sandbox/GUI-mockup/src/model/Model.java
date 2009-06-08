@@ -139,19 +139,20 @@ public class Model extends Observable {
 
     /* Current Profile manipulation */
     
-    public void useGuestAccount(ServerType server, String accountName,
-    		                    String password) {
-    	// TODO throw exception if currentProfile already exists.
-    	AccountData guestAccount = null;
-    	ArrayList<AccountData> accounts = null;
-    	currentProfile = null;
-    	
-    	guestAccount = new AccountData(server, accountName,
-    	                               password);
-    	accounts = new ArrayList<AccountData>();
-    	accounts.add(guestAccount);
-    	currentProfile = new CurrentProfileData(accounts);
-    	return;                                 
+    public void clearCurrentProfile() {
+        currentProfile = new CurrentProfileData();
+        return;
+    }
+    
+    public void createCurrentProfile(AccountData account, 
+                                     String profileName) {
+        currentProfile = new CurrentProfileData(account, profileName);
+        return;
+    }
+    
+    public void addAccountToCurrentProfile(AccountData account) {
+        currentProfile.addAccount(account);
+        return;
     }
     
     public CurrentProfileData getCurrentProfile() {

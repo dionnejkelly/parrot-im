@@ -49,14 +49,15 @@ public class DisplayPanel extends JPanel implements Observer {
     public void update(Observable t, Object o) {
 	    // update txtPane here
     	return;	
-	}	
-	public void addMessage(String userName,String text, String font, String size){
-		String user = userName;
-		if(text.length() > 0){
-			previousText = previousText + "<U>" + user + ":</U> " 
-				+ "<font face=\"" + font + "\" size=\"" + size + "\">" 
-				+ text + "</font><br><br>";
-			txtPane.setText(previousText);
-		}
+    }
+    
+    public void addMessage(String userName,String text, String font, String size){
+	String user = userName;
+        if(text.length() > 0){
+            previousText = previousText + "<U>" + user + ":</U> " 
+                + "<font face=\"" + font + "\" size=\"" + size + "\">" 
+                + text + "</font><br><br>";
+            txtPane.setText(previousText);
 	}
+    }
 }
