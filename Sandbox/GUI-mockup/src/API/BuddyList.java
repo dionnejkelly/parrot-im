@@ -11,4 +11,10 @@ public class BuddyList{
 	{
 		return this.buddyList;
 	}
+	public void addBuddy(Buddy bl){
+		this.buddyList[buddyList.length] = bl;
+	}
+	public void delBuddy(int n){
+		this.buddyList[n] = null;
+	}
 }
