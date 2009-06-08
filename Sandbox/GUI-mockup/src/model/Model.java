@@ -144,7 +144,7 @@ public class Model extends Observable {
     	// TODO throw exception if currentProfile already exists.
     	AccountData guestAccount = null;
     	ArrayList<AccountData> accounts = null;
-    	CurrentProfileData currentProfile = null;
+    	currentProfile = null;
     	
     	guestAccount = new AccountData(server, accountName,
     	                               password);
