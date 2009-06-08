@@ -5,6 +5,7 @@ import java.io.*;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Roster;
@@ -24,6 +25,17 @@ public class ChatClient implements MessageListener
         public ChatClient(Model model){
             this.model = model;
         }
+        
+        public void setPresence(String status) throws InterruptedException {
+    		Presence presence = new Presence(Presence.Type.available);
+    		
+    		presence.setStatus(status);
+    	
+    		connection.sendPacket(presence);
+    	
+
+    		
+    	}
        
         public void login(String userName, String password, int server) throws XMPPException
         {//the "return"s are temporary

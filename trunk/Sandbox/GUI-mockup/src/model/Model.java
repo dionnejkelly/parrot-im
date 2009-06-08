@@ -80,7 +80,7 @@ public class Model extends Observable {
 
 	    //list of accounts
         for (int k = 0; k < usernames.size(); k++) {
-            accountList.add("googleTalk: " + usernames.get(k));
+            accountList.add(usernames.get(k));
         }
     }
 
