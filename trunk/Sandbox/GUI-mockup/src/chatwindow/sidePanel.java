@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import model.Model;
 import ChatClient.ChatClient;
 import java.util.*;
@@ -13,6 +15,7 @@ public class sidePanel extends JPanel implements Observer {
 	private Box boxes[] = new Box[1];
 	private ArrayList<Conversation> conversations;
 	private Model model;
+	private JTree tree;
 	
 	public sidePanel(ArrayList<Conversation> conversations, ChatClient c, Model model) {
 	    this.model = model;
@@ -24,27 +27,21 @@ public class sidePanel extends JPanel implements Observer {
 		
 		this.conversations = conversations;
 		
-		chattingWith = new JPanel();
-		chattingWith.setBackground(Color.WHITE);
-		chattingWith.setLayout(new BorderLayout());
-		
-		boxes[0] = Box.createVerticalBox();
-		for(int i = 0; i < conversations.get(0).getSize(); i++){
-			JPanel namePanel = new JPanel();
-			namePanel.setLayout(new BorderLayout());
-			namePanel.setBackground(Color.WHITE);
-			namePanel.add(new JLabel(conversations.get(0).getName(i)), BorderLayout.WEST);
-			boxes[0].add(namePanel);
-		}
-		
-		for(int i=0; i < boxes[0].getComponentCount(); i++){
-			boxes[0].getComponent(i).addMouseListener(new SelectListener());
-		}
-		
-		chattingWith.add(boxes[0], BorderLayout.NORTH);
+		//Tree preferences
+	    DefaultMutableTreeNode top =
+	        new DefaultMutableTreeNode("Conversation1");
+	    tree = new JTree(top);
+	    
+	    //original Tutorial
+	    DefaultMutableTreeNode person1 = new DefaultMutableTreeNode(c.getUserName().replace("@gmail.com", ""));
+	    DefaultMutableTreeNode person2 = new DefaultMutableTreeNode(conversations.get(0).getName(1).replace("@gmail.com", ""));
+	    top.add(person1);
+	    top.add(person2);
+	    tree.expandRow(0);
 			
 		//add to panel
-		add(chattingWith, BorderLayout.CENTER);
+		add(tree, BorderLayout.CENTER);
+	    //add(chattingWith, BorderLayout.CENTER);
 	}
 	
 	public void update(Observable t, Object o) {
