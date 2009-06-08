@@ -20,6 +20,7 @@ import org.jivesoftware.smack.XMPPException;
 import ChatClient.ChatClient;
 import buddylist.buddylist;
 import model.Model;
+import model.ServerType;
 
 public class guestAccountFrame extends JFrame{
 	
@@ -46,7 +47,7 @@ public class guestAccountFrame extends JFrame{
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 
 		//select server
-		server = new JComboBox (model.getServerList());
+		server = new JComboBox (model.getServerListv2());
 		server.setPreferredSize(new Dimension (200,20));
 
 		//username + password
@@ -112,7 +113,10 @@ public class guestAccountFrame extends JFrame{
 	private void signIn_ActionPerformed(ActionEvent e) {
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 		try {
-			core.login(UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()), server.getSelectedIndex());
+			// core.login(UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()), server.getSelectedIndex());
+			model.useGuestAccount((ServerType) server.getSelectedItem(),
+					UNFieldGuest.getText(), password(PwdFieldGuest.getPassword()));
+			core.login();
 			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
 			mainFrame.dispose();
 		} catch (XMPPException e1) {

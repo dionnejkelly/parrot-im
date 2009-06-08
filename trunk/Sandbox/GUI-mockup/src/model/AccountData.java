@@ -12,6 +12,7 @@ public class AccountData {
     private String password;
     private UserData ownUserData;
     private ArrayList<UserData> friends;
+    private boolean connected;
     
     public AccountData(ServerType server, String accountName, 
     		           String password) {
@@ -55,9 +56,19 @@ public class AccountData {
 
 	public void setOwnUserData(UserData ownUserData) {
 		this.ownUserData = ownUserData;
+		return;
 	}
 
 	public UserData getOwnUserData() {
 		return ownUserData;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+		return;		
+	}
+
+	public boolean isConnected() {
+		return connected;
 	}
 }

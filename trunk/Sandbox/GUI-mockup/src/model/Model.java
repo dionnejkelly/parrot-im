@@ -88,9 +88,18 @@ public class Model extends Observable {
         return accountList;
     }
 
+    /* Phase this method out in favour of the next one */
     public Vector<String> getServerList() {
        	return ServerType.getServerList();
     	// Old Code: return serverList;
+    }
+    
+    public Vector<ServerType> getServerListv2() {
+    	Vector<ServerType> servers = new Vector<ServerType>();
+    	for (ServerType s : ServerType.values()) {
+    		servers.add(s);
+    	}
+    	return servers;
     }
 	    
     public String getUsername() {
@@ -145,7 +154,25 @@ public class Model extends Observable {
     	return;                                 
     }
     
+    public CurrentProfileData getCurrentProfile() {
+    	return currentProfile;
+    }
+    
     public boolean currentProfileExists() {
     	return (currentProfile != null);
+    }
+    
+    public void connectAccount(AccountData accountData) {
+        accountData.setConnected(true);
+        setChanged();
+        notifyObservers();
+        return;
+    }
+    
+    public void disconnectAccount(AccountData accountData) {
+        accountData.setConnected(false);
+        setChanged();
+        notifyObservers();
+        return;
     }
 }
