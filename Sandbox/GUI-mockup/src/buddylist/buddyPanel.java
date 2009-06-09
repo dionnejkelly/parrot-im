@@ -29,6 +29,8 @@ public class buddyPanel extends JPanel
 	String selectedName;
 	ChatClient c;
 	Model model;
+	ArrayList<UserData> buddies;
+	UserData selectedFriend;
 	
 	public buddyPanel(ChatClient c, Model model)
 	{
@@ -37,19 +39,19 @@ public class buddyPanel extends JPanel
 		
 		this.c = c;
 		this.model = model;
+		buddies = null;
 		
 		friendList = new JPanel();
 		friendList.setBackground(Color.WHITE);
 		friendList.setLayout(new BorderLayout());
 		
-		ArrayList<UserData> buddies = model.getCurrentProfile().
-		                              getAllFriends();
-		System.out.println(buddies.size());
+		// Place all friends from currentProfile into buddy list
+		buddies = model.getCurrentProfile().getAllFriends();
 		
 		//add friends to the buddy list
 		boxes[0] = Box.createVerticalBox();
 		for(int i = 0; i < buddies.size(); i++){
-			boxes[0].add(FriendItem(buddies.get(i).toString()));
+			boxes[0].add(FriendItem(buddies.get(i)));
 		}
 		
 		for(int i=0; i < boxes[0].getComponentCount(); i++){
@@ -103,14 +105,14 @@ public class buddyPanel extends JPanel
         return options;
 	}
 	
-	public JPanel FriendItem(String name){
+	public JPanel FriendItem(UserData user){
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());
 		friendItem.setBackground(Color.WHITE);
-		friendItem.setName(name);
+		friendItem.setName(user.getNickname());
 		friendItem.setToolTipText("Right click to see options for this item");
 		
-		JLabel friendName = new JLabel(name);
+		JLabel friendName = new JLabel(user.getNickname());
 		//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
 		
 		friendItem.add(friendName,BorderLayout.WEST);
@@ -121,8 +123,7 @@ public class buddyPanel extends JPanel
 	
 	private class SelectListener implements MouseListener{
 		public void mouseClicked(MouseEvent event){	
-			int id = 0;
-			ChatData chatData = null;
+		        ConversationData conversation = null;
 			//FriendItems
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
 				if(event.getSource().equals(boxes[0].getComponent(i))){
@@ -130,14 +131,21 @@ public class buddyPanel extends JPanel
 						
 						//Left Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
+						/* Fix this to directly reference the GUI */
+						selectedFriend = buddies.get(i);
 						if(event.getClickCount() == 2){
-							model.incrementOpenChatWindows();
-							id = model.getOpenChatWindows();
-							selectedName = boxes[0].getComponent(i).getName();
-							chatData = new ChatData(id, c.getUserName(),
-									                selectedName);
-							model.storeChatParticipants(chatData);
-							chat = new chatwindow(id, c, model);
+						        
+						        /* Is the chat window already open? */
+							if (model.numberOfConversations() < 1) {
+							    conversation = model.startConversation(selectedFriend.getFriendOf(),
+							            selectedFriend);
+							    model.setActiveConversation(conversation);
+							    chat = new chatwindow(c, model);   
+							}
+							else {
+							    // TODO Add conversation to the window
+							}
+						        
 						}
 					}else if(event.getSource().equals(boxes[0].getComponent(i))){
 
@@ -145,6 +153,7 @@ public class buddyPanel extends JPanel
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
 						rightClickMenu.show(boxes[0].getComponent(i), event.getX(), event.getY());
 						selectedName = boxes[0].getComponent(i).getName();
+						selectedFriend = buddies.get(i); 
 					}
 				}
 			}
@@ -172,17 +181,21 @@ public class buddyPanel extends JPanel
 	
 	class RightCickMenuListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent event) {
-	    	int id = 0;
-	    	ChatData chatData = null;
-	    	if(event.getSource().equals(menuItem1)){
-	    		model.incrementOpenChatWindows();
-				id = model.getOpenChatWindows();
-				chatData = new ChatData(id, c.getUserName(),
-						                selectedName);
-				model.storeChatParticipants(chatData);
-				chat = new chatwindow(id, c, model);
+	        ConversationData conversation = null;
+	    	if (event.getSource().equals(menuItem1)) {
+                    /* Is the chat window already open? */
+                    if (model.numberOfConversations() < 1) {
+                    conversation = model.startConversation(selectedFriend.getFriendOf(),
+                                                           selectedFriend);
+                    model.setActiveConversation(conversation);
+                    chat = new chatwindow(c, model);   
+                    }
+                    else {
+                        // TODO Add conversation to the window
+                    }	
 	    	}else if(event.getSource().equals(menuItem2)){
-	    		chat.addToConversation(selectedName);
+	    		//chat.addToConversation(selectedName);
+	    	        // TODO Group chat not yet implemented.
 	    	}
 	    }
 	}

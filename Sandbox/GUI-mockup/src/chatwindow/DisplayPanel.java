@@ -1,7 +1,7 @@
 package chatwindow;
 import java.awt.*;
 import java.util.*;
-import model.Model;
+import model.*;
 
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
@@ -11,7 +11,7 @@ public class DisplayPanel extends JPanel implements Observer {
 	private String previousText;
 	private Model model;
 	
-	public DisplayPanel(Model model, int id) {
+	public DisplayPanel(Model model) {
 	    this.model = model;
 	    this.model.addObserver(this);
 		
@@ -47,10 +47,13 @@ public class DisplayPanel extends JPanel implements Observer {
 	}
 
     public void update(Observable t, Object o) {
-	    // update txtPane here
+	if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
+	    txtPane.setText(model.getActiveConversation().displayMessages());
+	}
     	return;	
     }
     
+ /* Superseeded by model classes
     public void addMessage(String userName,String text, String font, String size){
 	String user = userName;
         if(text.length() > 0){
@@ -60,4 +63,5 @@ public class DisplayPanel extends JPanel implements Observer {
             txtPane.setText(previousText);
 	}
     }
+ */
 }

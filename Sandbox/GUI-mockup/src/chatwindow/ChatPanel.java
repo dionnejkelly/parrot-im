@@ -13,7 +13,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jivesoftware.smack.XMPPException;
 
-import model.Model;
+import model.*;
 import ChatClient.ChatClient;
 
 public class ChatPanel extends JPanel {
@@ -21,12 +21,19 @@ public class ChatPanel extends JPanel {
 	JComboBox fontSelect;
 	JButton colorButton;
 	JColorChooser colorChooser;
+	Model model;
+	JTextArea txt1;
+	DisplayPanel displayPanel;
+	ChatClient c;
 	
-	public ChatPanel(final ArrayList<Conversation> conversations, 
-			         final ChatClient c, Model model, int id) {
+	//public ChatPanel(final ArrayList<Conversation> conversations, 
+	//		         final ChatClient c, Model model) {
+	public ChatPanel(ChatClient c, Model model) {
 		setLayout(new BorderLayout());
 		
-		final DisplayPanel displayPanel = new DisplayPanel(model, id);
+		this.model = model;
+		this.c = c;
+		displayPanel = new DisplayPanel(model);
 		
 		//Editing Panel
 		JPanel editingPanel = new JPanel();
@@ -41,29 +48,14 @@ public class ChatPanel extends JPanel {
 		JSpinner fontSize = new JSpinner(fontSizemodel);
 		fontSize.setMaximumSize(new Dimension(45,30));
 
-		final JTextArea txt1 = new JTextArea();
+		txt1 = new JTextArea();
 		txt1.setColumns(25);
 		txt1.setRows(9);
 		txt1.setLineWrap(true);
 		txt1.setToolTipText("Enter text and HTML tags here");
 		
 		JButton sendButton = new JButton("SEND");
-		sendButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	String msg = txt1.getText();
-            	displayPanel.addMessage(c.getUserName(), msg, fontSelect.getSelectedItem().toString(), "4");
-            	try {
-            		for(int i = 0; i < conversations.get(0).getSize(); i++){
-            			c.sendMessage(msg, conversations.get(0).getName(i));
-            		}
-					
-				} catch (XMPPException e) {
-					e.printStackTrace();
-					System.out.println("failed in sending text");
-				}
-				txt1.setText("");
-            }
-        });
+		sendButton.addActionListener(new SendButtonPressed());
 		//displayPanel.addMessage(incoming messages); //TODO
 		
 		JButton boldButton = new JButton("B");
@@ -112,6 +104,32 @@ public class ChatPanel extends JPanel {
 		
 		//add to chat panel
 		add(sPane, BorderLayout.CENTER);	
+	}
+	
+	private class SendButtonPressed implements ActionListener {
+            public void actionPerformed(ActionEvent evt) {
+                MessageData message = null;
+                ConversationData conversation = null;
+                UserData fromUser = null;
+                String msg = txt1.getText();
+                
+                conversation = model.getActiveConversation();
+                fromUser = conversation.getAccount().getOwnUserData();
+                message = new MessageData(fromUser, msg, fontSelect.getSelectedItem().toString(), "4");
+                
+                model.sendMessage(conversation, message);
+                //displayPanel.addMessage(message);
+                try {
+                        //for(int i = 0; i < conversations.get(0).getSize(); i++){
+                                c.sendMessage(message.getMessage(), conversation.getUser().getAccountName());
+                        //}
+                                        
+                                } catch (XMPPException e) {
+                                        e.printStackTrace();
+                                        System.out.println("failed in sending text");
+                                }
+                                txt1.setText("");
+            }
 	}
 	
 }

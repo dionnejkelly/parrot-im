@@ -16,12 +16,16 @@ public class AccountData {
     
     public AccountData(ServerType server, String accountName, 
     		           String password) {
-    	this.setServer(server);
-    	this.setAccountName(accountName);
-    	this.setPassword(password);
+    	this.server = server;
+    	this.accountName = accountName;
+    	this.password = password;
     	this.ownUserData = null;
     	this.friends = new ArrayList<UserData>();
     	this.connected = false;
+    	
+    	if (this.server == ServerType.GOOGLE_TALK) {
+    	    this.ownUserData = new GoogleTalkUserData(this.accountName, this);
+    	}
     }
 
 	public void setServer(ServerType server) {

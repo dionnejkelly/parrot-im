@@ -137,15 +137,15 @@ public class guestAccountFrame extends JFrame{
 	        if (guestAccount.getServer() == ServerType.GOOGLE_TALK) {
 		    		    
 		    /* Set up own user data */
-		    user = new GoogleTalkUserData(
-		            guestAccount.getAccountName());
-		    user.setOnline(true);
-		    guestAccount.setOwnUserData(user);
+		    // user = new GoogleTalkUserData(
+		    //        guestAccount.getAccountName());
+		    //user.setOnline(true);
+		    //guestAccount.setOwnUserData(user);
 		    
 		    /* Set up friends' user data */
 		    friendList = core.getBuddyList();
 		    for (String s : friendList) {
-        	        user = new GoogleTalkUserData(s); // Add account name
+        	        user = new GoogleTalkUserData(s, guestAccount); // Add account name
         	        guestAccount.addFriend(user);
 		    }      	    
 		}

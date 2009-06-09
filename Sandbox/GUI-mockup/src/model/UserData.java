@@ -8,17 +8,20 @@ public abstract class UserData {
     protected String accountName;
     protected String nickname;
     protected String status;
+    protected AccountData friendOf;
 	
-    public UserData(String accountName, String nickname, String status) {
+    public UserData(String accountName, String nickname, String status, AccountData friendOf) {
  	this.accountName = accountName;
  	this.nickname = nickname;
 	this.status = status;
+	this.friendOf = friendOf;
     }
     
-    public UserData(String accountName) {
+    public UserData(String accountName, AccountData friendOf) {
         this.accountName = accountName;
         this.nickname = this.accountName;
         this.status = "";
+        this.friendOf = friendOf;
     }
 	
     public void setAccountName(String accountName) {
@@ -50,5 +53,9 @@ public abstract class UserData {
     
     public String toString() {
         return nickname;
+    }
+    
+    public AccountData getFriendOf() {
+        return this.friendOf;
     }
 }
