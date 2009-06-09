@@ -14,5 +14,23 @@ public class main {
 		mainwindow mainWindow = new mainwindow(chatClient, model);
 		//buddylist b = new buddylist();
 		//chatwindow chat = new chatwindow();
+		
+		/* Make this into some sort of controller class that
+		 * will constantly check for status updates and report
+		 * back to Model.
+		 */
+		while (true) {
+        		
+		        System.out.println(chatClient.getUserPresence("kevin.fahy@gmail.com"));
+        		Thread t = new Thread();
+        		try {
+        		    t.sleep(5000);
+        		}
+        		catch (InterruptedException e) {
+        		    //
+        		}
+		}
 	}
+	
+
 }
