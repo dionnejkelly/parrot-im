@@ -46,8 +46,8 @@ public class DisplayPanel extends JPanel implements Observer {
 		add(bar2, BorderLayout.SOUTH);
 	}
 
-    public void update(Observable t, Object o) {
-	if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
+    public void update(Observable o, Object arg) {
+	if (arg == UpdatedType.CHAT || arg == UpdatedType.ALL || arg == UpdatedType.CHAT_AND_BUDDY) {
 	    txtPane.setText(model.getActiveConversation().displayMessages());
 	}
     	return;	

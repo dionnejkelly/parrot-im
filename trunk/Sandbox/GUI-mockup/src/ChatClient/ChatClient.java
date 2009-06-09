@@ -131,11 +131,20 @@ public class ChatClient implements MessageListener
        
         public void processMessage(Chat chat, Message message)
         {
-                if(message.getType() == Message.Type.chat)
-                System.out.println(chat.getParticipant() + " says: " + message.getBody());
+            UserData user = null;
+            MessageData m = null;
+            
+            if (message.getType() == Message.Type.chat) {
+                user = model.findUserByAccountName(chat.getParticipant());
+                m = new MessageData(user, message.getBody(), "font", "4");
+                model.receiveMessage(user.getFriendOf(), m);
+            }
                 
-                //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
-    }
+            return;        
+            //System.out.println(chat.getParticipant() + " says: " + message.getBody());
+                
+            //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
+        }
         
         /* PLEASE FIX ME */
         /* I change some codes here, so I think now it can keep track the status of the people.

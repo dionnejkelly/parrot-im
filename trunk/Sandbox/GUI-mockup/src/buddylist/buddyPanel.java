@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.util.*;
 
 import javax.swing.*;
 
@@ -13,7 +13,7 @@ import model.*;
 
 import chatwindow.chatwindow;
 
-public class buddyPanel extends JPanel
+public class buddyPanel extends JPanel implements Observer
 {
 	/*TODO: BUDDY PANEL HAS 
 	 * Center: Buddy List
@@ -34,7 +34,8 @@ public class buddyPanel extends JPanel
 	
 	public buddyPanel(ChatClient c, Model model)
 	{
-		setLayout(new BorderLayout());
+		model.addObserver(this);
+	        setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
 		
 		this.c = c;
@@ -121,6 +122,18 @@ public class buddyPanel extends JPanel
 		return friendItem;
 	}
 	
+	public void update(Observable o, Object arg) {
+	    /* If chat window has not been made, make it if message sent */
+	    if (arg == UpdatedType.BUDDY || arg == UpdatedType.CHAT_AND_BUDDY) {
+  	        ConversationData conversation = null;
+	        if (chat == null && model.numberOfConversations() >= 1) {
+	            conversation = model.startConversation(selectedFriend.getFriendOf(),
+                                                           selectedFriend);
+                    chat = new chatwindow(c, model);  
+	        }
+	    }
+	}
+	
 	private class SelectListener implements MouseListener{
 		public void mouseClicked(MouseEvent event){	
 		        ConversationData conversation = null;
@@ -139,7 +152,6 @@ public class buddyPanel extends JPanel
 							if (model.numberOfConversations() < 1) {
 							    conversation = model.startConversation(selectedFriend.getFriendOf(),
 							            selectedFriend);
-							    model.setActiveConversation(conversation);
 							    chat = new chatwindow(c, model);   
 							}
 							else {

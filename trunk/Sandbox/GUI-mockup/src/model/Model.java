@@ -127,7 +127,7 @@ public class Model extends Observable {
         }
         
         setChanged();
-        notifyObservers(UpdatedType.CHAT);  
+        notifyObservers(UpdatedType.CHAT_AND_BUDDY);  
         return;
     }
     
@@ -142,6 +142,7 @@ public class Model extends Observable {
     public ConversationData startConversation(AccountData account, UserData user) {
         ConversationData conversation = new ConversationData(account, user);
         this.conversations.add(conversation);
+        this.activeConversation = conversation;
         
         setChanged();
         notifyObservers(UpdatedType.CHAT);
@@ -219,5 +220,17 @@ public class Model extends Observable {
         setChanged();
         notifyObservers(updatedType);
         return;
+    }
+    
+    public UserData findUserByAccountName(String accountName) {
+        UserData found = null;
+        ArrayList<UserData> friends = this.currentProfile.getAllFriends();       
+        for (UserData user : friends) {
+            if (user.getAccountName().equals(accountName)) {
+                found = user;
+                break;
+            }
+        }
+        return found;
     }
 }

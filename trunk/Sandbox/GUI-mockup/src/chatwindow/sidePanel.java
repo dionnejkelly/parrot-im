@@ -64,7 +64,8 @@ public class sidePanel extends JPanel implements Observer {
 	public void update(Observable t, Object o) {
 	    DefaultMutableTreeNode person1 = null;
             DefaultMutableTreeNode person2 = null;
-	    if (o == UpdatedType.CHAT && o == UpdatedType.ALL) {
+	    //this.remove(tree);
+            if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
 	        // TODO Make this into a function
 
 	        for (ConversationData cd : model.getConversations()) {
@@ -93,7 +94,7 @@ public class sidePanel extends JPanel implements Observer {
 	                //add to panel
 	                this.add(tree, BorderLayout.CENTER);
 	        }
-	        model.setActiveConversation(model.getConversations().get(0)); // TEMP, NEED TO SET UP LISTENERS
+	        //model.setActiveConversation(model.getConversations().get(0)); // TEMP, NEED TO SET UP LISTENERS
 	    }
 	    return;	
 	}
