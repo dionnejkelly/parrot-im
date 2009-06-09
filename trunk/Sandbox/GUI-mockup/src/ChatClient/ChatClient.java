@@ -101,17 +101,25 @@ public class ChatClient implements MessageListener
                         System.out.println(r.getUser());
                 }
         }
+        
+        
        
         public ArrayList<String> getBuddyList()
         {
-                Roster roster = connection.getRoster();
-                Collection<RosterEntry> entries = roster.getEntries();
-                ArrayList<String> buddies = new ArrayList<String>();
+        	ArrayList<String> buddies = new ArrayList<String>();
+        	
+        	if (connection != null && connection.getRoster() != null) {
+        		  Roster roster = connection.getRoster();
+                  Collection<RosterEntry> entries = roster.getEntries();
                
-                for(RosterEntry r:entries)
-                {
-                    buddies.add(r.getUser());
-                }
+                 
+                  for(RosterEntry r:entries)
+                  {
+                      buddies.add(r.getUser());
+                  }
+        		
+        	}
+              
                
                 return buddies;
         }
@@ -140,11 +148,12 @@ public class ChatClient implements MessageListener
                 
                 if (presence.isAvailable()) {
                     status = presence.getStatus();
+                    
                     if(status=="")
-                    status="online";
+                    	status="online";
                 }
             }
-            return status;
+            return userID + " = " + status;
             
         }
        

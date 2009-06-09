@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import ChatClient.ChatClient;
 import buddylist.buddylist;
@@ -22,14 +23,26 @@ public class main {
 
 		Thread t = new Thread();
 		while (true) {
+			
+			ArrayList<String> buddies = chatClient.getBuddyList();
+			
         		
-		        System.out.println(chatClient.getUserPresence("kevin.fahy@gmail.com"));
-        		try {
-        		    t.sleep(5000);
-        		}
-        		catch (InterruptedException e) {
-        		    //
-        		}
+			System.out.println("USERS STATUS:");
+			System.out.println("----------------------------------------------");
+			for (int i = 0; i < buddies.size(); i++) {
+				 System.out.println(chatClient.getUserPresence(buddies.get(i)));
+				
+			}
+			System.out.println("----------------------------------------------");
+			System.out.println();
+			
+        	try {
+
+        		t.sleep(5000);
+        	}
+        	catch (InterruptedException e) {
+        	
+        	}
 		}
 	}
 	
