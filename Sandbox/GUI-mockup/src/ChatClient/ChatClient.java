@@ -130,15 +130,18 @@ public class ChatClient implements MessageListener
     }
         
         /* PLEASE FIX ME */
+        /* I change some codes here, so I think now it can keep track the status of the people.
+         * 
+         */
         public String getUserPresence(String userID) {
             String status = "offline";
             if (connection != null && connection.getRoster() != null) {
                 Presence presence = connection.getRoster().getPresence(userID);
-                          
-                status = "online";
                 
-                if (presence != null) {
+                if (presence.isAvailable()) {
                     status = presence.getStatus();
+                    if(status=="")
+                    status="online";
                 }
             }
             return status;
