@@ -56,6 +56,10 @@ public class AccountData {
 		this.friends.add(friend);
 		return;
 	}
+	
+	public ArrayList<UserData> getFriends() {
+	    return this.friends;
+	}
 
 	public void setOwnUserData(UserData ownUserData) {
 		this.ownUserData = ownUserData;
@@ -65,7 +69,7 @@ public class AccountData {
 	public UserData getOwnUserData() {
 		return ownUserData;
 	}
-
+	
 	public void setConnected(boolean connected) {
 		this.connected = connected;
 		return;		
@@ -74,4 +78,5 @@ public class AccountData {
 	public boolean isConnected() {
 		return connected;
 	}
+	
 }

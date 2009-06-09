@@ -13,7 +13,7 @@ public class CurrentProfileData {
     private String profileName;
     
     public CurrentProfileData() {
-        this.accountData = null; // maybe make a dummy account?
+        this.accountData = new ArrayList<AccountData>();
         this.profileName = EMPTY_NAME; 
 }
     
@@ -59,5 +59,21 @@ public class CurrentProfileData {
             // Exception? There is a duplicate account.
         }
         return;
+    }
+    
+    /**
+     * Used to gather friends from all accounts inside of
+     * this class.
+     * 
+     * @return UserData of friends from all associated accounts. 
+     */
+    public ArrayList<UserData> getAllFriends() {
+        ArrayList<UserData> friends = new ArrayList<UserData>();         
+        for (AccountData account : this.accountData) {
+            for (UserData user : account.getFriends()) {
+                friends.add(user);
+            }
+        }
+        return friends;
     }
 }
