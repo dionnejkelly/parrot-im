@@ -19,10 +19,11 @@ public class main {
 		 * will constantly check for status updates and report
 		 * back to Model.
 		 */
+
+		Thread t = new Thread();
 		while (true) {
         		
 		        System.out.println(chatClient.getUserPresence("kevin.fahy@gmail.com"));
-        		Thread t = new Thread();
         		try {
         		    t.sleep(5000);
         		}
