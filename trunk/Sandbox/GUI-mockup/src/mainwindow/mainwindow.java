@@ -2,16 +2,16 @@ package mainwindow;
 
 import java.awt.Dimension;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import ChatClient.ChatClient;
 
-import model.Model;
+import model.*;
 
-public class mainwindow extends JFrame{
+public class mainwindow extends JFrame implements Observer {
 	/*THIS IS FOR CHAT CLIENT*/
 	String username;
 	String password;
@@ -31,10 +31,20 @@ public class mainwindow extends JFrame{
 		
 		pack();
 		setVisible(true);
+		
+		// Testing for model observers
+		model.addObserver(this);
+		CurrentProfileData a = new CurrentProfileData();
 	}
 
 	public String getcwd() {
 	    String cwd = System.getProperty("user.dir");
 	    return cwd;
+	}
+	
+	public void update(Observable t, Object o) {
+	    if (o == UpdatedType.ALL && o == UpdatedType.MAIN) {
+	        System.out.println("Observed!" + o);
+	    }	    
 	}
 }

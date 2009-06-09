@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Holds the account information of the current account being used,
@@ -11,11 +11,11 @@ public class CurrentProfileData {
     
     private ArrayList<AccountData> accountData;
     private String profileName;
-
+    
     public CurrentProfileData() {
         this.accountData = null; // maybe make a dummy account?
         this.profileName = EMPTY_NAME; 
-    }
+}
     
     public CurrentProfileData(ArrayList<AccountData> accountData,
                               String profileName) {

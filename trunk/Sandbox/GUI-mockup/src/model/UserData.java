@@ -14,6 +14,12 @@ public abstract class UserData {
  	this.nickname = nickname;
 	this.status = status;
     }
+    
+    public UserData(String accountName) {
+        this.accountName = accountName;
+        this.nickname = this.accountName;
+        this.status = "";
+    }
 	
     public void setAccountName(String accountName) {
 	this.accountName = accountName;

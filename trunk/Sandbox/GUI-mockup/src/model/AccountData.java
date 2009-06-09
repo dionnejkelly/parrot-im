@@ -19,6 +19,9 @@ public class AccountData {
     	this.setServer(server);
     	this.setAccountName(accountName);
     	this.setPassword(password);
+    	this.ownUserData = null;
+    	this.friends = new ArrayList<UserData>();
+    	this.connected = false;
     }
 
 	public void setServer(ServerType server) {
