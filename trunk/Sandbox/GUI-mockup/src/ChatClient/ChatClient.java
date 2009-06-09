@@ -128,6 +128,22 @@ public class ChatClient implements MessageListener
                 
                 //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
     }
+        
+        /* PLEASE FIX ME */
+        public String getUserPresence(String userID) {
+            String status = "offline";
+            if (connection != null && connection.getRoster() != null) {
+                Presence presence = connection.getRoster().getPresence(userID);
+                          
+                status = "online";
+                
+                if (presence != null) {
+                    status = presence.getStatus();
+                }
+            }
+            return status;
+            
+        }
        
 /* Main class unneeded now.
         public static void main(String args[]) throws XMPPException, IOException
