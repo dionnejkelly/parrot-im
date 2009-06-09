@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import java.util.*;
+
 import org.jivesoftware.smack.XMPPException;
 
 import styles.popupWindowListener;
@@ -117,6 +119,8 @@ public class guestAccountFrame extends JFrame{
 	private void signIn_ActionPerformed(ActionEvent e) {
 	    /*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	    AccountData guestAccount = null;
+	    ArrayList<String> friendList = null;
+	    GoogleTalkUserData user = null;
 	    
 	    try {
 		
@@ -126,11 +130,25 @@ public class guestAccountFrame extends JFrame{
 		         UNFieldGuest.getText(),
 		         password(PwdFieldGuest.getPassword()));
 	        model.createCurrentProfile(guestAccount, "Guest");
-		core.login(guestAccount);
+	        core.login(guestAccount);
 		
 		/* Populate the buddy list */
-		    // Incomplete
-		
+		if (guestAccount.getServer() == ServerType.GOOGLE_TALK) {
+		    
+		    /* Set up own user data */
+		    user = new GoogleTalkUserData(
+		            guestAccount.getAccountName());
+		    user.setOnline(true);
+		    guestAccount.setOwnUserData(user);
+		    
+		    /* Set up friends' user data */
+		    friendList = core.getBuddyList();
+        	    for (String s : friendList) {
+        	        user = new GoogleTalkUserData(s); // Add account name
+        	        guestAccount.addFriend(user);
+        	    }
+		}
+        		
 		buddylist buddyWin = new buddylist(core, model);//pops buddylist window
 		mainFrame.dispose();
 	    } catch (XMPPException e1) {

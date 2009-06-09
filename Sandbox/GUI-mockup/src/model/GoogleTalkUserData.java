@@ -7,6 +7,10 @@ public class GoogleTalkUserData extends UserData {
 			                  String status) {
 		super(accountName, nickname, status);
 	}
+	
+	public GoogleTalkUserData(String accountName) {
+	    super(accountName);
+	}
 
 	public void setOnline(boolean online) {
 		this.online = online;

@@ -41,17 +41,9 @@ public class Model extends Observable {
     public Model() throws ClassNotFoundException, SQLException {
         int openChatWindows = 0;
         chatParticipants = new ArrayList<ChatData>();
-        currentProfile = null;
+        currentProfile = new CurrentProfileData();
         chatWindows = new ArrayList<ChatWindowData>();
-	    
-	    
-	    /* Set-up for SQL database */
-
-
-	    // ahmad test
-
-	   	// ahmad test
-    }
+}
 
     public Vector<String> getAccountList() throws ClassNotFoundException, SQLException {
     	DatabaseFunctions db = new DatabaseFunctions();
@@ -61,7 +53,6 @@ public class Model extends Observable {
     /* Phase this method out in favour of the next one */
     public Vector<String> getServerList() {
        	return ServerType.getServerList();
-    	// Old Code: return serverList;
     }
     
     public Vector<ServerType> getServerListv2() {
@@ -115,11 +106,6 @@ public class Model extends Observable {
 
     /* Current Profile manipulation */
     
-    public void clearCurrentProfile() {
-        currentProfile = new CurrentProfileData();
-        return;                                 
-    }
-    
     public void createCurrentProfile(AccountData account,
                                      String profileName) {
         currentProfile = new CurrentProfileData(account, profileName);
@@ -153,5 +139,10 @@ public class Model extends Observable {
         notifyObservers();
         return;
     }
-   
+
+    public void forceUpdate(UpdatedType updatedType) {
+        setChanged();
+        notifyObservers();
+        return;
+    }
 }
