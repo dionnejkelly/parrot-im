@@ -133,8 +133,8 @@ public class guestAccountFrame extends JFrame{
 	        core.login(guestAccount);
 		
 		/* Populate the buddy list */
-		if (guestAccount.getServer() == ServerType.GOOGLE_TALK) {
-		    
+	        if (guestAccount.getServer() == ServerType.GOOGLE_TALK) {
+		    		    
 		    /* Set up own user data */
 		    user = new GoogleTalkUserData(
 		            guestAccount.getAccountName());
@@ -143,12 +143,12 @@ public class guestAccountFrame extends JFrame{
 		    
 		    /* Set up friends' user data */
 		    friendList = core.getBuddyList();
-        	    for (String s : friendList) {
+		    for (String s : friendList) {
         	        user = new GoogleTalkUserData(s); // Add account name
         	        guestAccount.addFriend(user);
-        	    }
+		    }      	    
 		}
-        		
+		
 		buddylist buddyWin = new buddylist(core, model);//pops buddylist window
 		mainFrame.dispose();
 	    } catch (XMPPException e1) {

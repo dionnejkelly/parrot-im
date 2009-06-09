@@ -47,4 +47,8 @@ public abstract class UserData {
     public String getStatus() {
 	return status;
     }
+    
+    public String toString() {
+        return nickname;
+    }
 }

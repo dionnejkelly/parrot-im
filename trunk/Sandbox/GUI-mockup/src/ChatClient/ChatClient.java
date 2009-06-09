@@ -110,7 +110,7 @@ public class ChatClient implements MessageListener
                
                 for(RosterEntry r:entries)
                 {
-                        buddies.add(r.getUser());
+                    buddies.add(r.getUser());
                 }
                
                 return buddies;

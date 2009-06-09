@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,7 +20,7 @@ import org.jivesoftware.smack.XMPPException;
 import styles.linkLabel;
 import buddylist.buddylist;
 import ChatClient.ChatClient;
-import model.Model;
+import model.*;
 
 
 public class signinPanel extends JPanel {
@@ -121,16 +122,50 @@ public class signinPanel extends JPanel {
 	}
 	
 	private void signIn_ActionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
-		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-		try {
-			String username = (String)account_select.getSelectedItem();
-			core.login(username, model.getPassword(username), 4); //change 4 to the actual server from model later on
-			buddylist buddyWin = new buddylist(core, model);//pops buddylist window
-			mainFrame.dispose();
-		} catch (XMPPException e1) {
-			// TODO: throw a warning pop up
-			e1.printStackTrace();
-			System.out.println("sign in failed!");
-		}	
+	    /*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+	    
+	    /* TEMPORARY CODE to create currentProfile. Need to
+	     * consider multiple accounts later.
+	     */
+            AccountData account = null;
+            ArrayList<String> friendList = null;
+            GoogleTalkUserData user = null;
+	    
+	    try {
+		String username = (String)account_select.getSelectedItem();
+		//core.login(username, model.getPassword(username), 4); //change 4 to the actual server from model later on
+		
+		/* Log into the server */
+		account = new AccountData(
+		        ServerType.GOOGLE_TALK,
+		        username,
+		        model.getPassword(username));
+		model.createCurrentProfile(account, "tempName");
+		core.login(account);
+		        
+		/* Populate the buddy list */
+		if (account.getServer() == ServerType.GOOGLE_TALK) {
+		
+		    /* Set up own user data */
+		
+		    user = new GoogleTalkUserData(account.getAccountName());
+		    user.setOnline(true);
+		    account.setOwnUserData(user);
+		            
+		    /* Set up friends' user data */
+		    friendList = core.getBuddyList();
+		    for (String s : friendList) {
+		        user = new GoogleTalkUserData(s); // Add account name
+		        account.addFriend(user);
+		    }           
+		}
+			
+		buddylist buddyWin = new buddylist(core, model);//pops buddylist window
+		mainFrame.dispose();
+	    } catch (XMPPException e1) {
+	        // TODO: throw a warning pop up
+		e1.printStackTrace();
+		System.out.println("sign in failed!");
+	    }	
 	}
 }

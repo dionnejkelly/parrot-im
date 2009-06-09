@@ -42,12 +42,14 @@ public class buddyPanel extends JPanel
 		friendList.setBackground(Color.WHITE);
 		friendList.setLayout(new BorderLayout());
 		
-		ArrayList<String> buddies = c.getBuddyList();
+		ArrayList<UserData> buddies = model.getCurrentProfile().
+		                              getAllFriends();
+		System.out.println(buddies.size());
 		
 		//add friends to the buddy list
 		boxes[0] = Box.createVerticalBox();
 		for(int i = 0; i < buddies.size(); i++){
-			boxes[0].add(FriendItem(buddies.get(i)));
+			boxes[0].add(FriendItem(buddies.get(i).toString()));
 		}
 		
 		for(int i=0; i < boxes[0].getComponentCount(); i++){
