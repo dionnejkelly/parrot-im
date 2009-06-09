@@ -13,11 +13,11 @@ import model.ChatData;
 import model.Model;
 
 public class chatwindow extends JFrame{
-	private ArrayList<Conversation> conversations;
+	//private ArrayList<Conversation> conversations;
 	public JPanel main;
 	private Model model;
 	
-	public chatwindow(int id, ChatClient c, Model model)
+	public chatwindow(ChatClient c, Model model)
 	{
 		super("chatWindow Mockup");
 		this.model = model;
@@ -25,11 +25,12 @@ public class chatwindow extends JFrame{
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 		
-		conversations = new ArrayList<Conversation>();
+		//conversations = new ArrayList<Conversation>();
 		
-		createNewConversation(model.findChatDataByID(id));
+		//createNewConversation(model.findChatDataByID(id));
 		
-		main = new mainPanel(conversations, c, model, id);
+		//main = new mainPanel(conversations, c, model);
+		main = new mainPanel(c, model);
 		
 		getContentPane().add(main);
 		
@@ -37,6 +38,7 @@ public class chatwindow extends JFrame{
 		setVisible(true);
 	}
 	
+/* Conversation Type is now in the model.	
 	public void createNewConversation(ChatData chatData){
 		conversations.add(new Conversation());
 	    conversations.get(0).addName(chatData.getYourUsername());  // Temporary
@@ -46,4 +48,5 @@ public class chatwindow extends JFrame{
 	public void addToConversation(String name){
 		conversations.get(0).addName(name);
 	}
+ */
 }

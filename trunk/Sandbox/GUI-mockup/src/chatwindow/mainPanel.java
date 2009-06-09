@@ -13,8 +13,10 @@ public class mainPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	private JPanel side, chat;
 	
-	public mainPanel(ArrayList<Conversation> conversations, ChatClient c,
-			         Model model, int id) {
+	//public mainPanel(ArrayList<Conversation> conversations, ChatClient c,
+	//		         Model model) {
+	
+	public mainPanel(ChatClient c, Model model) {
 		setLayout(new BorderLayout());
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -36,8 +38,10 @@ public class mainPanel extends JPanel {
 	    helpMenu.add(helpItem2);
 		
 		JSplitPane sPane = new JSplitPane();
-		chat = new ChatPanel(conversations, c, model, id);
-		side = new sidePanel(conversations, c, model);
+		//chat = new ChatPanel(conversations, c, model, id);
+		//side = new sidePanel(conversations, c, model);
+		chat = new ChatPanel(c, model);
+		side = new sidePanel(c, model);
 		sPane.setRightComponent(chat);
 		sPane.setLeftComponent(side);
 		sPane.setOneTouchExpandable(true);

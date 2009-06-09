@@ -20,9 +20,7 @@
 
 package model;
 
-import java.util.Vector;
-import java.util.ArrayList;
-import java.util.Observable;
+import java.util.*;
 import java.sql.*;
 
 /**
@@ -33,16 +31,17 @@ public class Model extends Observable {
 	
     private int openChatWindows;
     private ArrayList<ChatData> chatParticipants; /* temporary */
-    private ArrayList<ChatWindowData> chatWindows; /* Replaces ChatData */
-    
+    private ArrayList<ConversationData> conversations; 
+    private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
+    
 
 	
     public Model() throws ClassNotFoundException, SQLException {
         int openChatWindows = 0;
         chatParticipants = new ArrayList<ChatData>();
         currentProfile = new CurrentProfileData();
-        chatWindows = new ArrayList<ChatWindowData>();
+        conversations = new ArrayList<ConversationData>();
 }
 
     public Vector<String> getAccountList() throws ClassNotFoundException, SQLException {
@@ -75,6 +74,82 @@ public class Model extends Observable {
 	    rs = stat.executeQuery("select * from people where email='" + username + "'");
 		return rs.getString("password");
 	    
+    }
+    
+    public int numberOfConversations() {
+        return conversations.size();
+    }
+    
+    public void setActiveConversation(UserData user) {
+        for (ConversationData c : this.conversations) {
+            if (c.getUser() == user) {
+                this.activeConversation = c;
+                break;
+            }
+        }
+        
+        setChanged();
+        notifyObservers(UpdatedType.CHAT);
+        return;
+    }
+    
+    public void setActiveConversation(ConversationData conversation) {
+        this.activeConversation = conversation;
+        
+        setChanged();
+        notifyObservers(UpdatedType.CHAT);
+        return;
+    }
+    
+    public ConversationData getActiveConversation() {
+        return this.activeConversation;
+    }
+    
+    public void receiveMessage(AccountData account, MessageData message) {
+        ConversationData modifiedConversation = null;
+        UserData fromUser = message.getFromUser();
+        for (ConversationData c : conversations) {
+            if (c.getUser() == fromUser) {
+                modifiedConversation = c;
+                break;
+            }
+        }
+        
+        /* Case 1: We found a matching conversation
+         * Case 2: No match found; create conversation and add it to the list 
+         */
+        if (modifiedConversation != null) {
+            modifiedConversation.addMessage(message);
+        } else {
+            this.conversations.add(modifiedConversation);
+            modifiedConversation = new ConversationData(account, fromUser);
+            modifiedConversation.addMessage(message);
+        }
+        
+        setChanged();
+        notifyObservers(UpdatedType.CHAT);  
+        return;
+    }
+    
+    public void sendMessage(ConversationData modifiedConversation, MessageData message) {
+        modifiedConversation.addMessage(message);
+        
+        setChanged();
+        notifyObservers(UpdatedType.CHAT);  
+        return;
+    }
+    
+    public ConversationData startConversation(AccountData account, UserData user) {
+        ConversationData conversation = new ConversationData(account, user);
+        this.conversations.add(conversation);
+        
+        setChanged();
+        notifyObservers(UpdatedType.CHAT);
+        return conversation;
+    }
+    
+    public ArrayList<ConversationData> getConversations() {
+        return this.conversations;
     }
     
     public int getOpenChatWindows() {
@@ -142,7 +217,7 @@ public class Model extends Observable {
 
     public void forceUpdate(UpdatedType updatedType) {
         setChanged();
-        notifyObservers();
+        notifyObservers(updatedType);
         return;
     }
 }

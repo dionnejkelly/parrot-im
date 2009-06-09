@@ -148,14 +148,14 @@ public class signinPanel extends JPanel {
 		
 		    /* Set up own user data */
 		
-		    user = new GoogleTalkUserData(account.getAccountName());
-		    user.setOnline(true);
-		    account.setOwnUserData(user);
+		    //user = new GoogleTalkUserData(account.getAccountName());
+		    //user.setOnline(true);
+		    //account.setOwnUserData(user);
 		            
 		    /* Set up friends' user data */
 		    friendList = core.getBuddyList();
 		    for (String s : friendList) {
-		        user = new GoogleTalkUserData(s); // Add account name
+		        user = new GoogleTalkUserData(s, account); // Add account name
 		        account.addFriend(user);
 		    }           
 		}
