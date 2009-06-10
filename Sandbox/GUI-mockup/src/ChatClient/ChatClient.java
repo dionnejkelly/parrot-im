@@ -6,8 +6,10 @@ import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.MessageListener;
+import org.jivesoftware.smack.PacketCollector;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterListener;
@@ -21,7 +23,7 @@ import model.*;
 /**
  * Handles all connections involving XMPP protocol. 
  */
-public class ChatClient implements MessageListener {
+public class ChatClient {
     
     /**
      * The connection to the XMPP server.
@@ -45,11 +47,15 @@ public class ChatClient implements MessageListener {
      */
     private ChatManager chatManager;
     
+    private ArrayList<Chat> chats;
+    private ArrayList<PacketCollector> packets;
     
     public ChatClient(Model model){
         this.model = model;
         this.roster = null;
         this.chatManager = null;
+        this.chats = new ArrayList<Chat>();
+        this.packets = new ArrayList<PacketCollector>();
     }
         
         public void setPresence(String status) throws InterruptedException {
@@ -100,6 +106,9 @@ public class ChatClient implements MessageListener {
                 // If connected...
                 model.connectAccount(account);
                 
+                this.chatManager = connection.getChatManager();
+                this.chatManager.addChatListener(new ChatListener());
+                
                 /* Get roster updated after the login */
                 this.roster = connection.getRoster();
                 this.roster.addRosterListener(new BuddyListener());
@@ -115,7 +124,8 @@ public class ChatClient implements MessageListener {
        
         public void sendMessage(String message, String to) throws XMPPException
         {
-                Chat chat = connection.getChatManager().createChat(to, this);
+            /* Fix this, may be creating duplicate connections */
+                Chat chat = connection.getChatManager().createChat(to, new MsgListener());
                 chat.sendMessage(message);
                 
         }
@@ -159,6 +169,7 @@ public class ChatClient implements MessageListener {
                 connection.disconnect();
         }
        
+/* Moved into MsgListener below
         public void processMessage(Chat chat, Message message)
         {
             UserData user = null;
@@ -175,6 +186,7 @@ public class ChatClient implements MessageListener {
                 
             //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
         }
+ */
         
         /* PLEASE FIX ME */
         /* I change some codes here, so I think now it can keep track the status of the people.
@@ -229,6 +241,39 @@ public class ChatClient implements MessageListener {
             System.out.println(presence.getFrom() + ", that is, "
                                + bareAddress + " status change:"
                                + presence.getStatus());
+            return;
+        }
+    }
+    
+    /**
+     * Controls program flow upon new chats being created.
+     */
+    private class ChatListener implements ChatManagerListener {
+        public void chatCreated(Chat chat, boolean createdLocally) {
+            System.out.println("CREATED CHAT!!");
+            /* Set up listener for the new Chat */
+            chat.addMessageListener(new MsgListener());
+            packets.add(chat.createCollector());
+            chats.add(chat);
+            
+            
+            return;
+        }
+    }
+    
+    private class MsgListener implements MessageListener {
+        public void processMessage(Chat chat, Message message) {
+            UserData user = null;
+            MessageData m = null;
+            
+            System.out.println(chat.getThreadID());
+                
+            if (message.getType() == Message.Type.chat) {
+                user = model.findUserByAccountName(chat.getParticipant());
+                m = new MessageData(user, message.getBody(), "font", "4");
+                model.receiveMessage(user.getFriendOf(), m);
+            }
+                    
             return;
         }
     }

@@ -116,6 +116,7 @@ public class Model extends Observable {
             this.conversations.add(modifiedConversation);
             modifiedConversation = new ConversationData(account, fromUser);
             modifiedConversation.addMessage(message);
+            this.activeConversation = modifiedConversation;
         }
         
         setChanged();

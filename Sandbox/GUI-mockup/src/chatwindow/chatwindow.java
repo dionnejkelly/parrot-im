@@ -20,7 +20,8 @@ public class chatwindow extends JFrame{
 	{
 		super("chatWindow Mockup");
 		this.model = model;
-						
+		
+
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 		
