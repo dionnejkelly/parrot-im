@@ -40,6 +40,7 @@ public class buddyPanel extends JPanel implements Observer
 		
 		this.c = c;
 		this.model = model;
+		this.chat = null;
 		buddies = null;
 		
 		friendList = new JPanel();
@@ -124,15 +125,8 @@ public class buddyPanel extends JPanel implements Observer
 	
 	public void update(Observable o, Object arg) {
 	    /* If chat window has not been made, make it if message sent */
-	    System.out.println("before");
-	    chat = new chatwindow(c, model);
-	    System.out.println("after");
 	    if (arg == UpdatedType.BUDDY || arg == UpdatedType.CHAT_AND_BUDDY) {
-	        if (model.numberOfConversations() < 1) {
-	            // Shouldn't get here
-	            System.err.println("Error in buddyPanel.update");
-	        } else if (model.numberOfConversations() == 1) {
-	            System.out.println("we are updating!");
+	        if (chat == null) {
 	            //model.startConversation(selectedFriend.getFriendOf(),
                     //                       selectedFriend);
                     chat = new chatwindow(c, model);  
@@ -160,7 +154,8 @@ public class buddyPanel extends JPanel implements Observer
 							if (model.numberOfConversations() < 1) {
 							    model.startConversation(selectedFriend.getFriendOf(),
 							            selectedFriend);
-							    chat = new chatwindow(c, model);   
+							    chat = new chatwindow(c, model);
+							    System.out.println("after,click");
 							}
 							else {
 							    // TODO Add conversation to the window
