@@ -34,9 +34,8 @@ public class sidePanel extends JPanel implements Observer {
 		
 		//Tree preferences
 	    for (ConversationData cd : model.getConversations()) {
-	        DefaultMutableTreeNode top =
-	                new DefaultMutableTreeNode("Conversation");
-        	tree = new JTree(top);
+	        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Root");
+	        tree = new JTree(top);
         	    
         	//sets Tree Icons
         	ImageIcon leafIcon = new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/personal.png");
@@ -49,11 +48,21 @@ public class sidePanel extends JPanel implements Observer {
         	//original Tutorial
         	//DefaultMutableTreeNode person1 = new DefaultMutableTreeNode(c.getUserName().replace("@gmail.com", ""));
         	//DefaultMutableTreeNode person2 = new DefaultMutableTreeNode(conversations.get(0).getName(1).replace("@gmail.com", ""));
+        	DefaultMutableTreeNode con1 = new DefaultMutableTreeNode("Conversation 1");
+        	top.add(con1);
         	person1 = new DefaultMutableTreeNode(cd.getAccount().getAccountName());
         	person2 = new DefaultMutableTreeNode(cd.getUser().getNickname());
-        	top.add(person1);
-        	top.add(person2);
+        	con1.add(person1);
+        	con1.add(person2);
+        	
+        	DefaultMutableTreeNode con2 = new DefaultMutableTreeNode("Conversation 2");
+        	top.add(con2);
+        	con2.add(new DefaultMutableTreeNode("test"));
+        	con2.add(new DefaultMutableTreeNode("test1"));
+        	
         	tree.expandRow(0);
+        	tree.expandRow(1);
+        	tree.setRootVisible(false);
         			
         	//add to panel
         	this.add(tree, BorderLayout.CENTER);
@@ -64,14 +73,15 @@ public class sidePanel extends JPanel implements Observer {
 	public void update(Observable t, Object o) {
 	    DefaultMutableTreeNode person1 = null;
             DefaultMutableTreeNode person2 = null;
+            
 	    //this.remove(tree);
             if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
 	        // TODO Make this into a function
 
+            DefaultMutableTreeNode top = new DefaultMutableTreeNode("Root");
+            tree = new JTree(top);
 	        for (ConversationData cd : model.getConversations()) {
-	                DefaultMutableTreeNode top =
-	                        new DefaultMutableTreeNode("Conversation");
-	                tree = new JTree(top);
+	                
 	                    
 	                //sets Tree Icons
 	                ImageIcon leafIcon = new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/personal.png");
@@ -84,11 +94,14 @@ public class sidePanel extends JPanel implements Observer {
 	                //original Tutorial
 	                //DefaultMutableTreeNode person1 = new DefaultMutableTreeNode(c.getUserName().replace("@gmail.com", ""));
 	                //DefaultMutableTreeNode person2 = new DefaultMutableTreeNode(conversations.get(0).getName(1).replace("@gmail.com", ""));
+	                DefaultMutableTreeNode con2 = new DefaultMutableTreeNode("Conversation 2");
+	            	top.add(con2);
+	            	con2.add(new DefaultMutableTreeNode(cd.getAccount().getAccountName()));
+	            	con2.add(new DefaultMutableTreeNode(cd.getUser().getNickname()));
+	            	tree.expandRow(1);
+	            	tree.setRootVisible(false);
+	            	        
 	                
-	                person1 = new DefaultMutableTreeNode(cd.getAccount().getAccountName());
-	                person2 = new DefaultMutableTreeNode(cd.getUser().getNickname());
-	                top.add(person1);
-	                top.add(person2);
 	                tree.expandRow(0);
 	                                
 	                //add to panel
