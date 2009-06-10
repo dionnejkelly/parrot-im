@@ -28,8 +28,7 @@ import java.sql.*;
  * controllers.
  */
 public class Model extends Observable {
-	
-    private int openChatWindows;
+
     private ArrayList<ConversationData> conversations; 
     private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
