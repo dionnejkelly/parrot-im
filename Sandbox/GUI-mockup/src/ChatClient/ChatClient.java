@@ -3,6 +3,7 @@ package ChatClient;
 import java.util.*;
 
 import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -12,6 +13,8 @@ import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+
+import org.jivesoftware.smack.util.StringUtils;
 
 import model.*;
 
@@ -36,10 +39,17 @@ public class ChatClient implements MessageListener {
      * Holds a list of friends for the current connection.
      */
     private Roster roster;
-       
+    
+    /**
+     * Handles all chat message events, receipt and submission. 
+     */
+    private ChatManager chatManager;
+    
+    
     public ChatClient(Model model){
         this.model = model;
         this.roster = null;
+        this.chatManager = null;
     }
         
         public void setPresence(String status) throws InterruptedException {
@@ -185,60 +195,39 @@ public class ChatClient implements MessageListener {
             return userID + " = " + status;
             
         }
-       
-/* Main class unneeded now.
-        public static void main(String args[]) throws XMPPException, IOException
-       {
-                // declare variables
-                ChatClient c = new ChatClient();
-                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                String msg;
 
+    /* Phase this method out */
+    public String getUserName(){
+            return userName;
+    }
 
-                // turn on the enhanced debugger
-                XMPPConnection.DEBUG_ENABLED = true;
-
-
-                // provide your login information here
-                c.login("cmpt275testing@gmail.com", "abcdefghi");
-
-
-                c.displayBuddyList();
-                System.out.println("-----");
-                System.out.println("Enter your message in the console.");
-                System.out.println("All messages will be sent to kevin.fahy@gmail.com");
-                System.out.println("-----\n");
-
-                while( !(msg=br.readLine()).equals("bye"))
-                {
-                        // your buddy's gmail address goes here
-                        c.sendMessage(msg, "kevin.fahy@gmail.com");
-                }
-
-                c.disconnect();
-                System.exit(0);
-        }
-  */
-        public String getUserName(){
-                return userName;
-        }
-
-
+    /**
+     * Changes to the roster, that is, changes to friends' statuses
+     * or availability, are handled by this class.
+     */
     private class BuddyListener implements RosterListener {
         public void entriesAdded(Collection<String> addresses) {
             // Fix me!
+            System.out.println(addresses);
+            return;
         }
         
         public void entriesUpdated(Collection<String> addresses) {
             // Fix me!
+            System.out.println(addresses);
+            return;
         }
         
         public void entriesDeleted(Collection<String> addresses) {
             // Fix me!
+            System.out.println(addresses);
+            return;
         }
         
         public void presenceChanged(Presence presence) {
-            System.out.println(presence.getFrom() + " status change:"
+            String bareAddress = StringUtils.parseBareAddress(presence.getFrom());
+            System.out.println(presence.getFrom() + ", that is, "
+                               + bareAddress + " status change:"
                                + presence.getStatus());
             return;
         }
