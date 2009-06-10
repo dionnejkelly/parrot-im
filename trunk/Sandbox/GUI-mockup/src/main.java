@@ -1,6 +1,8 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.jivesoftware.smack.XMPPConnection;
+
 import ChatClient.ChatClient;
 import buddylist.buddylist;
 import chatwindow.chatwindow;
@@ -20,7 +22,9 @@ public class main {
 		 * will constantly check for status updates and report
 		 * back to Model.
 		 */
-
+                
+		XMPPConnection.DEBUG_ENABLED = true;
+		
 		Thread t = new Thread();
 		while (true) {
 			
