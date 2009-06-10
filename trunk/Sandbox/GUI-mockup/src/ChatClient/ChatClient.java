@@ -308,12 +308,13 @@ public class ChatClient {
     private class MessagePacketListener implements PacketListener {
         public void processPacket(Packet packet) {
             /* packet is a new message, make chat if from new person */
-            Message message = (Message) packet;
-            String bareAddress = StringUtils.parseBareAddress(message.getFrom());
-            Chat chat = null;
             UserData user = null;
             MessageData m = null;
+            Chat chat = null;
             boolean chatExists = false;
+            Message message = (Message) packet;
+            String bareAddress = StringUtils.parseBareAddress(message.getFrom());
+            
             
             if (message.getType() == Message.Type.normal ||
                 message.getType() == Message.Type.chat) {
@@ -326,11 +327,18 @@ public class ChatClient {
                     }
                 }
                 
+                /* If no chats exist with the sender of the new message... */
                 if (!chatExists) {
                     chat = connection.getChatManager().createChat(bareAddress, 
                             new MsgListener());
                     chats.add(chat);
+                    
+                    /* Display first message bug FIX */
+                    user = model.findUserByAccountName(chat.getParticipant());
+                    m = new MessageData(user, message.getBody(), "font", "4");
+                    model.receiveMessage(user.getFriendOf(), m);
                 }
+                /* Else, the message listener handles it automatically */
             }
             
             System.out.println(message.getFrom());
