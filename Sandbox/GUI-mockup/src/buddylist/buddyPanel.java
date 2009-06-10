@@ -155,10 +155,12 @@ public class buddyPanel extends JPanel implements Observer
 							    model.startConversation(selectedFriend.getFriendOf(),
 							            selectedFriend);
 							    chat = new chatwindow(c, model);
-							    System.out.println("after,click");
+							    
 							}
 							else {
-							    // TODO Add conversation to the window
+							    model.startConversation(selectedFriend.getFriendOf(),
+                                                                    selectedFriend);
+                                                            
 							}
 						        
 						}
