@@ -30,7 +30,6 @@ import java.sql.*;
 public class Model extends Observable {
 	
     private int openChatWindows;
-    private ArrayList<ChatData> chatParticipants; /* temporary */
     private ArrayList<ConversationData> conversations; 
     private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
@@ -38,8 +37,6 @@ public class Model extends Observable {
 
 	
     public Model() throws ClassNotFoundException, SQLException {
-        int openChatWindows = 0;
-        chatParticipants = new ArrayList<ChatData>();
         currentProfile = new CurrentProfileData();
         conversations = new ArrayList<ConversationData>();
 }
@@ -62,10 +59,6 @@ public class Model extends Observable {
     	return servers;
     }
 	    
-    //public String getUsername() {
-    //    return username;
-    //}
-
     public String getPassword(String username) throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -153,33 +146,6 @@ public class Model extends Observable {
         return this.conversations;
     }
     
-    public int getOpenChatWindows() {
-    	return openChatWindows;
-    }
-    
-    public void incrementOpenChatWindows() {
-    	this.openChatWindows++;
-    	setChanged();
-    	notifyObservers();
-    	return;
-    }
-
-    public void storeChatParticipants(ChatData chatData) {
-    	this.chatParticipants.add(chatData);
-    	return;
-    }
-
-    public ChatData findChatDataByID(int id) {
-    	ChatData toReturn = null;
-    	for (ChatData chatData : this.chatParticipants) {
-    		if (chatData.getWindowID() == id) {
-    			toReturn = chatData;
-    			break;
-    		}
-    	}
-    	return toReturn; /* Could be null, fix! */
-    }
-
     /* Current Profile manipulation */
     
     public void createCurrentProfile(AccountData account,

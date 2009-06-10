@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import org.jivesoftware.smack.RosterEntry;
 
 import ChatClient.ChatClient;
-import model.ChatData;
 import model.Model;
 
 public class chatwindow extends JFrame{
