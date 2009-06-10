@@ -21,8 +21,12 @@ public class DisplayPanel extends JPanel implements Observer {
 		txtPane.setPreferredSize(new Dimension(250, 300));
 		txtPane.setEditable(false);
 		txtPane.setEditorKit(new HTMLEditorKit());
-		previousText = "";
-		txtPane.setText(previousText);
+	        if (model.getActiveConversation() != null) {
+		    txtPane.setText(model.getActiveConversation().displayMessages());
+		} else {
+		    txtPane.setText("");
+		}
+	        
 		
 		JLabel title = new JLabel("Conversation 1                           view: ");
 		
