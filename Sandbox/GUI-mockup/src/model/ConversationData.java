@@ -7,25 +7,31 @@ import java.util.ArrayList;
  */
 public class ConversationData {
     
-    /*
+    /**
      * The other user that you are talking to, not yourself.
      */
     private UserData user;
     
-    /*
+    /**
      * Your own account data. Enclosed is a UserData class.
      */
     private AccountData account;
     
-    /*
+    /**
      * Chat history for just this session.
      */
     private ArrayList<MessageData> text;
+    
+    /**
+     * Counts how many messages are currently in the conversation.
+     */
+    private int messageCount;
     
     public ConversationData(AccountData account, UserData user) {
         this.user = user;
         this.account = account;
         this.text = new ArrayList<MessageData>();
+        this.messageCount = 0;
     }
     
     public UserData getUser() {
@@ -51,7 +57,12 @@ public class ConversationData {
     
     public void addMessage(MessageData message) {
         this.text.add(message);
+        this.messageCount++;
         return;
+    }
+    
+    public int getMessageCount() {
+        return this.messageCount;
     }
     
     public String displayMessages() {
