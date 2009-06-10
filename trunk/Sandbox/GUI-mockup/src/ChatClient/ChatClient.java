@@ -127,12 +127,28 @@ public class ChatClient {
             return;            
         }
        
-        public void sendMessage(String message, String to) throws XMPPException
-        {
-            /* Fix this, may be creating duplicate connections */
-                Chat chat = connection.getChatManager().createChat(to, new MsgListener());
-                chat.sendMessage(message);
-                
+        public void sendMessage(String message, String to) throws XMPPException {
+            Chat chat = null;
+            boolean chatExists = false;
+            
+            /* Check for existing chats */
+            for (Chat c : chats) {
+                if (c.getParticipant().equalsIgnoreCase(to)) {
+                    chatExists = true;
+                    chat = c;
+                    break;
+                }
+            }
+                        
+            /* Create if doesn't exist */
+            if (!chatExists) {
+                chat = connection.getChatManager().createChat(to, 
+                        new MsgListener());
+                chats.add(chat);
+            }
+            
+            chat.sendMessage(message);
+            return;                
         }
        
         public void displayBuddyList()
@@ -314,11 +330,6 @@ public class ChatClient {
                     chat = connection.getChatManager().createChat(bareAddress, 
                             new MsgListener());
                     chats.add(chat);
-                    
-                    /* Need to update the first message */
-                    user = model.findUserByAccountName(chat.getParticipant());
-                    m = new MessageData(user, message.getBody(), "font", "4");
-                    model.receiveMessage(user.getFriendOf(), m);
                 }
             }
             
