@@ -1,7 +1,6 @@
 package ChatClient;
 
 import java.util.*;
-import java.io.*;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.packet.Message;
@@ -10,21 +9,38 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
+import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
 import model.*;
 
-
-public class ChatClient implements MessageListener
-{
-        private XMPPConnection connection;
-        private String userName;
-        private Model model; // Unsure if the model is needed here yet.
+/**
+ * Handles all connections involving XMPP protocol. 
+ */
+public class ChatClient implements MessageListener {
+    
+    /**
+     * The connection to the XMPP server.
+     */
+    private XMPPConnection connection;
+    
+    private String userName; // Delete this variable
+    
+    /**
+     * Allows the ChatClient to store data for the GUI.
+     */
+    private Model model;
+    
+    /**
+     * Holds a list of friends for the current connection.
+     */
+    private Roster roster;
        
-        public ChatClient(Model model){
-            this.model = model;
-        }
+    public ChatClient(Model model){
+        this.model = model;
+        this.roster = null;
+    }
         
         public void setPresence(String status) throws InterruptedException {
     		Presence presence = new Presence(Presence.Type.available);
@@ -73,6 +89,10 @@ public class ChatClient implements MessageListener
                     
                 // If connected...
                 model.connectAccount(account);
+                
+                /* Get roster updated after the login */
+                this.roster = connection.getRoster();
+                this.roster.addRosterListener(new BuddyListener());
                     
                 this.userName = account.getAccountName();
             }       
@@ -202,5 +222,26 @@ public class ChatClient implements MessageListener
         public String getUserName(){
                 return userName;
         }
+
+
+    private class BuddyListener implements RosterListener {
+        public void entriesAdded(Collection<String> addresses) {
+            // Fix me!
+        }
+        
+        public void entriesUpdated(Collection<String> addresses) {
+            // Fix me!
+        }
+        
+        public void entriesDeleted(Collection<String> addresses) {
+            // Fix me!
+        }
+        
+        public void presenceChanged(Presence presence) {
+            System.out.println(presence.getFrom() + " status change:"
+                               + presence.getStatus());
+            return;
+        }
+    }
 }
 
