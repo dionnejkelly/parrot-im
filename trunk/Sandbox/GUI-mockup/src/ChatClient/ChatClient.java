@@ -302,7 +302,9 @@ public class ChatClient {
             if (message.getType() == Message.Type.normal ||
                 message.getType() == Message.Type.chat) {
                 for (Chat c : chats) {
-                    if (c.getParticipant() == bareAddress) {
+                    System.out.println(c.getParticipant());
+                    System.out.println(bareAddress);
+                    if (c.getParticipant().equalsIgnoreCase(bareAddress)) {
                         chatExists = true;
                         break;
                     }
