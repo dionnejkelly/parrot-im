@@ -51,6 +51,8 @@ public class ChatClient {
     
     private ArrayList<Chat> chats;
     
+    private String tempID;
+    
     
     public ChatClient(Model model){
         this.model = model;
@@ -241,27 +243,27 @@ public class ChatClient {
     private class BuddyListener implements RosterListener {
         public void entriesAdded(Collection<String> addresses) {
             // Fix me!
-            System.out.println(addresses);
+            System.out.println(addresses + " from entriesAdded");
             return;
         }
         
         public void entriesUpdated(Collection<String> addresses) {
             // Fix me!
-            System.out.println(addresses);
+            System.out.println(addresses + " from entriesUpdated");
             return;
         }
         
         public void entriesDeleted(Collection<String> addresses) {
             // Fix me!
-            System.out.println(addresses);
+            System.out.println(addresses + " from entriesDeleted");
             return;
         }
         
         public void presenceChanged(Presence presence) {
             String bareAddress = StringUtils.parseBareAddress(presence.getFrom());
-            System.out.println(presence.getFrom() + ", that is, "
-                               + bareAddress + " status change:"
-                               + presence.getStatus());
+           // System.out.println(presence.getFrom() + ", that is, "
+           //                    + bareAddress + " status change:"
+           //                    + presence.getStatus());
             return;
         }
     }
@@ -287,12 +289,20 @@ public class ChatClient {
             UserData user = null;
             MessageData m = null;
             
-            System.out.println(chat.getThreadID());
+            System.out.println("In processMessage");
+            System.out.println(message.getFrom());
+            System.out.println(message.getBody());
+            System.out.println(message.getType());
+            System.out.println(message.getThread());
+            
                 
-            if (message.getType() == Message.Type.chat) {
+            if (message.getType() == Message.Type.chat &&
+                !message.getThread().equals(tempID)) {
                 user = model.findUserByAccountName(chat.getParticipant());
                 m = new MessageData(user, message.getBody(), "font", "4");
                 model.receiveMessage(user.getFriendOf(), m);
+                
+                
             }
                     
             return;
@@ -301,6 +311,7 @@ public class ChatClient {
     
     private class MessagePacketFilter implements PacketFilter {
         public boolean accept(Packet packet) {
+            System.out.println(packet);
             return (packet instanceof Message);
         }
     }
@@ -332,15 +343,20 @@ public class ChatClient {
                     chat = connection.getChatManager().createChat(bareAddress, 
                             new MsgListener());
                     chats.add(chat);
+                    tempID = chat.getThreadID();
                     
                     /* Display first message bug FIX */
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
                     model.receiveMessage(user.getFriendOf(), m);
+                } else {
+                    tempID = "";
                 }
                 /* Else, the message listener handles it automatically */
+                
             }
             
+            System.out.println("In processPacket");
             System.out.println(message.getFrom());
             System.out.println(message.getBody());
             System.out.println(message.getType());
