@@ -4,12 +4,14 @@ import java.util.*;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
+import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.PacketCollector;
+import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterListener;
@@ -48,14 +50,14 @@ public class ChatClient {
     private ChatManager chatManager;
     
     private ArrayList<Chat> chats;
-    private ArrayList<PacketCollector> packets;
+    
     
     public ChatClient(Model model){
         this.model = model;
         this.roster = null;
         this.chatManager = null;
         this.chats = new ArrayList<Chat>();
-        this.packets = new ArrayList<PacketCollector>();
+        
     }
         
         public void setPresence(String status) throws InterruptedException {
@@ -106,8 +108,11 @@ public class ChatClient {
                 // If connected...
                 model.connectAccount(account);
                 
-                this.chatManager = connection.getChatManager();
-                this.chatManager.addChatListener(new ChatListener());
+                connection.addPacketListener(new MessagePacketListener(),
+                                             new MessagePacketFilter());
+                
+                //this.chatManager = connection.getChatManager();
+                //this.chatManager.addChatListener(new ChatListener());
                 
                 /* Get roster updated after the login */
                 this.roster = connection.getRoster();
@@ -253,7 +258,7 @@ public class ChatClient {
             System.out.println("CREATED CHAT!!");
             /* Set up listener for the new Chat */
             chat.addMessageListener(new MsgListener());
-            packets.add(chat.createCollector());
+            
             chats.add(chat);
             
             
@@ -274,6 +279,52 @@ public class ChatClient {
                 model.receiveMessage(user.getFriendOf(), m);
             }
                     
+            return;
+        }
+    }
+    
+    private class MessagePacketFilter implements PacketFilter {
+        public boolean accept(Packet packet) {
+            return (packet instanceof Message);
+        }
+    }
+    
+    private class MessagePacketListener implements PacketListener {
+        public void processPacket(Packet packet) {
+            /* packet is a new message, make chat if from new person */
+            Message message = (Message) packet;
+            String bareAddress = StringUtils.parseBareAddress(message.getFrom());
+            Chat chat = null;
+            UserData user = null;
+            MessageData m = null;
+            boolean chatExists = false;
+            
+            if (message.getType() == Message.Type.normal ||
+                message.getType() == Message.Type.chat) {
+                for (Chat c : chats) {
+                    if (c.getParticipant() == bareAddress) {
+                        chatExists = true;
+                        break;
+                    }
+                }
+                
+                if (!chatExists) {
+                    chat = connection.getChatManager().createChat(bareAddress, 
+                            new MsgListener());
+                    chats.add(chat);
+                    
+                    /* Need to update the first message */
+                    user = model.findUserByAccountName(chat.getParticipant());
+                    m = new MessageData(user, message.getBody(), "font", "4");
+                    model.receiveMessage(user.getFriendOf(), m);
+                }
+            }
+            
+            System.out.println(message.getFrom());
+            System.out.println(message.getBody());
+            System.out.println(message.getType());
+            System.out.println(message.getThread());
+            
             return;
         }
     }

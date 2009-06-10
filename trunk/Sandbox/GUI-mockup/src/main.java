@@ -38,7 +38,7 @@ public class main {
 			
         	try {
 
-        		t.sleep(5000);
+        		t.sleep(50000);
         	}
         	catch (InterruptedException e) {
         	
