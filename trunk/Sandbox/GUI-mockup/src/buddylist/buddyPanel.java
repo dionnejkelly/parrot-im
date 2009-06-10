@@ -124,19 +124,27 @@ public class buddyPanel extends JPanel implements Observer
 	
 	public void update(Observable o, Object arg) {
 	    /* If chat window has not been made, make it if message sent */
+	    System.out.println("before");
+	    chat = new chatwindow(c, model);
+	    System.out.println("after");
 	    if (arg == UpdatedType.BUDDY || arg == UpdatedType.CHAT_AND_BUDDY) {
-  	        ConversationData conversation = null;
-	        if (chat == null && model.numberOfConversations() >= 1) {
-	            conversation = model.startConversation(selectedFriend.getFriendOf(),
-                                                           selectedFriend);
+	        if (model.numberOfConversations() < 1) {
+	            // Shouldn't get here
+	            System.err.println("Error in buddyPanel.update");
+	        } else if (model.numberOfConversations() == 1) {
+	            System.out.println("we are updating!");
+	            //model.startConversation(selectedFriend.getFriendOf(),
+                    //                       selectedFriend);
                     chat = new chatwindow(c, model);  
+	        } else {
+	            // add code for if multiple windows exist.
 	        }
+	        
 	    }
 	}
 	
 	private class SelectListener implements MouseListener{
 		public void mouseClicked(MouseEvent event){	
-		        ConversationData conversation = null;
 			//FriendItems
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
 				if(event.getSource().equals(boxes[0].getComponent(i))){
@@ -150,7 +158,7 @@ public class buddyPanel extends JPanel implements Observer
 						        
 						        /* Is the chat window already open? */
 							if (model.numberOfConversations() < 1) {
-							    conversation = model.startConversation(selectedFriend.getFriendOf(),
+							    model.startConversation(selectedFriend.getFriendOf(),
 							            selectedFriend);
 							    chat = new chatwindow(c, model);   
 							}

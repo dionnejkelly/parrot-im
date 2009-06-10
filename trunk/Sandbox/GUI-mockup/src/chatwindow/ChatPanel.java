@@ -29,6 +29,7 @@ public class ChatPanel extends JPanel {
 	//public ChatPanel(final ArrayList<Conversation> conversations, 
 	//		         final ChatClient c, Model model) {
 	public ChatPanel(ChatClient c, Model model) {
+	    
 		setLayout(new BorderLayout());
 		
 		this.model = model;

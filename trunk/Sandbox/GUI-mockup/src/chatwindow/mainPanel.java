@@ -17,6 +17,7 @@ public class mainPanel extends JPanel {
 	//		         Model model) {
 	
 	public mainPanel(ChatClient c, Model model) {
+                   
 		setLayout(new BorderLayout());
 		
 		JMenuBar menuBar = new JMenuBar();
