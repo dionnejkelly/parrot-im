@@ -40,7 +40,7 @@ public class manageAccountFrame extends JFrame
 	private JPanel accMANPanel;
 	private Model model;
 	private mainwindow mainFrame;
-	
+	protected JFrame popup;
 	private JList profileList;
 	private JList accList;
 	
@@ -55,6 +55,7 @@ public class manageAccountFrame extends JFrame
 	private JComboBox serviceField;
 	
 	protected manageAccountFrame (Model model, mainwindow frame) throws ClassNotFoundException, SQLException{
+		popup = this;
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.model = model;
 		mainFrame = frame;
@@ -246,7 +247,11 @@ public class manageAccountFrame extends JFrame
 		cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	mainFrame.setEnabled(true);
-            	dispose();
+            	popup.removeAll();
+            	popup.dispose();
+
+        		mainFrame.setAlwaysOnTop(true);
+        	    mainFrame.setAlwaysOnTop(false);
             }
 		});
 		buttonsPanel.add(cancelButton);

@@ -99,6 +99,8 @@ public class guestAccountFrame extends JFrame{
             	mainFrame.setEnabled(true);
             	popup.removeAll();
             	popup.dispose();
+        		mainFrame.setAlwaysOnTop(true);
+        	    mainFrame.setAlwaysOnTop(false);
             }
 		});
 		buttonsPanel.add(cancelButton);
