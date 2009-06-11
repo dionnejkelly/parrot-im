@@ -61,6 +61,7 @@ public class signinPanel extends JPanel {
 		accLayout.setAlignment(FlowLayout.CENTER);
 		accPanel.setLayout(accLayout);
 		accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
+		
 		//list of accounts
 		account_select = new JComboBox (model.getAccountList());
 		account_select.setAlignmentY(JComboBox.CENTER_ALIGNMENT);
@@ -120,10 +121,15 @@ public class signinPanel extends JPanel {
 		accOptPanel.add(manageAccount);
 		accOptPanel.add(guestAccount);
 
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add(account_select, BorderLayout.NORTH);
+		panel.add(accOptPanel, BorderLayout.CENTER);
+		panel.add(connectPanel, BorderLayout.SOUTH);
+		
 		//add components to accPanel
-		accPanel.add(account_select);
-		accPanel.add(accOptPanel);
-		accPanel.add(connectPanel);
+		accPanel.add(panel, BorderLayout.NORTH);
+		
 
 		add(accPanel, BorderLayout.CENTER);
 	}
@@ -134,6 +140,7 @@ public class signinPanel extends JPanel {
 		header.setAnimation();
 		accPanel.setVisible(false);
 		misc.setVisible(false);
+		
 		
 		
 	    /*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
