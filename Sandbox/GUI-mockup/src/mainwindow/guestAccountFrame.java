@@ -166,6 +166,10 @@ public class guestAccountFrame extends JFrame{
 	    } catch (XMPPException e1) {
 	    	// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
 	    	//e1.printStackTrace();
+	    	mainPanel.header.loadMain();
+			mainPanel.accPanel.setVisible(true);
+			mainPanel.misc.setVisible(true);
+			mainFrame.setEnabled(true);
 	    	System.out.println("sign in failed!");
 	    }	
 	}

@@ -180,8 +180,12 @@ public class signinPanel extends JPanel {
         
 	    } catch (XMPPException e1) {
 	        // TODO: throw a warning pop up
-	    	e1.printStackTrace();
-			System.out.println("sign in failed!");
+
+	    	header.loadMain();
+			accPanel.setVisible(true);
+			misc.setVisible(true);
+			mainFrame.setEnabled(true);
+	    	System.out.println("sign in failed!");
 	    }	
 	}
 }

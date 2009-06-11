@@ -23,7 +23,7 @@ public class main {
 		 * back to Model.
 		 */
                 
-		XMPPConnection.DEBUG_ENABLED = true;
+		//XMPPConnection.DEBUG_ENABLED = true;
 		
 		Thread t = new Thread();
 		while (true) {
