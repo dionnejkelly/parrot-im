@@ -18,8 +18,8 @@ public class mainwindow extends JFrame implements Observer {
 		//set Main Window Frame
 		setTitle("Parrot-IM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setMinimumSize(new Dimension (300,500));
 		setPreferredSize(new Dimension (300,600));
-		//setResizable(false);
 		setIconImage(new ImageIcon(getcwd() + "/src/mainwindow/logo.png").getImage());
 
 		//call SignIn Panel
