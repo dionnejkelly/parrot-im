@@ -29,6 +29,12 @@ public class signinPanel extends JPanel {
 	private Model model;
 	private JComboBox account_select;
 	
+	//part of the whole panel
+	protected signinPanel signin;
+	protected headerPanel header;
+	protected JPanel accPanel;
+	protected miscPanel misc;
+	
 	//Account Options part (in Sign In Panel)
 	private linkLabel manageAccount;
 	private linkLabel guestAccount;
@@ -37,19 +43,20 @@ public class signinPanel extends JPanel {
 		mainFrame = frame;
 		core = chatClient;//CORE
 		this.model = model;
+		signin = this;
 		
 		setLayout (new BorderLayout());
 		manageAccountPanel();
-
-		add(new headerPanel(), BorderLayout.NORTH);
-		add(new miscPanel(), BorderLayout.SOUTH);
+		
+		header = new headerPanel();
+		misc = new miscPanel();
+		add(header, BorderLayout.NORTH);
+		add(misc, BorderLayout.SOUTH);
 	}
 	
 	private void manageAccountPanel () throws ClassNotFoundException, SQLException{
 		
-		JPanel accPanel = new JPanel();
-		//BoxLayout accLayout = new BoxLayout(accPanel, BoxLayout.Y_AXIS);
-		//GridLayout accLayout = new GridLayout(3,1);
+		accPanel = new JPanel();
 		FlowLayout accLayout = new FlowLayout();
 		accLayout.setAlignment(FlowLayout.CENTER);
 		accPanel.setLayout(accLayout);
@@ -105,7 +112,7 @@ public class signinPanel extends JPanel {
 		guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
             	mainFrame.setEnabled(false);
-                new guestAccountFrame(model, core, mainFrame);
+                new guestAccountFrame(model, core, mainFrame, signin);
             }
         });
 
@@ -122,14 +129,21 @@ public class signinPanel extends JPanel {
 	}
 	
 	private void signIn_ActionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
+		
+		//loading window
+		header.setAnimation();
+		accPanel.setVisible(false);
+		misc.setVisible(false);
+		
+		
 	    /*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	    
 	    /* TEMPORARY CODE to create currentProfile. Need to
 	     * consider multiple accounts later.
 	     */
-            AccountData account = null;
-            ArrayList<String> friendList = null;
-            GoogleTalkUserData user = null;
+        AccountData account = null;
+        ArrayList<String> friendList = null;
+        GoogleTalkUserData user = null;
 	    
 	    try {
 		String username = (String)account_select.getSelectedItem();
@@ -160,12 +174,14 @@ public class signinPanel extends JPanel {
 		    }           
 		}
 			
-		buddylist buddyWin = new buddylist(core, model);//pops buddylist window
-		mainFrame.dispose();
+		new buddylist(core, model);//pops buddylist window
+        mainFrame.dispose(); //TODO: consider if the sign in fails
+        
+        
 	    } catch (XMPPException e1) {
 	        // TODO: throw a warning pop up
-		e1.printStackTrace();
-		System.out.println("sign in failed!");
+	    	e1.printStackTrace();
+			System.out.println("sign in failed!");
 	    }	
 	}
 }

@@ -12,10 +12,6 @@ import ChatClient.ChatClient;
 import model.*;
 
 public class mainwindow extends JFrame implements Observer {
-	/*THIS IS FOR CHAT CLIENT*/
-	String username;
-	String password;
-	/*THIS IS FOR CHAT CLIENT*/
 
 	public mainwindow (ChatClient chatClient, Model model) throws ClassNotFoundException, SQLException{
 
