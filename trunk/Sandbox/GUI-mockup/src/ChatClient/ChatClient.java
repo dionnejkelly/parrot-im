@@ -51,7 +51,13 @@ public class ChatClient {
     
     private ArrayList<Chat> chats;
     
-    private String tempID;
+   // private String tempID;
+
+    private UserData user = null;
+    private MessageData m = null;
+    private Chat chat = null;
+    
+    
     
     
     public ChatClient(Model model){
@@ -285,26 +291,36 @@ public class ChatClient {
     }
     
     private class MsgListener implements MessageListener {
+    	
+    	
         public void processMessage(Chat chat, Message message) {
             UserData user = null;
             MessageData m = null;
             
-            System.out.println("In processMessage");
-            System.out.println(message.getFrom());
-            System.out.println(message.getBody());
-            System.out.println(message.getType());
-            System.out.println(message.getThread());
-            
-                
-            if (message.getType() == Message.Type.chat &&
-                !message.getThread().equals(tempID)) {
-                user = model.findUserByAccountName(chat.getParticipant());
-                m = new MessageData(user, message.getBody(), "font", "4");
-                model.receiveMessage(user.getFriendOf(), m);
-                
-                
-            }
-                    
+              System.out.println("In processMessage");
+//            System.out.println(message.getFrom());
+//            System.out.println("Process message = " + message.getBody());
+//            System.out.println("            Process Message Type = " + message.getType());
+//           
+//            System.out.println("            Process message ID ()  = " + message.getThread());
+//            System.out.println("            Process FROM PACKET ID = " + tempID);
+//     
+            System.out.println("------------------");
+//                
+//      
+//            
+//            
+//            
+//            if (message.getType() == Message.Type.chat &&
+//                (!message.getThread().equals(tempID))) {
+//                user = model.findUserByAccountName(chat.getParticipant());
+//                m = new MessageData(user, message.getBody(), "font", "4");
+//                model.receiveMessage(user.getFriendOf(), m);
+//                
+//                System.out.println("This should be printed!!!!");
+// 
+//            }
+//                    
             return;
         }
     }
@@ -317,11 +333,10 @@ public class ChatClient {
     }
     
     private class MessagePacketListener implements PacketListener {
+    	
         public void processPacket(Packet packet) {
             /* packet is a new message, make chat if from new person */
-            UserData user = null;
-            MessageData m = null;
-            Chat chat = null;
+           
             boolean chatExists = false;
             Message message = (Message) packet;
             String bareAddress = StringUtils.parseBareAddress(message.getFrom());
@@ -330,8 +345,8 @@ public class ChatClient {
             if (message.getType() == Message.Type.normal ||
                 message.getType() == Message.Type.chat) {
                 for (Chat c : chats) {
-                    System.out.println(c.getParticipant());
-                    System.out.println(bareAddress);
+                    //System.out.println(c.getParticipant());
+                    //System.out.println(bareAddress);
                     if (c.getParticipant().equalsIgnoreCase(bareAddress)) {
                         chatExists = true;
                         break;
@@ -343,24 +358,40 @@ public class ChatClient {
                     chat = connection.getChatManager().createChat(bareAddress, 
                             new MsgListener());
                     chats.add(chat);
-                    tempID = chat.getThreadID();
+                    //tempID = chat.getThreadID();
+                    
                     
                     /* Display first message bug FIX */
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
                     model.receiveMessage(user.getFriendOf(), m);
+                    
+          
+                   
                 } else {
-                    tempID = "";
+                    //tempID = "";
+                    user = model.findUserByAccountName(chat.getParticipant());
+                    m = new MessageData(user, message.getBody(), "font", "4");
+                    model.receiveMessage(user.getFriendOf(), m);
+               
+                    
+                    
+                   
+               	
+                 
                 }
                 /* Else, the message listener handles it automatically */
                 
             }
             
+            System.out.println("------------------");
             System.out.println("In processPacket");
-            System.out.println(message.getFrom());
-            System.out.println(message.getBody());
-            System.out.println(message.getType());
-            System.out.println(message.getThread());
+//            System.out.println(message.getFrom());
+            System.out.println("Packet message = " + message.getBody());
+//            System.out.println(message.getType());
+           // System.out.println("Packet message ID = " + tempID);
+            
+            System.out.println("------------------");
             
             return;
         }
