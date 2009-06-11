@@ -32,16 +32,18 @@ public class guestAccountFrame extends JFrame{
 	private ChatClient core;
 	private mainwindow mainFrame;
 	private JFrame popup;
+	private signinPanel mainPanel;
 	
 	private JTextField UNFieldGuest;
 	private JPasswordField PwdFieldGuest;
 	private JComboBox server;
 	
-	public guestAccountFrame(Model model, ChatClient c, mainwindow frame){
+	public guestAccountFrame(Model model, ChatClient c, mainwindow frame, signinPanel signin){
 		popup=this;
 		this.model = model;
 		core = c;
 		mainFrame = frame;
+		mainPanel = signin;
 		this.addWindowListener(new popupWindowListener(mainFrame, this));
 		
 		//set Frame
@@ -120,19 +122,26 @@ public class guestAccountFrame extends JFrame{
 	}
 	
 	private void signIn_ActionPerformed(ActionEvent e) {
-	    /*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
+		//loading window
+		mainPanel.header.setAnimation();
+		mainPanel.accPanel.setVisible(false);
+		mainPanel.misc.setVisible(false);
+		
+		System.out.println("guestAccountFrame got here");
+		
+		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	    AccountData guestAccount = null;
 	    ArrayList<String> friendList = null;
 	    GoogleTalkUserData user = null;
 	    
 	    try {
-		
+	    	
+	    	
 	        /* Log into the server */
-	        guestAccount = new AccountData(
-		         (ServerType) server.getSelectedItem(),
-		         UNFieldGuest.getText(),
-		         password(PwdFieldGuest.getPassword()));
+	        guestAccount = new AccountData((ServerType) server.getSelectedItem(), UNFieldGuest.getText(),
+	        																		password(PwdFieldGuest.getPassword()));
 	        model.createCurrentProfile(guestAccount, "Guest");
+	        
 	        core.login(guestAccount);
 		
 		/* Populate the buddy list */
@@ -145,19 +154,19 @@ public class guestAccountFrame extends JFrame{
 		    //guestAccount.setOwnUserData(user);
 		    
 		    /* Set up friends' user data */
-		    friendList = core.getBuddyList();
-		    for (String s : friendList) {
+	        	friendList = core.getBuddyList();
+	        	for (String s : friendList) {
         	        user = new GoogleTalkUserData(s, guestAccount); // Add account name
         	        guestAccount.addFriend(user);
-		    }      	    
-		}
-		
-		buddylist buddyWin = new buddylist(core, model);//pops buddylist window
-		mainFrame.dispose();
+		    	}      	    
+	        }
+	        
+	        new buddylist(core, model);//pops buddylist window
+	        mainFrame.dispose(); //TODO: consider if the sign in fails
 	    } catch (XMPPException e1) {
-		// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
-		//e1.printStackTrace();
-		System.out.println("sign in failed!");
+	    	// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
+	    	//e1.printStackTrace();
+	    	System.out.println("sign in failed!");
 	    }	
 	}
 
