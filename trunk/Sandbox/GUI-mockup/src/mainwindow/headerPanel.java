@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 public class headerPanel extends JPanel{
 	protected JLabel avatarDisplay;
 	protected JLabel status;
+	protected ImageIcon avatar;
 	
 	public headerPanel() {
 		setLayout(new BorderLayout());
@@ -18,7 +19,7 @@ public class headerPanel extends JPanel{
 		//logo-avatar
 		avatarDisplay = new JLabel ();
 		avatarDisplay.setHorizontalAlignment(JLabel.CENTER);
-		ImageIcon avatar = new ImageIcon (getcwd() + "/src/mainwindow/fb.jpg");
+		avatar = new ImageIcon (getcwd() + "/src/mainwindow/fb.jpg");
 	
 		//TODO: set auto scaling + border later
 		avatarDisplay.setIcon(avatar);
@@ -40,5 +41,9 @@ public class headerPanel extends JPanel{
 		status.setText("Signing in");
 		this.setVisible(true);
 		System.out.println("headerPanel here");
+	}
+	protected void loadMain(){
+		avatarDisplay.setIcon(avatar);
+		status.setText("<html><FONT COLOR=RED>Sign in failed!</FONT></html>");
 	}
 }
