@@ -33,7 +33,8 @@ public class sidePanel extends JPanel implements Observer {
 	    for (ConversationData cd : model.getConversations()) {
 	        top = new DefaultMutableTreeNode("Root");
 	        tree = new JTree(top);
-        	    
+        	
+	        //top.getChildAt(0).getChildAt(0).toString(); --> check this VERA
         	refreshTree();
 	    }
 	    this.add(tree, BorderLayout.CENTER);
