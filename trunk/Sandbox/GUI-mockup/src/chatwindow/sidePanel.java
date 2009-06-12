@@ -17,6 +17,7 @@ public class sidePanel extends JPanel implements Observer {
 	//private ArrayList<Conversation> conversations;
 	private Model model;
 	private JTree tree;
+	private DefaultMutableTreeNode top;
 	
 	//public sidePanel(ArrayList<Conversation> conversations, ChatClient c, Model model) {
 	public sidePanel(ChatClient c, Model model) { 
@@ -34,7 +35,7 @@ public class sidePanel extends JPanel implements Observer {
 		
 		//Tree preferences
 	    for (ConversationData cd : model.getConversations()) {
-	        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Root");
+	        top = new DefaultMutableTreeNode("Root");
 	        tree = new JTree(top);
         	    
         	//sets Tree Icons
@@ -78,34 +79,28 @@ public class sidePanel extends JPanel implements Observer {
             if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
 	        // TODO Make this into a function
 
-            DefaultMutableTreeNode top = new DefaultMutableTreeNode("Root");
-            tree = new JTree(top);
+            //DefaultMutableTreeNode top = new DefaultMutableTreeNode("Root");
+            //tree = new JTree(top);
+            
+          //sets Tree Icons
+            ImageIcon leafIcon = new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/personal.png");
+            if (leafIcon != null) {
+                DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+                renderer.setLeafIcon(leafIcon);
+                tree.setCellRenderer(renderer);
+            }
 	        for (ConversationData cd : model.getConversations()) {
-	                
-	                    
-	                //sets Tree Icons
-	                ImageIcon leafIcon = new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/personal.png");
-	                if (leafIcon != null) {
-	                    DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-	                    renderer.setLeafIcon(leafIcon);
-	                    tree.setCellRenderer(renderer);
-	                }
-	                    
-	                //original Tutorial
-	                //DefaultMutableTreeNode person1 = new DefaultMutableTreeNode(c.getUserName().replace("@gmail.com", ""));
-	                //DefaultMutableTreeNode person2 = new DefaultMutableTreeNode(conversations.get(0).getName(1).replace("@gmail.com", ""));
-	                DefaultMutableTreeNode con2 = new DefaultMutableTreeNode("Conversation 2");
-	            	top.add(con2);
-	            	con2.add(new DefaultMutableTreeNode(cd.getAccount().getAccountName()));
-	            	con2.add(new DefaultMutableTreeNode(cd.getUser().getNickname()));
+	                DefaultMutableTreeNode con = new DefaultMutableTreeNode("New Conversation");
+	                top.add(con);
+	            	con.add(new DefaultMutableTreeNode(cd.getAccount().getAccountName()));
+	            	con.add(new DefaultMutableTreeNode(cd.getUser().getNickname()));
 	            	tree.expandRow(1);
 	            	tree.setRootVisible(false);
-	            	        
-	                
+	            	
 	                tree.expandRow(0);
-	                                
-	                //add to panel
-	                this.add(tree, BorderLayout.CENTER);
+	                
+	                //refreshes the tree
+	                tree.updateUI();
 	        }
 	        //model.setActiveConversation(model.getConversations().get(0)); // TEMP, NEED TO SET UP LISTENERS
 	    }
