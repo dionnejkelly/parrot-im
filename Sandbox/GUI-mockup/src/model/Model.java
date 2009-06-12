@@ -102,7 +102,7 @@ public class Model extends Observable {
         
         
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(fromUser.getAccountName(), fromUser.getAccountName(), message.getMessage());
+        db.addChat(fromUser.getAccountName(), account.getAccountName(), message.getMessage());
         db.printChats();
         
         for (ConversationData c : conversations) {
@@ -133,7 +133,7 @@ public class Model extends Observable {
     public void sendMessage(ConversationData modifiedConversation, MessageData message) throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(message.getFromUser().getAccountName(), message.getFromUser().getAccountName(), message.getMessage());
+        db.addChat(message.getFromUser().getAccountName(), modifiedConversation.getUser().getAccountName(), message.getMessage());
         setChanged();
         notifyObservers(UpdatedType.CHAT);  
         return;
