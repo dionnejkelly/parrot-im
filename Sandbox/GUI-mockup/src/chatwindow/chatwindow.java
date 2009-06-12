@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 
 import org.jivesoftware.smack.RosterEntry;
 
+import styles.chatWindowListener;
+
 import ChatClient.ChatClient;
 import model.Model;
 
@@ -15,6 +17,7 @@ public class chatwindow extends JFrame{
 	//private ArrayList<Conversation> conversations;
 	public JPanel main;
 	private Model model;
+	private boolean windowIsOpen;
 	
 	public chatwindow(ChatClient c, Model model)
 	{
@@ -25,9 +28,7 @@ public class chatwindow extends JFrame{
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
 		
-		//conversations = new ArrayList<Conversation>();
-		
-		//createNewConversation(model.findChatDataByID(id));
+		this.addWindowListener(new chatWindowListener(this.model));
 		
 		//main = new mainPanel(conversations, c, model);
 		main = new mainPanel(c, model);
@@ -36,6 +37,14 @@ public class chatwindow extends JFrame{
 		
 		pack();
 		setVisible(true);
+	}
+	
+	public void setWindowIsOpen(boolean isOpen){
+		this.windowIsOpen = isOpen;
+	}
+	
+	public boolean getWindowIsOpen(){
+		return this.windowIsOpen;
 	}
 	
 /* Conversation Type is now in the model.	
