@@ -36,14 +36,15 @@ public class headerPanel extends JPanel{
 	    String cwd = System.getProperty("user.dir"); 
 	    return cwd; 
 	}
+	/*
 	protected void setAnimation(){
 		avatarDisplay.setIcon(new ImageIcon(getcwd() + "/src/mainwindow/animation.gif"));
 		status.setText("Signing in");
 		this.setVisible(true);
 		System.out.println("headerPanel here");
-	}
+	}*/
 	protected void loadMain(){
-		avatarDisplay.setIcon(avatar);
+		//avatarDisplay.setIcon(avatar);
 		status.setText("<html><FONT COLOR=RED>Sign in failed!</FONT></html>");
 	}
 }
