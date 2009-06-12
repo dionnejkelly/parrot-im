@@ -62,7 +62,7 @@ public class ChatPanel extends JPanel {
 		JButton boldButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/bold.png"));
 		JButton italicsButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/italics.png"));
 		JButton underlineButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/underLine.png"));
-		JButton colorButton = new JButton("Color");
+		JButton colorButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/colorscm.png"));
 		colorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
             	JFrame colorFrame = new JFrame("Color chooser");
