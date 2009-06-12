@@ -137,11 +137,13 @@ public class signinPanel extends JPanel {
 	private void signIn_ActionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
 		
 		//loading window
+		/*
 		header.setAnimation();
 		accPanel.setVisible(false);
 		misc.setVisible(false);
 		
-		
+		System.out.println("signinPanel : after setting animation");
+		*/
 		
 	    /*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	    
@@ -162,7 +164,9 @@ public class signinPanel extends JPanel {
 		        username,
 		        model.getPassword(username));
 		model.createCurrentProfile(account, "tempName");
+		System.out.println("signinPanel : before login");
 		core.login(account);
+		System.out.println("signinPanel : after login");
 		        
 		/* Populate the buddy list */
 		if (account.getServer() == ServerType.GOOGLE_TALK) {
@@ -182,6 +186,7 @@ public class signinPanel extends JPanel {
 		}
 			
 		new buddylist(core, model);//pops buddylist window
+		//mainFrame.setVisible(true);
         mainFrame.dispose(); //TODO: consider if the sign in fails
         
         
@@ -189,9 +194,9 @@ public class signinPanel extends JPanel {
 	        // TODO: throw a warning pop up
 
 	    	header.loadMain();
-			accPanel.setVisible(true);
-			misc.setVisible(true);
-			mainFrame.setEnabled(true);
+			//accPanel.setVisible(true);
+			//misc.setVisible(true);
+			//mainFrame.setEnabled(true);
 	    	System.out.println("sign in failed!");
 	    }	
 	}

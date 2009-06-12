@@ -123,12 +123,12 @@ public class guestAccountFrame extends JFrame{
 	
 	private void signIn_ActionPerformed(ActionEvent e) {
 		//loading window
-		mainPanel.header.setAnimation();
+		/*mainPanel.header.setAnimation();
 		mainPanel.accPanel.setVisible(false);
 		mainPanel.misc.setVisible(false);
 		
 		System.out.println("guestAccountFrame got here");
-		
+		*/
 		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	    AccountData guestAccount = null;
 	    ArrayList<String> friendList = null;
@@ -167,8 +167,8 @@ public class guestAccountFrame extends JFrame{
 	    	// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this
 	    	//e1.printStackTrace();
 	    	mainPanel.header.loadMain();
-			mainPanel.accPanel.setVisible(true);
-			mainPanel.misc.setVisible(true);
+			//mainPanel.accPanel.setVisible(true);
+			//mainPanel.misc.setVisible(true);
 			mainFrame.setEnabled(true);
 	    	System.out.println("sign in failed!");
 	    }	
