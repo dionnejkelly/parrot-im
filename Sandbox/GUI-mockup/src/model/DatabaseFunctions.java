@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.Vector;
 
 public class DatabaseFunctions {
@@ -45,5 +46,33 @@ public class DatabaseFunctions {
 	    }
 	    return accountList;
 	}
-	
+    public void addChat(String fromUser, String toUser, String message) throws SQLException
+    {
+
+    prep = conn.prepareStatement(
+              "insert into chatLog values (?, ?, ?, ?);");
+
+          prep.setString(1, fromUser);
+          prep.setString(2, toUser);
+          prep.setString(3, message);
+          /// remember to make date automatic!!!
+          prep.setString(4, new Date().toString());
+          prep.addBatch();
+         
+          conn.setAutoCommit(false);
+          prep.executeBatch();
+          conn.setAutoCommit(true);
+          conn.close();
+    }
+    public void printChats() throws SQLException, ClassNotFoundException
+    {
+		accountList = new Vector<String>();
+        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        stat = conn.createStatement();
+        ResultSet rs = stat.executeQuery("select * from chatLog;");
+          while (rs.next()) {
+              System.out.println("From = " + rs.getString("fromUser") + ", To = " + rs.getString("toUser") + ", Message = " + rs.getString("message") + ", Date = " + rs.getString("date"));
+          }
+
+    }
 }

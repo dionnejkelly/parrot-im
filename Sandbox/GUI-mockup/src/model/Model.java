@@ -97,9 +97,15 @@ public class Model extends Observable {
         return this.activeConversation;
     }
     
-    public void receiveMessage(AccountData account, MessageData message) {
+    public void receiveMessage(AccountData account, MessageData message) throws SQLException, ClassNotFoundException {
         ConversationData modifiedConversation = null;
         UserData fromUser = message.getFromUser();
+        
+        
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addChat(fromUser.getAccountName(), fromUser.getAccountName(), message.getMessage());
+        db.printChats();
+        
         for (ConversationData c : conversations) {
             if (c.getUser() == fromUser) {
                 modifiedConversation = c;
