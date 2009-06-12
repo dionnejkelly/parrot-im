@@ -118,7 +118,15 @@ public class ChatPanel extends JPanel {
                 fromUser = conversation.getAccount().getOwnUserData();
                 message = new MessageData(fromUser, msg, fontSelect.getSelectedItem().toString(), "4");
                 
-                model.sendMessage(conversation, message);
+                try {
+					model.sendMessage(conversation, message);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 //displayPanel.addMessage(message);
                 try {
                         //for(int i = 0; i < conversations.get(0).getSize(); i++){

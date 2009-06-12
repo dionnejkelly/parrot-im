@@ -130,9 +130,10 @@ public class Model extends Observable {
         return;
     }
     
-    public void sendMessage(ConversationData modifiedConversation, MessageData message) {
+    public void sendMessage(ConversationData modifiedConversation, MessageData message) throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
-        
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addChat(message.getFromUser().getAccountName(), message.getFromUser().getAccountName(), message.getMessage());
         setChanged();
         notifyObservers(UpdatedType.CHAT);  
         return;
