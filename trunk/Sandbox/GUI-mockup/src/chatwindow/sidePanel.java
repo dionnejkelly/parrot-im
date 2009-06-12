@@ -89,6 +89,7 @@ public class sidePanel extends JPanel implements Observer {
                 renderer.setLeafIcon(leafIcon);
                 tree.setCellRenderer(renderer);
             }
+            top.removeAllChildren();
 	        for (ConversationData cd : model.getConversations()) {
 	                DefaultMutableTreeNode con = new DefaultMutableTreeNode("New Conversation");
 	                top.add(con);
