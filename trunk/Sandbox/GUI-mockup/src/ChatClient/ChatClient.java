@@ -1,5 +1,6 @@
 package ChatClient;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import org.jivesoftware.smack.Chat;
@@ -364,7 +365,15 @@ public class ChatClient {
                     /* Display first message bug FIX */
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
-                    model.receiveMessage(user.getFriendOf(), m);
+                    try {
+						model.receiveMessage(user.getFriendOf(), m);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                     
           
                    
@@ -372,7 +381,15 @@ public class ChatClient {
                     //tempID = "";
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
-                    model.receiveMessage(user.getFriendOf(), m);
+                    try {
+						model.receiveMessage(user.getFriendOf(), m);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                
                     
                     
