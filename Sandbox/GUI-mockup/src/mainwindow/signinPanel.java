@@ -164,9 +164,9 @@ public class signinPanel extends JPanel {
 		        username,
 		        model.getPassword(username));
 		model.createCurrentProfile(account, "tempName");
-		System.out.println("signinPanel : before login");
+		//System.out.println("signinPanel : before login");
 		core.login(account);
-		System.out.println("signinPanel : after login");
+		//System.out.println("signinPanel : after login");
 		        
 		/* Populate the buddy list */
 		if (account.getServer() == ServerType.GOOGLE_TALK) {
