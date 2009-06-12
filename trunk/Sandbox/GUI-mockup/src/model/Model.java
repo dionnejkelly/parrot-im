@@ -32,8 +32,7 @@ public class Model extends Observable {
     private ArrayList<ConversationData> conversations; 
     private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
-    
-
+    public boolean chatWindowOpen;
 	
     public Model() throws ClassNotFoundException, SQLException {
         currentProfile = new CurrentProfileData();

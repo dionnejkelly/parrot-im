@@ -43,6 +43,8 @@ public class buddyPanel extends JPanel implements Observer
 		this.chat = null;
 		buddies = null;
 		
+		model.chatWindowOpen = false;
+		
 		friendList = new JPanel();
 		friendList.setBackground(Color.WHITE);
 		friendList.setLayout(new BorderLayout());
@@ -83,7 +85,7 @@ public class buddyPanel extends JPanel implements Observer
 		JScrollPane scroller = new JScrollPane(friendList);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		options = OptionsBar();
-        
+		
         add(scroller, BorderLayout.CENTER);
         add(options, BorderLayout.SOUTH);
 	}
@@ -149,20 +151,18 @@ public class buddyPanel extends JPanel implements Observer
 						/* Fix this to directly reference the GUI */
 						selectedFriend = buddies.get(i);
 						if(event.getClickCount() == 2){
-						        
+						       
 						        /* Is the chat window already open? */
-							if (model.numberOfConversations() < 1) {
+							if (model.chatWindowOpen == false) {
 							    model.startConversation(selectedFriend.getFriendOf(),
 							            selectedFriend);
 							    chat = new chatwindow(c, model);
-							    
+							    model.chatWindowOpen = true;
 							}
 							else {
 							    model.startConversation(selectedFriend.getFriendOf(),
-                                                                    selectedFriend);
-                                                            
+                                                                    selectedFriend);                   
 							}
-						        
 						}
 					}else if(event.getSource().equals(boxes[0].getComponent(i))){
 
