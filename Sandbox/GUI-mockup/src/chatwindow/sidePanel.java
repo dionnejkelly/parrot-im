@@ -49,17 +49,12 @@ public class sidePanel extends JPanel implements Observer {
         	//original Tutorial
         	//DefaultMutableTreeNode person1 = new DefaultMutableTreeNode(c.getUserName().replace("@gmail.com", ""));
         	//DefaultMutableTreeNode person2 = new DefaultMutableTreeNode(conversations.get(0).getName(1).replace("@gmail.com", ""));
-        	DefaultMutableTreeNode con1 = new DefaultMutableTreeNode("Conversation 1");
+        	DefaultMutableTreeNode con1 = new DefaultMutableTreeNode("Conversation");
         	top.add(con1);
         	person1 = new DefaultMutableTreeNode(cd.getAccount().getAccountName());
         	person2 = new DefaultMutableTreeNode(cd.getUser().getNickname());
         	con1.add(person1);
         	con1.add(person2);
-        	
-        	DefaultMutableTreeNode con2 = new DefaultMutableTreeNode("Conversation 2");
-        	top.add(con2);
-        	con2.add(new DefaultMutableTreeNode("test"));
-        	con2.add(new DefaultMutableTreeNode("test1"));
         	
         	tree.expandRow(0);
         	tree.expandRow(1);
@@ -91,7 +86,7 @@ public class sidePanel extends JPanel implements Observer {
             }
             top.removeAllChildren();
 	        for (ConversationData cd : model.getConversations()) {
-	                DefaultMutableTreeNode con = new DefaultMutableTreeNode("New Conversation");
+	                DefaultMutableTreeNode con = new DefaultMutableTreeNode("Conversation");
 	                top.add(con);
 	            	con.add(new DefaultMutableTreeNode(cd.getAccount().getAccountName()));
 	            	con.add(new DefaultMutableTreeNode(cd.getUser().getNickname()));
