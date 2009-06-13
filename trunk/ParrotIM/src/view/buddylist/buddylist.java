@@ -6,7 +6,8 @@ import java.util.Observer;
 
 import javax.swing.*;
 
-import ChatClient.ChatClient;
+import controller.services.ChatClient;
+
 import model.Model;
 
 public class buddylist extends JFrame{

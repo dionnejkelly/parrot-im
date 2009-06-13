@@ -4,10 +4,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controller.services.ChatClient;
+
 import view.styles.chatWindowListener;
 
 import model.Model;
-import ChatClient.ChatClient;
 
 public class chatwindow extends JFrame{
 	//private ArrayList<Conversation> conversations;

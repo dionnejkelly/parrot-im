@@ -13,9 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import controller.services.ChatClient;
+
 import view.styles.pmLabel;
 
-import ChatClient.ChatClient;
 
 public class accInfo extends JPanel
 {

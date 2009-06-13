@@ -21,9 +21,10 @@ import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
+import controller.services.ChatClient;
+
 import view.styles.linkLabel;
 
-import ChatClient.ChatClient;
 import view.buddylist.buddylist;
 
 

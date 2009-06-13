@@ -9,7 +9,8 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import ChatClient.ChatClient;
+import controller.services.ChatClient;
+
 
 public class pmLabel extends JTextField {
 	protected ChatClient core;

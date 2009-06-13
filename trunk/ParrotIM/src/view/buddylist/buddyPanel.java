@@ -22,13 +22,14 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
+import controller.services.ChatClient;
+
 import view.chatwindow.chatwindow;
 
 import model.Model;
 import model.dataType.ConversationData;
 import model.dataType.UpdatedType;
 import model.dataType.UserData;
-import ChatClient.ChatClient;
 
 public class buddyPanel extends JPanel implements Observer
 {
