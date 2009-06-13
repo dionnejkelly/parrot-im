@@ -2,6 +2,7 @@ package view.mainwindow;
 //TODO: set so that when the popup window (manage account and guest account popups) 
 //is closed using the close button, mainFrame is set to enable.
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -69,11 +70,11 @@ public class signinPanel extends JPanel {
 		
 		//list of accounts
 		account_select = new JComboBox (model.getAccountList());
-		account_select.setAlignmentY(JComboBox.CENTER_ALIGNMENT);
+		account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
 		//connect button
 		JPanel connectPanel = new JPanel();
 		JButton connectButton = new JButton("Sign In");
-		connectButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		connectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		connectPanel.add(connectButton);
 		connectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -99,7 +100,8 @@ public class signinPanel extends JPanel {
 		//manage account
 		manageAccount = new linkLabel ("Add/Manage Account"); 
 		manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            @Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
             	mainFrame.setEnabled(false);
             	try {
 					manageAccountFrame popup = new manageAccountFrame(model, mainFrame);
@@ -116,7 +118,8 @@ public class signinPanel extends JPanel {
 		//guest account
 		guestAccount = new linkLabel ("Connect Guest Account"); 
 		guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            @Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
             	mainFrame.setEnabled(false);
                 new guestAccountFrame(model, core, mainFrame, signin);
             }

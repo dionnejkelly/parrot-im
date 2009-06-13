@@ -1,12 +1,8 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.jivesoftware.smack.XMPPConnection;
-
 import controller.services.ChatClient;
 
-import view.buddylist.buddylist;
-import view.chatwindow.chatwindow;
 import view.mainwindow.mainwindow;
 import model.Model;
 
@@ -43,7 +39,7 @@ public class ParrotIM {
 			
         	try {
 
-        		t.sleep(50000);
+        		Thread.sleep(50000);
         	}
         	catch (InterruptedException e) {
         	

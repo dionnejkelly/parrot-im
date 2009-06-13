@@ -3,6 +3,7 @@ package view.mainwindow;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.image.ImageObserver;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,8 +26,9 @@ public class miscPanel extends JPanel{
 		
 		//manage account
 		linkLabel options = new linkLabel ("Options");
-		options.setPreferredSize(new Dimension(30,options.HEIGHT));
+		options.setPreferredSize(new Dimension(30,ImageObserver.HEIGHT));
 		options.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				options_MouseClicked(evt);
             }
@@ -35,7 +37,8 @@ public class miscPanel extends JPanel{
 		//guest account
 		linkLabel help = new linkLabel ("Help");
 		help.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            @Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
             	help_MouseClicked(evt);
             }
         });
