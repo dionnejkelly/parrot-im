@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import org.jivesoftware.smack.XMPPConnection;
 
 import ChatClient.ChatClient;
-import buddylist.buddylist;
-import chatwindow.chatwindow;
-import mainwindow.mainwindow;
+import view.buddylist.buddylist;
+import view.chatwindow.chatwindow;
+import view.mainwindow.mainwindow;
 import model.Model;
 
 public class ParrotIM {
