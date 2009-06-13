@@ -3,7 +3,8 @@ import java.util.ArrayList;
 
 import org.jivesoftware.smack.XMPPConnection;
 
-import ChatClient.ChatClient;
+import controller.services.ChatClient;
+
 import view.buddylist.buddylist;
 import view.chatwindow.chatwindow;
 import view.mainwindow.mainwindow;

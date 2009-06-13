@@ -1,4 +1,4 @@
-package ChatClient;
+package controller.services;
 
 import java.sql.SQLException;
 import java.util.*;

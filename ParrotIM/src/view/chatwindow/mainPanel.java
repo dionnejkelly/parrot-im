@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import ChatClient.ChatClient;
+import controller.services.ChatClient;
+
 import model.Model;
 
 public class mainPanel extends JPanel {

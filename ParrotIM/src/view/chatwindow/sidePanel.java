@@ -7,10 +7,11 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import controller.services.ChatClient;
+
 import model.*;
 import model.dataType.ConversationData;
 import model.dataType.UpdatedType;
-import ChatClient.ChatClient;
 import java.util.*;
 
 public class sidePanel extends JPanel implements Observer {

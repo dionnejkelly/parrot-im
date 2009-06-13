@@ -7,7 +7,8 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import ChatClient.ChatClient;
+import controller.services.ChatClient;
+
 
 import model.*;
 import model.dataType.CurrentProfileData;

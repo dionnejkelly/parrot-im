@@ -23,9 +23,10 @@ import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
+import controller.services.ChatClient;
+
 import view.buddylist.buddylist;
 import view.styles.popupWindowListener;
-import ChatClient.ChatClient;
 
 
 public class guestAccountFrame extends JFrame{
