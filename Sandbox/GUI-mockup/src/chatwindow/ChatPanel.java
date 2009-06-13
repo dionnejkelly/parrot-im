@@ -107,7 +107,7 @@ public class ChatPanel extends JPanel {
 		add(sPane, BorderLayout.CENTER);	
 	}
 	
-	private class SendButtonPressed implements ActionListener {
+	public class SendButtonPressed implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 MessageData message = null;
                 ConversationData conversation = null;

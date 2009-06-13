@@ -2,13 +2,6 @@ package styles;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
-import javax.swing.JFrame;
-
-import mainwindow.guestAccountFrame;
-import mainwindow.mainwindow;
-import mainwindow.manageAccountFrame;
-
 import model.*;
 
 public class chatWindowListener implements WindowListener {
