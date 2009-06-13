@@ -17,11 +17,10 @@ public class pmLabel extends JTextField {
 	
 	public pmLabel (ChatClient c){
 		core = c;
-		this.setHorizontalAlignment(JTextField.CENTER);
+		//this.setHorizontalAlignment(JTextField.CENTER);
 		changePM(false);
 
 		this.setToolTipText("Click to edit your personal message");
-		this.setPreferredSize(new Dimension (200,20));
 		this.addMouseListener(new labelMouseListener(this));
 		this.addKeyListener(new labelKeyListener(this));
 	}

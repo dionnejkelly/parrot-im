@@ -40,7 +40,8 @@ public class accInfo extends JPanel
 		
 		//name and status
 		JPanel info = new JPanel();
-		info.setBorder(BorderFactory.createEmptyBorder(15,25,25,25));
+		info.setLayout(new GridLayout(2,1));
+		info.setBorder(BorderFactory.createEmptyBorder(15,15,25,5));
 		info.setBackground(Color.DARK_GRAY);
 		
 		JLabel name = new JLabel(c.getUserName());
