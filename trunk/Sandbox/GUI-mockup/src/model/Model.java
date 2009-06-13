@@ -140,8 +140,28 @@ public class Model extends Observable {
     }
     
     public ConversationData startConversation(AccountData account, UserData user) {
+    	//account = local user (eg. cmpt275testing@gmail.com)
+    	//user = buddy
         ConversationData conversation = new ConversationData(account, user);
-        this.conversations.add(conversation);
+        System.out.println("account: "+account.getAccountName()+" user:"+user.toString());
+        String user_address = user.toString();
+        
+        //check if the conversation exists
+        boolean conversation_found = false;
+        int conv;
+        for(conv = 0; conv < conversations.size(); conv++){
+        	if (conversations.get(conv).getUser().toString().compareTo(user_address)==0){ 
+        		conversation_found = true;
+        		break; //if conversation found, exit loop
+        	}
+        }
+        
+        if (!conversation_found){//if conversation is not found, then add
+        	this.conversations.add(conversation);
+        } else{ //if found, replace conversation with the found one
+        	conversation = conversations.get(conv);
+        }
+        
         this.activeConversation = conversation;
         
         setChanged();

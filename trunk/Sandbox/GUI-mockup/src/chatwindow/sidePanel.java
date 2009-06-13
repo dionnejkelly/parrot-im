@@ -34,7 +34,6 @@ public class sidePanel extends JPanel implements Observer {
 	        top = new DefaultMutableTreeNode("Root");
 	        tree = new JTree(top);
         	
-	        //top.getChildAt(0).getChildAt(0).toString(); --> check this VERA
         	refreshTree();
 	    }
 	    this.add(tree, BorderLayout.CENTER);
