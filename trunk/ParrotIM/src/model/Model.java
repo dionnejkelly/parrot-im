@@ -23,6 +23,14 @@ package model;
 import java.util.*;
 import java.sql.*;
 
+import model.dataType.AccountData;
+import model.dataType.ConversationData;
+import model.dataType.CurrentProfileData;
+import model.dataType.MessageData;
+import model.dataType.ServerType;
+import model.dataType.UpdatedType;
+import model.dataType.UserData;
+
 /**
  * The model stores all data and provides it for the view and 
  * controllers.

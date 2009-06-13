@@ -1,6 +1,7 @@
-package model;
+package model.dataType;
 
 import java.util.*;
+
 
 /**
  * Holds the account information of the current account being used,

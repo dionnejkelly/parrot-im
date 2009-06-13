@@ -22,6 +22,10 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
 
 import model.*;
+import model.dataType.AccountData;
+import model.dataType.MessageData;
+import model.dataType.ServerType;
+import model.dataType.UserData;
 
 /**
  * Handles all connections involving XMPP protocol. 

@@ -1,4 +1,4 @@
-package model;
+package model.dataType;
 
 public enum UpdatedType {
     ALL,

@@ -14,10 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import model.AccountData;
-import model.GoogleTalkUserData;
 import model.Model;
-import model.ServerType;
+import model.dataType.AccountData;
+import model.dataType.GoogleTalkUserData;
+import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 

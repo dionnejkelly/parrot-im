@@ -2,6 +2,7 @@ package view.chatwindow;
 import java.awt.*;
 import java.util.*;
 import model.*;
+import model.dataType.UpdatedType;
 
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;

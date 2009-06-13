@@ -1,4 +1,5 @@
-package model;
+package model.dataType;
+
 
 public class GoogleTalkUserData extends UserData {
     private boolean online;

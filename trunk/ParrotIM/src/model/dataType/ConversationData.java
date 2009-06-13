@@ -1,6 +1,7 @@
-package model;
+package model.dataType;
 
 import java.util.ArrayList;
+
 
 /**
  * Holds all information represented in a conversation.

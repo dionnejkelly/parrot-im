@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import ChatClient.ChatClient;
 
 import model.*;
+import model.dataType.CurrentProfileData;
+import model.dataType.UpdatedType;
 
 public class mainwindow extends JFrame implements Observer {
 

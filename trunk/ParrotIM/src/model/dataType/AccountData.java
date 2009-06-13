@@ -1,6 +1,7 @@
-package model;
+package model.dataType;
 
 import java.util.ArrayList;
+
 
 /**
  * Holds username, password, and account type. Info is used in user profiles

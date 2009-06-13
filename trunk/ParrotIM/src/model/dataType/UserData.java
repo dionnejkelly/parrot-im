@@ -1,4 +1,5 @@
-package model;
+package model.dataType;
+
 
 /**
  * Holds all data pertaining to users, including the account name,

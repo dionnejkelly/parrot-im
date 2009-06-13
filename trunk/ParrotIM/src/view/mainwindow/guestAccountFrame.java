@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import model.AccountData;
-import model.GoogleTalkUserData;
 import model.Model;
-import model.ServerType;
+import model.dataType.AccountData;
+import model.dataType.GoogleTalkUserData;
+import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
