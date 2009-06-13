@@ -10,7 +10,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jivesoftware.smack.XMPPException;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import model.*;
 import model.dataType.ConversationData;
@@ -25,11 +25,11 @@ public class ChatPanel extends JPanel {
 	Model model;
 	JTextArea txt1;
 	DisplayPanel displayPanel;
-	ChatClient c;
+	Xmpp c;
 	
 	//public ChatPanel(final ArrayList<Conversation> conversations, 
 	//		         final ChatClient c, Model model) {
-	public ChatPanel(ChatClient c, Model model) {
+	public ChatPanel(Xmpp c, Model model) {
 	    
 		setLayout(new BorderLayout());
 		

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import model.Model;
 
@@ -15,7 +15,7 @@ public class mainPanel extends JPanel {
 	//public mainPanel(ArrayList<Conversation> conversations, ChatClient c,
 	//		         Model model) {
 	
-	public mainPanel(ChatClient c, Model model) {
+	public mainPanel(Xmpp c, Model model) {
                    
 		setLayout(new BorderLayout());
 		

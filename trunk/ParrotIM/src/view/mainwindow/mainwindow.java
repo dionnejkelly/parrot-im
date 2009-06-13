@@ -7,7 +7,7 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 
 import model.*;
@@ -16,7 +16,7 @@ import model.dataType.UpdatedType;
 
 public class mainwindow extends JFrame implements Observer {
 
-	public mainwindow (ChatClient chatClient, Model model) throws ClassNotFoundException, SQLException{
+	public mainwindow (Xmpp chatClient, Model model) throws ClassNotFoundException, SQLException{
 
 		//set Main Window Frame
 		setTitle("Parrot-IM");

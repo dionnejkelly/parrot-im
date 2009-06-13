@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import view.chatwindow.chatwindow;
 
@@ -45,12 +45,12 @@ public class buddyPanel extends JPanel implements Observer
 	JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
 	Box boxes[] = new Box[1];
 	String selectedName;
-	ChatClient c;
+	Xmpp c;
 	Model model;
 	ArrayList<UserData> buddies;
 	UserData selectedFriend;
 	
-	public buddyPanel(ChatClient c, Model model)
+	public buddyPanel(Xmpp c, Model model)
 	{
 		model.addObserver(this);
 	        setLayout(new BorderLayout());

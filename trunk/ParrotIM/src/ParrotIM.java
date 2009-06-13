@@ -1,7 +1,7 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import view.mainwindow.mainwindow;
 import model.Model;
@@ -10,7 +10,7 @@ public class ParrotIM {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Model model = new Model();
-		ChatClient chatClient = new ChatClient(model);
+		Xmpp chatClient = new Xmpp(model);
 		mainwindow mainWindow = new mainwindow(chatClient, model);
 		//buddylist b = new buddylist();
 		//chatwindow chat = new chatwindow();

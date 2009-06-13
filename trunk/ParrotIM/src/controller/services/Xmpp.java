@@ -30,7 +30,7 @@ import model.dataType.UserData;
 /**
  * Handles all connections involving XMPP protocol. 
  */
-public class ChatClient {
+public class Xmpp {
     
     /**
      * The connection to the XMPP server.
@@ -65,7 +65,7 @@ public class ChatClient {
     
     
     
-    public ChatClient(Model model){
+    public Xmpp(Model model){
         this.model = model;
         this.roster = null;
         this.chatManager = null;

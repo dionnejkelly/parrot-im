@@ -9,13 +9,13 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 
 public class pmLabel extends JTextField {
-	protected ChatClient core;
+	protected Xmpp core;
 	
-	public pmLabel (ChatClient c){
+	public pmLabel (Xmpp c){
 		core = c;
 		//this.setHorizontalAlignment(JTextField.CENTER);
 		changePM(false);
