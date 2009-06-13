@@ -41,7 +41,7 @@ public class accInfo extends JPanel
 		setLayout(new BorderLayout());
 		
 		//avatar
-		avatar = new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png");
+		avatar = new ImageIcon(System.getProperty("user.dir") + "/images/mainwindow/logo.png");
 		avatarDisplay = new JLabel();
 		avatarDisplay.setIcon(avatar);
 		
