@@ -32,6 +32,7 @@ public class buddyPanel extends JPanel implements Observer
 	ArrayList<UserData> buddies;
 	UserData selectedFriend;
 	
+	
 	public buddyPanel(ChatClient c, Model model)
 	{
 		model.addObserver(this);
@@ -106,7 +107,28 @@ public class buddyPanel extends JPanel implements Observer
         options.add(search);
         options.add(searchButton);
         
+        addF.addMouseListener(new addFriendListener());
+        
         return options;
+	}
+	
+	class addFriendListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent event) {
+	        System.out.println("Add Friend Clicked");
+	        String userFriendID, userInput;
+	        String result = "Argh, one person will be invited to your Parrot IM Buddy List.";
+	        
+	       
+	        userFriendID = JOptionPane.showInputDialog("Enter an email address: ");
+	        JOptionPane.showMessageDialog(null, result);
+	        
+	        System.out.println("User Input = " + userFriendID);
+	        c.addFriend(userFriendID);
+	        
+	        
+	        	
+	     
+	    }
 	}
 	
 	public JPanel FriendItem(UserData user){

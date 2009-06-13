@@ -52,14 +52,21 @@ public class ChatClient {
     
     private ArrayList<Chat> chats;
     
-   // private String tempID;
+    private String tempID;
 
     private UserData user = null;
     private MessageData m = null;
     private Chat chat = null;
     
-    
-    
+    public void addFriend(String userID) {
+		Roster roster = connection.getRoster();
+		try {
+			roster.createEntry(userID, userID, null);
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
     public ChatClient(Model model){
         this.model = model;
@@ -172,6 +179,7 @@ public class ChatClient {
                 }
         }
         
+       
         
        
         public ArrayList<String> getBuddyList()
@@ -316,12 +324,20 @@ public class ChatClient {
 //                (!message.getThread().equals(tempID))) {
 //                user = model.findUserByAccountName(chat.getParticipant());
 //                m = new MessageData(user, message.getBody(), "font", "4");
-//                model.receiveMessage(user.getFriendOf(), m);
+//                try {
+//					model.receiveMessage(user.getFriendOf(), m);
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (ClassNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 //                
 //                System.out.println("This should be printed!!!!");
 // 
 //            }
-//                    
+                    
             return;
         }
     }
@@ -329,6 +345,7 @@ public class ChatClient {
     private class MessagePacketFilter implements PacketFilter {
         public boolean accept(Packet packet) {
             System.out.println(packet);
+            
             return (packet instanceof Message);
         }
     }
@@ -341,8 +358,7 @@ public class ChatClient {
             boolean chatExists = false;
             Message message = (Message) packet;
             String bareAddress = StringUtils.parseBareAddress(message.getFrom());
-            
-            
+       
             if (message.getType() == Message.Type.normal ||
                 message.getType() == Message.Type.chat) {
                 for (Chat c : chats) {
@@ -350,6 +366,7 @@ public class ChatClient {
                     //System.out.println(bareAddress);
                     if (c.getParticipant().equalsIgnoreCase(bareAddress)) {
                         chatExists = true;
+                        chat = c;
                         break;
                     }
                 }
@@ -359,7 +376,7 @@ public class ChatClient {
                     chat = connection.getChatManager().createChat(bareAddress, 
                             new MsgListener());
                     chats.add(chat);
-                    //tempID = chat.getThreadID();
+                    tempID = chat.getThreadID();
                     
                     
                     /* Display first message bug FIX */
@@ -378,7 +395,7 @@ public class ChatClient {
           
                    
                 } else {
-                    //tempID = "";
+                    tempID = "";
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
                     try {
