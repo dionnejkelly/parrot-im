@@ -109,9 +109,18 @@ public class buddyPanel extends JPanel implements Observer
         options.add(searchButton);
         
         addF.addMouseListener(new addFriendListener());
-        //removeF.addMouseListener(new removeFriendListener());
+        removeF.addMouseListener(new removeFriendListener());
         
         return options;
+	}
+	
+	class removeFriendListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent event) {
+	    	 System.out.println("Remove this user from the button = " + selectedFriend.toString());
+	            
+	         c.removeFriend(selectedFriend.toString());
+	    	
+	    }
 	}
 	
 	class addFriendListener extends MouseAdapter {
@@ -180,6 +189,7 @@ public class buddyPanel extends JPanel implements Observer
 						
 						//Left Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
+						
 						/* Fix this to directly reference the GUI */
 						selectedFriend = buddies.get(i);
 						if(event.getClickCount() == 2){
@@ -233,7 +243,7 @@ public class buddyPanel extends JPanel implements Observer
 	    public void mousePressed(MouseEvent event) {
 	        
             
-            System.out.println("Remove this user = " + selectedFriend.toString());
+            System.out.println("Remove this user from the buddy list = " + selectedFriend.toString());
             
             c.removeFriend(selectedFriend.toString());
                  
