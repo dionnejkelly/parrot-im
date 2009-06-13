@@ -73,6 +73,7 @@ public class buddyPanel extends JPanel implements Observer
 		
 		menuItem1.addMouseListener(new RightCickMenuListener());
 		menuItem2.addMouseListener(new RightCickMenuListener());
+		menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
 		
 		rightClickMenu.add(menuItem1);
 		rightClickMenu.add(menuItem2);
@@ -108,6 +109,7 @@ public class buddyPanel extends JPanel implements Observer
         options.add(searchButton);
         
         addF.addMouseListener(new addFriendListener());
+        //removeF.addMouseListener(new removeFriendListener());
         
         return options;
 	}
@@ -117,19 +119,27 @@ public class buddyPanel extends JPanel implements Observer
 	        System.out.println("Add Friend Clicked");
 	        String userFriendID, userInput;
 	        String result = "Argh, one person will be invited to your Parrot IM Buddy List.";
+	
 	        
-	       
+	        // not able to cancel it for now
+	        
 	        userFriendID = JOptionPane.showInputDialog("Enter an email address: ");
+
 	        JOptionPane.showMessageDialog(null, result);
-	        
+			        
 	        System.out.println("User Input = " + userFriendID);
 	        c.addFriend(userFriendID);
-	        
-	        
+	    		
+			
 	        	
+	       
+	    	
+  	
 	     
 	    }
 	}
+	
+	
 	
 	public JPanel FriendItem(UserData user){
 		JPanel friendItem = new JPanel();
@@ -216,6 +226,22 @@ public class buddyPanel extends JPanel implements Observer
 		
 		public void mousePressed(MouseEvent e) {}
 		public void mouseReleased(MouseEvent e) {}
+	}
+	
+	
+	class RightClickMenuRemoveFriendListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent event) {
+	        
+            
+            System.out.println("Remove this user = " + selectedFriend.toString());
+            
+            c.removeFriend(selectedFriend.toString());
+                 
+                   
+                    
+                    
+	    	
+	    }
 	}
 	
 	class RightCickMenuListener extends MouseAdapter {
