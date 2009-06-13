@@ -58,6 +58,26 @@ public class ChatClient {
     private MessageData m = null;
     private Chat chat = null;
     
+    public void removeFriend(String userID) {
+		Roster roster = connection.getRoster();
+		
+		
+		Collection<RosterEntry> entries = roster.getEntries();
+		Iterator i = entries.iterator();
+		
+		 while(i.hasNext()){
+	            RosterEntry nextEntry = ((RosterEntry)i.next());
+	            //remove entries
+	            if(nextEntry.getUser().equals(userID))
+	                try {
+	                    roster.removeEntry(nextEntry);
+	                } catch (XMPPException e) {
+	                    e.printStackTrace();
+ 
+	                }
+	        }   
+	}
+    
     public void addFriend(String userID) {
 		Roster roster = connection.getRoster();
 		try {
