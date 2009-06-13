@@ -24,7 +24,7 @@ public class main {
 		 */
                 
 		//XMPPConnection.DEBUG_ENABLED = true;
-		
+		/*
 		Thread t = new Thread();
 		while (true) {
 			
@@ -53,6 +53,7 @@ public class main {
         	
         	}
 		}
+		*/
 	}
 	
 
