@@ -59,10 +59,10 @@ public class ChatPanel extends JPanel {
 		sendButton.addActionListener(new SendButtonPressed());
 		//displayPanel.addMessage(incoming messages); //TODO
 		
-		JButton boldButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/bold.png"));
-		JButton italicsButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/italics.png"));
-		JButton underlineButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/underLine.png"));
-		JButton colorButton = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/colorscm.png"));
+		JButton boldButton = new JButton(new ImageIcon("images/chatwindow/bold.png"));
+		JButton italicsButton = new JButton(new ImageIcon("images/chatwindow/italics.png"));
+		JButton underlineButton = new JButton(new ImageIcon("images/chatwindow/underLine.png"));
+		JButton colorButton = new JButton(new ImageIcon("images/chatwindow/colorscm.png"));
 		colorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
             	JFrame colorFrame = new JFrame("Color chooser");
@@ -77,8 +77,8 @@ public class ChatPanel extends JPanel {
             	colorFrame.setVisible(true);
             }
 		});
-		JButton emoticons = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/emote.png"));
-		JButton pic = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/pic.png"));
+		JButton emoticons = new JButton(new ImageIcon("images/chatwindow/emote.png"));
+		JButton pic = new JButton(new ImageIcon("images/chatwindow/pic.png"));
 		
 		JToolBar bar1 = new JToolBar();
 		bar1.add(fontSelect);

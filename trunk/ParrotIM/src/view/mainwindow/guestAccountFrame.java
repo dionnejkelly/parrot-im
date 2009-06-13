@@ -54,7 +54,7 @@ public class guestAccountFrame extends JFrame{
 		setPreferredSize(new Dimension (400,250));
 		setLocation(100, 100);
 		setResizable(false);
-		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/image/mainwindow/logo.png").getImage());
+		setIconImage(new ImageIcon("imagesimage/mainwindow/logo.png").getImage());
 
 		//select server
 		server = new JComboBox (model.getServerListv2());

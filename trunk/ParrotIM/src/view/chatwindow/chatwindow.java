@@ -22,7 +22,7 @@ public class chatwindow extends JFrame{
 		
 
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/src/mainwindow/logo.png").getImage());
+		setIconImage(new ImageIcon("images/mainwindow/logo.png").getImage());
 		
 		this.addWindowListener(new chatWindowListener(this.model));
 		

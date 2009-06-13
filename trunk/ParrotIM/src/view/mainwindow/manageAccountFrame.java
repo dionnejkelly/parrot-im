@@ -62,7 +62,7 @@ public class manageAccountFrame extends JFrame
 		setLocation(100, 100);
 		setPreferredSize(new Dimension(500,300));
 		setResizable(false);
-		setIconImage(new ImageIcon(System.getProperty("user.dir") + "/images/mainwindow/logo.png").getImage());
+		setIconImage(new ImageIcon("imagesimages/mainwindow/logo.png").getImage());
 
 		//set main panel
 		accMANPanel = new JPanel ();
