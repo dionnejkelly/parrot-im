@@ -42,7 +42,8 @@ public class MessageData {
         return plainText;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return text();
     }
 }

@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import model.Model;
 import model.dataType.AccountData;
@@ -51,7 +52,7 @@ public class guestAccountFrame extends JFrame{
 		
 		//set Frame
 		setTitle("Guest Account Login");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setPreferredSize(new Dimension (400,250));
 		setLocation(100, 100);
 		setResizable(false);

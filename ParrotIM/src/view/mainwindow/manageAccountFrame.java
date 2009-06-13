@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.WindowConstants;
 
 import view.styles.popupWindowListener;
 
@@ -53,7 +54,7 @@ public class manageAccountFrame extends JFrame
 	
 	protected manageAccountFrame (Model model, mainwindow frame) throws ClassNotFoundException, SQLException{
 		popup = this;
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.model = model;
 		mainFrame = frame;
 		this.addWindowListener(new popupWindowListener(mainFrame, this));

@@ -48,7 +48,8 @@ public class CurrentProfileData {
         return profileName;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return profileName;
     }
     

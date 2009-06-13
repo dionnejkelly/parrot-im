@@ -52,7 +52,8 @@ public abstract class UserData {
 	return status;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return nickname;
     }
     

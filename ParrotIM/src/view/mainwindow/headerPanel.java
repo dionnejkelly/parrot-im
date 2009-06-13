@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class headerPanel extends JPanel{
 	protected JLabel avatarDisplay;
@@ -18,13 +19,13 @@ public class headerPanel extends JPanel{
 		
 		//logo-avatar
 		avatarDisplay = new JLabel ();
-		avatarDisplay.setHorizontalAlignment(JLabel.CENTER);
+		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		avatar = new ImageIcon (getcwd() + "/images/mainwindow/fb.jpg");
 	
 		//TODO: set auto scaling + border later
 		avatarDisplay.setIcon(avatar);
 		
-		status = new JLabel("Not signed in", JLabel.CENTER);
+		status = new JLabel("Not signed in", SwingConstants.CENTER);
 		status.setBorder(BorderFactory.createEmptyBorder(15,0,0,0));
 		
 		//add to panel

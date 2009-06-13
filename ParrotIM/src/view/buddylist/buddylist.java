@@ -2,8 +2,6 @@ package view.buddylist;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Observer;
-
 import javax.swing.*;
 
 import controller.services.ChatClient;

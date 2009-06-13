@@ -25,6 +25,7 @@ public class Buddy{
 	{
 		return this.channel;
 	}
+	@Override
 	public String toString(){
 		return username;
 		

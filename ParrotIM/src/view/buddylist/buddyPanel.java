@@ -162,7 +162,7 @@ public class buddyPanel extends JPanel implements Observer
 			//FriendItems
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
 				if(event.getSource().equals(boxes[0].getComponent(i))){
-					if(event.getButton() == event.BUTTON1){
+					if(event.getButton() == MouseEvent.BUTTON1){
 						
 						//Left Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
@@ -215,7 +215,8 @@ public class buddyPanel extends JPanel implements Observer
 	}
 	
 	class RightCickMenuListener extends MouseAdapter {
-	    public void mousePressed(MouseEvent event) {
+	    @Override
+		public void mousePressed(MouseEvent event) {
 	        ConversationData conversation = null;
 	    	if (event.getSource().equals(menuItem1)) {
                     /* Is the chat window already open? */
