@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import model.Model;
 
 public class buddylist extends JFrame{
 	JMenuBar menu;
 	
-	public buddylist(ChatClient c, Model model)
+	public buddylist(Xmpp c, Model model)
 	{
 		this.setTitle("Buddy List");
 		

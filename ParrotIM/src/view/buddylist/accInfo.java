@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import view.styles.pmLabel;
 
@@ -34,7 +34,7 @@ public class accInfo extends JPanel
 	protected JTextArea textArea;
 	protected String text;
 	
-	public accInfo(ChatClient c) 
+	public accInfo(Xmpp c) 
 	{
 		setBackground(Color.DARK_GRAY);
 		setPreferredSize(new Dimension(300,100));

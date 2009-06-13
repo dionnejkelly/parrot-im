@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import view.styles.chatWindowListener;
 
@@ -16,7 +16,7 @@ public class chatwindow extends JFrame{
 	private Model model;
 	private boolean windowIsOpen;
 	
-	public chatwindow(ChatClient c, Model model)
+	public chatwindow(Xmpp c, Model model)
 	{
 		super("chatWindow Mockup");
 		this.model = model;

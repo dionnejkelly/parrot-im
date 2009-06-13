@@ -22,7 +22,7 @@ import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import view.styles.linkLabel;
 
@@ -30,7 +30,7 @@ import view.buddylist.buddylist;
 
 
 public class signinPanel extends JPanel {
-	protected ChatClient core;
+	protected Xmpp core;
 	private mainwindow mainFrame;
 	private Model model;
 	private JComboBox account_select;
@@ -45,7 +45,7 @@ public class signinPanel extends JPanel {
 	private linkLabel manageAccount;
 	private linkLabel guestAccount;
 	
-	public signinPanel(mainwindow frame, ChatClient chatClient, Model model) throws ClassNotFoundException, SQLException{
+	public signinPanel(mainwindow frame, Xmpp chatClient, Model model) throws ClassNotFoundException, SQLException{
 		mainFrame = frame;
 		core = chatClient;//CORE
 		this.model = model;

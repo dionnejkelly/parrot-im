@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import model.*;
 import model.dataType.ConversationData;
@@ -20,7 +20,7 @@ public class sidePanel extends JPanel implements Observer {
 	private JTree tree;
 	private DefaultMutableTreeNode top;
 	
-	public sidePanel(ChatClient c, Model model) { 
+	public sidePanel(Xmpp c, Model model) { 
 	    this.model = model;
 	    this.model.addObserver(this);
 	    DefaultMutableTreeNode person1 = null;

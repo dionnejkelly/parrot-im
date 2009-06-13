@@ -24,7 +24,7 @@ import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
-import controller.services.ChatClient;
+import controller.services.Xmpp;
 
 import view.buddylist.buddylist;
 import view.styles.popupWindowListener;
@@ -33,7 +33,7 @@ import view.styles.popupWindowListener;
 public class guestAccountFrame extends JFrame{
 	
 	private Model model;
-	private ChatClient core;
+	private Xmpp core;
 	private mainwindow mainFrame;
 	private JFrame popup;
 	private signinPanel mainPanel;
@@ -42,7 +42,7 @@ public class guestAccountFrame extends JFrame{
 	private JPasswordField PwdFieldGuest;
 	private JComboBox server;
 	
-	public guestAccountFrame(Model model, ChatClient c, mainwindow frame, signinPanel signin){
+	public guestAccountFrame(Model model, Xmpp c, mainwindow frame, signinPanel signin){
 		popup=this;
 		this.model = model;
 		core = c;
