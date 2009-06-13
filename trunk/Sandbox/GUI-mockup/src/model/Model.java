@@ -158,7 +158,7 @@ public class Model extends Observable {
         
         if (!conversation_found){//if conversation is not found, then add
         	this.conversations.add(conversation);
-        } else{ //if found, replace conversation with the found one
+        } else{ //if found, replace conversation with the one found
         	conversation = conversations.get(conv);
         }
         
