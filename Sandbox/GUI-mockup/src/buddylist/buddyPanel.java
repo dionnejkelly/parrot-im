@@ -19,6 +19,9 @@ public class buddyPanel extends JPanel implements Observer
 	 * Center: Buddy List
 	 * South: Buddy Options 
 	 */
+	
+	protected SelectListener lastSelectedListener; //selectedIndex of Buddylist
+	protected Object lastSelectedSource;
 	chatwindow chat;
 	JToolBar options;
 	JScrollPane scroller;
@@ -35,6 +38,7 @@ public class buddyPanel extends JPanel implements Observer
 	
 	public buddyPanel(ChatClient c, Model model)
 	{
+		
 		model.addObserver(this);
 	        setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
@@ -138,12 +142,6 @@ public class buddyPanel extends JPanel implements Observer
 			        
 	        System.out.println("User Input = " + userFriendID);
 	        c.addFriend(userFriendID);
-	    		
-			
-	        	
-	       
-	    	
-  	
 	     
 	    }
 	}
@@ -181,11 +179,28 @@ public class buddyPanel extends JPanel implements Observer
 	}
 	
 	private class SelectListener implements MouseListener{
-		public void mouseClicked(MouseEvent event){	
+		protected boolean selected;
+		
+		public SelectListener (){
+			selected = false;
+		}
+		
+		public void mouseClicked(MouseEvent event){
+			if (lastSelectedListener != null){
+				lastSelectedListener.whiteBackground(event);
+			}
+			//check if other buddy is selected
+			/*if (selectedIndex > 0){
+				boxes[0].getComponent(selectedIndex).getMouseListeners()[0].whiteBackground(event);
+			}*/
+			
 			//FriendItems
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
+				
 				if(event.getSource().equals(boxes[0].getComponent(i))){
 					if(event.getButton() == event.BUTTON1){
+						selected = true;
+						lastSelectedListener = this;
 						
 						//Left Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
@@ -193,6 +208,7 @@ public class buddyPanel extends JPanel implements Observer
 						/* Fix this to directly reference the GUI */
 						selectedFriend = buddies.get(i);
 						if(event.getClickCount() == 2){
+						       selected = false;
 						       
 						        /* Is the chat window already open? */
 							if (model.chatWindowOpen == false) {
@@ -207,7 +223,6 @@ public class buddyPanel extends JPanel implements Observer
 							}
 						}
 					}else if(event.getSource().equals(boxes[0].getComponent(i))){
-
 						//Right Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
 						rightClickMenu.show(boxes[0].getComponent(i), event.getX(), event.getY());
@@ -227,8 +242,27 @@ public class buddyPanel extends JPanel implements Observer
 		}
 		
 		public void mouseExited(MouseEvent event) {
+			Color c;
+			if (selected){
+				c = new Color(145, 200, 200);
+				lastSelectedSource = event.getSource();
+			}else{
+				c = Color.WHITE;
+			}
+			
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
 				if(event.getSource().equals(boxes[0].getComponent(i))){
+					boxes[0].getComponent(i).setBackground(c);
+				}
+			}
+			
+			//selected = false;
+		}
+		
+		public void whiteBackground(MouseEvent event){
+			selected = false;
+			for(int i=0; i < boxes[0].getComponentCount(); i++){
+				if(lastSelectedSource.equals(boxes[0].getComponent(i))){
 					boxes[0].getComponent(i).setBackground(Color.WHITE);
 				}
 			}
@@ -241,16 +275,8 @@ public class buddyPanel extends JPanel implements Observer
 	
 	class RightClickMenuRemoveFriendListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent event) {
-	        
-            
             System.out.println("Remove this user from the buddy list = " + selectedFriend.toString());
-            
-            c.removeFriend(selectedFriend.toString());
-                 
-                   
-                    
-                    
-	    	
+            c.removeFriend(selectedFriend.toString());  	
 	    }
 	}
 	
