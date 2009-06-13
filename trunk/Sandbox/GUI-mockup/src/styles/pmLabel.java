@@ -81,7 +81,7 @@ public class pmLabel extends JTextField {
 				/*
 				 * PSEUDOCODE
 				 * if (mouseclicked)
-				 * 	label.setEnabled(false);
+				 * 	label.changePM(false);
 				 */
 			}
 		}
