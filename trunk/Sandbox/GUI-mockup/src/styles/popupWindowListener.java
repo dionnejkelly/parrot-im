@@ -13,15 +13,11 @@ public class popupWindowListener implements WindowListener {
 	mainwindow mainFrame;
 	JFrame popup;
 	
-	public popupWindowListener(mainwindow frame, manageAccountFrame popup){
-		mainFrame = frame;
+	public popupWindowListener(JFrame frame, JFrame popup){
+		mainFrame = (mainwindow)frame;
 		this.popup = popup;
 	}
 	
-	public popupWindowListener(mainwindow frame, guestAccountFrame popup){
-		mainFrame = frame;
-		this.popup = popup;
-	}
 
 	public void windowClosed(WindowEvent e) {
 		mainFrame.setEnabled(true);
