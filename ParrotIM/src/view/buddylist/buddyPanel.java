@@ -24,10 +24,10 @@ import javax.swing.ScrollPaneConstants;
 
 import view.chatwindow.chatwindow;
 
-import model.ConversationData;
 import model.Model;
-import model.UpdatedType;
-import model.UserData;
+import model.dataType.ConversationData;
+import model.dataType.UpdatedType;
+import model.dataType.UserData;
 import ChatClient.ChatClient;
 
 public class buddyPanel extends JPanel implements Observer

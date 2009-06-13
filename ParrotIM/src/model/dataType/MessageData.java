@@ -1,4 +1,5 @@
-package model;
+package model.dataType;
+
 
 public class MessageData {
     private UserData fromUser;

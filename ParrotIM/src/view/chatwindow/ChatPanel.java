@@ -14,6 +14,9 @@ import javax.swing.event.ChangeListener;
 import org.jivesoftware.smack.XMPPException;
 
 import model.*;
+import model.dataType.ConversationData;
+import model.dataType.MessageData;
+import model.dataType.UserData;
 import ChatClient.ChatClient;
 
 public class ChatPanel extends JPanel {
