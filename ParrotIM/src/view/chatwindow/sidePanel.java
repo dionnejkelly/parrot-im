@@ -41,7 +41,7 @@ public class sidePanel extends JPanel implements Observer {
 	
 	private void refreshTree(){
 		//sets Tree Icons
-    	ImageIcon leafIcon = new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/personal.png");
+    	ImageIcon leafIcon = new ImageIcon("images/chatwindow/personal.png");
     	if (leafIcon != null) {
     	    DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
     	    renderer.setLeafIcon(leafIcon);
