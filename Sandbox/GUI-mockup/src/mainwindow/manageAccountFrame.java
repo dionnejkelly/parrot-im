@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -172,7 +173,6 @@ public class manageAccountFrame extends JFrame
 
 		//account setupField setting Panel
 		JPanel setupFieldPanel = new JPanel();
-		//BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
 		GridLayout setupFieldLayout = new GridLayout (3,1);
 		setupFieldLayout.setVgap(5);
 		setupFieldPanel.setLayout(setupFieldLayout);
@@ -197,8 +197,10 @@ public class manageAccountFrame extends JFrame
 		//other Checkboxes setup Panel
 		JPanel otherCheckPanel = new JPanel ();
 		otherCheckPanel.setLayout(new GridLayout (2,1));
-		JCheckBox rememberPWDCheck = new JCheckBox();
-		JCheckBox autoSignCheck = new JCheckBox();
+		final JCheckBox rememberPWDCheck = new JCheckBox();
+		rememberPWDCheck.setMnemonic(KeyEvent.VK_A); 
+		final JCheckBox autoSignCheck = new JCheckBox();
+		rememberPWDCheck.setMnemonic(KeyEvent.VK_B); 
 		otherCheckPanel.add(rememberPWDCheck);
 		otherCheckPanel.add(autoSignCheck);
 
@@ -207,7 +209,7 @@ public class manageAccountFrame extends JFrame
 		JPanel otherLabelPanel = new JPanel ();
 		otherLabelPanel.setLayout(otherLabelLayout);
 		otherLabelLayout.setVgap(7);
-		JLabel rememberPWDLabel = new JLabel("Remember password");
+		JLabel rememberPWDLabel = new JLabel("Remember password"); 
 		JLabel autoSignLabel = new JLabel("Auto Sign-in");
 		otherLabelPanel.add(rememberPWDLabel);
 		otherLabelPanel.add(autoSignLabel);
@@ -237,6 +239,17 @@ public class manageAccountFrame extends JFrame
 					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
+				}
+				
+				/*TODO: Rakan, this is your requested part. 
+				 * 		Just change the System.out.println() 
+				 * 		into whatever function you need
+				 */		
+				if (rememberPWDCheck.isSelected()){
+					System.out.println("Password is remembered");
+				}
+				if (autoSignCheck.isSelected()){
+					System.out.println("User requests auto sign in");
 				}
             }
 		});
