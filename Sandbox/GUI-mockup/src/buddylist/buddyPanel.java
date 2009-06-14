@@ -186,13 +186,9 @@ public class buddyPanel extends JPanel implements Observer
 		}
 		
 		public void mouseClicked(MouseEvent event){
-			if (lastSelectedListener != null){
+			if (lastSelectedListener != null){ //unhighlight the last selected 
 				lastSelectedListener.whiteBackground(event);
 			}
-			//check if other buddy is selected
-			/*if (selectedIndex > 0){
-				boxes[0].getComponent(selectedIndex).getMouseListeners()[0].whiteBackground(event);
-			}*/
 			
 			//FriendItems
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
