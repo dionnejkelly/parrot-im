@@ -153,8 +153,24 @@ public class ChatPanel extends JPanel {
 		//TODO: need to remove the newline
 		
 		public void keyPressed(KeyEvent e) {
+				
+			System.out.println("User Input = " + e.getKeyCode());
 			if (e.getKeyCode()==e.VK_ENTER){
+				e.setKeyCode(e.VK_SHIFT);
 				sendMessage();
+				
+				
+			}
+			
+			// this is non-functional
+			// need some kind of hot key to allow a single line space
+			else if (e.getKeyCode() == e.VK_SHIFT) {
+				
+				if (e.getKeyCode() == e.VK_ENTER) {
+					txt1.setText(txt1.getText() + "\n");
+				}
+				
+			
 			}
 		}
 
