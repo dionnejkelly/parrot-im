@@ -61,9 +61,13 @@ public class ChatPanel extends JPanel {
 		//displayPanel.addMessage(incoming messages); //TODO
 		
 		JButton boldButton = new JButton(new ImageIcon("images/chatwindow/bold.png"));
+		boldButton.setToolTipText("Bold");
 		JButton italicsButton = new JButton(new ImageIcon("images/chatwindow/italics.png"));
+		italicsButton.setToolTipText("Italic");
 		JButton underlineButton = new JButton(new ImageIcon("images/chatwindow/underLine.png"));
+		underlineButton.setToolTipText("Underline");
 		JButton colorButton = new JButton(new ImageIcon("images/chatwindow/colorscm.png"));
+		colorButton.setToolTipText("Change Font Color");
 		colorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
             	JFrame colorFrame = new JFrame("Color chooser");
@@ -79,7 +83,9 @@ public class ChatPanel extends JPanel {
             }
 		});
 		JButton emoticons = new JButton(new ImageIcon("images/chatwindow/emote.png"));
+		emoticons.setToolTipText("Add an Emoticon");
 		JButton pic = new JButton(new ImageIcon("images/chatwindow/pic.png"));
+		pic.setToolTipText("Insert a Picture");
 		
 		JToolBar bar1 = new JToolBar();
 		bar1.add(fontSelect);
