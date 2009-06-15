@@ -6,11 +6,15 @@ import javax.swing.JPanel;
 
 import controller.services.Xmpp;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import view.styles.chatWindowListener;
 
 import model.Model;
+import model.dataType.UpdatedType;
 
-public class chatwindow extends JFrame{
+public class chatwindow extends JFrame implements Observer {
 	//private ArrayList<Conversation> conversations;
 	public JPanel main;
 	private Model model;
@@ -18,7 +22,11 @@ public class chatwindow extends JFrame{
 		
 	public chatwindow(Xmpp c, Model model)
 	{
-		super("chatWindow Mockup");
+	    super("chatWindow Mockup");
+	    model.addObserver(this);
+	    
+	    this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		
 		this.model = model;
 		
 
@@ -43,6 +51,16 @@ public class chatwindow extends JFrame{
 	public boolean getWindowIsOpen(){
 		return this.windowIsOpen;
 	}
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
+            if (!this.isVisible()) {
+                this.setVisible(true);
+            }
+        }
+        return;
+    }
 	
 	
 	

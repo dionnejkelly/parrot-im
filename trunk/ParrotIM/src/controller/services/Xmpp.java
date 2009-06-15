@@ -354,6 +354,7 @@ public class Xmpp {
                     //System.out.println(bareAddress);
                     if (c.getParticipant().equalsIgnoreCase(bareAddress)) {
                         chatExists = true;
+                        chat = c;
                         break;
                     }
                 }

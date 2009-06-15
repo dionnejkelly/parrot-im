@@ -61,7 +61,7 @@ public class mainPanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg == UpdatedType.CHAT) {
+        if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
             ((ChatPanel) this.chat).getDisplayPanel().getTxtPane().setText(
                     model.getActiveConversation().
                     displayMessages());
