@@ -2,26 +2,34 @@ package view.chatwindow;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
 
 import controller.services.Xmpp;
 
-import model.Model;
 
-public class mainPanel extends JPanel {
+import model.Model;
+import model.dataType.UpdatedType;
+
+public class mainPanel extends JPanel implements Observer {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
 	private JPanel side, chat;
+	private Model model;
 	
 	//public mainPanel(ArrayList<Conversation> conversations, ChatClient c,
 	//		         Model model) {
 	
 	public mainPanel(Xmpp c, Model model) {
                    
-		setLayout(new BorderLayout());
+	    this.model = model;
+	    
+	    setLayout(new BorderLayout());
 		
-		JMenuBar menuBar = new JMenuBar();
+	    JMenuBar menuBar = new JMenuBar();
 		
-		JMenu fileMenu = new JMenu("File");
+	    JMenu fileMenu = new JMenu("File");
 	    fileMenu.setMnemonic(KeyEvent.VK_F);
 	    menuBar.add(fileMenu);
 	    JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
@@ -50,4 +58,13 @@ public class mainPanel extends JPanel {
 		add(menuBar, BorderLayout.NORTH);
 		add(sPane, BorderLayout.CENTER);
 	}
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.CHAT) {
+            this.chat.getTxtPane().setText(model.getActiveConversation().
+                    displayMessages());
+        }        
+    }
+
 }
