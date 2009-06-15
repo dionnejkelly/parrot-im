@@ -25,8 +25,6 @@ public class DatabaseFunctions {
 	}
 	public void addUsers(String profile, String service, String email, String password, String rememberPassword) throws SQLException
 	{
-	      stat.executeUpdate("drop table if exists people;");
-	      stat.executeUpdate("create table people (profile, service, email, password, rememberPassword);");
 	      prep = conn.prepareStatement(
 		          "insert into people values (?, ?, ?, ?, ?);");
 
