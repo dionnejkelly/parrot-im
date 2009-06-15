@@ -150,31 +150,35 @@ public class ChatPanel extends JPanel {
 	}
 	
 	public class TextBoxListener implements KeyListener{
-		//TODO: need to remove the newline
+		private boolean shiftPressed = false;
 		
 		public void keyPressed(KeyEvent e) {
 				
-			System.out.println("User Input = " + e.getKeyCode());
-			if (e.getKeyCode()==e.VK_ENTER){
-				e.setKeyCode(e.VK_SHIFT);
+			// this is functional but somewhat unstable
+			// any ideas are welcome to be discussed in the upcoming meeting
+		
+			
+			if (e.getKeyCode() == e.VK_SHIFT) {
+				shiftPressed = true;
+			}
+		}
+
+		public void keyReleased(KeyEvent e) {
+			
+			if (!shiftPressed && e.getKeyCode()==e.VK_ENTER){
+				System.out.println("------------------------------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
+				e.setKeyCode(e.VK_BEGIN);
 				sendMessage();
 				
 				
 			}
 			
-			// this is non-functional
-			// need some kind of hot key to allow a single line space
-			else if (e.getKeyCode() == e.VK_SHIFT) {
-				
-				if (e.getKeyCode() == e.VK_ENTER) {
-					txt1.setText(txt1.getText() + "\n");
-				}
-				
-			
+			else if (shiftPressed && (e.getKeyCode() == e.VK_ENTER)) {
+				System.out.println("-------------------------------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
+				txt1.setText(txt1.getText() + "\n");
+				shiftPressed = false;
 			}
 		}
-
-		public void keyReleased(KeyEvent e) {}
 
 		public void keyTyped(KeyEvent e) {}
 		
