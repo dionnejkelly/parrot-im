@@ -257,9 +257,12 @@ public class buddyPanel extends JPanel implements Observer
 		
 		public void whiteBackground(MouseEvent event){
 			selected = false;
-			for(int i=0; i < boxes[0].getComponentCount(); i++){
-				if(lastSelectedSource.equals(boxes[0].getComponent(i))){
-					boxes[0].getComponent(i).setBackground(Color.WHITE);
+			if (lastSelectedSource == null) return;
+			else{
+				for(int i=0; i < boxes[0].getComponentCount(); i++){
+					if(lastSelectedSource.equals(boxes[0].getComponent(i))){
+						boxes[0].getComponent(i).setBackground(Color.WHITE);
+					}
 				}
 			}
 		}
