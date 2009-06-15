@@ -53,7 +53,7 @@ public class Model extends Observable {
      * @parm o object that sends to observer
      * @see notifyObservers
 	*/
-    public void notifyObservers(Object o){
+    public void forceNotify(Object o){
     	this.setChanged();
     	this.notifyObservers(o);
     }
@@ -63,7 +63,7 @@ public class Model extends Observable {
      * combining setchange and noifyObservers into one method
      * @return void
 	*/
-    public void notifyObservers(){
+    public void forceNotify(){
     	this.setChanged();
     	this.notifyObservers();
     }

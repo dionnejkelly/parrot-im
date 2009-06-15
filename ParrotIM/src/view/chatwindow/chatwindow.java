@@ -15,7 +15,7 @@ public class chatwindow extends JFrame{
 	public JPanel main;
 	private Model model;
 	private boolean windowIsOpen;
-	
+		
 	public chatwindow(Xmpp c, Model model)
 	{
 		super("chatWindow Mockup");
@@ -43,6 +43,8 @@ public class chatwindow extends JFrame{
 	public boolean getWindowIsOpen(){
 		return this.windowIsOpen;
 	}
+	
+	
 	
 /* Conversation Type is now in the model.	
 	public void createNewConversation(ChatData chatData){
