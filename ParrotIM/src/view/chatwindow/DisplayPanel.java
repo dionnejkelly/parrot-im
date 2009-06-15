@@ -7,15 +7,13 @@ import model.dataType.UpdatedType;
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 
-public class DisplayPanel extends JPanel implements Observer {
+public class DisplayPanel extends JPanel{
 	private JEditorPane txtPane;
-	private String previousText;
-	private Model model;
+//	private String previousText;
 	
+
+
 	public DisplayPanel(Model model) {
-	    this.model = model;
-	    this.model.addObserver(this);
-		
 		setLayout(new BorderLayout());
 		
 		txtPane = new JEditorPane();
@@ -50,14 +48,17 @@ public class DisplayPanel extends JPanel implements Observer {
 		add(txtPane, BorderLayout.CENTER);
 		add(bar2, BorderLayout.SOUTH);
 	}
-
-    public void update(Observable o, Object arg) {
-	/* May want to update this to update line-per-line */
-        if (arg == UpdatedType.CHAT || arg == UpdatedType.ALL || arg == UpdatedType.CHAT_AND_BUDDY) {
-        	txtPane.setText(model.getActiveConversation().displayMessages());
-        }
-    	return;	
-    }
+	
+	public JEditorPane getTxtPane() {
+		return txtPane;
+	}
+//    public void update(Observable o, Object arg) {
+//	/* May want to update this to update line-per-line */
+//        if (arg == UpdatedType.CHAT || arg == UpdatedType.ALL || arg == UpdatedType.CHAT_AND_BUDDY) {
+// //       	txtPane.setText(model.getActiveConversation().displayMessages());
+//        }
+//    	return;	
+//    }
     
  /* Superseeded by model classes
     public void addMessage(String userName,String text, String font, String size){
