@@ -23,14 +23,18 @@ public class DatabaseFunctions {
         stat = conn.createStatement();
 		
 	}
-	public void addUsers(String service, String email, String password) throws SQLException
+	public void addUsers(String profile, String service, String email, String password, String rememberPassword) throws SQLException
 	{
+	      stat.executeUpdate("drop table if exists people;");
+	      stat.executeUpdate("create table people (profile, service, email, password, rememberPassword);");
 	      prep = conn.prepareStatement(
-		          "insert into people values (?, ?, ?);");
+		          "insert into people values (?, ?, ?, ?, ?);");
 
-		      prep.setString(1, service);
-		      prep.setString(2, email);
-		      prep.setString(3, password);
+	      	  prep.setString(1, profile);
+		      prep.setString(2, service);
+		      prep.setString(3, email);
+		      prep.setString(4, password);
+		      prep.setString(5, rememberPassword);
 		      prep.addBatch();
 
 		      conn.setAutoCommit(false);
@@ -79,8 +83,6 @@ public class DatabaseFunctions {
 	{
 	      Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
 	      Statement stat = conn.createStatement();
-	      stat.executeUpdate("drop table if exists profiles;");
-	      stat.executeUpdate("create table profiles (name, password, rememberPassword);");
 	      prep = conn.prepareStatement(
 		          "insert into profiles values (?, ?, ?);");
 

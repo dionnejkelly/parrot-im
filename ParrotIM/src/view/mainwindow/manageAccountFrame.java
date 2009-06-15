@@ -275,13 +275,11 @@ public class manageAccountFrame extends JFrame implements Observer
 			boolean match = false;
 			
 			
-			//Ahmad TESTING TESTING TESTING
 			
 			  DatabaseFunctions db = new DatabaseFunctions();
-			  db.addUsers(new String(model.getServerList().get(serviceField.getSelectedIndex())), new String(UNField.getText()), new String(pwdField.getPassword()));
-			
-			//Ahmad TESTING TESTING TESTING
-			  // check if account already exists
+			  db.addUsers("John", new String(model.getServerList().get(serviceField.getSelectedIndex())), new String(UNField.getText()), new String(pwdField.getPassword()), "Y");
+			// HEY TODO TODO TODO TODO ADD MORE USERS THAN JOHN, 
+			  //AND AND AND CHANGE TO HAVE A CHOICE TO REMEMBER PASSWORD
 			
 			if (match) {
 				//if found, then edit the password as manage
