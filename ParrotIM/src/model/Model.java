@@ -120,6 +120,11 @@ public class Model extends Observable {
         return;
     }
     
+    public void removeActiveConversation() {
+        this.conversations.remove(this.activeConversation);
+        return;
+    }
+    
     public ConversationData getActiveConversation() {
         return this.activeConversation;
     }
