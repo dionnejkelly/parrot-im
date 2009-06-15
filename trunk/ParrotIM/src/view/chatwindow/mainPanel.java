@@ -24,7 +24,7 @@ public class mainPanel extends JPanel implements Observer {
 	public mainPanel(Xmpp c, Model model) {
                    
 	    this.model = model;
-	    
+	    this.model.addObserver(this);
 	    setLayout(new BorderLayout());
 		
 	    JMenuBar menuBar = new JMenuBar();
@@ -62,7 +62,8 @@ public class mainPanel extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.CHAT) {
-            this.chat.getTxtPane().setText(model.getActiveConversation().
+            ((ChatPanel) this.chat).getDisplayPanel().getTxtPane().setText(
+                    model.getActiveConversation().
                     displayMessages());
         }        
     }

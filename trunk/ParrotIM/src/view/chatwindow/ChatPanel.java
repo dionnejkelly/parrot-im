@@ -19,13 +19,13 @@ import model.dataType.UserData;
 
 public class ChatPanel extends JPanel {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-	JComboBox fontSelect;
-	JButton colorButton;
-	JColorChooser colorChooser;
-	Model model;
-	JTextArea txt1;
-	DisplayPanel displayPanel;
-	Xmpp c;
+	private JComboBox fontSelect;
+	private JButton colorButton;
+	private JColorChooser colorChooser;
+	private Model model;
+	private JTextArea txt1;
+	private DisplayPanel displayPanel;
+	private Xmpp c;
 	
 	//public ChatPanel(final ArrayList<Conversation> conversations, 
 	//		         final ChatClient c, Model model) {
@@ -35,7 +35,9 @@ public class ChatPanel extends JPanel {
 		
 		this.model = model;
 		this.c = c;
+		
 		displayPanel = new DisplayPanel(model);
+		
 		
 		//Editing Panel
 		JPanel editingPanel = new JPanel();
@@ -114,6 +116,10 @@ public class ChatPanel extends JPanel {
 		add(sPane, BorderLayout.CENTER);	
 	}
 	
+       public DisplayPanel getDisplayPanel() {
+           return displayPanel;
+       }
+
 	public class SendButtonPressed implements ActionListener {
             public void actionPerformed(ActionEvent evt) {
                 MessageData message = null;
