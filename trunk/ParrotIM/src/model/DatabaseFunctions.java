@@ -75,4 +75,39 @@ public class DatabaseFunctions {
           }
 
     }
+	public void addProfiles(String name, String password, String rememberPassword) throws SQLException
+	{
+	      Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+	      Statement stat = conn.createStatement();
+	      stat.executeUpdate("drop table if exists profiles;");
+	      stat.executeUpdate("create table profiles (name, password, rememberPassword);");
+	      prep = conn.prepareStatement(
+		          "insert into profiles values (?, ?, ?);");
+
+		      prep.setString(1, name);
+		      prep.setString(2, password);
+		      prep.setString(3, rememberPassword); // either Y or N
+		      prep.addBatch();
+
+		      conn.setAutoCommit(false);
+		      prep.executeBatch();
+		      conn.setAutoCommit(true);
+		      conn.close();
+	}
+	public Vector<String> getProfileList() throws SQLException
+	{
+		ResultSet rs = stat.executeQuery("select * from profiles;");
+		ResultSet rs2;
+	    while (rs.next()) {
+	        System.out.println("Name: " + rs.getString("name") + ", Password = " + rs.getString("password") + "Chose to remember password = " + rs.getString("rememberPassword"));
+	        System.out.println("List of users under this profile: ");
+			rs2 = stat.executeQuery("select * from people where profile='" + rs.getString("name") + "';");
+		    while (rs2.next()) {
+		    	{
+		    		System.out.print(rs2.getString("name") + ", ");
+		    	}
+		    }
+	    }
+	    return accountList;
+	}
 }
