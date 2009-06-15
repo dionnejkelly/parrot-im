@@ -6,5 +6,6 @@ public enum UpdatedType {
     BUDDY,
     MAIN,
     OPTIONS,
+    PROFILE,
     CHAT_AND_BUDDY;
 }

@@ -46,12 +46,34 @@ public class Model extends Observable {
         currentProfile = new CurrentProfileData();
         conversations = new ArrayList<ConversationData>();
 }
-
+    /**
+     * overriding notifyObservers in the parent class
+     * combining setchange and noifyObservers into one method
+     * @return void
+     * @parm o object that sends to observer
+     * @see notifyObservers
+	*/
+    public void notifyObservers(Object o){
+    	this.setChanged();
+    	this.notifyObservers(o);
+    }
+    
+    /**
+     * overriding notifyObservers in the parent class
+     * combining setchange and noifyObservers into one method
+     * @return void
+	*/
+    public void notifyObservers(){
+    	this.setChanged();
+    	this.notifyObservers();
+    }
+    
+    
     public Vector<String> getAccountList() throws ClassNotFoundException, SQLException {
     	DatabaseFunctions db = new DatabaseFunctions();
         return db.getUserList();
     }
-
+    
     /* Phase this method out in favour of the next one */
     public Vector<String> getServerList() {
        	return ServerType.getServerList();
@@ -87,7 +109,6 @@ public class Model extends Observable {
             }
         }
         
-        setChanged();
         notifyObservers(UpdatedType.CHAT);
         return;
     }
@@ -95,7 +116,6 @@ public class Model extends Observable {
     public void setActiveConversation(ConversationData conversation) {
         this.activeConversation = conversation;
         
-        setChanged();
         notifyObservers(UpdatedType.CHAT);
         return;
     }
