@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -29,11 +31,12 @@ import view.styles.popupWindowListener;
 
 import model.DatabaseFunctions;
 import model.Model;
+import model.dataType.UpdatedType;
 
 /*                            SORRY TESTING PROFILE MANAGER LAYOUT                         */
 
 
-public class manageAccountFrame extends JFrame
+public class manageAccountFrame extends JFrame implements Observer
 {
 	private JPanel accMANPanel;
 	private Model model;
@@ -52,7 +55,7 @@ public class manageAccountFrame extends JFrame
 	private JPasswordField pwdField;
 	private JComboBox serviceField;
 	
-	protected manageAccountFrame (Model model, mainwindow frame) throws ClassNotFoundException, SQLException{
+	protected manageAccountFrame (Model model, mainwindow frame) throws ClassNotFoundException, SQLException {
 		popup = this;
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.model = model;
@@ -291,6 +294,15 @@ public class manageAccountFrame extends JFrame
         		//TODO: update the JComboBox in siginPanel too!
 			}
 		}
+	}
+
+
+
+	public void update(Observable arg0, Object o) {
+		if (o == UpdatedType.PROFILE){
+			
+		}
+		
 	}
 
 }
