@@ -59,7 +59,6 @@ public class mainPanel extends JPanel implements Observer {
 		add(sPane, BorderLayout.CENTER);
 	}
 
-    @Override
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
             ((ChatPanel) this.chat).getDisplayPanel().getTxtPane().setText(
