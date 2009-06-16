@@ -22,8 +22,11 @@ import model.dataType.AccountData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.ServerType;
 
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPException;
 
+import controller.MainController;
 import controller.services.Xmpp;
 
 import view.buddylist.buddylist;
@@ -33,6 +36,7 @@ import view.styles.popupWindowListener;
 public class guestAccountFrame extends JFrame{
 	
 	private Model model;
+	private MainController controller;
 	private Xmpp core;
 	private mainwindow mainFrame;
 	private JFrame popup;
@@ -42,9 +46,10 @@ public class guestAccountFrame extends JFrame{
 	private JPasswordField PwdFieldGuest;
 	private JComboBox server;
 	
-	public guestAccountFrame(Model model, Xmpp c, mainwindow frame, signinPanel signin){
+	public guestAccountFrame(Model model, MainController controller, Xmpp c, mainwindow frame, signinPanel signin){
 		popup=this;
 		this.model = model;
+		this.controller = controller;
 		core = c;
 		mainFrame = frame;
 		mainPanel = signin;
@@ -126,46 +131,15 @@ public class guestAccountFrame extends JFrame{
 	}
 	
 	private void signIn_ActionPerformed(ActionEvent e) {
-		//loading window
-		/*mainPanel.header.setAnimation();
-		mainPanel.accPanel.setVisible(false);
-		mainPanel.misc.setVisible(false);
-		
-		System.out.println("guestAccountFrame got here");
-		*/
-		/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
-	    AccountData guestAccount = null;
-	    ArrayList<String> friendList = null;
-	    GoogleTalkUserData user = null;
-	    
+	    ServerType selectedServer = (ServerType) server.getSelectedItem();
+	    String username = UNFieldGuest.getText();
+	    String password = password(PwdFieldGuest.getPassword());
+	    	    
 	    try {
 	    	
-	    	
-	        /* Log into the server */
-	        guestAccount = new AccountData((ServerType) server.getSelectedItem(), UNFieldGuest.getText(),
-	        																		password(PwdFieldGuest.getPassword()));
-	        model.createCurrentProfile(guestAccount, "Guest");
-	        
-	        core.login(guestAccount);
+	        controller.login(selectedServer, username, password);
 		
-		/* Populate the buddy list */
-	        if (guestAccount.getServer() == ServerType.GOOGLE_TALK) {
-		    		    
-		    /* Set up own user data */
-		    // user = new GoogleTalkUserData(
-		    //        guestAccount.getAccountName());
-		    //user.setOnline(true);
-		    //guestAccount.setOwnUserData(user);
-		    
-		    /* Set up friends' user data */
-	        	friendList = core.getBuddyList();
-	        	for (String s : friendList) {
-        	        user = new GoogleTalkUserData(s, guestAccount); // Add account name
-        	        guestAccount.addFriend(user);
-		    	}      	    
-	        }
-	        
-	        new buddylist(core, model);//pops buddylist window
+		new buddylist(core, model);//pops buddylist window
 	        mainFrame.dispose(); //TODO: consider if the sign in fails
 	    } catch (XMPPException e1) {
 	    	// TODO: throw a warning if password is incorrect or account does not exist - core, please provide this

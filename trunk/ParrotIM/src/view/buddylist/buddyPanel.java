@@ -134,7 +134,7 @@ public class buddyPanel extends JPanel implements Observer
 		friendItem.setName(user.getNickname());
 		friendItem.setToolTipText("Right click to see options for this item");
 		
-		JLabel friendName = new JLabel(user.getNickname());
+		JLabel friendName = new JLabel(user.getNickname() + " -- " + user.getStatus());
 		//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
 		
 		friendItem.add(friendName,BorderLayout.WEST);
@@ -146,6 +146,15 @@ public class buddyPanel extends JPanel implements Observer
 	public void update(Observable o, Object arg) {
 	    /* If chat window has not been made, make it if message sent */
 	    if (arg == UpdatedType.BUDDY || arg == UpdatedType.CHAT_AND_BUDDY) {
+	        
+	        System.out.println("From update in buddyPanel");
+	        for (UserData u : model.getCurrentProfile().getAllFriends()) {
+	            System.out.println(u.getStatus());
+	        }
+	        System.out.println("end buddyPanel");
+	        
+	        
+	        
 	        if (chat == null) {
 	            //model.startConversation(selectedFriend.getFriendOf(),
                     //                       selectedFriend);
