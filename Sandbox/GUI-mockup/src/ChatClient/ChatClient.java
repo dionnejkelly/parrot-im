@@ -1,7 +1,12 @@
 package ChatClient;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.util.*;
+
+import javax.swing.JFileChooser;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
@@ -20,6 +25,12 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
 import org.jivesoftware.smack.util.StringUtils;
+import org.jivesoftware.smackx.filetransfer.FileTransferManager;
+import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
+
+import chatwindow.ChatPanel;
+
+
 
 import model.*;
 
@@ -49,6 +60,7 @@ public class ChatClient {
      * Handles all chat message events, receipt and submission. 
      */
     private ChatManager chatManager;
+    private ChatPanel chatPanel;
     
     private ArrayList<Chat> chats;
     
@@ -57,6 +69,55 @@ public class ChatClient {
     private UserData user = null;
     private MessageData m = null;
     private Chat chat = null;
+    
+ 
+
+   
+
+
+    
+    public void sendFile(String userID) {
+    	FileTransferManager ftm =  new FileTransferManager(connection);
+    	OutgoingFileTransfer otf = ftm.createOutgoingFileTransfer(userID);
+
+    	JFileChooser chooser = new JFileChooser();
+    	int status = chooser.showOpenDialog(null);
+    	
+    	if (status != JFileChooser.APPROVE_OPTION) {
+    		System.out.println("No File Transfer started");
+    		
+    	}
+    	
+    	else {
+    		
+    		try {
+    			File file = chooser.getSelectedFile();
+    			FileOutputStream fos = new FileOutputStream(file); 
+    		  
+    		    
+    			System.out.println("The file = " + fos.toString());
+    			
+    			
+
+    			otf.sendFile(new File(file.toString()), "This is a test");
+    
+    			System.out.println("File Transfer started");
+
+    	    }
+    		
+    	    catch(XMPPException xe) { 
+    	    		System.out.println(xe.getLocalizedMessage()); 
+    	    } catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
+    	
+    	
+    }
+    	
+   
     
     public void removeFriend(String userID) {
 		Roster roster = connection.getRoster();
@@ -374,7 +435,7 @@ public class ChatClient {
     	
         public void processPacket(Packet packet) {
             /* packet is a new message, make chat if from new person */
-           
+        	Chatbot chatbot = null;
             boolean chatExists = false;
             Message message = (Message) packet;
             String bareAddress = StringUtils.parseBareAddress(message.getFrom());
@@ -435,6 +496,24 @@ public class ChatClient {
                  
                 }
                 /* Else, the message listener handles it automatically */
+                
+                chatbot = new Chatbot();
+                try {
+                    chatbot.get_input(message.getBody());
+                    String response = chatbot.respond();
+                    sendMessage(response, chat.getParticipant());
+                    
+                    // temporary to display in the chat window
+//                    ConversationData conversation = model.getActiveConversation();
+//                    UserData fromUser = conversation.getAccount().getOwnUserData();
+//                    MessageData msg = new MessageData(fromUser, response, chatPanel.getFontSelect().getSelectedItem().toString(), "4");
+//                    
+//                    model.sendMessage(conversation, msg);
+                    
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 
             }
             
