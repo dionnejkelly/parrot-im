@@ -83,6 +83,8 @@ public class ChatPanel extends JPanel {
 		JButton emoticons = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/emote.png"));
 		JButton pic = new JButton(new ImageIcon(System.getProperty("user.dir") + "/src/chatwindow/pic.png"));
 		
+		pic.addActionListener(new FileTransferListener());
+		
 		JToolBar bar1 = new JToolBar();
 		bar1.add(fontSelect);
 		bar1.addSeparator();
@@ -108,6 +110,23 @@ public class ChatPanel extends JPanel {
 		
 		//add to chat panel
 		add(sPane, BorderLayout.CENTER);	
+	}
+	
+	public class FileTransferListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			ConversationData conversation = model.getActiveConversation();;
+			System.out.println("Send a file for now!");
+			c.sendFile(conversation.getUser().getAccountName());
+			System.out.println("I am send it to = " + conversation.getUser().getAccountName());
+			
+			
+		}	
+		
+	}
+	
+	public JComboBox getFontSelect() {
+		return fontSelect;
 	}
 	
 	public void sendMessage(){
@@ -148,6 +167,9 @@ public class ChatPanel extends JPanel {
             	sendMessage();
             }
 	}
+	
+	
+
 	
 	public class TextBoxListener implements KeyListener{
 		private boolean shiftPressed = false;
