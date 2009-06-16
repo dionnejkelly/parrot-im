@@ -43,6 +43,7 @@ public class guestAccountFrame extends JFrame{
         private JComboBox server;
         
         public guestAccountFrame(Model model, Xmpp c, mainwindow frame, signinPanel signin){
+        		this.setAlwaysOnTop(true);
                 popup=this;
                 this.model = model;
                 core = c;

@@ -38,6 +38,7 @@ import model.dataType.UpdatedType;
 
 public class manageAccountFrame extends JFrame implements Observer
 {
+	
 	private JPanel accMANPanel;
 	private Model model;
 	private mainwindow mainFrame;
@@ -56,6 +57,7 @@ public class manageAccountFrame extends JFrame implements Observer
 	private JComboBox serviceField;
 	
 	protected manageAccountFrame (Model model, mainwindow frame) throws ClassNotFoundException, SQLException {
+		this.setAlwaysOnTop(true);
 		popup = this;
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.model = model;
