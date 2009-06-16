@@ -22,6 +22,7 @@ import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
+import controller.MainController;
 import controller.services.Xmpp;
 
 import view.styles.linkLabel;
@@ -33,6 +34,7 @@ public class signinPanel extends JPanel {
 	protected Xmpp core;
 	private mainwindow mainFrame;
 	private Model model;
+	private MainController controller;
 	private JComboBox account_select;
 	
 	//part of the whole panel
@@ -45,10 +47,13 @@ public class signinPanel extends JPanel {
 	private linkLabel manageAccount;
 	private linkLabel guestAccount;
 	
-	public signinPanel(mainwindow frame, Xmpp chatClient, Model model) throws ClassNotFoundException, SQLException{
+	public signinPanel(mainwindow frame, MainController controller, 
+	        Xmpp chatClient, Model model) 
+	        throws ClassNotFoundException, SQLException {
 		mainFrame = frame;
 		core = chatClient;//CORE
 		this.model = model;
+		this.controller = controller;
 		signin = this;
 		
 		setLayout (new BorderLayout());
@@ -121,7 +126,7 @@ public class signinPanel extends JPanel {
             @Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
             	mainFrame.setEnabled(false);
-                new guestAccountFrame(model, core, mainFrame, signin);
+                new guestAccountFrame(model, controller, core, mainFrame, signin);
             }
         });
 

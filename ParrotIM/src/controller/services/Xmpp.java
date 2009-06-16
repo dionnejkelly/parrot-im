@@ -21,10 +21,13 @@ import org.jivesoftware.smack.XMPPException;
 
 import org.jivesoftware.smack.util.StringUtils;
 
+import controller.chatbot.Chatbot;
+
 import model.*;
 import model.dataType.AccountData;
 import model.dataType.MessageData;
 import model.dataType.ServerType;
+import model.dataType.UpdatedType;
 import model.dataType.UserData;
 
 /**
@@ -110,7 +113,7 @@ public class Xmpp {
         
         // Overloaded, temporary
         public void login(AccountData account) throws XMPPException {
-            // TODO FIX THIS METHOD, should work with all protocols.
+        
         	
             if (account.getServer() == ServerType.GOOGLE_TALK) {
                 ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
@@ -242,6 +245,10 @@ public class Xmpp {
             
         }
 
+    public Roster getRoster() {
+        return this.roster;
+    }
+        
     /* Phase this method out */
     public String getUserName(){
             return userName;
@@ -271,8 +278,13 @@ public class Xmpp {
         }
         
         public void presenceChanged(Presence presence) {
+            UserData userToUpdate = null;
+            
             String bareAddress = StringUtils.parseBareAddress(presence.getFrom());
-           // System.out.println(presence.getFrom() + ", that is, "
+            userToUpdate = model.findUserByAccountName(bareAddress);
+            userToUpdate.setStatus(presence.getStatus());
+            model.forceNotify(UpdatedType.BUDDY);
+            // System.out.println(presence.getFrom() + ", that is, "
            //                    + bareAddress + " status change:"
            //                    + presence.getStatus());
             return;
@@ -340,6 +352,9 @@ public class Xmpp {
     private class MessagePacketListener implements PacketListener {
     	
         public void processPacket(Packet packet) {
+            Chatbot chatbot = null;
+            
+            
             /* packet is a new message, make chat if from new person */
            
             boolean chatExists = false;
@@ -402,6 +417,18 @@ public class Xmpp {
                	
                  
                 }
+                chatbot = new Chatbot();
+                try {
+                    chatbot.get_input(message.getBody());
+                    String respond = chatbot.respond();
+                    sendMessage(chat.getParticipant(), respond);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
+                
+                
                 /* Else, the message listener handles it automatically */
                 
             }
