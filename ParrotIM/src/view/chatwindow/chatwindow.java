@@ -52,7 +52,6 @@ public class chatwindow extends JFrame implements Observer {
 		return this.windowIsOpen;
 	}
 
-    @Override
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
             if (!this.isVisible()) {
