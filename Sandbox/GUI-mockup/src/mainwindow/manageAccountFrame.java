@@ -56,6 +56,7 @@ public class manageAccountFrame extends JFrame
 	private JComboBox serviceField;
 	
 	protected manageAccountFrame (Model model, mainwindow frame) throws ClassNotFoundException, SQLException{
+		this.setAlwaysOnTop(true);
 		popup = this;
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.model = model;
