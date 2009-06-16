@@ -15,12 +15,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
+
 
 import controller.services.Xmpp;
 
@@ -90,6 +92,7 @@ public class buddyPanel extends JPanel implements Observer
 		
 		menuItem1.addMouseListener(new RightCickMenuListener());
 		menuItem2.addMouseListener(new RightCickMenuListener());
+		menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
 		
 		rightClickMenu.add(menuItem1);
 		rightClickMenu.add(menuItem2);
@@ -108,6 +111,8 @@ public class buddyPanel extends JPanel implements Observer
         add(options, BorderLayout.SOUTH);
 	}
 	
+
+	
 	public JToolBar OptionsBar(){
 		JToolBar options = new JToolBar();
 		
@@ -124,9 +129,53 @@ public class buddyPanel extends JPanel implements Observer
         options.add(search);
         options.add(searchButton);
         
+        
+        addF.addMouseListener(new addFriendListener());
+        removeF.addMouseListener(new removeFriendListener());
+        
         return options;
 	}
 	
+	class RightClickMenuRemoveFriendListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent event) {
+            System.out.println("Remove this user from the buddy list = " + selectedFriend.toString());
+            c.removeFriend(selectedFriend.toString());  	
+	    }
+	}
+	
+	class removeFriendListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent event) {
+	    	 System.out.println("Remove this user from the button = " + selectedFriend.toString());
+	            
+	         c.removeFriend(selectedFriend.toString());
+	    	
+	    }
+	}
+	
+	class addFriendListener extends MouseAdapter {
+	    public void mousePressed(MouseEvent event) {
+	        System.out.println("Add Friend Clicked");
+	        String userFriendID, userInput;
+	        String result = "Argh, one person will be invited to your Parrot IM Buddy List.";
+	
+	        
+	        // not able to cancel it for now
+	        
+	        userFriendID = JOptionPane.showInputDialog("Enter an email address: ");
+
+	        
+			    
+	        
+	        if (userFriendID != null && !userFriendID.equals("")) {
+	        	 c.addFriend(userFriendID);
+	        	 JOptionPane.showMessageDialog(null, result);
+	        	
+	        }
+	        System.out.println("User Input = " + userFriendID);
+	       
+	     
+	    }
+	}
 	public JPanel FriendItem(UserData user){
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());

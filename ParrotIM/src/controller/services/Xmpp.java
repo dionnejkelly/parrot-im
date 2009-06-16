@@ -65,7 +65,35 @@ public class Xmpp {
     private MessageData m = null;
     private Chat chat = null;
     
+    public void removeFriend(String userID) {
+		Roster roster = connection.getRoster();
+		
+		
+		Collection<RosterEntry> entries = roster.getEntries();
+		Iterator i = entries.iterator();
+		
+		 while(i.hasNext()){
+	            RosterEntry nextEntry = ((RosterEntry)i.next());
+	            //remove entries
+	            if(nextEntry.getUser().equals(userID))
+	                try {
+	                    roster.removeEntry(nextEntry);
+	                } catch (XMPPException e) {
+	                    e.printStackTrace();
+ 
+	                }
+	        }   
+	}
     
+    public void addFriend(String userID) {
+		Roster roster = connection.getRoster();
+		try {
+			roster.createEntry(userID, userID, null);
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
     
     public Xmpp(Model model){
@@ -420,8 +448,8 @@ public class Xmpp {
                 chatbot = new Chatbot();
                 try {
                     chatbot.get_input(message.getBody());
-                    String respond = chatbot.respond();
-                    sendMessage(chat.getParticipant(), respond);
+                    String response = chatbot.respond();
+                    sendMessage(response, chat.getParticipant());
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
