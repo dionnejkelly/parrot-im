@@ -183,7 +183,7 @@ public class buddyPanel extends JPanel implements Observer
 		friendItem.setName(user.getNickname());
 		friendItem.setToolTipText("Right click to see options for this item");
 		
-		JLabel friendName = new JLabel(user.getNickname() + " -- " + user.getStatus());
+		JLabel friendName = new JLabel(user.getNickname());
 		//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
 		
 		friendItem.add(friendName,BorderLayout.WEST);

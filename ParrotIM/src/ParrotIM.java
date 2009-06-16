@@ -11,11 +11,11 @@ public class ParrotIM {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Model model = new Model();
-		MainController controller = new MainController(model);
-		Xmpp chatClient = controller.getXmpp();
+		//MainController controller = new MainController(model);
+		//Xmpp chatClient = controller.getXmpp();
 		
-		//Xmpp chatClient = new Xmpp(model); // TEST
-		mainwindow mainWindow = new mainwindow(controller, chatClient, 
+		Xmpp chatClient = new Xmpp(model); // TEST
+		mainwindow mainWindow = new mainwindow(chatClient, 
 		        model);
 		//buddylist b = new buddylist();
 		//chatwindow chat = new chatwindow();
