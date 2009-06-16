@@ -12,7 +12,7 @@ public class statusCombo extends JComboBox{
 	public statusCombo(){
 		super(status);
 		this.addActionListener(new statusComboListener());
-		this.setPreferredSize(new Dimension(30, 15));
+		this.setMaximumSize(new Dimension(200, 30));
 	}
 	
 	private class statusComboListener implements ActionListener{
