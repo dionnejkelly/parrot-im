@@ -17,8 +17,8 @@ import model.dataType.UpdatedType;
 
 public class mainwindow extends JFrame implements Observer {
 
-	public mainwindow (MainController controller, Xmpp chatClient, 
-	        Model model) throws ClassNotFoundException, SQLException {
+	public mainwindow (Xmpp chatClient, Model model) 
+	        throws ClassNotFoundException, SQLException {
 
 		//set Main Window Frame
 		setTitle("Parrot-IM");
@@ -28,7 +28,7 @@ public class mainwindow extends JFrame implements Observer {
 		setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
 
 		//call SignIn Panel
-		getContentPane().add(new signinPanel(this, controller, chatClient, model));
+		getContentPane().add(new signinPanel(this, chatClient, model));
 		
 		pack();
 		setVisible(true);

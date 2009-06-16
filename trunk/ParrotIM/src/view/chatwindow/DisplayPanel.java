@@ -20,11 +20,11 @@ public class DisplayPanel extends JPanel{
 		txtPane.setPreferredSize(new Dimension(250, 300));
 		txtPane.setEditable(false);
 		txtPane.setEditorKit(new HTMLEditorKit());
-	        //if (model.getActiveConversation() != null) {
-		//    txtPane.setText(model.getActiveConversation().displayMessages());
-		//} else {
-		//    txtPane.setText("");
-		//}
+	        if (model.getActiveConversation() != null) {
+		    txtPane.setText(model.getActiveConversation().displayMessages());
+		} else {
+		    txtPane.setText("");
+		}
 	        
 		
 		JLabel title = new JLabel("Conversation 1                           view: ");
