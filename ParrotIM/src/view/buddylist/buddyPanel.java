@@ -198,16 +198,16 @@ public class buddyPanel extends JPanel implements Observer
 	        
 	        System.out.println("From update in buddyPanel");
 	        for (UserData u : model.getCurrentProfile().getAllFriends()) {
-	            System.out.println(u.getStatus());
+	            //System.out.println(u.getStatus());
 	        }
 	        System.out.println("end buddyPanel");
 	        
 	        
 	        
 	        if (chat == null) {
-	            //model.startConversation(selectedFriend.getFriendOf(),
-                    //                       selectedFriend);
-                    chat = new chatwindow(c, model);  
+	            model.startConversation(selectedFriend.getFriendOf(),
+                                            selectedFriend);
+                    //chat = new chatwindow(c, model);  
 	        } else {
 	            // add code for if multiple windows exist.
 	        }
