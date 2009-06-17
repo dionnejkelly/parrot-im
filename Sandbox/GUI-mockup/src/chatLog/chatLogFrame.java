@@ -16,6 +16,4 @@ public class chatLogFrame extends JFrame {
 		this.pack();
 		this.setVisible(true); // might want to change this
 	}
-	
-
 }
