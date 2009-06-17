@@ -185,11 +185,19 @@ public class buddyPanel extends JPanel implements Observer
 		JPanel friendItem = new JPanel();
 		friendItem.setLayout(new BorderLayout());
 		friendItem.setBackground(Color.WHITE);
+
 		friendItem.setName(user.getNickname());
+		
+		//end it
 		friendItem.setToolTipText("Right click to see options for this item");
 		
-		JLabel friendName = new JLabel(user.getNickname());
-		//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
+		JLabel friendName;
+		if(c.getUserPresence(user.getAccountName()).contains("offline")){
+			friendName = new JLabel(user.getNickname() + " (Offline)");
+		}else{
+			//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
+			friendName = new JLabel(user.getNickname());
+		}
 		
 		friendItem.add(friendName,BorderLayout.WEST);
 		//friendItem.add(friendStatus,BorderLayout.CENTER);
@@ -245,6 +253,7 @@ public class buddyPanel extends JPanel implements Observer
 						
 						/* Fix this to directly reference the GUI */
 						selectedFriend = buddies.get(i);
+						
 						if(event.getClickCount() == 2){
 						       selected = false;
 						       
