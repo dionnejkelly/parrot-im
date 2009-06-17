@@ -87,8 +87,10 @@ public class Xmpp {
     
     public void addFriend(String userID) {
 		Roster roster = connection.getRoster();
+		String nickname = StringUtils.parseBareAddress(userID);
 		try {
-			roster.createEntry(userID, userID, null);
+			roster.createEntry(userID, nickname, null);
+			model.addFriend(ServerType.GOOGLE_TALK, userID);
 		} catch (XMPPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -450,7 +452,7 @@ public class Xmpp {
                     chatbot.get_input(message.getBody());
                     String response = chatbot.respond();
                     sendMessage(response, chat.getParticipant());
-                    
+                                        
                     // temporary to display in the chat window
 //                    ConversationData conversation = model.getActiveConversation();
 //                    UserData fromUser = conversation.getAccount().getOwnUserData();
