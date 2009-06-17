@@ -1,20 +1,31 @@
-/* Parrot IM -- An easy-to-use chat client for multiple protocols.
+/* Model.java
+ * 
+ * Programmed By:
+ *     Kevin Fahy
+ *     Ahmad Sidiqi
+ *     Jordan Fox
+ *     Vera Lukman
+ *     William Chen
+ *     
+ * Change Log:
+ *     2009-June-3, KF
+ *         Initial write.
+ *     2009-June-8, AS
+ *         Implemented database functionality inside class.
+ *     2009-June-9, KF
+ *         Made class implement Observable, so that the View could
+ *         update when model variables are changed.
+ *     2009-June-12, VL
+ *         Fixed code in startConversation().
+ *     2009-June-13, WC
+ *         Transferred file over to new project, ParrotIM.  
+ *         
+ * Known Issues:
+ *     1. Currently has methods that are scheduled to be phased out.
+ * 
  * Copyright (C) 2009  Pirate Captains
  * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  
- * 02110-1301, USA.
+ * Full license can be found in ParrotIM/LICENSE.txt.
  */
 
 
