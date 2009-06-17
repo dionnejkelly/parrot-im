@@ -191,12 +191,13 @@ public class buddyPanel extends JPanel implements Observer
 		//end it
 		friendItem.setToolTipText("Right click to see options for this item");
 		
+		//prints the usersnickname to the JPanel.
 		JLabel friendName;
 		if(c.getUserPresence(user.getAccountName()).contains("offline")){
 			friendName = new JLabel(user.getNickname() + " (Offline)");
 		}else{
-			//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
 			friendName = new JLabel(user.getNickname());
+			//JLabel friendStatus = new JLabel(" - \"" + status + "\"");
 		}
 		
 		friendItem.add(friendName,BorderLayout.WEST);
