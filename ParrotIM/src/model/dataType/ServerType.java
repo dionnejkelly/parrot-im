@@ -1,3 +1,24 @@
+/* ServerType.java
+ * 
+ * Programmed By:
+ *     Kevin Fahy
+ *     William Chen
+ *     
+ * Change Log:
+ *     2009-June-7, KF
+ *         Initial write. Holds all protocol names.
+ *     2009-June-13, WC
+ *         Moved over to ParrotIM project.
+ *         
+ * Known Issues:
+ *     1. Not documented thoroughly.
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
+
 package model.dataType;
 
 import java.util.Vector;
@@ -19,7 +40,7 @@ public enum ServerType {
     }
    
     @Override
-	public String toString() {
+    public String toString() {
     	return this.name;
     }
     
@@ -34,4 +55,5 @@ public enum ServerType {
     	}
     	return serverList;
     }
+    
 }

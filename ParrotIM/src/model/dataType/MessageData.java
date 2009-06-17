@@ -1,13 +1,38 @@
+/* MessageData.java
+ * 
+ * Programmed By:
+ *     Kevin Fahy
+ *     William Chen
+ *     
+ * Change Log:
+ *     2009-June-9, KF
+ *         Initial write. Holds all data pertaining to an individual
+ *         message in a conversation.
+ *     2009-June-13, WC
+ *         Moved over to ParrotIM project.
+ *         
+ * Known Issues:
+ *     1. Difficult for chatlog to get information about receiver,
+ *        and a MessageData does not hold this information. 
+ *     2. Not documented thoroughly.
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
+
 package model.dataType;
 
-
 public class MessageData {
+
     private UserData fromUser;
     private String message;
     private String font;
     private String size;
     
-    public MessageData(UserData fromUser, String message, String font, String size) {
+    public MessageData(UserData fromUser, String message, String font, 
+                       String size) {
         this.fromUser = fromUser;
         this.message = message;
         this.font = font;
@@ -43,7 +68,7 @@ public class MessageData {
     }
     
     @Override
-	public String toString() {
+    public String toString() {
         return text();
     }
 }

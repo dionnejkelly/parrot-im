@@ -1,7 +1,31 @@
+/* CurrentProfileData.java
+ * 
+ * Programmed By:
+ *     Kevin Fahy
+ *     Vera Lukman
+ *     William Chen
+ *     
+ * Change Log:
+ *     2009-June-7, KF
+ *         Initial write. Holds array of accounts.
+ *     2009-June-9, KF
+ *         Added functionality to search UserData friends from each 
+ *         account inside of the CurrentProfile.
+ *     2009-June-13, WC
+ *         Moved over to ParrotIM project.
+ *         
+ * Known Issues:
+ *     1. Not documented thoroughly.
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
+
 package model.dataType;
 
 import java.util.*;
-
 
 /**
  * Holds the account information of the current account being used,
@@ -49,7 +73,7 @@ public class CurrentProfileData {
     }
     
     @Override
-	public String toString() {
+    public String toString() {
         return profileName;
     }
     
