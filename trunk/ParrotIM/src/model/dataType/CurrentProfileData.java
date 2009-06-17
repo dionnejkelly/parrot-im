@@ -102,4 +102,16 @@ public class CurrentProfileData {
         }
         return friends;
     }
+    
+    public AccountData getAccountFromServer(ServerType server) {
+        AccountData toReturn = null;
+        for (AccountData a : accountData) {
+            if (a.getServer() == server) {
+                toReturn = a;
+                break;
+            }
+        }
+        
+        return toReturn; 
+    }
 }

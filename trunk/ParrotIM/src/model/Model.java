@@ -6,6 +6,7 @@
  *     Jordan Fox
  *     Vera Lukman
  *     William Chen
+ *     Jihoon Choi
  *     
  * Change Log:
  *     2009-June-3, KF
@@ -19,6 +20,8 @@
  *         Fixed code in startConversation().
  *     2009-June-13, WC
  *         Transferred file over to new project, ParrotIM.  
+ *     2009-June-17, KF/WC/JC
+ *         Added addFriend() to add a friend to the friend list. 
  *         
  * Known Issues:
  *     1. Currently has methods that are scheduled to be phased out.
@@ -37,6 +40,7 @@ import java.sql.*;
 import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.CurrentProfileData;
+import model.dataType.GoogleTalkUserData;
 import model.dataType.MessageData;
 import model.dataType.ServerType;
 import model.dataType.UpdatedType;
@@ -271,4 +275,36 @@ public class Model extends Observable {
         }
         return found;
     }
+    
+    /**
+     * Adds a friend to the friend list. Takes a server type and a String
+     * representing the account name as parameters. Searches the 
+     * accounts for a matching server, creates a new UserData, and adds
+     * this UserData to the account.
+     * 
+     * @param server
+     * @param accountName
+     */
+    public void addFriend(ServerType server, String accountName) {
+        /* In future, change ServerType to AccountData... should be
+         * passed into the controller. This solution will not work
+         * if there are multiple gmail accounts, for example.
+         */
+        
+        AccountData account = null;
+        UserData userToAdd = null;
+        
+        if (server == ServerType.GOOGLE_TALK) {
+            account = currentProfile.getAccountFromServer(server);
+            userToAdd = new GoogleTalkUserData(accountName, account);
+            account.addFriend(userToAdd);
+        }
+        
+        this.setChanged();
+        this.notifyObservers(UpdatedType.BUDDY);
+        
+        return;
+    }
+    
+    
 }
