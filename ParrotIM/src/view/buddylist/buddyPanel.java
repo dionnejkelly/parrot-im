@@ -24,6 +24,8 @@ import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
 
+
+
 import controller.services.Xmpp;
 
 import view.chatwindow.chatwindow;
@@ -39,6 +41,9 @@ public class buddyPanel extends JPanel implements Observer
 	 * Center: Buddy List
 	 * South: Buddy Options 
 	 */
+	protected SelectListener lastSelectedListener; //selectedIndex of Buddylist
+	protected Object lastSelectedSource;
+	
 	chatwindow chat;
 	JToolBar options;
 	JScrollPane scroller;
@@ -216,17 +221,32 @@ public class buddyPanel extends JPanel implements Observer
 	}
 	
 	private class SelectListener implements MouseListener{
-		public void mouseClicked(MouseEvent event){	
+		protected boolean selected;
+		
+		public SelectListener (){
+			selected = false;
+		}
+		
+		public void mouseClicked(MouseEvent event){
+			if (lastSelectedListener != null){ //unhighlight the last selected 
+				lastSelectedListener.whiteBackground(event);
+			}
+			
 			//FriendItems
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
+				
 				if(event.getSource().equals(boxes[0].getComponent(i))){
-					if(event.getButton() == MouseEvent.BUTTON1){
+					if(event.getButton() == event.BUTTON1){
+						selected = true;
+						lastSelectedListener = this;
 						
 						//Left Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
+						
 						/* Fix this to directly reference the GUI */
 						selectedFriend = buddies.get(i);
 						if(event.getClickCount() == 2){
+						       selected = false;
 						       
 						        /* Is the chat window already open? */
 							if (model.chatWindowOpen == false) {
@@ -241,7 +261,6 @@ public class buddyPanel extends JPanel implements Observer
 							}
 						}
 					}else if(event.getSource().equals(boxes[0].getComponent(i))){
-
 						//Right Click
 						boxes[0].getComponent(i).setBackground(new Color(145, 200, 200));
 						rightClickMenu.show(boxes[0].getComponent(i), event.getX(), event.getY());
@@ -261,9 +280,29 @@ public class buddyPanel extends JPanel implements Observer
 		}
 		
 		public void mouseExited(MouseEvent event) {
+			Color c;
+			if (selected){
+				c = new Color(145, 200, 200);
+				lastSelectedSource = event.getSource();
+			}else{
+				c = Color.WHITE;
+			}
+			
 			for(int i=0; i < boxes[0].getComponentCount(); i++){
 				if(event.getSource().equals(boxes[0].getComponent(i))){
-					boxes[0].getComponent(i).setBackground(Color.WHITE);
+					boxes[0].getComponent(i).setBackground(c);
+				}
+			}
+		}
+		
+		public void whiteBackground(MouseEvent event){
+			selected = false;
+			if (lastSelectedSource == null) return;
+			else{
+				for(int i=0; i < boxes[0].getComponentCount(); i++){
+					if(lastSelectedSource.equals(boxes[0].getComponent(i))){
+						boxes[0].getComponent(i).setBackground(Color.WHITE);
+					}
 				}
 			}
 		}
@@ -271,6 +310,8 @@ public class buddyPanel extends JPanel implements Observer
 		public void mousePressed(MouseEvent e) {}
 		public void mouseReleased(MouseEvent e) {}
 	}
+	
+	
 	
 	class RightCickMenuListener extends MouseAdapter {
 	    @Override

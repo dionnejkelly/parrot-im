@@ -3,12 +3,16 @@ package view.chatwindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.jivesoftware.smack.XMPPException;
+
+
 
 import controller.services.Xmpp;
 
@@ -57,6 +61,7 @@ public class ChatPanel extends JPanel {
 		txt1.setRows(9);
 		txt1.setLineWrap(true);
 		txt1.setToolTipText("Enter text and HTML tags here");
+		txt1.addKeyListener(new TextBoxListener());
 		
 		JButton sendButton = new JButton("SEND");
 		sendButton.addActionListener(new SendButtonPressed());
@@ -119,39 +124,83 @@ public class ChatPanel extends JPanel {
        public DisplayPanel getDisplayPanel() {
            return displayPanel;
        }
+       
+       public JComboBox getFontSelect() {
+   		return fontSelect;
+   	}
 
-	public class SendButtonPressed implements ActionListener {
-            public void actionPerformed(ActionEvent evt) {
-                MessageData message = null;
-                ConversationData conversation = null;
-                UserData fromUser = null;
-                String msg = txt1.getText();
-                
-                conversation = model.getActiveConversation();
-                fromUser = conversation.getAccount().getOwnUserData();
-                message = new MessageData(fromUser, msg, fontSelect.getSelectedItem().toString(), "4");
-                
-                try {
-					model.sendMessage(conversation, message);
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                //displayPanel.addMessage(message);
-                try {
-                        //for(int i = 0; i < conversations.get(0).getSize(); i++){
-                                c.sendMessage(message.getMessage(), conversation.getUser().getAccountName());
-                        //}
-                                        
-                                } catch (XMPPException e) {
-                                        e.printStackTrace();
-                                        System.out.println("failed in sending text");
-                                }
-                                txt1.setText("");
-            }
+       public void sendMessage(){
+           MessageData message = null;
+           ConversationData conversation = null;
+           UserData fromUser = null;
+           String msg = txt1.getText();
+           
+           conversation = model.getActiveConversation();
+           fromUser = conversation.getAccount().getOwnUserData();
+           message = new MessageData(fromUser, msg, fontSelect.getSelectedItem().toString(), "4");
+           
+           try {
+   			model.sendMessage(conversation, message);
+   		} catch (ClassNotFoundException e1) {
+   			// TODO Auto-generated catch block
+   			e1.printStackTrace();
+   		} catch (SQLException e1) {
+   			// TODO Auto-generated catch block
+   			e1.printStackTrace();
+   		}
+           //displayPanel.addMessage(message);
+           try {
+                   //for(int i = 0; i < conversations.get(0).getSize(); i++){
+                           c.sendMessage(message.getMessage(), conversation.getUser().getAccountName());
+                   //}
+                                   
+           } catch (XMPPException e) {
+           	e.printStackTrace();
+               System.out.println("failed in sending text");
+           }
+           txt1.setText(null);
+   	}
+   	
+   	
+   	public class SendButtonPressed implements ActionListener {
+               public void actionPerformed(ActionEvent evt) {
+               	sendMessage();
+               }
+   	}
+	
+	public class TextBoxListener implements KeyListener{
+		private boolean shiftPressed = false;
+		
+		public void keyPressed(KeyEvent e) {
+				
+			// this is functional but somewhat unstable
+			// any ideas are welcome to be discussed in the upcoming meeting
+		
+			
+			if (e.getKeyCode() == e.VK_SHIFT) {
+				shiftPressed = true;
+			}
+		}
+
+		public void keyReleased(KeyEvent e) {
+			
+			if (!shiftPressed && e.getKeyCode()==e.VK_ENTER){
+				System.out.println("------------------------------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
+				e.setKeyCode(e.VK_BEGIN);
+				sendMessage();
+				
+				
+			}
+			
+			else if (shiftPressed && (e.getKeyCode() == e.VK_ENTER)) {
+				System.out.println("-------------------------------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
+				txt1.setText(txt1.getText() + "\n");
+				shiftPressed = false;
+			}
+		}
+
+		public void keyTyped(KeyEvent e) {}
+		
 	}
 	
 }
