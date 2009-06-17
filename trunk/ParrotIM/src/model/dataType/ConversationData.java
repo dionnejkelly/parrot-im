@@ -1,7 +1,30 @@
+/* ConversationData.java
+ * 
+ * Programmed By:
+ *     Kevin Fahy
+ *     William Chen
+ *     
+ *     Change Log:
+ *     2009-June-9, KF
+ *         Initial write. Holds all data for a specific conversation with
+ *         one person.
+ *     2009-June-13, WC
+ *         Moved over to ParrotIM project.
+ *         
+ * Known Issues:
+ *     1. Only functional for one user; multi-user chats are not
+ *        implemented by this class.
+ *     2. Not documented thoroughly.
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
+
 package model.dataType;
 
 import java.util.ArrayList;
-
 
 /**
  * Holds all information represented in a conversation.
@@ -73,4 +96,5 @@ public class ConversationData {
         }
         return messages;
     }
+    
 }
