@@ -67,9 +67,11 @@ public class sidePanel extends JPanel implements Observer {
 	}
 	
 	public void update(Observable t, Object o) {         
-        if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
-            
-            refreshTree();
+            if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
+                // Temporary fix for early update bug
+                if (tree != null) {
+                    refreshTree();
+                }
 	    }
 	    return;	
 	}
