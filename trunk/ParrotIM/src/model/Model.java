@@ -56,7 +56,8 @@ public class Model extends Observable {
     public Model() throws ClassNotFoundException, SQLException {
         currentProfile = new CurrentProfileData();
         conversations = new ArrayList<ConversationData>();
-}
+    }
+    
     /**
      * overriding notifyObservers in the parent class
      * combining setchange and noifyObservers into one method
