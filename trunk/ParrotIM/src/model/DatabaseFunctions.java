@@ -90,7 +90,40 @@ public class DatabaseFunctions {
         
         return;
     }
-    
+    public Vector<String> getChatNameList() throws SQLException
+    {
+    	accountList = new Vector<String>();
+        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        stat = conn.createStatement();
+        ResultSet rs = stat.executeQuery("select * from chatLog;");
+        while (rs.next()) {
+        	if (!accountList.contains(rs.getString("name")))
+        	{
+        	accountList.add(rs.getString("name"));
+        	}
+        }
+    	return accountList;
+    }
+    public Vector<String> getChatDatesFromName(String name) throws SQLException
+    {
+    	accountList = new Vector<String>();
+        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        stat = conn.createStatement();
+        ResultSet rs = stat.executeQuery("select * from chatLog where name='" +name+ "';");
+        while (rs.next()) {
+        	accountList.add(rs.getString("name"));
+        }
+    	return accountList;
+    }
+    public String getMessageFromDate(String date) throws SQLException
+    {
+    	accountList = new Vector<String>();
+        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        stat = conn.createStatement();
+        ResultSet rs = stat.executeQuery("select * from chatLog where date='" +date+ "';");
+    	rs.next();
+    	return rs.getString("message");
+    }
     public void printChats() throws SQLException, ClassNotFoundException {
 	accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -105,6 +138,7 @@ public class DatabaseFunctions {
      
         return;
     }
+    
     
     public void addProfiles(String name, String password,
             String rememberPassword) throws SQLException {
