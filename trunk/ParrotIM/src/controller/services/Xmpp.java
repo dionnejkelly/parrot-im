@@ -450,6 +450,14 @@ public class Xmpp {
                     chatbot.get_input(message.getBody());
                     String response = chatbot.respond();
                     sendMessage(response, chat.getParticipant());
+                    
+                    // temporary to display in the chat window
+//                    ConversationData conversation = model.getActiveConversation();
+//                    UserData fromUser = conversation.getAccount().getOwnUserData();
+//                    MessageData msg = new MessageData(fromUser, response, chatPanel.getFontSelect().getSelectedItem().toString(), "4");
+//                    
+//                    model.sendMessage(conversation, msg);
+                    
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
