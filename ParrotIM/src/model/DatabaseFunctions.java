@@ -3,6 +3,7 @@
  * Programmed By:
  *     Ahmad Sidiqi
  *     William Chen
+ *     Kevin Fahy
  *     
  * Change Log:
  *     2009-June-8, AS
@@ -11,6 +12,9 @@
  *         Moved over to ParrotIM project.
  *     2009-June-15, AS
  *         Provided chat log functionality.
+ *     2009-June-18, KF
+ *         Added functionality to store local data on friends, including
+ *         their accountName and blockedStatus.
  *         
  * Known Issues:
  *     none
@@ -19,7 +23,6 @@
  * 
  * Full license can be found in ParrotIM/LICENSE.txt.
  */
-
 
 package model;
 
@@ -40,19 +43,20 @@ public class DatabaseFunctions {
     public Statement stat;
     public PreparedStatement prep;
     public ResultSet rs;
-	
+
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
-	accountList = new Vector<String>();
-	bannedAccountList = new Vector<String>();
+        accountList = new Vector<String>();
+        bannedAccountList = new Vector<String>();
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        stat = conn.createStatement();
+        stat = conn.createStatement();     
+        
     }
-    
-    public void addUsers(String profile, String service, String email, 
+
+    public void addUsers(String profile, String service, String email,
             String password, String rememberPassword) throws SQLException {
-        prep = conn.prepareStatement(
-                "insert into people values (?, ?, ?, ?, ?);");
+        prep = conn
+                .prepareStatement("insert into people values (?, ?, ?, ?, ?);");
         prep.setString(1, profile);
         prep.setString(2, service);
         prep.setString(3, email);
@@ -65,89 +69,89 @@ public class DatabaseFunctions {
         conn.setAutoCommit(true);
         conn.close();
     }
-    
-//    public Vector<String> getUserList() throws SQLException {
-//	ResultSet rs = stat.executeQuery("select * from people;");
-//        while (rs.next()) {
-//	    accountList.add(rs.getString("email"));
-//        }
-//        return accountList;
-//    }
-    
-    public void addChat(String fromUser, String toUser, String message) 
+
+    // public Vector<String> getUserList() throws SQLException {
+    // ResultSet rs = stat.executeQuery("select * from people;");
+    // while (rs.next()) {
+    // accountList.add(rs.getString("email"));
+    // }
+    // return accountList;
+    // }
+
+    public void addChat(String fromUser, String toUser, String message)
             throws SQLException {
-        prep = conn.prepareStatement(
-                "insert into chatLog values (?, ?, ?, ?);");
+        prep = conn
+                .prepareStatement("insert into chatLog values (?, ?, ?, ?);");
         prep.setString(1, fromUser);
         prep.setString(2, toUser);
         prep.setString(3, message);
-        /// remember to make date automatic!!!
+        // / remember to make date automatic!!!
         prep.setString(4, new Date().toString());
         prep.addBatch();
-         
+
         conn.setAutoCommit(false);
         prep.executeBatch();
         conn.setAutoCommit(true);
         conn.close();
-        
+
         return;
     }
-    public Vector<String> getChatNameList() throws SQLException
-    {
-    	accountList = new Vector<String>();
+
+    public Vector<String> getChatNameList() throws SQLException {
+        accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("select * from chatLog;");
         while (rs.next()) {
-        	if (!accountList.contains(rs.getString("name")))
-        	{
-        	accountList.add(rs.getString("name"));
-        	}
+            if (!accountList.contains(rs.getString("name"))) {
+                accountList.add(rs.getString("name"));
+            }
         }
-    	return accountList;
+        return accountList;
     }
-    public Vector<String> getChatDatesFromName(String name) throws SQLException
-    {
-    	accountList = new Vector<String>();
+
+    public Vector<String> getChatDatesFromName(String name) throws SQLException {
+        accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog where name='" +name+ "';");
+        ResultSet rs = stat.executeQuery("select * from chatLog where name='"
+                + name + "';");
         while (rs.next()) {
-        	accountList.add(rs.getString("name"));
+            accountList.add(rs.getString("name"));
         }
-    	return accountList;
+        return accountList;
     }
-    public String getMessageFromDate(String date) throws SQLException
-    {
-    	accountList = new Vector<String>();
+
+    public String getMessageFromDate(String date) throws SQLException {
+        accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog where date='" +date+ "';");
-    	rs.next();
-    	return rs.getString("message");
+        ResultSet rs = stat.executeQuery("select * from chatLog where date='"
+                + date + "';");
+        rs.next();
+        return rs.getString("message");
     }
+
     public void printChats() throws SQLException, ClassNotFoundException {
-	accountList = new Vector<String>();
+        accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("select * from chatLog;");
         while (rs.next()) {
-            System.out.println("From = " + rs.getString("fromUser") 
-                    + ", To = " + rs.getString("toUser") + ", Message = " 
-                    + rs.getString("message") + ", Date = " 
+            System.out.println("From = " + rs.getString("fromUser") + ", To = "
+                    + rs.getString("toUser") + ", Message = "
+                    + rs.getString("message") + ", Date = "
                     + rs.getString("date"));
         }
-     
+
         return;
     }
-    
-    
+
     public void addProfiles(String name, String password,
             String rememberPassword) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         Statement stat = conn.createStatement();
-        prep = conn.prepareStatement(
-                "insert into profiles values (?, ?, ?);");
+        prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
 
         prep.setString(1, name);
         prep.setString(2, password);
@@ -159,17 +163,17 @@ public class DatabaseFunctions {
         conn.setAutoCommit(true);
         conn.close();
     }
-    
+
     public Vector<String> getProfileList() throws SQLException {
         ResultSet rs = stat.executeQuery("select * from profiles;");
         ResultSet rs2;
         while (rs.next()) {
-            System.out.println("Name: " + rs.getString("name") 
-                    + ", Password = " + rs.getString("password") 
-                    + "Chose to remember password = " 
+            System.out.println("Name: " + rs.getString("name")
+                    + ", Password = " + rs.getString("password")
+                    + "Chose to remember password = "
                     + rs.getString("rememberPassword"));
             System.out.println("List of users under this profile: ");
-            rs2 = stat.executeQuery("select * from people where profile='" 
+            rs2 = stat.executeQuery("select * from people where profile='"
                     + rs.getString("name") + "';");
             while (rs2.next()) {
                 {
@@ -181,28 +185,110 @@ public class DatabaseFunctions {
     }
 
     public Vector<String> getUserList() throws SQLException {
-    	ResultSet rs = stat.executeQuery("select * from people;");
-            while (rs.next()) {
-    	    accountList.add(rs.getString("email"));
-            }
-            return accountList;
+        ResultSet rs = stat.executeQuery("select * from people;");
+        while (rs.next()) {
+            accountList.add(rs.getString("email"));
         }
-    
-    
-	public Vector<String> getBannedUserList() throws SQLException {
-		//ResultSet rs = stat.executeQuery("select * from people;");
-		// while (rs.next()) {
-			// bannedAccountList.add("");
-			 
-		 //}
-     
-	    return bannedAccountList;
-	
-	}
-	
-	public void setBannedUserList(String userID) {
-		bannedAccountList.add(userID);
-		
-	}
-    
+        return accountList;
+    }
+
+    public Vector<String> getBannedUserList() throws SQLException {
+        // ResultSet rs = stat.executeQuery("select * from people;");
+        // while (rs.next()) {
+        // bannedAccountList.add("");
+
+        // }
+
+        return bannedAccountList;
+
+    }
+
+    public void setBannedUserList(String userID) {
+        bannedAccountList.add(userID);
+
+    }
+
+    public static boolean friendExists(String accountName) throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        Statement stat = conn.createStatement();
+        PreparedStatement prep = null;
+        ResultSet rs = null;
+
+        boolean exists = false;
+        stat = conn.createStatement();
+        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
+                + accountName + "';");
+
+        /* Only check resultSet once */
+        if (rs.next()) {
+            exists = true;
+        }
+
+        return exists;
+    }
+
+    public static void addFriend(String accountName, boolean blocked)
+            throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        PreparedStatement prep = null;
+
+        prep = conn.prepareStatement("INSERT INTO friendList VALUES (?, ?);");
+        prep.setString(1, accountName);
+        prep.setBoolean(2, blocked);
+
+        prep.addBatch();
+
+        conn.setAutoCommit(false);
+        prep.executeBatch();
+        conn.setAutoCommit(true);
+        conn.close();
+
+        return;
+    }
+
+    public static void changeBlocked(String accountName, boolean blocked)
+            throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        PreparedStatement prep = null;
+
+        prep = conn.prepareStatement("UPDATE friendList SET blocked = blocked " +
+        		"WHERE accountName ='" + accountName + ";");
+        
+        /* are these commands necessary now? */
+        prep.addBatch();
+
+        conn.setAutoCommit(false);
+        prep.executeBatch();
+        conn.setAutoCommit(true);
+        conn.close();
+
+        return;
+    }
+
+    public static boolean checkBlockedByAccountName(String accountName)
+            throws SQLException {
+        /*
+         * Ahmad, please check this to see if it could be made more efficient.
+         * Basically, I want to check the table of friends to find a friend's
+         * blocked status. If it doesn't exist, I want to return false (default
+         * state of blocked). Thanks! --KF
+         */
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        Statement stat = conn.createStatement();
+        PreparedStatement prep = null;
+        ResultSet rs = null;
+
+        boolean blocked = false; // If account isn't saved, false is default.
+        stat = conn.createStatement();
+        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
+                + accountName + "';");
+
+        /* Only check resultSet once */
+        if (rs.next()) {
+            blocked = rs.getBoolean("blocked");
+        }
+
+        return blocked;
+    }
+
 }
