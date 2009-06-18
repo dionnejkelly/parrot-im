@@ -22,6 +22,10 @@
  *         Transferred file over to new project, ParrotIM.  
  *     2009-June-17, KF/WC/JC
  *         Added addFriend() to add a friend to the friend list. 
+ *     2009-June-18, KF
+ *         Added findFriendByAccountName(), removeFriend(), 
+ *         changeFriendStatus().
+ *         
  *         
  * Known Issues:
  *     1. Currently has methods that are scheduled to be phased out.
@@ -290,8 +294,14 @@ public class Model extends Observable {
      * accounts for a matching server, creates a new UserData, and adds
      * this UserData to the account.
      * 
-     * @param server
-     * @param accountName
+     * @param server        A constant representing the server type
+     *                      to search for in accounts. This parameter
+     *                      effectively specifies which account to
+     *                      add the friend to.
+     * 
+     * @param accountName   A string with the account name of the user
+     *                      to add. This method is responsible to
+     *                      place this user into a UserData object.
      */
     public void addFriend(ServerType server, String accountName) {
         /* In future, change ServerType to AccountData... should be
@@ -314,5 +324,80 @@ public class Model extends Observable {
         return;
     }
     
+    /**
+     * Removes a friend in one of the accounts based on the UserData
+     * representation of the friend. Removes only the first friend 
+     * that is found.
+     * 
+     * It is advisable to run a findFriendByAccountName() first
+     * to obtain the UserData representation, and then call this
+     * method to remove the friend.
+     * 
+     * @param exFriend  The friend to remove.
+     * @return true if removed, false otherwise.
+     */
+    public boolean removeFriend(UserData exFriend) {
+        boolean success = false;
+        
+        /* Can throw NullPointerException if exFriend is null */
+        try {
+            /* CurrentProfile automatically finds the account for us */
+            currentProfile.removeFriend(exFriend);   
+            success = true;
+        } catch (NullPointerException e) {
+            success = false; // Should already be false, but, hey, whatever    
+        }
+        
+        super.setChanged();
+        super.notifyObservers(UpdatedType.BUDDY);
+        
+        return success;
+    }
     
+    /**
+     * Searches for a friend in all the accounts of the current profile
+     * by account name.
+     * 
+     * @param accountName   The String representing the account name.
+     * @return A UserData with the friend info. Can be null if the friend
+     *         is not found.
+     */
+    public UserData findFriendByAccountName(String accountName) {
+        UserData foundFriend = null;
+        
+        /* Find the UserData representation of the friend */
+        for (UserData u : currentProfile.getAllFriends()) {
+            if (u.getAccountName().equalsIgnoreCase(accountName)) {
+                foundFriend = u;
+                break;
+            }
+        }
+        
+        /* Possible that foundFriend is still null--not found */
+        return foundFriend;
+    }
+    
+    /**
+     * Updates a friend's status, and notifies the BUDDY portion of
+     * the view on the change. Requires a UserData object to be
+     * passed in. In practice, this model method is not required
+     * to change the status, but it is important to do so as to 
+     * update the view.
+     * 
+     * @param friend  The UserData representation of the friend.
+     * @param status  The new status message to display.
+     */
+    public void changeFriendStatus(UserData friend, String status) {
+        /* It's possible that not all protocols allow us to update 
+         * statuses. Also, Twitter is "special" in that it can only
+         * be 140 characters in length. We need to implement this 
+         * checking later.
+         */
+        friend.setStatus(status);
+                
+        super.setChanged();
+        super.notifyObservers(UpdatedType.BUDDY);
+        
+        return;
+    }
 }
