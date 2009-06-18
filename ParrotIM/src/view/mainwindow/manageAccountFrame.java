@@ -131,7 +131,7 @@ public class manageAccountFrame extends JFrame implements Observer
             	int selected = accList.getSelectedIndex();
             	try {
 					if (selected>=0 && selected < model.getAccountList().size()){
-						model.getAccountList().remove(selected);
+						//model.getAccountList().remove(selected);
 						accountArray.remove(selected);
 						accList.updateUI();
 						//TODO: update the JComboBox in siginPanel too!
