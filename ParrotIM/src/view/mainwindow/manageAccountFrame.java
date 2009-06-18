@@ -130,20 +130,22 @@ public class manageAccountFrame extends JFrame implements Observer
 		removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	int selected = accList.getSelectedIndex();
-            	try {
-					if (selected>=0 && selected < model.getAccountList().size()){
+            	//try {
+					if (selected>=0 && selected < accountArray.size()){
 						//model.getAccountList().remove(selected);
 						accountArray.remove(selected);
 						accList.updateUI();
 						//TODO: update the JComboBox in siginPanel too!
 					}
-				} catch (ClassNotFoundException e) {
+					
+				//I seriously don't know, but eclipse complains about try-catch block
+				/*} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
             }
 		});
 
