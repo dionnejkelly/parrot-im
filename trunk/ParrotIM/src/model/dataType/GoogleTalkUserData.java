@@ -36,6 +36,10 @@ public class GoogleTalkUserData extends UserData {
     public GoogleTalkUserData(String accountName, AccountData friendOf) {
         super(accountName, friendOf);
     }
+    
+    public GoogleTalkUserData(String accountName) {
+        super(accountName);
+    }
 
     public void setOnline(boolean online) {
         this.online = online;

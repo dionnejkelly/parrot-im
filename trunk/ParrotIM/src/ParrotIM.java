@@ -35,14 +35,14 @@ public class ParrotIM {
 			ArrayList<String> buddies = chatClient.getBuddyList();
 			
         		
-			System.out.println("USERS STATUS:");
-			System.out.println("----------------------------------------------");
-			for (int i = 0; i < buddies.size(); i++) {
-				 System.out.println(chatClient.getUserPresence(buddies.get(i)));
-				
-			}
-			System.out.println("----------------------------------------------");
-			System.out.println();
+//			System.out.println("USERS STATUS:");
+//			System.out.println("----------------------------------------------");
+//			for (int i = 0; i < buddies.size(); i++) {
+//				 System.out.println(chatClient.getUserPresence(buddies.get(i)));
+//				
+//			}
+//			System.out.println("----------------------------------------------");
+//			System.out.println();
 			
         	try {
 

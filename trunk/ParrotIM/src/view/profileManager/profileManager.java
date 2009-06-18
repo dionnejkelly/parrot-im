@@ -97,7 +97,7 @@ public class profileManager extends JFrame
 		//TODO:   ADD NEW PROFILE LIST TO MODEL
 		
 		JScrollPane listScroller = new JScrollPane(profileList);
-		listScroller.setPreferredSize(new Dimension(120, 265));
+		listScroller.setPreferredSize(new Dimension(120, 255));
 		listScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		//add-remove button panel
 		JPanel addremovePanel = new JPanel();
@@ -142,7 +142,7 @@ public class profileManager extends JFrame
 		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
 		JScrollPane acctListScroller = new JScrollPane(accList);
-		acctListScroller.setPreferredSize(new Dimension(305, 220));
+		acctListScroller.setPreferredSize(new Dimension(305, 200));
 		acctListScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 
 

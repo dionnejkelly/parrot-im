@@ -125,16 +125,20 @@ public class CurrentProfileData {
      * @return true if removed, false otherwise.
      */
     public boolean removeFriend(UserData user) {
-        boolean success = false;
+//        boolean success = false;
+//        
+//        for (AccountData a : this.accountData) {
+//            if (a.friendExists(user)) {
+//                a.removeFriend(user);
+//                success = true;
+//                break;
+//            }
+//        }
         
-        for (AccountData a : this.accountData) {
-            if (a.friendExists(user)) {
-                a.removeFriend(user);
-                success = true;
-                break;
-            }
-        }
+        accountData.remove(user);
         
-        return success;
+        System.out.println("--------------------------------------------------------Coming from here!!");
+        
+        return true;
     }
 }
