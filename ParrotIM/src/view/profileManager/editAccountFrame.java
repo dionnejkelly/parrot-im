@@ -34,6 +34,10 @@ import view.styles.popupWindowListener;
 
 public class editAccountFrame extends JFrame
 {
+	/*
+	 * LEAVING OUT EDIT ACCOUNT FUNCTION FOR ALPHA
+	 */
+	
 	private JPanel accMANPanel;
 	private Model model;
 	private mainwindow mainFrame;
@@ -48,10 +52,10 @@ public class editAccountFrame extends JFrame
 		
 	}
 	
-	//Instance 2 -- Edit Account (User/PAss already filled in, Disable username box)
-	private editAccountFrame(Model model, String name)
+	//Instance 2 -- Edit Account (User/Pass already filled in, Disable username box)
+	/*private editAccountFrame(Model model, String name)
 	{
 		
-	}
+	}*/
 
 }
