@@ -40,11 +40,19 @@ public abstract class UserData {
 	this.friendOf = friendOf;
     }
     
+  
     public UserData(String accountName, AccountData friendOf) {
         this.accountName = accountName;
         this.nickname = this.accountName;
         this.status = "";
         this.friendOf = friendOf;
+    }
+    
+    public UserData(String accountName) {
+        this.accountName = accountName;
+        this.nickname = this.accountName;
+        this.status = "";
+        this.friendOf = null;
     }
 	
     public void setAccountName(String accountName) {

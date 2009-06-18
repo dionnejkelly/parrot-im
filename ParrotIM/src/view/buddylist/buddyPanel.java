@@ -31,6 +31,7 @@ import view.chatwindow.chatwindow;
 
 import model.Model;
 import model.dataType.ConversationData;
+import model.dataType.GoogleTalkUserData;
 import model.dataType.UpdatedType;
 import model.dataType.UserData;
 
@@ -176,6 +177,27 @@ public class buddyPanel extends JPanel implements Observer {
                         + selectedFriend.toString());
 
                 chatClient.removeFriend(selectedFriend.toString());
+                
+                
+                boolean check = model.getCurrentProfile().getAllFriends().remove(selectedFriend);
+                System.out.println("---------------------------------Deleted = " + check);
+                for (int i = 0; i < model.getCurrentProfile().getAllFriends().size(); i++ ) {
+                	System.out.println("Is it really deleted in the database? " + model.getCurrentProfile().getAllFriends().get(i));
+                }
+                
+                buddies.remove(selectedFriend);
+               	boxes[0].removeAll();
+               
+                for (int i = 0; i < buddies.size(); i++) {
+                    boxes[0].add(FriendItem(buddies.get(i)));
+                }
+
+                for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+                    boxes[0].getComponent(i).addMouseListener(new SelectListener());
+                	//System.out.println("What is contained the box? " + boxes[0].getComponent(i));
+                }
+                
+                friendList.updateUI();
         		
         	}
             
@@ -197,6 +219,19 @@ public class buddyPanel extends JPanel implements Observer {
             if (userFriendID != null && !userFriendID.equals("")) {
                 chatClient.addFriend(userFriendID);
                 JOptionPane.showMessageDialog(null, result);
+                
+                buddies.add(new GoogleTalkUserData(userFriendID));
+
+                // add friends to the buddy list
+            
+                boxes[0].add(FriendItem(buddies.get(buddies.size() - 1)));
+
+                boxes[0].getComponent(buddies.size() - 1).addMouseListener(new SelectListener());
+                
+                friendList.updateUI();
+                
+                
+                
 
             }
             System.out.println("User Input = " + userFriendID);
