@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -44,6 +45,7 @@ public class manageAccountFrame extends JFrame implements Observer
 	private mainwindow mainFrame;
 	protected JFrame popup;
 	private JList profileList;
+	private Vector<String> accountArray;
 	private JList accList;
 	
 
@@ -130,6 +132,7 @@ public class manageAccountFrame extends JFrame implements Observer
             	try {
 					if (selected>=0 && selected < model.getAccountList().size()){
 						model.getAccountList().remove(selected);
+						accountArray.remove(selected);
 						accList.updateUI();
 						//TODO: update the JComboBox in siginPanel too!
 					}
@@ -288,9 +291,10 @@ public class manageAccountFrame extends JFrame implements Observer
 				//TODO:edit password
 			}else {
 				//insert new
+				accountArray.add(UNField.getText());
+				accList.updateUI();
 				UNField.setText("");
 				pwdField.setText("");
-				accList.updateUI();
         		//TODO: update the JComboBox in siginPanel too!
 			}
 		}
