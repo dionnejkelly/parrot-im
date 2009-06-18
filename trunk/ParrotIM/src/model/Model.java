@@ -90,6 +90,14 @@ public class Model extends Observable {
         return db.getUserList();
     }
     
+    public Vector<String> getBannedAccountList() throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getBannedUserList();
+    	
+    }
+    
+  
+    
     /* Phase this method out in favour of the next one */
     public Vector<String> getServerList() {
        	return ServerType.getServerList();

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,6 +26,7 @@ import javax.swing.ScrollPaneConstants;
 
 import controller.services.Xmpp;
 
+import view.blockManager.blockManager;
 import view.chatwindow.chatwindow;
 
 import model.Model;
@@ -47,7 +49,7 @@ public class buddyPanel extends JPanel implements Observer {
     JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
     Box boxes[] = new Box[1];
     String selectedName;
-    Xmpp c;
+    Xmpp chatClient;
     Model model;
     ArrayList<UserData> buddies;
     UserData selectedFriend;
@@ -57,7 +59,7 @@ public class buddyPanel extends JPanel implements Observer {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
-        this.c = c;
+        this.chatClient = c;
         this.model = model;
         this.chat = null;
         buddies = null;
@@ -133,15 +135,36 @@ public class buddyPanel extends JPanel implements Observer {
 
         addF.addMouseListener(new addFriendListener());
         removeF.addMouseListener(new removeFriendListener());
+        blockF.addMouseListener(new blockFriendListener());
 
         return options;
     }
+    
+    class blockFriendListener extends MouseAdapter {
+        public void mousePressed(MouseEvent event) {
+            
+        	try {
+				blockManager blockedUser = new blockManager(chatClient, model);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+          
+
+        }
+    }
+    
+    
 
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
             System.out.println("Remove this user from the buddy list = "
                     + selectedFriend.toString());
-            c.removeFriend(selectedFriend.toString());
+            chatClient.removeFriend(selectedFriend.toString());
         }
     }
 
@@ -150,7 +173,7 @@ public class buddyPanel extends JPanel implements Observer {
             System.out.println("Remove this user from the button = "
                     + selectedFriend.toString());
 
-            c.removeFriend(selectedFriend.toString());
+            chatClient.removeFriend(selectedFriend.toString());
 
         }
     }
@@ -167,7 +190,7 @@ public class buddyPanel extends JPanel implements Observer {
                     .showInputDialog("Enter an email address: ");
 
             if (userFriendID != null && !userFriendID.equals("")) {
-                c.addFriend(userFriendID);
+                chatClient.addFriend(userFriendID);
                 JOptionPane.showMessageDialog(null, result);
 
             }
@@ -188,7 +211,7 @@ public class buddyPanel extends JPanel implements Observer {
 
         // prints the usersnickname to the JPanel.
         JLabel friendName;
-        if (c.getUserPresence(user.getAccountName()).contains("offline")) {
+        if (chatClient.getUserPresence(user.getAccountName()).contains("offline")) {
             friendName = new JLabel(user.getNickname() + " (Offline)");
         } else {
             friendName = new JLabel(user.getNickname());
@@ -214,7 +237,7 @@ public class buddyPanel extends JPanel implements Observer {
             if (chat == null) {
                 // model.startConversation(selectedFriend.getFriendOf(),
                 // selectedFriend);
-                chat = new chatwindow(c, model);
+                chat = new chatwindow(chatClient, model);
             } else {
                 // add code for if multiple windows exist.
             }
@@ -257,7 +280,7 @@ public class buddyPanel extends JPanel implements Observer {
                                 model.startConversation(selectedFriend
                                         .getFriendOf(), selectedFriend);
                                 if (chat == null) {
-                                    chat = new chatwindow(c, model);
+                                    chat = new chatwindow(chatClient, model);
                                 }
                                 model.chatWindowOpen = true;
                             } else {
@@ -335,7 +358,7 @@ public class buddyPanel extends JPanel implements Observer {
                             .getFriendOf(), selectedFriend);
                     model.setActiveConversation(conversation);
                     if (chat == null) {
-                        chat = new chatwindow(c, model);
+                        chat = new chatwindow(chatClient, model);
                     }
                 } else {
                     // TODO Add conversation to the window

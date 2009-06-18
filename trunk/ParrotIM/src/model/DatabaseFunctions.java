@@ -35,6 +35,7 @@ import java.util.Vector;
 public class DatabaseFunctions {
 
     private Vector<String> accountList;
+    private Vector<String> bannedAccountList;
     public Connection conn;
     public Statement stat;
     public PreparedStatement prep;
@@ -42,6 +43,7 @@ public class DatabaseFunctions {
 	
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
 	accountList = new Vector<String>();
+	bannedAccountList = new Vector<String>();
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
@@ -64,13 +66,13 @@ public class DatabaseFunctions {
         conn.close();
     }
     
-    public Vector<String> getUserList() throws SQLException {
-	ResultSet rs = stat.executeQuery("select * from people;");
-        while (rs.next()) {
-	    accountList.add(rs.getString("email"));
-        }
-        return accountList;
-    }
+//    public Vector<String> getUserList() throws SQLException {
+//	ResultSet rs = stat.executeQuery("select * from people;");
+//        while (rs.next()) {
+//	    accountList.add(rs.getString("email"));
+//        }
+//        return accountList;
+//    }
     
     public void addChat(String fromUser, String toUser, String message) 
             throws SQLException {
@@ -177,5 +179,30 @@ public class DatabaseFunctions {
         }
         return accountList;
     }
+
+    public Vector<String> getUserList() throws SQLException {
+    	ResultSet rs = stat.executeQuery("select * from people;");
+            while (rs.next()) {
+    	    accountList.add(rs.getString("email"));
+            }
+            return accountList;
+        }
+    
+    
+	public Vector<String> getBannedUserList() throws SQLException {
+		//ResultSet rs = stat.executeQuery("select * from people;");
+		// while (rs.next()) {
+			// bannedAccountList.add("");
+			 
+		 //}
+     
+	    return bannedAccountList;
+	
+	}
+	
+	public void setBannedUserList(String userID) {
+		bannedAccountList.add(userID);
+		
+	}
     
 }
