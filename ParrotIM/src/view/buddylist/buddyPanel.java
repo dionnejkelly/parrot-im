@@ -170,10 +170,15 @@ public class buddyPanel extends JPanel implements Observer {
 
     class removeFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
-            System.out.println("Remove this user from the button = "
-                    + selectedFriend.toString());
+        	
+        	if (selectedFriend != null) {
+        		System.out.println("Remove this user from the button = "
+                        + selectedFriend.toString());
 
-            chatClient.removeFriend(selectedFriend.toString());
+                chatClient.removeFriend(selectedFriend.toString());
+        		
+        	}
+            
 
         }
     }
