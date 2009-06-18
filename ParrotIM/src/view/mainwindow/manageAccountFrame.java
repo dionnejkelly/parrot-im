@@ -93,7 +93,8 @@ public class manageAccountFrame extends JFrame implements Observer
 		leftPanel.setLayout(new BorderLayout());
 
 		//saved account list
-		accList = new JList(model.getAccountList());
+		accountArray = model.getAccountList();
+		accList = new JList(accountArray);
 		System.out.println(model.getAccountList().size());
 		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
