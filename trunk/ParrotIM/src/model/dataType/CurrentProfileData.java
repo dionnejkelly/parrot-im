@@ -13,6 +13,8 @@
  *         account inside of the CurrentProfile.
  *     2009-June-13, WC
  *         Moved over to ParrotIM project.
+ *     2009-June-18, KF
+ *         Added removeFriend().
  *         
  * Known Issues:
  *     1. Not documented thoroughly.
@@ -105,7 +107,7 @@ public class CurrentProfileData {
     
     public AccountData getAccountFromServer(ServerType server) {
         AccountData toReturn = null;
-        for (AccountData a : accountData) {
+        for (AccountData a : this.accountData) {
             if (a.getServer() == server) {
                 toReturn = a;
                 break;
@@ -113,5 +115,26 @@ public class CurrentProfileData {
         }
         
         return toReturn; 
+    }
+    
+    /**
+     * Searches all accounts for a friend, and removes it upon
+     * finding the first occurrence.
+     * 
+     * @param user  The UserData representation of the friend to remove.
+     * @return true if removed, false otherwise.
+     */
+    public boolean removeFriend(UserData user) {
+        boolean success = false;
+        
+        for (AccountData a : this.accountData) {
+            if (a.friendExists(user)) {
+                a.removeFriend(user);
+                success = true;
+                break;
+            }
+        }
+        
+        return success;
     }
 }

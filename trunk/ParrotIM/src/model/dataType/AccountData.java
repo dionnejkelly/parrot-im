@@ -9,6 +9,8 @@
  *         Initial write. Added base data for an account.
  *     2009-June-13, WC
  *         Moved over to ParrotIM project.
+ *     2009-June-18, KF
+ *         Added removeFriend(), friendExists().
  *         
  * Known Issues:
  *     1. Bad implementation of adding ownUserData. Could use inheritance,
@@ -85,9 +87,30 @@ public class AccountData {
         this.friends.add(friend);
         return;
     }
+    
+    /**
+     * Removes a friend from the account. Searches by UserData.
+     * 
+     * @param exFriend   The friend to remove.
+     * 
+     * @return true if removed, false otherwise
+     */
+    public boolean removeFriend(UserData exFriend) {
+        return this.friends.remove(exFriend);
+    }
 	
     public ArrayList<UserData> getFriends() {
         return this.friends;
+    }
+    
+    /**
+     * Checks whether a friend is in the list or not.
+     * 
+     * @param friend  The friend to check.
+     * @return true if found, false otherwise
+     */
+    public boolean friendExists(UserData friend) {
+        return this.friends.contains(friend);
     }
 
     public void setOwnUserData(UserData ownUserData) {
