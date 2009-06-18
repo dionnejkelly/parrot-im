@@ -22,9 +22,9 @@
  *         Transferred file over to new project, ParrotIM.  
  *     2009-June-17, KF/WC/JC
  *         Added addFriend() to add a friend to the friend list. 
- *     2009-June-18, KF
+ *     2009-June-18, KF/JC
  *         Added findFriendByAccountName(), removeFriend(), 
- *         changeFriendStatus().
+ *         changeFriendStatus(), blockFriend(), unblockFriend().
  *         
  *         
  * Known Issues:
@@ -59,11 +59,16 @@ public class Model extends Observable {
     private ArrayList<ConversationData> conversations; 
     private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
+    private DatabaseFunctions db;
     public boolean chatWindowOpen;
 	
     public Model() throws ClassNotFoundException, SQLException {
         currentProfile = new CurrentProfileData();
         conversations = new ArrayList<ConversationData>();
+        
+        /* Test code to create an entry in the friendList */
+        db = new DatabaseFunctions(); // initialize database
+        
     }
     
     /**
@@ -395,6 +400,34 @@ public class Model extends Observable {
          */
         friend.setStatus(status);
                 
+        super.setChanged();
+        super.notifyObservers(UpdatedType.BUDDY);
+        
+        return;
+    }
+    
+    /**
+     * Blocks a user and updates the view. 
+     * 
+     * @param friend  UserData representation of the friend to block.
+     */
+    public void blockFriend(UserData friend) {
+        friend.setBlocked(true); // TODO: Make exception for if null
+        
+        super.setChanged();
+        super.notifyObservers(UpdatedType.BUDDY);
+        
+        return;
+    }
+    
+    /**
+     * Unblocks a user and updates the view. 
+     * 
+     * @param friend  UserData representation of the friend to unblock.
+     */
+    public void unblockFriend(UserData friend) {
+        friend.setBlocked(false); // TODO: Make exception for if null
+        
         super.setChanged();
         super.notifyObservers(UpdatedType.BUDDY);
         
