@@ -65,6 +65,10 @@ public class Xmpp {
     private MessageData m = null;
     private Chat chat = null;
     
+    public boolean isConnected() {
+    	return connection.isConnected();
+    }
+    
     public void removeFriend(String userID) {
 		Roster roster = connection.getRoster();
 		
@@ -106,16 +110,51 @@ public class Xmpp {
         
     }
         
-        public void setPresence(String status) throws InterruptedException {
+        public void setPresence(String presenceStatus) throws InterruptedException {
     		Presence presence = new Presence(Presence.Type.available);
     		
-    		presence.setStatus(status);
+    		presence.setStatus(presenceStatus);
     	
     		connection.sendPacket(presence);
     	
 
     		
     	}
+        
+        public void setStatus(String status) {
+        	Presence presence = new Presence(Presence.Type.available);
+
+        	if (status.equals("Available")) {
+            	presence.setMode(Presence.Mode.available);
+	
+            }
+            	
+            else if (status.equals("Away")) {
+            	presence.setMode(Presence.Mode.away);
+            		
+            		
+            }
+            	
+            else if (status.equals("Busy")) {
+            	presence.setMode(Presence.Mode.dnd);
+            		
+            		
+            }
+            	
+            else  {
+            	presence.setMode(Presence.Mode.chat);
+            		
+            	
+            }
+        	System.out.println("Called");
+            connection.sendPacket(presence);
+        		
+        	
+        	
+        	
+       
+        	
+        }
        
         public void login(String userName, String password, int server) throws XMPPException
         {//the "return"s are temporary
