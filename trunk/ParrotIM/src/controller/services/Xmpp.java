@@ -254,8 +254,7 @@ public class Xmpp {
             //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
         }
  */
-        
-        /* PLEASE FIX ME */
+     
         /* I change some codes here, so I think now it can keep track the status of the people.
          * 
          */
