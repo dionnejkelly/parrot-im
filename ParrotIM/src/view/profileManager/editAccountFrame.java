@@ -132,13 +132,13 @@ public class editAccountFrame extends JFrame
 		JButton okButton = new JButton ("OK");
 		okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	try {
-					addAccount_actionPerform(evt) ;
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+//            	try {
+//					addAccount_actionPerform(evt) ;
+//				} catch (ClassNotFoundException e) {
+//					e.printStackTrace();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
             }
 		});
 		buttonsPanel.add(okButton);
