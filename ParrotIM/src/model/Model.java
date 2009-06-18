@@ -175,7 +175,7 @@ public class Model extends Observable {
         }
         
         setChanged();
-        notifyObservers(UpdatedType.CHAT_AND_BUDDY);  
+        notifyObservers(UpdatedType.CHAT);  
         return;
     }
     
