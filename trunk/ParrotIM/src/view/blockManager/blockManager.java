@@ -210,7 +210,7 @@ public class blockManager extends JFrame {
 		topRight.add(acctListScroller, BorderLayout.NORTH);
 		topRight.add(addRemoveAcctPanel, BorderLayout.CENTER);
 		TitledBorder acctTitle;
-		acctTitle = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Banned Parrot IM Accounts");
+		acctTitle = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Blocked Parrot IM Accounts");
 		acctTitle.setTitleJustification(TitledBorder.CENTER);
 		topRight.setBorder(acctTitle);
 		
