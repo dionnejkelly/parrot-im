@@ -28,6 +28,7 @@ public class accInfo extends JPanel
 	ImageIcon avatar;
 	JLabel avatarDisplay, displayName;
 	JLabel status;
+	Xmpp chatClient;
 	
 	protected pmLabel statusMessage;
 	protected JTextArea textArea;
@@ -52,7 +53,8 @@ public class accInfo extends JPanel
 		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
 		textInfo.setLayout(infoLayout);
 		textInfo.setBackground(Color.DARK_GRAY);
-		
+			
+		chatClient = c;
 		JLabel name = new JLabel(c.getUserName());
 		name.setForeground(Color.WHITE);
 		
@@ -69,7 +71,7 @@ public class accInfo extends JPanel
 		info.setBackground(Color.DARK_GRAY);
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(13,15,13,5));
-		statusCombo presence = new statusCombo();
+		statusCombo presence = new statusCombo(chatClient);
 		
 		info.add(textInfo, BorderLayout.NORTH);
 		info.add(presence, BorderLayout.WEST);
