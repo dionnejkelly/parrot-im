@@ -36,22 +36,19 @@ public class SelectingJListSample {
     {
       public void valueChanged(ListSelectionEvent listSelectionEvent) 
       {
-        //System.out.print("First index: " + listSelectionEvent.getFirstIndex());
-        //System.out.print(", Last index: " + listSelectionEvent.getLastIndex());
         boolean adjust = listSelectionEvent.getValueIsAdjusting();
-        //System.out.println(", Adjusting? " + adjust);
         if (!adjust) 
         {
          JList list = (JList) listSelectionEvent.getSource();
-          int selections[] = list.getSelectedIndices();
-          Object selectionValues[] = list.getSelectedValues();
+         int selections[] = list.getSelectedIndices();
+         Object selectionValues[] = list.getSelectedValues();
           for (int i = 0, n = selections.length; i < n; i++) {
             if (i == 0) {
-              System.out.print("  Selections: ");
+              System.out.print("  Selection: " + selections[i]);
             }
-            System.out.print(selections[i] + "/" + selectionValues[i] + " ");
           }
           System.out.println();
+          rightList.clear();
           rightList.addElement("blah");
         }
       }
