@@ -19,10 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import view.mainwindow.mainwindow;
+import view.styles.popupWindowListener;
 
 import java.sql.*;
 import java.util.Observable;
@@ -52,8 +54,13 @@ public class profileManager extends JFrame
 	private JList profileList;
 	private JList accList;
 	
-	public profileManager(Model model/*,mainwindow frame*/) throws ClassNotFoundException, SQLException
+	public profileManager(Model model,mainwindow frame) throws ClassNotFoundException, SQLException
 	{
+		this.setAlwaysOnTop(true);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		mainFrame = frame;
+		this.addWindowListener(new popupWindowListener(mainFrame, this));
+		
 		this.model = model;
 		//mainFrame = frame;
 		popup = this;
@@ -196,8 +203,14 @@ public class profileManager extends JFrame
 		closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) 
             {
-            	popup.setVisible(false);
+            	mainFrame.setEnabled(true);
+            	popup.removeAll();
             	popup.dispose();
+
+        		mainFrame.setAlwaysOnTop(true);
+        	    mainFrame.setAlwaysOnTop(false);
+//            	popup.setVisible(false);
+//            	popup.dispose();
             }
 		});
 		buttonsPanel.add(closeButton);
