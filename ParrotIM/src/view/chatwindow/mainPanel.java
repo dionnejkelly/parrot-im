@@ -60,11 +60,11 @@ public class mainPanel extends JPanel implements Observer {
 	}
 
     public void update(Observable o, Object arg) {
-        if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
-            ((ChatPanel) this.chat).getDisplayPanel().getTxtPane().setText(
-                    model.getActiveConversation().
-                    displayMessages());
-        }        
+  //      if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
+  //          ((ChatPanel) this.chat).getDisplayPanel().getTxtPane().setText(
+  //                  model.getActiveConversation().
+  //                  displayMessages());
+   //     }        
     }
 
 }
