@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreePath;
 
 import controller.services.Xmpp;
 
@@ -54,6 +55,8 @@ public class sidePanel extends JPanel implements Observer {
         for (ConversationData cd1 : model.getConversations()) {
                 DefaultMutableTreeNode con = new DefaultMutableTreeNode("Conversation");
                 top.add(con);
+                tree.addMouseListener(new SelectListener());
+                
             	con.add(new DefaultMutableTreeNode(cd1.getAccount().getAccountName()));
             	con.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));
             	tree.expandRow(1);
@@ -77,22 +80,15 @@ public class sidePanel extends JPanel implements Observer {
 	}
 	
 	private class SelectListener implements MouseListener{
-		public void mouseEntered(MouseEvent event) {
-			for(int i=0; i < boxes[0].getComponentCount(); i++){
-				if(event.getSource().equals(boxes[0].getComponent(i))){
-					boxes[0].getComponent(i).setBackground(new Color(225, 247, 247));
-				}
-			}
+		public void mousePressed(MouseEvent event) {
+			int selRow = tree.getRowForLocation(event.getX(), event.getY());
+			TreePath selPath = tree.getPathForLocation(event.getX(), event.getY());
+			
+			System.out.println(selPath.getLastPathComponent().toString());
 		}
-		public void mouseExited(MouseEvent event) {
-			for(int i=0; i < boxes[0].getComponentCount(); i++){
-				if(event.getSource().equals(boxes[0].getComponent(i))){
-					boxes[0].getComponent(i).setBackground(Color.WHITE);
-				}
-			}
-		}
+		public void mouseEntered(MouseEvent event) {}
+		public void mouseExited(MouseEvent event) {}
 		public void mouseClicked(MouseEvent event){	}
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(MouseEvent event) {}
 	}
 }
