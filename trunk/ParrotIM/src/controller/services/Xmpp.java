@@ -147,7 +147,7 @@ public class Xmpp {
             connection.disconnect();
     }
     
-    /**This method is using to log in to Parrot of user.*/
+    /**This method is using to log in to Parrot of the user.*/
     public void login(String userName, String password, int server) throws XMPPException
     {//the "return"s are temporary
     	if (server==0){//MSN
@@ -229,76 +229,62 @@ public class Xmpp {
 	        }   
 	}
     
-    
-     
-        
-       
-       
-        public void sendMessage(String message, String to) throws XMPPException {
-            Chat chat = null;
-            boolean chatExists = false;
-            
-            /* Check for existing chats */
-            for (Chat c : chats) {
-                if (c.getParticipant().equalsIgnoreCase(to)) {
-                    chatExists = true;
-                    chat = c;
-                    break;
-                }
+    /**This method is the helper method to display the buddylist.*/
+    public void displayBuddyList()
+    {
+            Roster roster = connection.getRoster();
+            Collection<RosterEntry> entries = roster.getEntries();
+           
+            System.out.println("\n\n" + entries.size() + " buddy(ies):");
+            for(RosterEntry r:entries)
+            {
+                    System.out.println(r.getUser());
             }
-                        
-            /* Create if doesn't exist */
-            if (!chatExists) {
-                chat = connection.getChatManager().createChat(to, 
-                        new MsgListener());
-                chats.add(chat);
-            }
-            
-            chat.sendMessage(message);
-            return;                
-        }
-       
-        public void displayBuddyList()
-        {
-                Roster roster = connection.getRoster();
-                Collection<RosterEntry> entries = roster.getEntries();
-               
-                System.out.println("\n\n" + entries.size() + " buddy(ies):");
-                for(RosterEntry r:entries)
-                {
-                        System.out.println(r.getUser());
-                }
-        }
-        
-        
-       
-        public ArrayList<String> getBuddyList()
-        {
-        	ArrayList<String> buddies = new ArrayList<String>();
-        	
-        	if (connection != null && connection.getRoster() != null) {
-        		  Roster roster = connection.getRoster();
-                  Collection<RosterEntry> entries = roster.getEntries();
-               
-                 
-                  for(RosterEntry r:entries)
-                  {
-                      buddies.add(r.getUser());
-                  }
-        		
-        	}
-              
-               
-                return buddies;
-        }
-
-     
-        
-
-   
-        
+    }
     
-
+    /**This method is using to get the buddy list of the user.*/
+    public ArrayList<String> getBuddyList()
+    {
+    	ArrayList<String> buddies = new ArrayList<String>();
+    	
+    	if (connection != null && connection.getRoster() != null) {
+    		  Roster roster = connection.getRoster();
+              Collection<RosterEntry> entries = roster.getEntries();
+           
+              for(RosterEntry r:entries)
+              {
+                  buddies.add(r.getUser());
+              }
+    	}
+            return buddies;
+    }
+     
+    /**This method is using to send the message to friend.*/
+    public void sendMessage(String message, String to) throws XMPPException {
+        Chat chat = null;
+        boolean chatExists = false;
+        
+        /* Check for existing chats */
+        for (Chat c : chats) {
+            if (c.getParticipant().equalsIgnoreCase(to)) {
+                chatExists = true;
+                chat = c;
+                break;
+            }
+        }            
+        /* Create if doesn't exist */
+        if (!chatExists) {
+            chat = connection.getChatManager().createChat(to, 
+                    new MsgListener());
+            chats.add(chat);
+        }
+        chat.sendMessage(message);
+        return;                
+    }    
+       
+       
+    /**This is another class called BuddyListener.*/
+    
     /**
      * Changes to the roster, that is, changes to friends' statuses
      * or availability, are handled by this class.
@@ -329,12 +315,15 @@ public class Xmpp {
             userToUpdate = model.findUserByAccountName(bareAddress);
             userToUpdate.setStatus(presence.getStatus());
             model.forceNotify(UpdatedType.BUDDY);
-            // System.out.println(presence.getFrom() + ", that is, "
+           // System.out.println(presence.getFrom() + ", that is, "
            //                    + bareAddress + " status change:"
            //                    + presence.getStatus());
             return;
         }
     }
+    
+    
+    /**This is another class call ChatListener.*/
     
     /**
      * Controls program flow upon new chats being created.
@@ -346,14 +335,15 @@ public class Xmpp {
             chat.addMessageListener(new MsgListener());
             
             chats.add(chat);
-            
-            
+           
             return;
         }
     }
     
+    
+    /**This is another class call MsgListener.*/
+    
     private class MsgListener implements MessageListener {
-    	
     	
         public void processMessage(Chat chat, Message message) {
             UserData user = null;
@@ -367,12 +357,7 @@ public class Xmpp {
 //            System.out.println("            Process message ID ()  = " + message.getThread());
 //            System.out.println("            Process FROM PACKET ID = " + tempID);
 //     
-            System.out.println("------------------");
-//                
-//      
-//            
-//            
-//            
+            System.out.println("------------------");            
 //            if (message.getType() == Message.Type.chat &&
 //                (!message.getThread().equals(tempID))) {
 //                user = model.findUserByAccountName(chat.getParticipant());
@@ -381,11 +366,12 @@ public class Xmpp {
 //                
 //                System.out.println("This should be printed!!!!");
 // 
-//            }
-//                    
+//            }                    
             return;
         }
     }
+    
+    /**This is another class call MessagepackFilter.*/
     
     private class MessagePacketFilter implements PacketFilter {
         public boolean accept(Packet packet) {
@@ -394,18 +380,18 @@ public class Xmpp {
         }
     }
     
+    /**This is another class call MessagepacketListener.*/
+    
     private class MessagePacketListener implements PacketListener {
     	
         public void processPacket(Packet packet) {
             Chatbot chatbot = null;
-            
             
             /* packet is a new message, make chat if from new person */
            
             boolean chatExists = false;
             Message message = (Message) packet;
             String bareAddress = StringUtils.parseBareAddress(message.getFrom());
-            
             
             if (message.getType() == Message.Type.normal ||
                 message.getType() == Message.Type.chat) {
@@ -426,7 +412,6 @@ public class Xmpp {
                     chats.add(chat);
                     //tempID = chat.getThreadID();
                     
-                    
                     /* Display first message bug FIX */
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
@@ -439,9 +424,7 @@ public class Xmpp {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                    
-          
-                   
+                     
                 } else {
                     //tempID = "";
                     user = model.findUserByAccountName(chat.getParticipant());
@@ -456,11 +439,6 @@ public class Xmpp {
 						e.printStackTrace();
 					}
                
-                    
-                    
-                   
-               	
-                 
                 }
                 chatbot = new Chatbot();
                 try {
@@ -480,8 +458,6 @@ public class Xmpp {
                     e.printStackTrace();
                 }
                 
-                
-                
                 /* Else, the message listener handles it automatically */
                 
             }
@@ -491,7 +467,7 @@ public class Xmpp {
 //            System.out.println(message.getFrom());
             System.out.println("Packet message = " + message.getBody());
 //            System.out.println(message.getType());
-           // System.out.println("Packet message ID = " + tempID);
+//            System.out.println("Packet message ID = " + tempID);
             
             System.out.println("------------------");
             
