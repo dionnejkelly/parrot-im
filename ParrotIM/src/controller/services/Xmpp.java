@@ -116,12 +116,28 @@ public class Xmpp {
         String status = "offline";
         if (connection != null && connection.getRoster() != null) {
             Presence presence = connection.getRoster().getPresence(userID);
-
-            if (presence.isAvailable()) {
-                status = presence.getStatus();
-                if (status == "")
-                    status = "online";
+            if (presence.isAvailable()) {      
+                if (presence.isAvailable()) {
+                	
+                    if(presence.getMode()==Presence.Mode.dnd)
+                    {	
+                    	status = presence.getStatus();
+                        if(status.equals(""))	
+                        {
+                        	status="Busy";	
+                        }
+                    }
+                    else if(presence.getMode() != Presence.Mode.dnd)
+                    { 
+                    	status = presence.getStatus();
+                    	if(status.equals(""))	
+                    	{                		
+                    		status="Online";
+                    	}
+                    }
+                  
             }
+        }
         }
         return userID + " = " + status;
     }
