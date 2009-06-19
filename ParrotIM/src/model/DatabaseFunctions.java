@@ -43,16 +43,23 @@ public class DatabaseFunctions {
     public Statement stat;
     public PreparedStatement prep;
     public ResultSet rs;
-
+/*
+ * DatabaseFunctions() connects you to the database.
+ * Every time you want to run a query in another file you have
+ * to "DatabaseFunctions db = new DatabaseFunctions();"
+ * then run things such as db.addUser();
+ */
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
-        accountList = new Vector<String>();
         bannedAccountList = new Vector<String>();
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();     
         
     }
-
+/*
+ * addUsers() puts a new account for a specific profile into
+ * the Database. You can get the information you added using getUsers;
+ */
     public void addUsers(String profile, String service, String email,
             String password, String rememberPassword) throws SQLException {
         prep = conn
@@ -70,13 +77,6 @@ public class DatabaseFunctions {
         conn.close();
     }
 
-    // public Vector<String> getUserList() throws SQLException {
-    // ResultSet rs = stat.executeQuery("select * from people;");
-    // while (rs.next()) {
-    // accountList.add(rs.getString("email"));
-    // }
-    // return accountList;
-    // }
 
     public void addChat(String fromUser, String toUser, String message)
             throws SQLException {
@@ -96,7 +96,10 @@ public class DatabaseFunctions {
 
         return;
     }
-
+/*
+ * getChatNameList() gives you an Vector<String> of every user you've
+ * chatted with.
+ */
     public Vector<String> getChatNameList() throws SQLException {
         accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -109,7 +112,10 @@ public class DatabaseFunctions {
         }
         return accountList;
     }
-
+/*
+ * getChatDatesFromName(String name) gives you a Vector<String> with the
+ * dates of all the chats a certain profile has chatted with a certain user.
+ */
     public Vector<String> getChatDatesFromName(String name) throws SQLException {
         accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -121,7 +127,10 @@ public class DatabaseFunctions {
         }
         return accountList;
     }
-
+/*
+ * Given a certain date, it gives you the unique chat made on that specific time
+ * in a String format.
+ */
     public String getMessageFromDate(String date) throws SQLException {
         accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -132,21 +141,10 @@ public class DatabaseFunctions {
         return rs.getString("message");
     }
 
-    public void printChats() throws SQLException, ClassNotFoundException {
-        accountList = new Vector<String>();
-        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog;");
-        while (rs.next()) {
-            System.out.println("From = " + rs.getString("fromUser") + ", To = "
-                    + rs.getString("toUser") + ", Message = "
-                    + rs.getString("message") + ", Date = "
-                    + rs.getString("date"));
-        }
 
-        return;
-    }
-
+/*
+ * Adds a simple profile to the database.
+ */
     public void addProfiles(String name, String password,
             String rememberPassword) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -164,6 +162,9 @@ public class DatabaseFunctions {
         conn.close();
     }
 
+    /*
+     * Gives you a Vector<String> of every profile in the database
+     */
     public Vector<String> getProfileList() throws SQLException {
         accountList = new Vector<String>();
     	ResultSet rs = stat.executeQuery("select * from profiles;");
@@ -174,7 +175,9 @@ public class DatabaseFunctions {
     }
     
     
-    
+    /*
+     * Gives you a Vector<String> of every user in the database
+     */
     public Vector<String> getUserList() throws SQLException {
         accountList = new Vector<String>();
     	ResultSet rs = stat.executeQuery("select * from people;");
@@ -183,6 +186,10 @@ public class DatabaseFunctions {
         }
         return accountList;
     }
+    /*
+     * Gives you a Vector<String> of every user in the database
+     * UNDER a specific profile
+     */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         accountList = new Vector<String>();
     	ResultSet rs = stat.executeQuery("select * from people where name='" + name + "';");
