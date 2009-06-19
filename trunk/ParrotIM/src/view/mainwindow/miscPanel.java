@@ -15,7 +15,7 @@ import view.styles.linkLabel;
 
 public class miscPanel extends JPanel{
 	public miscPanel(){
-		GridLayout miscLayout = new GridLayout(3,1);
+		GridLayout miscLayout = new GridLayout(2,1);
 		miscLayout.setVgap(10);
 		setLayout (miscLayout);
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40));
@@ -23,16 +23,6 @@ public class miscPanel extends JPanel{
 		
 		//line separator
 		JSeparator line = new JSeparator();
-		
-		//manage account
-		linkLabel options = new linkLabel ("Options");
-		options.setPreferredSize(new Dimension(30,ImageObserver.HEIGHT));
-		options.addMouseListener(new java.awt.event.MouseAdapter() {
-			@Override
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				options_MouseClicked(evt);
-            }
-        });
 		
 		//guest account
 		linkLabel help = new linkLabel ("Help");
@@ -44,18 +34,18 @@ public class miscPanel extends JPanel{
         });
 		
 		add (line);
-		add (options);
+
 		add (help);
 	}
-	private void options_MouseClicked(java.awt.event.MouseEvent evt){
-		JFrame accMAN = new JFrame ("Options");
-		accMAN.setLocation(100,100);
-		accMAN.getContentPane().add(new optionPanel());
-		accMAN.setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
-		
-		accMAN.pack();
-		accMAN.setVisible(true);
-	} 
+//	private void options_MouseClicked(java.awt.event.MouseEvent evt){
+//		JFrame accMAN = new JFrame ("Options");
+//		accMAN.setLocation(100,100);
+//		accMAN.getContentPane().add(new optionPanel());
+//		accMAN.setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
+//		
+//		accMAN.pack();
+//		accMAN.setVisible(true);
+//	} 
 	private void help_MouseClicked(java.awt.event.MouseEvent e) {
 		JFrame accMAN = new JFrame ("Help");
 		accMAN.setLocation(100,100);
