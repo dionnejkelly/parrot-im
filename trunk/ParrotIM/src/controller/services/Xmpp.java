@@ -53,7 +53,9 @@ public class Xmpp {
     /**Add comments here.*/
     private ArrayList<Chat> chats;
     
-   // private String tempID;
+    /**Delete it?*/
+    // private String tempID;
+    
     /**Add comments here.*/
     private UserData user = null;
     private MessageData m = null;
@@ -70,10 +72,80 @@ public class Xmpp {
         this.chats = new ArrayList<Chat>();
         
     }
+    
+    /**
+     * These are setter and getter of Xmpp class.
+     * 
+     */
+    
+    /**This method is using to set the status of the user.*/
+    public void setStatus(String status) {
+    	Presence presence = new Presence(Presence.Type.available);
+    	if (status.equals("Available")) {
+        	presence.setMode(Presence.Mode.available);
+        }	
+        else if (status.equals("Away")) {
+        	presence.setMode(Presence.Mode.away);		
+        }	
+        else if (status.equals("Busy")) {
+        	presence.setMode(Presence.Mode.dnd);		
+        }	
+        else  {
+        	presence.setMode(Presence.Mode.chat);	
+        }
+    	System.out.println("Called");
+        connection.sendPacket(presence);	
+    }
+    
+    /**This method actually set presence of the user. */
+    public void setPresence(String presenceStatus) throws InterruptedException {
+		Presence presence = new Presence(Presence.Type.available);
+		presence.setStatus(presenceStatus);
+		connection.sendPacket(presence);	
+	}
+    
+    /**This method is using to get the Roster of someone.*/
+    public Roster getRoster() {
+        return this.roster;
+    }
+    
+    /** Phase this method out */
+    public String getUserName(){
+            return userName;
+    }
+    
+    /**This method is using to get the presence of the user.*/
+    public String getUserPresence(String userID) {
+        String status = "offline";
+        if (connection != null && connection.getRoster() != null) {
+            Presence presence = connection.getRoster().getPresence(userID);
+            
+            if (presence.isAvailable()) {
+                status = presence.getStatus();
+                if(status=="")
+                	status="online";
+            }
+        }
+        return userID + " = " + status;  
+    }
+    
+    /**
+     * These are other utility methods of Xmpp class.
+     * 
+     */
+    
+    /**This is the helper method using to determine if we connect to the sever
+     * successfully.
+     */
     public boolean isConnected() {
     	return connection.isConnected();
     }
     
+    /**This is the method using to break the connection.*/
+    public void disconnect()
+    {
+            connection.disconnect();
+    }
     public void removeFriend(String userID) {
 		Roster roster = connection.getRoster();
 		
@@ -109,51 +181,9 @@ public class Xmpp {
     
     
         
-        public void setPresence(String presenceStatus) throws InterruptedException {
-    		Presence presence = new Presence(Presence.Type.available);
-    		
-    		presence.setStatus(presenceStatus);
-    	
-    		connection.sendPacket(presence);
-    	
-
-    		
-    	}
         
-        public void setStatus(String status) {
-        	Presence presence = new Presence(Presence.Type.available);
-
-        	if (status.equals("Available")) {
-            	presence.setMode(Presence.Mode.available);
-	
-            }
-            	
-            else if (status.equals("Away")) {
-            	presence.setMode(Presence.Mode.away);
-            		
-            		
-            }
-            	
-            else if (status.equals("Busy")) {
-            	presence.setMode(Presence.Mode.dnd);
-            		
-            		
-            }
-            	
-            else  {
-            	presence.setMode(Presence.Mode.chat);
-            		
-            	
-            }
-        	System.out.println("Called");
-            connection.sendPacket(presence);
-        		
-        	
-        	
-        	
-       
-        	
-        }
+        
+        
        
         public void login(String userName, String password, int server) throws XMPPException
         {//the "return"s are temporary
@@ -269,10 +299,7 @@ public class Xmpp {
                 return buddies;
         }
 
-        public void disconnect()
-        {
-                connection.disconnect();
-        }
+        
        
 /* Moved into MsgListener below
         public void processMessage(Chat chat, Message message)
@@ -293,33 +320,11 @@ public class Xmpp {
         }
  */
      
-        /* I change some codes here, so I think now it can keep track the status of the people.
-         * 
-         */
-        public String getUserPresence(String userID) {
-            String status = "offline";
-            if (connection != null && connection.getRoster() != null) {
-                Presence presence = connection.getRoster().getPresence(userID);
-                
-                if (presence.isAvailable()) {
-                    status = presence.getStatus();
-                    
-                    if(status=="")
-                    	status="online";
-                }
-            }
-            return userID + " = " + status;
-            
-        }
-
-    public Roster getRoster() {
-        return this.roster;
-    }
         
-    /* Phase this method out */
-    public String getUserName(){
-            return userName;
-    }
+
+   
+        
+    
 
     /**
      * Changes to the roster, that is, changes to friends' statuses
