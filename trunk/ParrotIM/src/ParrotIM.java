@@ -12,7 +12,7 @@ public class ParrotIM {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Model model = new Model();
-		profileManager test = new profileManager(model);
+//		profileManager test = new profileManager(model);
 		//MainController controller = new MainController(model);
 		//Xmpp chatClient = controller.getXmpp();
 		
