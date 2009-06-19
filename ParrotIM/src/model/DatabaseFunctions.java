@@ -252,7 +252,7 @@ public class DatabaseFunctions {
         PreparedStatement prep = null;
 
         prep = conn.prepareStatement("UPDATE friendList SET blocked = blocked " +
-        		"WHERE accountName ='" + accountName + ";");
+        		"WHERE accountName ='" + accountName + "';");
         
         /* are these commands necessary now? */
         prep.addBatch();
