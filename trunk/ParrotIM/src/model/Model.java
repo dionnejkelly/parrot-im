@@ -121,14 +121,8 @@ public class Model extends Observable {
 
     public String getPassword(String username) throws ClassNotFoundException,
             SQLException {
-        Class.forName("org.sqlite.JDBC");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        Statement stat = conn.createStatement();
-        ResultSet rs = null;
-        rs = stat.executeQuery("select * from people where email='" + username
-                + "'");
-        return rs.getString("password");
-
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getPassword(username);
     }
 
     public int numberOfConversations() {
