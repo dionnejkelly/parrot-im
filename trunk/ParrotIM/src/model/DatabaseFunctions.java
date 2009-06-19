@@ -98,13 +98,13 @@ public class DatabaseFunctions {
     }
 /*
  * getChatNameList() gives you an Vector<String> of every user you've
- * chatted with.
+ * chatted with. Input of user name.
  */
-    public Vector<String> getChatNameList() throws SQLException {
+    public Vector<String> getChatNameList(String username) throws SQLException {
         accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog;");
+        ResultSet rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "'";");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("name"))) {
                 accountList.add(rs.getString("name"));
@@ -116,12 +116,13 @@ public class DatabaseFunctions {
  * getChatDatesFromName(String name) gives you a Vector<String> with the
  * dates of all the chats a certain profile has chatted with a certain user.
  */
-    public Vector<String> getChatDatesFromName(String name) throws SQLException {
+    public Vector<String> getChatDatesFromName(String username, String name) throws SQLException {
         accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog where name='"
-                + name + "';");
+        ResultSet rs = stat.executeQuery("select * from chatLog where (toUser='"
+                + name + "' AND fromUsergn='" + username + "') || (toUser='"
+                + username + "' AND fromUsergn='" + name + "');");
         while (rs.next()) {
             accountList.add(rs.getString("name"));
         }
