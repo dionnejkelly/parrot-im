@@ -146,26 +146,60 @@ public class Xmpp {
     {
             connection.disconnect();
     }
-    public void removeFriend(String userID) {
-		Roster roster = connection.getRoster();
-		
-		
-		Collection<RosterEntry> entries = roster.getEntries();
-		Iterator i = entries.iterator();
-		
-		 while(i.hasNext()){
-	            RosterEntry nextEntry = ((RosterEntry)i.next());
-	            //remove entries
-	            if(nextEntry.getUser().equals(userID))
-	                try {
-	                    roster.removeEntry(nextEntry);
-	                } catch (XMPPException e) {
-	                    e.printStackTrace();
- 
-	                }
-	        }   
-	}
     
+    /**This method is using to log in to Parrot of user.*/
+    public void login(String userName, String password, int server) throws XMPPException
+    {//the "return"s are temporary
+    	if (server==0){//MSN
+    		return;
+    	}
+    	else if (server==1){//AIM
+    		return;
+    	}
+    	else if (server==2){//Twitter
+    		return;
+    	}
+    	else if (server==3){//ICQ
+    		return;
+    	}
+    	else if (server==4){//google talk
+            ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
+            connection = new XMPPConnection(config);
+            connection.connect();
+            connection.login(userName, password);
+            this.userName = userName;
+    	}
+    }
+    
+    /** This method Overloaded the login method,but it is temporary.*/
+    public void login(AccountData account) throws XMPPException {
+        if (account.getServer() == ServerType.GOOGLE_TALK) {
+            ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
+            connection = new XMPPConnection(config);
+            connection.connect();
+            connection.login(account.getAccountName(), account.getPassword());
+                
+            // If connected...
+            model.connectAccount(account);
+            
+            connection.addPacketListener(new MessagePacketListener(),
+                                         new MessagePacketFilter());
+            
+            //this.chatManager = connection.getChatManager();
+            //this.chatManager.addChatListener(new ChatListener());
+            
+            /* Get roster updated after the login */
+            this.roster = connection.getRoster();
+            this.roster.addRosterListener(new BuddyListener());   
+            this.userName = account.getAccountName();
+        }       
+        else {
+            // handle other types of servers
+        }
+        return;            
+    }
+    
+    /**This method is using to add a friend to the friend list.*/
     public void addFriend(String userID) {
 		Roster roster = connection.getRoster();
 		String nickname = StringUtils.parseBareAddress(userID);
@@ -178,68 +212,27 @@ public class Xmpp {
 		}
 	}
     
+    /**This method is using to remove a friend to the friend list.*/
+    public void removeFriend(String userID) {
+		Roster roster = connection.getRoster();
+		Collection<RosterEntry> entries = roster.getEntries();
+		Iterator i = entries.iterator();
+		 while(i.hasNext()){
+	            RosterEntry nextEntry = ((RosterEntry)i.next());
+	            //remove entries
+	            if(nextEntry.getUser().equals(userID))
+	                try {
+	                    roster.removeEntry(nextEntry);
+	                } catch (XMPPException e) {
+	                    e.printStackTrace();
+	                }
+	        }   
+	}
     
     
-        
-        
-        
+     
         
        
-        public void login(String userName, String password, int server) throws XMPPException
-        {//the "return"s are temporary
-        	if (server==0){//MSN
-        		return;
-        	}
-        	else if (server==1){//AIM
-        		return;
-        	}
-        	else if (server==2){//Twitter
-        		return;
-        	}
-        	else if (server==3){//ICQ
-        		return;
-        	}
-        	else if (server==4){//google talk
-                ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
-                connection = new XMPPConnection(config);
-                connection.connect();
-                connection.login(userName, password);
-               
-                this.userName = userName;
-        	}
-        }
-        
-        // Overloaded, temporary
-        public void login(AccountData account) throws XMPPException {
-        
-        	
-            if (account.getServer() == ServerType.GOOGLE_TALK) {
-                ConnectionConfiguration config = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
-                connection = new XMPPConnection(config);
-                connection.connect();
-                connection.login(account.getAccountName(), account.getPassword());
-                    
-                // If connected...
-                model.connectAccount(account);
-                
-                connection.addPacketListener(new MessagePacketListener(),
-                                             new MessagePacketFilter());
-                
-                //this.chatManager = connection.getChatManager();
-                //this.chatManager.addChatListener(new ChatListener());
-                
-                /* Get roster updated after the login */
-                this.roster = connection.getRoster();
-                this.roster.addRosterListener(new BuddyListener());
-                    
-                this.userName = account.getAccountName();
-            }       
-            else {
-                // handle other types of servers
-            }
-     	
-            return;            
-        }
        
         public void sendMessage(String message, String to) throws XMPPException {
             Chat chat = null;
@@ -299,26 +292,6 @@ public class Xmpp {
                 return buddies;
         }
 
-        
-       
-/* Moved into MsgListener below
-        public void processMessage(Chat chat, Message message)
-        {
-            UserData user = null;
-            MessageData m = null;
-            
-            if (message.getType() == Message.Type.chat) {
-                user = model.findUserByAccountName(chat.getParticipant());
-                m = new MessageData(user, message.getBody(), "font", "4");
-                model.receiveMessage(user.getFriendOf(), m);
-            }
-                
-            return;        
-            //System.out.println(chat.getParticipant() + " says: " + message.getBody());
-                
-            //displayPanel.addMessage(msg, fontSelect.getSelectedItem().toString(), "4");
-        }
- */
      
         
 
