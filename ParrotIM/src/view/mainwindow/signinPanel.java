@@ -190,7 +190,7 @@ public class signinPanel extends JPanel {
 		    /* Set up friends' user data */
 		    friendList = core.getBuddyList();
 		    for (String s : friendList) {
-		        user = new GoogleTalkUserData(s, account); // Add account name
+		        user = new GoogleTalkUserData(s); // Add account name
 		        account.addFriend(user);
 		    }           
 		}

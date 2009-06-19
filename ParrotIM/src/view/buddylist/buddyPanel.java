@@ -377,15 +377,13 @@ public class buddyPanel extends JPanel implements Observer {
 
                             /* Is the chat window already open? */
                             if (model.chatWindowOpen == false) {
-                                model.startConversation(selectedFriend
-                                        .getFriendOf(), selectedFriend);
+                                model.startConversation(selectedFriend);
                                 if (chat == null) {
                                     chat = new chatwindow(chatClient, model);
                                 }
                                 model.chatWindowOpen = true;
                             } else {
-                                model.startConversation(selectedFriend
-                                        .getFriendOf(), selectedFriend);
+                                model.startConversation(selectedFriend);
                             }
                         }
                     } else if (event.getSource().equals(
@@ -454,8 +452,7 @@ public class buddyPanel extends JPanel implements Observer {
             if (event.getSource().equals(menuItem1)) {
                 /* Is the chat window already open? */
                 if (model.numberOfConversations() < 1) {
-                    conversation = model.startConversation(selectedFriend
-                            .getFriendOf(), selectedFriend);
+                    conversation = model.startConversation(selectedFriend);
                     model.setActiveConversation(conversation);
                     if (chat == null) {
                         chat = new chatwindow(chatClient, model);

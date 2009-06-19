@@ -29,14 +29,10 @@ public class GoogleTalkUserData extends UserData {
     private boolean online;
 	
     public GoogleTalkUserData(String accountName, String nickname, 
-                              String status, AccountData friendOf) {
-       super(accountName, nickname, status, friendOf);
+                              String status) {
+       super(accountName, nickname, status);
     }
 	
-    public GoogleTalkUserData(String accountName, AccountData friendOf) {
-        super(accountName, friendOf);
-    }
-    
     public GoogleTalkUserData(String accountName) {
         super(accountName);
     }
