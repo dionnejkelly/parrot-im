@@ -6,13 +6,10 @@ import model.dataType.AccountData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.ServerType;
 
-import org.junit.Test;
-
 import junit.framework.TestCase;
 
 public class TestBlocking extends TestCase {
 
-    @Test
     public void testBlock() throws ClassNotFoundException, SQLException {
         Model model = new Model();
         GoogleTalkUserData user = new GoogleTalkUserData("test@gmail.com");
@@ -35,5 +32,9 @@ public class TestBlocking extends TestCase {
         assertTrue(!user2.isBlocked());
         assertTrue(user.isBlocked());
         
+        account.addFriend(user);
+        assertTrue(account.friendExists(user));
+        model.removeFriend(user);
+        assertTrue(!account.friendExists(user));
     }
 }
