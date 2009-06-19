@@ -165,27 +165,27 @@ public class DatabaseFunctions {
     }
 
     public Vector<String> getProfileList() throws SQLException {
-        ResultSet rs = stat.executeQuery("select * from profiles;");
-        ResultSet rs2;
+        accountList = new Vector<String>();
+    	ResultSet rs = stat.executeQuery("select * from profiles;");
         while (rs.next()) {
-            System.out.println("Name: " + rs.getString("name")
-                    + ", Password = " + rs.getString("password")
-                    + "Chose to remember password = "
-                    + rs.getString("rememberPassword"));
-            System.out.println("List of users under this profile: ");
-            rs2 = stat.executeQuery("select * from people where profile='"
-                    + rs.getString("name") + "';");
-            while (rs2.next()) {
-                {
-                    System.out.print(rs2.getString("name") + ", ");
-                }
-            }
+            accountList.add(rs.getString("name"));
         }
         return accountList;
     }
-
+    
+    
+    
     public Vector<String> getUserList() throws SQLException {
-        ResultSet rs = stat.executeQuery("select * from people;");
+        accountList = new Vector<String>();
+    	ResultSet rs = stat.executeQuery("select * from people;");
+        while (rs.next()) {
+            accountList.add(rs.getString("email"));
+        }
+        return accountList;
+    }
+    public Vector<String> getProfilesUserList(String name) throws SQLException {
+        accountList = new Vector<String>();
+    	ResultSet rs = stat.executeQuery("select * from people where name='" + name + "';");
         while (rs.next()) {
             accountList.add(rs.getString("email"));
         }
