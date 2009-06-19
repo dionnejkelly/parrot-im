@@ -214,41 +214,48 @@ public class Xmpp {
         if (account.getServer() == ServerType.GOOGLE_TALK) {
             config = new ConnectionConfiguration("talk.google.com", 5222,
                     "gmail.com");
-            connection = new XMPPConnection(config);
-            connection.connect();
-            connection.login(account.getAccountName(), account.getPassword());
-
-            // If connected...
-            model.connectAccount(account);
-
-            connection.addPacketListener(new MessagePacketListener(),
-                    new MessagePacketFilter());
-
-            /* Get roster updated after the login */
-            this.roster = connection.getRoster();
-            this.roster.addRosterListener(new BuddyListener());
-            this.userName = account.getAccountName();
-
-            /* Set up own user data. TODO REMOVE THIS */
-            user = new GoogleTalkUserData(account.getAccountName());
-            account.setOwnUserData(user);
-
-            /* Set up friends' user data */
-            for (String s : this.getBuddyList()) {
-                model.addFriend(account, s);
-            }
+        } else if (account.getServer() == ServerType.JABBER) {
+            config = new ConnectionConfiguration(StringUtils
+                    .parseServer(accountName), 5222, StringUtils
+                    .parseServer(accountName));
+            System.out.println(StringUtils.parseServer(accountName));
         } else {
-            // StringUtils.parseServer(accountName);
-
+            // Other protocols
         }
-        
+
+        connection = new XMPPConnection(config);
+        connection.connect();
+        connection.login(account.getAccountName(), account.getPassword());
+
+        // If connected...
+        model.connectAccount(account);
+
+        connection.addPacketListener(new MessagePacketListener(),
+                new MessagePacketFilter());
+
+        /* Get roster updated after the login */
+        this.roster = connection.getRoster();
+        this.roster.addRosterListener(new BuddyListener());
+        this.userName = account.getAccountName();
+
+        /* Set up own user data. TODO REMOVE THIS */
+        user = new GoogleTalkUserData(account.getAccountName());
+        account.setOwnUserData(user);
+
+        /* Set up friends' user data */
+        for (String s : this.getBuddyList()) {
+            model.addFriend(account, s);
+        }
+
+        // StringUtils.parseServer(accountName);
+
         /* Handle the current profile */
         if (model.currentProfileExists()) {
             model.addAccountToCurrentProfile(account);
         } else { // current profile does not exist
             model.createCurrentProfile(account, "<Profile Name>");
         }
-        
+
         return;
 
     }
@@ -265,7 +272,7 @@ public class Xmpp {
             e.printStackTrace();
         }
     }
-    
+
     /** This method is using to remove a friend to the friend list. */
     public void removeFriend(String userID) {
         Roster roster = connection.getRoster();
@@ -332,7 +339,26 @@ public class Xmpp {
         return;
     }
 
-    /** This is another class called BuddyListener. */
+    
+    /* Manipulation of conversations */
+    
+    public void changeConversation(String accountName) {
+        UserData user = null;
+        
+        user = model.findUserByAccountName(accountName);
+        if (user != null) {
+            model.setActiveConversation(user);
+        }
+        
+        return;
+    }
+    
+    
+    
+    
+    
+    
+    /* This is another class called BuddyListener. */
 
     /**
      * Changes to the roster, that is, changes to friends' statuses or
@@ -468,8 +494,9 @@ public class Xmpp {
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
                     try {
-                        model.receiveMessage(model.findAccountByFriend(user)
-                                , m);
+                        model
+                                .receiveMessage(
+                                        model.findAccountByFriend(user), m);
                     } catch (SQLException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -483,8 +510,9 @@ public class Xmpp {
                     user = model.findUserByAccountName(chat.getParticipant());
                     m = new MessageData(user, message.getBody(), "font", "4");
                     try {
-                        model.receiveMessage(model.findAccountByFriend(user)
-                                , m);
+                        model
+                                .receiveMessage(
+                                        model.findAccountByFriend(user), m);
                     } catch (SQLException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

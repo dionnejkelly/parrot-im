@@ -143,14 +143,18 @@ public class Model extends Observable {
             }
         }
 
-        notifyObservers(UpdatedType.CHAT);
+        super.setChanged();
+        super.notifyObservers(UpdatedType.CHAT);
+        
         return;
     }
 
     public void setActiveConversation(ConversationData conversation) {
         this.activeConversation = conversation;
 
-        notifyObservers(UpdatedType.CHAT);
+        super.setChanged();
+        super.notifyObservers(UpdatedType.CHAT);
+        
         return;
     }
 

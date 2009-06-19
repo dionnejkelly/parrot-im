@@ -19,10 +19,12 @@ public class sidePanel extends JPanel implements Observer {
 	private Box boxes[] = new Box[1];
 	private Model model;
 	private JTree tree;
+	private Xmpp c;
 	private DefaultMutableTreeNode top;
 	
 	public sidePanel(Xmpp c, Model model) { 
 	    this.model = model;
+	    this.c = c;
 	    this.model.addObserver(this);
 	    DefaultMutableTreeNode person1 = null;
 	    DefaultMutableTreeNode person2 = null;
@@ -81,10 +83,13 @@ public class sidePanel extends JPanel implements Observer {
 	
 	private class SelectListener implements MouseListener{
 		public void mousePressed(MouseEvent event) {
-			int selRow = tree.getRowForLocation(event.getX(), event.getY());
+			//int selRow = tree.getRowForLocation(event.getX(), event.getY());
 			TreePath selPath = tree.getPathForLocation(event.getX(), event.getY());
 			
-			System.out.println(selPath.getLastPathComponent().toString());
+			//System.out.println("in sidePanel" + selPath.getLastPathComponent().toString());
+			c.changeConversation(selPath.getLastPathComponent().toString());
+			
+			
 		}
 		public void mouseEntered(MouseEvent event) {}
 		public void mouseExited(MouseEvent event) {}
