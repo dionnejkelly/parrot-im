@@ -26,6 +26,7 @@ import org.jivesoftware.smack.XMPPException;
 import controller.MainController;
 import controller.services.Xmpp;
 
+import view.profileManager.profileManager;
 import view.styles.linkLabel;
 
 import view.buddylist.buddylist;
@@ -107,7 +108,7 @@ public class signinPanel extends JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainFrame.setEnabled(false);
                 try {
-                    manageAccountFrame popup = new manageAccountFrame(model,
+                    profileManager popup = new profileManager(model,
                             mainFrame);
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
