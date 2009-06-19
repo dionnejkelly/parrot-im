@@ -96,6 +96,7 @@ public class AccountData {
      * @return true if removed, false otherwise
      */
     public boolean removeFriend(UserData exFriend) {
+    	
         return this.friends.remove(exFriend);
     }
 	

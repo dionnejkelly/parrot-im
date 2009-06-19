@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 
 import controller.services.Xmpp;
 
+import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.UserData;
 import view.mainwindow.mainwindow;
@@ -43,17 +44,19 @@ public class blockManager extends JFrame {
 	private JList usersBuddyList;
 	private JList usersBannedBuddyList;
 	
-	private ArrayList<UserData> buddies;
+	
 	
 	private ArrayList<UserData> usersProfileBuddyList; 
 	private Vector<String> bannedAccountList;
 	
 	private Xmpp chatClient;
 	
-	public blockManager(Xmpp c, Model model) throws ClassNotFoundException, SQLException
+	public blockManager(Xmpp c, Model model, ArrayList<UserData> usersBuddies, DatabaseFunctions bannedUsersList) throws ClassNotFoundException, SQLException
 	{
 		this.model = model;
 		this.chatClient = c;
+		this.usersProfileBuddyList = usersBuddies;
+		this.bannedAccountList = bannedUsersList.getBannedUserList();
 		//mainFrame = frame;
 		popup = this;
 		
@@ -84,7 +87,7 @@ public class blockManager extends JFrame {
 
 		//saved account list
 		usersBuddyListModel = new DefaultListModel();
-		usersProfileBuddyList = model.getCurrentProfile().getAllFriends();
+		//usersProfileBuddyList = model.getCurrentProfile().getAllFriends();
 		for(int i = 0; i < usersProfileBuddyList.size(); i++)
 		{
 			usersBuddyListModel.addElement(usersProfileBuddyList.get(i));
@@ -182,7 +185,7 @@ public class blockManager extends JFrame {
 		//List of accounts on the profile
 		JPanel topRight = new JPanel();
 		topRight.setLayout(new BorderLayout());
-		bannedAccountList = model.getBannedAccountList();
+		//bannedAccountList = bannedUsersList.getBannedUserList();
 		usersBannedBuddyList = new JList(bannedAccountList);
 		usersBannedBuddyList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -29,6 +30,7 @@ import controller.services.Xmpp;
 import view.blockManager.blockManager;
 import view.chatwindow.chatwindow;
 
+import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
@@ -52,14 +54,28 @@ public class buddyPanel extends JPanel implements Observer {
     String selectedName;
     Xmpp chatClient;
     Model model;
-    ArrayList<UserData> buddies;
     UserData selectedFriend;
+    
+    private ArrayList<UserData> buddies;
+    private DatabaseFunctions bannedAccountList;
 
     public buddyPanel(Xmpp c, Model model) {
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-
+        
+        
+		try {
+			bannedAccountList = new DatabaseFunctions();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        
         this.chatClient = c;
         this.model = model;
         this.chat = null;
@@ -95,6 +111,7 @@ public class buddyPanel extends JPanel implements Observer {
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new RightCickMenuListener());
         menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
+        menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
 
         rightClickMenu.add(menuItem1);
         rightClickMenu.add(menuItem2);
@@ -145,7 +162,7 @@ public class buddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             
         	try {
-				blockManager blockedUser = new blockManager(chatClient, model);
+				blockManager blockedUser = new blockManager(chatClient, model, buddies,bannedAccountList);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -159,6 +176,49 @@ public class buddyPanel extends JPanel implements Observer {
         }
     }
     
+    
+    class RightClickMenuBlockFriendListener extends MouseAdapter {
+        public void mousePressed(MouseEvent event) {
+            System.out.println("Block this user from the buddy list = " + selectedFriend.toString());
+           
+			
+			
+			
+			chatClient.removeFriend(selectedFriend.toString());
+			
+			buddies.remove(selectedFriend);
+           	boxes[0].removeAll();
+           
+            for (int i = 0; i < buddies.size(); i++) {
+                boxes[0].add(FriendItem(buddies.get(i)));
+            }
+
+            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+                boxes[0].getComponent(i).addMouseListener(new SelectListener());
+            	//System.out.println("What is contained the box? " + boxes[0].getComponent(i));
+            }
+            
+            friendList.updateUI();
+            
+            
+			
+			
+				//model.getBannedAccountList().add(selectedFriend.toString());
+				bannedAccountList.setBannedUserList(selectedFriend.toString());
+				try {
+					for (int i = 0; i < bannedAccountList.getBannedUserList().size(); i++) {
+						System.out.println("Banned users = " + bannedAccountList.getBannedUserList().get(i));
+
+
+					    
+					}
+				} 
+				catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        }
+    }
     
 
     class RightClickMenuRemoveFriendListener extends MouseAdapter {

@@ -343,7 +343,7 @@ public class Model extends Observable {
      */
     public boolean removeFriend(UserData exFriend) {
         boolean success = false;
-        
+        System.out.println("------------------ Went through here");
         /* Can throw NullPointerException if exFriend is null */
         try {
             /* CurrentProfile automatically finds the account for us */
