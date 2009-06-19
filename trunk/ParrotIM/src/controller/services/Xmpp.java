@@ -35,36 +35,41 @@ import model.dataType.UserData;
  */
 public class Xmpp {
     
-    /**
-     * The connection to the XMPP server.
-     */
+    /**The connection to the XMPP server.*/
     private XMPPConnection connection;
     
-    private String userName; // Delete this variable
+    /**Delete this variable.*/
+    private String userName;
     
-    /**
-     * Allows the ChatClient to store data for the GUI.
-     */
+    /**Allows the ChatClient to store data for the GUI.*/
     private Model model;
     
-    /**
-     * Holds a list of friends for the current connection.
-     */
+    /**Holds a list of friends for the current connection.*/
     private Roster roster;
     
-    /**
-     * Handles all chat message events, receipt and submission. 
-     */
+    /**Handles all chat message events, receipt and submission.*/
     private ChatManager chatManager;
     
+    /**Add comments here.*/
     private ArrayList<Chat> chats;
     
    // private String tempID;
-
+    /**Add comments here.*/
     private UserData user = null;
     private MessageData m = null;
     private Chat chat = null;
     
+    /**
+     * This is the constructor of Xmpp.
+     * 
+     */
+    public Xmpp(Model model){
+        this.model = model;
+        this.roster = null;
+        this.chatManager = null;
+        this.chats = new ArrayList<Chat>();
+        
+    }
     public boolean isConnected() {
     	return connection.isConnected();
     }
@@ -102,13 +107,7 @@ public class Xmpp {
 	}
     
     
-    public Xmpp(Model model){
-        this.model = model;
-        this.roster = null;
-        this.chatManager = null;
-        this.chats = new ArrayList<Chat>();
-        
-    }
+    
         
         public void setPresence(String presenceStatus) throws InterruptedException {
     		Presence presence = new Presence(Presence.Type.available);
