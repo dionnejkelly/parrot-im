@@ -46,7 +46,7 @@ public class profileManager extends JFrame
 	private JPanel accMANPanel;
 	private Model model;
 	private mainwindow mainFrame;
-	protected JFrame popup;
+	protected profileManager popup;
 	
 	private DefaultListModel profileListModel;
 	private JList profileList;
@@ -112,6 +112,12 @@ public class profileManager extends JFrame
 		addButton.setMargin(buttonInset);
 		removeButton.setMargin(buttonInset);
 
+		// +/- BUTTON FUNCTIONALITY
+		addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	newProfileFrame newProf = new newProfileFrame(model,popup);  	
+            }
+		});
 		//pack the whole thing
 		addremovePanel.add(addButton);
 		addremovePanel.add(removeButton);
@@ -160,6 +166,12 @@ public class profileManager extends JFrame
 		remAcctButton.setPreferredSize(new Dimension(80, 25));
 		remAcctButton.setMargin(buttonInset);
 		
+		//Add button listener
+		newAcctButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	editAccountFrame newAcct = new editAccountFrame(model,popup);  	
+            }
+		});
 		addRemoveAcctPanel.add(newAcctButton);
 		addRemoveAcctPanel.add(remAcctButton);
 
@@ -174,26 +186,21 @@ public class profileManager extends JFrame
 		/*BOTTOM PART : OK and Cancel Button*/
 		//set ok-cancel button
 		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 120, 10, 10));
+		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 220, 10, 10));
 		GridLayout buttonsLayout = new GridLayout(1,2);
 		buttonsLayout.setHgap(5);
 		buttonsPanel.setLayout(buttonsLayout);
 
-		//OK and CANCEL Buttons
-		JButton okButton = new JButton ("OK");
-		buttonsPanel.add(okButton);
-		JButton cancelButton = new JButton ("Cancel");
-		/*cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	mainFrame.setEnabled(true);
-            	popup.removeAll();
+		//CLOSE PROFILE MANAGER Button
+		JButton closeButton = new JButton ("Close");
+		closeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) 
+            {
+            	popup.setVisible(false);
             	popup.dispose();
-
-        		mainFrame.setAlwaysOnTop(true);
-        	    mainFrame.setAlwaysOnTop(false);
             }
-		});*/
-		buttonsPanel.add(cancelButton);
+		});
+		buttonsPanel.add(closeButton);
 
 		//adding to rightPanel
 		rightPanel.add(topRight, BorderLayout.CENTER);

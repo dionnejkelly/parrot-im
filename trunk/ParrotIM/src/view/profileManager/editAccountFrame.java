@@ -41,22 +41,26 @@ public class editAccountFrame extends JFrame
 	private JPanel modAcctPanel;
 	private Model model;
 	private profileManager managerFrame;
-	protected JFrame popup;
+	protected editAccountFrame popup;
 	
 	private JTextField UNField;
 	private JPasswordField pwdField;
 	private JComboBox serviceField;
 	
 	//Instance 1 -- New Account (empty forms)
-	private editAccountFrame(Model model,profileManager pManager)
+	public editAccountFrame(Model model,profileManager pManager)
 	{
 		this.model = model;
 		managerFrame = pManager;
 		popup = this;
+		this.setResizable(false);
+		this.setLocationRelativeTo(managerFrame);
 		
 		setTitle("add New Account");
 		modAcctPanel = new JPanel();
 		modAcctPanel.setLayout(new BorderLayout());
+		modAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		modAcctPanel.setPreferredSize(new Dimension(300,300));
 		//////////////TOP PART
 		//account setupLabel setting Panel
 		JPanel setupLabelPanel = new JPanel();
@@ -115,7 +119,7 @@ public class editAccountFrame extends JFrame
 
 		//other setups Panel
 		JPanel otherSetupPanel = new JPanel();
-		otherSetupPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 50, 0));
+		otherSetupPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 		otherSetupPanel.setLayout (new FlowLayout());
 		otherSetupPanel.add(otherCheckPanel);
 		otherSetupPanel.add(otherLabelPanel);
@@ -146,15 +150,12 @@ public class editAccountFrame extends JFrame
 		//Cancel Button
 		JButton cancelButton = new JButton ("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	managerFrame.setEnabled(true);
-            	popup.removeAll();
-            	popup.dispose();
-
-        		managerFrame.setAlwaysOnTop(true);
-        	    managerFrame.setAlwaysOnTop(false);
-            }
-		});
+	            public void actionPerformed(ActionEvent evt) 
+	            {
+	            	popup.setVisible(false);
+	            	popup.dispose();
+	            }
+			});
 		buttonsPanel.add(cancelButton);
 
 
