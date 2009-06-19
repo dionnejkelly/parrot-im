@@ -77,7 +77,16 @@ public class DatabaseFunctions {
         conn.close();
     }
 
+    public String getPassword(String username) throws ClassNotFoundException,
+    SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+		Statement stat = conn.createStatement();
+		ResultSet rs = null;
+		rs = stat.executeQuery("select * from people where email='" + username
+		        + "'");
+		return rs.getString("password");
 
+}
     public void addChat(String fromUser, String toUser, String message)
             throws SQLException {
         prep = conn
