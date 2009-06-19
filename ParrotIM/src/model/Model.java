@@ -171,7 +171,6 @@ public class Model extends Observable {
         DatabaseFunctions db = new DatabaseFunctions();
         db.addChat(fromUser.getAccountName(), account.getAccountName(), message
                 .getMessage());
-        db.printChats();
 
         for (ConversationData c : conversations) {
             if (c.getUser() == fromUser) {
