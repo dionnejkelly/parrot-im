@@ -104,7 +104,7 @@ public class DatabaseFunctions {
         accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "'";");
+        ResultSet rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("name"))) {
                 accountList.add(rs.getString("name"));
