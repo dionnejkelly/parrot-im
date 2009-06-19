@@ -163,9 +163,9 @@ public class ChatPanel extends JPanel {
    	
    	
    	public class SendButtonPressed implements ActionListener {
-               public void actionPerformed(ActionEvent evt) {
-               	sendMessage();
-               }
+   		public void actionPerformed(ActionEvent evt) {
+   			sendMessage();
+        }
    	}
 	
 	public class TextBoxListener implements KeyListener{
