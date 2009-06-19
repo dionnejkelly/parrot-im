@@ -50,7 +50,7 @@ public class MainController {
                     buddyBareAddress = StringUtils.parseBareAddress(s);
                     buddyStatus = xmpp.getUserPresence(buddyBareAddress);
                     user = new GoogleTalkUserData(s, buddyBareAddress, 
-                            buddyStatus, a);
+                            buddyStatus);
                     System.out.println(buddyStatus);
                     a.addFriend(user);
                 }             

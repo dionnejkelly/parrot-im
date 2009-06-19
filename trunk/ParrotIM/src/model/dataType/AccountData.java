@@ -38,7 +38,10 @@ public class AccountData {
     private String accountName;
     private String password;
     private UserData ownUserData;
+    
+    /* Phase this field out */
     private ArrayList<UserData> friends;
+    
     private boolean connected;
     
     public AccountData(ServerType server, String accountName, 
@@ -51,7 +54,7 @@ public class AccountData {
     	this.connected = false;
     	
     	if (this.server == ServerType.GOOGLE_TALK) {
-    	    this.ownUserData = new GoogleTalkUserData(this.accountName, this);
+    	    this.ownUserData = new GoogleTalkUserData(this.accountName);
     	}
     }
 
