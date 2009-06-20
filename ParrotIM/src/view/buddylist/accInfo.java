@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import model.Model;
+
 import controller.services.Xmpp;
 
 import view.styles.statusCombo;
@@ -34,9 +36,12 @@ public class accInfo extends JPanel
 	protected JTextArea textArea;
 	protected String text;
 	
-	public accInfo(Xmpp c) 
+	private Model model;
+	
+	public accInfo(Xmpp c, Model model) 
 	{
-		setBackground(Color.DARK_GRAY);
+	        this.model = model;
+	        setBackground(Color.DARK_GRAY);
 		setPreferredSize(new Dimension(300,100));
 		setBorder(BorderFactory.createEmptyBorder(5,15,5,5));
 		setLayout(new BorderLayout());
@@ -55,7 +60,7 @@ public class accInfo extends JPanel
 		textInfo.setBackground(Color.DARK_GRAY);
 			
 		chatClient = c;
-		JLabel name = new JLabel(c.getUserName());
+		JLabel name = new JLabel(model.getCurrentProfile().getProfileName());
 		name.setForeground(Color.WHITE);
 		
 		// Allowing users to change their status.

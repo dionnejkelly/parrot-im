@@ -160,18 +160,43 @@ public class Model extends Observable {
     public ConversationData getActiveConversation() {
         return this.activeConversation;
     }
+    
+    /**
+     * Searches the current list of conversations for a conversation with
+     * the specified user. Returns the ConversationData object if found;
+     * null otherwise.
+     * 
+     * @param friend  A string with the friend's account name.
+     * @return  A ConversationData Object.
+     */
+    public ConversationData findConversationByFriend(String friend) {
+        ConversationData conversation = null;
+        
+        for (ConversationData c : this.conversations) {
+            if (c.getUser().getAccountName().equals(friend)) {
+                conversation = c;
+                break;
+            }
+        }
+        
+        return conversation;
+    }
 
     public void receiveMessage(AccountData account, MessageData message)
             throws SQLException, ClassNotFoundException {
+        UserData user = null;
+        
         ConversationData modifiedConversation = null;
-        UserData fromUser = message.getFromUser();
+        String fromUser = message.getFromUser();
 
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(fromUser.getAccountName(), account.getAccountName(), message
+        db.addChat(fromUser, account.getAccountName(), message
                 .getMessage());
+        
+        user = this.findFriendByAccountName(fromUser);
 
         for (ConversationData c : conversations) {
-            if (c.getUser() == fromUser) {
+            if (c.getUser() == user) {
                 modifiedConversation = c;
                 break;
             }
@@ -184,7 +209,7 @@ public class Model extends Observable {
         if (modifiedConversation != null) {
             modifiedConversation.addMessage(message);
         } else {
-            modifiedConversation = new ConversationData(account, fromUser);
+            modifiedConversation = new ConversationData(account, user);
             this.conversations.add(modifiedConversation);
             this.activeConversation = modifiedConversation;
             modifiedConversation.addMessage(message);
@@ -200,7 +225,7 @@ public class Model extends Observable {
             MessageData message) throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(message.getFromUser().getAccountName(), modifiedConversation
+        db.addChat(message.getFromUser(), modifiedConversation
                 .getUser().getAccountName(), message.getMessage());
         setChanged();
         notifyObservers(UpdatedType.CHAT);
@@ -359,7 +384,28 @@ public class Model extends Observable {
 
         return;
     }
+    
+    /**
+     * Overloaded version of addFriend. Takes a UserData instead
+     * of a String representing a friend.
+     * 
+     * @param account
+     *            The account to add the friend to.
+     * 
+     * @param userToAdd
+     *            The new UserData friend to add to the account.
+     */
+    public void addFriend(AccountData account, UserData userToAdd) {
+        if (account.getServer() == ServerType.GOOGLE_TALK) {
+            account.addFriend(userToAdd);
+        }
 
+        this.setChanged();
+        this.notifyObservers(UpdatedType.BUDDY);
+
+        return;
+    }
+    
     /**
      * Removes a friend in one of the accounts based on the UserData
      * representation of the friend. Removes only the first friend that is

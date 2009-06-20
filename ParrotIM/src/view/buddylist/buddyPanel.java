@@ -239,6 +239,7 @@ public class buddyPanel extends JPanel implements Observer {
                             + model.getCurrentProfile().getAllFriends().get(i));
                 }
 
+                
                 buddies.remove(selectedFriend);
                 boxes[0].removeAll();
 
@@ -279,12 +280,12 @@ public class buddyPanel extends JPanel implements Observer {
 
                 // add friends to the buddy list
 
-                boxes[0].add(FriendItem(buddies.get(buddies.size() - 1)));
+                //boxes[0].add(FriendItem(buddies.get(buddies.size() - 1)));
 
-                boxes[0].getComponent(buddies.size() - 1).addMouseListener(
-                        new SelectListener());
+                //boxes[0].getComponent(buddies.size() - 1).addMouseListener(
+                //        new SelectListener());
 
-                friendList.updateUI();
+                //friendList.updateUI();
 
             }
             System.out.println("User Input = " + userFriendID);
