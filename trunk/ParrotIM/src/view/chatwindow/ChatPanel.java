@@ -119,6 +119,7 @@ public class ChatPanel extends JPanel {
         sPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         sPane.setTopComponent(displayPanel);
         sPane.setBottomComponent(editingPanel);
+        
 
         // add to chat panel
         add(sPane, BorderLayout.CENTER);
