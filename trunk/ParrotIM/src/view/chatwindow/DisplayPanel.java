@@ -22,8 +22,18 @@ public class DisplayPanel extends JPanel implements Observer {
 
         txtPane = new JEditorPane();
         txtPane.setPreferredSize(new Dimension(250, 300));
+        
+        JScrollPane chatWindowScroller = new JScrollPane(txtPane);
+        chatWindowScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        chatWindowScroller.setPreferredSize(new Dimension(250, 300));
+        chatWindowScroller.setMinimumSize(new Dimension(10, 10)); 
+
+        
         txtPane.setEditable(false);
         txtPane.setEditorKit(new HTMLEditorKit());
+        
+       
+		
         if (model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
         } else {
@@ -49,8 +59,8 @@ public class DisplayPanel extends JPanel implements Observer {
 
         // add to panel
         add(bar1, BorderLayout.NORTH);
-        add(txtPane, BorderLayout.CENTER);
         add(bar2, BorderLayout.SOUTH);
+        add(chatWindowScroller, BorderLayout.CENTER);
     }
 
     public JEditorPane getTxtPane() {
