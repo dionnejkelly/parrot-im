@@ -353,11 +353,8 @@ public class Xmpp {
                 if (account.getServer() == ServerType.GOOGLE_TALK) {
                     accountName = r.getUser();
                     nickname = r.getName();
-                    state = roster.getPresence(accountName).getMode()
-                            .toString();
-                    status = roster.getPresence(accountName).getStatus();
                     user = new GoogleTalkUserData(accountName, nickname, status);
-                    user.setState(state);
+                    updateStateAndStatus(user, accountName);
                 } else if (account.getServer() == ServerType.JABBER) {
                     // user = new JabberUserData(r.getUser(), r.getName(),
                     // this.getUserPresence(r.getUser()));
@@ -485,6 +482,35 @@ public class Xmpp {
         return;
     }
 
+    public void updateStateAndStatus(UserData userToUpdate, String bareAddress) {
+        Presence truePresence = null;
+
+        truePresence = roster.getPresence(bareAddress);
+
+        /* Update state and status */
+        if (truePresence.getStatus() != null) {
+            userToUpdate.setStatus(truePresence.getStatus());
+        } else {
+            userToUpdate.setStatus("");
+        }
+
+        /* WEIRD BUG FIX BELOW */
+        if (truePresence.getMode() == Presence.Mode.dnd
+                || truePresence.getMode() == Presence.Mode.away
+                || truePresence.getMode() == Presence.Mode.xa) {
+            userToUpdate.setState(roster.getPresence(bareAddress).getMode()
+                    .toString());
+        } else if (truePresence.isAvailable()) {
+            userToUpdate.setState("Available");
+        } else { // offline
+            userToUpdate.setState("Offline");
+        }
+
+        model.forceNotify(UpdatedType.BUDDY);
+
+        return;
+    }
+
     /* This is another class called BuddyListener. */
 
     /**
@@ -511,36 +537,12 @@ public class Xmpp {
         }
 
         public void presenceChanged(Presence presence) {
-
             UserData userToUpdate = null;
-            Presence truePresence = null;
 
             String bareAddress = StringUtils.parseBareAddress(presence
                     .getFrom());
             userToUpdate = model.findUserByAccountName(bareAddress);
-            truePresence = roster.getPresence(bareAddress);
-
-            /* Ensures that the most recent status gets updated */
-            // userToUpdate.setStatus(presence.getStatus());
-            // userToUpdate.setState(presence.getMode().toString());
-
-            userToUpdate.setStatus(truePresence.getStatus());
-            
-            /* WEIRD BUG FIX BELOW */
-            if (truePresence.getMode() == Presence.Mode.dnd ||
-                    truePresence.getMode() == Presence.Mode.away ||
-                    truePresence.getMode() == Presence.Mode.xa) {
-                userToUpdate.setState(roster.getPresence(bareAddress).getMode().toString());
-            } else if (truePresence.isAvailable()) {
-                userToUpdate.setState("Available");
-            } else { // offline
-                userToUpdate.setState("Offline");
-            }
-            
-            model.forceNotify(UpdatedType.BUDDY);
-            // System.out.println(presence.getFrom() + ", that is, "
-            // + bareAddress + " status change:"
-            // + presence.getStatus());
+            updateStateAndStatus(userToUpdate, bareAddress);
             return;
         }
     }
