@@ -12,20 +12,7 @@ import java.util.*;
 import javax.swing.event.*;
 import java.awt.event.KeyEvent;
 
-/* Repository class
- *
- * The purpose of this class is to separate the OptionMenu into different tabbedpanes
- *
- *
- * Written by : Howie Lee
- *
- *
- * Version 1.1 29 Nov 2006
- *
- * Revision    Status       Date            By:
- * 1.0         Created      2 Nov 2006     Howie Lee
- * 1.1         Modified     25 Nov 2006    Howie Lee
- */
+
 
 
 public class OptionMenu extends JPanel {
