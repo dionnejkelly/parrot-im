@@ -64,8 +64,8 @@ public class Model extends Observable {
     private ArrayList<ConversationData> conversations;
     private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
-    private DatabaseFunctions db;
-    
+    // private DatabaseFunctions db;
+
     public boolean chatWindowOpen;
 
     public Model() throws ClassNotFoundException, SQLException {
@@ -73,8 +73,7 @@ public class Model extends Observable {
         conversations = new ArrayList<ConversationData>();
 
         /* Test code to create an entry in the friendList */
-        db = new DatabaseFunctions(); // initialize database
-
+        // db = new DatabaseFunctions(); // initialize database
     }
 
     /**
@@ -103,23 +102,25 @@ public class Model extends Observable {
 
     public Vector<String> getAccountList() throws ClassNotFoundException,
             SQLException {
-//        DatabaseFunctions db = new DatabaseFunctions();
+        DatabaseFunctions db = new DatabaseFunctions();
         return db.getUserList();
     }
+
     public Vector<String> getProfileList() throws ClassNotFoundException,
-    		SQLException {
-//    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getProfileList();
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getProfileList();
     }
-    public Vector<String> getProfilesUserList(String name) throws ClassNotFoundException,
-			SQLException {
-//    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getProfilesUserList(name);
+
+    public Vector<String> getProfilesUserList(String name)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getProfilesUserList(name);
     }
 
     public Vector<String> getBannedAccountList() throws ClassNotFoundException,
             SQLException {
-//        DatabaseFunctions db = new DatabaseFunctions();
+        DatabaseFunctions db = new DatabaseFunctions();
         return db.getBannedUserList();
 
     }
@@ -139,7 +140,7 @@ public class Model extends Observable {
 
     public String getPassword(String username) throws ClassNotFoundException,
             SQLException {
-//        DatabaseFunctions db = new DatabaseFunctions();
+        DatabaseFunctions db = new DatabaseFunctions();
         return db.getPassword(username);
     }
 
@@ -157,7 +158,7 @@ public class Model extends Observable {
 
         super.setChanged();
         super.notifyObservers(UpdatedType.CHAT);
-        
+
         return;
     }
 
@@ -166,7 +167,7 @@ public class Model extends Observable {
 
         super.setChanged();
         super.notifyObservers(UpdatedType.CHAT);
-        
+
         return;
     }
 
@@ -178,39 +179,39 @@ public class Model extends Observable {
     public ConversationData getActiveConversation() {
         return this.activeConversation;
     }
-    
+
     /**
-     * Searches the current list of conversations for a conversation with
-     * the specified user. Returns the ConversationData object if found;
-     * null otherwise.
+     * Searches the current list of conversations for a conversation with the
+     * specified user. Returns the ConversationData object if found; null
+     * otherwise.
      * 
-     * @param friend  A string with the friend's account name.
-     * @return  A ConversationData Object.
+     * @param friend
+     *            A string with the friend's account name.
+     * @return A ConversationData Object.
      */
     public ConversationData findConversationByFriend(String friend) {
         ConversationData conversation = null;
-        
+
         for (ConversationData c : this.conversations) {
             if (c.getUser().getAccountName().equals(friend)) {
                 conversation = c;
                 break;
             }
         }
-        
+
         return conversation;
     }
 
     public void receiveMessage(AccountData account, MessageData message)
             throws SQLException, ClassNotFoundException {
         UserData user = null;
-        
+
         ConversationData modifiedConversation = null;
         String fromUser = message.getFromUser();
 
-        //DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(fromUser, account.getAccountName(), message
-                .getMessage());
-        
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addChat(fromUser, account.getAccountName(), message.getMessage());
+
         user = this.findFriendByAccountName(fromUser);
 
         for (ConversationData c : conversations) {
@@ -242,9 +243,9 @@ public class Model extends Observable {
     public void sendMessage(ConversationData modifiedConversation,
             MessageData message) throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
-//        DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(message.getFromUser(), modifiedConversation
-                .getUser().getAccountName(), message.getMessage());
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addChat(message.getFromUser(), modifiedConversation.getUser()
+                .getAccountName(), message.getMessage());
         setChanged();
         notifyObservers(UpdatedType.CHAT);
         return;
@@ -402,10 +403,10 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     /**
-     * Overloaded version of addFriend. Takes a UserData instead
-     * of a String representing a friend.
+     * Overloaded version of addFriend. Takes a UserData instead of a String
+     * representing a friend.
      * 
      * @param account
      *            The account to add the friend to.
@@ -423,7 +424,7 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     /**
      * Removes a friend in one of the accounts based on the UserData
      * representation of the friend. Removes only the first friend that is
@@ -479,28 +480,28 @@ public class Model extends Observable {
     }
 
     /**
-     * Searches for an account that matches with the passed in
-     * UserData representation of a friend.
+     * Searches for an account that matches with the passed in UserData
+     * representation of a friend.
      * 
      * @param userToBeFound
      * @return
      */
     public AccountData findAccountByFriend(UserData userToBeFound) {
         AccountData foundAccount = null;
-        
+
         /* Find the AccountData by searching through all accounts */
         for (AccountData account : currentProfile.getAccountData()) {
             for (UserData user : account.getFriends()) {
                 if (user == userToBeFound) {
                     foundAccount = account;
-                    break;  
+                    break;
                 }
             }
             if (foundAccount != null) {
                 break;
             }
         }
-        
+
         return foundAccount;
     }
 
@@ -558,23 +559,48 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     /*
      * ChatLog functions
      */
-    public Vector<String> getBuddyLogList(String username) throws SQLException{
-		//returns list of buddies (that have chat log)
-    	return db.getChatNameList(username);
-	}
-    public Vector<String> getBuddyDateList(String username, String buddyname) throws SQLException{
-    	//returns history date list 
-    	return db.getChatDatesFromName(username, buddyname);
-	}
-    public String getLogMessage(String date) throws SQLException{
-    	//returns logged message of a certain date 
-    	//TODO: this might be incorrect. date only? will it be from the right user too?
-    	//		will it show the replies from the user too?
-    	return db.getMessageFromDate(date);
+    public Vector<String> getBuddyLogList(String username) throws SQLException {
+        // returns list of buddies (that have chat log)
+        DatabaseFunctions db = null;
+        try {
+            db = new DatabaseFunctions();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return db.getChatNameList(username);
     }
-    
+
+    public Vector<String> getBuddyDateList(String username, String buddyname)
+            throws SQLException {
+        // returns history date list
+        DatabaseFunctions db = null;
+        try {
+            db = new DatabaseFunctions();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return db.getChatDatesFromName(username, buddyname);
+    }
+
+    public String getLogMessage(String date) throws SQLException {
+        // returns logged message of a certain date
+        // TODO: this might be incorrect. date only? will it be from the right
+        // user too?
+        // will it show the replies from the user too?
+        DatabaseFunctions db = null;
+        try {
+            db = new DatabaseFunctions();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return db.getMessageFromDate(date);
+    }
+
 }
