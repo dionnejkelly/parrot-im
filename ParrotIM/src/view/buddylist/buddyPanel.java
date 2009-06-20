@@ -274,7 +274,7 @@ public class buddyPanel extends JPanel implements Observer {
                 chatClient.addFriend(userFriendID);
                 JOptionPane.showMessageDialog(null, result);
 
-                buddies.add(new GoogleTalkUserData(userFriendID));
+                //buddies.add(new GoogleTalkUserData(userFriendID));
 
                 // add friends to the buddy list
 
