@@ -331,6 +331,7 @@ public class Xmpp {
                 buddies.add(r.getUser());
             }
         }
+        Collections.sort(buddies);
         return buddies;
     }
 
