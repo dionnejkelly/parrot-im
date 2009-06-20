@@ -385,6 +385,13 @@ public class Xmpp {
         String size = "4";
 
         conversation = model.findConversationByFriend(to);
+        
+        //TEMP FIX TO MAKE CONVERSATION
+        if (conversation == null) {
+            model.startConversation(model.findFriendByAccountName(to));
+            conversation = model.findConversationByFriend(to);
+        }
+        
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
