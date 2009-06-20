@@ -7,6 +7,7 @@
  *     Vera Lukman
  *     William Chen
  *     Jihoon Choi
+ *     Aaron Siu (AAS)
  *     
  * Change Log:
  *     2009-June-3, KF
@@ -29,6 +30,8 @@
  *     	   Added getBuddyLogList(), getBuddyDateList(), getLogMessage()
  *         Those functions are linked with DatabaseFunctions.java
  *         These functions are used for chat log window
+ *     2009-June20, AAS
+ *         Added getProfileList(), getProfilesUserList()
  *         
  *         
  * Known Issues:
@@ -100,23 +103,23 @@ public class Model extends Observable {
 
     public Vector<String> getAccountList() throws ClassNotFoundException,
             SQLException {
-        DatabaseFunctions db = new DatabaseFunctions();
+//        DatabaseFunctions db = new DatabaseFunctions();
         return db.getUserList();
     }
     public Vector<String> getProfileList() throws ClassNotFoundException,
     		SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
+//    	DatabaseFunctions db = new DatabaseFunctions();
     	return db.getProfileList();
     }
     public Vector<String> getProfilesUserList(String name) throws ClassNotFoundException,
 			SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
+//    	DatabaseFunctions db = new DatabaseFunctions();
     	return db.getProfilesUserList(name);
     }
 
     public Vector<String> getBannedAccountList() throws ClassNotFoundException,
             SQLException {
-        DatabaseFunctions db = new DatabaseFunctions();
+//        DatabaseFunctions db = new DatabaseFunctions();
         return db.getBannedUserList();
 
     }
@@ -136,7 +139,7 @@ public class Model extends Observable {
 
     public String getPassword(String username) throws ClassNotFoundException,
             SQLException {
-        DatabaseFunctions db = new DatabaseFunctions();
+//        DatabaseFunctions db = new DatabaseFunctions();
         return db.getPassword(username);
     }
 
@@ -204,7 +207,7 @@ public class Model extends Observable {
         ConversationData modifiedConversation = null;
         String fromUser = message.getFromUser();
 
-        DatabaseFunctions db = new DatabaseFunctions();
+//        DatabaseFunctions db = new DatabaseFunctions();
         db.addChat(fromUser, account.getAccountName(), message
                 .getMessage());
         
@@ -239,7 +242,7 @@ public class Model extends Observable {
     public void sendMessage(ConversationData modifiedConversation,
             MessageData message) throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
-        DatabaseFunctions db = new DatabaseFunctions();
+//        DatabaseFunctions db = new DatabaseFunctions();
         db.addChat(message.getFromUser(), modifiedConversation
                 .getUser().getAccountName(), message.getMessage());
         setChanged();
