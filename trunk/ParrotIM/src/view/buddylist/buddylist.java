@@ -1,8 +1,12 @@
 package view.buddylist;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+
+import view.chatLog.chatLogFrame;
 
 import controller.services.Xmpp;
 
@@ -10,10 +14,12 @@ import model.Model;
 
 public class buddylist extends JFrame{
 	JMenuBar menu;
+	protected Model model;
 	
 	public buddylist(Xmpp c, Model model)
 	{
 		this.setTitle("Buddy List");
+		this.model=model;
 		
 		this.setMinimumSize(new Dimension(300,600));
 		
@@ -42,7 +48,7 @@ public class buddylist extends JFrame{
 	public JMenuBar createMenu()
 	{
 	       	JMenuBar menuBar;
-			JMenu fileMenu, acctsMenu, connectMenu, optionsMenu, helpMenu;
+			JMenu fileMenu, acctsMenu, contactMenu, optionsMenu, helpMenu;
 			JMenuItem menuItem;
 
 	        //Create the menu bar.
@@ -60,9 +66,12 @@ public class buddylist extends JFrame{
 		    JMenuItem accountsItem1 = new JMenuItem("Edit Accounts", KeyEvent.VK_E);
 		    acctsMenu.add(accountsItem1);
 			
-			connectMenu = new JMenu("Connect");
-			connectMenu.setMnemonic(KeyEvent.VK_C);
-		    menuBar.add(connectMenu);
+			contactMenu = new JMenu("Contact");
+			contactMenu.setMnemonic(KeyEvent.VK_C);
+			JMenuItem viewChatLog = new JMenuItem("View Chat Log", KeyEvent.VK_C);
+			viewChatLog.addActionListener(new chatLogListener());
+		    contactMenu.add(viewChatLog);
+			menuBar.add(contactMenu);
 		    
 			optionsMenu = new JMenu("Options");
 		    optionsMenu.setMnemonic(KeyEvent.VK_O);
@@ -82,5 +91,14 @@ public class buddylist extends JFrame{
 		    helpMenu.add(helpItem3); 
 	        
 	        return menuBar;
+	}
+	
+	private class chatLogListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			new chatLogFrame(model, "cmpt275testing@gmail.com");// change this later 
+			
+		}
+		
 	}
 }

@@ -1,9 +1,6 @@
 package view.mainwindow;
 
-
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.image.ImageObserver;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,7 +13,7 @@ import view.styles.linkLabel;
 public class miscPanel extends JPanel{
 	public miscPanel(){
 		GridLayout miscLayout = new GridLayout(2,1);
-		miscLayout.setVgap(10);
+		miscLayout.setVgap(5);
 		setLayout (miscLayout);
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40));
 		this.setOpaque(false);
@@ -34,7 +31,6 @@ public class miscPanel extends JPanel{
         });
 		
 		add (line);
-
 		add (help);
 	}
 //	private void options_MouseClicked(java.awt.event.MouseEvent evt){
