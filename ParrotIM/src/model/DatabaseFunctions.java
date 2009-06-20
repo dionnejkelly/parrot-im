@@ -89,13 +89,15 @@ public class DatabaseFunctions {
 }
     public void addChat(String fromUser, String toUser, String message)
             throws SQLException {
-        prep = conn
+        String date = new Date().toString();
+    	
+    	prep = conn
                 .prepareStatement("insert into chatLog values (?, ?, ?, ?);");
         prep.setString(1, fromUser);
         prep.setString(2, toUser);
         prep.setString(3, message);
         // / remember to make date automatic!!!
-        prep.setString(4, new Date().toString());
+        prep.setString(4, date);
         prep.addBatch();
 
         conn.setAutoCommit(false);
@@ -115,8 +117,8 @@ public class DatabaseFunctions {
         stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "';");
         while (rs.next()) {
-            if (!accountList.contains(rs.getString("name"))) {
-                accountList.add(rs.getString("name"));
+            if (!accountList.contains(rs.getString("toUser"))) {
+                accountList.add(rs.getString("toUser"));
             }
         }
         return accountList;
@@ -125,15 +127,15 @@ public class DatabaseFunctions {
  * getChatDatesFromName(String name) gives you a Vector<String> with the
  * dates of all the chats a certain profile has chatted with a certain user.
  */
-    public Vector<String> getChatDatesFromName(String username, String name) throws SQLException {
+    public Vector<String> getChatDatesFromName(String username, String buddyname) throws SQLException {
         accountList = new Vector<String>();
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         stat = conn.createStatement();
         ResultSet rs = stat.executeQuery("select * from chatLog where (toUser='"
-                + name + "' AND fromUsergn='" + username + "') || (toUser='"
-                + username + "' AND fromUsergn='" + name + "');");
+                + buddyname + "' AND fromUser='" + username + "') || (toUser='"
+                + username + "' AND fromUser='" + buddyname + "');");
         while (rs.next()) {
-            accountList.add(rs.getString("name"));
+            accountList.add(rs.getString("date"));
         }
         return accountList;
     }
