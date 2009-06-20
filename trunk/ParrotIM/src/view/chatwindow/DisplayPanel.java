@@ -27,6 +27,7 @@ public class DisplayPanel extends JPanel implements Observer {
         chatWindowScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         chatWindowScroller.setPreferredSize(new Dimension(250, 300));
         chatWindowScroller.setMinimumSize(new Dimension(10, 10)); 
+        chatWindowScroller.getInputContext();
 
         
         txtPane.setEditable(false);

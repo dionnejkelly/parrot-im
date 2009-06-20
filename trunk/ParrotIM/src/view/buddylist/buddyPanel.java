@@ -312,6 +312,25 @@ public class buddyPanel extends JPanel implements Observer {
             // JLabel friendStatus = new JLabel(" - \"" + status + "\"");
         //}
 
+        System.out.println("---------------User Status = " + user.getState().toString());
+        
+        if (user.getState().toString().equals("Available")) {
+        	friendName.setForeground(Color.GREEN.darker());
+        	
+        }
+        
+        else if (user.getState().toString().equals("dnd")) {
+        	friendName.setForeground(Color.YELLOW.darker());
+        	
+        }
+        
+        else {
+        	friendName.setForeground(Color.RED.darker());
+        }
+        
+  
+        
+        
         friendItem.add(friendName, BorderLayout.WEST);
         // friendItem.add(friendStatus,BorderLayout.CENTER);
 
