@@ -307,24 +307,30 @@ public class buddyPanel extends JPanel implements Observer {
         //        "offline")) {
         //    friendName = new JLabel(user.getNickname() + " (Offline)");
        // } else {
-        friendName = new JLabel(user.getNickname() + " - "
-                    + user.getStatus() + " (" + user.getState() + ")");
+//        friendName = new JLabel(user.getNickname() + " - "
+//                    + user.getStatus() + " (" + user.getState() + ")");
             // JLabel friendStatus = new JLabel(" - \"" + status + "\"");
         //}
 
         System.out.println("---------------User Status = " + user.getState().toString());
         
         if (user.getState().toString().equals("Available")) {
+        	friendName = new JLabel(user.getNickname() + " - "
+                    + user.getStatus() + " (" + user.getState() + ")");
         	friendName.setForeground(Color.GREEN.darker());
         	
         }
         
         else if (user.getState().toString().equals("dnd")) {
+        	friendName = new JLabel(user.getNickname() + " - "
+                    + user.getStatus() + " (Busy)");
         	friendName.setForeground(Color.YELLOW.darker());
         	
         }
-        
+              
         else {
+        	friendName = new JLabel(user.getNickname() + " - "
+                    + user.getStatus() + " (" + user.getState() + ")");
         	friendName.setForeground(Color.RED.darker());
         }
         
