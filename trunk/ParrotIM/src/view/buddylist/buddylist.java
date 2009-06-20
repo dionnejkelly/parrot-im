@@ -28,7 +28,7 @@ public class buddylist extends JFrame{
 		
 	    //INSIDE PANEL
 		JPanel mainListPanel = new buddyPanel(c, model);
-		JPanel accountInfo = new accInfo(c);
+		JPanel accountInfo = new accInfo(c, model);
 	    
 	    //add to buddylistPanel
 		buddylistPanel.add(accountInfo, BorderLayout.NORTH);

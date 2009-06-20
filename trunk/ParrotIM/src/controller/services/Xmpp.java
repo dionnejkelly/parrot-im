@@ -25,6 +25,7 @@ import controller.chatbot.Chatbot;
 
 import model.*;
 import model.dataType.AccountData;
+import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.MessageData;
 import model.dataType.ServerType;
@@ -40,8 +41,7 @@ public class Xmpp {
     private XMPPConnection connection;
 
     /** Delete this variable. */
-    private String userName;
-
+    // private String userName;
     /** Allows the ChatClient to store data for the GUI. */
     private Model model;
 
@@ -107,37 +107,31 @@ public class Xmpp {
     }
 
     /** Phase this method out */
-    public String getUserName() {
-        return userName;
-    }
-
+    // public String getUserName() {
+    // return userName;
+    // }
     /** This method is using to get the presence of the user. */
     public String getUserPresence(String userID) {
         String status = "offline";
         if (connection != null && connection.getRoster() != null) {
             Presence presence = connection.getRoster().getPresence(userID);
-            if (presence.isAvailable()) {      
+            if (presence.isAvailable()) {
                 if (presence.isAvailable()) {
-                	
-                    if(presence.getMode()==Presence.Mode.dnd)
-                    {	
-                    	status = presence.getStatus();
-                        if(status.equals(""))	
-                        {
-                        	status="Busy";	
+
+                    if (presence.getMode() == Presence.Mode.dnd) {
+                        status = presence.getStatus();
+                        if (status != null) {
+                            status = "Busy";
+                        }
+                    } else if (presence.getMode() != Presence.Mode.dnd) {
+                        status = presence.getStatus();
+                        if (status != null) {
+                            status = "Online";
                         }
                     }
-                    else if(presence.getMode() != Presence.Mode.dnd)
-                    { 
-                    	status = presence.getStatus();
-                    	if(status.equals(""))	
-                    	{                		
-                    		status="Online";
-                    	}
-                    }
-                  
+
+                }
             }
-        }
         }
         return userID + " = " + status;
     }
@@ -177,7 +171,7 @@ public class Xmpp {
             connection = new XMPPConnection(config);
             connection.connect();
             connection.login(userName, password);
-            this.userName = userName;
+            // this.userName = userName;
         }
     }
 
@@ -202,7 +196,7 @@ public class Xmpp {
             /* Get roster updated after the login */
             this.roster = connection.getRoster();
             this.roster.addRosterListener(new BuddyListener());
-            this.userName = account.getAccountName();
+            // this.userName = account.getAccountName();
         } else {
             // handle other types of servers
         }
@@ -252,16 +246,17 @@ public class Xmpp {
         /* Get roster updated after the login */
         this.roster = connection.getRoster();
         this.roster.addRosterListener(new BuddyListener());
-        this.userName = account.getAccountName();
+        // this.userName = account.getAccountName();
 
         /* Set up own user data. TODO REMOVE THIS */
         user = new GoogleTalkUserData(account.getAccountName());
         account.setOwnUserData(user);
 
         /* Set up friends' user data */
-        for (String s : this.getBuddyList()) {
-            model.addFriend(account, s);
-        }
+        this.populateBuddyList(account);
+        //for (String s : this.getBuddyList()) {
+        //    model.addFriend(account, s);
+        //}
 
         // StringUtils.parseServer(accountName);
 
@@ -291,6 +286,7 @@ public class Xmpp {
 
     /** This method is using to remove a friend to the friend list. */
     public void removeFriend(String userID) {
+        UserData user = null;
         Roster roster = connection.getRoster();
         Collection<RosterEntry> entries = roster.getEntries();
         Iterator i = entries.iterator();
@@ -300,6 +296,8 @@ public class Xmpp {
             if (nextEntry.getUser().equals(userID))
                 try {
                     roster.removeEntry(nextEntry);
+                    user = model.findUserByAccountName(nextEntry.getUser());
+                    model.removeFriend(user);
                 } catch (XMPPException e) {
                     e.printStackTrace();
                 }
@@ -331,11 +329,63 @@ public class Xmpp {
         }
         return buddies;
     }
+    
+    public void populateBuddyList(AccountData account) {
+        UserData user = null;
+        
+        if (connection != null && connection.getRoster() != null) {
+            Roster roster = connection.getRoster();
+            Collection<RosterEntry> entries = roster.getEntries();
 
-    /** This method is using to send the message to friend. */
-    public void sendMessage(String message, String to) throws XMPPException {
+            for (RosterEntry r : entries) {
+                /* Decide which type of user to use */
+                if (account.getServer() == ServerType.GOOGLE_TALK) {
+                    user = new GoogleTalkUserData(r.getUser(), r.getName(),
+                            this.getUserPresence(r.getUser()));
+                    System.out.println(r.getName());
+                } else if (account.getServer() == ServerType.JABBER) {
+                 //   user = new JabberUserData(r.getUser(), r.getName(),
+                 //           this.getUserPresence(r.getUser()));
+                } else { // some other user
+                    // TODO implement me!
+                }
+                
+                model.addFriend(account, user);
+            }
+        }
+        return;  
+    }
+
+    /**
+     * This method is using to send the message to friend. Explicitly sets a
+     * receiver. If the receiver is unknown, then use the overloaded
+     * sendMessage() which automatically sends the reply to the open
+     * conversation.
+     */
+    public void sendMessage(String messageString, String to) throws XMPPException {
         Chat chat = null;
         boolean chatExists = false;
+        ConversationData conversation = null;
+        MessageData messageObject = null;
+        String fromUser = null;
+        String font = "Arial"; // temp values
+        String size = "4";
+        
+        conversation = model.findConversationByFriend(to);
+        fromUser = conversation.getAccount().getAccountName();
+        to = conversation.getUser().getAccountName();
+
+        messageObject = new MessageData(fromUser, messageString, font, size);
+
+        try {
+            model.sendMessage(conversation, messageObject);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         /* Check for existing chats */
         for (Chat c : chats) {
@@ -351,29 +401,74 @@ public class Xmpp {
                     .createChat(to, new MsgListener());
             chats.add(chat);
         }
-        chat.sendMessage(message);
+        chat.sendMessage(messageString);
         return;
     }
 
-    
+    /**
+     * Sends a message to the person in the current active conversation.
+     * 
+     * @param message
+     * @throws XMPPException
+     */
+    public void sendMessage(String messageString, String font, String size)
+            throws XMPPException {
+        Chat chat = null;
+        boolean chatExists = false;
+        String to = null;        
+        MessageData messageObject = null;
+        ConversationData conversation = null;
+        String fromUser = null;
+
+        /* Default to sending to the active user */
+        conversation = model.getActiveConversation();
+        fromUser = conversation.getAccount().getAccountName();
+        to = conversation.getUser().getAccountName();
+
+        messageObject = new MessageData(fromUser, messageString, font, size);
+
+        try {
+            model.sendMessage(conversation, messageObject);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        /* Check for existing chats */
+        for (Chat c : chats) {
+            if (c.getParticipant().equalsIgnoreCase(to)) {
+                chatExists = true;
+                chat = c;
+                break;
+            }
+        }
+        /* Create if doesn't exist */
+        if (!chatExists) {
+            chat = connection.getChatManager()
+                    .createChat(to, new MsgListener());
+            chats.add(chat);
+        }
+        chat.sendMessage(messageString);
+        
+        return;
+    }
+
     /* Manipulation of conversations */
-    
+
     public void changeConversation(String accountName) {
         UserData user = null;
-        
+
         user = model.findUserByAccountName(accountName);
         if (user != null) {
             model.setActiveConversation(user);
         }
-        
+
         return;
     }
-    
-    
-    
-    
-    
-    
+
     /* This is another class called BuddyListener. */
 
     /**
@@ -508,7 +603,8 @@ public class Xmpp {
 
                     /* Display first message bug FIX */
                     user = model.findUserByAccountName(chat.getParticipant());
-                    m = new MessageData(user, message.getBody(), "font", "4");
+                    m = new MessageData(user.getAccountName(), message
+                            .getBody(), "font", "4");
                     try {
                         model
                                 .receiveMessage(
@@ -524,7 +620,8 @@ public class Xmpp {
                 } else {
                     // tempID = "";
                     user = model.findUserByAccountName(chat.getParticipant());
-                    m = new MessageData(user, message.getBody(), "font", "4");
+                    m = new MessageData(user.getAccountName(), message
+                            .getBody(), "font", "4");
                     try {
                         model
                                 .receiveMessage(

@@ -26,12 +26,12 @@ package model.dataType;
 
 public class MessageData {
 
-    private UserData fromUser;
+    private String fromUser;
     private String message;
     private String font;
     private String size;
     
-    public MessageData(UserData fromUser, String message, String font, 
+    public MessageData(String fromUser, String message, String font, 
                        String size) {
         this.fromUser = fromUser;
         this.message = message;
@@ -39,7 +39,7 @@ public class MessageData {
         this.size = size;
     }
     
-    public UserData getFromUser() {
+    public String getFromUser() {
         return this.fromUser;
     }
     
