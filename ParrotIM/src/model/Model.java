@@ -207,7 +207,7 @@ public class Model extends Observable {
         ConversationData modifiedConversation = null;
         String fromUser = message.getFromUser();
 
-        DatabaseFunctions db = new DatabaseFunctions();
+        //DatabaseFunctions db = new DatabaseFunctions();
         db.addChat(fromUser, account.getAccountName(), message
                 .getMessage());
         
