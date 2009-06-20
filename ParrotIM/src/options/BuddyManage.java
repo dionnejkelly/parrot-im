@@ -1,3 +1,5 @@
+package options;
+
 /*
  * BuddyManage.java
  *
