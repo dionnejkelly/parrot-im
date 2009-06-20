@@ -1,3 +1,30 @@
+/* guestAccountFrame.java
+ * 
+ * Programmed By:
+ * 	   Vera Lukman
+ *     Jihoon Choi
+ *     Jordan Fox
+ * 	   William Chen
+ *     
+ * Change Log:
+ *     2009-June-6, VL
+ *         Initial write.
+ *     2009-June-7, JC
+ *     	   Integrated with control.
+ *     2009-June-8, JF
+ *     	   Fixed keyPressed()
+ *     2009-June-13, WC/VL
+ *         Transferred file over to new project, ParrotIM.
+ *         Fixed alignment to left.
+ *         
+ * Known Issues:
+ *     None
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.mainwindow;
 
 import java.awt.Dimension;

@@ -1,3 +1,26 @@
+/* popupWindowListener.java
+ * 
+ * Programmed By:
+ * 	   Vera Lukman
+ *     Jordan Fox
+ * 	   William Chen
+ *     
+ * Change Log:
+ *     2009-June-8, VL
+ *         Initial write.
+ *     2009-June-8, JC
+ *     	   Fixed windowClosed()
+ *     2009-June-13, WC
+ *         Transferred file over to new project, ParrotIM.
+ *         
+ * Known Issues:
+ *     None
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.styles;
 
 import java.awt.event.WindowEvent;

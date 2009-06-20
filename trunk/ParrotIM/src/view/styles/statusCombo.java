@@ -1,3 +1,23 @@
+/* statusCombo.java
+ * 
+ * Programmed By:
+ * 	   Vera Lukman
+ *     Jihoon Choi
+ *     
+ * Change Log:
+ *     2009-June-16, VL
+ *         Initial write.
+ *     2009-June-17, JC
+ *     	   Integrated with control.
+ *         
+ * Known Issues:
+ * 	   None
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.styles;
 
 import java.awt.Dimension;

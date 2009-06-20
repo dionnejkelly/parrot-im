@@ -25,6 +25,10 @@
  *     2009-June-18, KF/JC
  *         Added findFriendByAccountName(), removeFriend(), 
  *         changeFriendStatus(), blockFriend(), unblockFriend().
+ *     2009-June-19, VL
+ *     	   Added getBuddyLogList(), getBuddyDateList(), getLogMessage()
+ *         Those functions are linked with DatabaseFunctions.java
+ *         These functions are used for chat log window
  *         
  *         
  * Known Issues:
