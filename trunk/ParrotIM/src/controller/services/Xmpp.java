@@ -118,18 +118,22 @@ public class Xmpp {
             if (presence.isAvailable()) {
                 if (presence.isAvailable()) {
 
-                    if (presence.getMode() == Presence.Mode.dnd) {
+                    if (presence.getMode() == Presence.Mode.away) {
+                        status = presence.getStatus();
+                        if (status != null) {
+                            status = "Away";
+                        }
+                    } else if (presence.getMode() == Presence.Mode.dnd) {
                         status = presence.getStatus();
                         if (status != null) {
                             status = "Busy";
                         }
-                    } else if (presence.getMode() != Presence.Mode.dnd) {
+                    } else { // if (presence.getMode() != Presence.Mode.dnd) {
                         status = presence.getStatus();
                         if (status != null) {
                             status = "Online";
                         }
                     }
-
                 }
             }
         }
@@ -254,9 +258,9 @@ public class Xmpp {
 
         /* Set up friends' user data */
         this.populateBuddyList(account);
-        //for (String s : this.getBuddyList()) {
-        //    model.addFriend(account, s);
-        //}
+        // for (String s : this.getBuddyList()) {
+        // model.addFriend(account, s);
+        // }
 
         // StringUtils.parseServer(accountName);
 
@@ -329,31 +333,42 @@ public class Xmpp {
         }
         return buddies;
     }
-    
+
     public void populateBuddyList(AccountData account) {
         UserData user = null;
-        
+        String accountName = null;
+        String nickname = null;
+        String state = null;
+        String status = null;
+
         if (connection != null && connection.getRoster() != null) {
             Roster roster = connection.getRoster();
             Collection<RosterEntry> entries = roster.getEntries();
 
             for (RosterEntry r : entries) {
                 /* Decide which type of user to use */
+                if (r.getName() == null) {
+                    r.setName(StringUtils.parseName(r.getUser()));
+                }
                 if (account.getServer() == ServerType.GOOGLE_TALK) {
-                    user = new GoogleTalkUserData(r.getUser(), r.getName(),
-                            this.getUserPresence(r.getUser()));
-                    System.out.println(r.getName());
+                    accountName = r.getUser();
+                    nickname = r.getName();
+                    state = roster.getPresence(accountName).getMode()
+                            .toString();
+                    status = roster.getPresence(accountName).getStatus();
+                    user = new GoogleTalkUserData(accountName, nickname, status);
+                    user.setState(state);
                 } else if (account.getServer() == ServerType.JABBER) {
-                 //   user = new JabberUserData(r.getUser(), r.getName(),
-                 //           this.getUserPresence(r.getUser()));
+                    // user = new JabberUserData(r.getUser(), r.getName(),
+                    // this.getUserPresence(r.getUser()));
                 } else { // some other user
                     // TODO implement me!
                 }
-                
+
                 model.addFriend(account, user);
             }
         }
-        return;  
+        return;
     }
 
     /**
@@ -362,7 +377,8 @@ public class Xmpp {
      * sendMessage() which automatically sends the reply to the open
      * conversation.
      */
-    public void sendMessage(String messageString, String to) throws XMPPException {
+    public void sendMessage(String messageString, String to)
+            throws XMPPException {
         Chat chat = null;
         boolean chatExists = false;
         ConversationData conversation = null;
@@ -370,7 +386,7 @@ public class Xmpp {
         String fromUser = null;
         String font = "Arial"; // temp values
         String size = "4";
-        
+
         conversation = model.findConversationByFriend(to);
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
@@ -415,7 +431,7 @@ public class Xmpp {
             throws XMPPException {
         Chat chat = null;
         boolean chatExists = false;
-        String to = null;        
+        String to = null;
         MessageData messageObject = null;
         ConversationData conversation = null;
         String fromUser = null;
@@ -436,7 +452,7 @@ public class Xmpp {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         /* Check for existing chats */
         for (Chat c : chats) {
             if (c.getParticipant().equalsIgnoreCase(to)) {
@@ -452,7 +468,7 @@ public class Xmpp {
             chats.add(chat);
         }
         chat.sendMessage(messageString);
-        
+
         return;
     }
 
@@ -495,12 +511,32 @@ public class Xmpp {
         }
 
         public void presenceChanged(Presence presence) {
+
             UserData userToUpdate = null;
+            Presence truePresence = null;
 
             String bareAddress = StringUtils.parseBareAddress(presence
                     .getFrom());
             userToUpdate = model.findUserByAccountName(bareAddress);
-            userToUpdate.setStatus(presence.getStatus());
+            truePresence = roster.getPresence(bareAddress);
+
+            /* Ensures that the most recent status gets updated */
+            // userToUpdate.setStatus(presence.getStatus());
+            // userToUpdate.setState(presence.getMode().toString());
+
+            userToUpdate.setStatus(truePresence.getStatus());
+            
+            /* WEIRD BUG FIX BELOW */
+            if (truePresence.getMode() == Presence.Mode.dnd ||
+                    truePresence.getMode() == Presence.Mode.away ||
+                    truePresence.getMode() == Presence.Mode.xa) {
+                userToUpdate.setState(roster.getPresence(bareAddress).getMode().toString());
+            } else if (truePresence.isAvailable()) {
+                userToUpdate.setState("Available");
+            } else { // offline
+                userToUpdate.setState("Offline");
+            }
+            
             model.forceNotify(UpdatedType.BUDDY);
             // System.out.println(presence.getFrom() + ", that is, "
             // + bareAddress + " status change:"
@@ -563,7 +599,8 @@ public class Xmpp {
 
     private class MessagePacketFilter implements PacketFilter {
         public boolean accept(Packet packet) {
-            System.out.println(packet);
+            // System.out.println(packet + "It's YOU, I KNOW IT!");
+
             return (packet instanceof Message);
         }
     }

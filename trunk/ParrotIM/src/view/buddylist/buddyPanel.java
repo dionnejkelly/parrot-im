@@ -239,7 +239,6 @@ public class buddyPanel extends JPanel implements Observer {
                             + model.getCurrentProfile().getAllFriends().get(i));
                 }
 
-                
                 buddies.remove(selectedFriend);
                 boxes[0].removeAll();
 
@@ -280,12 +279,12 @@ public class buddyPanel extends JPanel implements Observer {
 
                 // add friends to the buddy list
 
-                //boxes[0].add(FriendItem(buddies.get(buddies.size() - 1)));
+                // boxes[0].add(FriendItem(buddies.get(buddies.size() - 1)));
 
-                //boxes[0].getComponent(buddies.size() - 1).addMouseListener(
-                //        new SelectListener());
+                // boxes[0].getComponent(buddies.size() - 1).addMouseListener(
+                // new SelectListener());
 
-                //friendList.updateUI();
+                // friendList.updateUI();
 
             }
             System.out.println("User Input = " + userFriendID);
@@ -305,14 +304,14 @@ public class buddyPanel extends JPanel implements Observer {
 
         // prints the usersnickname to the JPanel.
         JLabel friendName;
-        if (chatClient.getUserPresence(user.getAccountName()).contains(
-                "offline")) {
-            friendName = new JLabel(user.getNickname() + " (Offline)");
-        } else {
-            friendName = new JLabel(user.getNickname() + " ("
-                    + user.getStatus() + ")");
+        //if (chatClient.getUserPresence(user.getAccountName()).contains(
+        //        "offline")) {
+        //    friendName = new JLabel(user.getNickname() + " (Offline)");
+       // } else {
+        friendName = new JLabel(user.getNickname() + " - "
+                    + user.getStatus() + " (" + user.getState() + ")");
             // JLabel friendStatus = new JLabel(" - \"" + status + "\"");
-        }
+        //}
 
         friendItem.add(friendName, BorderLayout.WEST);
         // friendItem.add(friendStatus,BorderLayout.CENTER);
@@ -340,6 +339,7 @@ public class buddyPanel extends JPanel implements Observer {
 
         } else if (arg == UpdatedType.BUDDY) {
             boxes[0].removeAll();
+            System.out.println("I'm updating");
             buddies = model.getCurrentProfile().getAllFriends();
 
             for (int i = 0; i < buddies.size(); i++) {
