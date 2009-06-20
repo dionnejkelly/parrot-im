@@ -38,6 +38,7 @@ public abstract class UserData {
     protected String nickname;
     protected String status;
     protected boolean blocked;
+    protected String state;
 
     public UserData(String accountName, String nickname, String status) {
         this.accountName = accountName;
@@ -50,6 +51,7 @@ public abstract class UserData {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        this.state = "Offline";
     }
     
     public UserData(String accountName) {
@@ -63,6 +65,7 @@ public abstract class UserData {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        this.state = "Offline";
     }
 
     public void setAccountName(String accountName) {
@@ -115,6 +118,14 @@ public abstract class UserData {
 
     public boolean isBlocked() {
         return this.blocked;
+    }
+    
+    public void setState(String state) {
+        this.state = state;
+    }
+    
+    public String getState() {
+        return this.state;
     }
     
 }
