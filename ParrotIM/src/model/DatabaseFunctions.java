@@ -83,9 +83,9 @@ public class DatabaseFunctions {
 
     public String getPassword(String username) throws ClassNotFoundException,
     SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-		Statement stat = conn.createStatement();
-		ResultSet rs = null;
+		//Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+		//Statement stat = conn.createStatement();
+		//ResultSet rs = null;
 		rs = stat.executeQuery("select * from people where email='" + username
 		        + "'");
 		return rs.getString("password");
@@ -117,9 +117,9 @@ public class DatabaseFunctions {
  */
     public Vector<String> getChatNameList(String username) throws SQLException {
         accountList = new Vector<String>();
-        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "';");
+        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        //stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
@@ -133,9 +133,9 @@ public class DatabaseFunctions {
  */
     public Vector<String> getChatDatesFromName(String username, String buddyname) throws SQLException {
         accountList = new Vector<String>();
-        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog where (toUser='"
+        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        //stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where (toUser='"
                 + buddyname + "' AND fromUser='" + username + "') || (toUser='"
                 + username + "' AND fromUser='" + buddyname + "');");
         while (rs.next()) {
@@ -149,9 +149,9 @@ public class DatabaseFunctions {
  */
     public String getMessageFromDate(String date) throws SQLException {
         accountList = new Vector<String>();
-        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("select * from chatLog where date='"
+        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        //stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where date='"
                 + date + "';");
         rs.next();
         return rs.getString("message");
@@ -163,8 +163,8 @@ public class DatabaseFunctions {
  */
     public void addProfiles(String name, String password,
             String rememberPassword) throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        Statement stat = conn.createStatement();
+        //Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        //Statement stat = conn.createStatement();
         prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
 
         prep.setString(1, name);
@@ -183,7 +183,7 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfileList() throws SQLException {
         accountList = new Vector<String>();
-    	ResultSet rs = stat.executeQuery("select * from profiles;");
+    	rs = stat.executeQuery("select * from profiles;");
         while (rs.next()) {
             accountList.add(rs.getString("name"));
         }
@@ -196,7 +196,7 @@ public class DatabaseFunctions {
      */
     public Vector<String> getUserList() throws SQLException {
         accountList = new Vector<String>();
-    	ResultSet rs = stat.executeQuery("select * from people;");
+    	rs = stat.executeQuery("select * from people;");
         while (rs.next()) {
             accountList.add(rs.getString("email"));
         }
@@ -208,7 +208,7 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         accountList = new Vector<String>();
-    	ResultSet rs = stat.executeQuery("select * from people where name='" + name + "';");
+    	rs = stat.executeQuery("select * from people where name='" + name + "';");
         while (rs.next()) {
             accountList.add(rs.getString("email"));
         }
