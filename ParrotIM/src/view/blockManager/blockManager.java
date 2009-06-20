@@ -30,6 +30,7 @@ import controller.services.Xmpp;
 
 import model.DatabaseFunctions;
 import model.Model;
+import model.dataType.GoogleTalkUserData;
 import model.dataType.UserData;
 import view.mainwindow.mainwindow;
 
@@ -167,6 +168,7 @@ public class blockManager extends JFrame {
 			bannedAccountList.remove(selected);
 			usersBannedBuddyList.updateUI();
 			
+			usersProfileBuddyList.add(new GoogleTalkUserData(unBlockedUser));
 			usersBuddyListModel.addElement(unBlockedUser);
 			usersBuddyList.updateUI();
 			
