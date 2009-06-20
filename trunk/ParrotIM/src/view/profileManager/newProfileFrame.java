@@ -48,6 +48,7 @@ public class newProfileFrame extends JFrame
 		this.model = model;
 		managerFrame = pManager;
 		popup = this;
+		this.setAlwaysOnTop(true);
 		this.setResizable(false);
 		this.setLocationRelativeTo(managerFrame);
 		

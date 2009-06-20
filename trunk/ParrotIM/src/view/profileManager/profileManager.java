@@ -22,11 +22,16 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import view.mainwindow.mainwindow;
 import view.styles.popupWindowListener;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -56,9 +61,9 @@ public class profileManager extends JFrame
 	
 	public profileManager(Model model,mainwindow frame) throws ClassNotFoundException, SQLException
 	{
-		this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		mainFrame = frame;
+		frame.setFocusable(false);
 		this.addWindowListener(new popupWindowListener(mainFrame, this));
 		
 		this.model = model;
@@ -92,8 +97,8 @@ public class profileManager extends JFrame
 
 		//saved account list
 		profileListModel = new DefaultListModel();
-		Vector<String> profileListArray = model.getAccountList();
-		for(int i=0;i<model.getAccountList().size();i++)
+		Vector<String> profileListArray = model.getProfileList();
+		for(int i=0;i<model.getProfileList().size();i++)
 		{
 			profileListModel.addElement(profileListArray.elementAt(i));
 		}
@@ -151,8 +156,39 @@ public class profileManager extends JFrame
 		//List of accounts on the profile
 		JPanel topRight = new JPanel();
 		topRight.setLayout(new BorderLayout());
-		accList = new JList(model.getAccountList());
-		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		
+	    ListSelectionListener profileListSelection = new ListSelectionListener() 
+	    {
+	      public void valueChanged(ListSelectionEvent listSelectionEvent) 
+	      {
+	        boolean adjust = listSelectionEvent.getValueIsAdjusting();
+	        if (!adjust) 
+	        {
+	         JList list = (JList) listSelectionEvent.getSource();
+	         int selections[] = list.getSelectedIndices();
+	         Object selectionValues[] = list.getSelectedValues();
+	         String selectionString[] = new String[selectionValues.length];
+	         for (int i=0;i<selectionValues.length;i++)
+	         {
+	        	 selectionString[i] = selectionValues[i].toString();
+	         }
+	         
+	          for (int i = 0, n = selections.length; i < n; i++) {
+	            if (i == 0) {
+	             System.out.print(selectionString[i]);
+	            }
+	          }
+	          System.out.println();
+	          //rightList.clear();
+	          //rightList.addElement("blah");
+	        }
+	      }
+	    };
+	    profileList.addListSelectionListener(profileListSelection);
+	    
+	   
+		// accList = new JList(model.getAccountList());
+		// accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
 		JScrollPane acctListScroller = new JScrollPane(accList);
 		acctListScroller.setPreferredSize(new Dimension(300, 220));
