@@ -1,6 +1,8 @@
 package view.chatLog;
 
 import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
@@ -12,13 +14,13 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.chatLogModel.chatLog;
-import model.chatLogModel.modeldummy;
+import model.Model;
 
 
 
 public class chatLogPanel extends JSplitPane{
-	private modeldummy model;
+	private String username;
+	private Model model;
 	private JSplitPane logPane;
 	
 	//left component
@@ -27,69 +29,77 @@ public class chatLogPanel extends JSplitPane{
 	//right component
 	//top
 	private JScrollPane datesScroll;
-	private chatLog[] dateArray;
+	private Vector<String> dateVectorList;
 	private JList dateList;
 	//bottom
 	private JEditorPane text;
 	private JScrollPane chatlog;
 	
-	public chatLogPanel(modeldummy model){
+	public chatLogPanel(Model model, String username){
 		//model stub
 		this.model = model;
+		this.username = username;
 		
 		//settings
 		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		
-		/*set left component*/
-		buddyPanel buddyList = new buddyPanel(model);
+		/*set left JSplitPane component*/
+		buddyPanel buddyList = new buddyPanel(model, username);
 		buddies = buddyList.buddyList;
 		buddies.addListSelectionListener(new buddyListener());
 		this.setLeftComponent(buddyList);
 		
-		/*set right component*/
+		/*set right JSplitPane component*/
 		logPane = new JSplitPane();
 		logPane.setBorder(null);
 		logPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		logPane.setDividerLocation(200);
+		logPane.setDividerLocation(140);
 		
-		//bottom component shows the chat logs
+		//bottom right component shows the chat logs
 		text = new JEditorPane();
 		text.setEditable(false);
 		chatlog = new JScrollPane(text);
 		chatlog.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
 		logPane.setBottomComponent(chatlog);
 		
-		//top component shows the list of dates
-		dateArray = model.getHistoryList(0); 
-		dateList = new JList (dateArray);
+		//top right component shows the list of dates
+		dateVectorList = new Vector<String>(); 
+		dateList = new JList (dateVectorList);
 		dateList.addListSelectionListener(new datesListener());
 		dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		dateList.setSelectedIndex(0);
 		datesScroll = new JScrollPane(dateList);
 		datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
 		datesScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		logPane.setTopComponent(datesScroll);
 		
 		this.setRightComponent(logPane);
-		this.setDividerLocation(120);
+		this.setDividerLocation(200);
 	}
 	
 	private class buddyListener implements ListSelectionListener{
 
 		public void valueChanged(ListSelectionEvent e) {
-			int index = buddies.getSelectedIndex();
-			if (index > -1){
-				dateArray = model.getHistoryList(index);
-
-				//recreate the JList
-				dateList = new JList(dateArray);
-				dateList.addListSelectionListener(new datesListener());
-				dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				dateList.setSelectedIndex(0);
-				datesScroll = new JScrollPane(dateList);
-				datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
-				datesScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-				logPane.setTopComponent(datesScroll);
+			if (buddies.getSelectedIndex() > -1){
+				
+				try {
+					dateVectorList = model.getBuddyDateList(username, buddies.getSelectedValue().toString());
+					
+					//recreate the JList
+					dateList = new JList(dateVectorList);
+					dateList.addListSelectionListener(new datesListener());
+					dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					datesScroll = new JScrollPane(dateList);
+					datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
+					datesScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+					logPane.setTopComponent(datesScroll);
+					
+					//clean the right textbox 
+					text.setText("");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 	}
@@ -98,14 +108,19 @@ public class chatLogPanel extends JSplitPane{
 		
 		public void valueChanged(ListSelectionEvent e){
 			JList source = (JList) e.getSource();
-			int dateIndex = source.getSelectedIndex();
-			updateLog(dateIndex);
+			String date = source.getSelectedValue().toString();
+			updateLog(date);
 		}
 		
-		protected void updateLog (int dateIndex) {
-			String log = dateArray[dateIndex].getLog();
+		protected void updateLog (String date) {
+			String log = "";
+			try {
+				log = model.getLogMessage(date);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	text.setText(log);
-        	//System.out.println(log);
     	}
 	}
 }

@@ -1,6 +1,7 @@
 package view.chatLog;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -8,21 +9,23 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
-import model.chatLogModel.modeldummy;
+import model.Model;
 
 
 
 public class buddyPanel extends JPanel{
-	//dummy model
-	//private modeldummy model;
 	protected JList buddyList;
 
-	public buddyPanel(modeldummy model){
+	public buddyPanel(Model model, String username){
 		
 		//list of buddies who has logged chat
-		buddyList = new JList(model.getBuddyList());
+		try {
+			buddyList = new JList(model.getBuddyLogList(username));
+		} catch (SQLException e) {
+			buddyList = new JList();
+		}
 		buddyList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		buddyList.setSelectedIndex(0);
+		//buddyList.setSelectedIndex(0);
 		JScrollPane scrollBuddy = new JScrollPane(buddyList);
 		scrollBuddy.setAutoscrolls(true);
 		scrollBuddy.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

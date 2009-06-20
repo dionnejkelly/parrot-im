@@ -58,6 +58,7 @@ public class Model extends Observable {
     private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
     private DatabaseFunctions db;
+    
     public boolean chatWindowOpen;
 
     public Model() throws ClassNotFoundException, SQLException {
@@ -540,4 +541,23 @@ public class Model extends Observable {
 
         return;
     }
+    
+    /*
+     * ChatLog functions
+     */
+    public Vector<String> getBuddyLogList(String username) throws SQLException{
+		//returns list of buddies (that have chat log)
+    	return db.getChatNameList(username);
+	}
+    public Vector<String> getBuddyDateList(String username, String buddyname) throws SQLException{
+    	//returns history date list 
+    	return db.getChatDatesFromName(username, buddyname);
+	}
+    public String getLogMessage(String date) throws SQLException{
+    	//returns logged message of a certain date 
+    	//TODO: this might be incorrect. date only? will it be from the right user too?
+    	//		will it show the replies from the user too?
+    	return db.getMessageFromDate(date);
+    }
+    
 }
