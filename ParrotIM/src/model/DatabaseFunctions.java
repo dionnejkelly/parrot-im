@@ -15,9 +15,13 @@
  *     2009-June-18, KF
  *         Added functionality to store local data on friends, including
  *         their accountName and blockedStatus.
+ *     2009-June-19, KF
+ *     	   Fixed some code on getChatDatesFromName(), getChatNameList()
  *         
  * Known Issues:
- *     none
+ *     1. The way how database records chat should be fixed.
+ *     	  Right now it only shows the recorded message from a buddy, it doesn't show who is talking either.
+ *        Also, it doesn't show the replies from the user.
  * 
  * Copyright (C) 2009  Pirate Captains
  * 

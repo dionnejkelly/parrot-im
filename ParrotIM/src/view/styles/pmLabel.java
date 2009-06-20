@@ -1,3 +1,31 @@
+/* pmLabel.java
+ * 
+ * Programmed By:
+ * 	   Vera Lukman
+ *     Jihoon Choi
+ *     Jordan Fox
+ * 	   William Chen
+ *     
+ * Change Log:
+ *     2009-June-6, VL
+ *         Initial write.
+ *     2009-June-7, JC
+ *     	   Integrated with control.
+ *     2009-June-8, JF
+ *     	   Fixed keyPressed()
+ *     2009-June-13, WC/VL
+ *         Transferred file over to new project, ParrotIM.
+ *         Fixed alignment to left.
+ *         
+ * Known Issues:
+ *     1. User should be able to click outside the box to
+ *        change personal message
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.styles;
 
 import java.awt.Color;
@@ -24,7 +52,7 @@ public class pmLabel extends JTextField {
 		this.addMouseListener(new labelMouseListener(this));
 		this.addKeyListener(new labelKeyListener(this));
 	}
-	protected void changePM(boolean b){
+	public void changePM(boolean b){
 		if (b){//editable
 			if (!this.getText().equals("Type your status message")){
 				this.setText("");

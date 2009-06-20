@@ -1,3 +1,22 @@
+/* testFrame.java
+ * 
+ * Programmed By:
+ *     Vera Lukman
+ *     
+ * Change Log:
+ *     2009-June-16, VL
+ *         Initial write. All data was stub, not connected yet to database
+ *     2009-June-19, VL
+ *         Integrated to access the real database
+ *         
+ * Known Issues:
+ *     1. Missing search bar.
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.chatLog;
 import java.sql.SQLException;
 import java.util.Vector;
