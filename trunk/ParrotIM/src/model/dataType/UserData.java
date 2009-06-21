@@ -105,4 +105,30 @@ public abstract class UserData {
         return this.state;
     }
     
+    public boolean isMoreOnline(UserData user) {
+        int ownPriority = 0;
+        int userPriority = 0;
+        
+        if (this.blocked) {
+            ownPriority = 1;
+        } else if (this.state.equalsIgnoreCase("Online")) {
+            ownPriority = 4;
+        } else if (this.state.equalsIgnoreCase("Offline")) {
+            ownPriority = 2;
+        } else {
+            ownPriority = 3;
+        }
+        
+        if (user.isBlocked()) {
+            userPriority = 1;
+        } else if (user.getState().equalsIgnoreCase("Online")) {
+            userPriority = 4;
+        } else if (user.getState().equalsIgnoreCase("Offline")) {
+            userPriority = 2;
+        } else {
+            userPriority = 3;
+        }
+        
+        return (ownPriority > userPriority);
+    }
 }

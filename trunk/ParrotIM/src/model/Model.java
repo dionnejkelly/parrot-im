@@ -484,8 +484,8 @@ public class Model extends Observable {
         String friendName = null;
         DatabaseFunctions db = null;
         boolean success = false;
-        
-     // Database manipulation
+
+        // Database manipulation
         try {
             db = new DatabaseFunctions();
             account = this.findAccountByFriend(exFriend);
@@ -510,7 +510,6 @@ public class Model extends Observable {
             success = false; // Should already be false, but, hey, whatever
         }
 
-        
         super.setChanged();
         super.notifyObservers(UpdatedType.BUDDY);
 
@@ -658,6 +657,61 @@ public class Model extends Observable {
         }
         return blockedFriends;
 
+    }
+
+    public ArrayList<UserData> getOrderedFriendList() {
+        ArrayList<UserData> unsortedFriends = new ArrayList<UserData>();
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+        UserData candidate = null;
+
+        for (AccountData account : this.currentProfile.getAccountData()) {
+            for (UserData user : account.getFriends()) {
+                unsortedFriends.add(user);
+            }
+        }
+        
+        // Sort the friends. Terribly inefficient. Please implement 
+        // a O(nlog(n)) algorithm when time permits.
+
+        // Sorts the unsortedFriends alphabetically, no regard for
+        // online/offline statuses
+        while (!unsortedFriends.isEmpty()) {
+            for (UserData user : unsortedFriends) {
+                if (candidate == null) {
+                    candidate = user;
+                } else if (user.getNickname().compareToIgnoreCase(candidate.getNickname()) < 0) {
+                    candidate = user;
+                } else {
+                    // Do nothing, look at next user.
+                }
+            }
+            unsortedFriends.remove(candidate);
+            friends.add(candidate);
+            candidate = null;
+        }
+        
+        unsortedFriends = friends;
+        friends = new ArrayList<UserData>();
+        candidate = null;
+        
+        // Sort with regard to online/busy/offline/blocked
+        while (!unsortedFriends.isEmpty()) {
+            for (UserData user : unsortedFriends) {
+                if (candidate == null) {
+                    candidate = user;
+                } else if (user.isMoreOnline(candidate)) {
+                    candidate = user;
+                } else {
+                    // do nothing, next iteration
+                }
+            }
+            unsortedFriends.remove(candidate);
+            friends.add(candidate);
+            candidate = null;
+        }
+        
+        
+        return friends;
     }
 
     public Vector<FriendTempData> getSavedFriends(String accountName) {
