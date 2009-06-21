@@ -17,6 +17,8 @@
  *         their accountName and blockedStatus.
  *     2009-June-19, KF
  *     	   Fixed some code on getChatDatesFromName(), getChatNameList()
+ *     2009-June-20, KF
+ *         Added table-creation checking in the constructor.
  *         
  * Known Issues:
  *     1. The way how database records chat should be fixed.
@@ -47,23 +49,44 @@ public class DatabaseFunctions {
     public Statement stat;
     public PreparedStatement prep;
     public ResultSet rs;
-/*
- * DatabaseFunctions() connects you to the database.
- * Every time you want to run a query in another file you have
- * to "DatabaseFunctions db = new DatabaseFunctions();"
- * then run things such as db.addUser();
- */
+
+    /*
+     * DatabaseFunctions() connects you to the database. Every time you want to
+     * run a query in another file you have to
+     * "DatabaseFunctions db = new DatabaseFunctions();" then run things such as
+     * db.addUser();
+     */
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         bannedAccountList = new Vector<String>();
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        stat = conn.createStatement();     
-        
+        stat = conn.createStatement();
+
+        /*
+         * Set up tables. Commented out are commands to delete the table, as to
+         * start a new table up fresh. Please do not remove comments from these
+         * commands unless necessary.
+         */
+
+        // stat.executeUpdate("drop table if exists people;");
+        // stat.executeUpdate("drop table if exists chatLog;");
+        // stat.executeUpdate("drop table if exists profiles;");
+        // stat.executeUpdate("drop table if exists friendList;");
+        stat.executeUpdate("create table if not exists people "
+                + "(profile, service, email, password, rememberPassword);");
+        stat.executeUpdate("create table if not exists chatLog "
+                + "(fromUser, toUser, message, date);");
+        stat.executeUpdate("create table if not exists profiles "
+                + "(name, password, rememberPassword);");
+        stat.executeUpdate("create table if not exists friendList "
+                + "(accountName, friendName, blocked);");
+
     }
-/*
- * addUsers() puts a new account for a specific profile into
- * the Database. You can get the information you added using getUsers;
- */
+
+    /*
+     * addUsers() puts a new account for a specific profile into the Database.
+     * You can get the information you added using getUsers;
+     */
     public void addUsers(String profile, String service, String email,
             String password, String rememberPassword) throws SQLException {
         prep = conn
@@ -82,28 +105,28 @@ public class DatabaseFunctions {
     }
 
     public String getPassword(String username) throws ClassNotFoundException,
-    SQLException {
-		//Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-		//Statement stat = conn.createStatement();
-		//ResultSet rs = null;
-		rs = stat.executeQuery("select * from people where email='" + username
-		        + "'");
-		return rs.getString("password");
+            SQLException {
+        // Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // Statement stat = conn.createStatement();
+        // ResultSet rs = null;
+        rs = stat.executeQuery("select * from people where email='" + username
+                + "'");
+        return rs.getString("password");
 
-}
+    }
+
     public void addChat(String fromUser, String toUser, String message)
             throws SQLException {
         String date = new Date().toString();
-    	
-    	prep = conn
+
+        prep = conn
                 .prepareStatement("insert into chatLog values (?, ?, ?, ?);");
         prep.setString(1, fromUser);
         prep.setString(2, toUser);
         prep.setString(3, message);
         // / remember to make date automatic!!!
         prep.setString(4, date);
-        prep.setString(4, date);
-        
+
         prep.addBatch();
 
         conn.setAutoCommit(false);
@@ -113,15 +136,17 @@ public class DatabaseFunctions {
 
         return;
     }
-/*
- * getChatNameList() gives you an Vector<String> of every user you've
- * chatted with. Input of user name.
- */
+
+    /*
+     * getChatNameList() gives you an Vector<String> of every user you've
+     * chatted with. Input of user name.
+     */
     public Vector<String> getChatNameList(String username) throws SQLException {
         accountList = new Vector<String>();
-        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        //stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "';");
+        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where fromUser='"
+                + username + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
@@ -129,14 +154,16 @@ public class DatabaseFunctions {
         }
         return accountList;
     }
-/*
- * getChatDatesFromName(String name) gives you a Vector<String> with the
- * dates of all the chats a certain profile has chatted with a certain user.
- */
-    public Vector<String> getChatDatesFromName(String username, String buddyname) throws SQLException {
+
+    /*
+     * getChatDatesFromName(String name) gives you a Vector<String> with the
+     * dates of all the chats a certain profile has chatted with a certain user.
+     */
+    public Vector<String> getChatDatesFromName(String username, String buddyname)
+            throws SQLException {
         accountList = new Vector<String>();
-        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        //stat = conn.createStatement();
+        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where (toUser='"
                 + buddyname + "' AND fromUser='" + username + "') || (toUser='"
                 + username + "' AND fromUser='" + buddyname + "');");
@@ -145,28 +172,28 @@ public class DatabaseFunctions {
         }
         return accountList;
     }
-/*
- * Given a certain date, it gives you the unique chat made on that specific time
- * in a String format.
- */
+
+    /*
+     * Given a certain date, it gives you the unique chat made on that specific
+     * time in a String format.
+     */
     public String getMessageFromDate(String date) throws SQLException {
         accountList = new Vector<String>();
-        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        //stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where date='"
-                + date + "';");
+        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where date='" + date
+                + "';");
         rs.next();
         return rs.getString("message");
     }
 
-
-/*
- * Adds a simple profile to the database.
- */
+    /*
+     * Adds a simple profile to the database.
+     */
     public void addProfiles(String name, String password,
             String rememberPassword) throws SQLException {
-        //Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        //Statement stat = conn.createStatement();
+        // Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // Statement stat = conn.createStatement();
         prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
 
         prep.setString(1, name);
@@ -185,32 +212,33 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfileList() throws SQLException {
         accountList = new Vector<String>();
-    	rs = stat.executeQuery("select * from profiles;");
+        rs = stat.executeQuery("select * from profiles;");
         while (rs.next()) {
             accountList.add(rs.getString("name"));
         }
         return accountList;
     }
-    
-    
+
     /*
      * Gives you a Vector<String> of every user in the database
      */
     public Vector<String> getUserList() throws SQLException {
         accountList = new Vector<String>();
-    	rs = stat.executeQuery("select * from people;");
+        rs = stat.executeQuery("select * from people;");
         while (rs.next()) {
             accountList.add(rs.getString("email"));
         }
         return accountList;
     }
+
     /*
-     * Gives you a Vector<String> of every user in the database
-     * UNDER a specific profile
+     * Gives you a Vector<String> of every user in the database UNDER a specific
+     * profile
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         accountList = new Vector<String>();
-    	rs = stat.executeQuery("select * from people where profile='" + name + "';");
+        rs = stat.executeQuery("select * from people where profile='" + name
+                + "';");
         while (rs.next()) {
             accountList.add(rs.getString("email"));
         }
@@ -276,9 +304,9 @@ public class DatabaseFunctions {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         PreparedStatement prep = null;
 
-        prep = conn.prepareStatement("UPDATE friendList SET blocked = blocked " +
-        		"WHERE accountName ='" + accountName + "';");
-        
+        prep = conn.prepareStatement("UPDATE friendList SET blocked = blocked "
+                + "WHERE accountName ='" + accountName + "';");
+
         /* are these commands necessary now? */
         prep.addBatch();
 
