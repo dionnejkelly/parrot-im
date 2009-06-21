@@ -86,7 +86,7 @@ public class buddyPanel extends JPanel implements Observer {
         friendList.setLayout(new BorderLayout());
 
         // Place all friends from currentProfile into buddy list
-        buddies = model.getCurrentProfile().getAllFriends();
+        buddies = model.getOrderedFriendList();
 
         // add friends to the buddy list
         boxes[0] = Box.createVerticalBox();
@@ -121,7 +121,8 @@ public class buddyPanel extends JPanel implements Observer {
 
         friendList.add(boxes[0], BorderLayout.NORTH);
         JScrollPane scroller = new JScrollPane(friendList);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller
+                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         options = OptionsBar();
 
         add(scroller, BorderLayout.CENTER);
@@ -227,10 +228,7 @@ public class buddyPanel extends JPanel implements Observer {
 
                 chatClient.removeFriend(selectedFriend.getAccountName());
 
-                for (int i = 0; i < model.getCurrentProfile().getAllFriends()
-                        .size(); i++) {
-                    System.out.println("Is it really deleted in the database? "
-                            + model.getCurrentProfile().getAllFriends().get(i));
+                for (int i = 0; i < model.getOrderedFriendList().size(); i++) {
                 }
 
                 buddies.remove(selectedFriend);
@@ -269,7 +267,7 @@ public class buddyPanel extends JPanel implements Observer {
                 chatClient.addFriend(userFriendID);
                 JOptionPane.showMessageDialog(null, result);
 
-                //buddies.add(new GoogleTalkUserData(userFriendID));
+                // buddies.add(new GoogleTalkUserData(userFriendID));
 
                 // add friends to the buddy list
 
@@ -298,40 +296,40 @@ public class buddyPanel extends JPanel implements Observer {
 
         // prints the usersnickname to the JPanel.
         JLabel friendName;
-        //if (chatClient.getUserPresence(user.getAccountName()).contains(
-        //        "offline")) {
-        //    friendName = new JLabel(user.getNickname() + " (Offline)");
-       // } else {
-//        friendName = new JLabel(user.getNickname() + " - "
-//                    + user.getStatus() + " (" + user.getState() + ")");
-            // JLabel friendStatus = new JLabel(" - \"" + status + "\"");
-        //}
+        // if (chatClient.getUserPresence(user.getAccountName()).contains(
+        // "offline")) {
+        // friendName = new JLabel(user.getNickname() + " (Offline)");
+        // } else {
+        // friendName = new JLabel(user.getNickname() + " - "
+        // + user.getStatus() + " (" + user.getState() + ")");
+        // JLabel friendStatus = new JLabel(" - \"" + status + "\"");
+        // }
 
-        System.out.println("---------------User Status = " + user.getState().toString());
-        
+        System.out.println("---------------User Status = "
+                + user.getState().toString());
+
         if (user.getState().toString().equals("Available")) {
-        	friendName = new JLabel(user.getNickname() + " - "
+            friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
-        	friendName.setForeground(Color.GREEN.darker());
-        	
-        }
-        
-        else if (user.getState().toString().equals("dnd")) {
-        	friendName = new JLabel(user.getNickname() + " - "
+            friendName.setForeground(Color.GREEN.darker());
+        } else if (user.getState().toString().equals("dnd")) {
+            friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (Busy)");
-        	friendName.setForeground(Color.YELLOW.darker());
-        	
-        }
-              
-        else {
-        	friendName = new JLabel(user.getNickname() + " - "
+            friendName.setForeground(Color.YELLOW.darker());
+        } else if (user.getState().toString().equals("away")) {
+            friendName = new JLabel(user.getNickname() + " - "
+                    + user.getStatus() + " (Away)");
+            friendName.setForeground(Color.YELLOW.darker());
+        } else if (user.isBlocked()) {
+            friendName = new JLabel("* Blocked: " + user.getAccountName()
+                    + " *");
+            friendName.setForeground(Color.GRAY.darker());
+        } else {
+            friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
-        	friendName.setForeground(Color.RED.darker());
+            friendName.setForeground(Color.RED.darker());
         }
-        
-  
-        
-        
+
         friendItem.add(friendName, BorderLayout.WEST);
         // friendItem.add(friendStatus,BorderLayout.CENTER);
 
@@ -341,12 +339,9 @@ public class buddyPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         /* If chat window has not been made, make it if message sent */
         if (arg == UpdatedType.CHAT) {
-
-            System.out.println("From update in buddyPanel");
-            for (UserData u : model.getCurrentProfile().getAllFriends()) {
+            for (UserData u : model.getOrderedFriendList()) {
                 // System.out.println(u.getStatus());
             }
-            System.out.println("end buddyPanel");
 
             if (chat == null) {
                 // model.startConversation(selectedFriend.getFriendOf(),
@@ -359,7 +354,7 @@ public class buddyPanel extends JPanel implements Observer {
         } else if (arg == UpdatedType.BUDDY) {
             boxes[0].removeAll();
             System.out.println("I'm updating");
-            buddies = model.getCurrentProfile().getAllFriends();
+            buddies = model.getOrderedFriendList();
 
             for (int i = 0; i < buddies.size(); i++) {
                 boxes[0].add(FriendItem(buddies.get(i)));
