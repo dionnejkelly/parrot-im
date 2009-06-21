@@ -94,19 +94,9 @@ public class DatabaseFunctions {
      */
     public void addUsers(String profile, String service, String email,
             String password, String rememberPassword) throws SQLException {
-        prep = conn
-                .prepareStatement("insert into people values (?, ?, ?, ?, ?);");
-        prep.setString(1, profile);
-        prep.setString(2, service);
-        prep.setString(3, email);
-        prep.setString(4, password);
-        prep.setString(5, rememberPassword);
-        prep.addBatch();
-
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
-        conn.close();
+    	stat.executeUpdate("insert into people values('"  + profile +  "'" +
+    			",'"  + service +  "','"  + email +  "','"  + password +  "'" +
+    					",'"  + rememberPassword +  "')");
     }
 
     public String getPassword(String username) throws ClassNotFoundException,
@@ -126,21 +116,10 @@ public class DatabaseFunctions {
     	String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
     	String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
     	String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
-    	prep = conn
-                .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?);");
-        prep.setString(1, fromUser);
-        prep.setString(2, toUser);
-        prep.setString(3, message);
-        prep.setString(4, date);
-        prep.setString(5, time);
-        prep.setString(6, timeStamp);
+    	stat.executeUpdate("insert into chatLog values('"  + fromUser +  "'" +
+    			",'"  + toUser +  "','"  + message +  "'" +
+    					",'"  + date +  "','"  + time +  "','"  + timeStamp +  "')");
 
-        prep.addBatch();
-
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
-        conn.close();
 
         return;
     }
@@ -206,17 +185,8 @@ public class DatabaseFunctions {
             String rememberPassword) throws SQLException {
         // Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         // Statement stat = conn.createStatement();
-        prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
-
-        prep.setString(1, name);
-        prep.setString(2, password);
-        prep.setString(3, rememberPassword); // either Y or N
-        prep.addBatch();
-
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
-        conn.close();
+    	stat.executeUpdate("insert into profiles values('"  + name +  "'" +
+    			",'"  + password +  "','"  + rememberPassword +  "')");
     }
 
     /*
