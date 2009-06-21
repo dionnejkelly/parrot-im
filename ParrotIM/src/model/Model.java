@@ -117,6 +117,7 @@ public class Model extends Observable {
         DatabaseFunctions db = new DatabaseFunctions();
         return db.getProfilesUserList(name);
     }
+    
 
     public Vector<String> getBannedAccountList() throws ClassNotFoundException,
             SQLException {
@@ -289,6 +290,11 @@ public class Model extends Observable {
     }
 
     /* Current Profile manipulation */
+    public void addProfile(String name,String pwd,String rememberPass) throws ClassNotFoundException, SQLException
+    {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.addProfiles(name, pwd, rememberPass);
+    }
 
     public void createCurrentProfile(AccountData account, String profileName) {
         currentProfile = new CurrentProfileData(account, profileName);

@@ -56,8 +56,10 @@ public class profileManager extends JFrame
 	protected profileManager popup;
 	
 	private DefaultListModel profileListModel;
+	private DefaultListModel acctListModel;
 	private JList profileList;
 	private JList accList;
+	private JScrollPane acctListScroller;
 	
 	public profileManager(Model model,mainwindow frame) throws ClassNotFoundException, SQLException
 	{
@@ -149,13 +151,17 @@ public class profileManager extends JFrame
 	private void rightPanelMAN() throws ClassNotFoundException, SQLException 
 	{
 		//setting right panel
-		JPanel rightPanel = new JPanel();
+		final JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
 		
 		/*TOP PART*/
 		//List of accounts on the profile
 		JPanel topRight = new JPanel();
 		topRight.setLayout(new BorderLayout());
+		
+		acctListModel = new DefaultListModel();
+		accList = new JList(acctListModel);   
+		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		
 	    ListSelectionListener profileListSelection = new ListSelectionListener() 
 	    {
@@ -174,8 +180,22 @@ public class profileManager extends JFrame
 	         }
 	         
 	          for (int i = 0, n = selections.length; i < n; i++) {
-	            if (i == 0) {
-	             System.out.print(selectionString[i]);
+	            if (i == 0) 
+	            {
+	            	try {
+						acctListModel.clear();
+						Vector<String> acctListArray = model.getProfilesUserList(selectionString[i]);
+						for(int j=0;j<model.getProfilesUserList(selectionString[i]).size();j++)
+						{
+							acctListModel.addElement(acctListArray.elementAt(j));
+						}
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	            }
 	          }
 	          System.out.println();
@@ -185,12 +205,8 @@ public class profileManager extends JFrame
 	      }
 	    };
 	    profileList.addListSelectionListener(profileListSelection);
-	    
-	   
-		// accList = new JList(model.getAccountList());
-		// accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        
-		JScrollPane acctListScroller = new JScrollPane(accList);
+	       
+		acctListScroller = new JScrollPane(accList);
 		acctListScroller.setPreferredSize(new Dimension(300, 210));
 		acctListScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 
