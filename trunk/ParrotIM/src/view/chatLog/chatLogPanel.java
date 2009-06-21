@@ -137,7 +137,7 @@ public class chatLogPanel extends JSplitPane{
 		protected void updateLog (String date) {
 			String log = "";
 			try {
-				log = model.getLogMessage(date);
+				log = model.getLogMessage(username, buddies.getSelectedValue().toString(), date);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

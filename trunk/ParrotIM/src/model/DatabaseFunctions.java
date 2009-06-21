@@ -166,17 +166,20 @@ public class DatabaseFunctions {
      * Given a certain date, it gives you the unique chat made on that specific
      * time in a String format.
      */
-    public Vector<String> getMessageFromDate(String date) throws SQLException {
+    public Vector<String> getMessageFromDate(String username, String buddyname, String date) throws SQLException {
         accountList = new Vector<String>();
         // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         // stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where date='" + date
                 + "' order by timestamp;");
+        rs = stat.executeQuery("select * from chatLog where (toUser='"
+                + buddyname + "' AND fromUser='" + username + "') || (toUser='"
+                + username + "' AND fromUser='" + buddyname + "') AND date='"
+                + date + "' order by timestamp;");
         while (rs.next()) {
-            accountList.add(rs.getString("time") + ", From: "
-                    + rs.getString("fromUser") + " To: "
-                    + rs.getString("toUser") + " Message: "
-                    + rs.getString("message"));
+                accountList.add(rs.getString("time") + ", From: " + 
+                		rs.getString("fromUser") + " To: " + rs.getString("toUser")
+                		+ " Message: " + rs.getString("message"));
         }
         return accountList;
     }

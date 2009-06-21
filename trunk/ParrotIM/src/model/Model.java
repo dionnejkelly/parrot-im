@@ -674,7 +674,7 @@ public class Model extends Observable {
         return db.getChatDatesFromName(username, buddyname);
     }
 
-    public String getLogMessage(String date) throws SQLException {
+    public String getLogMessage(String username, String buddyname, String date) throws SQLException {
         // returns logged message of a certain date
         // TODO: this might be incorrect. date only? will it be from the right
         // user too?
@@ -689,7 +689,7 @@ public class Model extends Observable {
         // PLEASE change this code so it isn't simply appended here
         // instead dealt with by the chatLogFrame, i don't think it's
         // a good idea to do it like this in the model, thanks
-        Vector<String> accountlist = db.getMessageFromDate(date);
+        Vector<String> accountlist = db.getMessageFromDate(username, buddyname, date);
         String appendedAccountList = "";
         for (int i = 0; i < accountlist.size(); i++) {
             appendedAccountList += accountlist.elementAt(i) + "\n";
