@@ -120,7 +120,6 @@ public class DatabaseFunctions {
     			",'"  + toUser +  "','"  + message +  "'" +
     					",'"  + date +  "','"  + time +  "','"  + timeStamp +  "')");
 
-
         return;
     }
 
@@ -130,9 +129,10 @@ public class DatabaseFunctions {
      */
     public Vector<String> getChatNameList(String username) throws SQLException {
         accountList = new Vector<String>();
-        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        //stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "';");
+        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where fromUser='"
+                + username + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
@@ -145,13 +145,15 @@ public class DatabaseFunctions {
      * getChatDatesFromName(String name) gives you a Vector<String> with the
      * dates of all the chats a certain profile has chatted with a certain user.
      */
-    public Vector<String> getChatDatesFromName(String username, String buddyname) throws SQLException {
+    public Vector<String> getChatDatesFromName(String username, String buddyname)
+            throws SQLException {
         accountList = new Vector<String>();
-        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        //stat = conn.createStatement();
+        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where (toUser='"
                 + buddyname + "' AND fromUser='" + username + "') || (toUser='"
-                + username + "' AND fromUser='" + buddyname + "') order by timestamp;");
+                + username + "' AND fromUser='" + buddyname
+                + "') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -166,14 +168,15 @@ public class DatabaseFunctions {
      */
     public Vector<String> getMessageFromDate(String date) throws SQLException {
         accountList = new Vector<String>();
-        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        //stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where date='"
-                + date + "' order by timestamp;");
+        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        // stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where date='" + date
+                + "' order by timestamp;");
         while (rs.next()) {
-                accountList.add(rs.getString("time") + ", From: " + 
-                		rs.getString("fromUser") + " To: " + rs.getString("toUser")
-                		+ " Message: " + rs.getString("message"));
+            accountList.add(rs.getString("time") + ", From: "
+                    + rs.getString("fromUser") + " To: "
+                    + rs.getString("toUser") + " Message: "
+                    + rs.getString("message"));
         }
         return accountList;
     }
@@ -298,22 +301,19 @@ public class DatabaseFunctions {
         return;
     }
 
+    public boolean checkFriendExists(String accountName, String friendName)
+            throws SQLException {
+        boolean exists = false;
+        stat = conn.createStatement();
+        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
+                + accountName + "' and friendName='" + friendName + "';");
 
-//      public boolean checkBlockedByFriendName(String accountName)
-// 
-//           throws SQLException {
-//            boolean blocked = false; // If account isn't saved, false is default.
-//        stat = conn.createStatement();
-//        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-//                + accountName + "';");
-//
-//        /* Only check resultSet once */
-//        if (rs.next()) {
-//            blocked = rs.getBoolean("blocked");
-//        }
-//
-//        return blocked;
-//    } 
- 
- 
+        /* Only check resultSet once */
+        if (rs.next()) {
+            exists = true;
+        }
+
+        return exists;
+    }
+
 }

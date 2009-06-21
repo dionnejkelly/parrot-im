@@ -397,11 +397,28 @@ public class Model extends Observable {
      *            is responsible to place this user into a UserData object.
      */
     public void addFriend(AccountData account, String accountName) {
+        FriendTempData friend = null;
+        DatabaseFunctions db = null;
         UserData userToAdd = null;
 
         if (account.getServer() == ServerType.GOOGLE_TALK) {
             userToAdd = new GoogleTalkUserData(accountName);
             account.addFriend(userToAdd);
+        }
+
+        // Database manipulation
+        try {
+            db = new DatabaseFunctions();
+            if (!db.checkFriendExists(account.getAccountName(), accountName)) {
+                friend = new FriendTempData(accountName, false);
+                db.addFriend(account.getAccountName(), friend);
+            }
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         this.setChanged();
@@ -421,8 +438,27 @@ public class Model extends Observable {
      *            The new UserData friend to add to the account.
      */
     public void addFriend(AccountData account, UserData userToAdd) {
+        FriendTempData friend = null;
+        DatabaseFunctions db = null;
+
         if (account.getServer() == ServerType.GOOGLE_TALK) {
             account.addFriend(userToAdd);
+        }
+
+        // Database manipulation
+        try {
+            db = new DatabaseFunctions();
+            if (!db.checkFriendExists(account.getAccountName(), userToAdd
+                    .getAccountName())) {
+                friend = new FriendTempData(userToAdd.getAccountName(), false);
+                db.addFriend(account.getAccountName(), friend);
+            }
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         this.setChanged();
@@ -589,11 +625,11 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     public Vector<FriendTempData> getSavedFriends(String accountName) {
         Vector<FriendTempData> friends = null;
         DatabaseFunctions db = null;
-        
+
         try {
             db = new DatabaseFunctions();
             friends = db.getFriendListByAccountName(accountName);
@@ -606,10 +642,10 @@ public class Model extends Observable {
             friends = new Vector<FriendTempData>();
             e.printStackTrace();
         }
-        
+
         return friends;
     }
-   
+
     /*
      * ChatLog functions
      */
@@ -655,9 +691,8 @@ public class Model extends Observable {
         // a good idea to do it like this in the model, thanks
         Vector<String> accountlist = db.getMessageFromDate(date);
         String appendedAccountList = "";
-        for (int i=0; i<accountlist.size(); i++)
-        {
-        	appendedAccountList += accountlist.elementAt(i) + "\n";
+        for (int i = 0; i < accountlist.size(); i++) {
+            appendedAccountList += accountlist.elementAt(i) + "\n";
         }
         return appendedAccountList;
     }
