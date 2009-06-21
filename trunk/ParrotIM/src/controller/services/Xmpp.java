@@ -31,6 +31,7 @@ import model.dataType.MessageData;
 import model.dataType.ServerType;
 import model.dataType.UpdatedType;
 import model.dataType.UserData;
+import model.dataType.tempData.FriendTempData;
 
 /**
  * Handles all connections involving XMPP protocol.
@@ -339,12 +340,16 @@ public class Xmpp {
         UserData user = null;
         String accountName = null;
         String nickname = null;
-        String state = null;
         String status = null;
 
         if (connection != null && connection.getRoster() != null) {
+            Vector<FriendTempData> savedFriends = null;
             Roster roster = connection.getRoster();
             Collection<RosterEntry> entries = roster.getEntries();
+
+            // Get friends from the database to cross reference against
+            // those found in Roster.
+            savedFriends = model.getSavedFriends(account.getAccountName());
 
             for (RosterEntry r : entries) {
                 /* Decide which type of user to use */
@@ -356,6 +361,16 @@ public class Xmpp {
                     nickname = r.getName();
                     user = new GoogleTalkUserData(accountName, nickname, status);
                     updateStateAndStatus(user, accountName);
+
+                    /* Search the savedFriends to find if was saved locally */
+                    for (FriendTempData f : savedFriends) {
+                        if (accountName.equals(f.getUserID())) {
+                            user.setBlocked(f.isBlocked());
+                            savedFriends.remove(f);
+                            break;
+                        }
+                    }
+
                 } else if (account.getServer() == ServerType.JABBER) {
                     // user = new JabberUserData(r.getUser(), r.getName(),
                     // this.getUserPresence(r.getUser()));
@@ -364,6 +379,18 @@ public class Xmpp {
                 }
 
                 model.addFriend(account, user);
+            }
+
+            // Check if there are still saved friends to be added
+            // and adds the roster friend if not blocked.
+            for (FriendTempData f : savedFriends) {
+                if (!f.isBlocked()) {
+                    this.addFriend(f.getUserID());
+                } else { // is blocked, need to add not on server
+                    user = new GoogleTalkUserData(f.getUserID());
+                    user.setBlocked(true);
+                    model.addFriend(account, user);
+                }
             }
         }
         return;
@@ -386,13 +413,13 @@ public class Xmpp {
         String size = "4";
 
         conversation = model.findConversationByFriend(to);
-        
-        //TEMP FIX TO MAKE CONVERSATION
+
+        // TEMP FIX TO MAKE CONVERSATION
         if (conversation == null) {
             model.startConversation(model.findFriendByAccountName(to));
             conversation = model.findConversationByFriend(to);
         }
-        
+
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 

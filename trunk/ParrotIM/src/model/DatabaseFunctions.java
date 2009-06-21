@@ -43,6 +43,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import model.dataType.UserData;
+import model.dataType.tempData.FriendTempData;
+
 public class DatabaseFunctions {
 
     private Vector<String> accountList;
@@ -270,33 +273,35 @@ public class DatabaseFunctions {
 
     }
 
-    public static boolean friendExists(String accountName) throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        Statement stat = conn.createStatement();
-        PreparedStatement prep = null;
-        ResultSet rs = null;
+    public Vector<FriendTempData> getFriendListByAccountName(String accountName)
+            throws SQLException {
+        Vector<FriendTempData> friendsToReturn = new Vector<FriendTempData>();
+        FriendTempData friend = null;
 
-        boolean exists = false;
         stat = conn.createStatement();
         rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
                 + accountName + "';");
 
         /* Only check resultSet once */
-        if (rs.next()) {
-            exists = true;
+        while (rs.next()) {
+            friend = new FriendTempData(rs.getString("friendName"), rs
+                    .getBoolean("blocked"));
+            friendsToReturn.add(friend);
         }
 
-        return exists;
+        return friendsToReturn;
     }
 
-    public static void addFriend(String accountName, boolean blocked)
+    public void addFriend(String accountName, FriendTempData friend)
             throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        PreparedStatement prep = null;
+        String friendName = friend.getUserID();
+        boolean blocked = friend.isBlocked();
 
-        prep = conn.prepareStatement("INSERT INTO friendList VALUES (?, ?);");
+        prep = conn.prepareStatement("INSERT INTO friendList VALUES "
+                + "(?, ?, ?);");
         prep.setString(1, accountName);
-        prep.setBoolean(2, blocked);
+        prep.setString(2, friendName);
+        prep.setBoolean(3, blocked);
 
         prep.addBatch();
 
@@ -308,15 +313,11 @@ public class DatabaseFunctions {
         return;
     }
 
-    public static void changeBlocked(String accountName, boolean blocked)
+    public void changeBlocked(String friendName, boolean blocked)
             throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        PreparedStatement prep = null;
+        prep = conn.prepareStatement("UPDATE friendList SET blocked = "
+                + blocked + "WHERE friendName ='" + friendName + "';");
 
-        prep = conn.prepareStatement("UPDATE friendList SET blocked = blocked "
-                + "WHERE accountName ='" + accountName + "';");
-
-        /* are these commands necessary now? */
         prep.addBatch();
 
         conn.setAutoCommit(false);
@@ -327,30 +328,22 @@ public class DatabaseFunctions {
         return;
     }
 
-    public static boolean checkBlockedByAccountName(String accountName)
-            throws SQLException {
-        /*
-         * Ahmad, please check this to see if it could be made more efficient.
-         * Basically, I want to check the table of friends to find a friend's
-         * blocked status. If it doesn't exist, I want to return false (default
-         * state of blocked). Thanks! --KF
-         */
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        Statement stat = conn.createStatement();
-        PreparedStatement prep = null;
-        ResultSet rs = null;
 
-        boolean blocked = false; // If account isn't saved, false is default.
-        stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-                + accountName + "';");
-
-        /* Only check resultSet once */
-        if (rs.next()) {
-            blocked = rs.getBoolean("blocked");
-        }
-
-        return blocked;
-    }
-
+//      public boolean checkBlockedByFriendName(String accountName)
+// 
+//           throws SQLException {
+//            boolean blocked = false; // If account isn't saved, false is default.
+//        stat = conn.createStatement();
+//        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
+//                + accountName + "';");
+//
+//        /* Only check resultSet once */
+//        if (rs.next()) {
+//            blocked = rs.getBoolean("blocked");
+//        }
+//
+//        return blocked;
+//    } 
+ 
+ 
 }
