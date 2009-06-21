@@ -102,6 +102,8 @@ public class DatabaseFunctions {
         prep.setString(3, message);
         // / remember to make date automatic!!!
         prep.setString(4, date);
+        prep.setString(4, date);
+        
         prep.addBatch();
 
         conn.setAutoCommit(false);
@@ -208,7 +210,7 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         accountList = new Vector<String>();
-    	rs = stat.executeQuery("select * from people where name='" + name + "';");
+    	rs = stat.executeQuery("select * from people where profile='" + name + "';");
         while (rs.next()) {
             accountList.add(rs.getString("email"));
         }
