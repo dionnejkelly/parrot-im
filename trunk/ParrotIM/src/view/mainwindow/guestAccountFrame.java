@@ -156,20 +156,6 @@ public class guestAccountFrame extends JFrame {
     }
 
     private void signIn_ActionPerformed(ActionEvent e) {
-        // loading window
-        /*
-         * mainPanel.header.setAnimation();
-         * mainPanel.accPanel.setVisible(false);
-         * mainPanel.misc.setVisible(false);
-         * 
-         * System.out.println("guestAccountFrame got here");
-         */
-        /* THIS IS FOR CHAT CLIENT : modified ChatClient c */
-
-        /* Using new login method instead of commented-out code... */
-        // AccountData guestAccount = null;
-        // ArrayList<String> friendList = null;
-        // GoogleTalkUserData user = null;
         ServerType serverType = (ServerType) server.getSelectedItem();
         String username = UNFieldGuest.getText();
         String password = password(PwdFieldGuest.getPassword());

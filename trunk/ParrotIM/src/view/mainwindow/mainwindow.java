@@ -56,9 +56,7 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import controller.MainController;
 import controller.services.Xmpp;
-
 
 import model.*;
 import model.dataType.CurrentProfileData;
