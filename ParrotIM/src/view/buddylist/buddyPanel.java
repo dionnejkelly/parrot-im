@@ -308,7 +308,11 @@ public class buddyPanel extends JPanel implements Observer {
         System.out.println("---------------User Status = "
                 + user.getState().toString());
 
-        if (user.getState().toString().equals("Available")) {
+        if (user.isBlocked()) {
+            friendName = new JLabel("* Blocked: " + user.getAccountName()
+                    + " *");
+            friendName.setForeground(Color.GRAY.darker());
+        } else if (user.getState().toString().equals("Available")) {
             friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.GREEN.darker());
@@ -320,10 +324,6 @@ public class buddyPanel extends JPanel implements Observer {
             friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (Away)");
             friendName.setForeground(Color.YELLOW.darker());
-        } else if (user.isBlocked()) {
-            friendName = new JLabel("* Blocked: " + user.getAccountName()
-                    + " *");
-            friendName.setForeground(Color.GRAY.darker());
         } else {
             friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
