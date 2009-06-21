@@ -55,6 +55,7 @@ import model.dataType.MessageData;
 import model.dataType.ServerType;
 import model.dataType.UpdatedType;
 import model.dataType.UserData;
+import model.dataType.tempData.FriendTempData;
 
 /**
  * The model stores all data and provides it for the view and controllers.
@@ -117,7 +118,6 @@ public class Model extends Observable {
         DatabaseFunctions db = new DatabaseFunctions();
         return db.getProfilesUserList(name);
     }
-    
 
     public Vector<String> getBannedAccountList() throws ClassNotFoundException,
             SQLException {
@@ -290,10 +290,10 @@ public class Model extends Observable {
     }
 
     /* Current Profile manipulation */
-    public void addProfile(String name,String pwd,String rememberPass) throws ClassNotFoundException, SQLException
-    {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.addProfiles(name, pwd, rememberPass);
+    public void addProfile(String name, String pwd, String rememberPass)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addProfiles(name, pwd, rememberPass);
     }
 
     public void createCurrentProfile(AccountData account, String profileName) {
@@ -543,7 +543,19 @@ public class Model extends Observable {
      *            UserData representation of the friend to block.
      */
     public void blockFriend(UserData friend) {
+        DatabaseFunctions db = null;
         friend.setBlocked(true); // TODO: Make exception for if null
+
+        try {
+            db = new DatabaseFunctions();
+            db.changeBlocked(friend.getAccountName(), true);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         super.setChanged();
         super.notifyObservers(UpdatedType.BUDDY);
@@ -558,14 +570,46 @@ public class Model extends Observable {
      *            UserData representation of the friend to unblock.
      */
     public void unblockFriend(UserData friend) {
+        DatabaseFunctions db = null;
         friend.setBlocked(false); // TODO: Make exception for if null
+
+        try {
+            db = new DatabaseFunctions();
+            db.changeBlocked(friend.getAccountName(), false);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         super.setChanged();
         super.notifyObservers(UpdatedType.BUDDY);
 
         return;
     }
-
+    
+    public Vector<FriendTempData> getSavedFriends(String accountName) {
+        Vector<FriendTempData> friends = null;
+        DatabaseFunctions db = null;
+        
+        try {
+            db = new DatabaseFunctions();
+            friends = db.getFriendListByAccountName(accountName);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            friends = new Vector<FriendTempData>();
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            friends = new Vector<FriendTempData>();
+            e.printStackTrace();
+        }
+        
+        return friends;
+    }
+   
     /*
      * ChatLog functions
      */

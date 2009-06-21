@@ -44,13 +44,7 @@ public abstract class UserData {
         this.accountName = accountName;
         this.nickname = nickname;
         this.status = status;
-        try {
-            this.blocked = DatabaseFunctions
-                    .checkBlockedByAccountName(accountName);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.blocked = false;
         this.state = "Offline";
     }
     
@@ -58,13 +52,7 @@ public abstract class UserData {
         this.accountName = accountName;
         this.nickname = this.accountName;
         this.status = "";
-        try {
-            this.blocked = DatabaseFunctions
-                    .checkBlockedByAccountName(accountName);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.blocked = false;
         this.state = "Offline";
     }
 
@@ -102,17 +90,6 @@ public abstract class UserData {
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
-        try {
-            if (!DatabaseFunctions.friendExists(this.accountName)) {
-                DatabaseFunctions.addFriend(this.accountName, this.blocked);
-            } else { // exists, just add the status
-                DatabaseFunctions.changeBlocked(this.accountName,
-                        this.blocked);
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         return;
     }
 
