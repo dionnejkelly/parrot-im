@@ -1,7 +1,6 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import controller.MainController;
 import controller.services.Xmpp;
 
 import view.mainwindow.mainwindow;

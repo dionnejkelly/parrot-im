@@ -23,7 +23,6 @@ import model.dataType.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
-import controller.MainController;
 import controller.services.Xmpp;
 
 import view.profileManager.profileManager;
@@ -108,8 +107,7 @@ public class signinPanel extends JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainFrame.setEnabled(false);
                 try {
-                    profileManager popup = new profileManager(model,
-                            mainFrame);
+                    profileManager popup = new profileManager(model, mainFrame);
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -148,65 +146,19 @@ public class signinPanel extends JPanel {
 
     private void signIn_ActionPerformed(ActionEvent e)
             throws ClassNotFoundException, SQLException {
-
-        // loading window
-        /*
-         * header.setAnimation(); accPanel.setVisible(false);
-         * misc.setVisible(false);
-         * 
-         * System.out.println("signinPanel : after setting animation");
-         */
-
-        /* THIS IS FOR CHAT CLIENT : modified ChatClient c */
-
-        /*
-         * TEMPORARY CODE to create currentProfile. Need to consider multiple
-         * accounts later.
-         */
-        AccountData account = null;
-        ArrayList<String> friendList = null;
-        GoogleTalkUserData user = null;
+        ServerType serverType = ServerType.GOOGLE_TALK; // temporary
+        String username = (String) account_select.getSelectedItem();
+        String password = model.getPassword(username);
 
         try {
-            String username = (String) account_select.getSelectedItem();
-            // core.login(username, model.getPassword(username), 4); //change 4
-            // to the actual server from model later on
+            // Login with server and set model info
+            core.login(serverType, username, password);
 
-            /* Log into the server */
-            account = new AccountData(ServerType.GOOGLE_TALK, username, model
-                    .getPassword(username));
-            model.createCurrentProfile(account, "tempName");
-            // System.out.println("signinPanel : before login");
-            core.login(account);
-            // System.out.println("signinPanel : after login");
-
-            /* Populate the buddy list */
-            if (account.getServer() == ServerType.GOOGLE_TALK) {
-
-                /* Set up own user data */
-
-                // user = new GoogleTalkUserData(account.getAccountName());
-                // user.setOnline(true);
-                // account.setOwnUserData(user);
-                /* Set up friends' user data */
-                friendList = core.getBuddyList();
-                for (String s : friendList) {
-                    user = new GoogleTalkUserData(s); // Add account name
-                    account.addFriend(user);
-                }
-            }
-
-            new buddylist(core, model);// pops buddylist window
-            // mainFrame.setVisible(true);
-            mainFrame.dispose(); // TODO: consider if the sign in fails
-
+            // Handle the GUI changes
+            new buddylist(core, model);
+            mainFrame.dispose();
         } catch (XMPPException e1) {
-            // TODO: throw a warning pop up
-
             header.loadMain();
-            // accPanel.setVisible(true);
-            // misc.setVisible(true);
-            // mainFrame.setEnabled(true);
             System.out.println("sign in failed!");
         }
     }

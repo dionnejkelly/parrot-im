@@ -159,59 +159,6 @@ public class Xmpp {
         connection.disconnect();
     }
 
-    /** This method is using to log in to Parrot of the user. */
-    public void login(String userName, String password, int server)
-            throws XMPPException {// the "return"s are temporary
-        if (server == 0) {// MSN
-            return;
-        } else if (server == 1) {// AIM
-            return;
-        } else if (server == 2) {// Twitter
-            return;
-        } else if (server == 3) {// ICQ
-            return;
-        } else if (server == 4) {// google talk
-            ConnectionConfiguration config = new ConnectionConfiguration(
-                    "talk.google.com", 5222, "gmail.com");
-            connection = new XMPPConnection(config);
-            connection.connect();
-            connection.login(userName, password);
-            // this.userName = userName;
-        }
-    }
-
-    /** This method Overloaded the login method,but it is temporary. */
-    public void login(AccountData account) throws XMPPException {
-        if (account.getServer() == ServerType.GOOGLE_TALK) {
-            ConnectionConfiguration config = new ConnectionConfiguration(
-                    "talk.google.com", 5222, "gmail.com");
-            connection = new XMPPConnection(config);
-            connection.connect();
-            connection.login(account.getAccountName(), account.getPassword());
-
-            // If connected...
-            model.connectAccount(account);
-
-            connection.addPacketListener(new MessagePacketListener(),
-                    new MessagePacketFilter());
-
-            // this.chatManager = connection.getChatManager();
-            // this.chatManager.addChatListener(new ChatListener());
-
-            /* Get roster updated after the login */
-            this.roster = connection.getRoster();
-            this.roster.addRosterListener(new BuddyListener());
-            // this.userName = account.getAccountName();
-        } else {
-            // handle other types of servers
-        }
-        return;
-    }
-
-    /*
-     * Note, please phase out the other log-in methods. The AccountData creation
-     * should occur within this class, not the view.
-     */
     /**
      * Attempts to log a user into the server based on the given account
      * information. If the current profile already exists, this account
@@ -268,7 +215,6 @@ public class Xmpp {
         this.populateBuddyList(account);
 
         return;
-
     }
 
     /** This method is using to add a friend to the friend list. */
@@ -322,12 +268,12 @@ public class Xmpp {
 
         return;
     }
-    
+
     public void unblockFriend(String userID) {
         UserData user = null;
         Roster roster = connection.getRoster();
         String nickname = StringUtils.parseBareAddress(userID);
-        
+
         try {
             roster.createEntry(userID, nickname, null);
             user = model.findUserByAccountName(userID);
@@ -395,7 +341,8 @@ public class Xmpp {
                     /* Search the savedFriends to find if was saved locally */
                     for (FriendTempData f : savedFriends) {
                         if (accountName.equalsIgnoreCase(f.getUserID())) {
-                            System.out.println(f.getUserID() + "in the checker");
+                            System.out
+                                    .println(f.getUserID() + "in the checker");
                             user.setBlocked(f.isBlocked());
                             savedFriends.remove(f);
                             break;
