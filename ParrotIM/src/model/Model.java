@@ -606,7 +606,16 @@ public class Model extends Observable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return db.getMessageFromDate(date);
+        // PLEASE change this code so it isn't simply appended here
+        // instead dealt with by the chatLogFrame, i don't think it's
+        // a good idea to do it like this in the model, thanks
+        Vector<String> accountlist = db.getMessageFromDate(date);
+        String appendedAccountList = "";
+        for (int i=0; i<accountlist.size(); i++)
+        {
+        	appendedAccountList += accountlist.elementAt(i) + "\n";
+        }
+        return appendedAccountList;
     }
 
 }
