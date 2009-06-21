@@ -480,8 +480,27 @@ public class Model extends Observable {
      * @return true if removed, false otherwise.
      */
     public boolean removeFriend(UserData exFriend) {
+        AccountData account = null;
+        String friendName = null;
+        DatabaseFunctions db = null;
         boolean success = false;
-        System.out.println("------------------ Went through here");
+        
+     // Database manipulation
+        try {
+            db = new DatabaseFunctions();
+            account = this.findAccountByFriend(exFriend);
+            friendName = exFriend.getAccountName();
+            if (db.checkFriendExists(account.getAccountName(), friendName)) {
+                db.removeFriend(account.getAccountName(), friendName);
+            }
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         /* Can throw NullPointerException if exFriend is null */
         try {
             /* CurrentProfile automatically finds the account for us */
@@ -491,6 +510,7 @@ public class Model extends Observable {
             success = false; // Should already be false, but, hey, whatever
         }
 
+        
         super.setChanged();
         super.notifyObservers(UpdatedType.BUDDY);
 
@@ -626,6 +646,20 @@ public class Model extends Observable {
         return;
     }
 
+    public Vector<UserData> getBannedUserList() {
+        Vector<UserData> blockedFriends = new Vector<UserData>();
+
+        for (AccountData account : this.currentProfile.getAccountData()) {
+            for (UserData user : account.getFriends()) {
+                if (user.isBlocked()) {
+                    blockedFriends.add(user);
+                }
+            }
+        }
+        return blockedFriends;
+
+    }
+
     public Vector<FriendTempData> getSavedFriends(String accountName) {
         Vector<FriendTempData> friends = null;
         DatabaseFunctions db = null;
@@ -674,7 +708,8 @@ public class Model extends Observable {
         return db.getChatDatesFromName(username, buddyname);
     }
 
-    public String getLogMessage(String username, String buddyname, String date) throws SQLException {
+    public String getLogMessage(String username, String buddyname, String date)
+            throws SQLException {
         // returns logged message of a certain date
         // TODO: this might be incorrect. date only? will it be from the right
         // user too?
@@ -689,7 +724,8 @@ public class Model extends Observable {
         // PLEASE change this code so it isn't simply appended here
         // instead dealt with by the chatLogFrame, i don't think it's
         // a good idea to do it like this in the model, thanks
-        Vector<String> accountlist = db.getMessageFromDate(username, buddyname, date);
+        Vector<String> accountlist = db.getMessageFromDate(username, buddyname,
+                date);
         String appendedAccountList = "";
         for (int i = 0; i < accountlist.size(); i++) {
             appendedAccountList += accountlist.elementAt(i) + "\n";

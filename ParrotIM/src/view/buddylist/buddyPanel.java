@@ -214,7 +214,7 @@ public class buddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             System.out.println("Remove this user from the buddy list = "
                     + selectedFriend.toString());
-            chatClient.removeFriend(selectedFriend.toString());
+            chatClient.removeFriend(selectedFriend.getAccountName());
         }
     }
 
@@ -225,13 +225,8 @@ public class buddyPanel extends JPanel implements Observer {
                 System.out.println("Remove this user from the button = "
                         + selectedFriend.toString());
 
-                chatClient.removeFriend(selectedFriend.toString());
+                chatClient.removeFriend(selectedFriend.getAccountName());
 
-                boolean check = model.getCurrentProfile().getAllFriends()
-                        .remove(selectedFriend);
-                System.out
-                        .println("---------------------------------Deleted = "
-                                + check);
                 for (int i = 0; i < model.getCurrentProfile().getAllFriends()
                         .size(); i++) {
                     System.out.println("Is it really deleted in the database? "

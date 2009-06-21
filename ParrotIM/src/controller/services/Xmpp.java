@@ -257,20 +257,15 @@ public class Xmpp {
         user = new GoogleTalkUserData(account.getAccountName());
         account.setOwnUserData(user);
 
-        /* Set up friends' user data */
-        this.populateBuddyList(account);
-        // for (String s : this.getBuddyList()) {
-        // model.addFriend(account, s);
-        // }
-
-        // StringUtils.parseServer(accountName);
-
         /* Handle the current profile */
         if (model.currentProfileExists()) {
             model.addAccountToCurrentProfile(account);
         } else { // current profile does not exist
             model.createCurrentProfile(account, "<Profile Name>");
         }
+
+        /* Set up friends' user data */
+        this.populateBuddyList(account);
 
         return;
 
@@ -294,19 +289,54 @@ public class Xmpp {
         UserData user = null;
         Roster roster = connection.getRoster();
         Collection<RosterEntry> entries = roster.getEntries();
-        Iterator i = entries.iterator();
+        Iterator<RosterEntry> i = entries.iterator();
         while (i.hasNext()) {
-            RosterEntry nextEntry = ((RosterEntry) i.next());
+            RosterEntry nextEntry = (i.next());
             // remove entries
             if (nextEntry.getUser().equals(userID))
                 try {
                     roster.removeEntry(nextEntry);
-                    user = model.findUserByAccountName(nextEntry.getUser());
+                    user = model.findUserByAccountName(userID);
                     model.removeFriend(user);
                 } catch (XMPPException e) {
                     e.printStackTrace();
                 }
         }
+    }
+
+    public void blockFriend(String userID) {
+        UserData user = null;
+        Roster roster = connection.getRoster();
+
+        for (RosterEntry r : roster.getEntries()) {
+            if (r.getUser().equals(userID)) {
+                try {
+                    roster.removeEntry(r);
+                    user = model.findUserByAccountName(userID);
+                    model.blockFriend(user);
+                } catch (XMPPException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return;
+    }
+    
+    public void unblockFriend(String userID) {
+        UserData user = null;
+        Roster roster = connection.getRoster();
+        String nickname = StringUtils.parseBareAddress(userID);
+        
+        try {
+            roster.createEntry(userID, nickname, null);
+            user = model.findUserByAccountName(userID);
+            model.unblockFriend(user);
+        } catch (XMPPException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return;
     }
 
     /** This method is the helper method to display the buddylist. */
@@ -364,7 +394,8 @@ public class Xmpp {
 
                     /* Search the savedFriends to find if was saved locally */
                     for (FriendTempData f : savedFriends) {
-                        if (accountName.equals(f.getUserID())) {
+                        if (accountName.equalsIgnoreCase(f.getUserID())) {
+                            System.out.println(f.getUserID() + "in the checker");
                             user.setBlocked(f.isBlocked());
                             savedFriends.remove(f);
                             break;
@@ -384,9 +415,12 @@ public class Xmpp {
             // Check if there are still saved friends to be added
             // and adds the roster friend if not blocked.
             for (FriendTempData f : savedFriends) {
+                System.out.println(f.getUserID() + "in te other");
                 if (!f.isBlocked()) {
+                    System.out.println(f.getUserID() + "is not blocked");
                     this.addFriend(f.getUserID());
                 } else { // is blocked, need to add not on server
+                    System.out.println(f.getUserID() + "is bllocked!");
                     user = new GoogleTalkUserData(f.getUserID());
                     user.setBlocked(true);
                     model.addFriend(account, user);
