@@ -38,6 +38,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -75,7 +77,7 @@ public class DatabaseFunctions {
         stat.executeUpdate("create table if not exists people "
                 + "(profile, service, email, password, rememberPassword);");
         stat.executeUpdate("create table if not exists chatLog "
-                + "(fromUser, toUser, message, date);");
+                + "(fromUser, toUser, message, date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, rememberPassword);");
         stat.executeUpdate("create table if not exists friendList "
@@ -117,15 +119,18 @@ public class DatabaseFunctions {
 
     public void addChat(String fromUser, String toUser, String message)
             throws SQLException {
-        String date = new Date().toString();
-
-        prep = conn
-                .prepareStatement("insert into chatLog values (?, ?, ?, ?);");
+    	Date date1 = new Date();
+    	String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
+    	String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
+    	String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
+    	prep = conn
+                .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?);");
         prep.setString(1, fromUser);
         prep.setString(2, toUser);
         prep.setString(3, message);
-        // / remember to make date automatic!!!
         prep.setString(4, date);
+        prep.setString(5, time);
+        prep.setString(6, timeStamp);
 
         prep.addBatch();
 
@@ -143,10 +148,9 @@ public class DatabaseFunctions {
      */
     public Vector<String> getChatNameList(String username) throws SQLException {
         accountList = new Vector<String>();
-        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where fromUser='"
-                + username + "';");
+        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        //stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where fromUser='" + username + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
@@ -159,16 +163,17 @@ public class DatabaseFunctions {
      * getChatDatesFromName(String name) gives you a Vector<String> with the
      * dates of all the chats a certain profile has chatted with a certain user.
      */
-    public Vector<String> getChatDatesFromName(String username, String buddyname)
-            throws SQLException {
+    public Vector<String> getChatDatesFromName(String username, String buddyname) throws SQLException {
         accountList = new Vector<String>();
-        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // stat = conn.createStatement();
+        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        //stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where (toUser='"
                 + buddyname + "' AND fromUser='" + username + "') || (toUser='"
-                + username + "' AND fromUser='" + buddyname + "');");
+                + username + "' AND fromUser='" + buddyname + "') order by timestamp;");
         while (rs.next()) {
-            accountList.add(rs.getString("date"));
+            if (!accountList.contains(rs.getString("date"))) {
+                accountList.add(rs.getString("date"));
+            }
         }
         return accountList;
     }
@@ -177,14 +182,18 @@ public class DatabaseFunctions {
      * Given a certain date, it gives you the unique chat made on that specific
      * time in a String format.
      */
-    public String getMessageFromDate(String date) throws SQLException {
+    public Vector<String> getMessageFromDate(String date) throws SQLException {
         accountList = new Vector<String>();
-        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where date='" + date
-                + "';");
-        rs.next();
-        return rs.getString("message");
+        //conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        //stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where date='"
+                + date + "' order by timestamp;");
+        while (rs.next()) {
+                accountList.add(rs.getString("time") + ", From: " + 
+                		rs.getString("fromUser") + " To: " + rs.getString("toUser")
+                		+ " Message: " + rs.getString("message"));
+        }
+        return accountList;
     }
 
     /*
