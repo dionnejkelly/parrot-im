@@ -48,7 +48,7 @@ public class blockManager extends JFrame {
 	
 	
 	private ArrayList<UserData> usersProfileBuddyList; 
-	private Vector<String> bannedAccountList;
+	private Vector<UserData> bannedAccountList;
 	
 	private Xmpp chatClient;
 	
@@ -57,7 +57,9 @@ public class blockManager extends JFrame {
 		this.model = model;
 		this.chatClient = c;
 		this.usersProfileBuddyList = usersBuddies;
-		this.bannedAccountList = bannedUsersList.getBannedUserList();
+		//this.bannedAccountList = bannedUsersList.getBannedUserList();
+		this.bannedAccountList = model.getBannedUserList();
+		
 		//mainFrame = frame;
 		popup = this;
 		
@@ -136,12 +138,12 @@ public class blockManager extends JFrame {
 			
 			
 			int selected = usersBuddyList.getSelectedIndex();
-			String blockedUser = usersProfileBuddyList.get(selected).toString();
+			UserData blockedUser = usersProfileBuddyList.get(selected);
 			
 			System.out.println("Blocked user = " + blockedUser);
 			
 			
-			chatClient.removeFriend(blockedUser);
+			chatClient.blockFriend(blockedUser.getAccountName());
 			usersBuddyListModel.remove(selected);
 			usersBuddyList.updateUI();
 			
@@ -160,15 +162,15 @@ public class blockManager extends JFrame {
 		
 			
 			int selected = usersBannedBuddyList.getSelectedIndex();
-			String unBlockedUser = bannedAccountList.get(selected).toString();
+			UserData unBlockedUser = bannedAccountList.get(selected);
 			
 			System.out.println("Unblocked user = " + unBlockedUser);
 			
-			chatClient.addFriend(unBlockedUser);
+			chatClient.unblockFriend(unBlockedUser.getAccountName());
 			bannedAccountList.remove(selected);
 			usersBannedBuddyList.updateUI();
 			
-			usersProfileBuddyList.add(new GoogleTalkUserData(unBlockedUser));
+			usersProfileBuddyList.add(unBlockedUser);
 			usersBuddyListModel.addElement(unBlockedUser);
 			usersBuddyList.updateUI();
 			

@@ -94,9 +94,9 @@ public class DatabaseFunctions {
      */
     public void addUsers(String profile, String service, String email,
             String password, String rememberPassword) throws SQLException {
-    	stat.executeUpdate("insert into people values('"  + profile +  "'" +
-    			",'"  + service +  "','"  + email +  "','"  + password +  "'" +
-    					",'"  + rememberPassword +  "')");
+        stat.executeUpdate("insert into people values('" + profile + "'" + ",'"
+                + service + "','" + email + "','" + password + "'" + ",'"
+                + rememberPassword + "')");
     }
 
     public String getPassword(String username) throws ClassNotFoundException,
@@ -112,13 +112,14 @@ public class DatabaseFunctions {
 
     public void addChat(String fromUser, String toUser, String message)
             throws SQLException {
-    	Date date1 = new Date();
-    	String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
-    	String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
-    	String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
-    	stat.executeUpdate("insert into chatLog values('"  + fromUser +  "'" +
-    			",'"  + toUser +  "','"  + message +  "'" +
-    					",'"  + date +  "','"  + time +  "','"  + timeStamp +  "')");
+        Date date1 = new Date();
+        String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
+        String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
+        String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(
+                date1);
+        stat.executeUpdate("insert into chatLog values('" + fromUser + "'"
+                + ",'" + toUser + "','" + message + "'" + ",'" + date + "','"
+                + time + "','" + timeStamp + "')");
 
         return;
     }
@@ -166,7 +167,8 @@ public class DatabaseFunctions {
      * Given a certain date, it gives you the unique chat made on that specific
      * time in a String format.
      */
-    public Vector<String> getMessageFromDate(String username, String buddyname, String date) throws SQLException {
+    public Vector<String> getMessageFromDate(String username, String buddyname,
+            String date) throws SQLException {
         accountList = new Vector<String>();
         // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         // stat = conn.createStatement();
@@ -177,9 +179,10 @@ public class DatabaseFunctions {
                 + username + "' AND fromUser='" + buddyname + "') AND date='"
                 + date + "' order by timestamp;");
         while (rs.next()) {
-                accountList.add(rs.getString("time") + ", From: " + 
-                		rs.getString("fromUser") + " To: " + rs.getString("toUser")
-                		+ " Message: " + rs.getString("message"));
+            accountList.add(rs.getString("time") + ", From: "
+                    + rs.getString("fromUser") + " To: "
+                    + rs.getString("toUser") + " Message: "
+                    + rs.getString("message"));
         }
         return accountList;
     }
@@ -191,8 +194,8 @@ public class DatabaseFunctions {
             String rememberPassword) throws SQLException {
         // Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         // Statement stat = conn.createStatement();
-    	stat.executeUpdate("insert into profiles values('"  + name +  "'" +
-    			",'"  + password +  "','"  + rememberPassword +  "')");
+        stat.executeUpdate("insert into profiles values('" + name + "'" + ",'"
+                + password + "','" + rememberPassword + "')");
     }
 
     /*
@@ -253,6 +256,7 @@ public class DatabaseFunctions {
             throws SQLException {
         Vector<FriendTempData> friendsToReturn = new Vector<FriendTempData>();
         FriendTempData friend = null;
+        boolean blocked = false;
 
         stat = conn.createStatement();
         rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
@@ -260,8 +264,12 @@ public class DatabaseFunctions {
 
         /* Only check resultSet once */
         while (rs.next()) {
-            friend = new FriendTempData(rs.getString("friendName"), rs
-                    .getBoolean("blocked"));
+            if (rs.getString("blocked").equals("yes")) {
+                blocked = true;
+            } else {
+                blocked = false;
+            }
+            friend = new FriendTempData(rs.getString("friendName"), blocked);
             friendsToReturn.add(friend);
         }
 
@@ -271,35 +279,40 @@ public class DatabaseFunctions {
     public void addFriend(String accountName, FriendTempData friend)
             throws SQLException {
         String friendName = friend.getUserID();
-        boolean blocked = friend.isBlocked();
+        String blocked = null;
+        
+        if (friend.isBlocked()) {
+            blocked = "yes";
+        } else {
+            blocked = "no";
+        }
 
-        prep = conn.prepareStatement("INSERT INTO friendList VALUES "
-                + "(?, ?, ?);");
-        prep.setString(1, accountName);
-        prep.setString(2, friendName);
-        prep.setBoolean(3, blocked);
-
-        prep.addBatch();
-
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
-        conn.close();
+        stat.executeUpdate("INSERT INTO friendList VALUES ('" + accountName
+                + "'" + ",'" + friendName + "','" + blocked + "')");
 
         return;
     }
 
+    public void removeFriend(String accountName, String friendName)
+            throws SQLException {
+        stat
+                .executeUpdate("DELETE FROM friendList WHERE "
+                        + "accountName = '" + accountName + "' and "
+                        + "friendName = '" + friendName + "';");
+    }
+
     public void changeBlocked(String friendName, boolean blocked)
             throws SQLException {
-        prep = conn.prepareStatement("UPDATE friendList SET blocked = "
-                + blocked + "WHERE friendName ='" + friendName + "';");
-
-        prep.addBatch();
-
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
-        conn.close();
+        String isBlocked = null;
+        
+        if (blocked) {
+            isBlocked = "yes";
+        } else {
+            isBlocked = "no";
+        }
+     
+        stat.executeUpdate("UPDATE friendList SET blocked = '" + isBlocked
+                + "' WHERE friendName ='" + friendName + "';");
 
         return;
     }
