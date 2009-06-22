@@ -32,4 +32,9 @@ public class JabberUserData extends UserData {
         super(accountName);
     }
 
+    public JabberUserData(String accountName, String nickname, 
+                              String status) {
+       super(accountName, nickname, status);
+    }
+
 }

@@ -441,10 +441,8 @@ public class Model extends Observable {
         FriendTempData friend = null;
         DatabaseFunctions db = null;
 
-        if (account.getServer() == ServerType.GOOGLE_TALK) {
-            account.addFriend(userToAdd);
-        }
-
+        account.addFriend(userToAdd);
+        
         // Database manipulation
         try {
             db = new DatabaseFunctions();
