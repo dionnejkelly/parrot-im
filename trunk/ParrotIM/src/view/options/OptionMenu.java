@@ -28,6 +28,7 @@ public class OptionMenu extends JPanel {
         frame.pack();
         //my mods===============================================================
         frame.setResizable(false);
+//        frame.setPreferredSize(new Dimension (400, 400));
         frame.setLocationRelativeTo(null);
         //======================================================================
 
@@ -38,15 +39,17 @@ public class OptionMenu extends JPanel {
 	{
 		JPanel options = new JPanel();
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
-
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setPreferredSize(new Dimension (400,300));
+		
         ProfileManage profilePanel = new ProfileManage();
         JComponent panel1 = profilePanel.profile();
-        panel1.setPreferredSize(new Dimension(400, 600));
+        panel1.setPreferredSize(new Dimension(400, 200));
         tabbedPane.addTab("Personal Profile", panel1);
 
 		BuddyManage buddyPanel = new BuddyManage();
         JComponent panel2 = buddyPanel.account();
+        panel2.setPreferredSize(new Dimension(400,200));
         tabbedPane.addTab("Account Management", panel2);
 
 		SettingManage settingsPanel = new SettingManage();
