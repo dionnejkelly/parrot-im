@@ -57,6 +57,7 @@ public class ChatPanel extends JPanel {
         txt1.setColumns(25);
         txt1.setRows(9);
         txt1.setLineWrap(true);
+        txt1.setWrapStyleWord(true);
         txt1.setToolTipText("Enter text and HTML tags here");
         txt1.addKeyListener(new TextBoxListener());
 
