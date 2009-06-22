@@ -87,7 +87,14 @@ public class sidePanel extends JPanel implements Observer {
 			TreePath selPath = tree.getPathForLocation(event.getX(), event.getY());
 			
 			//System.out.println("in sidePanel" + selPath.getLastPathComponent().toString());
-			c.changeConversation(selPath.getLastPathComponent().toString());
+			
+			// Temporary code to try and fix null bug
+			if (selPath != null) {
+			    c.changeConversation(selPath.getLastPathComponent().toString());
+			    System.out.println("TESTING: Probably changing conversation");
+			} else {
+			    System.out.println("TESTING: selPath is null");
+			}
 			
 			
 		}

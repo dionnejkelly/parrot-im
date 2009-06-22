@@ -178,7 +178,7 @@ public class buddyPanel extends JPanel implements Observer {
             System.out.println("Block this user from the buddy list = "
                     + selectedFriend.toString());
 
-            chatClient.removeFriend(selectedFriend.toString());
+            chatClient.blockFriend(selectedFriend.getAccountName());
 
             buddies.remove(selectedFriend);
             boxes[0].removeAll();
