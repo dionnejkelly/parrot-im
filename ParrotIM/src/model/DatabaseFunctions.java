@@ -40,16 +40,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
+import model.dataType.ServerType;
 import model.dataType.UserData;
+import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
 import model.dataType.tempData.ProfileTempData;
 
 public class DatabaseFunctions {
 
-    private Vector<String> accountList;
     private Vector<String> bannedAccountList;
     public Connection conn;
     public Statement stat;
@@ -108,7 +110,7 @@ public class DatabaseFunctions {
      * chatted with. Input of user name.
      */
     public Vector<String> getChatNameList(String username) throws SQLException {
-        accountList = new Vector<String>();
+        Vector<String> accountList = new Vector<String>();
         // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         // stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where fromUser='"
@@ -127,7 +129,7 @@ public class DatabaseFunctions {
      */
     public Vector<String> getChatDatesFromName(String username, String buddyname)
             throws SQLException {
-        accountList = new Vector<String>();
+        Vector<String> accountList = new Vector<String>();
         // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         // stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where (toUser='"
@@ -148,7 +150,7 @@ public class DatabaseFunctions {
      */
     public Vector<String> getMessageFromDate(String username, String buddyname,
             String date) throws SQLException {
-        accountList = new Vector<String>();
+        Vector<String> accountList = new Vector<String>();
         // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
         // stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where date='" + date
@@ -226,7 +228,7 @@ public class DatabaseFunctions {
      * Gives you a Vector<String> of every profile in the database
      */
     public Vector<String> getProfileList() throws SQLException {
-        accountList = new Vector<String>();
+        Vector<String> accountList = new Vector<String>();
         rs = stat.executeQuery("select * from profiles;");
         while (rs.next()) {
             accountList.add(rs.getString("name"));
@@ -272,11 +274,41 @@ public class DatabaseFunctions {
      * Gives you a Vector<String> of every user in the database
      */
     public Vector<String> getUserList() throws SQLException {
-        accountList = new Vector<String>();
+        Vector<String> accountList = new Vector<String>();
         rs = stat.executeQuery("select * from people;");
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
+        return accountList;
+    }
+
+    public ArrayList<AccountTempData> getAccountList(String profile)
+            throws SQLException {
+        String server = null;
+        String accountName = null;
+        String password = null;
+        ServerType serverType = null;
+        AccountTempData account = null;
+        ArrayList<AccountTempData> accountList = new ArrayList<AccountTempData>();
+
+        rs = stat.executeQuery("SELECT * FROM people WHERE profile = '"
+                + profile + "';");
+        while (rs.next()) {
+            accountName = rs.getString("accountName");
+            password = rs.getString("password");
+            server = rs.getString("server");
+
+            // Note, make this into a private utillity method
+            if (server.equals("talk.google.com")) {
+                serverType = ServerType.GOOGLE_TALK;
+            } else {
+                // other servers
+            }
+
+            account = new AccountTempData(serverType, accountName, password);
+            accountList.add(account);
+        }
+
         return accountList;
     }
 
@@ -285,7 +317,7 @@ public class DatabaseFunctions {
      * profile
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
-        accountList = new Vector<String>();
+        Vector<String> accountList = new Vector<String>();
         rs = stat.executeQuery("select * from people where profile='" + name
                 + "';");
         while (rs.next()) {

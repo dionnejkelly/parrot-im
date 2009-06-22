@@ -39,6 +39,7 @@ import java.util.Observer;
 import java.util.Vector;
 
 import model.Model;
+import model.dataType.UpdatedType;
 
 /*
  * DEVELOPER NOTES:
@@ -48,7 +49,7 @@ import model.Model;
  * - EDIT BUTTON FOR 'IM ACCOUNTS' WILL NOT BE ADDED FOR ALPHA VERSION, TOO COMPLICATED
  */
 
-public class profileManager extends JFrame {
+public class profileManager extends JFrame implements Observer {
     private JPanel accMANPanel;
     private Model model;
     private Xmpp controller;
@@ -69,6 +70,7 @@ public class profileManager extends JFrame {
         this.addWindowListener(new popupWindowListener(mainFrame, this));
 
         this.model = model;
+        this.model.addObserver(this);
         this.controller = controller;
         // mainFrame = frame;
         popup = this;
@@ -313,6 +315,29 @@ public class profileManager extends JFrame {
             System.out.println("in removeAccountListener: " + account
                     + " for profile: " + profile);
             controller.removeAccount(profile, account);
+
+            return;
+        }
+    }
+
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.PROFILE) {
+            Vector<String> profileListArray;
+            
+            // Shouldn't need this try catch. Fix.
+            try {
+                profileListModel.removeAllElements();
+                profileListArray = model.getProfileList();
+                for (int i = 0; i < model.getProfileList().size(); i++) {
+                    profileListModel.addElement(profileListArray.elementAt(i));
+                }
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             return;
         }
