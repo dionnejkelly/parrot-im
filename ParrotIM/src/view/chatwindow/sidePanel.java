@@ -40,6 +40,8 @@ public class sidePanel extends JPanel implements Observer {
 	        tree = new JTree(top);
         	
         	refreshTree();
+        	
+        	tree.addMouseListener(new SelectListener());
 	    }
 	    this.add(tree, BorderLayout.CENTER);
 	}
@@ -55,12 +57,7 @@ public class sidePanel extends JPanel implements Observer {
     	    
     	top.removeAllChildren();
         for (ConversationData cd1 : model.getConversations()) {
-                DefaultMutableTreeNode con = new DefaultMutableTreeNode("Conversation");
-                top.add(con);
-                tree.addMouseListener(new SelectListener());
-                
-            	con.add(new DefaultMutableTreeNode(cd1.getAccount().getAccountName()));
-            	con.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));
+            	top.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));
             	tree.expandRow(1);
             	tree.setRootVisible(false);
             	
