@@ -83,7 +83,7 @@ public class DatabaseFunctions {
         stat.executeUpdate("create table if not exists people "
                 + "(profile, server, accountName, password);");
         stat.executeUpdate("create table if not exists chatLog "
-                + "(fromUser, toUser, message, date, time, timestamp);");
+                + "(fromProfile, fromUser, toUser, message, date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile);");
         stat.executeUpdate("create table if not exists friendList "
@@ -93,20 +93,20 @@ public class DatabaseFunctions {
 
     public void addChat(String fromProfile, String fromUser, String toUser, String message)
             throws SQLException {
-        stat.executeUpdate("drop table if exists chatLog;");
-        stat.executeUpdate("create table if not exists chatLog "
-                + "(fromProfile, fromUser, toUser, message, date, time, timestamp);");
+        //stat.executeUpdate("drop table if exists chatLog;");
+        //stat.executeUpdate("create table if not exists chatLog "
+        //        + "(fromProfile, fromUser, toUser, message, date, time, timestamp);");
         Date date1 = new Date();
         String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
         String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
         String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(
                 date1);
 
-        timeStamp = "test";
-        date = "test";
-        time = "test";
+        //timeStamp = "test";
+        //date = "test";
+        //time = "test";
         
-        PreparedStatement prep = conn.prepareStatement(
+        prep = conn.prepareStatement(
         	"insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
 
 	    prep.setString(1, fromProfile);
@@ -121,6 +121,7 @@ public class DatabaseFunctions {
 	    conn.setAutoCommit(false);
 	    prep.executeBatch();
 	    conn.setAutoCommit(true);
+	    conn.close();
 
         return;
     }
