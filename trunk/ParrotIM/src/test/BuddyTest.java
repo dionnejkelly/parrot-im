@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import API.Buddy;
-
+// Testing complete
 public class BuddyTest {
 	private Buddy b1;
 	private Buddy b2;
@@ -30,25 +30,25 @@ public class BuddyTest {
 		b3 = null;
 		b4 = null;
 	}
-
+	
 	@Test
 	public void testSetUsername() {
-		Buddy Expected = new Buddy("Sara","twitter");
+		Buddy expected = new Buddy("Sara","twitter");
 		b1.setUsername("Sara");
-		assertTrue(Expected.equals(b1));
+		assertSame(expected.getUsername(),b1.getUsername());
 	}
 
 	@Test
 	public void testGetUsername() {
-		String Expected = "Matt";
-		assertSame(Expected,b2.getUsername());
+		String expected = "Matt";
+		assertSame(expected,b2.getUsername());
 	}
 
 	@Test
 	public void testSetChannel() {
-		Buddy Expected = new Buddy("John","msn");
+		Buddy expected = new Buddy("John","msn");
 		b3.setChannel("msn");
-		assertSame(Expected,b3);
+		assertSame(expected.getChannel(),b3.getChannel());
 	}
 
 	@Test
