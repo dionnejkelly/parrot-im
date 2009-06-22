@@ -290,10 +290,10 @@ public class Model extends Observable {
     }
 
     /* Current Profile manipulation */
-    public void addProfile(String name, String pwd, String rememberPass)
+    public void addProfile(String name, String pwd, boolean defaultProfile)
             throws ClassNotFoundException, SQLException {
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addProfiles(name, pwd, rememberPass);
+        db.addProfiles(name, pwd, defaultProfile);
     }
 
     public void createCurrentProfile(AccountData account, String profileName) {

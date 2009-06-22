@@ -75,14 +75,14 @@ public class DatabaseFunctions {
 
         // stat.executeUpdate("drop table if exists people;");
         // stat.executeUpdate("drop table if exists chatLog;");
-        // stat.executeUpdate("drop table if exists profiles;");
+        stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
         stat.executeUpdate("create table if not exists people "
                 + "(profile, service, email, password, rememberPassword);");
         stat.executeUpdate("create table if not exists chatLog "
                 + "(fromUser, toUser, message, date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
-                + "(name, password, rememberPassword);");
+                + "(name, password, defaultProfile);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
 
@@ -187,16 +187,35 @@ public class DatabaseFunctions {
         return accountList;
     }
 
-    /*
+    /**
      * Adds a simple profile to the database.
      */
     public void addProfiles(String name, String password,
-            String rememberPassword) throws SQLException {
-        // Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // Statement stat = conn.createStatement();
+            boolean isDefault) throws SQLException {
+        String defaultProfile = null;
+        
+        if (isDefault) {
+            defaultProfile = "yes";
+        } else {
+            defaultProfile = "no";
+        }
+        
         stat.executeUpdate("insert into profiles values('" + name + "'" + ",'"
-                + password + "','" + rememberPassword + "')");
+                + password + "','" + defaultProfile + "')");
+        
+        return;
     }
+    
+    public void setDefaultProfile(String name) throws SQLException {
+        stat.executeUpdate("UPDATE friendList SET defaultProfile = 'no';");
+
+        stat.executeUpdate("UPDATE friendList SET defaultProfile = 'yes' "
+                + "' WHERE name ='" + name + "';");
+        
+        return;
+    }
+    
+    // public String getDefaultProfile
 
     /*
      * Gives you a Vector<String> of every profile in the database
