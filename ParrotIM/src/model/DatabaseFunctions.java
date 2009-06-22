@@ -91,8 +91,11 @@ public class DatabaseFunctions {
 
     }
 
-    public void addChat(String fromUser, String toUser, String message)
+    public void addChat(String fromProfile, String fromUser, String toUser, String message)
             throws SQLException {
+        stat.executeUpdate("drop table if exists chatLog;");
+        stat.executeUpdate("create table if not exists chatLog "
+                + "(fromProfile, fromUser, toUser, message, date, time, timestamp);");
         Date date1 = new Date();
         String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
         String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
@@ -103,9 +106,21 @@ public class DatabaseFunctions {
         date = "test";
         time = "test";
         
-        stat.executeUpdate("insert into chatLog values('" + fromUser + "'"
-                + ",'" + toUser + "','" + message + "'" + ",'" + date + "','"
-                + time + "','" + timeStamp + "')");
+        PreparedStatement prep = conn.prepareStatement(
+        	"insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
+
+	    prep.setString(1, fromProfile);
+	    prep.setString(2, fromUser);
+	    prep.setString(3, toUser);
+	    prep.setString(4, message);
+	    prep.setString(5, date);
+	    prep.setString(6, time);
+	    prep.setString(7, timeStamp);
+	    prep.addBatch();
+	
+	    conn.setAutoCommit(false);
+	    prep.executeBatch();
+	    conn.setAutoCommit(true);
 
         return;
     }
