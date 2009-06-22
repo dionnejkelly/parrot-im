@@ -180,6 +180,7 @@ public class buddyPanel extends JPanel implements Observer {
 
             chatClient.blockFriend(selectedFriend.getAccountName());
 
+            /*
             buddies.remove(selectedFriend);
             boxes[0].removeAll();
 
@@ -208,6 +209,7 @@ public class buddyPanel extends JPanel implements Observer {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            */
         }
     }
 
