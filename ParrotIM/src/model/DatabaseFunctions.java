@@ -57,7 +57,7 @@ public class DatabaseFunctions {
     public Statement stat;
     public PreparedStatement prep;
     public ResultSet rs;
-
+    
     /*
      * DatabaseFunctions() connects you to the database. Every time you want to
      * run a query in another file you have to
@@ -98,6 +98,11 @@ public class DatabaseFunctions {
         String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
         String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(
                 date1);
+
+        timeStamp = "test";
+        date = "test";
+        time = "test";
+        
         stat.executeUpdate("insert into chatLog values('" + fromUser + "'"
                 + ",'" + toUser + "','" + message + "'" + ",'" + date + "','"
                 + time + "','" + timeStamp + "')");
