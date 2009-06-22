@@ -111,7 +111,7 @@ public abstract class UserData {
         
         if (this.blocked) {
             ownPriority = 1;
-        } else if (this.state.equalsIgnoreCase("Online")) {
+        } else if (this.state.equalsIgnoreCase("Available")) {
             ownPriority = 4;
         } else if (this.state.equalsIgnoreCase("Offline")) {
             ownPriority = 2;
@@ -121,7 +121,7 @@ public abstract class UserData {
         
         if (user.isBlocked()) {
             userPriority = 1;
-        } else if (user.getState().equalsIgnoreCase("Online")) {
+        } else if (user.getState().equalsIgnoreCase("Available")) {
             userPriority = 4;
         } else if (user.getState().equalsIgnoreCase("Offline")) {
             userPriority = 2;
