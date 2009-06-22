@@ -187,7 +187,13 @@ public class DatabaseFunctions {
     }
 
     public void removeProfile(String name) throws SQLException {
+        // Delete the profile
         stat.executeUpdate("DELETE FROM profiles WHERE name = '" + name + "';");
+
+        // Delete the profile's accounts
+        stat
+                .executeUpdate("DELETE FROM people WHERE profile = '" + name
+                        + "';");
 
         return;
     }
