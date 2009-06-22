@@ -50,6 +50,7 @@ public class mainPanel extends JPanel implements Observer {
 		//side = new sidePanel(conversations, c, model);
 		chat = new ChatPanel(c, model);
 		side = new sidePanel(c, model);
+		side.setMinimumSize(new Dimension(500, 300));
 		sPane.setRightComponent(chat);
 		sPane.setLeftComponent(side);
 		sPane.setOneTouchExpandable(true);
