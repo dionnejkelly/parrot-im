@@ -3,6 +3,8 @@ package controller.services;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.filter.PacketFilter;
@@ -27,6 +29,7 @@ import model.*;
 import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.JabberUserData;
 import model.dataType.MessageData;
 import model.dataType.ServerType;
 import model.dataType.UpdatedType;
@@ -177,10 +180,12 @@ public class Xmpp {
             config = new ConnectionConfiguration("talk.google.com", 5222,
                     "gmail.com");
         } else if (account.getServer() == ServerType.JABBER) {
-            config = new ConnectionConfiguration(StringUtils
-                    .parseServer(accountName), 5222, StringUtils
-                    .parseServer(accountName));
-            System.out.println(StringUtils.parseServer(accountName));
+            // Test code, please replace with jabber server selection
+            config = new ConnectionConfiguration("jabber.sfu.ca", 5223,
+                    "jabber.sfu.ca");
+            
+            // Enable SSL to let us connect to jabber.sfu.ca
+            config.setSocketFactory(SSLSocketFactory.getDefault()); 
         } else {
             // Other protocols
         }
@@ -332,28 +337,27 @@ public class Xmpp {
                 if (r.getName() == null) {
                     r.setName(StringUtils.parseName(r.getUser()));
                 }
+
+                accountName = r.getUser();
+                nickname = r.getName();
+
                 if (account.getServer() == ServerType.GOOGLE_TALK) {
-                    accountName = r.getUser();
-                    nickname = r.getName();
                     user = new GoogleTalkUserData(accountName, nickname, status);
-                    updateStateAndStatus(user, accountName);
-
-                    /* Search the savedFriends to find if was saved locally */
-                    for (FriendTempData f : savedFriends) {
-                        if (accountName.equalsIgnoreCase(f.getUserID())) {
-                            System.out
-                                    .println(f.getUserID() + "in the checker");
-                            user.setBlocked(f.isBlocked());
-                            savedFriends.remove(f);
-                            break;
-                        }
-                    }
-
                 } else if (account.getServer() == ServerType.JABBER) {
-                    // user = new JabberUserData(r.getUser(), r.getName(),
-                    // this.getUserPresence(r.getUser()));
+                    user = new JabberUserData(accountName, nickname, status);
                 } else { // some other user
                     // TODO implement me!
+                }
+                updateStateAndStatus(user, accountName);
+
+                /* Search the savedFriends to find if was saved locally */
+                for (FriendTempData f : savedFriends) {
+                    if (accountName.equalsIgnoreCase(f.getUserID())) {
+                        System.out.println(f.getUserID() + "in the checker");
+                        user.setBlocked(f.isBlocked());
+                        savedFriends.remove(f);
+                        break;
+                    }
                 }
 
                 model.addFriend(account, user);
