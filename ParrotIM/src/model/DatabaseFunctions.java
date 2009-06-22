@@ -45,6 +45,7 @@ import java.util.Vector;
 
 import model.dataType.UserData;
 import model.dataType.tempData.FriendTempData;
+import model.dataType.tempData.ProfileTempData;
 
 public class DatabaseFunctions {
 
@@ -75,7 +76,7 @@ public class DatabaseFunctions {
 
         // stat.executeUpdate("drop table if exists people;");
         // stat.executeUpdate("drop table if exists chatLog;");
-        stat.executeUpdate("drop table if exists profiles;");
+        // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
         stat.executeUpdate("create table if not exists people "
                 + "(profile, service, email, password, rememberPassword);");
@@ -202,6 +203,13 @@ public class DatabaseFunctions {
         
         stat.executeUpdate("insert into profiles values('" + name + "'" + ",'"
                 + password + "','" + defaultProfile + "')");
+        System.out.println("I'm added");
+        return;
+    }
+    
+    public void removeProfile(String name) throws SQLException {
+        stat.executeUpdate("DELETE FROM profiles WHERE name = '"
+                + name + "';");
         
         return;
     }
@@ -215,7 +223,28 @@ public class DatabaseFunctions {
         return;
     }
     
-    // public String getDefaultProfile
+    public ProfileTempData getDefaultProfile() throws SQLException {
+        ProfileTempData profile = null;
+        String name = null;
+        String password = null;
+        boolean defaultProfile = false;
+        
+        rs = stat.executeQuery("SELECT * FROM defaultProfile WHERE "
+                + "defaultProfile = 'yes';");
+        
+        if (rs.next()) {
+            name = rs.getString("name");
+            password = rs.getString("password");
+            if (rs.getString("defaultProfile").equals("yes")) {
+                defaultProfile = true;
+            } else {
+                defaultProfile = false;
+            }
+            profile = new ProfileTempData(name, password, defaultProfile);
+        }
+        
+        return profile;
+    }
 
     /*
      * Gives you a Vector<String> of every profile in the database
@@ -223,7 +252,9 @@ public class DatabaseFunctions {
     public Vector<String> getProfileList() throws SQLException {
         accountList = new Vector<String>();
         rs = stat.executeQuery("select * from profiles;");
+        System.out.println("I want some");
         while (rs.next()) {
+            System.out.println("I got some");
             accountList.add(rs.getString("name"));
         }
         return accountList;

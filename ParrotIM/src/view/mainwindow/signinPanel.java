@@ -107,7 +107,8 @@ public class signinPanel extends JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainFrame.setEnabled(false);
                 try {
-                    profileManager popup = new profileManager(model, mainFrame);
+                    profileManager popup = new profileManager(model, core,
+                            mainFrame);
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

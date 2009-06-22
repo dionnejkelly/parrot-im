@@ -25,6 +25,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import controller.services.Xmpp;
+
 import java.util.ArrayList;
 import java.util.List;
 import view.mainwindow.mainwindow;
@@ -49,6 +51,7 @@ import model.Model;
 public class profileManager extends JFrame {
     private JPanel accMANPanel;
     private Model model;
+    private Xmpp controller;
     private mainwindow mainFrame;
     protected profileManager popup;
 
@@ -58,7 +61,7 @@ public class profileManager extends JFrame {
     private JList accList;
     private JScrollPane acctListScroller;
 
-    public profileManager(Model model, mainwindow frame)
+    public profileManager(Model model, Xmpp controller, mainwindow frame)
             throws ClassNotFoundException, SQLException {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         mainFrame = frame;
@@ -66,6 +69,7 @@ public class profileManager extends JFrame {
         this.addWindowListener(new popupWindowListener(mainFrame, this));
 
         this.model = model;
+        this.controller = controller;
         // mainFrame = frame;
         popup = this;
 
@@ -126,11 +130,9 @@ public class profileManager extends JFrame {
         removeButton.setMargin(buttonInset);
 
         // +/- BUTTON FUNCTIONALITY
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                newProfileFrame newProf = new newProfileFrame(model, popup);
-            }
-        });
+        addButton.addActionListener(new addProfileListener());
+        removeButton.addActionListener(new removeProfileListener());
+        
         // pack the whole thing
         addremovePanel.add(addButton);
         addremovePanel.add(removeButton);
@@ -273,4 +275,26 @@ public class profileManager extends JFrame {
         accMANPanel.add(rightPanel, BorderLayout.EAST);
     }
 
+    /*
+     * SECTION:
+     *     Button Listeners
+     *         + button
+     *         - button
+     */
+    
+    private class addProfileListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            newProfileFrame newProf = new newProfileFrame(model, controller,
+                    popup);
+        }
+    }
+    
+    private class removeProfileListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            System.out.println("in removeButtonListener: " 
+                    + profileList.getSelectedValue());
+            String name = (String) profileList.getSelectedValue();
+            controller.removeProfile(name);
+        }
+    }
 }
