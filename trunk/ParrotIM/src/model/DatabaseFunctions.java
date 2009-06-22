@@ -125,12 +125,13 @@ public class DatabaseFunctions {
      * chatted with. Input of user name.
      */
     public Vector<String> getChatNameList(String username) throws SQLException {
+        System.out.println("I KNOW YOU'RE HERE!!!!");
+        
         Vector<String> accountList = new Vector<String>();
-        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where fromUser='"
                 + username + "';");
         while (rs.next()) {
+            System.out.println("I have a vallue!");
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
             }
@@ -274,7 +275,7 @@ public class DatabaseFunctions {
     public void addUsers(String profile, String server, String accountName,
             String password) throws SQLException {
         prep = conn
-                .prepareStatement("insert into chatLog values (?, ?, ?, ?);");
+                .prepareStatement("insert into people values (?, ?, ?, ?);");
 
         prep.setString(1, profile);
         prep.setString(2, server);
@@ -420,7 +421,7 @@ public class DatabaseFunctions {
         }
 
         prep = conn
-                .prepareStatement("insert into chatLog values (?, ?, ?);");
+                .prepareStatement("insert into friendList values (?, ?, ?);");
 
         prep.setString(1, accountName);
         prep.setString(2, friendName);
