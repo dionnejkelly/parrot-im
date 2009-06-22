@@ -7,6 +7,7 @@
  */
 package view.options;
 import javax.swing.*;
+
 import java.awt.*;
 import java.util.*;
 import javax.swing.event.*;
@@ -19,7 +20,7 @@ public class OptionMenu extends JPanel {
     public OptionMenu() {
         JFrame frame = new JFrame("User Preference");
         //frame.setSize(800,600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         //JComponent newContent = new OptionMenu();
         //newContent.setOpaque(true);

@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
+import options.OptionMenu;
+
 import view.chatLog.chatLogFrame;
 
 import controller.services.Xmpp;
@@ -77,6 +79,7 @@ public class buddylist extends JFrame{
 		    optionsMenu.setMnemonic(KeyEvent.VK_O);
 		    menuBar.add(optionsMenu);
 		    JMenuItem optionsItem1 = new JMenuItem("Parrot Preferences", KeyEvent.VK_P);
+		    optionsItem1.addActionListener(new optionListener());
 		    optionsMenu.add(optionsItem1);
 		    
 			helpMenu = new JMenu("Help");
@@ -97,6 +100,13 @@ public class buddylist extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			new chatLogFrame(model, "cmpt275testing@gmail.com");// change this later 
+			
+		}
+		
+	}private class optionListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			new OptionMenu();
 			
 		}
 		
