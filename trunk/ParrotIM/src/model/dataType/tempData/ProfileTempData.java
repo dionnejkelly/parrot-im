@@ -1,3 +1,21 @@
+/* ProfileTempData.java
+ * 
+ * Programmed By:
+ *     Kevin Fahy
+ *     
+ * Change Log:
+ *     2009-June-20, KF
+ *         Initial write. Created for use of database to pass back partial
+ *         profile data to the controller.
+ *         
+ * Known Issues:
+ *     none
+ *     
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package model.dataType.tempData;
 
 public class ProfileTempData {

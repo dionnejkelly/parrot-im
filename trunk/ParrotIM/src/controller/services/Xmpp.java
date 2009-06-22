@@ -34,6 +34,7 @@ import model.dataType.MessageData;
 import model.dataType.ServerType;
 import model.dataType.UpdatedType;
 import model.dataType.UserData;
+import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
 
 /**
@@ -219,6 +220,19 @@ public class Xmpp {
         /* Set up friends' user data */
         this.populateBuddyList(account);
 
+        return;
+    }
+    
+    public void loginProfile(String profile) throws XMPPException {
+        ArrayList<AccountTempData> accounts = null;
+        
+        accounts = model.getAccountsForProfile(profile);
+        
+        // May not work for multiple accounts yet
+        for (AccountTempData a: accounts) {
+            login(a.getServer(), a.getUserID(), a.getPassword());
+        }
+        
         return;
     }
 

@@ -55,6 +55,7 @@ import model.dataType.MessageData;
 import model.dataType.ServerType;
 import model.dataType.UpdatedType;
 import model.dataType.UserData;
+import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
 
 /**
@@ -101,6 +102,24 @@ public class Model extends Observable {
             SQLException {
         DatabaseFunctions db = new DatabaseFunctions();
         return db.getUserList();
+    }
+
+    public ArrayList<AccountTempData> getAccountsForProfile(String profile) {
+        ArrayList<AccountTempData> accounts = null;
+        DatabaseFunctions db = null;
+        
+        try {
+            db = new DatabaseFunctions();
+            accounts = db.getAccountList(profile);        
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return accounts;
     }
 
     public Vector<String> getProfileList() throws ClassNotFoundException,

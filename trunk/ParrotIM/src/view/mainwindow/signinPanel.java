@@ -72,7 +72,7 @@ public class signinPanel extends JPanel {
         accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
 
         // list of accounts
-        account_select = new JComboBox(model.getAccountList());
+        account_select = new JComboBox(model.getProfileList());
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
         // connect button
         JPanel connectPanel = new JPanel();
@@ -153,7 +153,8 @@ public class signinPanel extends JPanel {
 
         try {
             // Login with server and set model info
-            core.login(serverType, username, password);
+            //core.login(serverType, username, password);
+            core.loginProfile((String) account_select.getSelectedItem());
 
             // Handle the GUI changes
             new buddylist(core, model);
