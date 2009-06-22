@@ -183,9 +183,9 @@ public class Xmpp {
             // Test code, please replace with jabber server selection
             config = new ConnectionConfiguration("jabber.sfu.ca", 5223,
                     "jabber.sfu.ca");
-            
+
             // Enable SSL to let us connect to jabber.sfu.ca
-            config.setSocketFactory(SSLSocketFactory.getDefault()); 
+            config.setSocketFactory(SSLSocketFactory.getDefault());
         } else {
             // Other protocols
         }
@@ -732,23 +732,41 @@ public class Xmpp {
             return;
         }
     }
-    
+
     /*
-     * SECTION:
-     *     Profile manipulation
+     * SECTION: Profile manipulation
      */
-    
-    public void addProfile(String name, String password,
-            boolean defaultProfile) {
+
+    public void addProfile(String name, String password, boolean defaultProfile) {
         this.model.addProfile(name, password, defaultProfile);
-        
+
         return;
     }
-    
+
     public void removeProfile(String name) {
         this.model.removeProfile(name);
-        
+
         return;
     }
-    
+
+    public void addAccount(String profile, ServerType server, String account,
+            String password) {
+        String serverName = null;
+
+        if (server == ServerType.GOOGLE_TALK) {
+            serverName = "talk.google.com";
+        } else {
+            // Fill in data for other servers.
+            // If jabber, we need to get the server name, also.
+            // May need to get SSL info if we can't auto guess it.
+        }
+
+        this.model.addAccount(profile, serverName, account, password);
+    }
+
+    public void removeAccount(String profile, String account) {
+        this.model.removeAccount(profile, account);
+
+        return;
+    }
 }

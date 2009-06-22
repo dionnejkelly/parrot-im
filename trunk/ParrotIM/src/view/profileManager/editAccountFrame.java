@@ -27,151 +27,174 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
+import controller.services.Xmpp;
+
 import model.Model;
+import model.dataType.ServerType;
 
 import view.mainwindow.mainwindow;
 import view.styles.popupWindowListener;
 
-public class editAccountFrame extends JFrame
-{
-	/*
-	 * LEAVING OUT EDIT ACCOUNT FUNCTION FOR ALPHA
-	 */
-	
-	private JPanel modAcctPanel;
-	private Model model;
-	private profileManager managerFrame;
-	protected editAccountFrame popup;
-	
-	private JTextField UNField;
-	private JPasswordField pwdField;
-	private JComboBox serviceField;
-	
-	//Instance 1 -- New Account (empty forms)
-	public editAccountFrame(Model model,profileManager pManager)
-	{
-		this.model = model;
-		managerFrame = pManager;
-		popup = this;
-		this.setResizable(false);
-		this.setLocationRelativeTo(managerFrame);
-		
-		setTitle("add New Account");
-		modAcctPanel = new JPanel();
-		modAcctPanel.setLayout(new BorderLayout());
-		modAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		modAcctPanel.setPreferredSize(new Dimension(300,300));
-		//////////////TOP PART
-		//account setupLabel setting Panel
-		JPanel setupLabelPanel = new JPanel();
-		GridLayout setupLabelLayout = new GridLayout (3,1);
-		setupLabelLayout.setVgap(10);
-		setupLabelPanel.setLayout(setupLabelLayout);
-		setupLabelPanel.setPreferredSize(new Dimension (75,75));
-		JLabel serviceLabel = new JLabel("Service:");
-		JLabel UNLabel = new JLabel("Username:");
-		JLabel pwdLabel = new JLabel("Password:");
-		setupLabelPanel.add(serviceLabel);
-		setupLabelPanel.add(UNLabel);
-		setupLabelPanel.add(pwdLabel);
+public class editAccountFrame extends JFrame {
+    /*
+     * LEAVING OUT EDIT ACCOUNT FUNCTION FOR ALPHA
+     */
 
-		//account setupField setting Panel
-		JPanel setupFieldPanel = new JPanel();
-		//BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel, BoxLayout.Y_AXIS);
-		GridLayout setupFieldLayout = new GridLayout (3,1);
-		setupFieldLayout.setVgap(5);
-		setupFieldPanel.setLayout(setupFieldLayout);
-		serviceField = new JComboBox (model.getServerList());
-		serviceField.setPreferredSize(new Dimension(170,27));
-		UNField = new JTextField();
-		UNField.setPreferredSize(new Dimension (85,20));
-		pwdField = new JPasswordField();
-		pwdField.setPreferredSize(new Dimension (100,20));
-		setupFieldPanel.add(serviceField);
-		setupFieldPanel.add(UNField);
-		setupFieldPanel.add(pwdField);
+    private JPanel modAcctPanel;
+    private Model model;
+    private profileManager managerFrame;
+    protected editAccountFrame popup;
 
-		//account setup Panel
-		JPanel setupPanel = new JPanel();
-		setupPanel.setLayout(new BoxLayout (setupPanel, BoxLayout.X_AXIS));
-		setupPanel.add(setupLabelPanel);
-		setupPanel.add(setupFieldPanel);
+    private JTextField UNField;
+    private JPasswordField pwdField;
+    private JComboBox serviceField;
+    private Xmpp controller; 
+    
+    /**
+     * The profile selected from the profile selection window.
+     */
+    private String profile;
 
+    // Instance 1 -- New Account (empty forms)
+    public editAccountFrame(Model model, profileManager pManager, Xmpp controller, String profile) {
+        this.model = model;
+        this.controller = controller;
+        this.profile = profile;
+        managerFrame = pManager;
+        popup = this;
+        this.setResizable(false);
+        this.setLocationRelativeTo(managerFrame);
 
-		//*CENTRE PART : remember password + auto sign in
-		//other Checkboxes setup Panel
-		JPanel otherCheckPanel = new JPanel ();
-		otherCheckPanel.setLayout(new GridLayout (2,1));
-		JCheckBox rememberPWDCheck = new JCheckBox();
-		JCheckBox autoSignCheck = new JCheckBox();
-		otherCheckPanel.add(rememberPWDCheck);
-		otherCheckPanel.add(autoSignCheck);
+        setTitle("add New Account");
+        modAcctPanel = new JPanel();
+        modAcctPanel.setLayout(new BorderLayout());
+        modAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        modAcctPanel.setPreferredSize(new Dimension(300, 300));
+        // ////////////TOP PART
+        // account setupLabel setting Panel
+        JPanel setupLabelPanel = new JPanel();
+        GridLayout setupLabelLayout = new GridLayout(3, 1);
+        setupLabelLayout.setVgap(10);
+        setupLabelPanel.setLayout(setupLabelLayout);
+        setupLabelPanel.setPreferredSize(new Dimension(75, 75));
+        JLabel serviceLabel = new JLabel("Service:");
+        JLabel UNLabel = new JLabel("Username:");
+        JLabel pwdLabel = new JLabel("Password:");
+        setupLabelPanel.add(serviceLabel);
+        setupLabelPanel.add(UNLabel);
+        setupLabelPanel.add(pwdLabel);
 
-		//other Labels setup Panel
-		GridLayout otherLabelLayout = new GridLayout (2,1);
-		JPanel otherLabelPanel = new JPanel ();
-		otherLabelPanel.setLayout(otherLabelLayout);
-		otherLabelLayout.setVgap(7);
-		JLabel rememberPWDLabel = new JLabel("Remember password");
-		JLabel autoSignLabel = new JLabel("Auto Sign-in");
-		otherLabelPanel.add(rememberPWDLabel);
-		otherLabelPanel.add(autoSignLabel);
+        // account setupField setting Panel
+        JPanel setupFieldPanel = new JPanel();
+        // BoxLayout setupFieldLayout = new BoxLayout(setupFieldPanel,
+        // BoxLayout.Y_AXIS);
+        GridLayout setupFieldLayout = new GridLayout(3, 1);
+        setupFieldLayout.setVgap(5);
+        setupFieldPanel.setLayout(setupFieldLayout);
+        serviceField = new JComboBox(model.getServerList());
+        serviceField.setPreferredSize(new Dimension(170, 27));
+        UNField = new JTextField();
+        UNField.setPreferredSize(new Dimension(85, 20));
+        pwdField = new JPasswordField();
+        pwdField.setPreferredSize(new Dimension(100, 20));
+        setupFieldPanel.add(serviceField);
+        setupFieldPanel.add(UNField);
+        setupFieldPanel.add(pwdField);
 
-		//other setups Panel
-		JPanel otherSetupPanel = new JPanel();
-		otherSetupPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-		otherSetupPanel.setLayout (new FlowLayout());
-		otherSetupPanel.add(otherCheckPanel);
-		otherSetupPanel.add(otherLabelPanel);
+        // account setup Panel
+        JPanel setupPanel = new JPanel();
+        setupPanel.setLayout(new BoxLayout(setupPanel, BoxLayout.X_AXIS));
+        setupPanel.add(setupLabelPanel);
+        setupPanel.add(setupFieldPanel);
 
-		//BOTTOM PART : OK and Cancel Button
-		//set ok-cancel button
-		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 10, 10));
-		GridLayout buttonsLayout = new GridLayout(1,2);
-		buttonsLayout.setHgap(5);
-		buttonsPanel.setLayout(buttonsLayout);
+        // *CENTRE PART : remember password + auto sign in
+        // other Checkboxes setup Panel
+        JPanel otherCheckPanel = new JPanel();
+        otherCheckPanel.setLayout(new GridLayout(2, 1));
+        JCheckBox rememberPWDCheck = new JCheckBox();
+        JCheckBox autoSignCheck = new JCheckBox();
+        otherCheckPanel.add(rememberPWDCheck);
+        otherCheckPanel.add(autoSignCheck);
 
-		//OK Button
-		JButton okButton = new JButton ("OK");
-		okButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-//            	try {
-//					addAccount_actionPerform(evt) ;
-//				} catch (ClassNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-            }
-		});
-		buttonsPanel.add(okButton);
+        // other Labels setup Panel
+        GridLayout otherLabelLayout = new GridLayout(2, 1);
+        JPanel otherLabelPanel = new JPanel();
+        otherLabelPanel.setLayout(otherLabelLayout);
+        otherLabelLayout.setVgap(7);
+        JLabel rememberPWDLabel = new JLabel("Remember password");
+        JLabel autoSignLabel = new JLabel("Auto Sign-in");
+        otherLabelPanel.add(rememberPWDLabel);
+        otherLabelPanel.add(autoSignLabel);
 
-		//Cancel Button
-		JButton cancelButton = new JButton ("Cancel");
-		cancelButton.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent evt) 
-	            {
-	            	popup.setVisible(false);
-	            	popup.dispose();
-	            }
-			});
-		buttonsPanel.add(cancelButton);
+        // other setups Panel
+        JPanel otherSetupPanel = new JPanel();
+        otherSetupPanel
+                .setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        otherSetupPanel.setLayout(new FlowLayout());
+        otherSetupPanel.add(otherCheckPanel);
+        otherSetupPanel.add(otherLabelPanel);
 
+        // BOTTOM PART : OK and Cancel Button
+        // set ok-cancel button
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 10, 10));
+        GridLayout buttonsLayout = new GridLayout(1, 2);
+        buttonsLayout.setHgap(5);
+        buttonsPanel.setLayout(buttonsLayout);
 
-		//Add Content to main Panel and display
-		modAcctPanel.add(setupPanel, BorderLayout.NORTH);
-		modAcctPanel.add(otherSetupPanel, BorderLayout.CENTER);
-		modAcctPanel.add(buttonsPanel, BorderLayout.SOUTH);
-		getContentPane().add(modAcctPanel);
-		pack();
-		setVisible(true);	
-	}
-	
-	//Instance 2 -- Edit Account (User/Pass already filled in, Disable username box)
-	/*private editAccountFrame(Model model, String name)
-	{
-		
-	}*/
+        // OK Button
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new AddListener());
+        buttonsPanel.add(okButton);
 
+        // Cancel Button
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new CancelListener());
+        buttonsPanel.add(cancelButton);
+
+        // Add Content to main Panel and display
+        modAcctPanel.add(setupPanel, BorderLayout.NORTH);
+        modAcctPanel.add(otherSetupPanel, BorderLayout.CENTER);
+        modAcctPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        getContentPane().add(modAcctPanel);
+        pack();
+        setVisible(true);
+    }
+
+    // Instance 2 -- Edit Account (User/Pass already filled in, Disable username
+    // box)
+    /*
+     * private editAccountFrame(Model model, String name) {
+     * 
+     * }
+     */
+
+    /*
+     * SECTION: Add/Cancel Listeners
+     */
+
+    private class AddListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            String accountName = UNField.getText();
+            String password = String.copyValueOf(pwdField.getPassword());
+            ServerType server = (ServerType) serviceField.getSelectedItem();
+
+            controller.addAccount(profile, server, accountName,
+                    password);
+            
+            popup.setVisible(false);
+            popup.dispose();
+
+            return;
+        }
+    }
+
+    private class CancelListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            popup.setVisible(false);
+            popup.dispose();
+
+            return;
+        }
+    }
 }

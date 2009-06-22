@@ -79,35 +79,13 @@ public class DatabaseFunctions {
         // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
         stat.executeUpdate("create table if not exists people "
-                + "(profile, service, email, password, rememberPassword);");
+                + "(profile, server, accountName, password);");
         stat.executeUpdate("create table if not exists chatLog "
                 + "(fromUser, toUser, message, date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
-
-    }
-
-    /*
-     * addUsers() puts a new account for a specific profile into the Database.
-     * You can get the information you added using getUsers;
-     */
-    public void addUsers(String profile, String service, String email,
-            String password, String rememberPassword) throws SQLException {
-        stat.executeUpdate("insert into people values('" + profile + "'" + ",'"
-                + service + "','" + email + "','" + password + "'" + ",'"
-                + rememberPassword + "')");
-    }
-
-    public String getPassword(String username) throws ClassNotFoundException,
-            SQLException {
-        // Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // Statement stat = conn.createStatement();
-        // ResultSet rs = null;
-        rs = stat.executeQuery("select * from people where email='" + username
-                + "'");
-        return rs.getString("password");
 
     }
 
@@ -191,47 +169,45 @@ public class DatabaseFunctions {
     /**
      * Adds a simple profile to the database.
      */
-    public void addProfiles(String name, String password,
-            boolean isDefault) throws SQLException {
+    public void addProfiles(String name, String password, boolean isDefault)
+            throws SQLException {
         String defaultProfile = null;
-        
+
         if (isDefault) {
             defaultProfile = "yes";
         } else {
             defaultProfile = "no";
         }
-        
+
         stat.executeUpdate("insert into profiles values('" + name + "'" + ",'"
                 + password + "','" + defaultProfile + "')");
-        System.out.println("I'm added");
         return;
     }
-    
+
     public void removeProfile(String name) throws SQLException {
-        stat.executeUpdate("DELETE FROM profiles WHERE name = '"
-                + name + "';");
-        
+        stat.executeUpdate("DELETE FROM profiles WHERE name = '" + name + "';");
+
         return;
     }
-    
+
     public void setDefaultProfile(String name) throws SQLException {
         stat.executeUpdate("UPDATE friendList SET defaultProfile = 'no';");
 
         stat.executeUpdate("UPDATE friendList SET defaultProfile = 'yes' "
                 + "' WHERE name ='" + name + "';");
-        
+
         return;
     }
-    
+
     public ProfileTempData getDefaultProfile() throws SQLException {
         ProfileTempData profile = null;
         String name = null;
         String password = null;
         boolean defaultProfile = false;
-        
+
         rs = stat.executeQuery("SELECT * FROM defaultProfile WHERE "
                 + "defaultProfile = 'yes';");
-        
+
         if (rs.next()) {
             name = rs.getString("name");
             password = rs.getString("password");
@@ -242,7 +218,7 @@ public class DatabaseFunctions {
             }
             profile = new ProfileTempData(name, password, defaultProfile);
         }
-        
+
         return profile;
     }
 
@@ -252,12 +228,44 @@ public class DatabaseFunctions {
     public Vector<String> getProfileList() throws SQLException {
         accountList = new Vector<String>();
         rs = stat.executeQuery("select * from profiles;");
-        System.out.println("I want some");
         while (rs.next()) {
-            System.out.println("I got some");
             accountList.add(rs.getString("name"));
         }
         return accountList;
+    }
+
+    /**
+     * This class puts a new account for a specific profile into the Database.
+     * You can get the information you added using getUsers;
+     */
+    public void addUsers(String profile, String server, String accountName,
+            String password) throws SQLException {
+        stat.executeUpdate("insert into people values('" + profile + "', '"
+                + server + "', '" + accountName + "', '" + password + "')");
+
+        return;
+    }
+
+    public void removeAccountFromProfile(String profile, String accountName)
+            throws SQLException {
+        stat.executeUpdate("DELETE FROM people WHERE profile = '" + profile
+                + "' AND accountName = '" + accountName + "'");
+
+        return;
+    }
+
+    public String getAccountPassword(String accountName)
+            throws ClassNotFoundException, SQLException {
+        String password = null;
+
+        rs = stat.executeQuery("select * from people where accountName = '"
+                + accountName + "'");
+
+        if (rs.next()) {
+            password = rs.getString("password");
+        }
+
+        return password;
     }
 
     /*
@@ -267,7 +275,7 @@ public class DatabaseFunctions {
         accountList = new Vector<String>();
         rs = stat.executeQuery("select * from people;");
         while (rs.next()) {
-            accountList.add(rs.getString("email"));
+            accountList.add(rs.getString("accountName"));
         }
         return accountList;
     }
@@ -281,7 +289,7 @@ public class DatabaseFunctions {
         rs = stat.executeQuery("select * from people where profile='" + name
                 + "';");
         while (rs.next()) {
-            accountList.add(rs.getString("email"));
+            accountList.add(rs.getString("accountName"));
         }
         return accountList;
     }
@@ -330,7 +338,7 @@ public class DatabaseFunctions {
             throws SQLException {
         String friendName = friend.getUserID();
         String blocked = null;
-        
+
         if (friend.isBlocked()) {
             blocked = "yes";
         } else {
@@ -354,13 +362,13 @@ public class DatabaseFunctions {
     public void changeBlocked(String friendName, boolean blocked)
             throws SQLException {
         String isBlocked = null;
-        
+
         if (blocked) {
             isBlocked = "yes";
         } else {
             isBlocked = "no";
         }
-     
+
         stat.executeUpdate("UPDATE friendList SET blocked = '" + isBlocked
                 + "' WHERE friendName ='" + friendName + "';");
 

@@ -88,7 +88,7 @@ public class guestAccountFrame extends JFrame {
                 .getImage());
 
         // select server
-        server = new JComboBox(model.getServerListv2());
+        server = new JComboBox(model.getServerList());
         server.setPreferredSize(new Dimension(200, 20));
         server.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 

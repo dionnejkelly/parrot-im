@@ -284,8 +284,8 @@ public class manageAccountFrame extends JFrame implements Observer
 			
 			
 			
-			  DatabaseFunctions db = new DatabaseFunctions();
-			  db.addUsers("John", new String(model.getServerList().get(serviceField.getSelectedIndex())), new String(UNField.getText()), new String(pwdField.getPassword()), "Y");
+			  //DatabaseFunctions db = new DatabaseFunctions();
+			  //db.addUsers("John", new String(model.getServerList().get(serviceField.getSelectedIndex())), new String(UNField.getText()), new String(pwdField.getPassword()), "Y");
 			// HEY TODO TODO TODO TODO ADD MORE USERS THAN JOHN, 
 			  //AND AND AND CHANGE TO HAVE A CHOICE TO REMEMBER PASSWORD
 			

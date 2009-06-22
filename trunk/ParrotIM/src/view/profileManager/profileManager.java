@@ -130,9 +130,9 @@ public class profileManager extends JFrame {
         removeButton.setMargin(buttonInset);
 
         // +/- BUTTON FUNCTIONALITY
-        addButton.addActionListener(new addProfileListener());
-        removeButton.addActionListener(new removeProfileListener());
-        
+        addButton.addActionListener(new AddProfileListener());
+        removeButton.addActionListener(new RemoveProfileListener());
+
         // pack the whole thing
         addremovePanel.add(addButton);
         addremovePanel.add(removeButton);
@@ -225,11 +225,9 @@ public class profileManager extends JFrame {
         remAcctButton.setMargin(buttonInset);
 
         // Add button listener
-        newAcctButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                editAccountFrame newAcct = new editAccountFrame(model, popup);
-            }
-        });
+        newAcctButton.addActionListener(new AddAccountListener());
+        remAcctButton.addActionListener(new RemoveAccountListener());
+
         addRemoveAcctPanel.add(newAcctButton);
         addRemoveAcctPanel.add(remAcctButton);
 
@@ -276,25 +274,47 @@ public class profileManager extends JFrame {
     }
 
     /*
-     * SECTION:
-     *     Button Listeners
-     *         + button
-     *         - button
+     * SECTION: Button Listeners Add profile (+ button) Remove profile(- button)
+     * Add account button Remove account button
      */
-    
-    private class addProfileListener implements ActionListener {
+
+    private class AddProfileListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             newProfileFrame newProf = new newProfileFrame(model, controller,
                     popup);
+
+            return;
         }
     }
-    
-    private class removeProfileListener implements ActionListener {
+
+    private class RemoveProfileListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            System.out.println("in removeButtonListener: " 
-                    + profileList.getSelectedValue());
             String name = (String) profileList.getSelectedValue();
             controller.removeProfile(name);
+
+            return;
+        }
+    }
+
+    private class AddAccountListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            String profile = (String) profileList.getSelectedValue();
+            editAccountFrame newAcct = new editAccountFrame(model, popup,
+                    controller, profile);
+
+            return;
+        }
+    }
+
+    private class RemoveAccountListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            String account = (String) accList.getSelectedValue();
+            String profile = (String) profileList.getSelectedValue();
+            System.out.println("in removeAccountListener: " + account
+                    + " for profile: " + profile);
+            controller.removeAccount(profile, account);
+
+            return;
         }
     }
 }

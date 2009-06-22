@@ -131,12 +131,12 @@ public class newProfileFrame extends JFrame {
 
         // OK Button
         JButton okButton = new JButton("OK");
-        okButton.addActionListener(new okButtonListener());
+        okButton.addActionListener(new OkButtonListener());
         buttonsPanel.add(okButton);
 
         // Cancel Button
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new cancelButtonListener());
+        cancelButton.addActionListener(new CancelButtonListener());
         buttonsPanel.add(cancelButton);
 
         // Add Content to main Panel and display
@@ -152,7 +152,7 @@ public class newProfileFrame extends JFrame {
      * SECTION: Listener classes
      */
 
-    private class okButtonListener implements ActionListener {
+    private class OkButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             String name = ProfNameField.getText();
             String password = String.copyValueOf(pwdField.getPassword());
@@ -167,7 +167,7 @@ public class newProfileFrame extends JFrame {
         }
     }
 
-    private class cancelButtonListener implements ActionListener {
+    private class CancelButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             popup.setVisible(false);
             popup.dispose();
