@@ -221,7 +221,8 @@ public class Model extends Observable {
         String fromUser = message.getFromUser();
 
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(fromUser, account.getAccountName(), message.getMessage());
+        db.addChat(currentProfile.getProfileName(), fromUser, 
+        		account.getAccountName(), message.getMessage());
 
         user = this.findFriendByAccountName(fromUser);
 
@@ -255,7 +256,8 @@ public class Model extends Observable {
             MessageData message) throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(message.getFromUser(), modifiedConversation.getUser()
+        db.addChat(currentProfile.getProfileName(), message.getFromUser(), 
+        		modifiedConversation.getUser()
                 .getAccountName(), message.getMessage());
         setChanged();
         notifyObservers(UpdatedType.CHAT);
