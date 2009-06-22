@@ -732,4 +732,23 @@ public class Xmpp {
             return;
         }
     }
+    
+    /*
+     * SECTION:
+     *     Profile manipulation
+     */
+    
+    public void addProfile(String name, String password,
+            boolean defaultProfile) {
+        this.model.addProfile(name, password, defaultProfile);
+        
+        return;
+    }
+    
+    public void removeProfile(String name) {
+        this.model.removeProfile(name);
+        
+        return;
+    }
+    
 }
