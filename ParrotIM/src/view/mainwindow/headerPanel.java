@@ -20,7 +20,7 @@ public class headerPanel extends JPanel{
 		//logo-avatar
 		avatarDisplay = new JLabel ();
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		avatar = new ImageIcon (getcwd() + "/images/mainwindow/fb.jpg");
+		avatar = new ImageIcon (getcwd() + "/images/buddylist/logoBox.png");
 	
 		//TODO: set auto scaling + border later
 		avatarDisplay.setIcon(avatar);
@@ -37,6 +37,7 @@ public class headerPanel extends JPanel{
 	    String cwd = System.getProperty("user.dir"); 
 	    return cwd; 
 	}
+	
 	/*
 	protected void setAnimation(){
 		avatarDisplay.setIcon(new ImageIcon(getcwd() + "/src/mainwindow/animation.gif"));
@@ -44,6 +45,7 @@ public class headerPanel extends JPanel{
 		this.setVisible(true);
 		System.out.println("headerPanel here");
 	}*/
+	
 	protected void loadMain(){
 		//avatarDisplay.setIcon(avatar);
 		status.setText("<html><FONT COLOR=RED>Sign in failed!</FONT></html>");
