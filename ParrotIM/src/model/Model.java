@@ -30,7 +30,7 @@
  *     	   Added getBuddyLogList(), getBuddyDateList(), getLogMessage()
  *         Those functions are linked with DatabaseFunctions.java
  *         These functions are used for chat log window
- *     2009-June20, AAS
+ *     2009-June-20, AAS
  *         Added getProfileList(), getProfilesUserList()
  *         
  *         
@@ -65,16 +65,12 @@ public class Model extends Observable {
     private ArrayList<ConversationData> conversations;
     private ConversationData activeConversation;
     private CurrentProfileData currentProfile;
-    // private DatabaseFunctions db;
 
     public boolean chatWindowOpen;
 
     public Model() throws ClassNotFoundException, SQLException {
         currentProfile = new CurrentProfileData();
         conversations = new ArrayList<ConversationData>();
-
-        /* Test code to create an entry in the friendList */
-        // db = new DatabaseFunctions(); // initialize database
     }
 
     /**
@@ -126,12 +122,7 @@ public class Model extends Observable {
 
     }
 
-    /* Phase this method out in favour of the next one */
-    public Vector<String> getServerList() {
-        return ServerType.getServerList();
-    }
-
-    public Vector<ServerType> getServerListv2() {
+    public Vector<ServerType> getServerList() {
         Vector<ServerType> servers = new Vector<ServerType>();
         for (ServerType s : ServerType.values()) {
             servers.add(s);
@@ -142,7 +133,7 @@ public class Model extends Observable {
     public String getPassword(String username) throws ClassNotFoundException,
             SQLException {
         DatabaseFunctions db = new DatabaseFunctions();
-        return db.getPassword(username);
+        return db.getAccountPassword(username);
     }
 
     public int numberOfConversations() {
@@ -289,6 +280,49 @@ public class Model extends Observable {
         return this.conversations;
     }
 
+    /*
+     * SECTION: Account manipulation - Remove account - Add account
+     */
+
+    public void addAccount(String profile, String server, String accountName,
+            String password) {
+        DatabaseFunctions db;
+        try {
+            db = new DatabaseFunctions();
+            db.addUsers(profile, server, accountName, password);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        super.setChanged();
+        super.notifyObservers(UpdatedType.PROFILE);
+
+        return;
+    }
+
+    public void removeAccount(String profile, String account) {
+        DatabaseFunctions db;
+        try {
+            db = new DatabaseFunctions();
+            db.removeAccountFromProfile(profile, account);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        super.setChanged();
+        super.notifyObservers(UpdatedType.PROFILE);
+
+        return;
+    }
+
     /* Current Profile manipulation */
     public void addProfile(String name, String pwd, boolean defaultProfile) {
         DatabaseFunctions db;
@@ -302,13 +336,13 @@ public class Model extends Observable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         super.setChanged();
         super.notifyObservers(UpdatedType.PROFILE);
-        
+
         return;
     }
-    
+
     public void removeProfile(String name) {
         DatabaseFunctions db;
         try {
@@ -321,10 +355,10 @@ public class Model extends Observable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         super.setChanged();
         super.notifyObservers(UpdatedType.PROFILE);
-        
+
         return;
     }
 
@@ -474,7 +508,7 @@ public class Model extends Observable {
         DatabaseFunctions db = null;
 
         account.addFriend(userToAdd);
-        
+
         // Database manipulation
         try {
             db = new DatabaseFunctions();
@@ -699,8 +733,8 @@ public class Model extends Observable {
                 unsortedFriends.add(user);
             }
         }
-        
-        // Sort the friends. Terribly inefficient. Please implement 
+
+        // Sort the friends. Terribly inefficient. Please implement
         // a O(nlog(n)) algorithm when time permits.
 
         // Sorts the unsortedFriends alphabetically, no regard for
@@ -709,7 +743,8 @@ public class Model extends Observable {
             for (UserData user : unsortedFriends) {
                 if (candidate == null) {
                     candidate = user;
-                } else if (user.getNickname().compareToIgnoreCase(candidate.getNickname()) < 0) {
+                } else if (user.getNickname().compareToIgnoreCase(
+                        candidate.getNickname()) < 0) {
                     candidate = user;
                 } else {
                     // Do nothing, look at next user.
@@ -719,11 +754,11 @@ public class Model extends Observable {
             friends.add(candidate);
             candidate = null;
         }
-        
+
         unsortedFriends = friends;
         friends = new ArrayList<UserData>();
         candidate = null;
-        
+
         // Sort with regard to online/busy/offline/blocked
         while (!unsortedFriends.isEmpty()) {
             for (UserData user : unsortedFriends) {
@@ -739,8 +774,7 @@ public class Model extends Observable {
             friends.add(candidate);
             candidate = null;
         }
-        
-        
+
         return friends;
     }
 
