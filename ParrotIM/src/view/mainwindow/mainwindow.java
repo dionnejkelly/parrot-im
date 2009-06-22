@@ -63,7 +63,7 @@ import model.dataType.CurrentProfileData;
 import model.dataType.UpdatedType;
 
 public class mainwindow extends JFrame implements Observer {
-
+	private signinPanel signPanel;
 	public mainwindow (Xmpp chatClient, Model model) 
 	        throws ClassNotFoundException, SQLException {
 
@@ -75,7 +75,8 @@ public class mainwindow extends JFrame implements Observer {
 		setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
 
 		//call SignIn Panel
-		getContentPane().add(new signinPanel(this, chatClient, model));
+		signPanel = new signinPanel(this, chatClient, model);
+		getContentPane().add(signPanel);
 		
 		pack();
 		setVisible(true);
@@ -93,6 +94,8 @@ public class mainwindow extends JFrame implements Observer {
 	public void update(Observable t, Object o) {
 	    if (o == UpdatedType.ALL && o == UpdatedType.MAIN) {
 	        System.out.println("Observed!" + o);
-	    }	    
+	    }else if (o == UpdatedType.PROFILE){
+	    	
+	    }
 	}
 }
