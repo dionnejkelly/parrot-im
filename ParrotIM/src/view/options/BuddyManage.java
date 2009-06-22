@@ -37,6 +37,7 @@ public class BuddyManage extends JComponent implements ListSelectionListener, Ac
     private JPanel pCheckList = new JPanel(false);
 	private JPanel pEdit = new JPanel(false);
 	private JPanel pEntry = new JPanel(false);
+	//private JPanel pEmpty = new JPanel(false);
 
     private JList lBuddy;
 	private JScrollPane listScrollPane;
@@ -60,7 +61,7 @@ public class BuddyManage extends JComponent implements ListSelectionListener, Ac
 		lBuddy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lBuddy.setSelectedIndex(0);
 		lBuddy.addListSelectionListener(this);
-		lBuddy.setVisibleRowCount(30);
+//		lBuddy.setVisibleRowCount(30);
 		listScrollPane = new JScrollPane(lBuddy);
 
 
@@ -103,14 +104,15 @@ public class BuddyManage extends JComponent implements ListSelectionListener, Ac
 		pEdit.add(bAdd);
 		pEdit.add(bDelete);
 		pEdit.add(bBlock);
-
-
+	
+		
         pEntry.setLayout(new GridLayout(1, 2));
         pEntry.add(bOK);
         pEntry.add(bCancel);
 
 		pButtom.setLayout(new BorderLayout());
         pButtom.add(pEdit, BorderLayout.NORTH);
+        //pButtom.add(pEmpty,BorderLayout.CENTER);
         pButtom.add(pEntry, BorderLayout.SOUTH);
 
         pInfo.setLayout(new BorderLayout());
