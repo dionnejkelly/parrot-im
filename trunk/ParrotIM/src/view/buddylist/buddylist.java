@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
-import options.OptionMenu;
+import view.options.OptionMenu;
 
 import view.chatLog.chatLogFrame;
 
