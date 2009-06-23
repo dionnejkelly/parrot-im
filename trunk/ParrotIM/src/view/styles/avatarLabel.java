@@ -8,7 +8,7 @@
  *         Initial write. Click on the display picture to access file chooser.
  *         
  * Known Issues:
- *     None
+ *     not able to resize huge picture (want to resize it to 100x100)
  * 
  * Copyright (C) 2009  Pirate Captains
  * 
@@ -17,6 +17,7 @@
 
 package view.styles;
 
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -24,7 +25,6 @@ import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import javax.swing.filechooser.FileFilter;
@@ -37,6 +37,7 @@ public class avatarLabel extends JLabel{
 	public avatarLabel(String defaultImage){
 		avatarlbl = this;
 		avatar = new ImageIcon(defaultImage); // want to get this from model later
+		this.setMaximumSize(new Dimension(100,100));//want to look more into it
 		this.setIcon(avatar);
 		this.addMouseListener(new avatarMouseListener());
 	}
@@ -53,8 +54,6 @@ public class avatarLabel extends JLabel{
 		public void mouseExited(MouseEvent e) {}
 		public void mousePressed(MouseEvent e) {}
 		public void mouseReleased(MouseEvent e) {
-			JFrame fileChooserPopup = new JFrame("Change Display Picture");
-			fileChooserPopup.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			
 			System.out.println("clicked");
 			
@@ -66,23 +65,17 @@ public class avatarLabel extends JLabel{
 			fileChooser.setMultiSelectionEnabled(false);
 			fileChooser.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 			
-			fileChooserPopup.getContentPane().add(fileChooser);
-			fileChooserPopup.pack();
-			fileChooserPopup.setVisible(true);
-			
 			//Show it.
-	        int returnVal = fileChooser.showOpenDialog(fileChooserPopup);
+	        int returnVal = fileChooser.showOpenDialog(avatarlbl);
 
 	        //Process the results.
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fileChooser.getSelectedFile();
 	            avatarlbl.changeAvatar(file.getAbsolutePath());
 	            System.out.println(file.getAbsolutePath()+ " is choosen");
-	            fileChooserPopup.dispose();
 	        	fileChooser.setVisible(false);//DISPOSE!!!
 	        } else {
 	        	System.out.println("Attachment cancelled by user.");
-	        	fileChooserPopup.dispose();
 	        	fileChooser.setVisible(false);//DISPOSE!!!
 	        }
 
