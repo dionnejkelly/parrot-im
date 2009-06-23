@@ -31,6 +31,27 @@ public class Chatbot {
                          "I am thinking if I should tell your or not."
                         },
                         
+                        {"COOL",
+                         "Yes,it is cool.",
+                         "I'm agree with you.",
+                         "Same feeling.",
+                        },
+                        
+                        {"HOW LONG",
+                         "I'm not sure. Sorry about that.",
+                         "What do you mean?",
+                         "I do not konw.Sorry",
+                         "Let me think about it."	
+                        },
+                        
+                        {"WHAT IS UP",
+                         "Good",
+                         "Fine",
+                         "Not bad",
+                         "What about you?"
+                        },
+                        
+                        
                         {"WHAT IS YOUR AGE", 
                          "I am 19 years old.",
                          "I am 19.",
@@ -96,7 +117,7 @@ public class Chatbot {
                         },
                                 
                         {"WHEN SHOULD I REPLY YOU", 
-                     "I will be back home by 7 pm.",
+                         "I will be back home by 7 pm.",
                          "You can contact me at 7 pm.",
                          "Why do you want to know?",
                          "I am scared to tell you.",
@@ -189,20 +210,24 @@ public class Chatbot {
                          "YOU ARE REPEATING YOURSELF.",
                          "USER, PLEASE STOP REPEATING YOURSELF.",
                          "THIS CONVERSATION IS GETING BORING.",
-                         "DONT YOU HAVE ANY THING ELSE TO SAY?"
+                         "DONT YOU HAVE ANY THING ELSE TO SAY?",
+                         "COME ON,PLEASE SAY SOMETHING ELSE."
                         },
                                 
                         {"REPETITION T2**",
                          "YOU'VE ALREADY SAID THAT.",
                          "I THINK THAT YOU'VE JUST SAID THE SAME THING BEFORE.",
                          "DIDN'T YOU ALREADY SAID THAT?",
-                         "I'M GETING THE IMPRESSION THAT YOU ARE REPEATING THE SAME THING."
+                         "I'M GETING THE IMPRESSION THAT YOU ARE REPEATING THE SAME THING.",
+                         "OK, NEVER MIND."
                         },
 
                         {"BOT DONT UNDERSTAND**",
                          "I HAVE NO IDEA OF WHAT YOU ARE TALKING ABOUT.",
                          "I'M NOT SURE IF I UNDERSTAND WHAT YOU ARE TALKING ABOUT.",
                          "CONTINUE, I'M LISTENING...",
+                         "I'M SORRY?",
+                         "PARDON ME.",
                          "VERY GOOD CONVERSATION!"
                         },
 
@@ -210,7 +235,9 @@ public class Chatbot {
                          "HUH?",
                          "WHAT THAT SUPPOSE TO MEAN?",
                          "AT LIST TAKE SOME TIME TO ENTER SOMETHING MEANINGFUL.",
-                         "HOW CAN I SPEAK TO YOU IF YOU DONT WANT TO SAY ANYTHING?"
+                         "HOW CAN I SPEAK TO YOU IF YOU DONT WANT TO SAY ANYTHING?",
+                         "I'M SORRY?",
+                         "PARDON ME.",
                         },
 
                         {"NULL INPUT REPETITION**",
@@ -223,7 +250,8 @@ public class Chatbot {
                         {"ARE YOU SURE",
                          "OFCORSE I'M.",
                          "IS THAT MEAN THAT YOU ARE NOT CONVINCED?",
-                         "YES,OFCORSE!"
+                         "YES,OFCORSE!",
+                         "DON'T YOU BELIEVE ME?"
                         },
 
                         {"WHO IS",
@@ -248,7 +276,7 @@ public class Chatbot {
                          "I DONT THINK I KNOW WHY.",
                          "WHY ARE YOU ASKING ME THIS?",
                          "SHOULD I KNOW WHY.",
-                     "THIS WOULD BE DIFFICULT TO ANSWER."
+                         "THIS WOULD BE DIFFICULT TO ANSWER."
                         },
 
                         {"DO YOU",
