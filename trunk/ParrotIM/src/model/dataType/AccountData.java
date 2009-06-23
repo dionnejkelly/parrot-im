@@ -37,9 +37,10 @@ public class AccountData {
     private ServerType server;
     private String accountName;
     private String password;
-    private UserData ownUserData;
     
     /* Phase this field out */
+    private UserData ownUserData;
+    
     private ArrayList<UserData> friends;
     
     private boolean connected;
@@ -99,7 +100,6 @@ public class AccountData {
      * @return true if removed, false otherwise
      */
     public boolean removeFriend(UserData exFriend) {
-    	
         return this.friends.remove(exFriend);
     }
 	

@@ -91,5 +91,35 @@ public class loginTest {
         
         return;
     }
+    
+    @Test
+    public void checkFriendRemoval() throws Exception {
+        // Ensure that adding a friend makes changes to both the
+        // model and the database.
+        FriendTempData foundFriend = null;
+        
+        controller.addFriend(friendUserID);
+        
+        assertNotNull(model.findUserByAccountName(friendUserID));
+        db = new DatabaseFunctions();
+        for (FriendTempData f : db.getFriendListByAccountName(userID)) {
+            if (f.getUserID().equalsIgnoreCase(friendUserID)) {
+                
+                foundFriend = f;
+                break;
+            }
+        }
+        assertTrue(foundFriend.getUserID().equalsIgnoreCase(friendUserID));
+        
+        controller.removeFriend(friendUserID);        
+
+        assertNull(model.findUserByAccountName(friendUserID));
+        db = new DatabaseFunctions();
+        for (FriendTempData f : db.getFriendListByAccountName(userID)) {
+            assertTrue(!f.getUserID().equalsIgnoreCase(friendUserID));
+        }   
+        
+        return;
+    }
 
 }
