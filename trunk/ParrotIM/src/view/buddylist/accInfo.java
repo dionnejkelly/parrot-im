@@ -1,7 +1,7 @@
-/* chatLogPanel.java
+/* accInfo.java
  * 
  * Programmed By:
- * 	   Aaron Siu (ANS)
+ *     Aaron Siu (ANS)
  *     Jordan Fox
  *     Jihoon Choi
  *     Vera Lukman
@@ -18,16 +18,16 @@
  *     2009-June-6, JC
  *         Integrated status message with control. 
  *         Now able to set status message on the actual server.
- *	   2009-June-7, VL
+ *     2009-June-7, VL
  *         Modified status message look and feel.
  *         Now users can edit the status message and hit enter to change it.
- *	   2009-June-13, VL
+ *     2009-June-13, VL
  *         Fixed bug on pmLabel.
- *	   2009-June-13, WC
+ *     2009-June-13, WC
  *         Transferred file over to new project, ParrotIM.
- *	   2009-June-17, VL
+ *     2009-June-17, VL
  *         Added presence JCombobox.
- *	   2009-June-17, JC
+ *     2009-June-17, JC
  *         Integrated presence with control.
  *         Now users are able to set their status mode.
  *     2009-June-19, KF
@@ -36,6 +36,8 @@
  *         Changed avatar to parrot-IM logo.
  *     2009-June-22, VL
  *         Now users click anywhere outside status message box to change it.
+ *     2009-June-23, VL
+ *         Now users can clicked on the display picture to modify it.
  *         
  * Known Issues:
  *     None
@@ -64,6 +66,7 @@ import model.Model;
 
 import controller.services.Xmpp;
 
+import view.styles.avatarLabel;
 import view.styles.statusCombo;
 import view.styles.pmLabel;
 
@@ -76,7 +79,6 @@ public class accInfo extends JPanel
 	 * 					Top: User Display name
 	 * 					Bottom: Status, and status messages (if applicable)			
 	 */
-	ImageIcon avatar;
 	JLabel avatarDisplay, displayName;
 	Xmpp chatClient;
 	
@@ -95,9 +97,7 @@ public class accInfo extends JPanel
 		setLayout(new BorderLayout());
 		
 		//avatar
-		avatar = new ImageIcon("images/buddylist/logoBox.png");
-		avatarDisplay = new JLabel();
-		avatarDisplay.setIcon(avatar);
+		avatarLabel avatarDisplay = new avatarLabel("images/buddylist/logoBox.png");
 		
 		//name, status message (personal message) and status
 		JPanel textInfo = new JPanel();
