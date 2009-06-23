@@ -1,13 +1,24 @@
-#summary One-sentence summary of this page.
+#summary Assignment 3 submission
 
-= Introduction =
+= Executable File =
+(link to Jar file)
 
-Add your content here.
+= Source = 
+All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
+Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/ParrotIM]
 
-= Details =
+= Documents =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Our previous documents can be found here:
+  *[RequirementsDocument Old Requirements Document]
+  *[DesignDocument Old Design Document]
+  *[QualityAssurancePlan Old Quality Assurance Plan]
+
+All changes to the documents are given here:
+  *[RequirementsDocument_a3 Requirements Document]
+  *[DesignDocument_a3 Design Document]
+  *[QualityAssurancePlan_a3 Quality Assurance Plan]
+
+= Coding Conventions = 
+
