@@ -1,9 +1,58 @@
+/* chatLogPanel.java
+ * 
+ * Programmed By:
+ * 	   Aaron Siu (ANS)
+ *     Jordan Fox
+ *     Jihoon Choi
+ *     Vera Lukman
+ *     William Chen
+ *     Kevin Fahy
+ *     
+ * Change Log:
+ *     2009-June-1, ANS
+ *         Initial write.
+ *     2009-June-2, JF
+ *         Set the background, added avatar, status message, display name.
+ *     2009-June-4, JF
+ *         Integrated with control.
+ *     2009-June-6, JC
+ *         Integrated status message with control. 
+ *         Now able to set status message on the actual server.
+ *	   2009-June-7, VL
+ *         Modified status message look and feel.
+ *         Now users can edit the status message and hit enter to change it.
+ *	   2009-June-13, VL
+ *         Fixed bug on pmLabel.
+ *	   2009-June-13, WC
+ *         Transferred file over to new project, ParrotIM.
+ *	   2009-June-17, VL
+ *         Added presence JCombobox.
+ *	   2009-June-17, JC
+ *         Integrated presence with control.
+ *         Now users are able to set their status mode.
+ *     2009-June-19, KF
+ *         Updated name to profile name.
+ *     2009-June-22, JF
+ *         Changed avatar to parrot-IM logo.
+ *     2009-June-22, VL
+ *         Now users click anywhere outside status message box to change it.
+ *         
+ * Known Issues:
+ *     None
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.buddylist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -29,7 +78,6 @@ public class accInfo extends JPanel
 	 */
 	ImageIcon avatar;
 	JLabel avatarDisplay, displayName;
-	JLabel status;
 	Xmpp chatClient;
 	
 	protected pmLabel statusMessage;
@@ -40,8 +88,8 @@ public class accInfo extends JPanel
 	
 	public accInfo(Xmpp c, Model model) 
 	{
-	        this.model = model;
-	        setBackground(Color.DARK_GRAY);
+	    this.model = model;
+	    setBackground(Color.DARK_GRAY);
 		setPreferredSize(new Dimension(300,100));
 		setBorder(BorderFactory.createEmptyBorder(5,15,5,5));
 		setLayout(new BorderLayout());
@@ -64,12 +112,11 @@ public class accInfo extends JPanel
 		name.setForeground(Color.WHITE);
 		
 		// Allowing users to change their status.
-		pmLabel statusMessage = new pmLabel(c);
+		statusMessage = new pmLabel(c);
 		statusMessage.setForeground(Color.black);
 		textInfo.add(name);
 		textInfo.add(statusMessage);
 		// new Listener
-		//statusMessage.addActionListener(new statusTestListener());
 		
 		//combobox to change presence
 		JPanel info = new JPanel ();
@@ -84,6 +131,22 @@ public class accInfo extends JPanel
 		
 		add(avatarDisplay, BorderLayout.WEST);
 		add(info, BorderLayout.CENTER);
+		
+		this.addMouseListener(new statusMouseListener());
 	}
    
+	private class statusMouseListener implements MouseListener{
+
+		public void mouseClicked(MouseEvent e) {
+			if (statusMessage.isEditable()){
+				statusMessage.changePM(false);
+			}
+		}
+
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+		
+	}
 }
