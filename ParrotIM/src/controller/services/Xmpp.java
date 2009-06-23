@@ -349,13 +349,13 @@ public class Xmpp {
             savedFriends = model.getSavedFriends(account.getAccountName());
 
             for (RosterEntry r : entries) {
-                /* Decide which type of user to use */
-                if (r.getName() == null) {
-                    r.setName(StringUtils.parseName(r.getUser()));
-                }
-
+                // Decide which type of user to use 
                 accountName = r.getUser();
                 nickname = r.getName();
+                if (nickname == null || nickname.equalsIgnoreCase(accountName)) {
+                    nickname = StringUtils.parseName(r.getUser());
+                    r.setName(nickname);
+                }
 
                 if (account.getServer() == ServerType.GOOGLE_TALK) {
                     user = new GoogleTalkUserData(accountName, nickname, status);

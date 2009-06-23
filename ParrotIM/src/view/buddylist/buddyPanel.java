@@ -296,24 +296,14 @@ public class buddyPanel extends JPanel implements Observer {
         // end it
         friendItem.setToolTipText("Right click to see options for this item");
 
-        // prints the usersnickname to the JPanel.
         JLabel friendName;
-        // if (chatClient.getUserPresence(user.getAccountName()).contains(
-        // "offline")) {
-        // friendName = new JLabel(user.getNickname() + " (Offline)");
-        // } else {
-        // friendName = new JLabel(user.getNickname() + " - "
-        // + user.getStatus() + " (" + user.getState() + ")");
-        // JLabel friendStatus = new JLabel(" - \"" + status + "\"");
-        // }
 
-        System.out.println("---------------User Status = "
-                + user.getState().toString());
-
+        // Colour our world! Sets colours for our friends.
+        // Note: Separating the name and the status colours would be great.
         if (user.isBlocked()) {
             friendName = new JLabel("* Blocked: " + user.getAccountName()
                     + " *");
-            friendName.setForeground(Color.GRAY.darker());
+            friendName.setForeground(Color.LIGHT_GRAY.darker());
         } else if (user.getState().toString().equals("Available")) {
             friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
@@ -321,11 +311,11 @@ public class buddyPanel extends JPanel implements Observer {
         } else if (user.getState().toString().equals("dnd")) {
             friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (Busy)");
-            friendName.setForeground(Color.YELLOW.darker());
+            friendName.setForeground(Color.ORANGE.darker());
         } else if (user.getState().toString().equals("away")) {
             friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (Away)");
-            friendName.setForeground(Color.YELLOW.darker());
+            friendName.setForeground(Color.ORANGE.darker());
         } else {
             friendName = new JLabel(user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");

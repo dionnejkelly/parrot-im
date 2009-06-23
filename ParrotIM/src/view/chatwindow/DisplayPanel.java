@@ -11,6 +11,7 @@ import javax.swing.text.html.HTMLEditorKit;
 public class DisplayPanel extends JPanel implements Observer {
     private JEditorPane txtPane;
     private Model model;
+    private JLabel title;
 
     // private String previousText;
 
@@ -41,8 +42,9 @@ public class DisplayPanel extends JPanel implements Observer {
             txtPane.setText("");
         }
 
-        JLabel title = new JLabel(
+        title = new JLabel(
                 "Conversation 1                           view: ");
+        title.setText(model.getActiveConversation().getUser().getNickname());
 
         JButton fullView = new JButton("Full");
         JButton simpleView = new JButton("Simple");
@@ -72,16 +74,9 @@ public class DisplayPanel extends JPanel implements Observer {
         /* May want to update this to update line-per-line */
         if (arg == UpdatedType.CHAT) {
             txtPane.setText(model.getActiveConversation().displayMessages());
-            System.out.println(model.getActiveConversation().getAccount());
+            title.setText(model.getActiveConversation().getUser().getNickname());
         }
         return;
     }
 
-    /*
-     * Superseeded by model classes public void addMessage(String
-     * userName,String text, String font, String size){ String user = userName;
-     * if(text.length() > 0){ previousText = previousText + "<U>" + user +
-     * ":</U> " + "<font face=\"" + font + "\" size=\"" + size + "\">" + text +
-     * "</font><br><br>"; txtPane.setText(previousText); } }
-     */
 }
