@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.ServerType;
+import model.dataType.tempData.FriendTempData;
 
 import org.jivesoftware.smack.XMPPException;
 import org.junit.After;
@@ -20,35 +21,75 @@ public class loginTest {
     private Model model;
     private Xmpp controller;
     private DatabaseFunctions db;
+    private String profileName;
+    private String userID;
+    private String password;
+    private String friendUserID;
     
     
     @Before
-    public void setUp() throws ClassNotFoundException, SQLException {
+    public void setUp() throws Exception {
         DatabaseFunctions.setDatabaseName("test.db");
         db = new DatabaseFunctions();
         db.dropTables();
         this.model = new Model();
         this.controller = new Xmpp(model);
-    }
-
-    @After
-    public void tearDown() {
-        this.model = null;
-        this.controller = null;
-    }
-    
-    @Test
-    public void loginWithProfile() throws XMPPException {
-        String profileName = "Matt Damon";
-        String userID = "parrotim.test@gmail.com";
-        String password = "abcdefghi";
+        
+        profileName = "Phyllis";
+        userID = "parrotim.test@gmail.com";
+        password = "abcdefghi";
+        friendUserID = "cmpt275testing@gmail.com";
         
         model.addProfile(profileName, "", true);
         model.addAccount(profileName, "talk.google.com", userID, password);
         
         controller.loginProfile(profileName);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        controller.disconnect();
         
+        this.model = null;
+        this.controller = null;
+    }
+    
+    @Test
+    public void checkModelConsistency() throws Exception {
         assertTrue(model.getCurrentProfile().getProfileName().equals(profileName));
+        assertTrue(model.getCurrentProfile().getAccountData().get(0).getAccountName().equals(userID));
+    
+        return;
+    }
+    
+    @Test
+    public void checkFriendAddition() throws Exception {
+        // Ensure that adding a friend makes changes to both the
+        // model and the database.
+        FriendTempData foundFriend = null;
+        
+        controller.removeFriend(friendUserID);        
+              
+        assertNull(model.findUserByAccountName(friendUserID));
+        db = new DatabaseFunctions();
+        for (FriendTempData f : db.getFriendListByAccountName(userID)) {
+            assertTrue(!f.getUserID().equalsIgnoreCase(friendUserID));
+        }
+        
+        controller.addFriend(friendUserID);
+        
+        assertNotNull(model.findUserByAccountName(friendUserID));
+        db = new DatabaseFunctions();
+        for (FriendTempData f : db.getFriendListByAccountName(userID)) {
+            if (f.getUserID().equalsIgnoreCase(friendUserID)) {
+                
+                foundFriend = f;
+                break;
+            }
+        }
+        assertTrue(foundFriend.getUserID().equalsIgnoreCase(friendUserID));
+        
+        return;
     }
 
 }
