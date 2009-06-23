@@ -99,7 +99,7 @@ public class buddylist extends JFrame{
 	private class chatLogListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			new chatLogFrame(model, "cmpt275testing@gmail.com");// change this later 
+			new chatLogFrame(model); 
 			
 		}
 		

@@ -56,6 +56,7 @@ import model.dataType.ServerType;
 import model.dataType.UpdatedType;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
+import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
 
 /**
@@ -107,10 +108,10 @@ public class Model extends Observable {
     public ArrayList<AccountTempData> getAccountsForProfile(String profile) {
         ArrayList<AccountTempData> accounts = null;
         DatabaseFunctions db = null;
-        
+
         try {
             db = new DatabaseFunctions();
-            accounts = db.getAccountList(profile);        
+            accounts = db.getAccountList(profile);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -118,7 +119,7 @@ public class Model extends Observable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         return accounts;
     }
 
@@ -221,10 +222,10 @@ public class Model extends Observable {
         String fromUser = message.getFromUser();
 
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(currentProfile.getProfileName(), fromUser, 
-        		account.getAccountName(), message.getMessage());
+        db.addChat(currentProfile.getProfileName(), fromUser, account
+                .getAccountName(), message.getMessage());
 
-        user = this.findFriendByAccountName(fromUser);
+        user = this.findUserByAccountName(fromUser);
 
         for (ConversationData c : conversations) {
             if (c.getUser() == user) {
@@ -256,9 +257,9 @@ public class Model extends Observable {
             MessageData message) throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(currentProfile.getProfileName(), message.getFromUser(), 
-        		modifiedConversation.getUser()
-                .getAccountName(), message.getMessage());
+        db.addChat(currentProfile.getProfileName(), message.getFromUser(),
+                modifiedConversation.getUser().getAccountName(), message
+                        .getMessage());
         setChanged();
         notifyObservers(UpdatedType.CHAT);
         return;
@@ -421,6 +422,15 @@ public class Model extends Observable {
         return;
     }
 
+    /**
+     * Searches for a friend in all the accounts of the current profile by
+     * account name.
+     * 
+     * @param accountName
+     *            The String representing the account name.
+     * @return A UserData with the friend info. Can be null if the friend is not
+     *         found.
+     */
     public UserData findUserByAccountName(String accountName) {
         UserData found = null;
         ArrayList<UserData> friends = this.currentProfile.getAllFriends();
@@ -432,6 +442,7 @@ public class Model extends Observable {
         }
         return found;
     }
+    
 
     /**
      * Adds a friend to the friend list. Takes a server type and a String
@@ -599,30 +610,6 @@ public class Model extends Observable {
         super.notifyObservers(UpdatedType.BUDDY);
 
         return success;
-    }
-
-    /**
-     * Searches for a friend in all the accounts of the current profile by
-     * account name.
-     * 
-     * @param accountName
-     *            The String representing the account name.
-     * @return A UserData with the friend info. Can be null if the friend is not
-     *         found.
-     */
-    public UserData findFriendByAccountName(String accountName) {
-        UserData foundFriend = null;
-
-        /* Find the UserData representation of the friend */
-        for (UserData u : currentProfile.getAllFriends()) {
-            if (u.getAccountName().equalsIgnoreCase(accountName)) {
-                foundFriend = u;
-                break;
-            }
-        }
-
-        /* Possible that foundFriend is still null--not found */
-        return foundFriend;
     }
 
     /**
@@ -822,54 +809,78 @@ public class Model extends Observable {
     /*
      * ChatLog functions
      */
-    public Vector<String> getBuddyLogList(String username) throws SQLException {
+    public Vector<String> getBuddyLogList(String profile) {
         // returns list of buddies (that have chat log)
+        // We might need to consider the case in which the same
+        // user is on multiple accounts. With this scheme, the
+        // user will be returned twice.
+        Vector<String> buddies = null;       
         DatabaseFunctions db = null;
+        
         try {
             db = new DatabaseFunctions();
+            buddies = new Vector<String>();
+            for (AccountData account : this.getCurrentProfile()
+                    .getAccountData()) {
+
+                // Iterates over all accounts, and adds the messages from the
+                // database of all accounts into messages
+                buddies.addAll(db.getChatNameList(account.getAccountName()));
+            }           
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        return db.getChatNameList(username);
+        
+        return buddies;
     }
 
-    public Vector<String> getBuddyDateList(String username, String buddyname)
-            throws SQLException {
+    public Vector<String> getBuddyDateList(String profile, String buddyname) {
         // returns history date list
+        Vector<String> chats = null;
+
         DatabaseFunctions db = null;
         try {
             db = new DatabaseFunctions();
+            chats = db.getChatDatesFromName(profile, buddyname);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        return db.getChatDatesFromName(username, buddyname);
+
+        return chats;
     }
 
-    public String getLogMessage(String username, String buddyname, String date)
-            throws SQLException {
-        // returns logged message of a certain date
-        // TODO: this might be incorrect. date only? will it be from the right
-        // user too?
-        // will it show the replies from the user too?
+    public ArrayList<ChatLogMessageTempData> getLogMessage(String username,
+            String buddyname, String date) {
         DatabaseFunctions db = null;
+        ArrayList<ChatLogMessageTempData> messages = new ArrayList<ChatLogMessageTempData>();
+
         try {
             db = new DatabaseFunctions();
+            for (AccountData account : this.getCurrentProfile()
+                    .getAccountData()) {
+
+                // Iterates over all accounts, and adds the messages from the
+                // database of all accounts into messages
+                messages.addAll(db.getMessageFromDate(account.getAccountName(),
+                        buddyname, date));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // PLEASE change this code so it isn't simply appended here
-        // instead dealt with by the chatLogFrame, i don't think it's
-        // a good idea to do it like this in the model, thanks
-        Vector<String> accountlist = db.getMessageFromDate(username, buddyname,
-                date);
-        String appendedAccountList = "";
-        for (int i = 0; i < accountlist.size(); i++) {
-            appendedAccountList += accountlist.elementAt(i) + "\n";
-        }
-        return appendedAccountList;
+
+        return messages;
     }
 
 }

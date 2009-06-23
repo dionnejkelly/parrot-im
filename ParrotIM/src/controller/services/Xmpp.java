@@ -233,6 +233,8 @@ public class Xmpp {
             login(a.getServer(), a.getUserID(), a.getPassword());
         }
         
+        model.getCurrentProfile().setProfileName(profile);
+        
         return;
     }
 
@@ -415,7 +417,7 @@ public class Xmpp {
 
         // TEMP FIX TO MAKE CONVERSATION
         if (conversation == null) {
-            model.startConversation(model.findFriendByAccountName(to));
+            model.startConversation(model.findUserByAccountName(to));
             conversation = model.findConversationByFriend(to);
         }
 

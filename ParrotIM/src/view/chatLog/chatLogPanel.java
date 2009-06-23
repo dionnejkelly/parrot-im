@@ -26,6 +26,7 @@ package view.chatLog;
 
 import java.awt.Dimension;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -39,9 +40,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.Model;
+import model.dataType.tempData.ChatLogMessageTempData;
 
 public class chatLogPanel extends JSplitPane {
-    private String username;
+    private String profile;
     private Model model;
     private JSplitPane logPane;
 
@@ -57,16 +59,16 @@ public class chatLogPanel extends JSplitPane {
     private JEditorPane text;
     private JScrollPane chatlog;
 
-    public chatLogPanel(Model model, String username) {
+    public chatLogPanel(Model model, String profile) {
         // model stub
         this.model = model;
-        this.username = username;
+        this.profile = profile;
 
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         /* set left JSplitPane component */
-        buddyPanel buddyList = new buddyPanel(model, username);
+        buddyPanel buddyList = new buddyPanel(model, profile);
         buddies = buddyList.buddyList;
         buddies.addListSelectionListener(new buddyListener());
         this.setLeftComponent(buddyList);
@@ -106,28 +108,23 @@ public class chatLogPanel extends JSplitPane {
         public void valueChanged(ListSelectionEvent e) {
             if (buddies.getSelectedIndex() > -1) {
 
-                try {
-                    dateVectorList = model.getBuddyDateList(username, buddies
-                            .getSelectedValue().toString());
+                dateVectorList = model.getBuddyDateList(profile, buddies
+                        .getSelectedValue().toString());
 
-                    // recreate the JList
-                    dateList = new JList(dateVectorList);
-                    dateList.addListSelectionListener(new datesListener());
-                    dateList
-                            .setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    datesScroll = new JScrollPane(dateList);
-                    datesScroll.setMinimumSize(new Dimension(datesScroll
-                            .getWidth(), 50));
-                    datesScroll
-                            .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-                    logPane.setTopComponent(datesScroll);
+                // recreate the JList
+                dateList = new JList(dateVectorList);
+                dateList.addListSelectionListener(new datesListener());
+                dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                datesScroll = new JScrollPane(dateList);
+                datesScroll.setMinimumSize(new Dimension(
+                        datesScroll.getWidth(), 50));
+                datesScroll
+                        .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                logPane.setTopComponent(datesScroll);
 
-                    // clean the right textbox
-                    text.setText("");
-                } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+                // clean the right textbox
+                text.setText("");
+
             }
         }
     }
@@ -141,14 +138,18 @@ public class chatLogPanel extends JSplitPane {
         }
 
         protected void updateLog(String date) {
+            ArrayList<ChatLogMessageTempData> messages = null;
             String log = "";
-            try {
-                log = model.getLogMessage(username, buddies.getSelectedValue()
-                        .toString(), date);
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+
+            // Grab all message objects from the database
+            messages = model.getLogMessage(profile, buddies.getSelectedValue()
+                    .toString(), date);
+            
+            // Turn the messages into text
+            for (ChatLogMessageTempData m : messages) {
+                log += m.getFrom() + " (" + m.getTime() + "): " + m.getText() + "\n";
             }
+
             text.setText(log);
         }
     }
