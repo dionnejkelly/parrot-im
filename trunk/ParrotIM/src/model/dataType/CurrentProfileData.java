@@ -134,10 +134,7 @@ public class CurrentProfileData {
                 break;
             }
         }
-        
        
-        System.out.println("--------------------------------------------------------Coming from here (removeFriend in currentProfile)!!");
-        
         return success;
     }
 }

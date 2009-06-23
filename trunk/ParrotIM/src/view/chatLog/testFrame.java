@@ -40,7 +40,8 @@ public class testFrame {
 			//System.out.println(model.getMessage(datelist.get(i)));
 		}
 		//System.out.println("nah");
-		new chatLogFrame(model, "cmpt275testing@gmail.com");
+		
+		//new chatLogFrame(model, "cmpt275testing@gmail.com");
 		
 	}
 }

@@ -47,6 +47,7 @@ import java.util.Vector;
 import model.dataType.ServerType;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
+import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
 import model.dataType.tempData.ProfileTempData;
 
@@ -67,7 +68,7 @@ public class DatabaseFunctions {
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         bannedAccountList = new Vector<String>();
         Class.forName("org.sqlite.JDBC");
-        conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+        conn = DriverManager.getConnection("jdbc:sqlite:parrot.db");
         stat = conn.createStatement();
 
         /*
@@ -84,7 +85,7 @@ public class DatabaseFunctions {
                 + "(profile, server, accountName, password);");
         stat
                 .executeUpdate("create table if not exists chatLog "
-                        + "(fromProfile, fromUser, toUser, message, date, time, timestamp);");
+                        + "(profile, fromUser, toUser, message, date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile);");
         stat.executeUpdate("create table if not exists friendList "
@@ -92,7 +93,7 @@ public class DatabaseFunctions {
 
     }
 
-    public void addChat(String fromProfile, String fromUser, String toUser,
+    public void addChat(String profile, String fromUser, String toUser,
             String message) throws SQLException {
         Date date1 = new Date();
         String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
@@ -103,7 +104,7 @@ public class DatabaseFunctions {
         prep = conn
                 .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
 
-        prep.setString(1, fromProfile);
+        prep.setString(1, profile);
         prep.setString(2, fromUser);
         prep.setString(3, toUser);
         prep.setString(4, message);
@@ -125,13 +126,10 @@ public class DatabaseFunctions {
      * chatted with. Input of user name.
      */
     public Vector<String> getChatNameList(String username) throws SQLException {
-        System.out.println("I KNOW YOU'RE HERE!!!!");
-        
         Vector<String> accountList = new Vector<String>();
         rs = stat.executeQuery("select * from chatLog where fromUser='"
                 + username + "';");
         while (rs.next()) {
-            System.out.println("I have a vallue!");
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
             }
@@ -143,15 +141,12 @@ public class DatabaseFunctions {
      * getChatDatesFromName(String name) gives you a Vector<String> with the
      * dates of all the chats a certain profile has chatted with a certain user.
      */
-    public Vector<String> getChatDatesFromName(String username, String buddyname)
+    public Vector<String> getChatDatesFromName(String profile, String buddyname)
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where (toUser='"
-                + buddyname + "' AND fromUser='" + username + "') || (toUser='"
-                + username + "' AND fromUser='" + buddyname
-                + "') order by timestamp;");
+
+        rs = stat.executeQuery("select * from chatLog where (profile = '"
+                + profile + "') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -164,24 +159,24 @@ public class DatabaseFunctions {
      * Given a certain date, it gives you the unique chat made on that specific
      * time in a String format.
      */
-    public Vector<String> getMessageFromDate(String username, String buddyname,
-            String date) throws SQLException {
-        Vector<String> accountList = new Vector<String>();
-        // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where date='" + date
-                + "' order by timestamp;");
+    public ArrayList<ChatLogMessageTempData> getMessageFromDate(
+            String username, String buddyname, String date) throws SQLException {
+        ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
+        ChatLogMessageTempData message = null;
+
         rs = stat.executeQuery("select * from chatLog where (toUser='"
                 + buddyname + "' AND fromUser='" + username + "') || (toUser='"
                 + username + "' AND fromUser='" + buddyname + "') AND date='"
                 + date + "' order by timestamp;");
+
         while (rs.next()) {
-            accountList.add(rs.getString("time") + ", From: "
-                    + rs.getString("fromUser") + " To: "
-                    + rs.getString("toUser") + " Message: "
-                    + rs.getString("message"));
+            message = new ChatLogMessageTempData(rs.getString("time"), rs
+                    .getString("fromUser"), rs.getString("toUser"), rs
+                    .getString("message"));
+            messageList.add(message);
         }
-        return accountList;
+
+        return messageList;
     }
 
     /**
@@ -274,8 +269,7 @@ public class DatabaseFunctions {
      */
     public void addUsers(String profile, String server, String accountName,
             String password) throws SQLException {
-        prep = conn
-                .prepareStatement("insert into people values (?, ?, ?, ?);");
+        prep = conn.prepareStatement("insert into people values (?, ?, ?, ?);");
 
         prep.setString(1, profile);
         prep.setString(2, server);
