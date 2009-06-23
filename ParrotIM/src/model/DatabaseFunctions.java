@@ -70,7 +70,7 @@ public class DatabaseFunctions {
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:parrot.db");
         stat = conn.createStatement();
-
+        
         /*
          * Set up tables. Commented out are commands to delete the table, as to
          * start a new table up fresh. Please do not remove comments from these
@@ -103,7 +103,8 @@ public class DatabaseFunctions {
 
         prep = conn
                 .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
-
+        conn.setAutoCommit(false);
+        
         prep.setString(1, profile);
         prep.setString(2, fromUser);
         prep.setString(3, toUser);
@@ -111,11 +112,9 @@ public class DatabaseFunctions {
         prep.setString(5, date);
         prep.setString(6, time);
         prep.setString(7, timeStamp);
-        prep.addBatch();
+        prep.executeUpdate();
 
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
+        conn.commit();
         conn.close();
 
         return;
@@ -134,6 +133,9 @@ public class DatabaseFunctions {
                 accountList.add(rs.getString("toUser"));
             }
         }
+        rs.close();
+        conn.close();
+        
         return accountList;
     }
 
@@ -152,6 +154,9 @@ public class DatabaseFunctions {
                 accountList.add(rs.getString("date"));
             }
         }
+        rs.close();
+        conn.close();
+        
         return accountList;
     }
 
@@ -175,6 +180,8 @@ public class DatabaseFunctions {
                     .getString("message"));
             messageList.add(message);
         }
+        rs.close();
+        conn.close();
 
         return messageList;
     }
@@ -193,15 +200,13 @@ public class DatabaseFunctions {
         }
 
         prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
-
+        conn.setAutoCommit(false);
+        
         prep.setString(1, name);
         prep.setString(2, password);
         prep.setString(3, defaultProfile);
-        prep.addBatch();
+        prep.executeUpdate();
 
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
         conn.close();
 
         return;
@@ -215,7 +220,8 @@ public class DatabaseFunctions {
         stat
                 .executeUpdate("DELETE FROM people WHERE profile = '" + name
                         + "';");
-
+        
+        conn.close();
         return;
     }
 
@@ -224,7 +230,8 @@ public class DatabaseFunctions {
 
         stat.executeUpdate("UPDATE friendList SET defaultProfile = 'yes' "
                 + "' WHERE name ='" + name + "';");
-
+        
+        conn.close();
         return;
     }
 
@@ -247,7 +254,8 @@ public class DatabaseFunctions {
             }
             profile = new ProfileTempData(name, password, defaultProfile);
         }
-
+        rs.close();
+        conn.close();
         return profile;
     }
 
@@ -260,6 +268,8 @@ public class DatabaseFunctions {
         while (rs.next()) {
             accountList.add(rs.getString("name"));
         }
+        rs.close();
+        conn.close();
         return accountList;
     }
 
@@ -270,16 +280,14 @@ public class DatabaseFunctions {
     public void addUsers(String profile, String server, String accountName,
             String password) throws SQLException {
         prep = conn.prepareStatement("insert into people values (?, ?, ?, ?);");
-
+        conn.setAutoCommit(false);
+        
         prep.setString(1, profile);
         prep.setString(2, server);
         prep.setString(3, accountName);
         prep.setString(4, password);
-        prep.addBatch();
+        prep.executeUpdate();
 
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
         conn.close();
 
         return;
@@ -289,7 +297,8 @@ public class DatabaseFunctions {
             throws SQLException {
         stat.executeUpdate("DELETE FROM people WHERE profile = '" + profile
                 + "' AND accountName = '" + accountName + "'");
-
+        
+        conn.close();
         return;
     }
 
@@ -303,6 +312,8 @@ public class DatabaseFunctions {
         if (rs.next()) {
             password = rs.getString("password");
         }
+        rs.close();
+        conn.close();
 
         return password;
     }
@@ -316,6 +327,8 @@ public class DatabaseFunctions {
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
+        rs.close();
+        conn.close();
         return accountList;
     }
 
@@ -345,7 +358,8 @@ public class DatabaseFunctions {
             account = new AccountTempData(serverType, accountName, password);
             accountList.add(account);
         }
-
+        rs.close();
+        conn.close();
         return accountList;
     }
 
@@ -360,6 +374,8 @@ public class DatabaseFunctions {
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
+        rs.close();
+        conn.close();
         return accountList;
     }
 
@@ -399,6 +415,8 @@ public class DatabaseFunctions {
             friend = new FriendTempData(rs.getString("friendName"), blocked);
             friendsToReturn.add(friend);
         }
+        rs.close();
+        conn.close();
 
         return friendsToReturn;
     }
@@ -416,15 +434,13 @@ public class DatabaseFunctions {
 
         prep = conn
                 .prepareStatement("insert into friendList values (?, ?, ?);");
-
+        conn.setAutoCommit(false);
+        
         prep.setString(1, accountName);
         prep.setString(2, friendName);
         prep.setString(3, blocked);
-        prep.addBatch();
+        prep.executeUpdate();
 
-        conn.setAutoCommit(false);
-        prep.executeBatch();
-        conn.setAutoCommit(true);
         conn.close();
 
         return;
@@ -436,6 +452,9 @@ public class DatabaseFunctions {
                 .executeUpdate("DELETE FROM friendList WHERE "
                         + "accountName = '" + accountName + "' and "
                         + "friendName = '" + friendName + "';");
+        
+        conn.close();
+        return;
     }
 
     public void changeBlocked(String friendName, boolean blocked)
@@ -450,7 +469,8 @@ public class DatabaseFunctions {
 
         stat.executeUpdate("UPDATE friendList SET blocked = '" + isBlocked
                 + "' WHERE friendName ='" + friendName + "';");
-
+        
+        conn.close();
         return;
     }
 
@@ -465,7 +485,8 @@ public class DatabaseFunctions {
         if (rs.next()) {
             exists = true;
         }
-
+        rs.close();
+        conn.close();
         return exists;
     }
 
