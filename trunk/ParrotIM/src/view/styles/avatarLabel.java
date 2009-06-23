@@ -5,8 +5,7 @@
  *     
  * Change Log:
  *     2009-June-23, VL
- *         Initial write. Initial write. Click on the 
- *         display picture to access file chooser.
+ *         Initial write. Click on the display picture to access file chooser.
  *         
  * Known Issues:
  *     None
