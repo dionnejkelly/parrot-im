@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import controller.services.Xmpp;
 
 import view.mainwindow.mainwindow;
+import model.DatabaseFunctions;
 import model.Model;
 import view.profileManager.*;
 
@@ -11,6 +12,7 @@ public class ParrotIM {
 
     public static void main(String[] args) throws ClassNotFoundException,
             SQLException {
+        DatabaseFunctions.setDatabaseName("parrot.db");
         Model model = new Model();
         // profileManager test = new profileManager(model);
         // MainController controller = new MainController(model);
