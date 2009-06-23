@@ -207,6 +207,7 @@ public class DatabaseFunctions {
         prep.setString(3, defaultProfile);
         prep.executeUpdate();
 
+        conn.commit();
         conn.close();
 
         return;
@@ -288,6 +289,7 @@ public class DatabaseFunctions {
         prep.setString(4, password);
         prep.executeUpdate();
 
+        conn.commit();
         conn.close();
 
         return;
@@ -441,6 +443,7 @@ public class DatabaseFunctions {
         prep.setString(3, blocked);
         prep.executeUpdate();
 
+        conn.commit();
         conn.close();
 
         return;
