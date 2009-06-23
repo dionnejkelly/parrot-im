@@ -509,6 +509,7 @@ public class Model extends Observable {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), accountName)) {
                 friend = new FriendTempData(accountName, false);
+                db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
             }
         } catch (ClassNotFoundException e) {
@@ -547,6 +548,7 @@ public class Model extends Observable {
             if (!db.checkFriendExists(account.getAccountName(), userToAdd
                     .getAccountName())) {
                 friend = new FriendTempData(userToAdd.getAccountName(), false);
+                db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
             }
         } catch (ClassNotFoundException e) {
@@ -587,6 +589,7 @@ public class Model extends Observable {
             account = this.findAccountByFriend(exFriend);
             friendName = exFriend.getAccountName();
             if (db.checkFriendExists(account.getAccountName(), friendName)) {
+                db = new DatabaseFunctions();
                 db.removeFriend(account.getAccountName(), friendName);
             }
         } catch (ClassNotFoundException e) {

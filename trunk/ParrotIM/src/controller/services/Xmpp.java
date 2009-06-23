@@ -353,7 +353,7 @@ public class Xmpp {
                 accountName = r.getUser();
                 nickname = r.getName();
                 if (nickname == null || nickname.equalsIgnoreCase(accountName)) {
-                    nickname = StringUtils.parseName(r.getUser());
+                    nickname = StringUtils.parseName(accountName);
                     r.setName(nickname);
                 }
 
@@ -369,7 +369,6 @@ public class Xmpp {
                 /* Search the savedFriends to find if was saved locally */
                 for (FriendTempData f : savedFriends) {
                     if (accountName.equalsIgnoreCase(f.getUserID())) {
-                        System.out.println(f.getUserID() + "in the checker");
                         user.setBlocked(f.isBlocked());
                         savedFriends.remove(f);
                         break;
@@ -382,12 +381,9 @@ public class Xmpp {
             // Check if there are still saved friends to be added
             // and adds the roster friend if not blocked.
             for (FriendTempData f : savedFriends) {
-                System.out.println(f.getUserID() + "in te other");
                 if (!f.isBlocked()) {
-                    System.out.println(f.getUserID() + "is not blocked");
                     this.addFriend(f.getUserID());
                 } else { // is blocked, need to add not on server
-                    System.out.println(f.getUserID() + "is bllocked!");
                     user = new GoogleTalkUserData(f.getUserID());
                     user.setBlocked(true);
                     model.addFriend(account, user);
