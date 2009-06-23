@@ -465,7 +465,8 @@ public class Model extends Observable {
          * the controller. This solution will not work if there are multiple
          * gmail accounts, for example.
          */
-
+        FriendTempData friend = null;
+        DatabaseFunctions db = null;
         AccountData account = null;
         UserData userToAdd = null;
 
@@ -474,36 +475,7 @@ public class Model extends Observable {
             userToAdd = new GoogleTalkUserData(accountName);
             account.addFriend(userToAdd);
         }
-
-        this.setChanged();
-        this.notifyObservers(UpdatedType.BUDDY);
-
-        return;
-    }
-
-    /**
-     * Adds a friend to the friend list. Takes an AccountData and a String
-     * representing the account name as parameters. Searches the accounts for a
-     * matching server, creates a new UserData, and adds this UserData to the
-     * account.
-     * 
-     * @param account
-     *            The account to add the friend to.
-     * 
-     * @param accountName
-     *            A string with the account name of the user to add. This method
-     *            is responsible to place this user into a UserData object.
-     */
-    public void addFriend(AccountData account, String accountName) {
-        FriendTempData friend = null;
-        DatabaseFunctions db = null;
-        UserData userToAdd = null;
-
-        if (account.getServer() == ServerType.GOOGLE_TALK) {
-            userToAdd = new GoogleTalkUserData(accountName);
-            account.addFriend(userToAdd);
-        }
-
+       
         // Database manipulation
         try {
             db = new DatabaseFunctions();

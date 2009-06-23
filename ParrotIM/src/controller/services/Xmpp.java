@@ -158,11 +158,6 @@ public class Xmpp {
         return connection.isConnected();
     }
 
-    /** This is the method using to break the connection. */
-    public void disconnect() {
-        connection.disconnect();
-    }
-
     /**
      * Attempts to log a user into the server based on the given account
      * information. If the current profile already exists, this account
@@ -222,20 +217,31 @@ public class Xmpp {
 
         return;
     }
-    
+
     public void loginProfile(String profile) throws XMPPException {
         ArrayList<AccountTempData> accounts = null;
-        
+
         accounts = model.getAccountsForProfile(profile);
-        
+
         // May not work for multiple accounts yet
-        for (AccountTempData a: accounts) {
+        for (AccountTempData a : accounts) {
             login(a.getServer(), a.getUserID(), a.getPassword());
         }
-        
+
         model.getCurrentProfile().setProfileName(profile);
-        
+
         return;
+    }
+
+    public void disconnect() throws XMPPException {
+        for (AccountData a : model.getCurrentProfile().getAccountData()) {
+            if (a.getServer() == ServerType.GOOGLE_TALK
+                    || a.getServer() == ServerType.JABBER) {
+                this.connection.disconnect(); // Change to have connection
+                                              // stored elsewhere.
+            }
+        }
+
     }
 
     /** This method is using to add a friend to the friend list. */
@@ -349,7 +355,7 @@ public class Xmpp {
             savedFriends = model.getSavedFriends(account.getAccountName());
 
             for (RosterEntry r : entries) {
-                // Decide which type of user to use 
+                // Decide which type of user to use
                 accountName = r.getUser();
                 nickname = r.getName();
                 if (nickname == null || nickname.equalsIgnoreCase(accountName)) {
