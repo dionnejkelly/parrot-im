@@ -129,8 +129,7 @@ public class CurrentProfileData {
         
         for (AccountData a : this.accountData) {
             if (a.friendExists(user)) {
-                a.removeFriend(user);
-                success = true;
+                success = a.removeFriend(user);
                 break;
             }
         }
