@@ -7,11 +7,17 @@ We do not make change in Introduction.
 = Features =
 
 Graphical User Interface: No change. 
+
 Friend List: We do not have search function yet.
+
 Live Instant Messaging: No change.
+
 XMPP Protocol: No change.
+
 Chatbot: Enable or disable Chatbot is in the Contact menu, not in the chatWindow.
+
 Profile System: No change.
+
 FontCustomization: No change.
 AutoSignIn: No change.  
 AvatarPicture: Not implement yet.
