@@ -22,7 +22,7 @@ FontCustomization: No change.
 
 AutoSignIn: No change.  
 
-AvatarPicture: Not implement yet.
+Avatar picture: Not implement yet.
 
 TabbedWindows: No change.
 
