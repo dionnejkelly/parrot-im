@@ -70,8 +70,9 @@ public class DatabaseFunctions {
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         bannedAccountList = new Vector<String>();
         Class.forName("org.sqlite.JDBC");
-        conn = DriverManager.getConnection("jdbc:sqlite:"
-                + DatabaseFunctions.getDatabaseName());
+        conn =
+                DriverManager.getConnection("jdbc:sqlite:"
+                        + DatabaseFunctions.getDatabaseName());
         stat = conn.createStatement();
 
         /*
@@ -115,16 +116,18 @@ public class DatabaseFunctions {
         return;
     }
 
-    public void addChat(String profile, String fromUser, String toUser,
-            String message) throws SQLException {
+    public void addChat(
+            String profile, String fromUser, String toUser, String message)
+            throws SQLException {
         Date date1 = new Date();
         String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
         String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
-        String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(
-                date1);
+        String time =
+                DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
 
-        prep = conn
-                .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -148,8 +151,9 @@ public class DatabaseFunctions {
      */
     public Vector<String> getChatNameList(String username) throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        rs = stat.executeQuery("select * from chatLog where fromUser='"
-                + username + "';");
+        rs =
+                stat.executeQuery("select * from chatLog where fromUser='"
+                        + username + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
@@ -169,8 +173,9 @@ public class DatabaseFunctions {
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
 
-        rs = stat.executeQuery("select * from chatLog where (profile = '"
-                + profile + "') order by timestamp;");
+        rs =
+                stat.executeQuery("select * from chatLog where (profile = '"
+                        + profile + "') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -188,18 +193,22 @@ public class DatabaseFunctions {
      */
     public ArrayList<ChatLogMessageTempData> getMessageFromDate(
             String username, String buddyname, String date) throws SQLException {
-        ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
+        ArrayList<ChatLogMessageTempData> messageList =
+                new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
 
-        rs = stat.executeQuery("select * from chatLog where (toUser='"
-                + buddyname + "' AND fromUser='" + username + "') || (toUser='"
-                + username + "' AND fromUser='" + buddyname + "') AND date='"
-                + date + "' order by timestamp;");
+        rs =
+                stat.executeQuery("select * from chatLog where (toUser='"
+                        + buddyname + "' AND fromUser='" + username
+                        + "') || (toUser='" + username + "' AND fromUser='"
+                        + buddyname + "') AND date='" + date
+                        + "' order by timestamp;");
 
         while (rs.next()) {
-            message = new ChatLogMessageTempData(rs.getString("time"), rs
-                    .getString("fromUser"), rs.getString("toUser"), rs
-                    .getString("message"));
+            message =
+                    new ChatLogMessageTempData(rs.getString("time"), rs
+                            .getString("fromUser"), rs.getString("toUser"), rs
+                            .getString("message"));
             messageList.add(message);
         }
         rs.close();
@@ -241,8 +250,8 @@ public class DatabaseFunctions {
 
         // Delete the profile's accounts
         stat
-                .executeUpdate("DELETE FROM people WHERE profile = '" + name
-                        + "';");
+                .executeUpdate("DELETE FROM people WHERE profile = '"
+                        + name + "';");
 
         conn.close();
         return;
@@ -264,8 +273,9 @@ public class DatabaseFunctions {
         String password = null;
         boolean defaultProfile = false;
 
-        rs = stat.executeQuery("SELECT * FROM defaultProfile WHERE "
-                + "defaultProfile = 'yes';");
+        rs =
+                stat.executeQuery("SELECT * FROM defaultProfile WHERE "
+                        + "defaultProfile = 'yes';");
 
         if (rs.next()) {
             name = rs.getString("name");
@@ -300,8 +310,9 @@ public class DatabaseFunctions {
      * This class puts a new account for a specific profile into the Database.
      * You can get the information you added using getUsers;
      */
-    public void addUsers(String profile, String server, String accountName,
-            String password) throws SQLException {
+    public void addUsers(
+            String profile, String server, String accountName, String password)
+            throws SQLException {
         prep = conn.prepareStatement("insert into people values (?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
@@ -319,8 +330,8 @@ public class DatabaseFunctions {
 
     public void removeAccountFromProfile(String profile, String accountName)
             throws SQLException {
-        stat.executeUpdate("DELETE FROM people WHERE profile = '" + profile
-                + "' AND accountName = '" + accountName + "'");
+        stat.executeUpdate("DELETE FROM people WHERE profile = '"
+                + profile + "' AND accountName = '" + accountName + "'");
 
         conn.close();
         return;
@@ -330,8 +341,9 @@ public class DatabaseFunctions {
             throws ClassNotFoundException, SQLException {
         String password = null;
 
-        rs = stat.executeQuery("select * from people where accountName = '"
-                + accountName + "'");
+        rs =
+                stat.executeQuery("select * from people where accountName = '"
+                        + accountName + "'");
 
         if (rs.next()) {
             password = rs.getString("password");
@@ -363,10 +375,12 @@ public class DatabaseFunctions {
         String password = null;
         ServerType serverType = null;
         AccountTempData account = null;
-        ArrayList<AccountTempData> accountList = new ArrayList<AccountTempData>();
+        ArrayList<AccountTempData> accountList =
+                new ArrayList<AccountTempData>();
 
-        rs = stat.executeQuery("SELECT * FROM people WHERE profile = '"
-                + profile + "';");
+        rs =
+                stat.executeQuery("SELECT * FROM people WHERE profile = '"
+                        + profile + "';");
         while (rs.next()) {
             accountName = rs.getString("accountName");
             password = rs.getString("password");
@@ -393,8 +407,9 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        rs = stat.executeQuery("select * from people where profile='" + name
-                + "';");
+        rs =
+                stat.executeQuery("select * from people where profile='"
+                        + name + "';");
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
@@ -426,8 +441,10 @@ public class DatabaseFunctions {
         boolean blocked = false;
 
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-                + accountName + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
+                                + accountName + "';");
 
         /* Only check resultSet once */
         while (rs.next()) {
@@ -456,8 +473,9 @@ public class DatabaseFunctions {
             blocked = "no";
         }
 
-        prep = conn
-                .prepareStatement("insert into friendList values (?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into friendList values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, accountName);
@@ -473,10 +491,9 @@ public class DatabaseFunctions {
 
     public void removeFriend(String accountName, String friendName)
             throws SQLException {
-        stat
-                .executeUpdate("DELETE FROM friendList WHERE "
-                        + "accountName = '" + accountName + "' and "
-                        + "friendName = '" + friendName + "';");
+        stat.executeUpdate("DELETE FROM friendList WHERE "
+                + "accountName = '" + accountName + "' and " + "friendName = '"
+                + friendName + "';");
 
         conn.close();
         return;
@@ -492,8 +509,8 @@ public class DatabaseFunctions {
             isBlocked = "no";
         }
 
-        stat.executeUpdate("UPDATE friendList SET blocked = '" + isBlocked
-                + "' WHERE friendName ='" + friendName + "';");
+        stat.executeUpdate("UPDATE friendList SET blocked = '"
+                + isBlocked + "' WHERE friendName ='" + friendName + "';");
 
         conn.close();
         return;
@@ -503,8 +520,12 @@ public class DatabaseFunctions {
             throws SQLException {
         boolean exists = false;
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-                + accountName + "' and friendName='" + friendName + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
+                                + accountName
+                                + "' and friendName='"
+                                + friendName + "';");
 
         /* Only check resultSet once */
         if (rs.next()) {

@@ -7,6 +7,8 @@
  *     2009-June-20, KF
  *         Initial write. Created for use of database to pass back partial
  *         profile data to the controller.
+ *     2009-June-24, KF
+ *         Completed JavaDoc Documentation.
  *         
  * Known Issues:
  *     none
