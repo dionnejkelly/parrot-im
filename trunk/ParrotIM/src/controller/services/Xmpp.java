@@ -209,7 +209,7 @@ public class Xmpp {
         if (model.currentProfileExists()) {
             model.addAccountToCurrentProfile(account);
         } else { // current profile does not exist
-            model.createCurrentProfile(account, "<Profile Name>");
+            model.createCurrentProfile(account, "Guest");
         }
 
         /* Set up friends' user data */

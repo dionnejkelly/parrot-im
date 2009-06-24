@@ -180,27 +180,16 @@ public class profileManager extends JFrame implements Observer {
 
                     for (int i = 0, n = selections.length; i < n; i++) {
                         if (i == 0) {
-                            try {
-                                acctListModel.clear();
-                                Vector<String> acctListArray = model
-                                        .getProfilesUserList(selectionString[i]);
-                                for (int j = 0; j < model.getProfilesUserList(
-                                        selectionString[i]).size(); j++) {
-                                    acctListModel.addElement(acctListArray
-                                            .elementAt(j));
-                                }
-                            } catch (ClassNotFoundException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            } catch (SQLException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
+                            acctListModel.clear();
+                            Vector<String> acctListArray = model
+                                    .getProfilesUserList(selectionString[i]);
+                            for (int j = 0; j < model.getProfilesUserList(
+                                    selectionString[i]).size(); j++) {
+                                acctListModel.addElement(acctListArray
+                                        .elementAt(j));
                             }
                         }
                     }
-                    System.out.println();
-                    // rightList.clear();
-                    // rightList.addElement("blah");
                 }
             }
         };
@@ -322,15 +311,23 @@ public class profileManager extends JFrame implements Observer {
 
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.PROFILE) {
-            Vector<String> profileListArray;
+            Vector<String> profileListArray = null;
+            String profile = null;
 
+            // Update profiles on the left-hand side
             profileListModel.removeAllElements();
             profileListArray = model.getProfileList();
-            for (int i = 0; i < model.getProfileList().size(); i++) {
-                profileListModel.addElement(profileListArray.elementAt(i));
-
+            for (String s : model.getProfileList()) {
+                profileListModel.addElement(s);
             }
-            
+
+            // Update accounts on the right-hand side
+            acctListModel.removeAllElements();
+            profile = (String) profileList.getSelectedValue();
+            for (String s : model.getProfilesUserList(profile)) {
+                acctListModel.addElement(s);
+            }
+
             return;
         }
     }
