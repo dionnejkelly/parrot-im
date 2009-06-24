@@ -21,6 +21,7 @@
  *     1. Bad implementation of adding ownUserData. Could use inheritance,
  *        or store enough information that no other UserData object
  *        is required.
+ *     2. An exception should be thrown upon adding a duplicate friend.
  *     
  * Copyright (C) 2009  Pirate Captains
  * 
