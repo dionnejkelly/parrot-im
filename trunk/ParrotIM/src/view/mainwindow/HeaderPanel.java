@@ -20,7 +20,7 @@ public class HeaderPanel extends JPanel{
 		//logo-avatar
 		avatarDisplay = new JLabel ();
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		avatar = new ImageIcon ("images/buddylist/logoBox.png");
+		avatar = new ImageIcon (this.getClass().getResource("/images/buddylist/logoBox.png"));
 	
 		//TODO: set auto scaling + border later
 		avatarDisplay.setIcon(avatar);
