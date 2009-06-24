@@ -44,12 +44,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
-import model.dataType.ServerType;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
 import model.dataType.tempData.ProfileTempData;
+import model.enumerations.ServerType;
 
 public class DatabaseFunctions {
 

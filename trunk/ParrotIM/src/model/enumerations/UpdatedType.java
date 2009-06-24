@@ -20,7 +20,7 @@
  */
 
 
-package model.dataType;
+package model.enumerations;
 
 public enum UpdatedType {
     ALL,

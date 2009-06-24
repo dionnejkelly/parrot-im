@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -12,7 +12,7 @@ import java.util.Observer;
 import view.styles.chatWindowListener;
 
 import model.Model;
-import model.dataType.UpdatedType;
+import model.enumerations.UpdatedType;
 
 public class chatwindow extends JFrame implements Observer {
 	//private ArrayList<Conversation> conversations;
@@ -20,7 +20,7 @@ public class chatwindow extends JFrame implements Observer {
 	private Model model;
 	private boolean windowIsOpen;
 		
-	public chatwindow(Xmpp c, Model model)
+	public chatwindow(MainController c, Model model)
 	{
 	    super("chatWindow Mockup");
 	    model.addObserver(this);

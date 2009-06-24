@@ -10,16 +10,16 @@ import view.options.OptionMenu;
 
 import view.chatLog.chatLogFrame;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import model.Model;
 
 public class buddylist extends JFrame {
     JMenuBar menu;
     protected Model model;
-    private Xmpp controller;
+    private MainController controller;
 
-    public buddylist(Xmpp c, Model model) {
+    public buddylist(MainController c, Model model) {
         this.setTitle("Buddy List");
         this.model = model;
         this.controller = c;

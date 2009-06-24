@@ -1,4 +1,4 @@
-package unitTesting;
+package test.unit;
 
 import static org.junit.Assert.*;
 
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import model.dataType.AccountData;
 import model.dataType.GoogleTalkUserData;
-import model.dataType.ServerType;
 import model.dataType.UserData;
+import model.enumerations.ServerType;
 
 import org.junit.After;
 import org.junit.Before;

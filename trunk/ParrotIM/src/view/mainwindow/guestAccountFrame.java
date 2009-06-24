@@ -47,11 +47,11 @@ import javax.swing.WindowConstants;
 import model.Model;
 import model.dataType.AccountData;
 import model.dataType.GoogleTalkUserData;
-import model.dataType.ServerType;
+import model.enumerations.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import view.buddylist.buddylist;
 import view.styles.popupWindowListener;
@@ -59,7 +59,7 @@ import view.styles.popupWindowListener;
 public class guestAccountFrame extends JFrame {
 
     private Model model;
-    private Xmpp core;
+    private MainController core;
     private mainwindow mainFrame;
     private JFrame popup;
     private signinPanel mainPanel;
@@ -68,7 +68,7 @@ public class guestAccountFrame extends JFrame {
     private JPasswordField PwdFieldGuest;
     private JComboBox server;
 
-    public guestAccountFrame(Model model, Xmpp c, mainwindow frame,
+    public guestAccountFrame(Model model, MainController c, mainwindow frame,
             signinPanel signin) {
         this.setAlwaysOnTop(true);
         popup = this;

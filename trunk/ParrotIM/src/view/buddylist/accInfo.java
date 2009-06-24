@@ -64,7 +64,7 @@ import javax.swing.JTextArea;
 
 import model.Model;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import view.styles.avatarLabel;
 import view.styles.statusCombo;
@@ -80,7 +80,7 @@ public class accInfo extends JPanel
 	 * 					Bottom: Status, and status messages (if applicable)			
 	 */
 	JLabel avatarDisplay, displayName;
-	Xmpp chatClient;
+	MainController chatClient;
 	
 	protected pmLabel statusMessage;
 	protected JTextArea textArea;
@@ -88,7 +88,7 @@ public class accInfo extends JPanel
 	
 	private Model model;
 	
-	public accInfo(Xmpp c, Model model) 
+	public accInfo(MainController c, Model model) 
 	{
 	    this.model = model;
 	    setBackground(Color.DARK_GRAY);

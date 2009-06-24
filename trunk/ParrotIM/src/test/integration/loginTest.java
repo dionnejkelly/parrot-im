@@ -1,4 +1,4 @@
-package integrationTesting;
+package test.integration;
 
 import static org.junit.Assert.*;
 
@@ -6,20 +6,20 @@ import java.sql.SQLException;
 
 import model.DatabaseFunctions;
 import model.Model;
-import model.dataType.ServerType;
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 public class loginTest {
     
     private Model model;
-    private Xmpp controller;
+    private MainController controller;
     private DatabaseFunctions db;
     private String profileName;
     private String userID;
@@ -33,7 +33,7 @@ public class loginTest {
         db = new DatabaseFunctions();
         db.dropTables();
         this.model = new Model();
-        this.controller = new Xmpp(model);
+        this.controller = new MainController(model);
         
         profileName = "Phyllis";
         userID = "parrotim.test@gmail.com";

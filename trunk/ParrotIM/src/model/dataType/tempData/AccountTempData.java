@@ -21,7 +21,7 @@
 
 package model.dataType.tempData;
 
-import model.dataType.ServerType;
+import model.enumerations.ServerType;
 
 /**
  * Account data fetched from the database. Used to return multiple parameters

@@ -33,6 +33,8 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import model.enumerations.ServerType;
+
 /**
  * Holds username, password, and account type. Info is used in user profiles and
  * guest accounts for log-in purposes.
