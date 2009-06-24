@@ -43,7 +43,8 @@ public class ChatPanel extends JPanel {
         // Editing Panel
         JPanel editingPanel = new JPanel();
         editingPanel.setLayout(new BorderLayout());
-
+        editingPanel.setSize(new Dimension(20,20));
+        
         String[] fontList = { "Arial", "Times New Roman", "Comic Sans MS" };
         fontSelect = new JComboBox(fontList);
         fontSelect.setEditable(true);
@@ -181,6 +182,11 @@ public class ChatPanel extends JPanel {
                         .println("-------------------------------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 txt1.setText(txt1.getText() + "\n");
                 shiftPressed = false;
+            }
+            
+            else {
+                shiftPressed = false;
+                
             }
         }
 

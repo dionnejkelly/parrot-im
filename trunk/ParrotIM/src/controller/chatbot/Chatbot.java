@@ -53,6 +53,65 @@ public class Chatbot {
                          "What about you?"
                         },
                         
+                        {"WHAT'S UP",
+                            ""
+                        },
+                        
+                        {"WHEN WILL YOU BE DONE"
+                            
+                        },
+                        
+                        {"DO YOU HAVE ANYTHING TO DO"
+                            
+                        },
+                        
+                        {"HOT"
+                            
+                        },
+                        
+                        {"BABY"
+                            
+                        },
+                        
+                        {"COME ON"
+                            
+                        },
+                        
+                        {"OH MY GOD"
+                            
+                        },
+                        
+                        {"DUMB"
+                            
+                        },
+                        
+                        {"GENDER"
+                            
+                        },
+                        
+                        {"DON'T BLAME"
+                            
+                        },
+                        
+                        {"WHAT MOVIES DO YOU LIKE"
+                            
+                        },
+                        
+                        {"WHAT KIND OF CARS DO YOU LIKE"
+                            
+                        },
+                        
+                        {"WHAT DO YOU DO"
+                            
+                        },
+                        
+                        {"WHAT IS YOUR FAVOURITE SPORTS"
+                            
+                        },
+                        
+                        
+                        
+                        
                         {"HOW IS GOING",
                          "Good",
                          "Pretty Good",
@@ -325,7 +384,8 @@ public class Chatbot {
                         },
 
                         {"HOW",
-                         "I DONT THINK I KNOW HOW."
+                         "I DONT THINK I KNOW HOW.",
+                         "Do not ask me again."
                         },
 
                         {"WHICH ONE",
@@ -652,6 +712,7 @@ public class Chatbot {
         // removes punctuation and redundant
         // spaces from the user's input
         public String cleanString(String str) {
+            if (str != null) {
                 StringBuffer temp = new StringBuffer(str.length());
                 char prevChar = 0;
                 for(int i = 0; i < str.length(); ++i) {
@@ -665,7 +726,14 @@ public class Chatbot {
                         }
                         
                 }
+                
+                System.out.println("From the chatbot = " + temp.toString());
                 return temp.toString();
+                
+            }
+            
+            return "";
+                
         }
 
 
