@@ -16,9 +16,8 @@ Our previous documents can be found here:
   *[QualityAssurancePlan Old Quality Assurance Plan]
 
 All changes to the documents are given here:
-  *[RequirementsDocument_a3 Requirements Document]
-  *[DesignDocument_a3 Design Document]
-  *[QualityAssurancePlan_a3 Quality Assurance Plan]
+  *[RequirementsDocumenta3 Requirements Document]
+  *[DesignDocumenta3 Design Document]
+  *[QualityAssurancePlana3 Quality Assurance Plan]
 
 = Coding Conventions = 
-
