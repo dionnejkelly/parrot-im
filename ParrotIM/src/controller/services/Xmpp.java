@@ -204,7 +204,7 @@ public class Xmpp {
         user = new GoogleTalkUserData(account.getAccountName());
         account.setOwnUserData(user);
 
-        /* Handle the current profile */
+        // Handle the current profile 
         if (model.currentProfileExists()) {
             model.addAccountToCurrentProfile(account);
         } else { // current profile does not exist

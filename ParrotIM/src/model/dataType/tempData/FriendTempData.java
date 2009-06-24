@@ -6,13 +6,14 @@
  * Change Log:
  *     2009-June-20, KF
  *         Initial write. Created for use of database to pass back partial
- *         friend data to the controller.
+ *         friend data to the controller. Completed JavaDoc documentation.
  *         
  * Known Issues:
  *     none
  *     
  * Copyright (C) 2009  Pirate Captains
  * 
+ * License: GNU General Public License version 2.
  * Full license can be found in ParrotIM/LICENSE.txt.
  */
 
