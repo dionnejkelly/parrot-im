@@ -472,14 +472,13 @@ public class Model extends Observable {
         if (server == ServerType.GOOGLE_TALK) {
             account = currentProfile.getAccountFromServer(server);
             userToAdd = new GoogleTalkUserData(accountName);
+            account.addFriend(userToAdd);
         }
 
         // Database manipulation
         try {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), accountName)) {
-                account.addFriend(userToAdd);
-
                 friend = new FriendTempData(accountName, false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
@@ -512,14 +511,13 @@ public class Model extends Observable {
         FriendTempData friend = null;
         DatabaseFunctions db = null;
 
+        account.addFriend(userToAdd);
+
         // Database manipulation
         try {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), userToAdd
                     .getAccountName())) {
-
-                account.addFriend(userToAdd);
-
                 friend = new FriendTempData(userToAdd.getAccountName(), false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
