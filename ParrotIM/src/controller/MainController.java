@@ -172,12 +172,14 @@ public class MainController {
         account = new AccountData(server, accountName, password);
 
         if (account.getServer() == ServerType.GOOGLE_TALK) {
-            config = new ConnectionConfiguration("talk.google.com", 5222,
-                    "gmail.com");
+            config =
+                    new ConnectionConfiguration(
+                            "talk.google.com", 5222, "gmail.com");
         } else if (account.getServer() == ServerType.JABBER) {
             // Test code, please replace with jabber server selection
-            config = new ConnectionConfiguration("jabber.sfu.ca", 5223,
-                    "jabber.sfu.ca");
+            config =
+                    new ConnectionConfiguration(
+                            "jabber.sfu.ca", 5223, "jabber.sfu.ca");
 
             // Enable SSL to let us connect to jabber.sfu.ca
             config.setSocketFactory(SSLSocketFactory.getDefault());
@@ -192,8 +194,8 @@ public class MainController {
         // If connected...
         model.connectAccount(account);
 
-        connection.addPacketListener(new MessagePacketListener(),
-                new MessagePacketFilter());
+        connection.addPacketListener(
+                new MessagePacketListener(), new MessagePacketFilter());
 
         /* Get roster updated after the login */
         this.roster = connection.getRoster();
@@ -204,7 +206,7 @@ public class MainController {
         user = new GoogleTalkUserData(account.getAccountName());
         account.setOwnUserData(user);
 
-        // Handle the current profile 
+        // Handle the current profile
         if (model.currentProfileExists()) {
             model.addAccountToCurrentProfile(account);
         } else { // current profile does not exist
@@ -363,7 +365,9 @@ public class MainController {
                 }
 
                 if (account.getServer() == ServerType.GOOGLE_TALK) {
-                    user = new GoogleTalkUserData(accountName, nickname, status);
+                    user =
+                            new GoogleTalkUserData(
+                                    accountName, nickname, status);
                 } else if (account.getServer() == ServerType.JABBER) {
                     user = new JabberUserData(accountName, nickname, status);
                 } else { // some other user
@@ -447,8 +451,9 @@ public class MainController {
         }
         /* Create if doesn't exist */
         if (!chatExists) {
-            chat = connection.getChatManager()
-                    .createChat(to, new MsgListener());
+            chat =
+                    connection.getChatManager().createChat(
+                            to, new MsgListener());
             chats.add(chat);
         }
         chat.sendMessage(messageString);
@@ -497,8 +502,9 @@ public class MainController {
         }
         /* Create if doesn't exist */
         if (!chatExists) {
-            chat = connection.getChatManager()
-                    .createChat(to, new MsgListener());
+            chat =
+                    connection.getChatManager().createChat(
+                            to, new MsgListener());
             chats.add(chat);
         }
         chat.sendMessage(messageString);
@@ -535,8 +541,8 @@ public class MainController {
         if (truePresence.getMode() == Presence.Mode.dnd
                 || truePresence.getMode() == Presence.Mode.away
                 || truePresence.getMode() == Presence.Mode.xa) {
-            userToUpdate.setState(roster.getPresence(bareAddress).getMode()
-                    .toString());
+            userToUpdate.setState(roster
+                    .getPresence(bareAddress).getMode().toString());
         } else if (truePresence.isAvailable()) {
             userToUpdate.setState("Available");
         } else { // offline
@@ -576,8 +582,8 @@ public class MainController {
         public void presenceChanged(Presence presence) {
             UserData userToUpdate = null;
 
-            String bareAddress = StringUtils.parseBareAddress(presence
-                    .getFrom());
+            String bareAddress =
+                    StringUtils.parseBareAddress(presence.getFrom());
             userToUpdate = model.findUserByAccountName(bareAddress);
             updateStateAndStatus(userToUpdate, bareAddress);
             return;
@@ -655,11 +661,11 @@ public class MainController {
 
             boolean chatExists = false;
             Message message = (Message) packet;
-            String bareAddress = StringUtils
-                    .parseBareAddress(message.getFrom());
+            String bareAddress =
+                    StringUtils.parseBareAddress(message.getFrom());
 
-            if (message.getType() == Message.Type.normal
-                    || message.getType() == Message.Type.chat) {
+            if ((message.getType() == Message.Type.normal || message.getType() == Message.Type.chat)
+                    && message.getBody() != null) {
                 for (Chat c : chats) {
                     // System.out.println(c.getParticipant());
                     // System.out.println(bareAddress);
@@ -672,44 +678,24 @@ public class MainController {
 
                 /* If no chats exist with the sender of the new message... */
                 if (!chatExists) {
-                    chat = connection.getChatManager().createChat(bareAddress,
-                            new MsgListener());
+                    chat =
+                            connection.getChatManager().createChat(
+                                    bareAddress, new MsgListener());
                     chats.add(chat);
-                    // tempID = chat.getThreadID();
-
-                    /* Display first message bug FIX */
-                    user = model.findUserByAccountName(chat.getParticipant());
-                    m = new MessageData(user.getAccountName(), message
-                            .getBody(), "font", "4");
-                    try {
-                        model
-                                .receiveMessage(
-                                        model.findAccountByFriend(user), m);
-                    } catch (SQLException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                } else {
-                    // tempID = "";
-                    user = model.findUserByAccountName(chat.getParticipant());
-                    m = new MessageData(user.getAccountName(), message
-                            .getBody(), "font", "4");
-                    try {
-                        model
-                                .receiveMessage(
-                                        model.findAccountByFriend(user), m);
-                    } catch (SQLException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
+                }
+                // tempID = "";
+                user = model.findUserByAccountName(chat.getParticipant());
+                m =
+                        new MessageData(user.getAccountName(), message
+                                .getBody(), "font", "4");
+                try {
+                    model.receiveMessage(model.findAccountByFriend(user), m);
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
 
                 if (model.getCurrentProfile().isChatbotEnabled()) {
@@ -757,8 +743,8 @@ public class MainController {
         return;
     }
 
-    public void addAccount(String profile, ServerType server, String account,
-            String password) {
+    public void addAccount(
+            String profile, ServerType server, String account, String password) {
         String serverName = null;
 
         if (server == ServerType.GOOGLE_TALK) {
@@ -780,9 +766,9 @@ public class MainController {
 
     public void toggleChatbot() {
         this.model.getCurrentProfile().setChatbotEnabled(
-                this.model.getCurrentProfile().isChatbotEnabled() ? false
-                        : true);
-        
+                this.model.getCurrentProfile().isChatbotEnabled()
+                        ? false : true);
+
         return;
     }
 }
