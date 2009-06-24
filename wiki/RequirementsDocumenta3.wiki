@@ -70,6 +70,18 @@ Slash Commands: Not implement yet.
 
 No change here.
 
+= Non-Functional Requirements =
+
+=== Product Requirements ===
+
+Portability Requirements: We still can not run on Macintosh, and Linux operating environments.
+
+=== Organizational Requirements ===
+
+No change here.
+
+
+
 
 = Details =
 
