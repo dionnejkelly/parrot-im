@@ -18,7 +18,7 @@ Chatbot: Enable or disable Chatbot is in the Contact menu, not in the chatWindow
 
 Profile System: No change.
 
-FontCustomization: No change.
+FontCustomization:No change.
 
 AutoSignIn: No change.  
 
