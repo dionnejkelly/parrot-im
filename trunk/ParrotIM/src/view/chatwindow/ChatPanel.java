@@ -1,3 +1,6 @@
+//known issues:
+//	txt1 doesn't automatically resize
+
 package view.chatwindow;
 
 import java.awt.*;
@@ -5,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,9 +17,6 @@ import org.jivesoftware.smack.XMPPException;
 import controller.MainController;
 
 import model.*;
-import model.dataType.ConversationData;
-import model.dataType.MessageData;
-import model.dataType.UserData;
 
 public class ChatPanel extends JPanel {
     /* THIS IS FOR CHAT CLIENT : modified ChatClient c */
@@ -56,7 +55,8 @@ public class ChatPanel extends JPanel {
 
         txt1 = new JTextArea();
         txt1.setColumns(25);
-        txt1.setRows(9);
+        txt1.setRows(2);
+        txt1.setAutoscrolls(true);
         txt1.setLineWrap(true);
         txt1.setWrapStyleWord(true);
         txt1.setToolTipText("Enter text and HTML tags here");
@@ -121,6 +121,7 @@ public class ChatPanel extends JPanel {
         sPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         sPane.setTopComponent(displayPanel);
         sPane.setBottomComponent(editingPanel);
+        sPane.setResizeWeight(1.0);
         
 
         // add to chat panel
