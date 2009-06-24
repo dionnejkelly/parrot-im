@@ -459,7 +459,9 @@ public class Model extends Observable {
         UserData found = null;
         ArrayList<UserData> friends = this.currentProfile.getAllFriends();
         for (UserData user : friends) {
-            if (user.getAccountName().equals(accountName)) {
+            // Temp fix for switching conversations
+        	if (user.getAccountName().equals(accountName)
+            		|| user.getNickname().equals(accountName)) {
                 found = user;
                 break;
             }
