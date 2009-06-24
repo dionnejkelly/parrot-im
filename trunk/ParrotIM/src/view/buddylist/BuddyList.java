@@ -72,11 +72,12 @@ public class BuddyList extends JFrame {
         contactMenu.setMnemonic(KeyEvent.VK_C);
         JMenuItem viewChatLog = new JMenuItem("View Chat Log", KeyEvent.VK_C);
         viewChatLog.addActionListener(new chatLogListener());
+        contactMenu.add(viewChatLog);
         
         // TODO Can we add a checkbox here?
-        JMenuItem chatbotEnabler = new JMenuItem("Chatbot Enabled", KeyEvent.VK_H);
+        JCheckBoxMenuItem chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled");
+        chatbotEnabler.setMnemonic(KeyEvent.VK_H);
         chatbotEnabler.addActionListener(new ChatbotToggleListener());
-        contactMenu.add(viewChatLog);
         contactMenu.add(chatbotEnabler);
         menuBar.add(contactMenu);
 
