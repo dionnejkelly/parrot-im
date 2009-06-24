@@ -186,7 +186,7 @@ The users of our feature-rich instant messaging program that is compatible with 
   * *Usability:* The user interface for Parrot IM shall be implemented as simple features, yet powerful, that will allow many users to enjoy their conversations as naturally as if they were talking face-to-face.
   * *Usability:* The Parrot IM is compatible with multiple protocols, including XMPP, to target any age and audience.
   * *Performance Requirements:* The program will execute, and the log-in window will show within 8 seconds.
-  * *Performance Requirements:* The program will occupy between 10 MB and 30 MB of RAM while running.
+  * *Performance Requirements:* The program will occupy between 10 MB and 60 MB of RAM while running.
   * *Reliability Requirements:* The number of faults found during testing (i.e., before delivery) will be no more than 50 based upon programmer information regarding failures found before release of the software.
   * *Reliability Requirements:* The failures (or other problems) reported by users after delivery will be no more than 20 based upon customer information regarding failures found after release of the software.
   * *Portability Requirements:* Parrot IM is able to run on Windows, Macintosh, and Linux operating environments.
