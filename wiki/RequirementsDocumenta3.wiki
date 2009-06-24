@@ -18,13 +18,13 @@ Chatbot: Enable or disable Chatbot is in the Contact menu, not in the chatWindow
 
 Profile System: No change.
 
-FontCustomization:No change.
+Font Customization:No change.
 
-AutoSignIn: No change.  
+Auto SignIn: No change.  
 
 Avatar picture: Not implement yet.
 
-TabbedWindows: No change.
+Tabbed Windows: No change.
 
 BlockingAnotherUser: No change.
 
