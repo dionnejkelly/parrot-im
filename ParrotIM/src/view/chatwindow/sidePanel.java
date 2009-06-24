@@ -7,11 +7,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import model.*;
 import model.dataType.ConversationData;
-import model.dataType.UpdatedType;
+import model.enumerations.UpdatedType;
+
 import java.util.*;
 
 public class sidePanel extends JPanel implements Observer {
@@ -19,10 +20,10 @@ public class sidePanel extends JPanel implements Observer {
 	private Box boxes[] = new Box[1];
 	private Model model;
 	private JTree tree;
-	private Xmpp c;
+	private MainController c;
 	private DefaultMutableTreeNode top;
 	
-	public sidePanel(Xmpp c, Model model) { 
+	public sidePanel(MainController c, Model model) { 
 	    this.model = model;
 	    this.c = c;
 	    this.model.addObserver(this);

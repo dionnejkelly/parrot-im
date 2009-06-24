@@ -21,12 +21,12 @@ import javax.swing.JPanel;
 import model.Model;
 import model.dataType.AccountData;
 import model.dataType.GoogleTalkUserData;
-import model.dataType.ServerType;
-import model.dataType.UpdatedType;
+import model.enumerations.ServerType;
+import model.enumerations.UpdatedType;
 
 import org.jivesoftware.smack.XMPPException;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import view.profileManager.profileManager;
 import view.styles.linkLabel;
@@ -34,7 +34,7 @@ import view.styles.linkLabel;
 import view.buddylist.buddylist;
 
 public class signinPanel extends JPanel implements Observer {
-    protected Xmpp core;
+    protected MainController core;
     private mainwindow mainFrame;
     private Model model;
     private JComboBox account_select;
@@ -49,7 +49,7 @@ public class signinPanel extends JPanel implements Observer {
     private linkLabel manageAccount;
     private linkLabel guestAccount;
 
-    public signinPanel(mainwindow frame, Xmpp chatClient, Model model)
+    public signinPanel(mainwindow frame, MainController chatClient, Model model)
             throws ClassNotFoundException, SQLException {
         mainFrame = frame;
         core = chatClient;// CORE

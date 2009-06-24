@@ -52,12 +52,12 @@ import model.dataType.ConversationData;
 import model.dataType.CurrentProfileData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.MessageData;
-import model.dataType.ServerType;
-import model.dataType.UpdatedType;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.ServerType;
+import model.enumerations.UpdatedType;
 
 /**
  * The model stores all data and provides it for the view and controllers.

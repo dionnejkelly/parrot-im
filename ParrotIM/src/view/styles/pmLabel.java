@@ -37,13 +37,13 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 
 public class pmLabel extends JTextField {
-	protected Xmpp core;
+	protected MainController core;
 	
-	public pmLabel (Xmpp c){
+	public pmLabel (MainController c){
 		core = c;
 		//this.setHorizontalAlignment(JTextField.CENTER);
 		changePM(false);

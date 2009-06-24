@@ -27,7 +27,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import model.Model;
 
@@ -36,7 +36,7 @@ import view.styles.popupWindowListener;
 
 public class newProfileFrame extends JFrame {
     private Model model;
-    private Xmpp controller;
+    private MainController controller;
     private profileManager managerFrame;
     protected newProfileFrame popup;
 
@@ -45,7 +45,7 @@ public class newProfileFrame extends JFrame {
     private JPasswordField pwdField;
     private JComboBox serviceField;
 
-    public newProfileFrame(Model model, Xmpp controller, profileManager pManager) {
+    public newProfileFrame(Model model, MainController controller, profileManager pManager) {
         this.model = model;
         this.controller = controller;
         managerFrame = pManager;

@@ -26,7 +26,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import model.DatabaseFunctions;
 import model.Model;
@@ -50,9 +50,9 @@ public class blockManager extends JFrame {
 	private ArrayList<UserData> usersProfileBuddyList; 
 	private Vector<UserData> bannedAccountList;
 	
-	private Xmpp chatClient;
+	private MainController chatClient;
 	
-	public blockManager(Xmpp c, Model model, ArrayList<UserData> usersBuddies, DatabaseFunctions bannedUsersList) throws ClassNotFoundException, SQLException
+	public blockManager(MainController c, Model model, ArrayList<UserData> usersBuddies, DatabaseFunctions bannedUsersList) throws ClassNotFoundException, SQLException
 	{
 		this.model = model;
 		this.chatClient = c;

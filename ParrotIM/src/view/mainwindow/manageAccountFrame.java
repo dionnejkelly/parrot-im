@@ -32,7 +32,7 @@ import view.styles.popupWindowListener;
 
 import model.DatabaseFunctions;
 import model.Model;
-import model.dataType.UpdatedType;
+import model.enumerations.UpdatedType;
 
 /*                            SORRY TESTING PROFILE MANAGER LAYOUT                         */
 

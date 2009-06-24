@@ -27,10 +27,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import model.Model;
-import model.dataType.ServerType;
+import model.enumerations.ServerType;
 
 import view.mainwindow.mainwindow;
 import view.styles.popupWindowListener;
@@ -48,7 +48,7 @@ public class editAccountFrame extends JFrame {
     private JTextField UNField;
     private JPasswordField pwdField;
     private JComboBox serviceField;
-    private Xmpp controller; 
+    private MainController controller; 
     
     /**
      * The profile selected from the profile selection window.
@@ -56,7 +56,7 @@ public class editAccountFrame extends JFrame {
     private String profile;
 
     // Instance 1 -- New Account (empty forms)
-    public editAccountFrame(Model model, profileManager pManager, Xmpp controller, String profile) {
+    public editAccountFrame(Model model, profileManager pManager, MainController controller, String profile) {
         this.model = model;
         this.controller = controller;
         this.profile = profile;

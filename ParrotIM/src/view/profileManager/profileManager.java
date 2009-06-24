@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ import java.util.Observer;
 import java.util.Vector;
 
 import model.Model;
-import model.dataType.UpdatedType;
+import model.enumerations.UpdatedType;
 
 /*
  * DEVELOPER NOTES:
@@ -52,7 +52,7 @@ import model.dataType.UpdatedType;
 public class profileManager extends JFrame implements Observer {
     private JPanel accMANPanel;
     private Model model;
-    private Xmpp controller;
+    private MainController controller;
     private mainwindow mainFrame;
     protected profileManager popup;
 
@@ -62,7 +62,7 @@ public class profileManager extends JFrame implements Observer {
     private JList accList;
     private JScrollPane acctListScroller;
 
-    public profileManager(Model model, Xmpp controller, mainwindow frame)
+    public profileManager(Model model, MainController controller, mainwindow frame)
             throws ClassNotFoundException, SQLException {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         mainFrame = frame;

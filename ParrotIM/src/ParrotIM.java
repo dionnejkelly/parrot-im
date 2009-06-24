@@ -1,7 +1,7 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import view.mainwindow.mainwindow;
 import model.DatabaseFunctions;
@@ -18,7 +18,7 @@ public class ParrotIM {
         // MainController controller = new MainController(model);
         // Xmpp chatClient = controller.getXmpp();
 
-        Xmpp chatClient = new Xmpp(model); // TEST
+        MainController chatClient = new MainController(model); // TEST
         mainwindow mainWindow = new mainwindow(chatClient, model);
         // buddylist b = new buddylist();
         // chatwindow chat = new chatwindow();

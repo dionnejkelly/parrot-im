@@ -56,15 +56,15 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 import model.*;
 import model.dataType.CurrentProfileData;
-import model.dataType.UpdatedType;
+import model.enumerations.UpdatedType;
 
 public class mainwindow extends JFrame implements Observer {
 	private signinPanel signPanel;
-	public mainwindow (Xmpp chatClient, Model model) 
+	public mainwindow (MainController chatClient, Model model) 
 	        throws ClassNotFoundException, SQLException {
 
 		//set Main Window Frame

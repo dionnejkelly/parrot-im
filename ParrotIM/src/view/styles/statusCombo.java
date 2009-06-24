@@ -26,13 +26,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 public class statusCombo extends JComboBox{
 	private static String status[] = {"Available", "Away", "Busy", "Chatty"};
-	Xmpp chatClient;
+	MainController chatClient;
 	
-	public statusCombo(Xmpp c){
+	public statusCombo(MainController c){
 		super(status);
 		chatClient = c;
 		this.addActionListener(new statusComboListener());

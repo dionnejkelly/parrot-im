@@ -7,11 +7,11 @@ import java.util.Observer;
 
 import javax.swing.*;
 
-import controller.services.Xmpp;
+import controller.MainController;
 
 
 import model.Model;
-import model.dataType.UpdatedType;
+import model.enumerations.UpdatedType;
 
 public class mainPanel extends JPanel implements Observer {
 	/*THIS IS FOR CHAT CLIENT : modified ChatClient c*/
@@ -21,7 +21,7 @@ public class mainPanel extends JPanel implements Observer {
 	//public mainPanel(ArrayList<Conversation> conversations, ChatClient c,
 	//		         Model model) {
 	
-	public mainPanel(Xmpp c, Model model) {
+	public mainPanel(MainController c, Model model) {
                    
 	    this.model = model;
 	    this.model.addObserver(this);

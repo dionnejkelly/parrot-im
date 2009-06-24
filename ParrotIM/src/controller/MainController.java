@@ -1,4 +1,4 @@
-package controller.services;
+package controller;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -31,16 +31,16 @@ import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
-import model.dataType.ServerType;
-import model.dataType.UpdatedType;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.ServerType;
+import model.enumerations.UpdatedType;
 
 /**
  * Handles all connections involving XMPP protocol.
  */
-public class Xmpp {
+public class MainController {
 
     /** The connection to the XMPP server. */
     private XMPPConnection connection;
@@ -70,7 +70,7 @@ public class Xmpp {
      * This is the constructor of Xmpp.
      * 
      */
-    public Xmpp(Model model) {
+    public MainController(Model model) {
         this.model = model;
         this.roster = null;
         this.chatManager = null;

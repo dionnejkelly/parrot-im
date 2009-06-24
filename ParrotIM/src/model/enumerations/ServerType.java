@@ -19,7 +19,7 @@
  */
 
 
-package model.dataType;
+package model.enumerations;
 
 import java.util.Vector;
 
