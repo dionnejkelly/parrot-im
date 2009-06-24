@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import controller.MainController;
 
-import view.mainwindow.mainwindow;
+import view.mainwindow.MainWindow;
 import model.DatabaseFunctions;
 import model.Model;
 import view.profileManager.*;
@@ -19,7 +19,7 @@ public class ParrotIM {
         // Xmpp chatClient = controller.getXmpp();
 
         MainController chatClient = new MainController(model); // TEST
-        mainwindow mainWindow = new mainwindow(chatClient, model);
+        MainWindow mainWindow = new MainWindow(chatClient, model);
         // buddylist b = new buddylist();
         // chatwindow chat = new chatwindow();
 

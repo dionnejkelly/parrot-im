@@ -66,12 +66,12 @@ import model.Model;
 
 import controller.MainController;
 
-import view.styles.avatarLabel;
-import view.styles.statusCombo;
-import view.styles.pmLabel;
+import view.styles.AvatarLabel;
+import view.styles.StatusCombo;
+import view.styles.PmLabel;
 
 
-public class accInfo extends JPanel
+public class AccountInfo extends JPanel
 {
 	/* TODO AccInfo has:
 	 * WEST -- Avatar (and avatar settings)
@@ -82,13 +82,13 @@ public class accInfo extends JPanel
 	JLabel avatarDisplay, displayName;
 	MainController chatClient;
 	
-	protected pmLabel statusMessage;
+	protected PmLabel statusMessage;
 	protected JTextArea textArea;
 	protected String text;
 	
 	private Model model;
 	
-	public accInfo(MainController c, Model model) 
+	public AccountInfo(MainController c, Model model) 
 	{
 	    this.model = model;
 	    setBackground(Color.DARK_GRAY);
@@ -97,7 +97,7 @@ public class accInfo extends JPanel
 		setLayout(new BorderLayout());
 		
 		//avatar
-		avatarLabel avatarDisplay = new avatarLabel("images/buddylist/logoBox.png");
+		AvatarLabel avatarDisplay = new AvatarLabel("images/buddylist/logoBox.png");
 		
 		//name, status message (personal message) and status
 		JPanel textInfo = new JPanel();
@@ -112,7 +112,7 @@ public class accInfo extends JPanel
 		name.setForeground(Color.WHITE);
 		
 		// Allowing users to change their status.
-		statusMessage = new pmLabel(c);
+		statusMessage = new PmLabel(c);
 		statusMessage.setForeground(Color.black);
 		textInfo.add(name);
 		textInfo.add(statusMessage);
@@ -123,7 +123,7 @@ public class accInfo extends JPanel
 		info.setBackground(Color.DARK_GRAY);
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(13,15,13,5));
-		statusCombo presence = new statusCombo(chatClient);
+		StatusCombo presence = new StatusCombo(chatClient);
 		
 		info.add(textInfo, BorderLayout.NORTH);
 		info.add(presence, BorderLayout.WEST);
