@@ -86,10 +86,15 @@ public class AccountData {
         return password;
     }
 
-    public void addFriend(UserData friend) {
-        // Might be called to populate the buddy list.
-        this.friends.add(friend);
-        return;
+    public boolean addFriend(UserData friend) {
+        boolean notDuplicate = false;
+        
+        if (!friendExists(friend)) {
+            this.friends.add(friend);
+            notDuplicate = true;
+        }
+        
+        return notDuplicate;
     }
     
     /**
@@ -114,7 +119,7 @@ public class AccountData {
      * @return true if found, false otherwise
      */
     public boolean friendExists(UserData friend) {
-        return this.friends.contains(friend);
+        return this.findFriendByUserID(friend.getAccountName());
     }
 
     public void setOwnUserData(UserData ownUserData) {
