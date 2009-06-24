@@ -121,6 +121,19 @@ public class AccountData {
         this.ownUserData = ownUserData;
         return;
     }
+    
+    public boolean findFriendByUserID(String userID) {
+        boolean foundFriend = false;
+        
+        for (UserData u : this.friends) {
+            if (u.getAccountName().equalsIgnoreCase(userID)) {
+                foundFriend = true;
+                break;
+            }
+        }
+        
+        return foundFriend;
+    }
 
     public UserData getOwnUserData() {
         return ownUserData;

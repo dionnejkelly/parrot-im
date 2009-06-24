@@ -442,7 +442,6 @@ public class Model extends Observable {
         }
         return found;
     }
-    
 
     /**
      * Adds a friend to the friend list. Takes a server type and a String
@@ -473,13 +472,14 @@ public class Model extends Observable {
         if (server == ServerType.GOOGLE_TALK) {
             account = currentProfile.getAccountFromServer(server);
             userToAdd = new GoogleTalkUserData(accountName);
-            account.addFriend(userToAdd);
         }
-       
+
         // Database manipulation
         try {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), accountName)) {
+                account.addFriend(userToAdd);
+
                 friend = new FriendTempData(accountName, false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
@@ -512,13 +512,14 @@ public class Model extends Observable {
         FriendTempData friend = null;
         DatabaseFunctions db = null;
 
-        account.addFriend(userToAdd);
-
         // Database manipulation
         try {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), userToAdd
                     .getAccountName())) {
+
+                account.addFriend(userToAdd);
+
                 friend = new FriendTempData(userToAdd.getAccountName(), false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
@@ -789,9 +790,9 @@ public class Model extends Observable {
         // We might need to consider the case in which the same
         // user is on multiple accounts. With this scheme, the
         // user will be returned twice.
-        Vector<String> buddies = null;       
+        Vector<String> buddies = null;
         DatabaseFunctions db = null;
-        
+
         try {
             db = new DatabaseFunctions();
             buddies = new Vector<String>();
@@ -801,7 +802,7 @@ public class Model extends Observable {
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
                 buddies.addAll(db.getChatNameList(account.getAccountName()));
-            }           
+            }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -809,7 +810,7 @@ public class Model extends Observable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         return buddies;
     }
 
