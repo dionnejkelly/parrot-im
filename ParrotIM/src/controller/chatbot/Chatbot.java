@@ -46,12 +46,23 @@ public class Chatbot {
                         
                         {"WHAT IS UP",
                          "Good",
+                         "Pretty Good",
+                         "Great",
                          "Fine",
                          "Not bad",
                          "What about you?"
                         },
                         
-                        
+                        {"HOW IS GOING",
+                         "Good",
+                         "Pretty Good",
+                         "Great",
+                         "Fine",
+                         "Not bad",
+                         "What about you?"	
+                        },
+        
+                         
                         {"WHAT IS YOUR AGE", 
                          "I am 19 years old.",
                          "I am 19.",
