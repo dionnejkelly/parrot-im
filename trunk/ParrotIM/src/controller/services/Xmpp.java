@@ -145,9 +145,8 @@ public class Xmpp {
         return userID + " = " + status;
     }
 
-    /**
+    /*
      * These are other utility methods of Xmpp class.
-     * 
      */
 
     /**
@@ -238,7 +237,7 @@ public class Xmpp {
             if (a.getServer() == ServerType.GOOGLE_TALK
                     || a.getServer() == ServerType.JABBER) {
                 this.connection.disconnect(); // Change to have connection
-                                              // stored elsewhere.
+                // stored elsewhere.
             }
         }
 
@@ -712,40 +711,31 @@ public class Xmpp {
                     }
 
                 }
-                chatbot = new Chatbot();
-                try {
-                    chatbot.get_input(message.getBody());
-                    String response = chatbot.respond();
-                    sendMessage(response, chat.getParticipant());
 
-                    // temporary to display in the chat window
-                    // ConversationData conversation =
-                    // model.getActiveConversation();
-                    // UserData fromUser =
-                    // conversation.getAccount().getOwnUserData();
-                    // MessageData msg = new MessageData(fromUser, response,
-                    // chatPanel.getFontSelect().getSelectedItem().toString(),
-                    // "4");
-                    //                    
-                    // model.sendMessage(conversation, msg);
+                if (model.getCurrentProfile().isChatbotEnabled()) {
+                    chatbot = new Chatbot();
+                    try {
+                        chatbot.get_input(message.getBody());
+                        String response = chatbot.respond();
+                        sendMessage(response, chat.getParticipant());
 
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                        // temporary to display in the chat window
+                        // ConversationData conversation =
+                        // model.getActiveConversation();
+                        // UserData fromUser =
+                        // conversation.getAccount().getOwnUserData();
+                        // MessageData msg = new MessageData(fromUser, response,
+                        // chatPanel.getFontSelect().getSelectedItem().toString(),
+                        // "4");
+                        //                    
+                        // model.sendMessage(conversation, msg);
+
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
-
-                /* Else, the message listener handles it automatically */
-
             }
-
-            System.out.println("------------------");
-            System.out.println("In processPacket");
-            // System.out.println(message.getFrom());
-            System.out.println("Packet message = " + message.getBody());
-            // System.out.println(message.getType());
-            // System.out.println("Packet message ID = " + tempID);
-
-            System.out.println("------------------");
 
             return;
         }
@@ -785,6 +775,14 @@ public class Xmpp {
     public void removeAccount(String profile, String account) {
         this.model.removeAccount(profile, account);
 
+        return;
+    }
+
+    public void toggleChatbot() {
+        this.model.getCurrentProfile().setChatbotEnabled(
+                this.model.getCurrentProfile().isChatbotEnabled() ? false
+                        : true);
+        
         return;
     }
 }
