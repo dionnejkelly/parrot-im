@@ -71,7 +71,7 @@ public class Model extends Observable {
     public boolean chatWindowOpen;
 
     public Model() throws ClassNotFoundException, SQLException {
-        currentProfile = new CurrentProfileData();
+        currentProfile = null;
         conversations = new ArrayList<ConversationData>();
     }
 
