@@ -34,7 +34,9 @@ public class AccountTempData {
      * the database, but will be represented as a ServerType enumeration in the
      * AccountData object.
      */
-    private ServerType server;
+    private ServerType server; // TODO change this to String, the 
+                               // database shouldn't have to worry about
+                               // the conversion of types.
 
     /**
      * The userID is the account name, with the "@server.com" affixed to it.
