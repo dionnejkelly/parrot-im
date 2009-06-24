@@ -19,28 +19,51 @@ Chatbot: Enable or disable Chatbot is in the Contact menu, not in the chatWindow
 Profile System: No change.
 
 FontCustomization: No change.
+
 AutoSignIn: No change.  
+
 AvatarPicture: Not implement yet.
+
 TabbedWindows: No change.
+
 BlockingAnotherUser: No change.
+
 Status: No change.
+
 ChatLog: No change.
+
 SearchEngine: Not implement yet.
+
 Twitter and ICQ Protocols: Not implement yet.
+
 IsTyping: Not implement yet.
+
 Emoticons: Not implement yet.
+
 Spellchecker: Not implement yet.
+
 ConferenceChatting: No change.
+
 File Transfer: Not implement yet.
+
 SoundNotification: Not implement yet.
+
 UICustomization: Not implement yet.
+
 AdditionalProtocolModules: Not implement yet.
+
 Offline Messaging: No change.
+
 AdvancedAndSimplifiedModes: No change.
+
 Spam Filter: Not implement yet.
+
 Multiple OS Compatibility: Not implement yet.
+
 Language Localization: Not implement yet.
+
 Email Notification: Not implement yet.
+
 Slash Commands: Not implement yet.
 
 
