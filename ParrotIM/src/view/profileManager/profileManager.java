@@ -323,22 +323,14 @@ public class profileManager extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.PROFILE) {
             Vector<String> profileListArray;
-            
-            // Shouldn't need this try catch. Fix.
-            try {
-                profileListModel.removeAllElements();
-                profileListArray = model.getProfileList();
-                for (int i = 0; i < model.getProfileList().size(); i++) {
-                    profileListModel.addElement(profileListArray.elementAt(i));
-                }
-            } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
 
+            profileListModel.removeAllElements();
+            profileListArray = model.getProfileList();
+            for (int i = 0; i < model.getProfileList().size(); i++) {
+                profileListModel.addElement(profileListArray.elementAt(i));
+
+            }
+            
             return;
         }
     }

@@ -123,10 +123,22 @@ public class Model extends Observable {
         return accounts;
     }
 
-    public Vector<String> getProfileList() throws ClassNotFoundException,
-            SQLException {
-        DatabaseFunctions db = new DatabaseFunctions();
-        return db.getProfileList();
+    public Vector<String> getProfileList() {
+        Vector<String> profiles = null;
+        
+        DatabaseFunctions db;
+        try {
+            db = new DatabaseFunctions();
+            profiles = db.getProfileList();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return profiles;
     }
 
     public Vector<String> getProfilesUserList(String name)

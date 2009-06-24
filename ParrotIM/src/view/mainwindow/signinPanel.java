@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,6 +22,7 @@ import model.Model;
 import model.dataType.AccountData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.ServerType;
+import model.dataType.UpdatedType;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -30,7 +33,7 @@ import view.styles.linkLabel;
 
 import view.buddylist.buddylist;
 
-public class signinPanel extends JPanel {
+public class signinPanel extends JPanel implements Observer {
     protected Xmpp core;
     private mainwindow mainFrame;
     private Model model;
@@ -51,6 +54,7 @@ public class signinPanel extends JPanel {
         mainFrame = frame;
         core = chatClient;// CORE
         this.model = model;
+        this.model.addObserver(this);
         signin = this;
 
         setLayout(new BorderLayout());
@@ -163,5 +167,18 @@ public class signinPanel extends JPanel {
             header.loadMain();
             System.out.println("sign in failed!");
         }
+    }
+    
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.PROFILE) {
+            this.account_select.removeAllItems();
+            for (String s : model.getProfileList()) {
+                this.account_select.addItem(s);
+            }
+            
+            //= new JComboBox(model.getProfileList());
+        }
+        
+        return;
     }
 }
