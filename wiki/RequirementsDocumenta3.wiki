@@ -20,41 +20,41 @@ Profile System: No change.
 
 Font Customization:No change.
 
-Auto SignIn: No change.  
+Auto Sign In: No change.  
 
 Avatar picture: Not implement yet.
 
 Tabbed Windows: No change.
 
-BlockingAnotherUser: No change.
+Blocking Another User: No change.
 
 Status: No change.
 
-ChatLog: No change.
+Chat Log: No change.
 
-SearchEngine: Not implement yet.
+Search Engine: Not implement yet.
 
 Twitter and ICQ Protocols: Not implement yet.
 
-IsTyping: Not implement yet.
+Is Typing: Not implement yet.
 
 Emoticons: Not implement yet.
 
 Spellchecker: Not implement yet.
 
-ConferenceChatting: No change.
+Conference Chatting: No change.
 
 File Transfer: Not implement yet.
 
-SoundNotification: Not implement yet.
+Sound Notification: Not implement yet.
 
 UICustomization: Not implement yet.
 
-AdditionalProtocolModules: Not implement yet.
+Additional Protocol Modules: Not implement yet.
 
 Offline Messaging: No change.
 
-AdvancedAndSimplifiedModes: No change.
+Advanced And Simplified Modes: No change.
 
 Spam Filter: Not implement yet.
 
