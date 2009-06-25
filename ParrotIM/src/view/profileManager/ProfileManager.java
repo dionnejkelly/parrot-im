@@ -144,7 +144,7 @@ public class ProfileManager extends JFrame implements Observer {
         leftPanel.add(addremovePanel, BorderLayout.SOUTH);
         TitledBorder profTitle;
         profTitle = BorderFactory.createTitledBorder(BorderFactory
-                .createEtchedBorder(EtchedBorder.LOWERED), "Profiles");
+                .createEmptyBorder(), "Profiles");
         profTitle.setTitleJustification(TitledBorder.CENTER);
         leftPanel.setBorder(profTitle);
 
@@ -227,7 +227,7 @@ public class ProfileManager extends JFrame implements Observer {
         topRight.add(addRemoveAcctPanel, BorderLayout.CENTER);
         TitledBorder acctTitle;
         acctTitle = BorderFactory.createTitledBorder(BorderFactory
-                .createEtchedBorder(EtchedBorder.LOWERED), "IM Accounts");
+                .createEmptyBorder(), "IM Accounts");
         acctTitle.setTitleJustification(TitledBorder.RIGHT);
         topRight.setBorder(acctTitle);
 
