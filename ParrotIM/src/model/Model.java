@@ -324,6 +324,27 @@ public class Model extends Observable {
 
         return conversation;
     }
+    
+    /**
+     * Searches the current list of conversations for a conversation with the
+     * specified user. Returns the ConversationData object if found; null
+     * otherwise.
+     * 
+     * @param user
+     * @return A ConversationData Object.
+     */
+    public ConversationData findConversationByFriend(UserData user) {
+        ConversationData conversation = null;
+
+        for (ConversationData c : this.conversations) {
+            if (c.getUser() == user) {
+                conversation = c;
+                break;
+            }
+        }
+
+        return conversation;
+    }
 
     public void receiveMessage(AccountData account, MessageData message) {
         UserData user = null;
@@ -342,15 +363,10 @@ public class Model extends Observable {
             e.printStackTrace();
         }
 
-        //modifiedConversation = this.findConversationByFriend(fromUser);
         user = this.findUserByAccountName(fromUser);
+        modifiedConversation = this.findConversationByFriend(user);
 
-        for (ConversationData c : conversations) {
-            if (c.getUser() == user) {
-                modifiedConversation = c;
-                break;
-            }
-        }
+        
         if (modifiedConversation != null) {
             // Case 1: We found a matching conversation
             modifiedConversation.addMessage(message);
