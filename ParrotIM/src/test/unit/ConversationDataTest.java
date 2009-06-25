@@ -18,6 +18,7 @@ import org.junit.Test;
 public class ConversationDataTest {
 	private ConversationData cd1;
 	private ConversationData cd2;
+	private ConversationData cd3;
 	@Before
 	public void setUp() throws Exception {
 		cd1 = new ConversationData(new AccountData(ServerType.GOOGLE_TALK,"Rakan","1234"),new GoogleTalkUserData("Rakan","Rick","1234"));
@@ -31,6 +32,14 @@ public class ConversationDataTest {
 	}
 
 	@Test
+	public void testConversationData(){
+		cd3 = new ConversationData(new AccountData(ServerType.GOOGLE_TALK,"Rakan","1234"),new GoogleTalkUserData("Rakan","Rick","1234"));
+		assertEquals("Rakan",cd3.getUser().getAccountName());
+		assertSame("1234",cd3.getAccount().getPassword());
+		assertTrue(cd3.getText().isEmpty());
+		assertTrue(cd3.getMessageCount()==0);
+
+	}
 	public void testGetUser() {
 		
 		UserData expected = new GoogleTalkUserData("Rakan","Rick","1234");

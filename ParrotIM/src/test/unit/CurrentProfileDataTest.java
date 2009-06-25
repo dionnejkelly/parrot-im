@@ -19,6 +19,8 @@ public class CurrentProfileDataTest {
 	private CurrentProfileData cpd2;
 	private CurrentProfileData cpd3;
 	private CurrentProfileData cpd4;
+	private CurrentProfileData cpd5;
+	private CurrentProfileData cpd6;
 	@Before
 	public void setUp() throws Exception {
 		cpd1 = new CurrentProfileData(new AccountData(ServerType.GOOGLE_TALK,"Rakan","1234"),"Rakan Alkheliwi");
@@ -53,9 +55,28 @@ public class CurrentProfileDataTest {
 		cpd1 = null;
 		cpd2 = null;
 		cpd3 = null;
+		cpd4 = null;
+		cpd5 = null;
+		cpd6 = null;
 	}
 
 	@Test
+	public void testCurrentProfileData(){
+		cpd5 = new CurrentProfileData();
+		assertTrue(cpd5.getAccountData().isEmpty());
+		assertSame("<empty>",cpd5.getProfileName());
+		assertFalse(cpd5.isChatbotEnabled());
+	}
+	public void testCurrentProfileDataAccountDataString(){
+		AccountData a3 = new  AccountData (ServerType.TWITTER,"AlPacino","insider");
+		UserData g = new GoogleTalkUserData("Grand","GTA","busy");
+		a3.addFriend(g);
+		cpd6 = new CurrentProfileData(a3,"Al Pacino");
+		assertSame(g.getAccountName(),cpd6.getAccountData().get(0).getAccountName());
+		assertSame("Al Pacino",cpd6.getProfileName());
+		assertFalse(cpd6.isChatbotEnabled());
+ 
+	}
 	public void testSetAccountData() {
 		ArrayList<AccountData> expected = new ArrayList<AccountData>();
 		expected.add(new AccountData(ServerType.GOOGLE_TALK,"Rakan","1234"));

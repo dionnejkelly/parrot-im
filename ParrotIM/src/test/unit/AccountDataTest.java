@@ -39,7 +39,7 @@ public class AccountDataTest {
 		ad4 = null;
 		ad5 = null;
 	}
-	public void testAccountTempData() {
+	public void testAccountData() {
 		ad6 = new AccountData(ServerType.ICQ,"James","007");
 		assertSame(ServerType.ICQ,ad4.getServer());
 		assertSame("James",ad4.getAccountName());
