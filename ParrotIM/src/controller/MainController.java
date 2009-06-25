@@ -56,19 +56,23 @@ public class MainController {
     /** Handles all chat message events, receipt and submission. */
     private ChatManager chatManager;
 
-    /** Add comments here. */
+    /** Holds an array list of chats. */
     private ArrayList<Chat> chats;
 
-    /** Delete it? */
-    // private String tempID;
-    /** Add comments here. */
+ 
+    /** Holds the user data that is initially set to null. */
     private UserData user = null;
+    
+    /** Holds the message data that is initially set to null. */
     private MessageData m = null;
+    
+    /** Holds the chat data that is initially set to null. */
     private Chat chat = null;
 
     /**
      * This is the constructor of Xmpp.
      * 
+     * @param model
      */
     public MainController(Model model) {
         this.model = model;
@@ -83,7 +87,11 @@ public class MainController {
      * 
      */
 
-    /** This method is using to set the status of the user. */
+    /** This method is using to set the status of the user. 
+     * 
+     * @param status
+    */
+    
     public void setStatus(String status) {
         Presence presence = new Presence(Presence.Type.available);
         if (status.equals("Available")) {
@@ -99,23 +107,31 @@ public class MainController {
         connection.sendPacket(presence);
     }
 
-    /** This method actually set presence of the user. */
+    /** This method actually set presence of the user. 
+     * 
+     * @param presenceStatus
+     * @throws InterruptedException
+    */
     public void setPresence(String presenceStatus) throws InterruptedException {
         Presence presence = new Presence(Presence.Type.available);
         presence.setStatus(presenceStatus);
         connection.sendPacket(presence);
     }
 
-    /** This method is using to get the Roster of someone. */
+    /** This method is using to get the Roster of someone. 
+     * 
+     * @returns Roster
+    */
     public Roster getRoster() {
         return this.roster;
     }
 
-    /** Phase this method out */
-    // public String getUserName() {
-    // return userName;
-    // }
-    /** This method is using to get the presence of the user. */
+
+    /** This method is using to get the presence of the user. 
+     * 
+     *  @param userID
+     *  @returns String
+    */
     public String getUserPresence(String userID) {
         String status = "offline";
         if (connection != null && connection.getRoster() != null) {
@@ -152,6 +168,8 @@ public class MainController {
     /**
      * This is the helper method using to determine if we connect to the sever
      * successfully.
+     * 
+     * @return boolean
      */
     public boolean isConnected() {
         return connection.isConnected();
@@ -161,6 +179,11 @@ public class MainController {
      * Attempts to log a user into the server based on the given account
      * information. If the current profile already exists, this account
      * information is added to it.
+     * 
+     * @param server
+     * @param accountName
+     * @param password
+     * @throws XMPPException
      */
     public void login(ServerType server, String accountName, String password)
             throws XMPPException {
@@ -218,7 +241,13 @@ public class MainController {
 
         return;
     }
-
+    
+    /** This method is used to login to XMPP through a profile . 
+     * 
+     * @param profile
+     * @throws XMPPException
+    */
+    
     public void loginProfile(String profile) throws XMPPException {
         ArrayList<AccountTempData> accounts = null;
 
@@ -234,6 +263,12 @@ public class MainController {
         return;
     }
 
+    
+    /** This method is used to disconnect the XMPP connection. 
+     * 
+     * @throws XMPPException
+    */
+    
     public void disconnect() throws XMPPException {
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
             if (a.getServer() == ServerType.GOOGLE_TALK
@@ -247,7 +282,11 @@ public class MainController {
 
     }
 
-    /** This method is using to add a friend to the friend list. */
+    /** This method is used to add a friend to the friend list. 
+     * 
+     * @param userID
+    */
+    
     public void addFriend(String userID) {
         Roster roster = connection.getRoster();
         String nickname = StringUtils.parseBareAddress(userID);
@@ -260,7 +299,10 @@ public class MainController {
         }
     }
 
-    /** This method is using to remove a friend to the friend list. */
+    /** This method is used to remove a friend to the friend list. 
+     * 
+     * @param userID
+    */
     public void removeFriend(String userID) {
         UserData user = null;
         Roster roster = connection.getRoster();
@@ -279,6 +321,11 @@ public class MainController {
                 }
         }
     }
+    
+    /** This method is used to block a friend to the friend list. 
+     * 
+     * @param userID
+    */
 
     public void blockFriend(String userID) {
         UserData user = null;
@@ -298,6 +345,11 @@ public class MainController {
 
         return;
     }
+    
+    /** This method is used to unblock a friend to the friend list. 
+     * 
+     * @param userID
+    */
 
     public void unblockFriend(String userID) {
         UserData user = null;
@@ -326,7 +378,10 @@ public class MainController {
         }
     }
 
-    /** This method is using to get the buddy list of the user. */
+    /** This method is used to get the buddy list of the user. 
+     * 
+     * @return ArrayList<String>
+    */
     public ArrayList<String> getBuddyList() {
         ArrayList<String> buddies = new ArrayList<String>();
 
@@ -341,6 +396,11 @@ public class MainController {
         Collections.sort(buddies);
         return buddies;
     }
+    
+    /** This method is used to populate the buddy list of the user. 
+     * 
+     * @param account
+    */
 
     public void populateBuddyList(AccountData account) {
         UserData user = null;
@@ -409,6 +469,11 @@ public class MainController {
      * receiver. If the receiver is unknown, then use the overloaded
      * sendMessage() which automatically sends the reply to the open
      * conversation.
+     * 
+     * @param messageString
+     * @param to
+     * @throws XMPPException
+     * 
      */
     public void sendMessage(String messageString, String to)
             throws XMPPException {
@@ -465,7 +530,9 @@ public class MainController {
     /**
      * Sends a message to the person in the current active conversation.
      * 
-     * @param message
+     * @param messageString
+     * @param font
+     * @param size
      * @throws XMPPException
      */
     public void sendMessage(String messageString, String font, String size)
@@ -516,6 +583,12 @@ public class MainController {
 
     /* Manipulation of conversations */
 
+    /**
+     * Changes a conversation to another user.
+     * 
+     * @param accountName
+     */
+    
     public void changeConversation(String accountName) {
         UserData user = null;
 
@@ -526,6 +599,13 @@ public class MainController {
 
         return;
     }
+    
+    /**
+     * Updates the Parrot IM user's state and status.
+     * 
+     * @param userToUpdate
+     * @param bareAddress
+     */
 
     public void updateStateAndStatus(UserData userToUpdate, String bareAddress) {
         Presence truePresence = null;
@@ -563,24 +643,50 @@ public class MainController {
      * availability, are handled by this class.
      */
     private class BuddyListener implements RosterListener {
+    	
+    	 /**
+         * Displays which user is added to the entry.
+         * 
+         * @param addresses
+         */
+    	
         public void entriesAdded(Collection<String> addresses) {
             // Fix me!
             System.out.println(addresses + " from entriesAdded");
             return;
         }
 
+        /**
+         * Displays which user is updated in the entry.
+         * 
+         * @param addresses
+         */
+    	
+        
         public void entriesUpdated(Collection<String> addresses) {
             // Fix me!
             System.out.println(addresses + " from entriesUpdated");
             return;
         }
 
+        /**
+         * Displays which user is deleted in the entry.
+         * 
+         *  @param addresses
+         */
+    	
         public void entriesDeleted(Collection<String> addresses) {
             // Fix me!
             System.out.println(addresses + " from entriesDeleted");
             return;
         }
 
+        /**
+         * Updates user's changed presence
+         * 
+         *  @param presence
+         */
+        
         public void presenceChanged(Presence presence) {
             UserData userToUpdate = null;
 
@@ -598,6 +704,14 @@ public class MainController {
      * Controls program flow upon new chats being created.
      */
     private class ChatListener implements ChatManagerListener {
+    	
+    	/**
+         * Adds net chat to the Chat Array List.
+         * 
+         * @param chat
+         * @param createdLocally
+         */
+    	
         public void chatCreated(Chat chat, boolean createdLocally) {
             System.out.println("CREATED CHAT!!");
             /* Set up listener for the new Chat */
@@ -611,8 +725,19 @@ public class MainController {
 
     /** This is another class call MsgListener. */
 
+    /**
+     * Controls receiving message upon new arrival.
+     */
+    
     private class MsgListener implements MessageListener {
 
+    	 /**
+         * Processes the incoming message upon new arrival.
+         * 
+         * @param chat
+         * @param message
+         */
+    	
         public void processMessage(Chat chat, Message message) {
             UserData user = null;
             MessageData m = null;
@@ -645,6 +770,13 @@ public class MainController {
     /** This is another class call MessagepackFilter. */
 
     private class MessagePacketFilter implements PacketFilter {
+    	
+    	/**
+         * Accepts the incoming packet upon new arrival.
+         * 
+         * @param packet
+         */
+    	
         public boolean accept(Packet packet) {
             // System.out.println(packet + "It's YOU, I KNOW IT!");
 
@@ -656,6 +788,12 @@ public class MainController {
 
     private class MessagePacketListener implements PacketListener {
 
+    	/**
+         * Processes the incoming packet upon new arrival.
+         * 
+         * @param packet
+         */
+    	
         public void processPacket(Packet packet) {
             Chatbot chatbot = null;
 
@@ -726,18 +864,42 @@ public class MainController {
      * SECTION: Profile manipulation
      */
 
+    /**
+     * Adds profile to the database.
+     * 
+     * @param name
+     * @param password
+     * @param defaultProfile
+     */
+    
     public void addProfile(String name, String password, boolean defaultProfile) {
         this.model.addProfile(name, password, defaultProfile);
 
         return;
     }
 
+    /**
+     * Removes profile from the database.
+     * 
+     * @param name
+     */
+    
     public void removeProfile(String name) {
         this.model.removeProfile(name);
 
         return;
     }
 
+    /**
+     * Adds account to the database.
+     * 
+     * @param profile
+     * @param server
+     * @param account
+     * @param password
+     */
+    
+    
     public void addAccount(
             String profile, ServerType server, String account, String password) {
         String serverName = null;
@@ -753,12 +915,23 @@ public class MainController {
         this.model.addAccount(profile, serverName, account, password);
     }
 
+    /**
+     * Adds account to the database.
+     * 
+     * @param profile
+     * @param account
+     */
+    
     public void removeAccount(String profile, String account) {
         this.model.removeAccount(profile, account);
 
         return;
     }
 
+    /**
+     * Toggles through Chatbot.
+     */
+    
     public void toggleChatbot() {
         this.model.getCurrentProfile().setChatbotEnabled(
                 this.model.getCurrentProfile().isChatbotEnabled()
@@ -767,8 +940,5 @@ public class MainController {
         return;
     }
     
-//    public void signout(){
-    	//TODO: I am not sure if what I did is correct or not
-//    	connection.disconnect();
-//    }
+
 }

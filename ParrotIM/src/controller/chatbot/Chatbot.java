@@ -659,7 +659,7 @@ public class Chatbot {
         /**
          * Appropriate handle events.
          * 
-         * @param String
+         * @param str
          */
   
         public void handle_event(String str)
@@ -723,7 +723,7 @@ public class Chatbot {
         /**
          * Sets Chatbot's event.
          *
-         *	@param String
+         *	@param str
          */
  
         public void set_event(String str) {
@@ -742,7 +742,7 @@ public class Chatbot {
         /**
          * Sets User's event.
          *
-         *	@param String
+         *	@param str
          */
 
         public void set_input(String str) {
@@ -883,6 +883,7 @@ public class Chatbot {
         /**
          * Check whether user's current input contains unnecessary symbols and punctuation.
          * 
+         * @param ch
          * @return boolean
          */
         
@@ -894,7 +895,7 @@ public class Chatbot {
         /**
          * Removes punctuation and redundant spaces from the user's input.
          * 
-         * @param String
+         * @param str
          * @return String
          */
 
