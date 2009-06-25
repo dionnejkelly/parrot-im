@@ -6,7 +6,7 @@
  */
 
 package view.options;
-//import statements
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,17 +17,6 @@ import javax.swing.plaf.basic.BasicFileChooserUI;
 import java.util.*;
 import javax.imageio.*;
 
-/* SettingManage class
- *
- *
- * Written by : Peng-Tzu Huang
- *
- *
- * Version 20 Jun 2009
- *
- * Revision    Status       Date            By:
- * 1.0         Created      20 Jun 2009     Peng-Tzu Huang
- */
 
 public class SettingManage extends JComponent implements ItemListener, ActionListener
 {
@@ -52,9 +41,9 @@ public class SettingManage extends JComponent implements ItemListener, ActionLis
 
 
 
-        cChart = new JCheckBox("chart bar");
+        cChart = new JCheckBox("Spam filter");
         cChart.setSelected(true);
-        cSound = new JCheckBox("sound effect");
+        cSound = new JCheckBox("Sound effect");
         cSound.setSelected(true);
 
         cChart.addItemListener(this);
@@ -94,6 +83,7 @@ public class SettingManage extends JComponent implements ItemListener, ActionLis
     public void actionPerformed(ActionEvent e) {
         if ("OK".equals(e.getActionCommand()))
         {
+        	
         }
         else if ("Cancel".equals(e.getActionCommand()))
         {
@@ -110,5 +100,5 @@ public class SettingManage extends JComponent implements ItemListener, ActionLis
     {
         return pSetting;
     }
-//----------------------------------------
+
 }
