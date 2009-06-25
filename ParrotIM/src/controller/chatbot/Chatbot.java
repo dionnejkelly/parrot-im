@@ -1,27 +1,60 @@
 package controller.chatbot;
 
-import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
-public class Chatbot {
-        
-        final int userMaxInput = 1;
-        final int userMaxResp = 6;
-        final String puncSymbDelim = "?!.;:/(){}@#$%^&*+-|\\\'<>{}[]\"";
-        
-        private String  sInput = new String("");
-        private String  sResponse = new String("");
-        private String  sPrevInput = new String("");
-        private String  sPrevResponse = new String("");
-        private String  sEvent = new String("");
-        private String  sPrevEvent = new String("");
-        private String  sInputBackup = new String("");
-        private boolean chatBotQuit = false;
+/**
+ * The Chatbot currently stores all the knowledge base and respond list data
+ * to provide users with auto-mated messaging. The Chatbot can be turn on/off
+ * from the Contact List by simply clicking the Chatbot Enabled.
+ * 
+ */
 
-        // Collection of respond list
-        private Vector<String>  respList = new Vector<String>(userMaxResp);
+public class Chatbot {
+	
+  
+	// Section
+    // I - Final Data Members
+
+    /**
+     * Holds the limit for the knowledge base and the response. Also, puncSymDelim
+     * is used to hold any symbols that will be delimited during the clean string process.
+    */
+
+     private final int userMaxInput = 1;
+     private final int userMaxResp = 6;
+     private final String puncSymbDelim = "?!.;:/(){}@#$%^&*+-|\\\'<>{}[]\"";
         
-        private String[][] KnowledgeBase = {
+     
+     
+     // Section
+     // II - Non-Static Data Members
+
+     /**
+      * The Chatbot data to process.
+     */
+     
+     private String  sInput = new String("");
+     private String  sResponse = new String("");
+     private String  sPrevInput = new String("");
+     private String  sPrevResponse = new String("");
+     private String  sEvent = new String("");
+     private String  sPrevEvent = new String("");
+     private String  sInputBackup = new String("");
+     private boolean chatBotQuit = false;
+
+     /**
+      *  Collection of respond list.
+     */  
+     
+     private Vector<String>  respList = new Vector<String>(userMaxResp);
+        
+     
+     /**
+      *  Collection of knowledge base.
+     */  
+     
+     private String[][] KnowledgeBase = {
                         {"WHAT IS YOUR NAME", 
                          "My name is Phyllis.",
                          "I am known as Phyllis.",
@@ -469,29 +502,36 @@ public class Chatbot {
                          "WELL,I CAN'T TELL YOU FOR SURE.",
                          "ARE YOU TRYING TO CONFUSE ME?",
                          "PLEASE DONT ASK ME SUCH QUESTION,IT GIVES ME HEADEACHES."
-                        }
-
-
-                        
-                
+                        }            
                 };
         
-        
+     // Section
+     // III - Message Extraction
 
-        
-        
-        public void get_input(String message) throws Exception 
+     /**
+      * Adds a user's input to the Chatbot's data.
+      * 
+      * @param message
+      * @throws Exception
+      */   
+      
+      public void get_input(String message) throws Exception 
         {
-                //System.out.print(">");
-
-                // saves the previous input
+  
                 save_prev_input();
-//              BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-//              sInput = in.readLine();
+
                 sInput = message;
                 
                 preprocess_input();
         }
+      
+      
+      
+      /**
+       * Returns a String response. 
+       * 
+       * @return A Chatbot response represented by Strings.
+       */
 
         public String respond()
         {
@@ -517,10 +557,6 @@ public class Chatbot {
                         find_match();
                 }
 
-            if(user_want_to_quit())
-                {
-                        chatBotQuit = true;
-                }
 
                 if(!bot_understand())
                 {
@@ -535,25 +571,34 @@ public class Chatbot {
                         {
                                 handle_repetition();
                         }
-                        response = print_response();
+                        response = get_response();
                 }
                 
                 return response;
         }
 
         
+        /**
+         * Returns a boolean response with Chatbot quitting. 
+         * 
+         * @return A Chatbot flag represented by boolean.
+         */
+        
         public boolean quit() {
                 return chatBotQuit;
         }
+        
+        
+        /**
+         * Finds appropriate questions in the Knowledge Base.  
+         */
         
         public void find_match() 
         {
                 respList.clear();
                 for(int i = 0; i < KnowledgeBase.length; ++i) 
                 {
-                        // there has been some improvements made in
-                        // here in order to make the matching process
-                        // a littlebit more flexible
+                   
                         if(sInput.indexOf(KnowledgeBase[i][0]) != -1) 
                         {
                                 int respSize = KnowledgeBase[i].length - userMaxInput;
@@ -565,6 +610,16 @@ public class Chatbot {
                         }
                 }
         }
+        
+        
+        // Section
+        // IV - Handling Event
+
+        /**
+         * Handles response repetition striving to answer differently.
+         * 
+         * @return String
+         */
         
         public String handle_repetition()
         {
@@ -583,6 +638,12 @@ public class Chatbot {
                 return select_response();
         }
         
+        
+        /**
+         * Handles user's question repetition to check whether or not they are repeating.
+         * 
+         */
+    
         public void handle_user_repetition()
         {
                 if(same_input()) 
@@ -595,6 +656,12 @@ public class Chatbot {
                 }
         }
         
+        /**
+         * Appropriate handle events.
+         * 
+         * @param String
+         */
+  
         public void handle_event(String str)
         {
                 save_prev_event();
@@ -611,58 +678,128 @@ public class Chatbot {
                 restore_input();
         }
 
+        // Section
+        // V - Chatbot Handling
+
+        /**
+         * Selects an appropriate response.
+         * 
+         * @return String
+         */
+ 
         public String select_response() {
                 Collections.shuffle(respList);
                 sResponse = respList.elementAt(0);
                 return sResponse;
         }
+        
+        /**
+         * Saves users previous input.
+         *
+         */
 
         public void save_prev_input() {
                 sPrevInput = sInput;
         }
-
+        
+        /**
+         * Saves Chatbot's previous input.
+         *
+         */
+ 
         public void save_prev_response() {
                 sPrevResponse = sResponse;
         }
+        
+        /**
+         * Saves Chatbot's previous event.
+         *
+         */
 
         public void save_prev_event() {
                 sPrevEvent = sEvent;
         }
 
+        /**
+         * Sets Chatbot's event.
+         *
+         *	@param String
+         */
+ 
         public void set_event(String str) {
                 sEvent = str;
         }
+        
+        /**
+         * Saves User's event.
+         *
+         */
 
         public void save_input() {
                 sInputBackup = sInput;
         }
+        
+        /**
+         * Sets User's event.
+         *
+         *	@param String
+         */
 
         public void set_input(String str) {
                 sInput = str;
         }
         
+        /**
+         * Restores User's backup input.
+         *
+         */
+        
         public void restore_input() {
                 sInput = sInputBackup;
         }
         
-        public String print_response()  {
+        /**
+         * Return Chatbot's response.
+         * @return String
+         */
+        
+        public String get_response()  {
                 if(sResponse.length() > 0) {
-                        //System.out.println(sResponse);
                         return sResponse;
                 }
-                return "";
                 
+                return "";       
         }
+        
+        // Section
+        // VI - Chatbot's Intelligence
+
+        /**
+         * Pre-processes user's input.
+         * 
+         */
         
         public void preprocess_input() {
                 sInput = cleanString(sInput);
                 sInput = sInput.toUpperCase();
         }
+        
+        /**
+         * Checks whether Chatbot is repeating itself.
+         * 
+         * @return boolean
+         */
 
         public boolean bot_repeat()  {
                 return (sPrevResponse.length() > 0 && 
                         sResponse == sPrevResponse);
         }
+        
+        /**
+         * Checks whether user is repeating.
+         * 
+         * @return boolean
+         */
 
         public boolean user_repeat()  {
                 return (sPrevInput.length() > 0 &&
@@ -670,34 +807,72 @@ public class Chatbot {
                         (sInput.indexOf(sPrevInput) != -1) ||
                         (sPrevInput.indexOf(sInput) != -1)));
         }
+        
+        /**
+         * Checks whether Chatbot understand and reacts appropriately.
+         * 
+         * @return boolean
+         */
 
         public boolean bot_understand()  {
                 return respList.size() > 0;
         }
 
+        /**
+         * Checks whether User's input is null.
+         * 
+         * @return boolean
+         */
+        
         public boolean null_input()  {
                 return (sInput.length() == 0 && sPrevInput.length() != 0);
         }
+        
+        /**
+         * Checks whether User's repeated null inputs.
+         * 
+         * @return boolean
+         */
 
         public boolean null_input_repetition()  {
                 return (sInput.length() == 0 && sPrevInput.length() == 0);
         }
-
-        public boolean user_want_to_quit()  {
-                return sInput.indexOf("BYE") != -1;
-        }
+        
+        /**
+         * Check whether the current event is same as the previous event.
+         * 
+         * @return boolean
+         */
 
         public boolean same_event()  {
                 return (sEvent.length() > 0 && sEvent == sPrevEvent);
         }
 
+        /**
+         * Check whether the Chatbot is responding.
+         * 
+         * @return boolean
+         */
+        
         public boolean no_response()  {
                 return respList.size() == 0;
         }
+        
+        /**
+         * Check if the user is repeating.
+         * 
+         * @return boolean
+         */
 
         public boolean same_input()  {
                 return (sInput.length() > 0 && sInput == sPrevInput);
         }
+        
+        /**
+         * Check whether user's current input is similar to previous input.
+         * 
+         * @return boolean
+         */
 
         public boolean similar_input()  {
                 return (sInput.length() > 0 &&
@@ -705,12 +880,24 @@ public class Chatbot {
                         sPrevInput.indexOf(sInput) != -1));
         }
         
+        /**
+         * Check whether user's current input contains unnecessary symbols and punctuation.
+         * 
+         * @return boolean
+         */
+        
         private boolean isPunc(char ch) {
                 return puncSymbDelim.indexOf(ch) != -1;
         }
         
-        // removes punctuation and redundant
-        // spaces from the user's input
+        
+        /**
+         * Removes punctuation and redundant spaces from the user's input.
+         * 
+         * @param String
+         * @return String
+         */
+
         public String cleanString(String str) {
             if (str != null) {
                 StringBuffer temp = new StringBuffer(str.length());
