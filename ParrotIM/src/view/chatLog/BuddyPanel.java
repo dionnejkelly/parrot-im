@@ -34,9 +34,22 @@ import javax.swing.ScrollPaneConstants;
 
 import model.Model;
 
+/**
+ * The panel that sets the right component of ChatLogPanel.
+ *
+ * This class inherits JPanel methods and variables.
+ */
 public class BuddyPanel extends JPanel {
+	/** 
+     * buddyList is a JList object. It is the left component of ChatLogPanel.
+     * buddyList shows the list of buddies whom the user has talked to.
+     */
     protected JList buddyList;
 
+    /** 
+     * The constructor of BuddyPanel. It takes model and currently used profile name as arguments.
+     * It sets up the right component of ChatLogPanel.
+     */
     public BuddyPanel(Model model, String profile) throws SQLException, ClassNotFoundException {
 
         // list of buddies who has logged chat

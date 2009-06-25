@@ -33,9 +33,17 @@ import javax.swing.JFrame;
 
 import model.Model;
 
+/**
+ * The container frame of ChatLogPanel.java.
+ *
+ * This class inherits JFrame methods and variables.
+ */
 public class ChatLogFrame extends JFrame {
+	
+	/** model allows the ChatLogFrame to store the state of ChatLogFrame (ie. whether it is opened or not). */
 	Model model;
 	
+	/** Sets the title of the window, size, and default close operation.*/
     public ChatLogFrame(Model model) throws SQLException, ClassNotFoundException {
         super("ParrotIM - Chat Log Viewer");
     	this.model = model;
@@ -51,10 +59,20 @@ public class ChatLogFrame extends JFrame {
         this.addWindowListener(new chatLogWindowListener());
     }
     
+    /**
+     * This is a private class that controls the WindowListener for ChatLogFrame.
+     * It sets the variable logWindowOpen in Model class.
+     * 
+     * This class inherits WindowListener variables and methods.
+     */
     private class chatLogWindowListener implements WindowListener{
 
 		public void windowActivated(WindowEvent e) {}
 
+	    /**
+	     * When the chatLogWindow is closed, logWindowOpen will be set to false.
+	     * It returns nothing.
+	     */
 		public void windowClosed(WindowEvent e) {
 			model.logWindowOpen = false;
 		}
@@ -64,6 +82,10 @@ public class ChatLogFrame extends JFrame {
 		public void windowDeiconified(WindowEvent e) {}
 		public void windowIconified(WindowEvent e) {}
 		
+	    /**
+	     * When the chatLogWindow is opened, logWindowOpen will be set to true.
+	     * It returns nothing.
+	     */
 		public void windowOpened(WindowEvent e) {
 			model.logWindowOpen = true;
 		}

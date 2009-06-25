@@ -48,25 +48,80 @@ import view.styles.TextListCellRenderer;
 import model.Model;
 import model.dataType.tempData.ChatLogMessageTempData;
 
+/**
+ * Sets the GUI component of ChatLogFrame.java.
+ * 
+ * This class inherits JSplitPane methods and variables.
+ */
 public class ChatLogPanel extends JSplitPane {
+	
+	/** 
+	 * profile describes the name of the currently used profile. 
+	 * It is used as one the arguments to extract chatlog data from database*/
     private String profile;
+    
+    /** model connects ChatLogPanel and the database functions.*/
     private Model model;
+    
+    /** 
+     * logPane is a JSplitPane object that sets the right component of ChatLogWindow.
+     * It consists of datesScroll (on the top) and chatLog (on the bottom).
+     */
     private JSplitPane logPane;
 
     // left component
+    /** 
+     * buddies is a JList object. It is the left component of ChatLogPanel.
+     * buddies shows the list of buddies whom the user has talked to.
+     */
     private JList buddies;
 
     // right component
     // top
+    /** 
+     * datesScroll is a JScrollPane object. It is the scrollPane for dateList.
+     */
     private JScrollPane datesScroll;
+    
+    /** 
+     * dateVectorString is a String vector that holds the dates of chat history.
+     * This Vector is actually not needed. Will remove it when the program runs normally.
+     */
     private Vector<String> dateVectorList;
+    
+    /** 
+     * dateList is a JList that shows the dates of chat history.
+     * It shows the dates on dateVectorList.
+     */
     private JList dateList;
     // bottom
 //    private JEditorPane text;
+    
+    /** 
+     * text is a JList that shows the chat log.
+     * 
+     * Developers note: 
+     * text used to be a JEditorPane but the usage of it made the code inefficient. 
+     * Right now, the code is efficient but the GUI looks bad. Please help me to 
+     * consider which is better.
+     */
     private JList text;
+    
+    /** 
+     * chatLog is a JScrollPane object. It is the scrollPane for text.
+     */
     private JScrollPane chatlog;
-    private String[] stub;
+    
+    /** 
+     * stub is an array of String with one member.
+     * It used if there is no message to display on text.
+     */
+    private String[] stub = new String[]{"<html><i>no chat log is displayed</i></html>"};
 
+    /** 
+     * The constructor of ChatLogPanel. It takes model and currently used profile name as arguments.
+     * It sets up the panel, including the nested splitPane. 
+     */
     public ChatLogPanel(Model model, String profile) throws ClassNotFoundException, SQLException {
         // model stub
         this.model = model;
@@ -88,7 +143,6 @@ public class ChatLogPanel extends JSplitPane {
         logPane.setDividerLocation(140);
 
         // bottom right component shows the chat logs
-        stub = new String[]{"<html><i>no chat log is displayed</i></html>"};
         text = new JList (stub);
         text.setEnabled(false);
         text.setCellRenderer(new TextListCellRenderer());
@@ -114,8 +168,17 @@ public class ChatLogPanel extends JSplitPane {
         this.setDividerLocation(200);
     }
 
+    /**
+     * Sets the behaviour when one of the buddies on the buddies JList is selected
+     * 
+     * This class inherits ListSelectionListener methods and variables.
+     */
     private class buddyListener implements ListSelectionListener {
 
+    	/**
+         * If the selected buddy of the buddies JList is changed, then regenerate
+         * the list of dates on dateList JList.
+         */
         public void valueChanged(ListSelectionEvent e) {
             if (buddies.getSelectedIndex() > -1) {
 
@@ -133,8 +196,17 @@ public class ChatLogPanel extends JSplitPane {
         }
     }
 
+    /**
+     * Sets the behaviour when one of the dates on the dateList JList is selected
+     * 
+     * This class inherits ListSelectionListener methods and variables.
+     */
     private class datesListener implements ListSelectionListener {
 
+    	/**
+         * If user selected a date of the dateList JList changed,
+         * text will show the logged message of the date. 
+         */
         public void valueChanged(ListSelectionEvent e) {
             JList source = (JList) e.getSource();
             
@@ -147,7 +219,11 @@ public class ChatLogPanel extends JSplitPane {
             updateLog(date);
         }
 
-        protected void updateLog(String date) {
+        /**
+         * This method grabs the message from the database and sets the Vector returned
+         * by the model as the text's data source. It also update the message shown by text.
+         */
+        private void updateLog(String date) {
         	// Grab all message objects from the database
             Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
                     .toString(), date);
