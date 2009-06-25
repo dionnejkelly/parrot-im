@@ -4,11 +4,16 @@
 
 Upon opening Parrot IM, you will see the following window:
 
+http://parrot-im.googlecode.com/files/login.jpg
+
+At the middle of the window, it shows an existing account with an associated avatar picture above it. Below that, there are several options: 
+  * Add/Manage Accounts
+  * Connect Guest Account
+  * Sign In
+  * Help
+
+1. Click the Add/Manage Accounts option.
+
 http://parrot-im.googlecode.com/files/add%20new%20account.jpg
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+A new Account Manager window will appear. The left-hand side shows the accounts saved to the program, with the information on the right-hand side of the window.
