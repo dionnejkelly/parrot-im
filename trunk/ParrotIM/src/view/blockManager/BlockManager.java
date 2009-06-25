@@ -138,10 +138,6 @@ public class BlockManager extends JFrame {
        
 		public void actionPerformed(ActionEvent e) {
 			
-			
-			
-			
-			
 			int selected = usersBuddyList.getSelectedIndex();
 			
 			System.out.println("What are you clicking = " + selected);
