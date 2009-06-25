@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+import org.jivesoftware.smack.XMPPException;
+
 import view.mainwindow.MainWindow;
 import view.options.OptionMenu;
 
@@ -148,8 +150,13 @@ public class BuddyList extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			
-			controller.signout();
-			buddywindow.dispose();
+			try {
+				controller.disconnect();
+				buddywindow.dispose();
+			} catch (XMPPException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		}
     	
@@ -158,8 +165,8 @@ public class BuddyList extends JFrame {
     private class signoutActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			controller.signout();
 			try {
+				controller.disconnect();
 				new MainWindow(controller, model);
 				//TODO: might want to reset the data/variables/list in model
 				buddywindow.dispose();
@@ -167,6 +174,8 @@ public class BuddyList extends JFrame {
 				e1.printStackTrace();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
+			} catch (XMPPException e2) {
+				e2.printStackTrace();
 			}
 		}
     	
