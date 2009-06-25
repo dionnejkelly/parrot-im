@@ -1,33 +1,12 @@
-/*
- * ProfileManage.java
- *
- *
- *
- */
 
 package view.options;
-//import statements
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import javax.swing.plaf.basic.BasicFileChooserUI;
-import java.util.*;
-import javax.imageio.*;
 
-/* ProfileManage class
- *
- *
- * Written by : Peng-Tzu Huang
- *
- *
- * Version 20 Jun 2009
- *
- * Revision    Status       Date            By:
- * 1.0         Created      20 Jun 2009     Peng-Tzu Huang
- */
+
+
 
 public class ProfileManage extends JComponent implements ActionListener
 {
@@ -109,5 +88,5 @@ public class ProfileManage extends JComponent implements ActionListener
     {
         return pProfile;
     }
-//----------------------------------------
+
 }

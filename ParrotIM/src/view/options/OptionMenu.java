@@ -1,36 +1,24 @@
-/*
- * OptionMenu.java
- *
- * This Class is the main class that controls the interface of whole program.
- * it separate the classes to different panels
- *
- */
+
 package view.options;
+
 import javax.swing.*;
 
 import java.awt.*;
-import java.util.*;
-import javax.swing.event.*;
-import java.awt.event.KeyEvent;
-
-
-
 
 public class OptionMenu extends JPanel {
+	private JFrame frame;
+	
     public OptionMenu() {
-        JFrame frame = new JFrame("User Preference");
-        //frame.setSize(800,600);
+        frame = new JFrame("User Preference");
+ 
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
-        //JComponent newContent = new OptionMenu();
-        //newContent.setOpaque(true);
+ 
         frame.getContentPane().add(this.optionMenu());
         frame.pack();
-        //my mods===============================================================
+   
         frame.setResizable(false);
-//        frame.setPreferredSize(new Dimension (400, 400));
         frame.setLocationRelativeTo(null);
-        //======================================================================
+
 
         frame.setVisible(true);
     }
