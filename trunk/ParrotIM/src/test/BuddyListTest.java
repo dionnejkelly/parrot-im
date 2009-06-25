@@ -14,6 +14,7 @@ public class BuddyListTest {
 	private BuddyList bl2;
 	private BuddyList bl3;
 	private BuddyList bl4;
+	private BuddyList bl5;
 	@Before
 	public void setUp() throws Exception {
 		Buddy[] b1 = new Buddy[4];
@@ -53,6 +54,16 @@ public class BuddyListTest {
 	}
 
 	@Test
+	public void testBuddyList(){
+		Buddy[] b4 = new Buddy[5];
+		b4[0] = new Buddy("Rayan","twitter");
+		b4[1] = new Buddy("Moo","ICQ");
+		b4[2] = new Buddy("Jack","GoogleTalk");
+		b4[3] = new Buddy("Haifa","GoogleTalk");
+		b4[4] = new Buddy("Nancy","msn");
+		bl5 = new BuddyList(b4);
+		assertArrayEquals(b4,bl5.getBuddyList());
+	}
 	public void testSetBuddyList() {
 		Buddy[] e = new Buddy[4];
 		e[0] = new Buddy("Rakan","twitter");
