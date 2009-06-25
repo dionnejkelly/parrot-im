@@ -3,7 +3,7 @@
 = Introduction =
 
 = Notes of change =
-Alpha: Chatlog is implemented. Avatar picture is not yet implemented. However, user is able to choose avatar picture from their computer.
+Alpha: Chatlog is implemented. Avatar picture is not yet implemented. However, user is able to choose avatar picture from their computer. <br>
 Beta: Avatar picture will be developed more on this version.
 
 
