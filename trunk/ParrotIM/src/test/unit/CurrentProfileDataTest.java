@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import model.dataType.AccountData;
 import model.dataType.CurrentProfileData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.UserData;
 import model.enumerations.ServerType;
 
 import org.junit.After;
@@ -17,6 +18,7 @@ public class CurrentProfileDataTest {
 	private CurrentProfileData cpd1;
 	private CurrentProfileData cpd2;
 	private CurrentProfileData cpd3;
+	private CurrentProfileData cpd4;
 	@Before
 	public void setUp() throws Exception {
 		cpd1 = new CurrentProfileData(new AccountData(ServerType.GOOGLE_TALK,"Rakan","1234"),"Rakan Alkheliwi");
@@ -27,8 +29,8 @@ public class CurrentProfileDataTest {
 		ArrayList<AccountData> a2 = new ArrayList<AccountData>();
 		AccountData e1 = new AccountData(ServerType.AIM,"Vito","don");
 		GoogleTalkUserData f1 = new GoogleTalkUserData("rayan","ray","Busy");
-		GoogleTalkUserData f2 = new GoogleTalkUserData("Abdulhalim","Hafez","away");
-		GoogleTalkUserData f3 = new GoogleTalkUserData("John","J","online");
+		UserData f2 = new GoogleTalkUserData("Abdulhalim","Hafez","away");
+		UserData f3 = new GoogleTalkUserData("John","J","online");
 		e1.addFriend(f1);
 		a2.add(e1);
 		AccountData e2 = new AccountData(ServerType.GOOGLE_TALK,"Michael","son");
@@ -39,6 +41,11 @@ public class CurrentProfileDataTest {
 		a2.add(e3);
 		
 		cpd3 = new CurrentProfileData(a2,"Corleone");
+		AccountData a3 = new  AccountData (ServerType.TWITTER,"AlPacino","insider");
+		UserData g = new GoogleTalkUserData("Grand","GTA","busy");
+		a3.addFriend(g);
+		cpd4 = new CurrentProfileData(a3,"Al Pacino");
+
 	}
 
 	@After
@@ -61,7 +68,12 @@ public class CurrentProfileDataTest {
 		ArrayList<AccountData> expected = new ArrayList<AccountData>();
 		expected.add(new AccountData(ServerType.MSN,"Monica","mgs"));
 		expected.add(new AccountData(ServerType.ICQ,"Jeneifer","gtasa"));
-		assertSame(expected,cpd2.getAccountData());
+		for(int i=0;i<expected.size();i++){
+			assertSame(expected.get(i).getAccountName(),cpd2.getAccountData().get(i).getAccountName());
+			assertSame(expected.get(i).getServer(),cpd2.getAccountData().get(i).getServer());
+			assertSame(expected.get(i).getPassword(),cpd2.getAccountData().get(i).getPassword());
+
+		}
 	}
 
 	@Test
@@ -99,20 +111,32 @@ public class CurrentProfileDataTest {
 		expected.add(new GoogleTalkUserData("rayan","ray","Busy"));
 		expected.add(new GoogleTalkUserData("Abdulhalim","Hafez","away"));
 		expected.add(new GoogleTalkUserData("John","J","online"));
-		assertSame(expected,cpd3.getAllFriends());
+		ArrayList<UserData> result = new ArrayList<UserData>();
+		result = cpd3.getAllFriends();
+		for(int i=0;i<expected.size();i++){
+			assertSame(expected.get(i).getAccountName(),result.get(i).getAccountName());
+			assertSame(expected.get(i).getNickname(),result.get(i).getNickname());
+			assertSame(expected.get(i).getStatus(),result.get(i).getStatus());
+		}
+		
 		
 	}
 
 	@Test
 	public void testGetAccountFromServer() {
 		AccountData expected = new AccountData(ServerType.GOOGLE_TALK,"Michael","son");
-		assertSame(expected,cpd3.getAccountFromServer(ServerType.GOOGLE_TALK));
+		assertSame(expected.getServer(),cpd3.getAccountFromServer(ServerType.GOOGLE_TALK).getServer());
+		assertSame(expected.getAccountName(),cpd3.getAccountFromServer(ServerType.GOOGLE_TALK).getAccountName());
+		assertSame(expected.getPassword(),cpd3.getAccountFromServer(ServerType.GOOGLE_TALK).getPassword());
+
 	}
 
 	@Test
 	public void testRemoveFriend() {
-		GoogleTalkUserData expected = new GoogleTalkUserData("Abdulhalim","Hafez","away");
-		assertTrue(cpd3.removeFriend(expected));
+		UserData expected = new GoogleTalkUserData("Grand","GTA","busy");
+
+		assertTrue(cpd4.removeFriend(expected));
+		}
 	}
 
-}
+

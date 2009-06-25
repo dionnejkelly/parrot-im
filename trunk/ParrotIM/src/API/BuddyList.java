@@ -16,7 +16,8 @@ public class BuddyList{
 		return this.buddyList;
 	}
 	public void addBuddy(Buddy bl){
-		this.buddyList[buddyList.length] = bl;
+		// I subtract 1
+		this.buddyList[buddyList.length-1] = bl;
 	}
 	public void delBuddy(int n){
 		this.buddyList[n] = null;
