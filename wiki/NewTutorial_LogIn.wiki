@@ -27,7 +27,7 @@ http://parrot-im.googlecode.com/files/buddy%20list.jpg
 
 Alternatively, you can log in as a guest, without saving your account information. 
 
-http://parrot-im.googlecode.com/files/mockup1_loginBillyBob.jpg
+http://parrot-im.googlecode.com/files/login.jpg
 
 1. Open the program to bring up the Log-In Window
 
