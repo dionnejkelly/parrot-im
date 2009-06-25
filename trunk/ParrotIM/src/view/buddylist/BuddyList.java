@@ -69,6 +69,7 @@ public class BuddyList extends JFrame {
         fileMenu.add(logoutItem);
         JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
         fileMenu.add(exitItem1);
+        exitItem1.addActionListener(new exitActionListener());
 
         acctsMenu = new JMenu("Accounts");
         acctsMenu.setMnemonic(KeyEvent.VK_A);
@@ -134,6 +135,17 @@ public class BuddyList extends JFrame {
             
             return;
         }
+    }
+    
+    private class exitActionListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			
+			controller.signout();
+			buddywindow.dispose();
+			
+		}
+    	
     }
     
     private class logoutActionListener implements ActionListener {
