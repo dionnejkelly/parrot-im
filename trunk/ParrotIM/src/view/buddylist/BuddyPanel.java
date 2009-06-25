@@ -180,13 +180,10 @@ public class BuddyPanel extends JPanel implements Observer {
 
     class RightClickMenuBlockFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
-            System.out.println("Block this user from the buddy list = "
-                    + selectedFriend.toString());
-
             chatClient.blockFriend(selectedFriend.getAccountName());
 
             
-            buddies.remove(selectedFriend);
+            //buddies.remove(selectedFriend);
             
             /*
             boxes[0].removeAll();
