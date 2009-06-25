@@ -28,8 +28,6 @@ public class ChatPanel extends JPanel {
     private DisplayPanel displayPanel;
     private MainController c;
 
-    // public ChatPanel(final ArrayList<Conversation> conversations,
-    // final ChatClient c, Model model) {
     public ChatPanel(MainController c, Model model) {
 
         setLayout(new BorderLayout());
