@@ -59,7 +59,7 @@ public class ChatLogPanel extends JSplitPane {
     private JEditorPane text;
     private JScrollPane chatlog;
 
-    public ChatLogPanel(Model model, String profile) {
+    public ChatLogPanel(Model model, String profile) throws SQLException, ClassNotFoundException {
         // model stub
         this.model = model;
         this.profile = profile;

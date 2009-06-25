@@ -35,7 +35,7 @@ import model.Model;
 public class BuddyPanel extends JPanel {
     protected JList buddyList;
 
-    public BuddyPanel(Model model, String profile) {
+    public BuddyPanel(Model model, String profile) throws SQLException, ClassNotFoundException {
 
         // list of buddies who has logged chat
 
