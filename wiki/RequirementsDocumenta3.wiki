@@ -91,12 +91,12 @@ No change here.
 All the requirements will be the same, but we have not meet the "Portability" yet.
 
 = Example Tutorials =
- we add new screentshot here:
+we add new screentshot here:
 
   * [NewTutorial_CreateAccount (new)How to create an account?]
-  * [Tutorial_LogIn How to log in?]
-  * [Tutorial_Chat How to chat?]
-  * [Tutorial_Exit How to exit Parrot IM?]
+  * [NewTutorial_LogIn (new)How to log in?]
+  * [NewTutorial_Chat (new)How to chat?]
+  * [NewTutorial_Exit (new)How to exit Parrot IM?]
 
 
 = Glossary =
