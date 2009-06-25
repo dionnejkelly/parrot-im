@@ -91,7 +91,7 @@ No change here.
 All the requirements will be the same, but we have not meet the "Portability" yet.
 
 = Example Tutorials =
-we add new screentshot here:
+we add new screentshots here:
 
   * [NewTutorial_CreateAccount (new)How to create an account?]
   * [NewTutorial_LogIn (new)How to log in?]
