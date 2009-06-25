@@ -54,7 +54,6 @@ public class ChatLogFrame extends JFrame {
 
 		public void windowClosed(WindowEvent e) {
 			model.logWindowOpen = false;
-			System.out.println(model.logWindowOpen);
 		}
 
 		public void windowClosing(WindowEvent e) {}
@@ -64,7 +63,6 @@ public class ChatLogFrame extends JFrame {
 		
 		public void windowOpened(WindowEvent e) {
 			model.logWindowOpen = true;
-			System.out.println(model.logWindowOpen);
 		}
     	
     }
