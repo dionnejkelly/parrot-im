@@ -191,6 +191,12 @@ public class EditAccountFrame extends JFrame {
                 popup.dispose();    
             }
             
+            else if (accountName.equals("") || password.equals("")) {
+            	String resultMessage = "Sorry for the inconvenience but please provide appropriate USER ID and Password in the field. Thank you for your co-operation.";
+            	JOptionPane.showMessageDialog(null, resultMessage);
+            	
+            }
+            
             else {
             	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
             	JOptionPane.showMessageDialog(null, resultMessage);
