@@ -1,5 +1,10 @@
-//known issues:
-//	txt1 doesn't automatically resize
+/* ChatPanel.java
+ *  
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
 
 package view.chatwindow;
 

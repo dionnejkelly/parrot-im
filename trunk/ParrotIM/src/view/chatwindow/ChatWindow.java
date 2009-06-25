@@ -1,3 +1,11 @@
+/* ChatWindow.java
+ *  
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.chatwindow;
 
 import javax.swing.ImageIcon;
@@ -34,21 +42,24 @@ public class ChatWindow extends JFrame implements Observer {
         this.addWindowListener(new ChatWindowListener(this.model));
 
         main = new MainPanel(c, model);
-
+        
         getContentPane().add(main);
 
         pack();
         setVisible(true);
     }
 
+    //Getters
+    public boolean getWindowIsOpen() {
+        return this.windowIsOpen;
+    }
+    
+    //Setters
     public void setWindowIsOpen(boolean isOpen) {
         this.windowIsOpen = isOpen;
     }
 
-    public boolean getWindowIsOpen() {
-        return this.windowIsOpen;
-    }
-
+    //Update Method
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
             if (!this.isVisible()) {
