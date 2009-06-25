@@ -29,7 +29,7 @@ public class BuddyList extends JFrame {
         // Attach the top text menu
         this.setJMenuBar(this.createMenu());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon("images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon("/images/mainwindow/logo.png").getImage());
 
         JPanel buddylistPanel = new JPanel();
         buddylistPanel.setLayout(new BorderLayout());

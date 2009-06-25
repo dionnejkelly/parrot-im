@@ -42,8 +42,8 @@ public class ChatPanel extends JPanel {
         // Editing Panel
         JPanel editingPanel = new JPanel();
         editingPanel.setLayout(new BorderLayout());
-        editingPanel.setSize(new Dimension(20,20));
-        
+        editingPanel.setSize(new Dimension(20, 20));
+
         String[] fontList = { "Arial", "Times New Roman", "Comic Sans MS" };
         fontSelect = new JComboBox(fontList);
         fontSelect.setEditable(true);
@@ -66,17 +66,21 @@ public class ChatPanel extends JPanel {
         sendButton.addActionListener(new SendButtonPressed());
         // displayPanel.addMessage(incoming messages); //TODO
 
-        JButton boldButton = new JButton(new ImageIcon(
-                "src/images/chatwindow/bold.png"));
+        JButton boldButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/bold.png")));
         boldButton.setToolTipText("Bold");
-        JButton italicsButton = new JButton(new ImageIcon(
-                "src/images/chatwindow/italics.png"));
+        JButton italicsButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/italics.png")));
         italicsButton.setToolTipText("Italic");
-        JButton underlineButton = new JButton(new ImageIcon(
-                "src/images/chatwindow/underLine.png"));
+        JButton underlineButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/underLine.png")));
         underlineButton.setToolTipText("Underline");
-        JButton colorButton = new JButton(new ImageIcon(
-                "src/images/chatwindow/colorscm.png"));
+        JButton colorButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/colorscm.png")));
         colorButton.setToolTipText("Change Font Color");
         colorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -93,10 +97,13 @@ public class ChatPanel extends JPanel {
                 colorFrame.setVisible(true);
             }
         });
-        JButton emoticons = new JButton(new ImageIcon(
-                "src/images/chatwindow/emote.png"));
+        JButton emoticons =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/emote.png")));
         emoticons.setToolTipText("Add an Emoticon");
-        JButton pic = new JButton(new ImageIcon("src/images/chatwindow/pic.png"));
+        JButton pic =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/pic.png")));
         pic.setToolTipText("Insert a Picture");
 
         JToolBar bar1 = new JToolBar();
@@ -122,7 +129,6 @@ public class ChatPanel extends JPanel {
         sPane.setTopComponent(displayPanel);
         sPane.setBottomComponent(editingPanel);
         sPane.setResizeWeight(1.0);
-        
 
         // add to chat panel
         add(sPane, BorderLayout.CENTER);
@@ -184,10 +190,10 @@ public class ChatPanel extends JPanel {
                 txt1.setText(txt1.getText() + "\n");
                 shiftPressed = false;
             }
-            
+
             else {
                 shiftPressed = false;
-                
+
             }
         }
 
