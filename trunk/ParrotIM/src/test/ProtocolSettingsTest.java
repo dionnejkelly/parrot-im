@@ -11,6 +11,7 @@ import API.ProtocolSettings;
 public class ProtocolSettingsTest {
 	private ProtocolSettings ps1;
 	private ProtocolSettings ps2;
+	private ProtocolSettings ps3;
 	@Before
 	public void setUp() throws Exception {
 		ps1 = new ProtocolSettings("Jabber","Chandler","hey");
@@ -20,9 +21,17 @@ public class ProtocolSettingsTest {
 	@After
 	public void tearDown() throws Exception {
 		ps1 = null;
+		ps2 = null;
+		ps3  = null;
 	}
 
 	@Test
+	public void testProtocolSettings(){
+		ps3 = new ProtocolSettings("AIM","Joey","how you doin'?");
+		assertSame("AIM",ps3.getProtocol());
+		assertSame("Joey",ps3.getUsername());
+		assertSame("how you doin'?",ps3.getPassword());
+	}
 	public void testSetProtocol() {
 		String expected = "msn";
 		ps2.setProtocol(expected);

@@ -14,6 +14,7 @@ import API.ProfileList;
 public class ProfileListTest {
 	private ProfileList pl1;
 	private ProfileList pl2;
+	private ProfileList pl3;
 	@Before
 	public void setUp() throws Exception {
 		Buddy[] b1 = new Buddy[4];
@@ -47,6 +48,19 @@ public class ProfileListTest {
 	}
 
 	@Test
+	public void testProfileList(){
+		Buddy[] b1 = new Buddy[4];
+		b1[0] = new Buddy("Rakan","twitter");
+		b1[1] = new Buddy("Matt","ICQ");
+		b1[2] = new Buddy("John","GoogleTalk");
+		b1[3] = new Buddy("Nancy","GoogleTalk");
+			BuddyList bl1 = new BuddyList(b1);
+			Profile[] p1 = new Profile[1];
+			p1[0] = new Profile(bl1,"Default","Falcon");
+			pl3 = new ProfileList(p1);
+			assertArrayEquals(p1,pl3.getProfileList());
+			
+	}
 	public void testSetProfileList() {
 		Buddy[] e1 = new Buddy[5];
 		e1[0] = new Buddy("Rayan","twitter");

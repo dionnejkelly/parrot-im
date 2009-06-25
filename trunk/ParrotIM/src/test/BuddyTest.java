@@ -13,6 +13,7 @@ public class BuddyTest {
 	private Buddy b2;
 	private Buddy b3;
 	private Buddy b4;
+	private Buddy b5;
 	@Before
 
 	public void setUp() throws Exception {
@@ -32,6 +33,11 @@ public class BuddyTest {
 	}
 	
 	@Test
+	public void testBuddy(){
+		b5 = new Buddy("Hafez","msn");
+		assertSame("Hafez",b5.getUsername());
+		assertSame("msn",b5.getChannel());
+	}
 	public void testSetUsername() {
 		Buddy expected = new Buddy("Sara","twitter");
 		b1.setUsername("Sara");

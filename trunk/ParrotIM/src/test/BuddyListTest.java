@@ -51,6 +51,7 @@ public class BuddyListTest {
 		bl2 = null;
 		bl3 = null;
 		bl4 = null;
+		bl5 = null;
 	}
 
 	@Test

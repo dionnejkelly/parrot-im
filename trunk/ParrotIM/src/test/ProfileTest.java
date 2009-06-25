@@ -14,6 +14,8 @@ import API.Profile;
 public class ProfileTest {
 	private Profile p1;
 	private Profile p2;
+	private Profile p3;
+	private Profile p4;
 	@Before
 	public void setUp() throws Exception {
 		Buddy[] b1 = new Buddy[4];
@@ -32,8 +34,32 @@ public class ProfileTest {
 	}
 
 	@Test
+	public void testProfileBuddyListStringString(){
+		Buddy[] expected = new Buddy[1];
+		BuddyList expected1 = new BuddyList(expected);
+		expected[0] = new Buddy("roy","msn");
+		p3 = new Profile(expected1,"Advance","Allan");
+		assertArrayEquals(expected,p3.getBuddyList().getBuddyList());
+		assertSame("Advance",p3.getSettings());
+		assertSame("Allan",p3.getName());
+	}
+	public void testProfileBuddyListStringStringStringBoolean(){
+		Buddy[] expected = new Buddy[1];
+		BuddyList expected1 = new BuddyList(expected);
+		expected[0] = new Buddy("roy","msn");
+		p3 = new Profile(expected1,"Advance","Allan","bus",false);
+		assertArrayEquals(expected,p3.getBuddyList().getBuddyList());
+		assertSame("Advance",p3.getSettings());
+		assertSame("Allan",p3.getName());
+		assertSame("bus",p3.getPassword());
+		assertFalse(p3.getChkpassword());
+	}
 	public void testSetBuddyList() {
-		//fail("Not yet implemented");
+		Buddy[] expected = new Buddy[1];
+		BuddyList expected1 = new BuddyList(expected);
+		expected[0] = new Buddy("roy","msn");
+		p1.setBuddyList(expected1);
+		assertArrayEquals(expected,p1.getBuddyList().getBuddyList());
 	}
 
 	@Test
