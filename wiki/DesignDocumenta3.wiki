@@ -1,8 +1,31 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Guidelines =
 
-= Notes of change =
+=== Technical Guidelines ===
+
+No change in this part.
+
+=== Ethical or Legal Issues ===
+
+No change in this part.
+
+= System Diagrams =
+
+Do we have new sequence diagram?
+
+Please provide the new UML diagram here.
+
+= Data Requirements =
+
+Do we change this part?
+
+= Feature Priority =
+
+Notes of change: 
+We added Chatlog into the Alpha version, and moved Avatar picture into the Beta version.
+
+
 Alpha: Chatlog is implemented. Avatar picture is not yet implemented. However, user is able to choose avatar picture from their computer. <br>
 Beta: Avatar picture will be developed more on this version.
 
