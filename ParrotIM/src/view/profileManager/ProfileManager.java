@@ -42,6 +42,9 @@ import model.Model;
 import model.enumerations.UpdatedType;
 
 /*
+ * Known issue:
+ * 	You are able to click on the "add" and "+" and pop 2 windows sometimes. Seems like
+ * 	thread issue.
  * DEVELOPER NOTES:
  * - OK/CANCEL BUTTON HAS NOT BEEN IMPLEMENTED YET
  * MUST FIX THIS FUNCTIONALITY PRIOR TO REPLACING MANAGEACCOUNTFRAME .
@@ -273,6 +276,8 @@ public class ProfileManager extends JFrame implements Observer {
         public void actionPerformed(ActionEvent evt) {
             NewProfileFrame newProf = new NewProfileFrame(model, controller,
                     popup);
+            popup.setEnabled(false);
+            newProf.addWindowListener(new PopupWindowListener(popup,newProf));
 
             return;
         }
@@ -292,7 +297,8 @@ public class ProfileManager extends JFrame implements Observer {
             String profile = (String) profileList.getSelectedValue();
             EditAccountFrame newAcct = new EditAccountFrame(model, popup,
                     controller, profile);
-
+            popup.setEnabled(false);
+            newAcct.addWindowListener(new PopupWindowListener(popup,newAcct));
             return;
         }
     }

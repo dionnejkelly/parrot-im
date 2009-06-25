@@ -58,10 +58,13 @@ public class EditAccountFrame extends JFrame {
 
     // Instance 1 -- New Account (empty forms)
     public EditAccountFrame(Model model, ProfileManager pManager, MainController controller, String profile) {
+
+    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
         this.controller = controller;
         this.profile = profile;
         managerFrame = pManager;
+//        this.addWindowListener(new PopupWindowListener(managerFrame,this));
         popup = this;
         this.setResizable(false);
         this.setLocationRelativeTo(managerFrame);
