@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import model.dataType.AccountData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.UserData;
+import model.dataType.tempData.AccountTempData;
 import model.enumerations.ServerType;
 
 import org.junit.After;
@@ -20,6 +21,7 @@ public class AccountDataTest {
 	private AccountData ad3;
 	private AccountData ad4;
 	private AccountData ad5;
+	private AccountData ad6;
 	@Before
 	public void setUp() throws Exception {
 		ad1 = new AccountData(ServerType.GOOGLE_TALK,"Rakan","1234");
@@ -37,7 +39,12 @@ public class AccountDataTest {
 		ad4 = null;
 		ad5 = null;
 	}
-
+	public void testAccountTempData() {
+		ad6 = new AccountData(ServerType.ICQ,"James","007");
+		assertSame(ServerType.ICQ,ad4.getServer());
+		assertSame("James",ad4.getAccountName());
+		assertSame("007",ad4.getPassword());
+	}
 	@Test
 	public void testSetServer() {
 		AccountData expected = new AccountData(ServerType.JABBER,"Rakan","1234");
