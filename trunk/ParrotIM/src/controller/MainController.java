@@ -240,6 +240,8 @@ public class MainController {
                     || a.getServer() == ServerType.JABBER) {
                 this.connection.disconnect(); // Change to have connection
                 // stored elsewhere.
+                
+                this.model.clearCurrentProfile();
             }
         }
 

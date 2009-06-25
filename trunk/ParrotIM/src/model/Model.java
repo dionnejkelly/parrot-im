@@ -528,7 +528,13 @@ public class Model extends Observable {
     public CurrentProfileData getCurrentProfile() {
         return currentProfile;
     }
-
+    
+    public void clearCurrentProfile() {
+        this.currentProfile = null;
+        
+        return;
+    }
+    
     public boolean currentProfileExists() {
         return (currentProfile != null);
     }
