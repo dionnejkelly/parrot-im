@@ -7,21 +7,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 import API.ProtocolSettings;
-
+// Test completed
 public class ProtocolSettingsTest {
 	private ProtocolSettings ps1;
+	private ProtocolSettings ps2;
 	@Before
 	public void setUp() throws Exception {
 		ps1 = new ProtocolSettings("Jabber","Chandler","hey");
+		ps2 = new ProtocolSettings("ICQ","Ross","Spodneck");
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		ps1 = null;
 	}
 
 	@Test
 	public void testSetProtocol() {
-		fail("Not yet implemented");
+		String expected = "msn";
+		ps2.setProtocol(expected);
+		assertSame(expected,ps2.getProtocol());
 	}
 
 	@Test
@@ -32,7 +37,9 @@ public class ProtocolSettingsTest {
 
 	@Test
 	public void testSetUsername() {
-		fail("Not yet implemented");
+		String expected = "Frank";
+		ps2.setUsername(expected);
+		assertSame(expected,ps2.getUsername());
 	}
 
 	@Test
@@ -43,7 +50,9 @@ public class ProtocolSettingsTest {
 
 	@Test
 	public void testSetPassword() {
-		fail("Not yet implemented");
+		String expected = "Omega";
+		ps2.setPassword(expected);
+		assertSame(expected,ps2.getPassword());
 	}
 
 	@Test

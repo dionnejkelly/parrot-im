@@ -94,7 +94,9 @@ public class AccountDataTest {
 		GoogleTalkUserData e2 = new GoogleTalkUserData("Star","Bucks","Busy");
 		ad2.addFriend(e1);
 		ad2.addFriend(e2);
+		// You can see what is wrong here
 		assertTrue(ad2.removeFriend(e2));
+		assertTrue(ad2.removeFriend(new GoogleTalkUserData("Horton","tim","away")));
 		
 	}
 
@@ -148,6 +150,13 @@ public class AccountDataTest {
 		assertSame(expected,ad2.isConnected());
 		ad2.setConnected(true);
 		assertNotSame(expected,ad2.isConnected());
+	}
+	public void testFindFriendByUserID() {
+		GoogleTalkUserData expected = new GoogleTalkUserData("expected","e","good");
+		ad4.addFriend(expected);
+		assertTrue(ad4.findFriendByUserID(expected.getAccountName()));
+		ad4.addFriend(expected);
+		assertTrue(ad4.findFriendByUserID("expected"));
 	}
 
 }

@@ -10,8 +10,10 @@ import API.Buddy;
 import API.BuddyList;
 import API.Profile;
 
+// Test completed
 public class ProfileTest {
 	private Profile p1;
+	private Profile p2;
 	@Before
 	public void setUp() throws Exception {
 		Buddy[] b1 = new Buddy[4];
@@ -21,6 +23,7 @@ public class ProfileTest {
 		 b1[3] = new Buddy("Nancy","GoogleTalk");
 		 BuddyList bl1 = new BuddyList(b1);
 		p1 = new Profile(bl1,"Default","Joey","1234",true);
+		p2 = new Profile(bl1,"Jabber","Maria","mex45",false);
 	}
 
 	@After
@@ -40,8 +43,10 @@ public class ProfileTest {
 		 e[1] = new Buddy("Matt","ICQ");
 		 e[2] = new Buddy("John","GoogleTalk");
 		 e[3] = new Buddy("Nancy","GoogleTalk");
-		 BuddyList Expected = new BuddyList(e);
-		 assertSame(Expected,p1.getBuddyList());
+		 BuddyList expected = new BuddyList(e);
+		 for(int i=0;i<e.length;i++){
+			 assertSame(expected.getBuddyList()[i].getUsername(),p1.getBuddyList().getBuddyList()[i].getUsername());
+		 }
 	}
 
 	@Test
@@ -52,7 +57,9 @@ public class ProfileTest {
 
 	@Test
 	public void testSetName() {
-		//fail("Not yet implemented");
+		String expected = "Snake";
+		p2.setName(expected);
+		assertSame(expected,p2.getName());
 	}
 
 	@Test
@@ -63,7 +70,9 @@ public class ProfileTest {
 
 	@Test
 	public void testSetPassword() {
-		//fail("Not yet implemented");
+		String expected = "moizlajuve";
+		p2.setPassword(expected);
+		assertSame(expected,p2.getPassword());
 	}
 
 	@Test
@@ -74,12 +83,16 @@ public class ProfileTest {
 
 	@Test
 	public void testSetChkpassword() {
-		//fail("Not yet implemented");
+		p2.setChkpassword(true);
+		assertTrue(p2.getChkpassword());
+		assertSame(true,p2.getChkpassword());
 	}
 
 	@Test
 	public void testSetSettings() {
-		//fail("Not yet implemented");
+		String expected = "Default";
+		p2.setSettings(expected);
+		assertSame(expected,p2.getSettings());
 	}
 
 	@Test
