@@ -22,6 +22,7 @@ public class ChatWindow extends JFrame implements Observer {
 
     public ChatWindow(MainController c, Model model) {
         super("Chat Window");
+        
         model.addObserver(this);
 
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

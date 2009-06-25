@@ -688,15 +688,8 @@ public class MainController {
                 m =
                         new MessageData(user.getAccountName(), message
                                 .getBody(), "font", "4");
-                try {
-                    model.receiveMessage(model.findAccountByFriend(user), m);
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                
+                model.receiveMessage(model.findAccountByFriend(user), m);
 
                 if (model.getCurrentProfile().isChatbotEnabled()) {
                     chatbot = new Chatbot();
