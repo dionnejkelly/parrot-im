@@ -4,6 +4,7 @@
 After you have created an account, you may use it to log in to Parrot IM. To do so, follow the steps below:
 
 http://parrot-im.googlecode.com/files/login.jpg
+http://parrot-im.googlecode.com/files/signin2.jpg
 
 1. After opening the program, or creating a new account, you should see the Log-in Window.
 
