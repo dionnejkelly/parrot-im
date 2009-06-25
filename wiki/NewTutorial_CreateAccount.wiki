@@ -14,7 +14,7 @@ At the middle of the window, it shows an existing account with an associated ava
 
 1. Click the Add/Manage Accounts option.
 
-http://parrot-im.googlecode.com/files/add%20new%20account.jpg
+http://parrot-im.googlecode.com/files/create%20new%20profile.jpg
 
 A new Account Manager window will appear. The left-hand side shows the accounts saved to the program, with the information on the right-hand side of the window.
 
@@ -30,4 +30,10 @@ A new Account Manager window will appear. The left-hand side shows the accounts 
 
 7. To skip the log-in window when you open the program and automatically sign in with this account check the "Auto Sign-in" box.
 
-http://parrot-im.googlecode.com/files/profilemanager.jpg
+http://parrot-im.googlecode.com/files/add%20new%20account.jpg
+
+8. You're now finished adding your account! To proceed, click the OK button.
+
+http://parrot-im.googlecode.com/files/signin2.jpg
+
+9. Now, you will see just the log-in screen. Your new account should show in the drop-down box at the middle.
