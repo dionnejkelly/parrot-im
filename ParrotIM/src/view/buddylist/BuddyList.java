@@ -1,3 +1,10 @@
+/* BuddyList.java
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.buddylist;
 
 import java.awt.*;
