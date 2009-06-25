@@ -227,6 +227,23 @@ public class BuddyPanel extends JPanel implements Observer {
             System.out.println("Remove this user from the buddy list = "
                     + selectedFriend.toString());
             chatClient.removeFriend(selectedFriend.getAccountName());
+            
+            // weird this wasn't used in the past but it seems non-functional without them
+            // Please consider this code!
+            
+            buddies.remove(selectedFriend);
+            boxes[0].removeAll();
+
+            for (int i = 0; i < buddies.size(); i++) {
+                boxes[0].add(FriendItem(buddies.get(i)));
+            }
+
+            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+                boxes[0].getComponent(i).addMouseListener(
+                        new SelectListener());
+            }
+            
+            friendList.updateUI();
         }
     }
 
@@ -252,8 +269,6 @@ public class BuddyPanel extends JPanel implements Observer {
                 for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                     boxes[0].getComponent(i).addMouseListener(
                             new SelectListener());
-                    // System.out.println("What is contained the box? " +
-                    // boxes[0].getComponent(i));
                 }
 
                 friendList.updateUI();
@@ -267,14 +282,14 @@ public class BuddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
             String userFriendID, userInput;
-            String result = "Argh, one person will be invited to your Parrot IM Buddy List.";
+            String result = "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
 
             // not able to cancel it for now
 
             userFriendID = JOptionPane
                     .showInputDialog("Enter an email address: ");
 
-            if (userFriendID != null && !userFriendID.equals("")) {
+            if ((userFriendID != null && !userFriendID.equals("")) && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
                 JOptionPane.showMessageDialog(null, result);
 
@@ -290,8 +305,24 @@ public class BuddyPanel extends JPanel implements Observer {
                 // friendList.updateUI();
 
             }
+            
+            else {
+            	String redundancy = "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
+            	JOptionPane.showMessageDialog(null, redundancy);
+            	
+            }
             System.out.println("User Input = " + userFriendID);
 
+        }
+        
+        public boolean userExist(String userID) {
+        	for(int i = 0; i < buddies.size(); i++) {
+        		if (buddies.get(i).getAccountName().equals(userID)) {
+        			return true;
+        		}
+        	}
+        	
+        	return false;
         }
     }
 
