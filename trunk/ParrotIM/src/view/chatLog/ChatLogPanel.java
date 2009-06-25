@@ -96,7 +96,7 @@ public class ChatLogPanel extends JSplitPane {
         datesScroll = new JScrollPane(dateList);
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
         datesScroll
-                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         logPane.setTopComponent(datesScroll);
 
         this.setRightComponent(logPane);
@@ -111,6 +111,9 @@ public class ChatLogPanel extends JSplitPane {
                 dateVectorList = model.getBuddyDateList(profile, buddies
                         .getSelectedValue().toString());
 
+                for(int i=0; i< dateVectorList.size(); i++){
+                	System.out.println(dateVectorList.get(i));
+                }
                 // recreate the JList
                 dateList = new JList(dateVectorList);
                 dateList.addListSelectionListener(new datesListener());
@@ -119,7 +122,7 @@ public class ChatLogPanel extends JSplitPane {
                 datesScroll.setMinimumSize(new Dimension(
                         datesScroll.getWidth(), 50));
                 datesScroll
-                        .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                        .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
                 logPane.setTopComponent(datesScroll);
 
                 // clean the right textbox
@@ -147,7 +150,7 @@ public class ChatLogPanel extends JSplitPane {
             
             // Turn the messages into text
             for (ChatLogMessageTempData m : messages) {
-                log += m.getFrom() + " (" + m.getTime() + "): " + m.getText() + "\n";
+                log += m.toString();
             }
 
             text.setText(log);

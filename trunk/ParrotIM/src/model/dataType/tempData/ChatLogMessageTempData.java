@@ -141,4 +141,9 @@ public class ChatLogMessageTempData {
         this.text = text;
         return;
     }
+    
+    public String toString(){
+		return getFrom() + " (" + getTime() + "): " + getText() + "\n";
+    	
+    }
 }
