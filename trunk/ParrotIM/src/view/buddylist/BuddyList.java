@@ -36,7 +36,7 @@ public class BuddyList extends JFrame {
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
 
         // INSIDE PANEL
-        JPanel mainListPanel = new BuddyPanel(c, model);
+        JPanel mainListPanel = new BuddyPanel(c, model, this);
         JPanel accountInfo = new AccountInfo(c, model);
 
         // add to buddylistPanel
@@ -105,7 +105,9 @@ public class BuddyList extends JFrame {
 
     private class chatLogListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            new ChatLogFrame(model);
+        	if (!model.logWindowOpen){
+        		new ChatLogFrame(model);
+        	}
             
             return;
         }        

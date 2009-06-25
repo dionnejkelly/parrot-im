@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ import javax.swing.ScrollPaneConstants;
 import controller.MainController;
 
 import view.blockManager.BlockManager;
+import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
 
 import model.DatabaseFunctions;
@@ -43,7 +45,7 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     protected SelectListener lastSelectedListener; // selectedIndex of Buddylist
     protected Object lastSelectedSource;
-
+    protected JFrame buddyWindow;
     ChatWindow chat;
     JToolBar options;
     JScrollPane scroller;
@@ -59,7 +61,8 @@ public class BuddyPanel extends JPanel implements Observer {
     private ArrayList<UserData> buddies;
     private DatabaseFunctions bannedAccountList;
 
-    public BuddyPanel(MainController c, Model model) {
+    public BuddyPanel(MainController c, Model model, JFrame buddyWindow) {
+    	this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -152,6 +155,7 @@ public class BuddyPanel extends JPanel implements Observer {
         addF.addMouseListener(new addFriendListener());
         removeF.addMouseListener(new removeFriendListener());
         blockF.addMouseListener(new blockFriendListener());
+       
 
         return options;
     }
@@ -162,6 +166,7 @@ public class BuddyPanel extends JPanel implements Observer {
             try {
                 BlockManager blockedUser = new BlockManager(chatClient, model,
                         buddies, bannedAccountList);
+                blockedUser.addWindowListener(new PopupWindowListener(buddyWindow, blockedUser));
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

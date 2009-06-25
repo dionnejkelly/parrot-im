@@ -9,6 +9,8 @@
  *         Skeleton of the GUI was provided, but not fully functioning yet.
  *     2009-June-19, VL
  *         Integrated to access the real database
+ *     2009-June-24, VL
+ *         Added chatLogWindowListener.
  *         
  * Known Issues:
  *     1. Missing search bar.
@@ -21,15 +23,20 @@
 package view.chatLog;
 
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
 import model.Model;
 
 public class ChatLogFrame extends JFrame {
-
+	Model model;
+	
     public ChatLogFrame(Model model) {
         super("ParrotIM - Chat Log Viewer");
+    	this.model = model;
+    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.getContentPane().add(
                 new ChatLogPanel(model, model.getCurrentProfile()
@@ -38,5 +45,27 @@ public class ChatLogFrame extends JFrame {
         this.setMinimumSize(new Dimension(400, 300));
         this.pack();
         this.setVisible(true); // might want to change this
+        this.addWindowListener(new chatLogWindowListener());
+    }
+    
+    private class chatLogWindowListener implements WindowListener{
+
+		public void windowActivated(WindowEvent e) {}
+
+		public void windowClosed(WindowEvent e) {
+			model.logWindowOpen = false;
+			System.out.println(model.logWindowOpen);
+		}
+
+		public void windowClosing(WindowEvent e) {}
+		public void windowDeactivated(WindowEvent e) {}
+		public void windowDeiconified(WindowEvent e) {}
+		public void windowIconified(WindowEvent e) {}
+		
+		public void windowOpened(WindowEvent e) {
+			model.logWindowOpen = true;
+			System.out.println(model.logWindowOpen);
+		}
+    	
     }
 }

@@ -1,4 +1,4 @@
-/* popupWindowListener.java
+/* PopupWindowListener.java
  * 
  * Programmed By:
  * 	   Vera Lukman
@@ -12,6 +12,8 @@
  *     	   Fixed windowClosed()
  *     2009-June-13, WC
  *         Transferred file over to new project, ParrotIM.
+ *     2009-June-24, VL
+ *         Edited windowOpened()
  *         
  * Known Issues:
  *     None
@@ -31,11 +33,11 @@ import javax.swing.JFrame;
 import view.mainwindow.MainWindow;
 
 public class PopupWindowListener implements WindowListener {
-	MainWindow mainFrame;
+	JFrame mainFrame;
 	JFrame popup;
 	
 	public PopupWindowListener(JFrame frame, JFrame popup){
-		mainFrame = (MainWindow)frame;
+		mainFrame = frame;
 		this.popup = popup;
 	}
 
@@ -49,6 +51,9 @@ public class PopupWindowListener implements WindowListener {
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
 	public void windowIconified(WindowEvent e) {}
-	public void windowOpened(WindowEvent e) {}
+	
+	public void windowOpened(WindowEvent e) {
+		mainFrame.setEnabled(false);
+	}
 	public void windowActivated(WindowEvent e) {}
 }

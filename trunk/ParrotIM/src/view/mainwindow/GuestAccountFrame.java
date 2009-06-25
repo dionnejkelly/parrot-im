@@ -132,11 +132,8 @@ public class GuestAccountFrame extends JFrame {
         cancelButton.setPreferredSize(new Dimension(20, 40));
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                mainFrame.setEnabled(true);
                 popup.removeAll();
                 popup.dispose();
-                mainFrame.setAlwaysOnTop(true);
-                mainFrame.setAlwaysOnTop(false);
             }
         });
         buttonsPanel.add(cancelButton);
@@ -166,12 +163,8 @@ public class GuestAccountFrame extends JFrame {
             new BuddyList(core, model);// pops buddylist window
             mainFrame.dispose(); // TODO: consider if the sign in fails
         } catch (XMPPException e1) {
-            // TODO: throw a warning if password is incorrect or account does
-            // not exist - core, please provide this
             // e1.printStackTrace();
             mainPanel.header.loadMain();
-            // mainPanel.accPanel.setVisible(true);
-            // mainPanel.misc.setVisible(true);
             mainFrame.setEnabled(true);
             System.out.println("sign in failed!");
         }

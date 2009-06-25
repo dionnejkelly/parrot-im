@@ -32,6 +32,8 @@
  *         These functions are used for chat log window
  *     2009-June-20, AAS
  *         Added getProfileList(), getProfilesUserList()
+ *     2009-June-24, VL
+ *         Added logWindowOpen variable
  *         
  *         
  * Known Issues:
@@ -69,10 +71,12 @@ public class Model extends Observable {
     private CurrentProfileData currentProfile;
 
     public boolean chatWindowOpen;
+    public boolean logWindowOpen;
 
     public Model() throws ClassNotFoundException, SQLException {
         currentProfile = null;
         conversations = new ArrayList<ConversationData>();
+        logWindowOpen = false;
     }
 
     /**

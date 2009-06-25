@@ -255,12 +255,12 @@ public class ManageAccountFrame extends JFrame implements Observer
 		JButton cancelButton = new JButton ("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	mainFrame.setEnabled(true);
+//            	mainFrame.setEnabled(true);
             	popup.removeAll();
             	popup.dispose();
 
-        		mainFrame.setAlwaysOnTop(true);
-        	    mainFrame.setAlwaysOnTop(false);
+//        		mainFrame.setAlwaysOnTop(true);
+//        	    mainFrame.setAlwaysOnTop(false);
             }
 		});
 		buttonsPanel.add(cancelButton);

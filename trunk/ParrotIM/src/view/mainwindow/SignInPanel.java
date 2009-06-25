@@ -1,7 +1,5 @@
 package view.mainwindow;
 
-//TODO: set so that when the popup window (manage account and guest account popups) 
-//is closed using the close button, mainFrame is set to enable.
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -109,10 +107,8 @@ public class SignInPanel extends JPanel implements Observer {
         manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainFrame.setEnabled(false);
                 try {
-                    ProfileManager popup = new ProfileManager(model, core,
-                            mainFrame);
+                    new ProfileManager(model, core, mainFrame);
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -128,7 +124,6 @@ public class SignInPanel extends JPanel implements Observer {
         guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mainFrame.setEnabled(false);
                 new GuestAccountFrame(model, core, mainFrame, signin);
             }
         });
