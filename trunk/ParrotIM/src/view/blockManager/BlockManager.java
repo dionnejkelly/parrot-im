@@ -35,22 +35,85 @@ import model.dataType.GoogleTalkUserData;
 import model.dataType.UserData;
 import view.mainwindow.MainWindow;
 
+/**
+ * Provides auto-mated messaging capability to users in the chat window. 
+ * For the Alpha Version, the Chatbot is capable of handling simple queries, and 
+ * respond to some extent.
+ */
+
 public class BlockManager extends JFrame {
 
+	// Section
+    // I - Protected Data Member
+
+    /**
+     * Holds the main frame of the Block Manager that is used to dispose the window
+     * when its task is finished.
+     */
+	
+	protected JFrame popup;
+	
+	
+	// Section
+    // II - Non-Static Data Members
+
+    /**
+     * The Block Manager main panel.
+     */
+
     private JPanel accMANPanel;
+    
+    /**
+     * Holds the integrity of our database.
+     */
+    
     private Model model;
-
-    protected JFrame popup;
-
+    
+    /**
+     * Temporarily holds the integrity of user's buddylist model.
+     */
+    
     private DefaultListModel usersBuddyListModel;
+    
+    /**
+     * Temporarily holds the integrity of Parrot IM user's buddylist model.
+     */
+    
     private JList usersBuddyList;
+    
+    /**
+     * Temporarily holds the integrity of blocked Parrot IM user's buddylist model.
+     */
+    
     private JList usersBannedBuddyList;
+    
+    /**
+     * Temporarily holds the integrity of Parrot IM user's buddylist in ArrayList.
+     */
 
     private ArrayList<UserData> usersProfileBuddyList;
+    
+    /**
+     * Temporarily holds the integrity of blocked Parrot IM user's buddylist in ArrayList.
+     */
+    
     private Vector<UserData> bannedAccountList;
+    
+    /**
+     * Maintains the Parrot IM XMPP Protocol .
+     */
 
     private MainController chatClient;
 
+    // Section
+    // III - Constructors
+
+    /**
+     * BlockManager() connects you to the Block Manager handler. 
+     * Every time you want to run a BlockManager window you have to
+     * "BlockManager db = new BlockManager(MainController c, Model model);" 
+     */
+    
     public BlockManager(MainController c, Model model) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
@@ -62,7 +125,7 @@ public class BlockManager extends JFrame {
         // mainFrame = frame;
         popup = this;
 
-        setTitle("Profile Manager");
+        setTitle("Block Manager");
         setLocation(100, 100);
         setPreferredSize(new Dimension(500, 350));
         setResizable(false);
@@ -82,6 +145,11 @@ public class BlockManager extends JFrame {
         pack();
         setVisible(true);
     }
+
+    /**
+     * leftPanelManager() connects you with the Left Panel Block Manager handler
+     * that allows users to block their friends.
+     */
 
     private void leftPanelManager() {
         JPanel leftPanel = new JPanel();
@@ -130,9 +198,23 @@ public class BlockManager extends JFrame {
         // add to account manager pop up main panel
         accMANPanel.add(leftPanel, BorderLayout.WEST);
     }
+    
+    
+    
 
+    /**
+     * Provides Block Button Listener capability to users in the Left Panel Block Manager. 
+     */
+    
     class blockUserListener implements ActionListener {
 
+    	
+    	/**
+         * Listens for the user's blocking event.
+         * 
+         * @param ActionEvent
+        */
+    	
         public void actionPerformed(ActionEvent e) {
 
             int selected = usersBuddyList.getSelectedIndex();
@@ -162,8 +244,18 @@ public class BlockManager extends JFrame {
         }
     }
 
+    /**
+     * Provides Unblock Button Listener capability to users in the Right Panel Unblock Manager. 
+     */
+    
     class unBlockUserListener implements ActionListener {
 
+    	/**
+         * Listens for the user's unblocking event.
+         * 
+         * @param ActionEvent
+        */
+    	
         public void actionPerformed(ActionEvent arg0) {
 
             int selected = usersBannedBuddyList.getSelectedIndex();
@@ -191,6 +283,11 @@ public class BlockManager extends JFrame {
         }
     }
 
+    /**
+     * rightPanelManager() connects you with the Right Panel Unblock Manager handler
+     * that allows users to unblock their friends.
+     */
+    
     private void rightPanelManager() {
         // setting right panel
         JPanel rightPanel = new JPanel();
@@ -262,7 +359,18 @@ public class BlockManager extends JFrame {
         accMANPanel.add(rightPanel, BorderLayout.EAST);
     }
 
+    /**
+     * Provides OK Button Listener capability to users in the Block Manager. 
+     */
+    
     class okCancelButtonListener extends MouseAdapter {
+    	
+    	/**
+         * Listens for the user's mouse click event.
+         * 
+         * @param MouseEvent
+        */
+    	
         public void mousePressed(MouseEvent event) {
             popup.removeAll();
             popup.dispose();
