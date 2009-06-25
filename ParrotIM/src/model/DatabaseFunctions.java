@@ -276,8 +276,8 @@ public class DatabaseFunctions {
         Vector<String> accountList = new Vector<String>();
 
         rs =
-                stat.executeQuery("select * from chatLog where (profile = '"
-                        + profile + "') order by timestamp;");
+                stat.executeQuery("select * from chatLog where profile = '"
+                        + profile + "' AND (toUser='" + buddyname + "' OR fromUser='" + buddyname + "') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
