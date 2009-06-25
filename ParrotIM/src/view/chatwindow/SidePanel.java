@@ -1,3 +1,11 @@
+/* SidePanel.java
+ *  
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.chatwindow;
 
 import java.awt.*;
@@ -28,15 +36,16 @@ public class SidePanel extends JPanel implements Observer {
         this.model = model;
         this.c = c;
         this.model.addObserver(this);
-        DefaultMutableTreeNode person1 = null;
-        DefaultMutableTreeNode person2 = null;
 
+        //Panel Properties
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(150, 500));
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         // Tree preferences
+        DefaultMutableTreeNode person1 = null;
+        DefaultMutableTreeNode person2 = null;
         for (ConversationData cd : model.getConversations()) {
             top = new DefaultMutableTreeNode("Root");
             tree = new JTree(top);
