@@ -185,8 +185,10 @@ public class BuddyPanel extends JPanel implements Observer {
 
             chatClient.blockFriend(selectedFriend.getAccountName());
 
-            /*
+            
             buddies.remove(selectedFriend);
+            
+            /*
             boxes[0].removeAll();
 
             for (int i = 0; i < buddies.size(); i++) {
@@ -220,6 +222,8 @@ public class BuddyPanel extends JPanel implements Observer {
 
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
+        	
+        	
             System.out.println("Remove this user from the buddy list = "
                     + selectedFriend.toString());
             chatClient.removeFriend(selectedFriend.getAccountName());
@@ -480,6 +484,8 @@ public class BuddyPanel extends JPanel implements Observer {
                 // chat.addToConversation(selectedName);
                 // TODO Group chat not yet implemented.
             }
+            
+            
         }
     }
 }
