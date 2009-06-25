@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -65,7 +66,7 @@ public class EditAccountFrame extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(managerFrame);
 
-        setTitle("add New Account");
+        setTitle("Add New Account");
         modAcctPanel = new JPanel();
         modAcctPanel.setLayout(new BorderLayout());
         modAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -179,14 +180,20 @@ public class EditAccountFrame extends JFrame {
             String password = String.copyValueOf(pwdField.getPassword());
             ServerType server = (ServerType) serviceField.getSelectedItem();
 
+            System.out.println("Server = " + server.toString());
             // Only accept non-empty strings for the account. An empty
             // string for the password is perfecty all right.
-            if (accountName != null && accountName.length()> 0) {
+            if ((accountName != null && accountName.length()> 0) && server.toString().equals("Google Talk")) {
                 controller.addAccount(profile, server, accountName,
                         password);
                 
                 popup.setVisible(false);
                 popup.dispose();    
+            }
+            
+            else {
+            	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
+            	JOptionPane.showMessageDialog(null, resultMessage);
             }
 
             return;

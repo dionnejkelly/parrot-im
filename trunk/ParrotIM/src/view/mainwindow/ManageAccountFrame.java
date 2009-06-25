@@ -292,7 +292,8 @@ public class ManageAccountFrame extends JFrame implements Observer
 			if (match) {
 				//if found, then edit the password as manage
 				//TODO:edit password
-			}else {
+			}
+			else {
 				//insert new
 				accountArray.add(UNField.getText());
 				accList.updateUI();

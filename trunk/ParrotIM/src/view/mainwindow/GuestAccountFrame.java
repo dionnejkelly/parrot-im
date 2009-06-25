@@ -39,6 +39,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -157,17 +158,27 @@ public class GuestAccountFrame extends JFrame {
         String username = UNFieldGuest.getText();
         String password = password(PwdFieldGuest.getPassword());
 
-        try {
-            core.login(serverType, username, password);
+        if (serverType.toString().equals("Google Talk")) {
+        	 try {
+                 core.login(serverType, username, password);
 
-            new BuddyList(core, model);// pops buddylist window
-            mainFrame.dispose(); // TODO: consider if the sign in fails
-        } catch (XMPPException e1) {
-            // e1.printStackTrace();
-            mainPanel.header.loadMain();
-            mainFrame.setEnabled(true);
-            System.out.println("sign in failed!");
+                 new BuddyList(core, model);// pops buddylist window
+                 mainFrame.dispose(); // TODO: consider if the sign in fails
+             } catch (XMPPException e1) {
+                 // e1.printStackTrace();
+                 mainPanel.header.loadMain();
+                 mainFrame.setEnabled(true);
+                 System.out.println("sign in failed!");
+             }
+        	
         }
+        
+        else {
+        	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
+        	JOptionPane.showMessageDialog(null, resultMessage);
+        	mainFrame.setEnabled(true);
+        }
+       
     }
 
     private String password(char[] pass) {
