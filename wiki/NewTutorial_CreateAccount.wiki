@@ -18,7 +18,7 @@ http://parrot-im.googlecode.com/files/create%20new%20profile.jpg
 
 A new Account Manager window will appear. The left-hand side shows the accounts saved to the program, with the information on the right-hand side of the window.
 
-2. Click the "add" button at the bottom-left part of the window. A new entry will appear in the list: <New Account>
+2. Click the "add" button at the bottom-left part of the window. A new entry will appear in the list:
 
 3. Select the protocol you with to use (e.g. Jabber, Twitter, ICQ) by clicking the Service drop-down box and selecting whichever one you'd like.
 
