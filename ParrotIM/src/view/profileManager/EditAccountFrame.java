@@ -179,11 +179,15 @@ public class EditAccountFrame extends JFrame {
             String password = String.copyValueOf(pwdField.getPassword());
             ServerType server = (ServerType) serviceField.getSelectedItem();
 
-            controller.addAccount(profile, server, accountName,
-                    password);
-            
-            popup.setVisible(false);
-            popup.dispose();
+            // Only accept non-empty strings for the account. An empty
+            // string for the password is perfecty all right.
+            if (accountName != null && accountName.length()> 0) {
+                controller.addAccount(profile, server, accountName,
+                        password);
+                
+                popup.setVisible(false);
+                popup.dispose();    
+            }
 
             return;
         }

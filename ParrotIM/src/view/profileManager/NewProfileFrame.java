@@ -45,7 +45,8 @@ public class NewProfileFrame extends JFrame {
     private JPasswordField pwdField;
     private JComboBox serviceField;
 
-    public NewProfileFrame(Model model, MainController controller, ProfileManager pManager) {
+    public NewProfileFrame(
+            Model model, MainController controller, ProfileManager pManager) {
         this.model = model;
         this.controller = controller;
         managerFrame = pManager;
@@ -158,10 +159,13 @@ public class NewProfileFrame extends JFrame {
             String password = String.copyValueOf(pwdField.getPassword());
             boolean defaultProfile = false;
 
-            controller.addProfile(name, password, defaultProfile);
+            // Only work if the profile is not an empty string
+            if (name != null && name.length() > 0) {
+                controller.addProfile(name, password, defaultProfile);
 
-            popup.setVisible(false);
-            popup.dispose();
+                popup.setVisible(false);
+                popup.dispose();
+            }
 
             return;
         }
