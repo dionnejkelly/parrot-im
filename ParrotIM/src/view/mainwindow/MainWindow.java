@@ -72,7 +72,7 @@ public class MainWindow extends JFrame implements Observer {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension (300,500));
 		setPreferredSize(new Dimension (300,500));
-		setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
 		//call SignIn Panel
 		signPanel = new SignInPanel(this, chatClient, model);
