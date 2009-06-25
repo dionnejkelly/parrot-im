@@ -114,7 +114,15 @@ public class BuddyList extends JFrame {
     private class chatLogListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	if (!model.logWindowOpen){
-        		new ChatLogFrame(model);
+        		try {
+					new ChatLogFrame(model);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         	}
             return;
         }        
