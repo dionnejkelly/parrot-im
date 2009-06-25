@@ -24,7 +24,9 @@
  *         could use a separate database, defined at the start of
  *         execution of the program.
  *     2009-June-24, KF
- *         Added JavaDoc documentation.
+ *         Added JavaDoc documentation. Phased out the storage of blocked
+ *         users in this class. Now stored in the database, and accessed
+ *         through the Model by looking through the UserData objects.
  *         
  * Known Issues:
  *     1. Each time the database is accessed, a new DatabaseFunctions
@@ -92,10 +94,6 @@ public class DatabaseFunctions {
     // Section
     // II - Non-Static Data Members
 
-    // Phase this out. Data should be stored in the database or the model,
-    // and not inside of this class.
-    private Vector<String> bannedAccountList;
-
     /**
      * The connection to the database.
      */
@@ -126,7 +124,6 @@ public class DatabaseFunctions {
      * db.addUser();
      */
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
-        bannedAccountList = new Vector<String>();
         Class.forName("org.sqlite.JDBC");
         conn =
                 DriverManager.getConnection("jdbc:sqlite:"
@@ -604,24 +601,6 @@ public class DatabaseFunctions {
         rs.close();
         conn.close();
         return accountList;
-    }
-
-    // Phase this out. Get data from the database instead.
-    public Vector<String> getBannedUserList() throws SQLException {
-        // ResultSet rs = stat.executeQuery("select * from people;");
-        // while (rs.next()) {
-        // bannedAccountList.add("");
-
-        // }
-
-        return bannedAccountList;
-
-    }
-
-    // Phase this out, should set the database.
-    public void setBannedUserList(String userID) {
-        bannedAccountList.add(userID);
-
     }
 
     // Section

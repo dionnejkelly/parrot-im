@@ -336,15 +336,12 @@ public class BuddyPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         /* If chat window has not been made, make it if message sent */
         if (arg == UpdatedType.CHAT) {
-            for (UserData u : model.getOrderedFriendList()) {
-                // System.out.println(u.getStatus());
-            }
-
             if (chat == null) {
                 // model.startConversation(selectedFriend.getFriendOf(),
                 // selectedFriend);
                 chat = new ChatWindow(chatClient, model);
             } else {
+                System.out.println("darn");
                 // add code for if multiple windows exist.
             }
 

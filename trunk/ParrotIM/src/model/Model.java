@@ -32,15 +32,17 @@
  *         These functions are used for chat log window
  *     2009-June-20, AAS
  *         Added getProfileList(), getProfilesUserList()
+ *     2009-June-24, KF
+ *         Completed JavaDoc documentation.
  *     2009-June-24, VL
  *         Added logWindowOpen variable
- *         
- *         
+ *        
  * Known Issues:
  *     1. Currently has methods that are scheduled to be phased out.
  * 
  * Copyright (C) 2009  Pirate Captains
  * 
+ * License: GNU General Public License version 2.
  * Full license can be found in ParrotIM/LICENSE.txt.
  */
 
@@ -62,53 +64,114 @@ import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 
 /**
- * The model stores all data and provides it for the view and controllers.
+ * The model stores all data and provides it for the view and controllers. Also,
+ * the model is the only class to access the database, and does so by employing
+ * DatabaseFunctions objects to retrieve and set data. Holds a reference to the
+ * current profile used, which references all accounts and friends. Also
+ * references conversation data to provide the GUI with the current active
+ * conversation to display.
  */
 public class Model extends Observable {
 
+    // Section
+    // I - Data Members
+
+    /**
+     * Holds a collection of all conversations. If no conversations are
+     * currently active, the collection is simply empty.
+     */
     private ArrayList<ConversationData> conversations;
+
+    /**
+     * Holds a reference to the current active conversation. This conversation
+     * should be contained inside data member, conversations.
+     */
     private ConversationData activeConversation;
+
+    /**
+     * A reference to the profile currently being used. Holds references to all
+     * accounts and friends involved.
+     */
     private CurrentProfileData currentProfile;
 
+    // This is clumsy. Can we integrate this into conversations? The chat
+    // window should not show if there are no conversations active. This
+    // variable should be phased out.
+    // TODO Phase this variable out.
     public boolean chatWindowOpen;
     public boolean logWindowOpen;
 
+    // Section
+    // II - Constructors
+
+    /**
+     * The main constructor. Sets up the local variables. Only one model should
+     * exist for the program's execution.
+     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public Model() throws ClassNotFoundException, SQLException {
-        currentProfile = null;
-        conversations = new ArrayList<ConversationData>();
+        this.conversations = new ArrayList<ConversationData>();
+        this.currentProfile = null;
+        this.activeConversation = null;
         logWindowOpen = false;
     }
 
-    /**
-     * overriding notifyObservers in the parent class combining setchange and
-     * noifyObservers into one method
-     * 
-     * @return void
-     * @parm o object that sends to observer
-     * @see notifyObservers
-     */
-    public void forceNotify(Object o) {
-        this.setChanged();
-        this.notifyObservers(o);
-    }
+    // Section
+    // III - Profile and Account Manipulation Methods
 
     /**
-     * overriding notifyObservers in the parent class combining setchange and
-     * noifyObservers into one method
+     * Gets all profile names from the database.
      * 
-     * @return void
+     * @return A Vector of profile names in String format.
      */
-    public void forceNotify() {
-        this.setChanged();
-        this.notifyObservers();
+    public Vector<String> getProfileList() {
+        Vector<String> profiles = null;
+
+        DatabaseFunctions db;
+        try {
+            db = new DatabaseFunctions();
+            profiles = db.getProfileList();
+        } catch (Exception e) {
+            System.err.println("Database error. Returning "
+                    + "a blank list of profiles.");
+            e.printStackTrace();
+            profiles = new Vector<String>();
+        }
+
+        return profiles;
     }
 
-    public Vector<String> getAccountList() throws ClassNotFoundException,
-            SQLException {
-        DatabaseFunctions db = new DatabaseFunctions();
-        return db.getUserList();
+    /**
+     * Gets a list of all accounts stored in the database.
+     * 
+     * @return A Vector of account userIDs in String format.
+     */
+    public Vector<String> getAccountList() {
+        Vector<String> accounts = null;
+        DatabaseFunctions db = null;
+
+        try {
+            db = new DatabaseFunctions();
+            accounts = db.getUserList();
+        } catch (Exception e) {
+            System.err.println("Database failure. "
+                    + "Returning a blank account list.");
+            e.printStackTrace();
+            accounts = new Vector<String>();
+        }
+
+        return accounts;
     }
 
+    /**
+     * Gets all accounts for a given profile. These accounts are returned in
+     * objects that hold all parameters that were inside the database.
+     * 
+     * @param profile
+     * @return An ArrayList of AccountTempData objects.
+     */
     public ArrayList<AccountTempData> getAccountsForProfile(String profile) {
         ArrayList<AccountTempData> accounts = null;
         DatabaseFunctions db = null;
@@ -116,78 +179,82 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             accounts = db.getAccountList(profile);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
+            System.err.println("Database error. Returning "
+                    + "A blank list of accounts.");
             e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            accounts = new ArrayList<AccountTempData>();
         }
 
         return accounts;
     }
 
-    public Vector<String> getProfileList() {
-        Vector<String> profiles = null;
-        
-        DatabaseFunctions db;
-        try {
-            db = new DatabaseFunctions();
-            profiles = db.getProfileList();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-        return profiles;
-    }
-
-    public Vector<String> getProfilesUserList(String name)            {
-        Vector<String> users = null;
+    /**
+     * Gets all accounts associated with a given profile. Returns only the
+     * userID in a list.
+     * 
+     * @param name
+     * @return A Vector of account userIDs associated with a given profile.
+     */
+    public Vector<String> getProfilesUserList(String name) {
+        Vector<String> accounts = null;
         DatabaseFunctions db = null;
-        
+
         try {
             db = new DatabaseFunctions();
-            users = db.getProfilesUserList(name);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+            accounts = db.getProfilesUserList(name);
+        } catch (Exception e) {
+            System.err.println("Database error. Returning "
+                    + "a blank list of accounts");
             e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            accounts = new Vector<String>();
+        }
+
+        return accounts;
+    }
+
+    /**
+     * Returns the password for a given user account.
+     * 
+     * @param accountUserID
+     * @return The password for the account.
+     */
+    public String getPassword(String accountUserID) {
+        String password = null;
+        DatabaseFunctions db = null;
+
+        try {
+            db = new DatabaseFunctions();
+            password = db.getAccountPassword(accountUserID);
+        } catch (Exception e) {
+            System.err.println("Database error. Returning an "
+                    + "empty string as a password");
             e.printStackTrace();
+            password = "";
         }
-        
-        return users;
+
+        return password;
     }
 
-    public Vector<String> getBannedAccountList() throws ClassNotFoundException,
-            SQLException {
-        DatabaseFunctions db = new DatabaseFunctions();
-        return db.getBannedUserList();
+    // Section
+    // IV = Conversation Manipulation Methods
 
-    }
-
-    public Vector<ServerType> getServerList() {
-        Vector<ServerType> servers = new Vector<ServerType>();
-        for (ServerType s : ServerType.values()) {
-            servers.add(s);
-        }
-        return servers;
-    }
-
-    public String getPassword(String username) throws ClassNotFoundException,
-            SQLException {
-        DatabaseFunctions db = new DatabaseFunctions();
-        return db.getAccountPassword(username);
-    }
-
+    /**
+     * Returns the number of conversations in existence.
+     * 
+     * @return The number of conversations open in the chat.
+     */
     public int numberOfConversations() {
         return conversations.size();
     }
 
+    /**
+     * Switches the current active conversation. Should make messages sent in
+     * the chat window go to this user. Also, should be the window shown in the
+     * chat window.
+     * 
+     * @param user
+     */
     public void setActiveConversation(UserData user) {
         for (ConversationData c : this.conversations) {
             if (c.getUser() == user) {
@@ -202,6 +269,13 @@ public class Model extends Observable {
         return;
     }
 
+    /**
+     * Switches the current active conversation. Should make messages sent in
+     * the chat window go to this user. Also, should be the window shown in the
+     * chat window.
+     * 
+     * @param conversation
+     */
     public void setActiveConversation(ConversationData conversation) {
         this.activeConversation = conversation;
 
@@ -211,11 +285,20 @@ public class Model extends Observable {
         return;
     }
 
+    /**
+     * Removes the current active conversation from the list.
+     */
     public void removeActiveConversation() {
         this.conversations.remove(this.activeConversation);
+
         return;
     }
 
+    /**
+     * Gets the current active conversation.
+     * 
+     * @return The current active conversation object.
+     */
     public ConversationData getActiveConversation() {
         return this.activeConversation;
     }
@@ -225,15 +308,15 @@ public class Model extends Observable {
      * specified user. Returns the ConversationData object if found; null
      * otherwise.
      * 
-     * @param friend
-     *            A string with the friend's account name.
+     * @param userID
+     *            A string with the friend's userID.
      * @return A ConversationData Object.
      */
-    public ConversationData findConversationByFriend(String friend) {
+    public ConversationData findConversationByFriend(String userID) {
         ConversationData conversation = null;
 
         for (ConversationData c : this.conversations) {
-            if (c.getUser().getAccountName().equals(friend)) {
+            if (c.getUser().getAccountName().equalsIgnoreCase(userID)) {
                 conversation = c;
                 break;
             }
@@ -242,17 +325,24 @@ public class Model extends Observable {
         return conversation;
     }
 
-    public void receiveMessage(AccountData account, MessageData message)
-            throws SQLException, ClassNotFoundException {
+    public void receiveMessage(AccountData account, MessageData message) {
         UserData user = null;
-
         ConversationData modifiedConversation = null;
+        DatabaseFunctions db = null;
+
         String fromUser = message.getFromUser();
 
-        DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(currentProfile.getProfileName(), fromUser, account
-                .getAccountName(), message.getMessage());
+        try {
+            db = new DatabaseFunctions();
+            db.addChat(currentProfile.getProfileName(), fromUser, account
+                    .getAccountName(), message.getMessage());
+        } catch (Exception e) {
+            System.err.println("Database error. Chat not saved "
+                    + "in the chat log.");
+            e.printStackTrace();
+        }
 
+        //modifiedConversation = this.findConversationByFriend(fromUser);
         user = this.findUserByAccountName(fromUser);
 
         for (ConversationData c : conversations) {
@@ -261,31 +351,30 @@ public class Model extends Observable {
                 break;
             }
         }
-
-        /*
-         * Case 1: We found a matching conversation Case 2: No match found;
-         * create conversation and add it to the list
-         */
         if (modifiedConversation != null) {
+            // Case 1: We found a matching conversation
             modifiedConversation.addMessage(message);
         } else {
+            // Case 2: No match found; create conversation and add it to the list
             modifiedConversation = new ConversationData(account, user);
             this.conversations.add(modifiedConversation);
             this.activeConversation = modifiedConversation;
             modifiedConversation.addMessage(message);
-
         }
 
         setChanged();
         notifyObservers(UpdatedType.CHAT);
+
         return;
     }
 
-    public void sendMessage(ConversationData modifiedConversation,
-            MessageData message) throws ClassNotFoundException, SQLException {
+    public void sendMessage(
+            ConversationData modifiedConversation, MessageData message)
+            throws ClassNotFoundException, SQLException {
         modifiedConversation.addMessage(message);
         DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(currentProfile.getProfileName(), message.getFromUser(),
+        db.addChat(
+                currentProfile.getProfileName(), message.getFromUser(),
                 modifiedConversation.getUser().getAccountName(), message
                         .getMessage());
         setChanged();
@@ -298,8 +387,6 @@ public class Model extends Observable {
         // user = buddy
         AccountData account = this.findAccountByFriend(user);
         ConversationData conversation = new ConversationData(account, user);
-        System.out.println("account: " + account.getAccountName() + " user:"
-                + user.toString());
         String user_address = user.toString();
 
         // check if the conversation exists
@@ -334,8 +421,8 @@ public class Model extends Observable {
      * SECTION: Account manipulation - Remove account - Add account
      */
 
-    public void addAccount(String profile, String server, String accountName,
-            String password) {
+    public void addAccount(
+            String profile, String server, String accountName, String password) {
         DatabaseFunctions db;
         try {
             db = new DatabaseFunctions();
@@ -464,8 +551,8 @@ public class Model extends Observable {
         ArrayList<UserData> friends = this.currentProfile.getAllFriends();
         for (UserData user : friends) {
             // Temp fix for switching conversations
-        	if (user.getAccountName().equals(accountName)
-            		|| user.getNickname().equals(accountName)) {
+            if (user.getAccountName().equals(accountName)
+                    || user.getNickname().equals(accountName)) {
                 found = user;
                 break;
             }
@@ -824,8 +911,8 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             buddies = new Vector<String>();
-            for (AccountData account : this.getCurrentProfile()
-                    .getAccountData()) {
+            for (AccountData account : this
+                    .getCurrentProfile().getAccountData()) {
 
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
@@ -861,20 +948,21 @@ public class Model extends Observable {
         return chats;
     }
 
-    public ArrayList<ChatLogMessageTempData> getLogMessage(String username,
-            String buddyname, String date) {
+    public ArrayList<ChatLogMessageTempData> getLogMessage(
+            String username, String buddyname, String date) {
         DatabaseFunctions db = null;
-        ArrayList<ChatLogMessageTempData> messages = new ArrayList<ChatLogMessageTempData>();
+        ArrayList<ChatLogMessageTempData> messages =
+                new ArrayList<ChatLogMessageTempData>();
 
         try {
             db = new DatabaseFunctions();
-            for (AccountData account : this.getCurrentProfile()
-                    .getAccountData()) {
+            for (AccountData account : this
+                    .getCurrentProfile().getAccountData()) {
 
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                messages.addAll(db.getMessageFromDate(account.getAccountName(),
-                        buddyname, date));
+                messages.addAll(db.getMessageFromDate(
+                        account.getAccountName(), buddyname, date));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -887,4 +975,35 @@ public class Model extends Observable {
         return messages;
     }
 
+    // Section
+    // ? - Utility Methods
+
+    /**
+     * Forces the observers to be notified. Can specify which UpdatedType to
+     * pass through to the GUI.
+     * 
+     * @param o
+     *            UpdatedType object sent to the GUI.
+     */
+    public void forceNotify(Object o) {
+        this.setChanged();
+        this.notifyObservers(o);
+
+        return;
+    }
+
+    /**
+     * Returns a list of all valid servers to connect with.
+     * 
+     * @return A Vector of ServerType objects that hold a string representation
+     *         of the server type.
+     */
+    public Vector<ServerType> getServerList() {
+        Vector<ServerType> servers = new Vector<ServerType>();
+        for (ServerType s : ServerType.values()) {
+            servers.add(s);
+        }
+
+        return servers;
+    }
 }
