@@ -180,19 +180,19 @@ public class ChatPanel extends JPanel {
                 shiftPressed = true;
             }
         }
-
+        
         public void keyReleased(KeyEvent e) {
 
             if (!shiftPressed && e.getKeyCode() == e.VK_ENTER) {
                 System.out
-                        .println("------------------------------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
+                        .println("-------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 e.setKeyCode(e.VK_BEGIN);
                 sendMessage();
             }
 
             else if (shiftPressed && (e.getKeyCode() == e.VK_ENTER)) {
                 System.out
-                        .println("-------------------------------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
+                        .println("-------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 txt1.setText(txt1.getText() + "\n");
                 shiftPressed = false;
             }
@@ -201,10 +201,6 @@ public class ChatPanel extends JPanel {
                 shiftPressed = false;
             }
         }
-
-        public void keyTyped(KeyEvent e) {
-        }
-
+        public void keyTyped(KeyEvent e) {}
     }
-
 }
