@@ -10,6 +10,8 @@ import org.junit.Test;
 
 public class GoogleTalkUserDataTest {
 	private GoogleTalkUserData u1;
+	private GoogleTalkUserData u2;
+	private GoogleTalkUserData u3;
 	@Before
 	public void setUp() throws Exception {
 		u1 = new GoogleTalkUserData("mac999","mohd","idle");
@@ -19,8 +21,24 @@ public class GoogleTalkUserDataTest {
 	public void tearDown() throws Exception {
 		u1 = null;
 	}
-
 	
+	public void testGoogleTalkUserDataStringStringString(){
+		u2 = new GoogleTalkUserData("Win","vista","away");
+		assertSame("Win",u2.getAccountName());
+		assertSame("vista",u2.getNickname());
+		assertSame("away",u2.getStatus());
+		assertFalse(u2.isBlocked());
+		assertSame("Offline",u2.getState());
+	}
+	
+	public void testGoogleTalkUserDataString(){
+		u3 = new GoogleTalkUserData("Fahad");
+		assertSame("Fahad",u3.getAccountName());
+		assertSame(u3.getAccountName(),u3.getNickname());
+		assertSame("",u3.getStatus());
+		assertFalse(u3.isBlocked());
+		assertSame("Offline",u3.getState());
+	}
 	
 
 	@Test
