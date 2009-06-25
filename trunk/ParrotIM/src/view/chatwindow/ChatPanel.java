@@ -20,16 +20,15 @@ import model.*;
 
 public class ChatPanel extends JPanel {
     /* THIS IS FOR CHAT CLIENT : modified ChatClient c */
+	private Model model;
     private JComboBox fontSelect;
     private JButton colorButton;
     private JColorChooser colorChooser;
-    private Model model;
     private JTextArea txt1;
     private DisplayPanel displayPanel;
     private MainController c;
 
     public ChatPanel(MainController c, Model model) {
-
         setLayout(new BorderLayout());
 
         this.model = model;
@@ -42,15 +41,18 @@ public class ChatPanel extends JPanel {
         editingPanel.setLayout(new BorderLayout());
         editingPanel.setSize(new Dimension(20, 20));
 
+        //List of fonts combobox
         String[] fontList = { "Arial", "Times New Roman", "Comic Sans MS" };
         fontSelect = new JComboBox(fontList);
         fontSelect.setEditable(true);
         fontSelect.setMaximumSize(new Dimension(130, 28));
 
+        //The font size spinner
         SpinnerModel fontSizemodel = new SpinnerNumberModel(4, 1, 12, 1);
         JSpinner fontSize = new JSpinner(fontSizemodel);
         fontSize.setMaximumSize(new Dimension(45, 30));
 
+        //the input textarea properties
         txt1 = new JTextArea();
         txt1.setColumns(25);
         txt1.setRows(2);
@@ -64,6 +66,7 @@ public class ChatPanel extends JPanel {
         sendButton.addActionListener(new SendButtonPressed());
         // displayPanel.addMessage(incoming messages); //TODO
 
+        //Editing button properties
         JButton boldButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/bold.png")));
@@ -104,6 +107,7 @@ public class ChatPanel extends JPanel {
                         "/images/chatwindow/pic.png")));
         pic.setToolTipText("Insert a Picture");
 
+        //Text editing toolbar
         JToolBar bar1 = new JToolBar();
         bar1.add(fontSelect);
         bar1.addSeparator();
@@ -132,14 +136,14 @@ public class ChatPanel extends JPanel {
         add(sPane, BorderLayout.CENTER);
     }
 
-    public DisplayPanel getDisplayPanel() {
-        return displayPanel;
-    }
+    //Getters
+    public DisplayPanel getDisplayPanel() { return displayPanel; }
+    public JComboBox getFontSelect() { return fontSelect; }
 
-    public JComboBox getFontSelect() {
-        return fontSelect;
-    }
-
+    /** The sendMessage Method calls the model to send a message.
+     * This function also Updates the display Text to show the
+     * message that you just sent.
+     */
     public void sendMessage() {
         String msg = txt1.getText();
 
@@ -153,17 +157,22 @@ public class ChatPanel extends JPanel {
         txt1.setText(null);
     }
 
+    /** The Button listener for the "send" button.
+     */
     public class SendButtonPressed implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             sendMessage();
         }
     }
 
+    /** This is the keyListener for the textbox where the user
+     * inputs there message. Currently handles the "enter" and "shift-enter"
+     * keyboard commands.
+     */
     public class TextBoxListener implements KeyListener {
         private boolean shiftPressed = false;
 
         public void keyPressed(KeyEvent e) {
-
             // this is functional but somewhat unstable
             // any ideas are welcome to be discussed in the upcoming meeting
 
@@ -179,7 +188,6 @@ public class ChatPanel extends JPanel {
                         .println("------------------------------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 e.setKeyCode(e.VK_BEGIN);
                 sendMessage();
-
             }
 
             else if (shiftPressed && (e.getKeyCode() == e.VK_ENTER)) {
@@ -191,7 +199,6 @@ public class ChatPanel extends JPanel {
 
             else {
                 shiftPressed = false;
-
             }
         }
 
