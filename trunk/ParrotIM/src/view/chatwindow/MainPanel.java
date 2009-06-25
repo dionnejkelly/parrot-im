@@ -46,8 +46,6 @@ public class MainPanel extends JPanel implements Observer {
 	    helpMenu.add(helpItem2);
 		
 		JSplitPane sPane = new JSplitPane();
-		//chat = new ChatPanel(conversations, c, model, id);
-		//side = new sidePanel(conversations, c, model);
 		chat = new ChatPanel(c, model);
 		side = new SidePanel(c, model);
 		side.setMinimumSize(new Dimension(500, 300));

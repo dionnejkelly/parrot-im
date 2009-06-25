@@ -15,7 +15,6 @@ import model.Model;
 import model.enumerations.UpdatedType;
 
 public class ChatWindow extends JFrame implements Observer {
-    // private ArrayList<Conversation> conversations;
     public JPanel main;
     private Model model;
     private boolean windowIsOpen;
@@ -29,13 +28,11 @@ public class ChatWindow extends JFrame implements Observer {
 
         this.model = model;
 
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(this.getClass().getResource(
                 "/images/mainwindow/logo.png")).getImage());
 
         this.addWindowListener(new ChatWindowListener(this.model));
 
-        // main = new mainPanel(conversations, c, model);
         main = new MainPanel(c, model);
 
         getContentPane().add(main);
@@ -60,15 +57,4 @@ public class ChatWindow extends JFrame implements Observer {
         }
         return;
     }
-
-    /*
-     * Conversation Type is now in the model. public void
-     * createNewConversation(ChatData chatData){ conversations.add(new
-     * Conversation());
-     * conversations.get(0).addName(chatData.getYourUsername()); // Temporary
-     * conversations.get(0).addName(chatData.getOtherUsername()); }
-     * 
-     * public void addToConversation(String name){
-     * conversations.get(0).addName(name); }
-     */
 }
