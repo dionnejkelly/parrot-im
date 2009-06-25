@@ -245,11 +245,11 @@ public class DatabaseFunctions {
      * @return A Vector of Strings holding 1 name per String.
      * @throws SQLException
      */
-    public Vector<String> getChatNameList(String username) throws SQLException {
+    public Vector<String> getChatNameList(String profile) throws SQLException {
         Vector<String> accountList = new Vector<String>();
         rs =
-                stat.executeQuery("select * from chatLog where fromUser='"
-                        + username + "';");
+                stat.executeQuery("select * from chatLog where profile='"
+                        + profile + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
