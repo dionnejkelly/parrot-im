@@ -1,0 +1,23 @@
+#summary One-sentence summary of this page.
+
+= Unit Testing =
+
+We will follow the previous version to do the unit test.
+
+=== JUnit ===
+
+We will keep use JUnit as a tool to do the test.
+
+=== Test Case Development ===
+
+No change here.
+
+= Integration Testing =
+
+No change here.
+
+= User Acceptance Testing =
+
+
+
+
