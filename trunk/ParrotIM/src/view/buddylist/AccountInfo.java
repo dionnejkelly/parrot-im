@@ -97,7 +97,7 @@ public class AccountInfo extends JPanel
 		setLayout(new BorderLayout());
 		
 		//avatar
-		AvatarLabel avatarDisplay = new AvatarLabel("images/buddylist/logoBox.png");
+		AvatarLabel avatarDisplay = new AvatarLabel("src/images/buddylist/logoBox.png");
 		
 		//name, status message (personal message) and status
 		JPanel textInfo = new JPanel();
