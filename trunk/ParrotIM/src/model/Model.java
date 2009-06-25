@@ -346,6 +346,14 @@ public class Model extends Observable {
         return conversation;
     }
 
+    
+    /**
+     * Handles the receiving message.
+     * 
+     * @param account
+     * @param message
+     */
+    
     public void receiveMessage(AccountData account, MessageData message) {
         UserData user = null;
         ConversationData modifiedConversation = null;
@@ -383,6 +391,15 @@ public class Model extends Observable {
 
         return;
     }
+    
+    /**
+     * Sends the outgoing message.
+     * 
+     * @param modifiedConversation
+     * @param message
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
 
     public void sendMessage(
             ConversationData modifiedConversation, MessageData message)
@@ -397,6 +414,12 @@ public class Model extends Observable {
         notifyObservers(UpdatedType.CHAT);
         return;
     }
+    
+    /**
+     * Starts new conversation.
+     * 
+     * @param user
+     */
 
     public ConversationData startConversation(UserData user) {
         // account = local user (eg. cmpt275testing@gmail.com)
@@ -428,6 +451,12 @@ public class Model extends Observable {
         notifyObservers(UpdatedType.CHAT);
         return conversation;
     }
+    
+    /**
+     * Returns the current conversation.
+     * 
+     * @return ArrayList<ConversationData>
+     */
 
     public ArrayList<ConversationData> getConversations() {
         return this.conversations;
@@ -437,6 +466,15 @@ public class Model extends Observable {
      * SECTION: Account manipulation - Remove account - Add account
      */
 
+    /**
+     * Add account to the database.
+     * 
+     * @param profile
+     * @param server
+     * @param accountName
+     * @param password
+     */
+    
     public void addAccount(
             String profile, String server, String accountName, String password) {
         DatabaseFunctions db;
@@ -456,6 +494,13 @@ public class Model extends Observable {
 
         return;
     }
+    
+    /**
+     * Removes account from the database.
+     * 
+     * @param profile
+     * @param account
+     */
 
     public void removeAccount(String profile, String account) {
         DatabaseFunctions db;
@@ -477,6 +522,15 @@ public class Model extends Observable {
     }
 
     /* Current Profile manipulation */
+    
+    /**
+     * Adds profile to the the database.
+     * 
+     * @param name
+     * @param pwd
+     * @param defaultProfile
+     */
+    
     public void addProfile(String name, String pwd, boolean defaultProfile) {
         DatabaseFunctions db;
         try {
@@ -495,6 +549,12 @@ public class Model extends Observable {
 
         return;
     }
+    
+    /**
+     * Removes profile from the the database.
+     * 
+     * @param name
+     */
 
     public void removeProfile(String name) {
         DatabaseFunctions db;
@@ -514,20 +574,45 @@ public class Model extends Observable {
 
         return;
     }
+    
+    /**
+     * Creates current profile.
+     * 
+     * @param account
+     * @param profileName
+     */
 
     public void createCurrentProfile(AccountData account, String profileName) {
         currentProfile = new CurrentProfileData(account, profileName);
         return;
     }
+    
+    /**
+     * Adds account to current profile.
+     * 
+     * @param account
+     */
 
     public void addAccountToCurrentProfile(AccountData account) {
         currentProfile.addAccount(account);
         return;
     }
 
+    /**
+     * Returns current profile.
+     * 
+     * @return CurrentProfileData
+     */
+    
     public CurrentProfileData getCurrentProfile() {
         return currentProfile;
     }
+    
+    
+    /**
+     * Clears current profile.
+     * 
+     */
     
     public void clearCurrentProfile() {
         this.currentProfile = null;
@@ -535,9 +620,22 @@ public class Model extends Observable {
         return;
     }
     
+    /**
+     * Check whether current profile exists.
+     * 
+     * @return boolean
+     */
+    
     public boolean currentProfileExists() {
         return (currentProfile != null);
     }
+    
+    /**
+     * Connect the account.
+     * 
+     * @param accountData
+     */
+    
 
     public void connectAccount(AccountData accountData) {
         accountData.setConnected(true);
@@ -545,6 +643,12 @@ public class Model extends Observable {
         notifyObservers();
         return;
     }
+    
+    /**
+     * Disconnects the account.
+     * 
+     * @param accountData
+     */
 
     public void disconnectAccount(AccountData accountData) {
         accountData.setConnected(false);
@@ -553,6 +657,12 @@ public class Model extends Observable {
         return;
     }
 
+    /**
+     * Force to update.
+     * 
+     * @param updatedType
+     */
+    
     public void forceUpdate(UpdatedType updatedType) {
         setChanged();
         notifyObservers(updatedType);
@@ -830,6 +940,12 @@ public class Model extends Observable {
         return;
     }
 
+    /**
+     * Returns the banned user list.
+     * 
+     * @return Vector<UserData> representation of the blocked friends.
+     */
+    
     public Vector<UserData> getBannedUserList() {
         Vector<UserData> blockedFriends = new Vector<UserData>();
 
@@ -843,7 +959,13 @@ public class Model extends Observable {
         return blockedFriends;
 
     }
-
+    
+    /**
+     * Returns the unblocked user list.
+     * 
+     * @return Vector<UserData> representation of the bunlocked friends.
+     */
+    
     public ArrayList<UserData> getUnblockedFriendList() {
         // Sorts alphabetically. Does not sort with regard to any other
         // properties (e.g. online, busy). Does not accept blocked friends
@@ -881,6 +1003,13 @@ public class Model extends Observable {
 
         return friends;
     }
+    
+    
+    /**
+     * Sorts the friend list.
+     * 
+     * @return Vector<UserData> representation of the sorted friends.
+     */
     
     public ArrayList<UserData> getOrderedFriendList() {
         ArrayList<UserData> unsortedFriends = new ArrayList<UserData>();
@@ -937,6 +1066,13 @@ public class Model extends Observable {
         return friends;
     }
 
+    /**
+     * Returns the saved friend list.
+     * 
+     * @param accountName
+     * @return Vector<FriendTempData> representation of the saved friends.
+     */
+    
     public Vector<FriendTempData> getSavedFriends(String accountName) {
         Vector<FriendTempData> friends = null;
         DatabaseFunctions db = null;
@@ -960,6 +1096,14 @@ public class Model extends Observable {
     /*
      * ChatLog functions
      */
+    
+    /**
+     * Returns the buddy log list.
+     * 
+     * @param profile
+     * @return Vector<String> representation of the buddy log list.
+     */
+    
     public Vector<String> getBuddyLogList(String profile) throws SQLException, ClassNotFoundException {
         // returns list of buddies (that have chat log)
         // We might need to consider the case in which the same
@@ -977,6 +1121,14 @@ public class Model extends Observable {
 
         return buddies;
     }
+    
+    /**
+     * Returns the deleted buddy date list.
+     * 
+     * @param profile
+     * @param buddyname
+     * @return Vector<String> representation of the buddy date list.
+     */
 
     public Vector<String> getBuddyDateList(String profile, String buddyname) {
         // returns history date list
@@ -996,6 +1148,15 @@ public class Model extends Observable {
 
         return chats;
     }
+    
+    /**
+     * Returns the log list.
+     * 
+     * @param username
+     * @param buddyname
+     * @param date
+     * @return Vector<ChatLogMessageTempData> representation of the log list.
+     */
 
     public Vector<ChatLogMessageTempData> getLogMessage(
             String username, String buddyname, String date) {
