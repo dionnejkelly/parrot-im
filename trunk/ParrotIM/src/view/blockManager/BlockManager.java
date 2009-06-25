@@ -54,6 +54,7 @@ public class BlockManager extends JFrame {
 	
 	public BlockManager(MainController c, Model model, ArrayList<UserData> usersBuddies, DatabaseFunctions bannedUsersList) throws ClassNotFoundException, SQLException
 	{
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.model = model;
 		this.chatClient = c;
 		this.usersProfileBuddyList = usersBuddies;

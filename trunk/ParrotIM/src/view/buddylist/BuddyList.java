@@ -4,8 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+
 import javax.swing.*;
 
+import view.mainwindow.MainWindow;
 import view.options.OptionMenu;
 
 import view.chatLog.ChatLogFrame;
@@ -18,8 +21,10 @@ public class BuddyList extends JFrame {
     JMenuBar menu;
     protected Model model;
     private MainController controller;
+    protected JFrame buddywindow;
 
     public BuddyList(MainController c, Model model) {
+    	buddywindow = this;
         this.setTitle("Buddy List");
         this.model = model;
         this.controller = c;
@@ -59,6 +64,9 @@ public class BuddyList extends JFrame {
         fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
+        JMenuItem logoutItem = new JMenuItem("Sign Out", KeyEvent.VK_L);
+        logoutItem.addActionListener(new logoutActionListener());
+        fileMenu.add(logoutItem);
         JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
         fileMenu.add(exitItem1);
 
@@ -74,7 +82,6 @@ public class BuddyList extends JFrame {
         viewChatLog.addActionListener(new chatLogListener());
         contactMenu.add(viewChatLog);
         
-        // TODO Can we add a checkbox here?
         JCheckBoxMenuItem chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled");
         chatbotEnabler.setMnemonic(KeyEvent.VK_H);
         chatbotEnabler.addActionListener(new ChatbotToggleListener());
@@ -127,5 +134,23 @@ public class BuddyList extends JFrame {
             
             return;
         }
+    }
+    
+    private class logoutActionListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			controller.signout();
+			try {
+				new MainWindow(controller, model);
+				buddywindow.dispose();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+    	
     }
 }

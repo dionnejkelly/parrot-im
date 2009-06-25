@@ -771,4 +771,9 @@ public class MainController {
 
         return;
     }
+    
+    public void signout(){
+    	//TODO: I am not sure if what I did is correct or not
+    	connection.disconnect();
+    }
 }
