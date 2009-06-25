@@ -25,6 +25,7 @@ package view.chatLog;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
@@ -33,7 +34,7 @@ import model.Model;
 public class ChatLogFrame extends JFrame {
 	Model model;
 	
-    public ChatLogFrame(Model model) {
+    public ChatLogFrame(Model model) throws SQLException, ClassNotFoundException {
         super("ParrotIM - Chat Log Viewer");
     	this.model = model;
     	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
