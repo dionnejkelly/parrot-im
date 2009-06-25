@@ -14,6 +14,8 @@
  *         Transferred file over to new project, ParrotIM.
  *     2009-June-24, VL
  *         Edited windowOpened()
+ *     2009-June-24, KF
+ *         Naming convention updates. Changed all class names.
  *         
  * Known Issues:
  *     None

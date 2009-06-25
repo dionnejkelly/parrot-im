@@ -1,3 +1,35 @@
+/* MiscPanel.java
+ * 
+ * Programmed By:
+ *     Vera Lukman
+ *     Jordan Fox
+ *     Kevin Fahy
+ *     William Chen
+ *     
+ * Change Log:
+ *     2009-May-23, VL
+ *         Initial write.
+ *     2009-May-23, JF
+ *         Added parrot icon.
+ *     2009-June 10, VL
+ *         Added avatar display and connection status.
+ *     2009-June-13, WC
+ *         Transferred file over to new project, ParrotIM.
+ *     2009-June-19, WC
+ *         Removed Options linklabel. It's redundant with managed account
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
+ *     2009-June-24, VL
+ *         Fixed multiple add profile/account windows. Not fully fixed yet.
+ *         
+ * Known Issues:
+ *     None
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.mainwindow;
 
 import java.awt.GridLayout;

@@ -6,6 +6,8 @@
  * Change Log:
  *     2009-June-23, VL
  *         Initial write. Click on the display picture to access file chooser.
+ *     2009-June-24, KF
+ *         Naming convention updates. Changed all class names.
  *         
  * Known Issues:
  *     not able to resize huge picture (want to resize it to 100x100)

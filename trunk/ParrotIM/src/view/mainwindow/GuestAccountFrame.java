@@ -16,6 +16,8 @@
  *     2009-June-13, WC/VL
  *         Transferred file over to new project, ParrotIM.
  *         Fixed alignment to left.
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
  *         
  * Known Issues:
  *     None

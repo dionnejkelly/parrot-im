@@ -9,6 +9,8 @@
  *         Initial write.
  *     2009-June-17, JC
  *     	   Integrated with control.
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
  *         
  * Known Issues:
  * 	   None
