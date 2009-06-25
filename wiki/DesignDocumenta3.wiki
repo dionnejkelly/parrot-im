@@ -18,7 +18,10 @@ Please provide the new UML diagram here.
 
 = Data Requirements =
 
-Do we change this part?
+Notes: The file formats are almost done except the Avatar Picture.
+
+
+
 
 = Feature Priority =
 
@@ -28,11 +31,3 @@ We added Chatlog into the Alpha version, and moved Avatar picture into the Beta 
 
 Alpha: Chatlog is implemented. Avatar picture is not yet implemented. However, user is able to choose avatar picture from their computer. <br>
 Beta: Avatar picture will be developed more on this version.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
