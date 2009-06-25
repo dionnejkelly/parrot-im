@@ -125,6 +125,12 @@ public class GuestAccountFrame extends JFrame {
                     setVisible(false);
                     signIn_ActionPerformed(evt);
                 }
+                
+                else {
+                	String resultMessage = "Sorry for the inconvenience but please provide appropriate USER ID and Password in the field. Thank you for your co-operation.";
+                	JOptionPane.showMessageDialog(null, resultMessage);
+                	
+                }
             }
         });
         buttonsPanel.add(okButton);
@@ -172,7 +178,7 @@ public class GuestAccountFrame extends JFrame {
              }
         	
         }
-        
+           
         else {
         	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
         	JOptionPane.showMessageDialog(null, resultMessage);

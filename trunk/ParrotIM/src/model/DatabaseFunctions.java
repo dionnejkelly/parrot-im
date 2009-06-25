@@ -568,7 +568,7 @@ public class DatabaseFunctions {
             server = rs.getString("server");
 
             // Note, make this into a private utillity method
-            if (server.equals("talk.google.com")) {
+            if (server.equals("talk.google.com")) {            
                 serverType = ServerType.GOOGLE_TALK;
             } else {
                 // other servers
