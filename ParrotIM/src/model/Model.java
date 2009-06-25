@@ -900,31 +900,20 @@ public class Model extends Observable {
     /*
      * ChatLog functions
      */
-    public Vector<String> getBuddyLogList(String profile) {
+    public Vector<String> getBuddyLogList(String profile) throws SQLException, ClassNotFoundException {
         // returns list of buddies (that have chat log)
         // We might need to consider the case in which the same
         // user is on multiple accounts. With this scheme, the
         // user will be returned twice.
-        Vector<String> buddies = null;
+        Vector<String> buddies = new Vector<String>();
         DatabaseFunctions db = null;
 
-        try {
             db = new DatabaseFunctions();
-            buddies = new Vector<String>();
-            for (AccountData account : this
-                    .getCurrentProfile().getAccountData()) {
 
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                buddies.addAll(db.getChatNameList(account.getAccountName()));
-            }
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+                buddies.addAll(db.getChatNameList(profile));
+           
 
         return buddies;
     }
