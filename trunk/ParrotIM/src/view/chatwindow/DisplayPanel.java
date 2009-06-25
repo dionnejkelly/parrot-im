@@ -42,18 +42,29 @@ public class DisplayPanel extends JPanel implements Observer {
             txtPane.setText("");
         }
 
-        title = new JLabel(
-                "Conversation 1                           view: ");
+        title = new JLabel();
         title.setText(model.getActiveConversation().getUser().getNickname());
 
-        JButton fullView = new JButton("Full");
-        JButton simpleView = new JButton("Simple");
+        if (model.getActiveConversation().getUser().isBlocked()) {
+            title.setForeground(Color.LIGHT_GRAY.darker());
+        } else if (model.getActiveConversation().getUser().getState().toString().equals("Available")) {
+            title.setForeground(Color.GREEN.darker());
+        } else if (model.getActiveConversation().getUser().getState().toString().equals("dnd")) {
+            title.setForeground(Color.ORANGE.darker());
+        } else if (model.getActiveConversation().getUser().getState().toString().equals("away")) {
+            title.setForeground(Color.ORANGE.darker());
+        } else {
+            title.setForeground(Color.RED.darker());
+        }
+        
+        //JButton fullView = new JButton("Full");
+        //JButton simpleView = new JButton("Simple");
 
         JToolBar bar1 = new JToolBar();
         bar1.setFloatable(false);
         bar1.add(title);
-        bar1.add(fullView);
-        bar1.add(simpleView);
+        //bar1.add(fullView);
+        //bar1.add(simpleView);
 
         JToolBar bar2 = new JToolBar();
         bar2.setFloatable(false);
@@ -75,6 +86,19 @@ public class DisplayPanel extends JPanel implements Observer {
         if (arg == UpdatedType.CHAT) {
             txtPane.setText(model.getActiveConversation().displayMessages());
             title.setText(model.getActiveConversation().getUser().getNickname());
+            
+            if (model.getActiveConversation().getUser().isBlocked()) {
+                title.setForeground(Color.LIGHT_GRAY.darker());
+            } else if (model.getActiveConversation().getUser().getState().toString().equals("Available")) {
+                title.setForeground(Color.GREEN.darker());
+            } else if (model.getActiveConversation().getUser().getState().toString().equals("dnd")) {
+                title.setForeground(Color.ORANGE.darker());
+            } else if (model.getActiveConversation().getUser().getState().toString().equals("away")) {
+                title.setForeground(Color.ORANGE.darker());
+            } else {
+                title.setForeground(Color.RED.darker());
+            }
+            
         }
         return;
     }
