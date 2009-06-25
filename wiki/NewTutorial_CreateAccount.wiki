@@ -4,6 +4,7 @@
 
 Upon opening Parrot IM, you will see the following window:
 
+http://parrot-im.googlecode.com/files/add%20new%20account.jpg
 
 = Details =
 
