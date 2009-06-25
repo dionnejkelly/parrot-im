@@ -9,7 +9,7 @@ http://parrot-im.googlecode.com/files/login.jpg
 
 2. If your account is selected in the drop-down box in middle, then proceed to step 4.
 
-http://parrot-im.googlecode.com/files/mockup1_loginOpenDropDown.jpg
+http://parrot-im.googlecode.com/files/drop-down%20box.jpg
 
 3. Otherwise, click the drop-down box and select your account.
 
