@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -135,21 +136,37 @@ public class BlockManager extends JFrame {
 	
 	class blockUserListener implements ActionListener {
        
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
+			
+			
+			
 			
 			
 			int selected = usersBuddyList.getSelectedIndex();
-			UserData blockedUser = usersProfileBuddyList.get(selected);
 			
-			System.out.println("Blocked user = " + blockedUser);
+			System.out.println("What are you clicking = " + selected);
 			
+			if (selected != -1) {
+				
+				UserData blockedUser = usersProfileBuddyList.get(selected);
+				
+				System.out.println("Blocked user = " + blockedUser);
+				
+				
+				chatClient.blockFriend(blockedUser.getAccountName());
+				usersBuddyListModel.remove(selected);
+				usersBuddyList.updateUI();
+				
+				bannedAccountList.add(blockedUser);
+				usersBannedBuddyList.updateUI();
+				
+			}
 			
-			chatClient.blockFriend(blockedUser.getAccountName());
-			usersBuddyListModel.remove(selected);
-			usersBuddyList.updateUI();
+			else {
+				String resultMessage = "Sorry for the inconvenience but there is no one to block. Please click on the users you want to block on the list. Thank you for your co-operation.";
+            	JOptionPane.showMessageDialog(null, resultMessage);
+			}
 			
-			bannedAccountList.add(blockedUser);
-			usersBannedBuddyList.updateUI();
 			
 			
 			
@@ -163,17 +180,27 @@ public class BlockManager extends JFrame {
 		
 			
 			int selected = usersBannedBuddyList.getSelectedIndex();
-			UserData unBlockedUser = bannedAccountList.get(selected);
 			
-			System.out.println("Unblocked user = " + unBlockedUser);
+			if (selected != -1) {
+				UserData unBlockedUser = bannedAccountList.get(selected);
+				
+				System.out.println("Unblocked user = " + unBlockedUser);
+				
+				chatClient.unblockFriend(unBlockedUser.getAccountName());
+				bannedAccountList.remove(selected);
+				usersBannedBuddyList.updateUI();
+				
+				usersProfileBuddyList.add(unBlockedUser);
+				usersBuddyListModel.addElement(unBlockedUser);
+				usersBuddyList.updateUI();
+				
+			}
 			
-			chatClient.unblockFriend(unBlockedUser.getAccountName());
-			bannedAccountList.remove(selected);
-			usersBannedBuddyList.updateUI();
+			else {
+				String resultMessage = "Sorry for the inconvenience but there is no one to unblock. Please click on the users you want to unblock on the list. Thank you for your co-operation.";
+            	JOptionPane.showMessageDialog(null, resultMessage);
+			}
 			
-			usersProfileBuddyList.add(unBlockedUser);
-			usersBuddyListModel.addElement(unBlockedUser);
-			usersBuddyList.updateUI();
 			
 			
 		}
