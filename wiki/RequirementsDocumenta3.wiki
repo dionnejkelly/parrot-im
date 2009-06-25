@@ -80,7 +80,23 @@ Portability Requirements: We still can not run on Macintosh, and Linux operating
 
 No change here.
 
+=== External requirements ===
 
+No change here.
+
+=== The Non-functional Requirements Table ===
+
+No change here. 
+
+All the requirements will be the same, but we have not meet the "Portability" yet.
+
+= Example Tutorials =
+
+Change a little bit here. Please add new screenshots.
+
+= Glossary =
+
+No change here.
 
 
 = Details =
