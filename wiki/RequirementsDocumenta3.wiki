@@ -93,7 +93,7 @@ All the requirements will be the same, but we have not meet the "Portability" ye
 = Example Tutorials =
  we add new screentshot here:
 
-  * [Tutorial_CreateAccount How to create an account?]
+  * [Tutorial_CreateAccount (new)How to create an account?]
   * [Tutorial_LogIn How to log in?]
   * [Tutorial_Chat How to chat?]
   * [Tutorial_Exit How to exit Parrot IM?]
