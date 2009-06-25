@@ -844,6 +844,44 @@ public class Model extends Observable {
 
     }
 
+    public ArrayList<UserData> getUnblockedFriendList() {
+        // Sorts alphabetically. Does not sort with regard to any other
+        // properties (e.g. online, busy). Does not accept blocked friends
+        // in the sorted list.
+        
+        ArrayList<UserData> unsortedFriends = new ArrayList<UserData>();
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+        UserData candidate = null;
+
+        for (AccountData account : this.currentProfile.getAccountData()) {
+            for (UserData user : account.getFriends()) {
+                if (!user.isBlocked()) {
+                    unsortedFriends.add(user);
+                }
+            }
+        }
+
+        // Sort the friends. Terribly inefficient. Please implement
+        // a O(nlog(n)) algorithm when time permits.
+        while (!unsortedFriends.isEmpty()) {
+            for (UserData user : unsortedFriends) {
+                if (candidate == null) {
+                    candidate = user;
+                } else if (user.getNickname().compareToIgnoreCase(
+                        candidate.getNickname()) < 0) {
+                    candidate = user;
+                } else {
+                    // Do nothing, look at next user.
+                }
+            }
+            unsortedFriends.remove(candidate);
+            friends.add(candidate);
+            candidate = null;
+        }
+
+        return friends;
+    }
+    
     public ArrayList<UserData> getOrderedFriendList() {
         ArrayList<UserData> unsortedFriends = new ArrayList<UserData>();
         ArrayList<UserData> friends = new ArrayList<UserData>();

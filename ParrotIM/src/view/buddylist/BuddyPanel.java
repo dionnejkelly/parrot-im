@@ -59,23 +59,12 @@ public class BuddyPanel extends JPanel implements Observer {
     UserData selectedFriend;
 
     private ArrayList<UserData> buddies;
-    private DatabaseFunctions bannedAccountList;
 
     public BuddyPanel(MainController c, Model model, JFrame buddyWindow) {
-    	this.buddyWindow = buddyWindow;
+        this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-
-        try {
-            bannedAccountList = new DatabaseFunctions();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
         this.chatClient = c;
         this.model = model;
@@ -136,14 +125,14 @@ public class BuddyPanel extends JPanel implements Observer {
         JToolBar options = new JToolBar();
 
         JTextField search = new JTextField();
-        JButton addF = new JButton(new ImageIcon(
-                this.getClass().getResource("/images/buddylist/add_user.png")));
-        JButton removeF = new JButton(new ImageIcon(
-                this.getClass().getResource("/images/buddylist/delete_user.png")));
-        JButton blockF = new JButton(new ImageIcon(
-                this.getClass().getResource("/images/buddylist/button_cancel.png")));
-        JButton searchButton = new JButton(new ImageIcon(
-                this.getClass().getResource("/images/buddylist/document_preview.png")));
+        JButton addF = new JButton(new ImageIcon(this.getClass().getResource(
+                "/images/buddylist/add_user.png")));
+        JButton removeF = new JButton(new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/delete_user.png")));
+        JButton blockF = new JButton(new ImageIcon(this.getClass().getResource(
+                "/images/buddylist/button_cancel.png")));
+        JButton searchButton = new JButton(new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/document_preview.png")));
 
         // add components
         options.add(addF);
@@ -155,7 +144,6 @@ public class BuddyPanel extends JPanel implements Observer {
         addF.addMouseListener(new addFriendListener());
         removeF.addMouseListener(new removeFriendListener());
         blockF.addMouseListener(new blockFriendListener());
-       
 
         return options;
     }
@@ -163,17 +151,9 @@ public class BuddyPanel extends JPanel implements Observer {
     class blockFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
 
-            try {
-                BlockManager blockedUser = new BlockManager(chatClient, model,
-                        buddies, bannedAccountList);
-                blockedUser.addWindowListener(new PopupWindowListener(buddyWindow, blockedUser));
-            } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            BlockManager blockedUser = new BlockManager(chatClient, model);
+            blockedUser.addWindowListener(new PopupWindowListener(buddyWindow,
+                    blockedUser));
 
         }
     }
@@ -182,52 +162,44 @@ public class BuddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             chatClient.blockFriend(selectedFriend.getAccountName());
 
-            
-            //buddies.remove(selectedFriend);
-            
+            // buddies.remove(selectedFriend);
+
             /*
-            boxes[0].removeAll();
-
-            for (int i = 0; i < buddies.size(); i++) {
-                boxes[0].add(FriendItem(buddies.get(i)));
-            }
-
-            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                boxes[0].getComponent(i).addMouseListener(new SelectListener());
-                // System.out.println("What is contained the box? " +
-                // boxes[0].getComponent(i));
-            }
-
-            friendList.updateUI();
-
-            // model.getBannedAccountList().add(selectedFriend.toString());
-            bannedAccountList.setBannedUserList(selectedFriend.toString());
-            try {
-                for (int i = 0; i < bannedAccountList.getBannedUserList()
-                        .size(); i++) {
-                    System.out.println("Banned users = "
-                            + bannedAccountList.getBannedUserList().get(i));
-
-                }
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            */
+             * boxes[0].removeAll();
+             * 
+             * for (int i = 0; i < buddies.size(); i++) {
+             * boxes[0].add(FriendItem(buddies.get(i))); }
+             * 
+             * for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+             * boxes[0].getComponent(i).addMouseListener(new SelectListener());
+             * // System.out.println("What is contained the box? " + //
+             * boxes[0].getComponent(i)); }
+             * 
+             * friendList.updateUI();
+             * 
+             * // model.getBannedAccountList().add(selectedFriend.toString());
+             * bannedAccountList.setBannedUserList(selectedFriend.toString());
+             * try { for (int i = 0; i < bannedAccountList.getBannedUserList()
+             * .size(); i++) { System.out.println("Banned users = " +
+             * bannedAccountList.getBannedUserList().get(i));
+             * 
+             * } } catch (SQLException e) { // TODO Auto-generated catch block
+             * e.printStackTrace(); }
+             */
         }
     }
 
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
-        	
-        	
+
             System.out.println("Remove this user from the buddy list = "
                     + selectedFriend.toString());
             chatClient.removeFriend(selectedFriend.getAccountName());
-            
-            // weird this wasn't used in the past but it seems non-functional without them
+
+            // weird this wasn't used in the past but it seems non-functional
+            // without them
             // Please consider this code!
-            
+
             buddies.remove(selectedFriend);
             boxes[0].removeAll();
 
@@ -236,10 +208,9 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                boxes[0].getComponent(i).addMouseListener(
-                        new SelectListener());
+                boxes[0].getComponent(i).addMouseListener(new SelectListener());
             }
-            
+
             friendList.updateUI();
         }
     }
@@ -286,7 +257,8 @@ public class BuddyPanel extends JPanel implements Observer {
             userFriendID = JOptionPane
                     .showInputDialog("Enter an email address: ");
 
-            if ((userFriendID != null && !userFriendID.equals("")) && !userExist(userFriendID)) {
+            if ((userFriendID != null && !userFriendID.equals(""))
+                    && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
                 JOptionPane.showMessageDialog(null, result);
 
@@ -302,24 +274,24 @@ public class BuddyPanel extends JPanel implements Observer {
                 // friendList.updateUI();
 
             }
-            
+
             else {
-            	String redundancy = "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
-            	JOptionPane.showMessageDialog(null, redundancy);
-            	
+                String redundancy = "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
+                JOptionPane.showMessageDialog(null, redundancy);
+
             }
             System.out.println("User Input = " + userFriendID);
 
         }
-        
+
         public boolean userExist(String userID) {
-        	for(int i = 0; i < buddies.size(); i++) {
-        		if (buddies.get(i).getAccountName().equals(userID)) {
-        			return true;
-        		}
-        	}
-        	
-        	return false;
+            for (int i = 0; i < buddies.size(); i++) {
+                if (buddies.get(i).getAccountName().equals(userID)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
@@ -512,8 +484,7 @@ public class BuddyPanel extends JPanel implements Observer {
                 // chat.addToConversation(selectedName);
                 // TODO Group chat not yet implemented.
             }
-            
-            
+
         }
     }
 }
