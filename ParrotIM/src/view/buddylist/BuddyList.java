@@ -65,19 +65,19 @@ public class BuddyList extends JFrame {
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
         JMenuItem logoutItem = new JMenuItem("Sign Out", KeyEvent.VK_L);
-        logoutItem.addActionListener(new logoutActionListener());
+        logoutItem.addActionListener(new signoutActionListener());
         fileMenu.add(logoutItem);
         JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
         fileMenu.add(exitItem1);
         exitItem1.addActionListener(new exitActionListener());
 
-        acctsMenu = new JMenu("Accounts");
+       /* acctsMenu = new JMenu("Accounts");
         acctsMenu.setMnemonic(KeyEvent.VK_A);
         menuBar.add(acctsMenu);
         JMenuItem accountsItem1 = new JMenuItem("Edit Accounts", KeyEvent.VK_E);
-        acctsMenu.add(accountsItem1);
+        acctsMenu.add(accountsItem1);*/
 
-        contactMenu = new JMenu("Contact");
+        contactMenu = new JMenu("Contacts");
         contactMenu.setMnemonic(KeyEvent.VK_C);
         JMenuItem viewChatLog = new JMenuItem("View Chat Log", KeyEvent.VK_C);
         viewChatLog.addActionListener(new chatLogListener());
@@ -155,18 +155,17 @@ public class BuddyList extends JFrame {
     	
     }
     
-    private class logoutActionListener implements ActionListener {
+    private class signoutActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			controller.signout();
 			try {
 				new MainWindow(controller, model);
+				//TODO: might want to reset the data/variables/list in model
 				buddywindow.dispose();
 			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
