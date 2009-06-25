@@ -1,8 +1,8 @@
-#Tutorial: How to create an account
+#summary Tutorial: How to create an account
 
-== Introduction ==
+== Creating a user account ==
 
-Add your content here.
+Upon opening Parrot IM, you will see the following window:
 
 
 = Details =
