@@ -35,7 +35,7 @@
  *     2009-June-24, KF
  *         Completed JavaDoc documentation.
  *     2009-June-24, VL
- *         Added logWindowOpen variable
+ *         Added logWindowOpen variable. Changed the structure of getLogMessage()
  *        
  * Known Issues:
  *     1. Currently has methods that are scheduled to be phased out.
@@ -937,11 +937,11 @@ public class Model extends Observable {
         return chats;
     }
 
-    public ArrayList<ChatLogMessageTempData> getLogMessage(
+    public Vector<ChatLogMessageTempData> getLogMessage(
             String username, String buddyname, String date) {
         DatabaseFunctions db = null;
-        ArrayList<ChatLogMessageTempData> messages =
-                new ArrayList<ChatLogMessageTempData>();
+        Vector<ChatLogMessageTempData> messages =
+                new Vector<ChatLogMessageTempData>();
 
         try {
             db = new DatabaseFunctions();
