@@ -31,7 +31,7 @@ http://parrot-im.googlecode.com/files/mockup1_loginBillyBob.jpg
 
 1. Open the program to bring up the Log-In Window
 
-http://parrot-im.googlecode.com/files/mockup1_loginGuest.jpg
+http://parrot-im.googlecode.com/files/connectguestaccount.jpg
 
 2. Click the "Connect Guest Account" option.
 
