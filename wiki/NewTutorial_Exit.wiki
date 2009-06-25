@@ -18,6 +18,8 @@ http://parrot-im.googlecode.com/files/exit.jpg
 
 If you'd like to log-out, but log-in as another user.
 
+http://parrot-im.googlecode.com/files/signout.jpg
+
 1. From the Friend List Window, click the green online icon, and you will see another menu.
 
 2. Click the sign-out option.
