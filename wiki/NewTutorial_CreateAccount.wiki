@@ -1,4 +1,4 @@
-Tutorial: How to create an account
+#Tutorial: How to create an account
 
 == Introduction ==
 
