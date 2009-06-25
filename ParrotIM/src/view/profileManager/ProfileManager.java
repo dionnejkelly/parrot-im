@@ -208,10 +208,10 @@ public class ProfileManager extends JFrame implements Observer {
         // 0, 12));
 
         Insets buttonInset = new Insets(0, 0, 0, 0);
-        JButton newAcctButton = new JButton("add..");
+        JButton newAcctButton = new JButton("Add");
         newAcctButton.setPreferredSize(new Dimension(80, 25));
         newAcctButton.setMargin(buttonInset);
-        JButton remAcctButton = new JButton("delete");
+        JButton remAcctButton = new JButton("Delete");
         remAcctButton.setPreferredSize(new Dimension(80, 25));
         remAcctButton.setMargin(buttonInset);
 
