@@ -212,10 +212,10 @@ public class BlockManager extends JFrame {
     	/**
          * Listens for the user's blocking event.
          * 
-         * @param ActionEvent
+         * @param event
         */
     	
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent event) {
 
             int selected = usersBuddyList.getSelectedIndex();
 
@@ -253,10 +253,10 @@ public class BlockManager extends JFrame {
     	/**
          * Listens for the user's unblocking event.
          * 
-         * @param ActionEvent
+         * @param event
         */
     	
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(ActionEvent event) {
 
             int selected = usersBannedBuddyList.getSelectedIndex();
 
@@ -368,7 +368,7 @@ public class BlockManager extends JFrame {
     	/**
          * Listens for the user's mouse click event.
          * 
-         * @param MouseEvent
+         * @param event
         */
     	
         public void mousePressed(MouseEvent event) {
