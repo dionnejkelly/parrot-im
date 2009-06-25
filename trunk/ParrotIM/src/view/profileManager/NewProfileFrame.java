@@ -47,9 +47,12 @@ public class NewProfileFrame extends JFrame {
 
     public NewProfileFrame(
             Model model, MainController controller, ProfileManager pManager) {
-        this.model = model;
+    	
+    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    	this.model = model;
         this.controller = controller;
         managerFrame = pManager;
+//        this.addWindowListener(new PopupWindowListener(managerFrame,this));
         popup = this;
         this.setAlwaysOnTop(true);
         this.setResizable(false);
