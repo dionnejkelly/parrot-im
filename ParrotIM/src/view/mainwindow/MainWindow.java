@@ -38,6 +38,8 @@
  *     	   Integrated with database
  *     2009-June-13, WC
  *         Transferred file over to new project, ParrotIM.
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
  *         
  * Known Issues:
  *     None

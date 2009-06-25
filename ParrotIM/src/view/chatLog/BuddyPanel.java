@@ -9,6 +9,8 @@
  *         Skeleton of the GUI was provided, but not fully functioning yet.
  *     2009-June-19, VL
  *         Integrated to access the real database
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
  *         
  * Known Issues:
  *     1. Missing search bar.

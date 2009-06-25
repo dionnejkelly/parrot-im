@@ -13,6 +13,8 @@
  *         All components were connected and linked together.
  *     2009-June-19, VL
  *         Integrated to access the real database
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
  *     2009-June-25
  *         Fixed chat log bug. Changed TextEditor to JList (might want to reconsider
  *         about this)
@@ -41,7 +43,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import view.styles.textListCellRenderer;
+import view.styles.TextListCellRenderer;
 
 import model.Model;
 import model.dataType.tempData.ChatLogMessageTempData;
@@ -89,7 +91,7 @@ public class ChatLogPanel extends JSplitPane {
         stub = new String[]{"<html><i>no chat log is displayed</i></html>"};
         text = new JList (stub);
         text.setEnabled(false);
-        text.setCellRenderer(new textListCellRenderer());
+        text.setCellRenderer(new TextListCellRenderer());
         
         chatlog = new JScrollPane(text);
 //        chatlog

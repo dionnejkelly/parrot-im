@@ -1,4 +1,4 @@
-/* textListCellRenderer.java
+/* TextListCellRenderer.java
  * 
  * Programmed By:
  *     Vera Lukman
@@ -25,9 +25,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-public class textListCellRenderer extends JLabel implements ListCellRenderer{
+public class TextListCellRenderer extends JLabel implements ListCellRenderer{
 
-	public textListCellRenderer()
+	public TextListCellRenderer()
 	{
 		setOpaque( true );
 	}

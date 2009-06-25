@@ -11,6 +11,8 @@
  *         Transferred file over to new project, ParrotIM.
  *     2009-June-19, VL
  *     	   The label is underlined on mouse out. It is bolded when hovered.
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
  *         
  * Known Issues:
  *     1. The best look and feel for linkLabel is still on dispute

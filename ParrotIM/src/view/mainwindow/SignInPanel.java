@@ -1,3 +1,53 @@
+/* SignInPanel.java
+ * 
+ * Programmed By:
+ *     Vera Lukman
+ *     Kevin Fahy
+ *     Ahmad Sidiqi
+ *     William Chen
+ *     
+ * Change Log:
+ *     2009-June-4, VL
+ *         Initial write to increase modularity.
+ *     2009-June-5, KF
+ *         Integrated with model.
+ *     2009-June-6, KF
+ *         Integrated core with model.
+ *     2009-June-6, VL
+ *         Changed the type of Label to LinkLabel.
+ *         The label will be underlined when hovered.
+ *         Moved ManageAccount into a ManageAccountFrame.java, and 
+ *         GuestAccount into GuestAccountFrame.java.
+ *     2009-June-8, AS
+ *         Integrated with database.
+ *     2009-June-9, KF
+ *         Edited the sign-in page to be consistent with the guest sign in 
+ *         login. This sign-in needs to account for multiple accounts, 
+ *         not implemented yet.
+ *     2009-June-10, VL
+ *         Changed some layout so that the account options don't move
+ *         when the window is resized
+ *     2009-June-13, WC
+ *         Transferred file over to new project, ParrotIM.
+ *     2009-June-15, KF
+ *         Started to implement a MainController class to handle all protocol.
+ *     2009-June-19, KF
+ *         Added Jabber functionality.
+ *     2009-June-22, KF
+ *         Relayout database.
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
+ *     2009-June-24, VL
+ *         Fixed multiple add profile/account windows. Not fully fixed yet.
+ *         
+ * Known Issues:
+ *     None
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.mainwindow;
 
 import java.awt.BorderLayout;
