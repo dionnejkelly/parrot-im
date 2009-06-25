@@ -134,13 +134,13 @@ public class BuddyPanel extends JPanel implements Observer {
 
         JTextField search = new JTextField();
         JButton addF = new JButton(new ImageIcon(
-                "images/buddylist/add_user.png"));
+                "src/images/buddylist/add_user.png"));
         JButton removeF = new JButton(new ImageIcon(
-                "images/buddylist/delete_user.png"));
+                "src/images/buddylist/delete_user.png"));
         JButton blockF = new JButton(new ImageIcon(
-                "images/buddylist/button_cancel.png"));
+                "src/images/buddylist/button_cancel.png"));
         JButton searchButton = new JButton(new ImageIcon(
-                "images/buddylist/document_preview.png"));
+                "src/images/buddylist/document_preview.png"));
 
         // add components
         options.add(addF);
