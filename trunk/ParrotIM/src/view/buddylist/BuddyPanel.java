@@ -219,8 +219,8 @@ public class BuddyPanel extends JPanel implements Observer {
     // Section
     // III - Accessors and Mutator
     /**
-     * block friend listener for user to block friend
-     *
+     * listener for the block button
+     * block a buddy when event occurs
      */
     class blockFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
@@ -268,7 +268,7 @@ public class BuddyPanel extends JPanel implements Observer {
     }
 
     /**
-     * for user to delete friend by right click menu bar
+     * for user to delete friend from right click menu bar
      *
      */
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
@@ -298,7 +298,8 @@ public class BuddyPanel extends JPanel implements Observer {
     }
 
     /**
-     * remove friend listener for user to delete friend
+     * listener for the remove button
+     * delete a buddy when the event occurs
      *
      */
     class removeFriendListener extends MouseAdapter {
@@ -333,8 +334,8 @@ public class BuddyPanel extends JPanel implements Observer {
     }
 
     /**
-     * add friend listener for user to add friend
-     *
+     * listener for the add button
+     * add a new buddy when event occurs
      */
     class addFriendListener extends MouseAdapter {
         /* 
