@@ -25,13 +25,25 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+/**
+ * This class sets the JList style of text JList on ChatLogPanel.
+ * It makes the "illusion" so that the JList looks like a textEditor.
+ *
+ * This class inherits ListCellRenderer methods and variables.
+ */
 public class TextListCellRenderer extends JLabel implements ListCellRenderer{
 
+	/**
+	 * TextListCellRenderer constructor.
+	 */
 	public TextListCellRenderer()
 	{
 		setOpaque( true );
 	}
  
+	/**
+	 * It returns a cell component which background white and foreground are black at all time
+	 */
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 	{
 		setText(value.toString());

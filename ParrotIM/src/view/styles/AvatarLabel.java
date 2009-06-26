@@ -32,10 +32,22 @@ import javax.swing.JLabel;
 import javax.swing.filechooser.FileFilter;
 
 
+/**
+ * This object sets the style of the avatar image display on buddylist window.
+ * 
+ * It inherits JLabel methods and variables.
+ */
 public class AvatarLabel extends JLabel{
+	/** avatar is an ImageIcon object of the user's display picture */
 	protected ImageIcon avatar;
+	
+	/** avatarlbl is this component itself */
 	protected AvatarLabel avatarlbl;
 	
+	/**
+	 * AvatarLabel constructor. It takes a String that describes
+	 * the path of the display picture as its argument.
+	 */
 	public AvatarLabel(String defaultImage){
 		avatarlbl = this;
 		avatar = new ImageIcon(defaultImage); // want to get this from model later
@@ -44,17 +56,29 @@ public class AvatarLabel extends JLabel{
 		this.addMouseListener(new avatarMouseListener());
 	}
 	
+	/**
+	 * Sets the AvatarLabel to a new image. It takes a String that describes
+	 * the path of the display picture as its argument.
+	 */
 	public void changeAvatar(String path){
 		avatar = new ImageIcon (path);
 		this.setIcon(avatar);
 	}
-
+	
+	/**
+     * Sets the behaviour with regard of mouse input and position.
+     * 
+     * This class inherits MouseListener methods and variables.
+     */
 	private class avatarMouseListener implements MouseListener{
 
 		public void mouseClicked(MouseEvent e) {}
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}
 		public void mousePressed(MouseEvent e) {}
+		
+		/** When the user click on the display picture label, a file chooser window will pop up.
+		 * It takes a MouseEvent argument */
 		public void mouseReleased(MouseEvent e) {
 			
 			System.out.println("clicked");
@@ -85,9 +109,15 @@ public class AvatarLabel extends JLabel{
 	        fileChooser.setSelectedFile(null);
 		}
 	}
+	
+	/** This class controls the file types that can be selected for the file browser. 
+	 * It can only select either a directory or an image file. */
 	private class ImageFileFilter extends FileFilter{
 
 		@Override
+		
+		/** accept takes a File object argument. If the file is an image file or a directory, then it returns true.
+		 * It returns false otherwise */
 		public boolean accept(File f) {
 			
 			if (f.isDirectory()) return true; //if directory, return true
