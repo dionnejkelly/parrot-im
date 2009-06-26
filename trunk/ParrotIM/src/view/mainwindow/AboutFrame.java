@@ -38,14 +38,14 @@ import model.Model;
  * 
  * This object inherits JFrame variables and methods
  */
-public class aboutFrame extends JFrame{
+public class AboutFrame extends JFrame{
 	/** model allows aboutFrame to store the state of aboutFrame (ie. whether it is opened or not). */
 	Model model;
 	
 	/**
 	 * aboutFrame constructor. This window describes about ParrotIM
 	 */
-	public aboutFrame(Model model){
+	public AboutFrame(Model model){
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.model = model;
 		this.addWindowListener(new aboutWindowListener());
