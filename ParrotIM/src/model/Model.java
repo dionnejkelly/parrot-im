@@ -75,7 +75,7 @@ public class Model extends Observable {
 
     // Section
     // I - Data Members
-
+	
     /**
      * Holds a collection of all conversations. If no conversations are
      * currently active, the collection is simply empty.
