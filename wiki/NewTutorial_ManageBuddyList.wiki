@@ -1,0 +1,6 @@
+#summary Tutorial: How to manage Buddy list
+
+= Manage Buddy List =
+
+== Right Click menu ==
+http://parrot-im.googlecode.com/files/rightClickMenu.jpg
