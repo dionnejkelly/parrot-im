@@ -212,6 +212,7 @@ public class BuddyPanel extends JPanel implements Observer {
         addF.addMouseListener(new addFriendListener());
         removeF.addMouseListener(new removeFriendListener());
         blockF.addMouseListener(new blockFriendListener());
+        //searchButton.addMouseListener(l)
 
         return options;
     }

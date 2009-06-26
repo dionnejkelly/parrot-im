@@ -9,11 +9,17 @@
 package view.chatwindow;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.*;
+
+import view.mainwindow.AboutFrame;
+import view.mainwindow.HelpPanel;
+
 
 import controller.MainController;
 
@@ -71,7 +77,10 @@ public class MainPanel extends JPanel implements Observer {
 	    helpMenu.add(helpItem1);
 	    helpMenu.addSeparator();
 	    helpMenu.add(helpItem2);
-		
+	    
+	    helpItem1.addActionListener(new helpListener());
+	    helpItem2.addActionListener(new aboutListener());
+	    
 	    //Horizontal SplitPane Properties
 		JSplitPane sPane = new JSplitPane();
 		chat = new ChatPanel(c, model);
@@ -99,6 +108,38 @@ public class MainPanel extends JPanel implements Observer {
   //                  model.getActiveConversation().
   //                  displayMessages());
    //     }        
+    }
+    
+    /**
+     * Listens for the about menu option.
+     *
+     */
+    private class aboutListener implements ActionListener {
+    	/** Listens for the uesr's action.
+         * 
+         * @param e
+         */
+        public void actionPerformed(ActionEvent e) {
+        	if (!model.aboutWindowOpen){
+					new AboutFrame(model);
+        	}
+            return;
+        }        
+    }
+    
+    /**
+     * Listens for the help menu option.
+     *
+     */
+    private class helpListener implements ActionListener {
+    	/** Listens for the uesr's action.
+         * 
+         * @param e
+         */
+        public void actionPerformed(ActionEvent e) {
+        	new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_Chat");
+        	
+        }        
     }
 
 }

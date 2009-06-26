@@ -66,6 +66,8 @@ public class MainController {
     /** Holds the chat data that is initially set to null. */
     private Chat chat = null;
 
+    /** Holds the Chatbot data that is initially set to null. */
+    private Chatbot chatbot = new Chatbot();
     /**
      * This is the constructor of Xmpp.
      * 
@@ -816,7 +818,7 @@ public class MainController {
          */
 
         public void processPacket(Packet packet) {
-            Chatbot chatbot = null;
+            //Chatbot chatbot = new Chatbot();
 
             /* packet is a new message, make chat if from new person */
 
@@ -853,12 +855,13 @@ public class MainController {
                 model.receiveMessage(model.findAccountByFriend(user), m);
 
                 if (model.getCurrentProfile().isChatbotEnabled()) {
-                    chatbot = new Chatbot();
+                    //chatbot = new Chatbot();
                     try {
                         chatbot.get_input(message.getBody());
                         String response = chatbot.respond();
                         sendMessage(response, chat.getParticipant());
-
+                        
+                        System.out.println("          OUTPUT = " + chatbot.getsInput() + ".");
                         // temporary to display in the chat window
                         // ConversationData conversation =
                         // model.getActiveConversation();
