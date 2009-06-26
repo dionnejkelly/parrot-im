@@ -66,6 +66,10 @@ Additionally, we asked some testers to try out Parrot IM alone, and they reporte
   * User got confused with the idea of profile and account. Probably the GUI is confusing.
   * User felt good about the sign in window, but they thought the buddy list is a  little bit simple.
   * User got confused with the block user icon, because they thought that icon is not clear.
+  * User got could not figure out how to unblock an account.
+  * User did not like the design of the Help window.
+  * User did not like the fact that he can't find out which account he's logged into while logged on, only the profile.
+  * User did not like the Help/About Parrot.IM link opening right on top of the main window, causing a confusing effect.
   * please add!
 
 
@@ -73,6 +77,9 @@ Additionally, we asked some testers to try out Parrot IM alone, and they reporte
   * Need to improve the GUI so the user can easily distinguish profile and account.
   * I think we need to impove the view of the buddy list in the Beta version.
   * We should make the block friend icon as clear as the add friend and remove friend icon. 
+  * Need to make a sleeker Help window.
+  * Show which account is talking to each friend in Conversation Window.
+  * Move Help/About Parrot.IM link a bit down and to the right.
 ----
 
 = Known Bugs =
