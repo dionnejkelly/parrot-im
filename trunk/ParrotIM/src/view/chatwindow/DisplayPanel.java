@@ -16,13 +16,34 @@ import model.enumerations.UpdatedType;
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 
+/**
+ * The DisplayPanel contains the panel that allow users to read the messages 
+ * in the chat window.
+ * 
+ * This object inherits from JPanel 
+ */
+
 public class DisplayPanel extends JPanel implements Observer {
+	
+	  /** Allows users to read messages in the JEditorPane. */
+	
     private JEditorPane txtPane;
+    
+    /** Model stores the needed data of the system. It also connects it with database.*/
+    
     private Model model;
+    
+    /** Sets buddies status.*/
     private JLabel title;
 
     // private String previousText;
 
+    /**
+     * This is the constructor of the DisplayPanel.
+     * 
+     * @param model
+     */
+    
     public DisplayPanel(Model model) {
         setLayout(new BorderLayout());
         
@@ -83,10 +104,25 @@ public class DisplayPanel extends JPanel implements Observer {
         add(chatWindowScroller, BorderLayout.CENTER);
     }
 
+    
+    /**
+     * Returns the JEditorPane.
+     * 
+     * @return JEditorPane
+     */
+    
     public JEditorPane getTxtPane() {
         return txtPane;
     }
 
+    
+    /**
+     * Update according to the UpdatedType.
+     * 
+     * @param o
+     * @param arg
+     */
+    
     public void update(Observable o, Object arg) {
         // TODO: May want to update this to update line-per-line
         if (arg == UpdatedType.CHAT) {

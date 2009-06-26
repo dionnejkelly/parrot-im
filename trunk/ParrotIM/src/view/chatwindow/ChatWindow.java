@@ -22,11 +22,34 @@ import view.styles.ChatWindowListener;
 import model.Model;
 import model.enumerations.UpdatedType;
 
+/**
+ * The ChatWindow contains the frame that holds the integrity of the
+ * chat window.
+ * 
+ * This object inherits from JFrame 
+ */
+
 public class ChatWindow extends JFrame implements Observer {
-    public JPanel main;
+	
+	/** A main panel.*/
+	
+	private JPanel main;
+	
+	/** Model stores the needed data of the system. It also connects it with database.*/
+	
     private Model model;
+    
+    /** A variable that checks if the window is open.*/
     private boolean windowIsOpen;
 
+
+    /**
+     * This is the constructor of the ChatWindow.
+     * 
+     * @param c
+     * @param model
+     */
+    
     public ChatWindow(MainController c, Model model) {
         super("Chat Window");
         
@@ -50,16 +73,38 @@ public class ChatWindow extends JFrame implements Observer {
     }
 
     //Getters
+    
+    /**
+     * Check if the window is open.
+     * 
+     * @return boolean
+     */
+    
     public boolean getWindowIsOpen() {
         return this.windowIsOpen;
     }
     
     //Setters
+    
+    /**
+     * Sets the window's open status.
+     * 
+     * @param isOpen
+     */
+    
     public void setWindowIsOpen(boolean isOpen) {
         this.windowIsOpen = isOpen;
     }
 
     //Update Method
+    
+    /**
+     * Update according to the UpdatedType.
+     * 
+     * @param o
+     * @param arg
+     */
+    
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
             if (!this.isVisible()) {

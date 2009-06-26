@@ -23,18 +23,56 @@ import controller.MainController;
 
 import model.*;
 
+/**
+ * The ChatPanel contains the panel that allow users to type messages and set
+ * their settings.
+ * 
+ * This object inherits from JPanel 
+ */
+
 public class ChatPanel extends JPanel {
     /* THIS IS FOR CHAT CLIENT : modified ChatClient c */
+	
+	 /** Model stores the needed data of the system. It also connects it with database.*/
+	
 	private Model model;
+	
+	 /** Allows users to select the font type.*/
+	
     private JComboBox fontSelect;
+    
+    /** Allows users to select the color type.*/
+    
     private JButton colorButton;
+    
+    /** Allows users to select the color from JColorChooser.*/
+    
     private JColorChooser colorChooser;
+    
+    /** Allows users to type messages in the JTextArea. */
+    
     private JTextArea txt1;
+    
+    /** Allows users to see the messages in the DisplayPanel. */
+    
     private DisplayPanel displayPanel;
+    
+    /**
+     * Maintains the Parrot IM XMPP Protocol.
+     */
+    
     private MainController c;
     private SpinnerModel fontSizemodel;
     public boolean bold, italics, underlined;
 
+    
+    /**
+     * This is the constructor of the ChatPanel.
+     * 
+     * @param c
+     * @param model
+     */
+    
     public ChatPanel(MainController c, Model model) {
         setLayout(new BorderLayout());
 
@@ -55,7 +93,7 @@ public class ChatPanel extends JPanel {
         //List of fonts combobox
         String[] fontList = { "Arial", "Times New Roman", "Comic Sans MS" };
         fontSelect = new JComboBox(fontList);
-        fontSelect.setEditable(true);
+        fontSelect.setEditable(false);
         fontSelect.setMaximumSize(new Dimension(130, 28));
 
         //The font size spinner
@@ -172,7 +210,22 @@ public class ChatPanel extends JPanel {
     }
 
     //Getters
+    
+    /**
+     * Returns the display panel.
+     * 
+     * @return DisplayPanel
+     */
+    
     public DisplayPanel getDisplayPanel() { return displayPanel; }
+    
+    /**
+     * Returns the font select.
+     * 
+     * @return JComboBox
+     */
+    
+    
     public JComboBox getFontSelect() { return fontSelect; }
 
     /** The sendMessage Method calls the model to send a message.
@@ -208,6 +261,12 @@ public class ChatPanel extends JPanel {
     public class TextBoxListener implements KeyListener {
         private boolean shiftPressed = false;
 
+        /** Listens for the key pressed.
+         * 
+         * @param e
+         */
+        
+        
         public void keyPressed(KeyEvent e) {
             // this is functional but somewhat unstable
             // any ideas are welcome to be discussed in the upcoming meeting
@@ -216,6 +275,12 @@ public class ChatPanel extends JPanel {
                 shiftPressed = true;
             }
         }
+        
+        /** Listens for the key released.
+         * 
+         * @param e
+         */
+        
         
         public void keyReleased(KeyEvent e) {
 
@@ -237,6 +302,13 @@ public class ChatPanel extends JPanel {
                 shiftPressed = false;
             }
         }
+        
+        
+        /** Listens for the key typed.
+         * 
+         * @param e
+         */
+        
         public void keyTyped(KeyEvent e) {}
     }
 }
