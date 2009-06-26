@@ -3,6 +3,9 @@
 = Executable File =
 (link to Jar file)
 
+= Testing Report =
+(Place User Acceptance testing logs here)
+
 = Source = 
 All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
