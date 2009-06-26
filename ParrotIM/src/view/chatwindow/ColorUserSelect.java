@@ -54,7 +54,7 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
          banner.setBackground(Color.blue);
          banner.setOpaque(true);
          banner.setFont(new Font("SansSerif", Font.BOLD, 24));
-         banner.setPreferredSize(new Dimension(270, 65));
+         banner.setPreferredSize(new Dimension(570, 65));
 
          JPanel bannerPanel = new JPanel(new BorderLayout());
          bannerPanel.add(banner, BorderLayout.CENTER);
