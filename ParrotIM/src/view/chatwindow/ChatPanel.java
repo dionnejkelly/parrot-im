@@ -287,7 +287,7 @@ public class ChatPanel extends JPanel {
         	 JFrame frame = new JFrame("Color Chooser");
         	 
              //Create and set up the content pane.
-             JComponent newContentPane = new ColorUserSelect();
+             JComponent newContentPane = new JColorChooser(); //TODO: Do you mean this? check again ok? :)
              newContentPane.setOpaque(true); //content panes must be opaque
              frame.setContentPane(newContentPane);
 
