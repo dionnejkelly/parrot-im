@@ -504,6 +504,9 @@ public class MainController {
         String fromUser = null;
         String font = "Arial"; // temp values
         String size = "4";
+        boolean bold = false;
+        boolean italics = false;
+        boolean underlined = false;
 
         conversation = model.findConversationByFriend(to);
 
@@ -516,7 +519,7 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size);
+        messageObject = new MessageData(fromUser, messageString, font, size, bold, italics, underlined);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -553,7 +556,8 @@ public class MainController {
      * @param size
      * @throws XMPPException
      */
-    public void sendMessage(String messageString, String font, String size)
+    public void sendMessage(String messageString, String font, String size,
+    		boolean bold, boolean italics, boolean underlined)
             throws XMPPException {
         Chat chat = null;
         boolean chatExists = false;
@@ -567,7 +571,7 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size);
+        messageObject = new MessageData(fromUser, messageString, font, size, bold, italics, underlined);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -844,7 +848,7 @@ public class MainController {
                 user = model.findUserByAccountName(chat.getParticipant());
                 m =
                         new MessageData(user.getAccountName(), message
-                                .getBody(), "font", "4");
+                                .getBody(), "font", "4", false, false, false);
 
                 model.receiveMessage(model.findAccountByFriend(user), m);
 
