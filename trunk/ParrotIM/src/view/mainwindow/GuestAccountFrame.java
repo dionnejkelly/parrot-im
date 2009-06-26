@@ -60,49 +60,66 @@ import view.buddylist.BuddyList;
 import view.styles.PopupWindowListener;
 
 /**
- * The container frame of the guest account. User can use this frame 
- * to log in parrot-im as a guest.
+ * The container frame of the guest account. User can use this frame to log in
+ * parrot-im as a guest.
  * 
  * This object inherits JFrame variables and methods
  */
 public class GuestAccountFrame extends JFrame {
 
-    /** model stores the needed data of the system. It also connects it with database */
-	private Model model;
-    
-	/**
-	 * core is a MainController object. It helps the user to login.
-	 */
-	private MainController core;
-    
+    /**
+     * model stores the needed data of the system. It also connects it with
+     * database
+     */
+    private Model model;
+
+    /**
+     * core is a MainController object. It helps the user to login.
+     */
+    private MainController core;
+
     /** mainFrame is a MainWindow object which is a container of this panel. */
     private MainWindow mainFrame;
-    
+
     /** popup is this JFrame object */
     private JFrame popup;
-    
-    /** mainPanel is a SignInPanel object. It sets the GUI component of MainWindow.*/
+
+    /**
+     * mainPanel is a SignInPanel object. It sets the GUI component of
+     * MainWindow.
+     */
     private SignInPanel mainPanel;
 
-    /** UNFieldGuest is a JTextField object. It is the text field for the user's username. */
+    /**
+     * UNFieldGuest is a JTextField object. It is the text field for the user's
+     * username.
+     */
     private JTextField UNFieldGuest;
-    
-    /** PwdFieldGuest is a JPasswordField object. It is the text field for the user's password. */
+
+    /**
+     * PwdFieldGuest is a JPasswordField object. It is the text field for the
+     * user's password.
+     */
     private JPasswordField PwdFieldGuest;
-    
-    /** server is a JComboBox object. It shows the listed server the user can connect to. */
+
+    /**
+     * server is a JComboBox object. It shows the listed server the user can
+     * connect to.
+     */
     private JComboBox server;
 
     /**
      * This is the constructor of the Guest Account frame.
+     * 
      * @param model
      * @param c
      * @param frame
      * @param signin
      */
-    public GuestAccountFrame(Model model, MainController c, MainWindow frame,
+    public GuestAccountFrame(
+            Model model, MainController c, MainWindow frame,
             SignInPanel signin) {
-    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setAlwaysOnTop(true);
         popup = this;
         this.model = model;
@@ -143,7 +160,8 @@ public class GuestAccountFrame extends JFrame {
         // set ok-cancel button
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setPreferredSize(new Dimension(20, 90));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(15, 40, 15, 40));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(
+                15, 40, 15, 40));
         GridLayout buttonsLayout = new GridLayout(1, 2);
         buttonsLayout.setHgap(5);
         buttonsPanel.setLayout(buttonsLayout);
@@ -151,21 +169,24 @@ public class GuestAccountFrame extends JFrame {
         JButton okButton = new JButton("OK");
         okButton.setPreferredSize(new Dimension(20, 40));
         okButton.addActionListener(new ActionListener() {
-        	/**
-        	 * When the OK button is clicked, the system will try to connect to the server
-        	 * @param evt
-        	 */
+            /**
+             * When the OK button is clicked, the system will try to connect to
+             * the server
+             * 
+             * @param evt
+             */
             public void actionPerformed(ActionEvent evt) {
                 if (UNFieldGuest.getText().length() != 0
                         && PwdFieldGuest.getPassword().length != 0) {
                     setVisible(false);
                     signIn_ActionPerformed(evt);
                 }
-                
+
                 else {
-                	String resultMessage = "Please provide appropriate user ID and password in the field.";
-                	JOptionPane.showMessageDialog(null, resultMessage);
-                	
+                    String resultMessage =
+                            "Please provide appropriate user ID and password in the field.";
+                    JOptionPane.showMessageDialog(null, resultMessage);
+
                 }
             }
         });
@@ -174,10 +195,11 @@ public class GuestAccountFrame extends JFrame {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setPreferredSize(new Dimension(20, 40));
         cancelButton.addActionListener(new ActionListener() {
-        	/**
-        	 * When the CANCEL button is clicked, then go back to MainWindow
-        	 * @param evt
-        	 */
+            /**
+             * When the CANCEL button is clicked, then go back to MainWindow
+             * 
+             * @param evt
+             */
             public void actionPerformed(ActionEvent evt) {
                 popup.removeAll();
                 popup.dispose();
@@ -198,9 +220,11 @@ public class GuestAccountFrame extends JFrame {
         setVisible(true);
 
     }
+
     /**
-     * This method is called when the guest login into parrot-im. The user will allow to login
-     * to Google talk account only.
+     * This method is called when the guest login into parrot-im. The user will
+     * allow to login to Google talk account only.
+     * 
      * @param e
      */
     private void signIn_ActionPerformed(ActionEvent e) {
@@ -208,31 +232,42 @@ public class GuestAccountFrame extends JFrame {
         String username = UNFieldGuest.getText();
         String password = password(PwdFieldGuest.getPassword());
 
-        if (serverType.toString().equals("Google Talk")) {
-        	 try {
-                 core.login(serverType, username, password);
+        if (serverType == ServerType.GOOGLE_TALK) {
+            try {
+                core.login(serverType, username, password);
 
-                 new BuddyList(core, model);// pops buddylist window
-                 mainFrame.dispose(); // TODO: consider if the sign in fails
-             } catch (XMPPException e1) {
-                 // e1.printStackTrace();
-                 mainPanel.header.loadMain();
-                 mainFrame.setEnabled(true);
-                 System.out.println("sign in failed!");
-             }
-        	
+                new BuddyList(core, model);// pops buddylist window
+                mainFrame.dispose(); // TODO: consider if the sign in fails
+            } catch (XMPPException e1) {
+                // e1.printStackTrace();
+                mainPanel.header.loadMain();
+                mainFrame.setEnabled(true);
+                System.out.println("sign in failed!");
+            }
+
+        } else if (serverType == ServerType.JABBER) {
+            try {
+                core.login(serverType, username, password);
+                new BuddyList(core, model);// pops buddylist window
+                mainFrame.dispose(); // TODO: consider if the sign in fails
+            } catch (XMPPException e1) {
+                // e1.printStackTrace();
+                mainPanel.header.loadMain();
+                mainFrame.setEnabled(true);
+                System.out.println("sign in failed!");
+            }
+        } else {
+            String resultMessage =
+                    "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
+            JOptionPane.showMessageDialog(null, resultMessage);
+            mainFrame.setEnabled(true);
         }
-           
-        else {
-        	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
-        	JOptionPane.showMessageDialog(null, resultMessage);
-        	mainFrame.setEnabled(true);
-        }
-       
+
     }
-    
+
     /**
      * This method is used to get the String of password from the user.
+     * 
      * @param pass
      * @return the string of password
      */
