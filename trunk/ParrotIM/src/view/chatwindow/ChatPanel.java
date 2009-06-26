@@ -32,6 +32,7 @@ public class ChatPanel extends JPanel {
     private JTextArea txt1;
     private DisplayPanel displayPanel;
     private MainController c;
+    private SpinnerModel fontSizemodel;
 
     public ChatPanel(MainController c, Model model) {
         setLayout(new BorderLayout());
@@ -53,7 +54,7 @@ public class ChatPanel extends JPanel {
         fontSelect.setMaximumSize(new Dimension(130, 28));
 
         //The font size spinner
-        SpinnerModel fontSizemodel = new SpinnerNumberModel(4, 1, 12, 1);
+        fontSizemodel = new SpinnerNumberModel(4, 1, 12, 1);
         JSpinner fontSize = new JSpinner(fontSizemodel);
         fontSize.setMaximumSize(new Dimension(45, 30));
 
@@ -153,7 +154,7 @@ public class ChatPanel extends JPanel {
         String msg = txt1.getText();
 
         try {
-            c.sendMessage(msg, fontSelect.getSelectedItem().toString(), "4");
+            c.sendMessage(msg, fontSelect.getSelectedItem().toString(), fontSizemodel.getValue().toString());
 
         } catch (XMPPException e) {
             e.printStackTrace();
