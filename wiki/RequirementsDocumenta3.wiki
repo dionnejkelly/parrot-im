@@ -6,9 +6,8 @@ We do not make change in Introduction.
 
 = Features =
 
-Graphical User Interface: No change. Implemented.
-
-Friend List: We do not have search function yet. GUI is provided.
+Graphical User Interface: No change. Implemented.<br>
+Friend List: We do not have search function yet. GUI is provided.<br>
 
 Live Instant Messaging: No change. Implemented.
 
