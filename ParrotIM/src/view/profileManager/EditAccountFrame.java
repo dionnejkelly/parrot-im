@@ -36,19 +36,70 @@ import model.enumerations.ServerType;
 import view.mainwindow.MainWindow;
 import view.styles.PopupWindowListener;
 
+/**
+ * The EditAccountFrame is currently responsible for providing the 
+ * edit account frame for Parrot IM users.
+ * 
+ */
+
 public class EditAccountFrame extends JFrame {
     /*
      * LEAVING OUT EDIT ACCOUNT FUNCTION FOR ALPHA
      */
 
-    private JPanel modAcctPanel;
-    private Model model;
-    private ProfileManager managerFrame;
-    protected EditAccountFrame popup;
+	// Section
+    // I - Protected Data Member
 
+    /**
+     * The EditAccountFrame frame.
+    */
+
+	protected EditAccountFrame popup;
+	
+	// Section
+    // II - Non-Static Data Members
+
+    /**
+     * The JPanel account data.
+     */
+	
+    private JPanel modAcctPanel;
+    
+    /**
+     * The database.
+     */
+    private Model model;
+    
+    /**
+     * The manager frame.
+     */
+    
+    private ProfileManager managerFrame;
+    
+
+    /**
+     * The JTextField user name field.
+     */
+    
     private JTextField UNField;
+    
+    /**
+     * The JPasswordField password field.
+     */
+    
     private JPasswordField pwdField;
+    
+    /**
+     * The JComboBox service field.
+     */
+    
     private JComboBox serviceField;
+    
+    
+    /**
+     * Maintains the Parrot IM XMPP Protocol .
+     */
+    
     private MainController controller; 
     
     /**
@@ -57,6 +108,22 @@ public class EditAccountFrame extends JFrame {
     private String profile;
 
     // Instance 1 -- New Account (empty forms)
+    
+    // Section
+    // III - Constructor
+
+    /**
+     * EditAccountFrame() connects you to the Edit Account Frame. 
+     * Every time you want to run a EditAccountFrame window you have to
+     * "EditAccountFrame editAccountFrame = new EditAccountFrame(Model model, ProfileManager pManager, MainController controller, String profile);"
+     * 
+     * @param model
+     * @param pManager
+     * @param controller
+     * @param profile
+     */
+	
+    
     public EditAccountFrame(Model model, ProfileManager pManager, MainController controller, String profile) {
 
     	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -177,7 +244,20 @@ public class EditAccountFrame extends JFrame {
      * SECTION: Add/Cancel Listeners
      */
 
+    /**
+     * The AddListener is currently responsible for listening the OK button.
+     * 
+     */
+    
     private class AddListener implements ActionListener {
+    	
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	
         public void actionPerformed(ActionEvent evt) {
             String accountName = UNField.getText();
             String password = String.copyValueOf(pwdField.getPassword());
@@ -208,8 +288,21 @@ public class EditAccountFrame extends JFrame {
             return;
         }
     }
-
+    
+    /**
+     * The CancelListener is currently responsible for listening the Cancel button.
+     * 
+     */
+    
     private class CancelListener implements ActionListener {
+    	
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	 
         public void actionPerformed(ActionEvent evt) {
             popup.setVisible(false);
             popup.dispose();

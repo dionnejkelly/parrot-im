@@ -34,17 +34,82 @@ import model.Model;
 import view.mainwindow.MainWindow;
 import view.styles.PopupWindowListener;
 
-public class NewProfileFrame extends JFrame {
-    private Model model;
-    private MainController controller;
-    private ProfileManager managerFrame;
-    protected NewProfileFrame popup;
+/**
+ * The NewProfileFrame is currently responsible for providing the 
+ * new profile frame for Parrot IM users.
+ * 
+ */
 
+public class NewProfileFrame extends JFrame {
+	
+	// Section
+    // I - Protected Data Member
+
+    /**
+     * The NewProfileFrame frame.
+    */
+	
+	protected NewProfileFrame popup;
+	
+	// Section
+    // II - Non-Static Data Members
+
+    /**
+     * The database.
+     */
+	
+    private Model model;
+    
+    /**
+     * Maintains the Parrot IM XMPP Protocol .
+     */
+    private MainController controller;
+    
+    
+    /**
+     * The manager frame.
+     */
+    
+    private ProfileManager managerFrame;
+    
+    /**
+     * The JPanel new profile data.
+     */
+    
     private JPanel newProfPanel;
+    
+    /**
+     * The JTextField profile name field.
+     */
+    
     private JTextField ProfNameField;
+    
+    /**
+     * The JPasswordField password field.
+     */
+    
     private JPasswordField pwdField;
+    
+    /**
+     * The JComboBox service field.
+     */
+    
     private JComboBox serviceField;
 
+    // Section
+    // III - Constructor
+
+    /**
+     * NewProfileFrame() connects you to the New Profile Frame. 
+     * Every time you want to run a NewProfileFrame window you have to
+     * "NewProfileFrame newProfileFrame = new NewProfileFrame(Model model, MainController controller, ProfileManager pManager);"
+     * 
+     * @param model
+     * @param controller
+     * @param pManager
+     */
+	
+    
     public NewProfileFrame(
             Model model, MainController controller, ProfileManager pManager) {
     	
@@ -156,7 +221,21 @@ public class NewProfileFrame extends JFrame {
      * SECTION: Listener classes
      */
 
+    /**
+     * The OkButtonListener is currently responsible for listening the OK button.
+     * 
+     */
+    
+    
     private class OkButtonListener implements ActionListener {
+    	
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	
         public void actionPerformed(ActionEvent evt) {
             String name = ProfNameField.getText();
             String password = String.copyValueOf(pwdField.getPassword());
@@ -174,7 +253,23 @@ public class NewProfileFrame extends JFrame {
         }
     }
 
+    
+    /**
+     * The CancelButtonListener is currently responsible for listening the Cancel button.
+     * 
+     */
+    
+    
     private class CancelButtonListener implements ActionListener {
+    	
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	 
+    	
         public void actionPerformed(ActionEvent evt) {
             popup.setVisible(false);
             popup.dispose();

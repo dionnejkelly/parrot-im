@@ -52,19 +52,95 @@ import model.enumerations.UpdatedType;
  * - EDIT BUTTON FOR 'IM ACCOUNTS' WILL NOT BE ADDED FOR ALPHA VERSION, TOO COMPLICATED
  */
 
-public class ProfileManager extends JFrame implements Observer {
-    private JPanel accMANPanel;
-    private Model model;
-    private MainController controller;
-    private MainWindow mainFrame;
-    protected ProfileManager popup;
+/**
+ * The ProfileManager is currently responsible for providing the 
+ * profile management frame for Parrot IM users.
+ * 
+ */
 
+public class ProfileManager extends JFrame implements Observer {
+    
+	// Section
+    // I - Protected Data Member
+
+    /**
+     * The ProfileManager frame.
+    */
+	
+	protected ProfileManager popup;
+	
+	// Section
+    // II - Non-Static Data Members
+
+    /**
+     * The JPanel account main data.
+     */
+	
+	private JPanel accMANPanel;
+	
+	/**
+     * The database.
+     */
+	
+    private Model model;
+    
+    /**
+     * Maintains the Parrot IM XMPP Protocol.
+     */
+    
+    private MainController controller;
+    
+    /**
+     * Main frame.
+     */
+    
+    private MainWindow mainFrame;
+    
+    /**
+     * Profile list model.
+     */
+    
     private DefaultListModel profileListModel;
+    
+    /**
+     * account list model.
+     */
+    
     private DefaultListModel acctListModel;
+    
+    /**
+     * Profile list.
+     */
+    
     private JList profileList;
+    
+    /**
+     * Account list.
+     */
+    
     private JList accList;
+    
+    /**
+     * Account scroll pane.
+     */
+    
     private JScrollPane acctListScroller;
 
+    // Section
+    // III - Constructor
+
+    /**
+     * ProfileManager() connects you to the Profile Manager Frame. 
+     * Every time you want to run a ProfileManager window you have to
+     * "ProfileManager profileManager = new ProfileManager(Model model, MainController controller, MainWindow frame);"
+     * 
+     * @param model
+     * @param controller
+     * @param frame
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    
     public ProfileManager(Model model, MainController controller, MainWindow frame)
             throws ClassNotFoundException, SQLException {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -99,6 +175,15 @@ public class ProfileManager extends JFrame implements Observer {
         pack();
         setVisible(true);
     }
+    
+    /**
+     * leftPanelMAN() connects you with the Left Panel Profile Manager handler
+     * that allows users to create a new profile.
+     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    
 
     private void leftPanelMAN() throws ClassNotFoundException, SQLException {
         JPanel leftPanel = new JPanel();
@@ -154,6 +239,14 @@ public class ProfileManager extends JFrame implements Observer {
         // add to account manager pop up main panel
         accMANPanel.add(leftPanel, BorderLayout.WEST);
     }
+    
+    /**
+     * rightPanelMAN() connects you with the Right Panel Profile Manager handler
+     * that allows users to add their contacts.
+     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
 
     private void rightPanelMAN() throws ClassNotFoundException, SQLException {
         // setting right panel
@@ -272,7 +365,20 @@ public class ProfileManager extends JFrame implements Observer {
      * Add account button Remove account button
      */
 
+    /**
+     * The AddProfileListener is currently responsible for listening the + button.
+     * 
+     */
+    
     private class AddProfileListener implements ActionListener {
+    	
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	
         public void actionPerformed(ActionEvent evt) {
             NewProfileFrame newProf = new NewProfileFrame(model, controller,
                     popup);
@@ -282,8 +388,21 @@ public class ProfileManager extends JFrame implements Observer {
             return;
         }
     }
+    
+    /**
+     * The RemoveProfileListener is currently responsible for listening the - button.
+     * 
+     */
 
     private class RemoveProfileListener implements ActionListener {
+    	
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	
         public void actionPerformed(ActionEvent evt) {
             String name = (String) profileList.getSelectedValue();
             controller.removeProfile(name);
@@ -291,8 +410,20 @@ public class ProfileManager extends JFrame implements Observer {
             return;
         }
     }
+    
+    /**
+     * The AddAccountListener is currently responsible for listening the Add button.
+     * 
+     */
 
     private class AddAccountListener implements ActionListener {
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	
         public void actionPerformed(ActionEvent evt) {
             String profile = (String) profileList.getSelectedValue();
             EditAccountFrame newAcct = new EditAccountFrame(model, popup,
@@ -303,7 +434,19 @@ public class ProfileManager extends JFrame implements Observer {
         }
     }
 
+    /**
+     * The AddAccountListener is currently responsible for listening the Remove button.
+     * 
+     */
+    
     private class RemoveAccountListener implements ActionListener {
+    	/**
+         * Listens to user's action.
+         * 
+         * @param evt
+         * 
+         */
+    	
         public void actionPerformed(ActionEvent evt) {
             String account = (String) accList.getSelectedValue();
             String profile = (String) profileList.getSelectedValue();
@@ -314,6 +457,15 @@ public class ProfileManager extends JFrame implements Observer {
             return;
         }
     }
+    
+    /**
+     * Responsible for notifying observers.
+     * 
+     * @param o
+     * @param arg
+     * 
+     */
+    
 
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.PROFILE) {
