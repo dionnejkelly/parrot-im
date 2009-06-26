@@ -297,14 +297,22 @@ public class MainController {
      */
 
     public void addFriend(String userID) {
+        ServerType server = null;
         Roster roster = connection.getRoster();
         String nickname = StringUtils.parseBareAddress(userID);
         System.out.println(userID + " 000");
+        
+        // Temporary filter to find jabber/Google servers
+        if (StringUtils.parseServer(userID).equals("gmail.com")) {
+            server = ServerType.GOOGLE_TALK;
+        } else {
+            server = ServerType.JABBER;
+        }
 
         try {
             System.out.println(roster.getEntryCount());
             roster.createEntry(userID, nickname, null);
-            model.addFriend(ServerType.GOOGLE_TALK, userID);
+            model.addFriend(server, userID);
         } catch (XMPPException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -479,7 +487,14 @@ public class MainController {
                     
                     //this.addFriend(f.getUserID());
                 } else { // is blocked, need to add not on server
-                    user = new GoogleTalkUserData(f.getUserID());
+                    
+                    // TODO, separate the strings better
+                    if (StringUtils.parseServer(f.getUserID()).equals("gmail.com")) {
+                        user = new GoogleTalkUserData(f.getUserID());    
+                    } else {
+                        user = new JabberUserData(f.getUserID());
+                    }
+                    
                     user.setBlocked(true);
                     model.addFriend(account, user);
                 }
@@ -943,9 +958,8 @@ public class MainController {
         if (server == ServerType.GOOGLE_TALK) {
             serverName = "talk.google.com";
         } else {
-            // Fill in data for other servers.
-            // If jabber, we need to get the server name, also.
-            // May need to get SSL info if we can't auto guess it.
+            // Temp, make different than sfu
+            serverName = "jabber.sfu.ca";
         }
 
         this.model.addAccount(profile, serverName, account, password);

@@ -55,6 +55,7 @@ import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.CurrentProfileData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.JabberUserData;
 import model.dataType.MessageData;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
@@ -726,11 +727,22 @@ public class Model extends Observable {
         AccountData account = null;
         UserData userToAdd = null;
 
-        if (server == ServerType.GOOGLE_TALK) {
+        account = currentProfile.getAccountFromServer(server);
+        // Temp fix for user bug in jabber
+        if (account == null) {
+            server = ServerType.JABBER;
             account = currentProfile.getAccountFromServer(server);
-            userToAdd = new GoogleTalkUserData(accountName);
-            account.addFriend(userToAdd);
         }
+        
+        if (server == ServerType.GOOGLE_TALK) {
+            userToAdd = new GoogleTalkUserData(accountName);
+        } else if (server == ServerType.JABBER) {
+            userToAdd = new JabberUserData(accountName);
+        }
+        
+        
+
+        account.addFriend(userToAdd);
 
         // Database manipulation
         try {

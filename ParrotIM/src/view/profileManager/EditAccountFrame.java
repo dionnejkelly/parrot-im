@@ -37,8 +37,8 @@ import view.mainwindow.MainWindow;
 import view.styles.PopupWindowListener;
 
 /**
- * The EditAccountFrame is currently responsible for providing the 
- * edit account frame for Parrot IM users.
+ * The EditAccountFrame is currently responsible for providing the edit account
+ * frame for Parrot IM users.
  * 
  */
 
@@ -47,91 +47,88 @@ public class EditAccountFrame extends JFrame {
      * LEAVING OUT EDIT ACCOUNT FUNCTION FOR ALPHA
      */
 
-	// Section
+    // Section
     // I - Protected Data Member
-
     /**
      * The EditAccountFrame frame.
-    */
+     */
 
-	protected EditAccountFrame popup;
-	
-	// Section
+    protected EditAccountFrame popup;
+
+    // Section
     // II - Non-Static Data Members
 
     /**
      * The JPanel account data.
      */
-	
+
     private JPanel modAcctPanel;
-    
+
     /**
      * The database.
      */
     private Model model;
-    
+
     /**
      * The manager frame.
      */
-    
+
     private ProfileManager managerFrame;
-    
 
     /**
      * The JTextField user name field.
      */
-    
+
     private JTextField UNField;
-    
+
     /**
      * The JPasswordField password field.
      */
-    
+
     private JPasswordField pwdField;
-    
+
     /**
      * The JComboBox service field.
      */
-    
+
     private JComboBox serviceField;
-    
-    
+
     /**
      * Maintains the Parrot IM XMPP Protocol .
      */
-    
-    private MainController controller; 
-    
+
+    private MainController controller;
+
     /**
      * The profile selected from the profile selection window.
      */
     private String profile;
 
     // Instance 1 -- New Account (empty forms)
-    
+
     // Section
     // III - Constructor
 
     /**
-     * EditAccountFrame() connects you to the Edit Account Frame. 
-     * Every time you want to run a EditAccountFrame window you have to
-     * "EditAccountFrame editAccountFrame = new EditAccountFrame(Model model, ProfileManager pManager, MainController controller, String profile);"
+     * EditAccountFrame() connects you to the Edit Account Frame. Every time you
+     * want to run a EditAccountFrame window you have to"EditAccountFrame editAccountFrame = new EditAccountFrame(Model model, ProfileManager pManager, MainController controller, String profile);"
      * 
      * @param model
      * @param pManager
      * @param controller
      * @param profile
      */
-	
-    
-    public EditAccountFrame(Model model, ProfileManager pManager, MainController controller, String profile) {
 
-    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    public EditAccountFrame(
+            Model model, ProfileManager pManager,
+            MainController controller, String profile) {
+
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
         this.controller = controller;
         this.profile = profile;
         managerFrame = pManager;
-//        this.addWindowListener(new PopupWindowListener(managerFrame,this));
+        // this.addWindowListener(new PopupWindowListener(managerFrame,this));
         popup = this;
         this.setResizable(false);
         this.setLocationRelativeTo(managerFrame);
@@ -139,7 +136,8 @@ public class EditAccountFrame extends JFrame {
         setTitle("Add New Account");
         modAcctPanel = new JPanel();
         modAcctPanel.setLayout(new BorderLayout());
-        modAcctPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        modAcctPanel.setBorder(BorderFactory.createEmptyBorder(
+                20, 20, 20, 20));
         modAcctPanel.setPreferredSize(new Dimension(300, 300));
         // ////////////TOP PART
         // account setupLabel setting Panel
@@ -199,8 +197,8 @@ public class EditAccountFrame extends JFrame {
 
         // other setups Panel
         JPanel otherSetupPanel = new JPanel();
-        otherSetupPanel
-                .setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        otherSetupPanel.setBorder(BorderFactory.createEmptyBorder(
+                10, 0, 10, 0));
         otherSetupPanel.setLayout(new FlowLayout());
         otherSetupPanel.add(otherCheckPanel);
         otherSetupPanel.add(otherLabelPanel);
@@ -208,7 +206,8 @@ public class EditAccountFrame extends JFrame {
         // BOTTOM PART : OK and Cancel Button
         // set ok-cancel button
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 10, 10));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(
+                20, 50, 10, 10));
         GridLayout buttonsLayout = new GridLayout(1, 2);
         buttonsLayout.setHgap(5);
         buttonsPanel.setLayout(buttonsLayout);
@@ -248,16 +247,16 @@ public class EditAccountFrame extends JFrame {
      * The AddListener is currently responsible for listening the OK button.
      * 
      */
-    
+
     private class AddListener implements ActionListener {
-    	
-    	/**
+
+        /**
          * Listens to user's action.
          * 
          * @param evt
          * 
          */
-    	
+
         public void actionPerformed(ActionEvent evt) {
             String accountName = UNField.getText();
             String password = String.copyValueOf(pwdField.getPassword());
@@ -266,43 +265,47 @@ public class EditAccountFrame extends JFrame {
             System.out.println("Server = " + server.toString());
             // Only accept non-empty strings for the account. An empty
             // string for the password is perfecty all right.
-            if ((accountName != null && accountName.length()> 0) && server.toString().equals("Google Talk")) {
-                controller.addAccount(profile, server, accountName,
-                        password);
-                
+            if ((accountName != null && accountName.length() > 0)
+                    && (server == ServerType.GOOGLE_TALK || server == ServerType.JABBER)) {
+                controller.addAccount(
+                        profile, server, accountName, password);
+
                 popup.setVisible(false);
-                popup.dispose();    
+                popup.dispose();
             }
-            
+
             else if (accountName.equals("") || password.equals("")) {
-            	String resultMessage = "Sorry for the inconvenience but please provide appropriate USER ID and Password in the field. Thank you for your co-operation.";
-            	JOptionPane.showMessageDialog(null, resultMessage);
-            	
+                String resultMessage =
+                        "Sorry for the inconvenience but please provide appropriate USER ID and Password in the field. Thank you for your co-operation.";
+                JOptionPane.showMessageDialog(null, resultMessage);
+
             }
-            
+
             else {
-            	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
-            	JOptionPane.showMessageDialog(null, resultMessage);
+                String resultMessage =
+                        "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
+                JOptionPane.showMessageDialog(null, resultMessage);
             }
 
             return;
         }
     }
-    
+
     /**
-     * The CancelListener is currently responsible for listening the Cancel button.
+     * The CancelListener is currently responsible for listening the Cancel
+     * button.
      * 
      */
-    
+
     private class CancelListener implements ActionListener {
-    	
-    	/**
+
+        /**
          * Listens to user's action.
          * 
          * @param evt
          * 
          */
-    	 
+
         public void actionPerformed(ActionEvent evt) {
             popup.setVisible(false);
             popup.dispose();

@@ -581,6 +581,8 @@ public class DatabaseFunctions {
             // Note, make this into a private utillity method
             if (server.equals("talk.google.com")) {
                 serverType = ServerType.GOOGLE_TALK;
+            } else if (server.equals("jabber.sfu.ca")) {
+                serverType = ServerType.JABBER;
             } else {
                 // other servers
             }
