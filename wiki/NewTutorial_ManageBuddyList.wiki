@@ -10,8 +10,8 @@ http://parrot-im.googlecode.com/files/rightClickMenu.jpg
 
 
 2. You have 5 options to choose.<br><br>
-  * start new conversation  start a chat window with this friend.
-  * add to open conversation  add this friend to a conversation window which is already opened.
-  * remove friend remove this friend from list.
-  * block friend  block this friend.
-  * view profile  view this friend's profile.
+  * start new conversation : start a chat window with this friend.
+  * add to open conversation :  add this friend to a conversation window which is already opened.
+  * remove friend : remove this friend from list.
+  * block friend  : block this friend.
+  * view profile  : view this friend's profile.
