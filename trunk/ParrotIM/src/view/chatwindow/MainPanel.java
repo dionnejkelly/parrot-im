@@ -33,7 +33,9 @@ import model.enumerations.UpdatedType;
  */
 
 public class MainPanel extends JPanel implements Observer {
-    
+    /** chatFrame is the container of this JPanel*/
+	protected JFrame chatFrame;
+	
     /** JPanel for side and chat data type. */
     private JPanel side, chat;
 
@@ -49,9 +51,11 @@ public class MainPanel extends JPanel implements Observer {
      * 
      * @param c
      * @param model
+     * @param chatFrame
      */
-    public MainPanel(MainController c, Model model) {
+    public MainPanel(MainController c, Model model, JFrame chatFrame) {
 
+    	this.chatFrame = chatFrame;
         this.model = model;
         this.model.addObserver(this);
         setLayout(new BorderLayout());
@@ -62,10 +66,10 @@ public class MainPanel extends JPanel implements Observer {
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
         JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+        exitItem1.addActionListener(new exitListener());
         fileMenu.addSeparator();
         fileMenu.add(exitItem1);
 
-        exitItem1.addActionListener(new exitListener());
 
         JMenu helpMenu = new JMenu("Help");
         fileMenu.setMnemonic(KeyEvent.VK_H);
@@ -115,7 +119,9 @@ public class MainPanel extends JPanel implements Observer {
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
-
+        //TODO!!!!
+        	chatFrame.setVisible(false);
+        	
         }
     }
 

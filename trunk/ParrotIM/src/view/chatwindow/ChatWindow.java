@@ -65,7 +65,7 @@ public class ChatWindow extends JFrame implements Observer {
 
         this.addWindowListener(new ChatWindowListener(this.model));
 
-        main = new MainPanel(c, model);
+        main = new MainPanel(c, model, this);//////////////////////
 
         getContentPane().add(main);
 
