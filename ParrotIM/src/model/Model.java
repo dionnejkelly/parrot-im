@@ -100,6 +100,7 @@ public class Model extends Observable {
     // TODO Phase this variable out.
     public boolean chatWindowOpen;
     public boolean logWindowOpen;
+    public boolean aboutWindowOpen;
 
     // Section
     // II - Constructors
@@ -115,6 +116,7 @@ public class Model extends Observable {
         this.conversations = new ArrayList<ConversationData>();
         this.currentProfile = null;
         this.activeConversation = null;
+        aboutWindowOpen = false;
         logWindowOpen = false;
     }
 
