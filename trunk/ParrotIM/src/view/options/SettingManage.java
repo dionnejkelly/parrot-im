@@ -8,6 +8,7 @@
 package view.options;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -144,6 +145,10 @@ public class SettingManage extends JComponent implements ItemListener, ActionLis
         {
 
         }
+        
+        String resultMessage =
+            "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+        JOptionPane.showMessageDialog(null, resultMessage);
 
     }
 

@@ -310,6 +310,7 @@ public class MainController {
         }
 
         try {
+        	
             System.out.println(roster.getEntryCount());
             roster.createEntry(userID, nickname, null);
             model.addFriend(server, userID);
