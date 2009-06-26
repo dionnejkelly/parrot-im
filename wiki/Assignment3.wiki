@@ -3,7 +3,8 @@
 = Source = 
 All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
-Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/branches/assignment3_alphaVersion]
+Note to Scott: This originally pointed to branches-->Alpha, but I wasn't able to branch it over. Sorry, am still trying to figure it out. In the meantime, here is a direct link to the zipped source.
+Direct link: [http://parrot-im.googlecode.com/files/ParrotIM_alpha.zip]
 
 ----
 
