@@ -33,12 +33,17 @@ public class ChatPanel extends JPanel {
     private DisplayPanel displayPanel;
     private MainController c;
     private SpinnerModel fontSizemodel;
+    public boolean bold, italics, underlined;
 
     public ChatPanel(MainController c, Model model) {
         setLayout(new BorderLayout());
 
         this.model = model;
         this.c = c;
+        
+        bold = false;
+        italics = false;
+        underlined = false;
 
         displayPanel = new DisplayPanel(model);
 
@@ -73,18 +78,42 @@ public class ChatPanel extends JPanel {
         // displayPanel.addMessage(incoming messages); //TODO
 
         //Editing button properties
+        //bold Button
         JButton boldButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/bold.png")));
         boldButton.setToolTipText("Bold");
+        boldButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            	bold = !bold;
+            }
+        });
+        
+        //Italics Button
         JButton italicsButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/italics.png")));
         italicsButton.setToolTipText("Italic");
-        JButton underlineButton =
+        italicsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            	italics = !italics;
+            }
+        });
+        
+        
+        //UnderlineButton
+        final JButton underlineButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/underLine.png")));
         underlineButton.setToolTipText("Underline");
+        underlineButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            	underlined = !underlined;
+            }
+        });
+        
+        
+        //color Button
         JButton colorButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/colorscm.png")));
@@ -154,7 +183,8 @@ public class ChatPanel extends JPanel {
         String msg = txt1.getText();
 
         try {
-            c.sendMessage(msg, fontSelect.getSelectedItem().toString(), fontSizemodel.getValue().toString());
+            c.sendMessage(msg, fontSelect.getSelectedItem().toString(), fontSizemodel.getValue().toString(),
+            		bold, italics, underlined);
 
         } catch (XMPPException e) {
             e.printStackTrace();

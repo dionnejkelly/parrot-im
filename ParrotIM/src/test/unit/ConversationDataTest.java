@@ -79,14 +79,16 @@ public class ConversationDataTest {
 	@Test
 	public void testGetText() {
 		// This test should be modified
-		MessageData expected = new MessageData("Rakan","Hey how are you doing?","TimesNewRoman","13");
+		MessageData expected = new MessageData("Rakan","Hey how are you doing?","TimesNewRoman","13", 
+				false, false, false);
 		cd1.addMessage(expected);
 		assertSame(expected,cd1.getText().get(0));
 		}
 
 	@Test
 	public void testAddMessage() {
-		MessageData expected = new MessageData("Ray","Hey, can I see at Coffeshop","Gothic","20");
+		MessageData expected = new MessageData("Ray","Hey, can I see at Coffeshop","Gothic","20",
+				false, false, false);
 		cd1.addMessage(expected);
 		assertTrue(cd1.getText().contains(expected));
 	}
@@ -96,7 +98,8 @@ public class ConversationDataTest {
 		// Modify this test
 		int expected = 0;
 		assertSame(expected,cd2.getMessageCount());
-		MessageData e = new MessageData("DeNiro","Did you saw my movie?","Italic","15");
+		MessageData e = new MessageData("DeNiro","Did you saw my movie?","Italic","15", false,
+				false, false);
 		cd2.addMessage(e);
 		expected++;
 		assertTrue(expected==cd2.getMessageCount());
@@ -106,8 +109,10 @@ public class ConversationDataTest {
 
 	@Test
 	public void testDisplayMessages() {
-		MessageData e1 = new MessageData("Godfather","I'll give you an offer that you can't refuse","Calbarie","18");
-		MessageData e2 = new MessageData("Fannuci","Meet me at the restuarant","TimesNewRoman","16");
+		MessageData e1 = new MessageData("Godfather","I'll give you an offer that you can't refuse","Calbarie","18",
+				false, false, false);
+		MessageData e2 = new MessageData("Fannuci","Meet me at the restuarant","TimesNewRoman","16", false,
+				false, false);
 		cd1.addMessage(e1);
 		cd1.addMessage(e2);
 		// Assert it contains all messagedata from e1 attributes
