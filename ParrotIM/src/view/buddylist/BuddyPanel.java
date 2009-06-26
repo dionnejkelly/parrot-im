@@ -52,6 +52,8 @@ public class BuddyPanel extends JPanel implements Observer {
     /*
      * TODO: BUDDY PANEL HAS Center: Buddy List South: Buddy Options
      */
+	// Selection
+    // I - non-static member
     /**
      * selectedIndex of Buddylist
      */
@@ -120,6 +122,8 @@ public class BuddyPanel extends JPanel implements Observer {
      * @param model
      * @param buddyWindow
      */
+    //SELECTION
+	//II-Constructors
     public BuddyPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
@@ -212,6 +216,8 @@ public class BuddyPanel extends JPanel implements Observer {
         return options;
     }
 
+    // Section
+    // III - Accessors and Mutator
     /**
      * block friend listener for user to block friend
      *
