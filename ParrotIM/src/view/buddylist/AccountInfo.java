@@ -82,6 +82,8 @@ public class AccountInfo extends JPanel
 	 * 					Bottom: Status, and status messages (if applicable)			
 	 */
    
+	// Selection
+    // I - non-static member
 	/**
 	 * avatarDisplay is for display user picture.
 	 * displayName display users name.
@@ -90,25 +92,26 @@ public class AccountInfo extends JPanel
 	MainController chatClient;
 	
 	/**
-	 * 
+	 * status of message
 	 */
 	protected PmLabel statusMessage;
 	/**
-	 * 
+	 * text area
 	 */
 	protected JTextArea textArea;
 	/**
-	 * 
+	 * text
 	 */
 	protected String text;
 	
 	/**
-	 * 
+	 * model
 	 */
 	private Model model;
 	//SELECTION
-	//I-Constructors
+	//II-Constructors
 	/**
+	 * Account information area, display user's information and avatar picture.
 	 * @param c
 	 * @param model
 	 */
@@ -159,14 +162,16 @@ public class AccountInfo extends JPanel
 		this.addMouseListener(new statusMouseListener());
 	}
    
+	// Section
+    // III - Accessors and Mutators
 	/**
-	 * @author TOSHIBA
+	 * mouse listener for mouse to do actions
 	 *
 	 */
 	private class statusMouseListener implements MouseListener{
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+		/* 
+		 * mouse click action
 		 */
 		public void mouseClicked(MouseEvent e) {
 			if (statusMessage.isEditable()){
@@ -174,8 +179,12 @@ public class AccountInfo extends JPanel
 			}
 		}
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+		/* 
+		 * mouse entered action
+		 * mouse exited action
+		 * mouse pressed action
+		 * mouse released action
+		 * 
 		 */
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}
