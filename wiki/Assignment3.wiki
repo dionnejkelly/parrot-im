@@ -11,6 +11,8 @@ All source can be found on this Google Code website inside trunk->ParrotIM. All 
 
 Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/ParrotIM]
 
+= Known Bugs =
+
 = Documents =
 
 Our previous documents can be found here:
@@ -24,3 +26,18 @@ All changes to the documents are given here:
   *[QualityAssurancePlana3 Quality Assurance Plan]
 
 = Coding Conventions = 
+
+The following are the conventions used in coding Parrot IM:
+
+== Code Style ==
+
+Listed are the conventions for all visual aspects of the code.
+
+=== Capitalization ===
+|| *Type* || *Convention* ||
+|| Packages || Start with lower case, follow in !CamelCase ||
+|| Classes || Start with upper case, follow in !CamelCase ||
+|| Methods || Start with lower case, follow in !CamelCase ||
+|| Constants || All upper case, words separated by underscores ||
+|| Data Members || Start with lower case, follow in !CamelCase ||
+
