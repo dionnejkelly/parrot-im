@@ -117,23 +117,29 @@ public class ChatPanel extends JPanel {
 
         //Editing button properties
         //bold Button
-        JButton boldButton =
+        final JButton boldButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/bold.png")));
+        boldButton.setSelectedIcon(new ImageIcon(this.getClass().getResource(
+        				"/images/chatwindow/boldSelected.png")));
         boldButton.setToolTipText("Bold");
         boldButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+            	boldButton.setSelected(!boldButton.isSelected());
             	bold = !bold;
             }
         });
         
         //Italics Button
-        JButton italicsButton =
+        final JButton italicsButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/italics.png")));
+        italicsButton.setSelectedIcon(new ImageIcon(this.getClass().getResource(
+						"/images/chatwindow/italicsSelected.png")));
         italicsButton.setToolTipText("Italic");
         italicsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+            	italicsButton.setSelected(!italicsButton.isSelected());
             	italics = !italics;
             }
         });
@@ -143,9 +149,12 @@ public class ChatPanel extends JPanel {
         final JButton underlineButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/underLine.png")));
+        underlineButton.setSelectedIcon(new ImageIcon(this.getClass().getResource(
+						"/images/chatwindow/underLineSelected.png")));
         underlineButton.setToolTipText("Underline");
         underlineButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+            	underlineButton.setSelected(!underlineButton.isSelected());
             	underlined = !underlined;
             }
         });
