@@ -46,6 +46,7 @@ import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.UserData;
 import model.enumerations.UpdatedType;
+
 /**
  * BuddyPanel display FriendList and Account information for Parrot IM users.
  */
@@ -53,12 +54,12 @@ public class BuddyPanel extends JPanel implements Observer {
     /*
      * TODO: BUDDY PANEL HAS Center: Buddy List South: Buddy Options
      */
-	// Selection
+    // Selection
     // I - non-static member
     /**
      * selectedIndex of Buddylist
      */
-    protected SelectListener lastSelectedListener;  
+    protected SelectListener lastSelectedListener;
     /**
      * select source of Buddylist
      */
@@ -104,7 +105,8 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     MainController chatClient;
     /**
-     * model for extracting buddy list, each buddy's information and , conversation
+     * model for extracting buddy list, each buddy's information and ,
+     * conversation
      */
     Model model;
     /**
@@ -119,12 +121,13 @@ public class BuddyPanel extends JPanel implements Observer {
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
+     * 
      * @param c
      * @param model
      * @param buddyWindow
      */
-    //SELECTION
-	//II-Constructors
+    // SELECTION
+    // II-Constructors
     public BuddyPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
@@ -134,9 +137,10 @@ public class BuddyPanel extends JPanel implements Observer {
         this.chatClient = c;
         this.model = model;
         this.chat = null;
-        buddies = null;
 
-        model.chatWindowOpen = false;
+        // Test code, make it hide at the start
+        this.chat = new ChatWindow(chatClient, model);
+        buddies = null;
 
         friendList = new JPanel();
         friendList.setBackground(Color.WHITE);
@@ -187,21 +191,27 @@ public class BuddyPanel extends JPanel implements Observer {
     }
 
     /**
-     * optionsBar(), provide options tool for user to add, delete, and block friend from buddy list
+     * optionsBar(), provide options tool for user to add, delete, and block
+     * friend from buddy list
+     * 
      * @return options
      */
     public JToolBar OptionsBar() {
         JToolBar options = new JToolBar();
 
         JTextField search = new JTextField();
-        JButton addF = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/add_user.png")));
-        JButton removeF = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/delete_user.png")));
-        JButton blockF = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/button_cancel.png")));
-        JButton searchButton = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/document_preview.png")));
+        JButton addF =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/add_user.png")));
+        JButton removeF =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/delete_user.png")));
+        JButton blockF =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/button_cancel.png")));
+        JButton searchButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/document_preview.png")));
 
         // add components
         options.add(addF);
@@ -220,59 +230,59 @@ public class BuddyPanel extends JPanel implements Observer {
 
     // Section
     // III - Accessors and Mutator
-    
-    /**
-    * listener for the search button
-    */
-   class searchListener extends MouseAdapter {
-	   
-	   /** Listens for the uesr's event.
-        * 
-        * @param e
-        */
-	   
-       public void mousePressed(MouseEvent event) {
 
-    	  String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
-       		JOptionPane.showMessageDialog(null, resultMessage);
-
-       }
-   }
-    
     /**
-     * listener for the block button
-     * block a buddy when event occurs
+     * listener for the search button
      */
-    class blockFriendListener extends MouseAdapter {
-    	
-    	/** Listens for the uesr's event.
+    class searchListener extends MouseAdapter {
+
+        /**
+         * Listens for the uesr's event.
          * 
          * @param e
          */
- 	   
-    	
+
+        public void mousePressed(MouseEvent event) {
+
+            String resultMessage =
+                    "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+            JOptionPane.showMessageDialog(null, resultMessage);
+
+        }
+    }
+
+    /**
+     * listener for the block button block a buddy when event occurs
+     */
+    class blockFriendListener extends MouseAdapter {
+
+        /**
+         * Listens for the uesr's event.
+         * 
+         * @param e
+         */
+
         public void mousePressed(MouseEvent event) {
 
             BlockManager blockedUser = new BlockManager(chatClient, model);
-            blockedUser.addWindowListener(new PopupWindowListener(buddyWindow,
-                    blockedUser));
+            blockedUser.addWindowListener(new PopupWindowListener(
+                    buddyWindow, blockedUser));
 
         }
     }
 
     /**
      * for user to block friend by right click menu bar
-     *
+     * 
      */
     class RightClickMenuBlockFriendListener extends MouseAdapter {
-    	
-    	/** Listens for the uesr's event.
+
+        /**
+         * Listens for the uesr's event.
          * 
          * @param e
          */
- 	   
-    	
-    	
+
         public void mousePressed(MouseEvent event) {
             chatClient.blockFriend(selectedFriend.getAccountName());
 
@@ -305,16 +315,16 @@ public class BuddyPanel extends JPanel implements Observer {
 
     /**
      * for user to delete friend from right click menu bar
-     *
+     * 
      */
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
-    	
-    	/** Listens for the uesr's event.
+
+        /**
+         * Listens for the uesr's event.
          * 
          * @param e
          */
- 	   
-    	
+
         public void mousePressed(MouseEvent event) {
 
             System.out.println("Remove this user from the buddy list = "
@@ -341,18 +351,17 @@ public class BuddyPanel extends JPanel implements Observer {
     }
 
     /**
-     * listener for the remove button
-     * delete a buddy when the event occurs
-     *
+     * listener for the remove button delete a buddy when the event occurs
+     * 
      */
     class removeFriendListener extends MouseAdapter {
-    	
-    	/** Listens for the uesr's event.
+
+        /**
+         * Listens for the uesr's event.
          * 
          * @param e
          */
- 	   
-    	
+
         public void mousePressed(MouseEvent event) {
 
             if (selectedFriend != null) {
@@ -384,22 +393,22 @@ public class BuddyPanel extends JPanel implements Observer {
     }
 
     /**
-     * listener for the add button
-     * add a new buddy when event occurs
+     * listener for the add button add a new buddy when event occurs
      */
     class addFriendListener extends MouseAdapter {
-        /* 
+        /*
          * mousePressed, display feedback when pressing mouse
          */
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
             String userFriendID, userInput;
-            String result = "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
+            String result =
+                    "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
 
             // not able to cancel it for now
 
-            userFriendID = JOptionPane
-                    .showInputDialog("Enter an email address: ");
+            userFriendID =
+                    JOptionPane.showInputDialog("Enter an email address: ");
 
             if ((userFriendID != null && !userFriendID.equals(""))
                     && !userExist(userFriendID)) {
@@ -420,7 +429,8 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             else {
-                String redundancy = "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
+                String redundancy =
+                        "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
                 JOptionPane.showMessageDialog(null, redundancy);
 
             }
@@ -430,6 +440,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         /**
          * check if userID exist
+         * 
          * @param userID
          * @return boolean
          */
@@ -446,6 +457,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
     /**
      * FriendItem to check friend status.
+     * 
      * @param user
      * @return friendItem
      */
@@ -464,24 +476,30 @@ public class BuddyPanel extends JPanel implements Observer {
         // Colour our world! Sets colours for our friends.
         // Note: Separating the name and the status colours would be great.
         if (user.isBlocked()) {
-            friendName = new JLabel("* Blocked: " + user.getAccountName()
-                    + " *");
+            friendName =
+                    new JLabel("* Blocked: " + user.getAccountName() + " *");
             friendName.setForeground(Color.LIGHT_GRAY.darker());
         } else if (user.getState().toString().equals("Available")) {
-            friendName = new JLabel(user.getNickname() + " - "
-                    + user.getStatus() + " (" + user.getState() + ")");
+            friendName =
+                    new JLabel(user.getNickname()
+                            + " - " + user.getStatus() + " (" + user.getState()
+                            + ")");
             friendName.setForeground(Color.GREEN.darker());
         } else if (user.getState().toString().equals("dnd")) {
-            friendName = new JLabel(user.getNickname() + " - "
-                    + user.getStatus() + " (Busy)");
+            friendName =
+                    new JLabel(user.getNickname()
+                            + " - " + user.getStatus() + " (Busy)");
             friendName.setForeground(Color.ORANGE.darker());
         } else if (user.getState().toString().equals("away")) {
-            friendName = new JLabel(user.getNickname() + " - "
-                    + user.getStatus() + " (Away)");
+            friendName =
+                    new JLabel(user.getNickname()
+                            + " - " + user.getStatus() + " (Away)");
             friendName.setForeground(Color.ORANGE.darker());
         } else {
-            friendName = new JLabel(user.getNickname() + " - "
-                    + user.getStatus() + " (" + user.getState() + ")");
+            friendName =
+                    new JLabel(user.getNickname()
+                            + " - " + user.getStatus() + " (" + user.getState()
+                            + ")");
             friendName.setForeground(Color.RED.darker());
         }
 
@@ -491,24 +509,13 @@ public class BuddyPanel extends JPanel implements Observer {
         return friendItem;
     }
 
-    /* 
+    /*
      * update current friend status on the buddy list.
      */
     public void update(Observable o, Object arg) {
         /* If chat window has not been made, make it if message sent */
-        if (arg == UpdatedType.CHAT) {
-            if (chat == null) {
-                // model.startConversation(selectedFriend.getFriendOf(),
-                // selectedFriend);
-                chat = new ChatWindow(chatClient, model);
-            } else {
-                System.out.println("darn");
-                // add code for if multiple windows exist.
-            }
-
-        } else if (arg == UpdatedType.BUDDY) {
+        if (arg == UpdatedType.BUDDY) {
             boxes[0].removeAll();
-            System.out.println("I'm updating");
             buddies = model.getOrderedFriendList();
 
             for (int i = 0; i < buddies.size(); i++) {
@@ -524,7 +531,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
     /**
      * SelectListener, select friend from buddy list.
-     *
+     * 
      */
     private class SelectListener implements MouseListener {
         /**
@@ -539,7 +546,7 @@ public class BuddyPanel extends JPanel implements Observer {
             selected = false;
         }
 
-        /* 
+        /*
          * mouseClicked to unhighlight the last selected
          */
         public void mouseClicked(MouseEvent event) {
@@ -564,17 +571,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
                         if (event.getClickCount() == 2) {
                             selected = false;
-
-                            /* Is the chat window already open? */
-                            if (model.chatWindowOpen == false) {
-                                model.startConversation(selectedFriend);
-                                if (chat == null) {
-                                    chat = new ChatWindow(chatClient, model);
-                                }
-                                model.chatWindowOpen = true;
-                            } else {
-                                model.startConversation(selectedFriend);
-                            }
+                            chatClient.startConversation(selectedFriend, true);
                         }
                     } else if (event.getSource().equals(
                             boxes[0].getComponent(i))) {
@@ -590,7 +587,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
-        /* 
+        /*
          * change background to color when mouse Entered
          */
         public void mouseEntered(MouseEvent event) {
@@ -602,7 +599,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
-        /* 
+        /*
          * change background to white when mouse Exited
          */
         public void mouseExited(MouseEvent event) {
@@ -622,7 +619,8 @@ public class BuddyPanel extends JPanel implements Observer {
         }
 
         /**
-         * set Background white if last select source is not null 
+         * set Background white if last select source is not null
+         * 
          * @param event
          */
         public void whiteBackground(MouseEvent event) {
@@ -638,13 +636,13 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
-        /* 
+        /*
          * mouse Pressed
          */
         public void mousePressed(MouseEvent e) {
         }
 
-        /* 
+        /*
          * mouse Released
          */
         public void mouseReleased(MouseEvent e) {
@@ -653,23 +651,14 @@ public class BuddyPanel extends JPanel implements Observer {
 
     /**
      * RightCickMenuListener , user right click mouse to do actions.
-     *
+     * 
      */
     class RightCickMenuListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent event) {
-            ConversationData conversation = null;
             if (event.getSource().equals(menuItem1)) {
                 /* Is the chat window already open? */
-                if (model.numberOfConversations() < 1) {
-                    conversation = model.startConversation(selectedFriend);
-                    model.setActiveConversation(conversation);
-                    if (chat == null) {
-                        chat = new ChatWindow(chatClient, model);
-                    }
-                } else {
-                    // TODO Add conversation to the window
-                }
+                chatClient.startConversation(selectedFriend, true);
             } else if (event.getSource().equals(menuItem2)) {
                 // chat.addToConversation(selectedName);
                 // TODO Group chat not yet implemented.

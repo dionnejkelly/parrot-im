@@ -45,13 +45,13 @@ public class ChatWindowListener implements WindowListener {
 	/** Sets chatWindowOpen to false. It takes a WindowEvent argument. 
 	 * @param e */
 	public void windowClosed(WindowEvent e) {
-		model.chatWindowOpen = false;
+	    model.clearAllConversations();
 	}
 	
 	/** Sets chatWindowOpen to false. It takes a WindowEvent argument.
 	 * @param e */
 	public void windowClosing(WindowEvent e) {
-		model.chatWindowOpen = false;
+	    model.clearAllConversations();
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}

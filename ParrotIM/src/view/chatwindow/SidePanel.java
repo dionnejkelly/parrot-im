@@ -74,16 +74,10 @@ public class SidePanel extends JPanel implements Observer {
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         // Tree preferences
-        DefaultMutableTreeNode person1 = null;
-        DefaultMutableTreeNode person2 = null;
-        for (ConversationData cd : model.getConversations()) {
-            top = new DefaultMutableTreeNode("Root");
-            tree = new JTree(top);
-
-            refreshTree();
-
-            tree.addMouseListener(new SelectListener());
-        }
+        top = new DefaultMutableTreeNode("Root");
+        tree = new JTree(top);
+        tree.addMouseListener(new SelectListener());
+        
         this.add(tree, BorderLayout.CENTER);
     }
     
@@ -91,7 +85,6 @@ public class SidePanel extends JPanel implements Observer {
      * Refreshes the tree.
      * 
      */
-
     private void refreshTree() {
         // sets Tree Icons
         ImageIcon leafIcon =
