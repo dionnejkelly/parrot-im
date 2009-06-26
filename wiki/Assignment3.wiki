@@ -64,8 +64,7 @@ Additionally, we asked some testers to try out Parrot IM alone, and they reporte
 
 *Observations:*
   * User got confused with the idea of profile and account. Probably the GUI is confusing.
-  * User felt good about the sign in window, but they thought the buddy list is a  
-    little bit simple.
+  * User felt good about the sign in window, but they thought the buddy list is a  little bit simple.
   * please add!
 
 
