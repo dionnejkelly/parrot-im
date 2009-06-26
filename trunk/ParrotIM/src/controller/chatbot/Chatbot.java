@@ -1,8 +1,21 @@
+/* Chatbot.java
+ * 
+ * Programmed By:
+ *     Jihoon Choi
+ *     
+ * Change Log:
+ *         
+ * Known Issues:
+ *     none
+ *     
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package controller.chatbot;
 
-import static org.junit.Assert.assertSame;
-
-import java.sql.SQLException;
 import java.util.*;
 
 /**

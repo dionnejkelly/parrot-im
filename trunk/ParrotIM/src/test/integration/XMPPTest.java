@@ -1,15 +1,27 @@
+/* XMPPTest.java
+ * 
+ * Programmed By:
+ *     Rakan Alkheliwi
+ *     
+ * Change Log:
+ *         
+ * Known Issues:
+ *     none
+ *     
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package test.integration;
 
 import static org.junit.Assert.*;
 
-import java.sql.SQLException;
-
 import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.tempData.FriendTempData;
-import model.enumerations.ServerType;
 
-import org.jivesoftware.smack.XMPPException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
