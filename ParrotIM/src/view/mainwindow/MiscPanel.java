@@ -33,6 +33,8 @@
 package view.mainwindow;
 
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -42,7 +44,11 @@ import javax.swing.JSeparator;
 
 import view.styles.LinkLabel;
 
+/** accPanel is a JPanel object.
+ * It sets the bottom part of the MainWindow, which includes a separator and help LinkLabel.*/
 public class MiscPanel extends JPanel{
+	
+	/** MiscPanel constructor. It sets up the panel layout.*/
 	public MiscPanel(){
 		GridLayout miscLayout = new GridLayout(2,1);
 		miscLayout.setVgap(5);
@@ -57,34 +63,25 @@ public class MiscPanel extends JPanel{
 		LinkLabel help = new LinkLabel ("Help");
 		help.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
+            
+            /**
+        	 * When help is clicked, help frame will pop up.
+        	 * @param evt
+        	 */
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-            	help_MouseClicked(evt);
+
+        		JFrame accMAN = new JFrame ("Help");
+        		accMAN.setLocation(100,100);
+        		accMAN.getContentPane().add(new HelpPanel());
+        		accMAN.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        		
+        		accMAN.pack();
+        		accMAN.setVisible(true);
             }
         });
 		
 		add (line);
 		add (help);
 	}
-//	private void options_MouseClicked(java.awt.event.MouseEvent evt){
-//		JFrame accMAN = new JFrame ("Options");
-//		accMAN.setLocation(100,100);
-//		accMAN.getContentPane().add(new optionPanel());
-//		accMAN.setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
-//		
-//		accMAN.pack();
-//		accMAN.setVisible(true);
-//	} 
-	private void help_MouseClicked(java.awt.event.MouseEvent e) {
-		JFrame accMAN = new JFrame ("Help");
-		accMAN.setLocation(100,100);
-		accMAN.getContentPane().add(new HelpPanel());
-		accMAN.setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
-		
-		accMAN.pack();
-		accMAN.setVisible(true);
-	} 
-	public static String getcwd() { 
-	    String cwd = System.getProperty("user.dir"); 
-	    return cwd; 
-	}
+
 }

@@ -48,7 +48,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/** HeaderPanel sets the top part of the MainWindow, which includes the avatar and the status of the system.
+ * This object inherits JPanel variables and methods */
 public class HeaderPanel extends JPanel{
+	
+	/** avatarDisplay is a JLabel object that */
 	protected JLabel avatarDisplay;
 	protected JLabel status;
 	protected ImageIcon avatar;
@@ -60,7 +64,7 @@ public class HeaderPanel extends JPanel{
 		//logo-avatar
 		avatarDisplay = new JLabel ();
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		avatar = new ImageIcon (this.getClass().getResource("/images/buddylist/logoBox.png"));
+		avatar = new ImageIcon (this.getClass().getResource("images/buddylist/logoBox.png"));
 	
 		//TODO: set auto scaling + border later
 		avatarDisplay.setIcon(avatar);

@@ -56,6 +56,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -81,22 +82,58 @@ import view.styles.LinkLabel;
 
 import view.buddylist.BuddyList;
 
+/**
+ * Sets the GUI component of MainWindow.
+ * 
+ * This class inherits JPanel methods and variables.
+ */
 public class SignInPanel extends JPanel implements Observer {
+	/**
+	 * core is a MainController object.
+	 * It helps the user to create a new profile and login using the existing account.
+	 */
     protected MainController core;
+    
+    /** mainFrame is a MainWindow object which is a container of this panel. */
     private MainWindow mainFrame;
+    
+    /** model stores the needed data of the system. It also connects it with database */
     private Model model;
+    
+    /** account_select is a JComboBox object. It shows the listed saved profiles */
     private JComboBox account_select;
 
     // part of the whole panel
+    /** signin is this SignInPanel object. Used for some objects constructor argument. */
     protected SignInPanel signin;
+    
+    /** header is a HeaderPanel object which extends JPanel.
+     * It sets the top part of the MainWindow, which includes the avatar and the status of the system.*/
     protected HeaderPanel header;
+    
+    /** accPanel is a JPanel object.
+     * It sets the center part of the MainWindow, which includes
+     * account_select JComboBox, manageAccount LinkLabel, and guestAccount LinkLabel.*/
     protected JPanel accPanel;
+    
+    /** misc is a JPanel object.
+     * It sets the bottom part of the MainWindow, which includes a separator and help LinkLabel.*/
     protected MiscPanel misc;
 
     // Account Options part (in Sign In Panel)
+    /** manageAccount is a LinkLabel object which will pop up ProfileManager when clicked */
     private LinkLabel manageAccount;
+
+    /** guestAccount is a LinkLabel object which will pop up GuestAccountFrame when clicked */
     private LinkLabel guestAccount;
 
+    /** SignInPanel constructor.It takes a Model, MainController, and MainWindow object as arguments.
+     * It sets up the panel.
+     * @param model 
+     * @param chatClient
+     * @param frame
+     * @throws ClassNotFoundException
+     * @throws SQLException*/
     public SignInPanel(MainWindow frame, MainController chatClient, Model model)
             throws ClassNotFoundException, SQLException {
         mainFrame = frame;
@@ -114,6 +151,12 @@ public class SignInPanel extends JPanel implements Observer {
         add(misc, BorderLayout.SOUTH);
     }
 
+    /**
+     * manageAccountPanel manages accPanel JPanel.  It sets the center part of the MainWindow, which includes
+     * account_select JComboBox, manageAccount LinkLabel, and guestAccount LinkLabel. 
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     private void manageAccountPanel() throws ClassNotFoundException,
             SQLException {
 
@@ -132,9 +175,14 @@ public class SignInPanel extends JPanel implements Observer {
         connectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         connectPanel.add(connectButton);
         connectButton.addActionListener(new ActionListener() {
+        	/**
+        	 * When the sign in button is clicked, the accounts of the 
+        	 * currently chosen profile will be connected to the server.
+        	 * @param evt
+        	 */
             public void actionPerformed(ActionEvent evt) {
                 try {
-                    signIn_ActionPerformed(evt);
+                    signIn_ActionPerformed();
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -153,10 +201,14 @@ public class SignInPanel extends JPanel implements Observer {
         accOptPanel.setLayout(accOptLayout);
 
         // manage account
-        manageAccount = new LinkLabel("Add/Manage Account");
+        manageAccount = new LinkLabel("Add/Manage Profiles");
         manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            /**
+             * if manageAccount is clicked, it will launched the Profile Manager
+             * @param evt
+             */
+            public void mouseClicked(MouseEvent evt) {
                 try {
                     new ProfileManager(model, core, mainFrame);
                 } catch (ClassNotFoundException e) {
@@ -194,7 +246,12 @@ public class SignInPanel extends JPanel implements Observer {
         add(accPanel, BorderLayout.CENTER);
     }
 
-    private void signIn_ActionPerformed(ActionEvent e)
+    /**
+     * signIn_ActionPerformed is a function that helps the user to sign in to the server
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    private void signIn_ActionPerformed()
             throws ClassNotFoundException, SQLException {
         ServerType serverType = ServerType.GOOGLE_TALK; // temporary
         String username = (String) account_select.getSelectedItem();
@@ -214,6 +271,11 @@ public class SignInPanel extends JPanel implements Observer {
         }
     }
     
+	/**
+	 * Links the MainWindow with the observer.
+	 * @param t
+	 * @param o
+	 */
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.PROFILE) {
             this.account_select.removeAllItems();

@@ -27,8 +27,14 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
+/**
+ * Sets the GUI component of Help pop up window.
+ * 
+ * This class inherits JPanel methods and variables.
+ */
 public class HelpPanel extends JPanel{
 	
+	/** SignInPanel constructor. It sets up the panel. */
 	public HelpPanel() {
 		
 		setLayout(new BorderLayout());

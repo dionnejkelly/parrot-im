@@ -70,7 +70,12 @@ import model.enumerations.UpdatedType;
  * This class inherits JFrame methods and variables, and implements Observer.
  */
 public class MainWindow extends JFrame implements Observer {
-	private SignInPanel signPanel;
+	
+	/** Sets the title of the window, size, and default close operation.
+	 * @param chatClient
+	 * @param model
+	 * @throws SQLException
+	 * @throws ClassNotFoundException */
 	public MainWindow (MainController chatClient, Model model) 
 	        throws ClassNotFoundException, SQLException {
 
@@ -82,8 +87,7 @@ public class MainWindow extends JFrame implements Observer {
 		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
 		//call SignIn Panel
-		signPanel = new SignInPanel(this, chatClient, model);
-		getContentPane().add(signPanel);
+		getContentPane().add(new SignInPanel(this, chatClient, model));
 		
 		pack();
 		setVisible(true);
@@ -92,12 +96,12 @@ public class MainWindow extends JFrame implements Observer {
 		model.addObserver(this);
 		CurrentProfileData a = new CurrentProfileData();
 	}
-
-	public String getcwd() {
-	    String cwd = System.getProperty("user.dir");
-	    return cwd;
-	}
 	
+	/**
+	 * Links the MainWindow with the observer.
+	 * @param t
+	 * @param o
+	 */
 	public void update(Observable t, Object o) {
 	    if (o == UpdatedType.ALL && o == UpdatedType.MAIN) {
 	        System.out.println("Observed!" + o);
