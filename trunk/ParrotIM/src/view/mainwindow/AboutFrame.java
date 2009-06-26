@@ -31,103 +31,86 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import view.styles.PopupEnableMainWindowListener;
+
 import model.Model;
+import model.enumerations.PopupEnableWindowType;
 
 /**
- * The container frame of About ParrotIM Window. User can view the details about ParrotIM
+ * The container frame of About ParrotIM Window. User can view the details about
+ * ParrotIM
  * 
  * This object inherits JFrame variables and methods
  */
-public class AboutFrame extends JFrame{
-	/** model allows aboutFrame to store the state of aboutFrame (ie. whether it is opened or not). */
-	Model model;
-	
-	/**
-	 * aboutFrame constructor. This window describes about ParrotIM
-	 */
-	public AboutFrame(Model model){
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.model = model;
-		this.addWindowListener(new aboutWindowListener());
-		this.setTitle("About ParrotIM");
-		this.setPreferredSize(new Dimension(300,500));
-		this.setResizable(false);
-		
-		//our logo + parrotIM label
-		JPanel topPanel = new JPanel();
-		topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-		topPanel.setLayout(new BorderLayout());
-		JLabel avatarDisplay = new JLabel ();
-		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
-		avatarDisplay.setIcon(avatar);
-		topPanel.add(avatarDisplay, BorderLayout.NORTH);
-		
-		JLabel parrotLabel = new JLabel("(c) Pirate Captains 2009");
-		parrotLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		topPanel.add(parrotLabel, BorderLayout.CENTER);
-		
-		//informations
-		JPanel informations = new JPanel();
-		String[] infoArray = new String[] {"This software is developed by", "Rakan Alkheliwi", 
-				"William (Wei-Lun) Chen", "Jihoon Choi", "Kevin Fahy", "Jordan Fox", "Chenny Huang", 
-				"Vera Lukman", "Ahmad Sidiqi", "Aaron Siu", "Wei Zhang"};
-		GridLayout infoLayout = new GridLayout(infoArray.length, 1);
-		informations.setLayout(infoLayout);
-//		infoLayout.setVgap(3);
-		
-		for (int pos = 0; pos < infoArray.length; pos++){
-			JLabel infoLabel = new JLabel(infoArray[pos]);
-			infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			informations.add(infoLabel);
-		}
-		
-		JPanel infoLabelAll = new JPanel();
-		infoLabelAll.setLayout(new BorderLayout());
-		infoLabelAll.add(informations, BorderLayout.NORTH);
-		
-		//setting aboutPanel
-		JPanel aboutPanel = new JPanel();
-		aboutPanel.setLayout(new BorderLayout());
-		aboutPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-		aboutPanel.add(topPanel, BorderLayout.NORTH);
-		aboutPanel.add(infoLabelAll, BorderLayout.CENTER);
-		
-		//setting frame
-		this.getContentPane().add(aboutPanel);
-		this.pack();
-		this.setVisible(true);
-	}
-
-	/**
-     * This is a private class that controls the WindowListener for ChatLogFrame.
-     * It sets the variable logWindowOpen in Model class.
-     * 
-     * This class inherits WindowListener variables and methods.
+public class AboutFrame extends JFrame {
+    /**
+     * model allows aboutFrame to store the state of aboutFrame (ie. whether it
+     * is opened or not).
      */
-	private class aboutWindowListener implements WindowListener{
+    Model model;
 
-		public void windowActivated(WindowEvent e) {}
+    /**
+     * aboutFrame constructor. This window describes about ParrotIM
+     */
+    public AboutFrame(Model model) {
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.model = model;
+        this.addWindowListener(new PopupEnableMainWindowListener(
+                model, PopupEnableWindowType.ABOUT));
+        this.setTitle("About ParrotIM");
+        this.setPreferredSize(new Dimension(300, 500));
+        this.setResizable(false);
 
-	    /**
-	     * When the aboutFrame is closed, aboutWindowOpen will be set to false.
-	     * It returns nothing.
-	     */
-		public void windowClosed(WindowEvent e) {
-			model.aboutWindowOpen = false;
-		}
+        // our logo + parrotIM label
+        JPanel topPanel = new JPanel();
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+        topPanel.setLayout(new BorderLayout());
+        JLabel avatarDisplay = new JLabel();
+        avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+        ImageIcon avatar =
+                new ImageIcon(getClass().getClassLoader().getResource(
+                        "images/buddylist/logoBox.png"));
+        avatarDisplay.setIcon(avatar);
+        topPanel.add(avatarDisplay, BorderLayout.NORTH);
 
-		public void windowClosing(WindowEvent e) {}
-		public void windowDeactivated(WindowEvent e) {}
-		public void windowDeiconified(WindowEvent e) {}
-		public void windowIconified(WindowEvent e) {}
-		
-	    /**
-	     * When the aboutFrame is closed, aboutWindowOpen will be set to true.
-	     * It returns nothing.
-	     */
-		public void windowOpened(WindowEvent e) {
-			model.aboutWindowOpen = true;
-		}
-	}
+        JLabel parrotLabel = new JLabel("(c) Pirate Captains 2009");
+        parrotLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        topPanel.add(parrotLabel, BorderLayout.CENTER);
+
+        // informations
+        JPanel informations = new JPanel();
+        String[] infoArray =
+                new String[] {
+                        "This software is developed by", "Rakan Alkheliwi",
+                        "William (Wei-Lun) Chen", "Jihoon Choi",
+                        "Kevin Fahy", "Jordan Fox", "Chenny Huang",
+                        "Vera Lukman", "Ahmad Sidiqi", "Aaron Siu",
+                        "Wei Zhang" };
+        GridLayout infoLayout = new GridLayout(infoArray.length, 1);
+        informations.setLayout(infoLayout);
+        // infoLayout.setVgap(3);
+
+        for (int pos = 0; pos < infoArray.length; pos++) {
+            JLabel infoLabel = new JLabel(infoArray[pos]);
+            infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            informations.add(infoLabel);
+        }
+
+        JPanel infoLabelAll = new JPanel();
+        infoLabelAll.setLayout(new BorderLayout());
+        infoLabelAll.add(informations, BorderLayout.NORTH);
+
+        // setting aboutPanel
+        JPanel aboutPanel = new JPanel();
+        aboutPanel.setLayout(new BorderLayout());
+        aboutPanel.setBorder(BorderFactory
+                .createEmptyBorder(20, 10, 20, 10));
+        aboutPanel.add(topPanel, BorderLayout.NORTH);
+        aboutPanel.add(infoLabelAll, BorderLayout.CENTER);
+
+        // setting frame
+        this.getContentPane().add(aboutPanel);
+        this.pack();
+        this.setVisible(true);
+    }
 }
