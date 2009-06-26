@@ -97,6 +97,8 @@ we add new screentshots here:
   * [NewTutorial_LogIn (new)How to log in?]
   * [NewTutorial_Chat (new)How to chat?]
   * [NewTutorial_Exit (new)How to exit Parrot IM?]
+  * [NewTutorial_ManageBuddyList   How to manage Friend list?]
+ 
 
 
 = Glossary =
