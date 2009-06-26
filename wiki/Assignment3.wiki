@@ -95,7 +95,7 @@ h) log out
   * please add!
 
 
-*Results:*
+*Future Plans:*
   * Need to improve the GUI so the user can easily distinguish profile and account.
   * I think we need to impove the view of the buddy list in the Beta version.
   * We should make the block friend icon as clear as the add friend and remove friend icon. 
