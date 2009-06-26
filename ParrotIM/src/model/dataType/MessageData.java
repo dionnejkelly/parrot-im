@@ -153,9 +153,8 @@ public class MessageData {
      * @return The message with HTML tags attached for display.
      */
     public String text() {
-        String text =
-                "<U>"
-                        + this.fromUser + ":</U> " + "<font face=\""
+        String text =   "<U><font face = \"Arial\">"
+                        + this.fromUser + ":</font></U> " + "<font face=\""
                         + this.font + "\" size=\"" + this.size + "\">"
                         + this.message + "</font><br><br>";
 
