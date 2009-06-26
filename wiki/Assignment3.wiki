@@ -102,6 +102,7 @@ h) log out
   * Need to make a sleeker Help window.
   * Show which account is talking to each friend in Conversation Window.
   * Move Help/About Parrot.IM link a bit down and to the right.
+  * The display picture should have a tooltip saying it's actully clickable to pop the file browser.
 ----
 
 = Known Bugs =
