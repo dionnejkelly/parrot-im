@@ -17,6 +17,7 @@ import javax.swing.*;
 
 import org.jivesoftware.smack.XMPPException;
 
+import view.mainwindow.HelpPanel;
 import view.mainwindow.MainWindow;
 import view.options.OptionMenu;
 
@@ -116,9 +117,20 @@ public class BuddyList extends JFrame {
         helpMenu.add(helpItem2);
         helpMenu.addSeparator();
         helpMenu.add(helpItem3);
+        
+        helpItem1.addActionListener(new helpListener());
 
         return menuBar;
     }
+    
+    private class helpListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_Exit");
+
+            return;
+        }
+    }
+    
 
     private class chatLogListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {

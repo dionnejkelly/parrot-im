@@ -70,7 +70,7 @@ public class MiscPanel extends JPanel{
         	 */
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-            	HelpPanel helpPanel = new HelpPanel();
+            	HelpPanel helpPanel = new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_CreateAccount");
             	
 //        		JFrame accMAN = new JFrame ("Help");
 //        		accMAN.setLocation(100,100);

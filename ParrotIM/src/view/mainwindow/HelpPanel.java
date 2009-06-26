@@ -46,16 +46,17 @@ import javax.swing.text.Document;
 public class HelpPanel extends JPanel{
 	
 	/** SignInPanel constructor. It sets up the panel. */
-	public HelpPanel() {
+	public HelpPanel(String url) {
 		
 //		setLayout(new BorderLayout());
 //		add (new JLabel("Help here"));
 		
+	
 		JFrame frame = new JFrame("Help Menu");
 		
 		frame.setIconImage(new ImageIcon(getcwd() + "/images/mainwindow/logo.png").getImage());
 		try {
-			JEditorPane editorPane = new JEditorPane("http://code.google.com/p/parrot-im/wiki/NewTutorial_CreateAccount");
+			JEditorPane editorPane = new JEditorPane(url);
 			editorPane.setEditable(false);
 
 			HyperlinkListener hyperlinkListener = new ActivatedHyperlinkListener(editorPane);
