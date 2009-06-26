@@ -747,7 +747,7 @@ public class Chatbot {
          */
 
         public void save_prev_input() {
-                sPrevInput = sInput;
+                this.sPrevInput = sInput;
         }
         
         /**
