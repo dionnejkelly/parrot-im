@@ -52,11 +52,16 @@ import javax.swing.SwingConstants;
  * This object inherits JPanel variables and methods */
 public class HeaderPanel extends JPanel{
 	
-	/** avatarDisplay is a JLabel object that */
+	/** avatarDisplay is a JLabel object that displays the avatar*/
 	protected JLabel avatarDisplay;
+	
+	/** status is a JLabel object that shows the system's status (ie. whether it is connected or not) */
 	protected JLabel status;
+	
+	/** avatar is an ImageIcon object of the user's display picture */
 	protected ImageIcon avatar;
 	
+	/** MiscPanel constructor. It sets up the panel layout.*/
 	public HeaderPanel() {
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(50,50,0,50));
@@ -77,11 +82,6 @@ public class HeaderPanel extends JPanel{
 		add(status, BorderLayout.CENTER);
 	}
 	
-	public static String getcwd() { 
-	    String cwd = System.getProperty("user.dir"); 
-	    return cwd; 
-	}
-	
 	/*
 	protected void setAnimation(){
 		avatarDisplay.setIcon(new ImageIcon(getcwd() + "/src/mainwindow/animation.gif"));
@@ -90,6 +90,7 @@ public class HeaderPanel extends JPanel{
 		System.out.println("headerPanel here");
 	}*/
 	
+	/** sets the status text to "Sign in failed" when the user fails to sign in*/
 	protected void loadMain(){
 		//avatarDisplay.setIcon(avatar);
 		status.setText("<html><FONT COLOR=RED>Sign in failed!</FONT></html>");
