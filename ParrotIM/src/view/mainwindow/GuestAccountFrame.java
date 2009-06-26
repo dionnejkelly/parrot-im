@@ -60,40 +60,37 @@ import view.buddylist.BuddyList;
 import view.styles.PopupWindowListener;
 
 /**
- * 
- * This class defines the frame of the guest account. And the user can use this frame 
+ * The container frame of the guest account. User can use this frame 
  * to log in parrot-im as a guest.
- *
+ * 
+ * This object inherits JFrame variables and methods
  */
 public class GuestAccountFrame extends JFrame {
 
-    /**
-     * These are the parameter for create the guest account frame.
-     */
-	/**
-	 * Connect to the model
-	 */
+    /** model stores the needed data of the system. It also connects it with database */
 	private Model model;
     
 	/**
-	 * connect to the MainController, in order to get the guest account information from the
-	 * server. 
+	 * core is a MainController object. It helps the user to login.
 	 */
 	private MainController core;
     
-	/**
-     * Connect the guest account frame to the MainWindow
-     */
+    /** mainFrame is a MainWindow object which is a container of this panel. */
     private MainWindow mainFrame;
     
-    /**
-     * These parameter are used to design the frame
-     */
+    /** popup is this JFrame object */
     private JFrame popup;
+    
+    /** mainPanel is a SignInPanel object. It sets the GUI component of MainWindow.*/
     private SignInPanel mainPanel;
 
+    /** UNFieldGuest is a JTextField object. It is the text field for the user's username. */
     private JTextField UNFieldGuest;
+    
+    /** PwdFieldGuest is a JPasswordField object. It is the text field for the user's password. */
     private JPasswordField PwdFieldGuest;
+    
+    /** server is a JComboBox object. It shows the listed server the user can connect to. */
     private JComboBox server;
 
     /**
@@ -154,6 +151,10 @@ public class GuestAccountFrame extends JFrame {
         JButton okButton = new JButton("OK");
         okButton.setPreferredSize(new Dimension(20, 40));
         okButton.addActionListener(new ActionListener() {
+        	/**
+        	 * When the OK button is clicked, the system will try to connect to the server
+        	 * @param evt
+        	 */
             public void actionPerformed(ActionEvent evt) {
                 if (UNFieldGuest.getText().length() != 0
                         && PwdFieldGuest.getPassword().length != 0) {
@@ -162,7 +163,7 @@ public class GuestAccountFrame extends JFrame {
                 }
                 
                 else {
-                	String resultMessage = "Sorry for the inconvenience but please provide appropriate USER ID and Password in the field. Thank you for your co-operation.";
+                	String resultMessage = "Please provide appropriate user ID and password in the field.";
                 	JOptionPane.showMessageDialog(null, resultMessage);
                 	
                 }
@@ -173,6 +174,10 @@ public class GuestAccountFrame extends JFrame {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setPreferredSize(new Dimension(20, 40));
         cancelButton.addActionListener(new ActionListener() {
+        	/**
+        	 * When the CANCEL button is clicked, then go back to MainWindow
+        	 * @param evt
+        	 */
             public void actionPerformed(ActionEvent evt) {
                 popup.removeAll();
                 popup.dispose();
@@ -227,7 +232,7 @@ public class GuestAccountFrame extends JFrame {
     }
     
     /**
-     * This method is used to get the password from the user.
+     * This method is used to get the String of password from the user.
      * @param pass
      * @return the string of password
      */
