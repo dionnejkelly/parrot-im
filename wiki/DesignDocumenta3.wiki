@@ -12,9 +12,13 @@ No change in this part.
 
 = System Diagrams =
 
-Do we have new sequence diagram?
+No change in sequence diagram
 
-Please provide the new UML diagram here.
+http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram.png
+
+New UML diagram
+
+http://parrot-im.googlecode.com/files/alphaUML.png
 
 = Data Requirements =
 
@@ -44,4 +48,3 @@ Notes of change of classes to implement:
  * Friend List(buddylist classes)
  * Friends(Same as friendlist)
  * Account( Same as profilemanager)
-
