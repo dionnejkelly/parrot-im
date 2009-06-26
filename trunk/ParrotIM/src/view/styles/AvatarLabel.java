@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -48,11 +49,11 @@ public class AvatarLabel extends JLabel{
 	 * AvatarLabel constructor. It takes a String that describes
 	 * the path of the display picture as its argument.
 	 * 
-	 * @param defaultImage
+	 * @param url
 	 */
-	public AvatarLabel(String defaultImage){
+	public AvatarLabel(URL url){
 		avatarlbl = this;
-		avatar = new ImageIcon(defaultImage); // want to get this from model later
+		avatar = new ImageIcon(url); // want to get this from model later
 		this.setMaximumSize(new Dimension(100,100));//want to look more into it
 		this.setIcon(avatar);
 		this.addMouseListener(new avatarMouseListener());
