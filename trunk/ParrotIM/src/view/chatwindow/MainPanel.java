@@ -69,6 +69,8 @@ public class MainPanel extends JPanel implements Observer {
 	    fileMenu.addSeparator();
 	    fileMenu.add(exitItem1);
 	    
+	    exitItem1.addActionListener(new exitListener());
+	    
 	    JMenu helpMenu = new JMenu("Help");
 	    fileMenu.setMnemonic(KeyEvent.VK_H);
 	    menuBar.add(helpMenu);
@@ -108,6 +110,21 @@ public class MainPanel extends JPanel implements Observer {
   //                  model.getActiveConversation().
   //                  displayMessages());
    //     }        
+    }
+    
+    
+    /**
+     * Listens for the exit menu option.
+     *
+     */
+    private class exitListener implements ActionListener {
+    	/** Listens for the uesr's action.
+         * 
+         * @param e
+         */
+        public void actionPerformed(ActionEvent e) {
+        	
+        }        
     }
     
     /**

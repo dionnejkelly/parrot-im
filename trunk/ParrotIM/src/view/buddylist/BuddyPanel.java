@@ -36,6 +36,7 @@ import javax.swing.ScrollPaneConstants;
 import controller.MainController;
 
 import view.blockManager.BlockManager;
+import view.mainwindow.HelpPanel;
 import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
 
@@ -212,18 +213,44 @@ public class BuddyPanel extends JPanel implements Observer {
         addF.addMouseListener(new addFriendListener());
         removeF.addMouseListener(new removeFriendListener());
         blockF.addMouseListener(new blockFriendListener());
-        //searchButton.addMouseListener(l)
+        searchButton.addMouseListener(new searchListener());
 
         return options;
     }
 
     // Section
     // III - Accessors and Mutator
+    
+    /**
+    * listener for the search button
+    */
+   class searchListener extends MouseAdapter {
+	   
+	   /** Listens for the uesr's event.
+        * 
+        * @param e
+        */
+	   
+       public void mousePressed(MouseEvent event) {
+
+    	  String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+       		JOptionPane.showMessageDialog(null, resultMessage);
+
+       }
+   }
+    
     /**
      * listener for the block button
      * block a buddy when event occurs
      */
     class blockFriendListener extends MouseAdapter {
+    	
+    	/** Listens for the uesr's event.
+         * 
+         * @param e
+         */
+ 	   
+    	
         public void mousePressed(MouseEvent event) {
 
             BlockManager blockedUser = new BlockManager(chatClient, model);
@@ -238,6 +265,14 @@ public class BuddyPanel extends JPanel implements Observer {
      *
      */
     class RightClickMenuBlockFriendListener extends MouseAdapter {
+    	
+    	/** Listens for the uesr's event.
+         * 
+         * @param e
+         */
+ 	   
+    	
+    	
         public void mousePressed(MouseEvent event) {
             chatClient.blockFriend(selectedFriend.getAccountName());
 
@@ -273,6 +308,13 @@ public class BuddyPanel extends JPanel implements Observer {
      *
      */
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
+    	
+    	/** Listens for the uesr's event.
+         * 
+         * @param e
+         */
+ 	   
+    	
         public void mousePressed(MouseEvent event) {
 
             System.out.println("Remove this user from the buddy list = "
@@ -304,6 +346,13 @@ public class BuddyPanel extends JPanel implements Observer {
      *
      */
     class removeFriendListener extends MouseAdapter {
+    	
+    	/** Listens for the uesr's event.
+         * 
+         * @param e
+         */
+ 	   
+    	
         public void mousePressed(MouseEvent event) {
 
             if (selectedFriend != null) {
