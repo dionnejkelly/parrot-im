@@ -169,9 +169,7 @@ public class BuddyList extends JFrame {
      *
      */
     private class helpListener implements ActionListener {
-        /* 
-         * 
-         */
+
         public void actionPerformed(ActionEvent e) {
             new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_Exit");
 
@@ -199,8 +197,10 @@ public class BuddyList extends JFrame {
      *
      */
     private class chatLogListener implements ActionListener {
-        /* 
+    	/**
+         * Listens for the uesr's event.
          * 
+         * @param e
          */
         public void actionPerformed(ActionEvent e) {
         	if (!model.logWindowOpen){
@@ -234,12 +234,14 @@ public class BuddyList extends JFrame {
     }
     
     /**
-     * @author TOSHIBA
+     * Listens for the Chatbot toggle
      *
      */
     private class ChatbotToggleListener implements ActionListener {
-        /* (non-Javadoc)
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+    	/**
+         * Listens for the uesr's event.
+         * 
+         * @param e
          */
         public void actionPerformed(ActionEvent e) {
             controller.toggleChatbot();
@@ -249,14 +251,16 @@ public class BuddyList extends JFrame {
     }
     
     /**
-     * @author TOSHIBA
+     * Listens for the exit action.
      *
      */
     private class exitActionListener implements ActionListener {
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
+    	/**
+         * Listens for the uesr's event.
+         * 
+         * @param e
+         */
 		public void actionPerformed(ActionEvent e) {
 			
 			try {
@@ -272,14 +276,16 @@ public class BuddyList extends JFrame {
     }
     
     /**
-     * @author TOSHIBA
+     * Listens for the signout action
      *
      */
     private class signoutActionListener implements ActionListener {
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
+    	/**
+         * Listens for the uesr's event.
+         * 
+         * @param e
+         */
 		public void actionPerformed(ActionEvent e) {
 			try {
 				controller.disconnect();
