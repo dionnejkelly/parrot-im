@@ -34,7 +34,7 @@ import javax.swing.JFrame;
 import model.Model;
 
 /**
- * The container frame of ChatLogPanel.java.
+ * The container frame of ChatLogPanel.
  *
  * This class inherits JFrame methods and variables.
  */
