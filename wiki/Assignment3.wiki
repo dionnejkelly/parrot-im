@@ -82,10 +82,10 @@ Filename conventions:
 The Model holds Conversations and Profiles.   
 
 Model's Chat Data:
-  * ConversationData has:
-    * MessageData
+  * !ConversationData has:
+    * !MessageData
 
 Model's Profile Data
-  * CurrentProfileData has:
-    * AccountData, which has:
-      * UserData
+  * !CurrentProfileData has:
+    * !AccountData, which has:
+      * !UserData
