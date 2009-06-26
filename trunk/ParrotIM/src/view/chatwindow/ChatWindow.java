@@ -23,25 +23,27 @@ import model.Model;
 import model.enumerations.UpdatedType;
 
 /**
- * The ChatWindow contains the frame that holds the integrity of the
- * chat window.
+ * The ChatWindow contains the frame that holds the integrity of the chat
+ * window.
  * 
- * This object inherits from JFrame 
+ * This object inherits from JFrame
  */
 
 public class ChatWindow extends JFrame implements Observer {
-	
-	/** A main panel.*/
-	
-	private JPanel main;
-	
-	/** Model stores the needed data of the system. It also connects it with database.*/
-	
-    private Model model;
-    
-    /** A variable that checks if the window is open.*/
-    private boolean windowIsOpen;
 
+    /** A main panel. */
+
+    private JPanel main;
+
+    /**
+     * Model stores the needed data of the system. It also connects it with
+     * database.
+     */
+
+    private Model model;
+
+    /** A variable that checks if the window is open. */
+    private boolean windowIsOpen;
 
     /**
      * This is the constructor of the ChatWindow.
@@ -49,10 +51,9 @@ public class ChatWindow extends JFrame implements Observer {
      * @param c
      * @param model
      */
-    
     public ChatWindow(MainController c, Model model) {
         super("Chat Window");
-        
+
         model.addObserver(this);
 
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -65,39 +66,39 @@ public class ChatWindow extends JFrame implements Observer {
         this.addWindowListener(new ChatWindowListener(this.model));
 
         main = new MainPanel(c, model);
-        
+
         getContentPane().add(main);
-        
+
         pack();
         setVisible(false);
     }
 
-    //Getters
-    
+    // Getters
+
     /**
      * Check if the window is open.
      * 
      * @return boolean
      */
-    
+
     public boolean getWindowIsOpen() {
         return this.windowIsOpen;
     }
-    
-    //Setters
-    
+
+    // Setters
+
     /**
      * Sets the window's open status.
      * 
      * @param isOpen
      */
-    
+
     public void setWindowIsOpen(boolean isOpen) {
         this.windowIsOpen = isOpen;
     }
-    
-    //Update Method
-    
+
+    // Update Method
+
     /**
      * Update according to the UpdatedType.
      * 

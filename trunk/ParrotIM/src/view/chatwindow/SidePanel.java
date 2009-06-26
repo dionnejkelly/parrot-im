@@ -24,34 +24,36 @@ import model.enumerations.UpdatedType;
 
 import java.util.*;
 
-
 /**
- * The SidePanel contains the list of users that are currently visible
- * in chat window .
+ * The SidePanel contains the list of users that are currently visible in chat
+ * window .
  * 
- * This object inherits from JPanel 
+ * This object inherits from JPanel
  */
 
 public class SidePanel extends JPanel implements Observer {
-	
-//    private JPanel chattingWith;
-//    private Box boxes[] = new Box[1];
-	
-	/** Model stores the needed data of the system. It also connects it with database.*/
-	
+
+    // private JPanel chattingWith;
+    // private Box boxes[] = new Box[1];
+
+    /**
+     * Model stores the needed data of the system. It also connects it with
+     * database.
+     */
+
     private Model model;
-    
-    /** Tree stores the users as a leaf.*/
-    
+
+    /** Tree stores the users as a leaf. */
+
     private JTree tree;
-    
+
     /**
      * Maintains the Parrot IM XMPP Protocol.
      */
-    
+
     private MainController c;
-    
-    /** The default top node.*/
+
+    /** The default top node. */
     private DefaultMutableTreeNode top;
 
     /**
@@ -60,14 +62,13 @@ public class SidePanel extends JPanel implements Observer {
      * @param c
      * @param model
      */
-	
 
     public SidePanel(MainController c, Model model) {
         this.model = model;
         this.c = c;
         this.model.addObserver(this);
 
-        //Panel Properties
+        // Panel Properties
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(150, 500));
         setBackground(Color.WHITE);
@@ -77,10 +78,10 @@ public class SidePanel extends JPanel implements Observer {
         top = new DefaultMutableTreeNode("Root");
         tree = new JTree(top);
         tree.addMouseListener(new SelectListener());
-        
+
         this.add(tree, BorderLayout.CENTER);
     }
-    
+
     /**
      * Refreshes the tree.
      * 
@@ -115,9 +116,9 @@ public class SidePanel extends JPanel implements Observer {
      * @param t
      * @param o
      */
-    
+
     public void update(Observable t, Object o) {
-        if (o == UpdatedType.CHAT || o == UpdatedType.ALL) {
+        if (o == UpdatedType.CHAT) {
             // Temporary fix for early update bug
             if (tree != null) {
                 refreshTree();
@@ -130,15 +131,15 @@ public class SidePanel extends JPanel implements Observer {
      * Listens for the tree's add button.
      * 
      */
-    
+
     private class SelectListener implements MouseListener {
-    	
-    	 /**
+
+        /**
          * Check for user's action
          * 
-         *  @param event
+         * @param event
          */
-    	
+
         public void mousePressed(MouseEvent event) {
             // int selRow = tree.getRowForLocation(event.getX(), event.getY());
             TreePath selPath =
@@ -156,43 +157,40 @@ public class SidePanel extends JPanel implements Observer {
             }
 
         }
-        
+
         /**
          * Check for user's action
          * 
-         *  @param event
+         * @param event
          */
-        
 
         public void mouseEntered(MouseEvent event) {
         }
 
-        
         /**
          * Check for user's action
          * 
-         *  @param event
+         * @param event
          */
-        
+
         public void mouseExited(MouseEvent event) {
         }
 
         /**
          * Check for user's action
          * 
-         *  @param event
+         * @param event
          */
-        
-        
+
         public void mouseClicked(MouseEvent event) {
         }
 
         /**
          * Check for user's action
          * 
-         *  @param event
+         * @param event
          */
-        
+
         public void mouseReleased(MouseEvent event) {
         }
     }
