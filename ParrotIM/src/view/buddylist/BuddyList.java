@@ -135,7 +135,9 @@ public class BuddyList extends JFrame {
         helpMenu.setMnemonic(KeyEvent.VK_H);
         menuBar.add(helpMenu);
         JMenuItem helpItem1 = new JMenuItem("User Guide", KeyEvent.VK_G);
+        helpItem1.addActionListener(new helpListener());
         JMenuItem helpItem2 = new JMenuItem("Report Bug", KeyEvent.VK_R);
+        helpItem2.addActionListener(new reportBugListener());
         JMenuItem helpItem3 = new JMenuItem("About Parrot.IM", KeyEvent.VK_A);
         helpItem3.addActionListener(new aboutListener());
         helpMenu.add(helpItem1);
@@ -143,7 +145,6 @@ public class BuddyList extends JFrame {
         helpMenu.addSeparator();
         helpMenu.add(helpItem3);
         
-        helpItem1.addActionListener(new helpListener());
 
         return menuBar;
     }
@@ -177,6 +178,20 @@ public class BuddyList extends JFrame {
             return;
         }
     }
+    /**
+    * reportBugListener
+    *
+    */
+   private class reportBugListener implements ActionListener {
+       /* 
+        * 
+        */
+       public void actionPerformed(ActionEvent e) {
+           new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
+
+           return;
+       }
+   }
     
 
     /**
