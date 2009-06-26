@@ -29,9 +29,19 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 
+/**
+ * This object sets the style of the clickable labels on mainwindow (sign in window).
+ * 
+ * It inherits JLabel methods and variables.
+ */
 public class LinkLabel extends JLabel {
+	/** text is a String with the name of the label that will be shown on the GUI*/
 	protected String text;
 	
+	/**
+	 * LinkLabel constructor. It takes a String object as its argument.
+	 * It sets up the String to be underlined and show it on the GUI.
+	 */
 	public LinkLabel (String text){
 		this.setHorizontalAlignment(CENTER);
 		this.text = text;
@@ -40,9 +50,19 @@ public class LinkLabel extends JLabel {
 		this.addMouseListener(new labelMouseListener(this));
 	}
 	
-	class labelMouseListener implements MouseListener{
+	/**
+     * Sets the behaviour with regard of mouse input and position.
+     * 
+     * This class inherits MouseListener methods and variables.
+     */
+	private class labelMouseListener implements MouseListener{
+		/** label is a LinkLabel object. */
 		private LinkLabel label;
 		
+		/**
+		 * labelMouseListener constructor.
+		 * It takes a PmLabel object.
+		 */
 		public labelMouseListener (LinkLabel lbl){
 			label = lbl; 
 		}
@@ -50,10 +70,14 @@ public class LinkLabel extends JLabel {
 		public void mouseClicked(MouseEvent e) {
 		}
 
+		/** When the user hover on label, the text will be bolded.
+		 * It takes a MouseEvent argument */
 		public void mouseEntered(MouseEvent e) {
 			label.setText("<html><b>"+label.text+"</b></html>");
 		}
-
+		
+		/** When the user hover on label, the text will be underlined.
+		 * It takes a MouseEvent argument */
 		public void mouseExited(MouseEvent e) {
 			label.setText("<html><u>"+ text +"</u></html>");
 		}

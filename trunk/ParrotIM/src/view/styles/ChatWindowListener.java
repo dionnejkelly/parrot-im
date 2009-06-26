@@ -26,17 +26,27 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import model.*;
 
+/**
+ * This object is a WindowListener for ChatWindow objects.
+ * It controls chatWindowOpen variable in model class.
+ * 
+ * This object inherits WindowListener variables and methods.
+ */
 public class ChatWindowListener implements WindowListener {
+	/** model allows to store the state of ChatWindow (ie. whether it is opened or not). */
 	Model model;
 	
+	/** ChatWindowListener takes Model object as an argument. */
 	public ChatWindowListener(Model model){
 		this.model = model;
 	}
 
+	/** Sets chatWindowOpen to false. It takes a WindowEvent argument. */
 	public void windowClosed(WindowEvent e) {
 		model.chatWindowOpen = false;
 	}
-
+	
+	/** Sets chatWindowOpen to false. It takes a WindowEvent argument.*/
 	public void windowClosing(WindowEvent e) {
 		model.chatWindowOpen = false;
 	}

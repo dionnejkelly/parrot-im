@@ -49,7 +49,7 @@ import model.Model;
 import model.dataType.tempData.ChatLogMessageTempData;
 
 /**
- * Sets the GUI component of ChatLogFrame.java.
+ * Sets the GUI component of ChatLogFrame.
  * 
  * This class inherits JSplitPane methods and variables.
  */
@@ -206,6 +206,7 @@ public class ChatLogPanel extends JSplitPane {
     	/**
          * If user selected a date of the dateList JList changed,
          * text will show the logged message of the date. 
+         * It takes a ListSelectionEvent argument.
          */
         public void valueChanged(ListSelectionEvent e) {
             JList source = (JList) e.getSource();
@@ -222,6 +223,7 @@ public class ChatLogPanel extends JSplitPane {
         /**
          * This method grabs the message from the database and sets the Vector returned
          * by the model as the text's data source. It also update the message shown by text.
+         * It takes a String argument that specify the date.
          */
         private void updateLog(String date) {
         	// Grab all message objects from the database

@@ -30,10 +30,26 @@ import javax.swing.JComboBox;
 
 import controller.MainController;
 
+/**
+ * This object shows the combobox status options for buddylist window.
+ * 
+ * It inherits JComboBox methods and variables.
+ */
 public class StatusCombo extends JComboBox{
+	/**
+	 * status is an array of Strings which provides the status options the user can choose from.
+	 */
 	private static String status[] = {"Available", "Away", "Busy", "Chatty"};
+	
+	/**
+	 * chatClient is a MainController object. It helps the user to change their status on the server.
+	 */
 	MainController chatClient;
 	
+	/**
+	 * StatusCombo constructor. It takes a MainController object as its argument.
+	 * It also sets up some settings for the object.
+	 */
 	public StatusCombo(MainController c){
 		super(status);
 		chatClient = c;
@@ -41,20 +57,25 @@ public class StatusCombo extends JComboBox{
 		this.setMaximumSize(new Dimension(200, 30));
 	}
 	
+	/**
+     * Sets the behaviour when the status is changed.
+     * 
+     * This class inherits ActionListener methods and variables.
+     */
 	private class statusComboListener implements ActionListener{
+		//TODO: Change this to inputmethodlistener!!!
 
+		/**
+	     * Changes the status of the user on the server. It takes an ActionEvent argument
+	     * and returns null.
+	     */
 		public void actionPerformed(ActionEvent e) {
 			if (getSelectedIndex() > -1){
 				System.out.println("-----------------------------------Coming from here");
 				String userStatus = getSelectedItem().toString();
 				System.out.println("Status changed to: " + userStatus);
 				
-				
 				chatClient.setStatus(userStatus);
-					
-			
-				
-				
 			}
 		}
 	}
