@@ -3,6 +3,7 @@
  * Programmed By:
  *     Kevin Fahy
  *     William Chen
+ *     Rakan Alkheliwi
  *     
  * Change Log:
  *     2009-June-7, KF
@@ -15,6 +16,9 @@
  *         can see your status and chat with you.
  *     2009-June-24, KF
  *         Added JavaDoc documentation.
+ *     2009-June-25, KF, RA
+ *         Added equals() method to resolve an issue found in 
+ *         testing by Rakan.
  *         
  * Known Issues:
  *     1. The data members may not apply to every protocol.
@@ -236,5 +240,26 @@ public abstract class UserData {
     @Override
     public String toString() {
         return nickname;
+    }
+    
+    /**
+     * Checks if the accounts are the same. Determines so by whether their
+     * userID is the same.
+     * 
+     * @param account
+     * @return true if they have the same userID, false otherwise.
+     */
+    @Override
+    public boolean equals(Object user) {
+        boolean areEqual = false;
+        UserData externalUser = null;
+
+        if (user != null && user instanceof UserData) {
+            externalUser = (UserData) user;
+            areEqual = this.accountName.equalsIgnoreCase(externalUser
+                    .getAccountName());
+        }
+
+        return areEqual;
     }
 }

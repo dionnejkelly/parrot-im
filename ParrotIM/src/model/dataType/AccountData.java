@@ -3,6 +3,7 @@
  * Programmed By:
  *     Kevin Fahy
  *     William Chen
+ *     Rakan Alkheliwi
  *     
  * Change Log:
  *     2009-June-7, KF
@@ -16,6 +17,9 @@
  *         Duplicates are checked by their userID string.
  *     2009-June-24, KF
  *         Finished JavaDoc documentation of the class.
+ *     2009-June-25, KF, RA
+ *         Added equals() method to resolve an issue found in 
+ *         testing by Rakan.
  *         
  * Known Issues:
  *     1. Bad implementation of adding ownUserData. Could use inheritance,
@@ -247,5 +251,26 @@ public class AccountData {
      */
     public boolean isConnected() {
         return connected;
+    }
+
+    /**
+     * Checks if the accounts are the same. Determines so by whether their
+     * userID is the same.
+     * 
+     * @param account
+     * @return true if they have the same userID, false otherwise.
+     */
+    @Override
+    public boolean equals(Object account) {
+        boolean areEqual = false;
+        AccountData externalAccount = null;
+
+        if (account != null && account instanceof AccountData) {
+            externalAccount = (AccountData) account;
+            areEqual = this.accountName.equalsIgnoreCase(externalAccount
+                    .getAccountName()) && (this.server == externalAccount.getServer());
+        }
+
+        return areEqual;
     }
 }
