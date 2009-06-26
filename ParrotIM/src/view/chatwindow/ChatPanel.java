@@ -8,6 +8,7 @@
 
 package view.chatwindow;
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -165,21 +166,34 @@ public class ChatPanel extends JPanel {
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/colorscm.png")));
         colorButton.setToolTipText("Change Font Color");
-        colorButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                JFrame colorFrame = new JFrame("Color chooser");
-                colorChooser = new JColorChooser();
-                colorChooser.getSelectionModel().addChangeListener(
-                        new ChangeListener() {
-                            public void stateChanged(ChangeEvent event) {
-                                System.out.print("Helloworld");
-                            }
-                        });
-                colorFrame.add(new JColorChooser());
-                colorFrame.pack();
-                colorFrame.setVisible(true);
-            }
-        });
+        colorButton.addActionListener(new colorListener());
+//        colorButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent event) {
+//            	           
+//                JFrame colorFrame = new JFrame("Color chooser");
+//                           
+//                colorChooser = new JColorChooser();
+//                
+//              
+//                int userRedColor = colorChooser.getColor().getRed();
+//                int userGreenColor = colorChooser.getColor().getGreen();
+//                int userBlueColor = colorChooser.getColor().getBlue();
+//                
+//                System.out.println("Red = " + userRedColor);
+//                System.out.println("Green = " + userGreenColor);
+//                System.out.println("Blue = " + userBlueColor);
+//                
+//                colorChooser.getSelectionModel().addChangeListener(
+//                        new ChangeListener() {
+//                            public void stateChanged(ChangeEvent event) {
+//                                System.out.print("Helloworld");
+//                            }
+//                        });
+//                colorFrame.add(new JColorChooser());
+//                colorFrame.pack();
+//                colorFrame.setVisible(true);
+//            }
+//        });
         JButton emoticons =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/emote.png")));
@@ -254,7 +268,41 @@ public class ChatPanel extends JPanel {
         }
         txt1.setText(null);
     }
+    
+    
+    /** This is a color listener class that is responsible for handling user's
+	 *	color preference through JColorChooser.
+     */
+    
 
+    public class colorListener implements ActionListener {
+    
+    	/** Listens for the uesr's action.
+         * 
+         * @param evt
+         */
+        
+        public void actionPerformed(ActionEvent evt) {
+        	
+        	 JFrame frame = new JFrame("Color Chooser");
+        	 
+             //Create and set up the content pane.
+             JComponent newContentPane = new ColorUserSelect();
+             newContentPane.setOpaque(true); //content panes must be opaque
+             frame.setContentPane(newContentPane);
+
+             //Display the window.
+             frame.pack();
+             frame.setVisible(true);
+             
+          
+  
+        }
+        
+       
+    }
+    
+    
     /** The Button listener for the "send" button.
      */
     public class SendButtonPressed implements ActionListener {
