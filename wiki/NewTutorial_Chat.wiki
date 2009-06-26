@@ -25,3 +25,5 @@ The Chat Window has three main components:
 5. Your friend will not be alerted that you closed the window, but the chat history will be removed from your screen.
 
 6. If your friend says anything else to you, the Chat Window will appear again, and you'll see his or her message.
+
+http://parrot-im.googlecode.com/files/rightClickMenu.jpg
