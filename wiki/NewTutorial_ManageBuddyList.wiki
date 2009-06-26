@@ -1,6 +1,13 @@
-#summary Tutorial: How to manage Buddy list
+#summary Tutorial: How to manage Friend list
 
-= Manage Buddy List =
+== Manage Buddy List ==
 
-== Right Click menu ==
+ * Right Click menu 
 http://parrot-im.googlecode.com/files/rightClickMenu.jpg
+1.From the Friend list,right click on one of your friend. Then you will see a small menu beside your friend name.
+2. You have 5 options to choose.
+    *start new conversation - start a chat window with this friend.
+    *add to open conversation - add this friend to a conversation window which is already opened.
+    *remove friend - remove this friend from list.
+    *block friend - block this friend.
+    *view profile - view this friend's profile.
