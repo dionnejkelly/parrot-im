@@ -3,7 +3,7 @@
 = Source = 
 All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
-Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/ParrotIM]
+Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/branches/assignment3_alphaVersion]
 
 ----
 
