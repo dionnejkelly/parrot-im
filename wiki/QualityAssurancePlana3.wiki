@@ -18,6 +18,4 @@ No change here.
 
 = User Acceptance Testing =
 
-
-
-
+Notes of change: For the Alpha version: Since we haven't finish Avatar picture feature, so we are unable to do the test for this part. And we are going to move Avatar picture to Beta version.
