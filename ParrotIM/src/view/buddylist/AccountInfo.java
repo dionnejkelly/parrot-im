@@ -70,7 +70,9 @@ import view.styles.AvatarLabel;
 import view.styles.StatusCombo;
 import view.styles.PmLabel;
 
-
+/**
+ * accountInfo display user name, avatar picture, account information for Parrot IM users.
+ */
 public class AccountInfo extends JPanel
 {
 	/* TODO AccInfo has:
@@ -79,15 +81,37 @@ public class AccountInfo extends JPanel
 	 * 					Top: User Display name
 	 * 					Bottom: Status, and status messages (if applicable)			
 	 */
+   
+	/**
+	 * avatarDisplay is for display user picture.
+	 * displayName display users name.
+	 */
 	JLabel avatarDisplay, displayName;
 	MainController chatClient;
 	
+	/**
+	 * 
+	 */
 	protected PmLabel statusMessage;
+	/**
+	 * 
+	 */
 	protected JTextArea textArea;
+	/**
+	 * 
+	 */
 	protected String text;
 	
+	/**
+	 * 
+	 */
 	private Model model;
-	
+	//SELECTION
+	//I-Constructors
+	/**
+	 * @param c
+	 * @param model
+	 */
 	public AccountInfo(MainController c, Model model) 
 	{
 	    this.model = model;
@@ -96,7 +120,7 @@ public class AccountInfo extends JPanel
 		setBorder(BorderFactory.createEmptyBorder(5,15,5,5));
 		setLayout(new BorderLayout());
 		
-		//avatar
+		//user diplay picture
 		AvatarLabel avatarDisplay = new AvatarLabel("src/images/buddylist/logoBox.png");
 		
 		//name, status message (personal message) and status
@@ -135,14 +159,24 @@ public class AccountInfo extends JPanel
 		this.addMouseListener(new statusMouseListener());
 	}
    
+	/**
+	 * @author TOSHIBA
+	 *
+	 */
 	private class statusMouseListener implements MouseListener{
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+		 */
 		public void mouseClicked(MouseEvent e) {
 			if (statusMessage.isEditable()){
 				statusMessage.changePM(false);
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+		 */
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}
 		public void mousePressed(MouseEvent e) {}
