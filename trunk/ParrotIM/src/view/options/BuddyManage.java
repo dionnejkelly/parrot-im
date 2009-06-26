@@ -1,9 +1,19 @@
-/*
- * BuddyManage.java
- *
- *
- *
+/* BuddyManage.java
+ * 
+ * Programmed By:
+ *     Chenny Huang
+ *     
+ * Change Log:
+ *         
+ * Known Issues:
+ *     none
+ *     
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
  */
+
 
 package view.options;
 
