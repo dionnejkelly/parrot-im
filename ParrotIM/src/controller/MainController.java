@@ -296,8 +296,7 @@ public class MainController {
         Roster roster = connection.getRoster();
         String nickname = StringUtils.parseBareAddress(userID);
         System.out.println(userID + " 000");
-        
-        displayBuddyList();
+
         try {
             System.out.println(roster.getEntryCount());
             roster.createEntry(userID, nickname, null);
