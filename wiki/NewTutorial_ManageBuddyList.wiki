@@ -4,11 +4,12 @@
 
 === Right Click menu ===
 
+1.From the Friend list,right click on one of your friend. Then you will see a small menu beside your friend name.<br>
+
 http://parrot-im.googlecode.com/files/rightClickMenu.jpg
 
 
-1.From the Friend list,right click on one of your friend. Then you will see a small menu beside your friend name.<br>
-2. You have 5 options to choose.<br>
+2. You have 5 options to choose.<br><br>
   * start new conversation  start a chat window with this friend.
   * add to open conversation  add this friend to a conversation window which is already opened.
   * remove friend remove this friend from list.
