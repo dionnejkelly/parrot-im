@@ -559,6 +559,7 @@ public class MainController {
         boolean bold = false;
         boolean italics = false;
         boolean underlined = false;
+        String color = "#000000";
 
         conversation = model.findConversationByFriend(to);
 
@@ -574,7 +575,7 @@ public class MainController {
         messageObject =
                 new MessageData(
                         fromUser, messageString, font, size, bold, italics,
-                        underlined);
+                        underlined, color);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -613,7 +614,8 @@ public class MainController {
      */
     public void sendMessage(
             String messageString, String font, String size, boolean bold,
-            boolean italics, boolean underlined) throws XMPPException {
+            boolean italics, boolean underlined, String color)
+    			throws XMPPException {
         Chat chat = null;
         boolean chatExists = false;
         String to = null;
@@ -629,7 +631,7 @@ public class MainController {
         messageObject =
                 new MessageData(
                         fromUser, messageString, font, size, bold, italics,
-                        underlined);
+                        underlined, color);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -909,7 +911,7 @@ public class MainController {
                 m =
                         new MessageData(
                                 user.getAccountName(), message.getBody(),
-                                "font", "4", false, false, false);
+                                "font", "4", false, false, false, "#000000");
 
                 model.receiveMessage(model.findAccountByFriend(user), m);
 

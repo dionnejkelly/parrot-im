@@ -53,6 +53,8 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     /** User's color preference.*/
     protected Color userColor;
     
+    public String hexColor = "#000000";
+    
     
     /**
      * This is the constructor of the ColorUserSelect.
@@ -95,12 +97,14 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
      */
     
     public void stateChanged(ChangeEvent e) {
-        Color newColor = colorChooser.getColor();
-        banner.setForeground(newColor);
+        userColor = colorChooser.getColor();
+        banner.setForeground(userColor);
         
-        System.out.println("User Red color = " + newColor.getRed());
-        System.out.println("User Green color = " + newColor.getGreen());
-        System.out.println("User Blue color = " + newColor.getBlue());
+        //System.out.println("User Red color = " + newColor.getRed());
+        //System.out.println("User Green color = " + newColor.getGreen());
+        System.out.println("Hex = " + getColorHex());
+        
+        hexColor = getColorHex();
     }
     
     /**
@@ -111,6 +115,23 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     
     public Color getUserColor() {
     	return userColor;
+    }
+    
+    
+    public String getUserRedHex() {
+    	return Integer.toHexString(userColor.getRed());
+    }
+
+    public String getUserGreenHex() {
+    	return Integer.toHexString(userColor.getGreen());
+    }
+
+    public String getUserBlueHex() {
+    	return Integer.toHexString(userColor.getBlue());
+    }
+
+    public String getColorHex() {
+    	return "#" + getUserRedHex() + getUserGreenHex() + getUserBlueHex();
     }
 
 }

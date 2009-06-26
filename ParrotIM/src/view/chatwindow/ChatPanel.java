@@ -64,8 +64,12 @@ public class ChatPanel extends JPanel {
     private MainController c;
     private SpinnerModel fontSizemodel;
     public boolean bold, italics, underlined;
+<<<<<<< .mine
+    private ColorUserSelect oldContentPane;
+=======
     
     protected JFrame chatFrame;
+>>>>>>> .r1217
 
     /**
      * This is the constructor of the ChatPanel.
@@ -268,10 +272,17 @@ public class ChatPanel extends JPanel {
             System.out.println(msg);
             System.out.println(msg.length());
             try {
-                c.sendMessage(
-                        msg, fontSelect.getSelectedItem().toString(),
-                        fontSizemodel.getValue().toString(), bold, italics,
-                        underlined);
+            	if(oldContentPane == null){
+	                c.sendMessage(
+	                        msg, fontSelect.getSelectedItem().toString(),
+	                        fontSizemodel.getValue().toString(), bold, italics,
+	                        underlined, "#000000");
+            	}else{
+            		c.sendMessage(
+	                        msg, fontSelect.getSelectedItem().toString(),
+	                        fontSizemodel.getValue().toString(), bold, italics,
+	                        underlined, oldContentPane.hexColor);
+            	}
 
             } catch (XMPPException e) {
                 e.printStackTrace();
@@ -343,20 +354,23 @@ public class ChatPanel extends JPanel {
         public void actionPerformed(ActionEvent evt) {
 
             JFrame frame = new JFrame("Color Chooser");
+<<<<<<< .mine
+            oldContentPane = new ColorUserSelect();
+            
+=======
             frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
 
+>>>>>>> .r1217
             // Create and set up the content pane.
-            JComponent newContentPane = new ColorUserSelect(); 
+            JComponent newContentPane = oldContentPane;
             
             newContentPane.setOpaque(true); // content panes must be opaque
             frame.setContentPane(newContentPane);
-
+            
             // Display the window.
             frame.pack();
             frame.setVisible(true);
-
         }
-
     }
 
     /**

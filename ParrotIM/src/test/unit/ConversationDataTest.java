@@ -117,7 +117,7 @@ public class ConversationDataTest {
         MessageData expected =
                 new MessageData(
                         "Rakan", "Hey how are you doing?", "TimesNewRoman",
-                        "13", false, false, false);
+                        "13", false, false, false, "#000000");
         cd1.addMessage(expected);
         assertSame(expected, cd1.getText().get(0));
     }
@@ -127,7 +127,7 @@ public class ConversationDataTest {
         MessageData expected =
                 new MessageData(
                         "Ray", "Hey, can I see at Coffeshop", "Gothic",
-                        "20", false, false, false);
+                        "20", false, false, false, "#000000");
         cd1.addMessage(expected);
         assertTrue(cd1.getText().contains(expected));
     }
@@ -140,7 +140,7 @@ public class ConversationDataTest {
         MessageData e =
                 new MessageData(
                         "DeNiro", "Did you saw my movie?", "Italic", "15",
-                        false, false, false);
+                        false, false, false, "#000000");
         cd2.addMessage(e);
         expected++;
         assertTrue(expected == cd2.getMessageCount());
@@ -154,11 +154,11 @@ public class ConversationDataTest {
                 new MessageData(
                         "Godfather",
                         "I'll give you an offer that you can't refuse",
-                        "Calbarie", "18", false, false, false);
+                        "Calbarie", "18", false, false, false, "#000000");
         MessageData e2 =
                 new MessageData(
                         "Fannuci", "Meet me at the restuarant",
-                        "TimesNewRoman", "16", false, false, false);
+                        "TimesNewRoman", "16", false, false, false, "#000000");
         cd1.addMessage(e1);
         cd1.addMessage(e2);
         // Assert it contains all messagedata from e1 attributes
