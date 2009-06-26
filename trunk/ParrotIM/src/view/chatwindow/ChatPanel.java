@@ -130,10 +130,10 @@ public class ChatPanel extends JPanel {
         // Italics Button
         final JButton italicsButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
-                        "/images/chatwindow/italics.png")));
+                        "/images/chatwindow/Italics.png")));
         italicsButton.setSelectedIcon(new ImageIcon(this
                 .getClass().getResource(
-                        "/images/chatwindow/italicsSelected.png")));
+                        "/images/chatwindow/ItalicsSelected.png")));
         italicsButton.setToolTipText("Italic");
         italicsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
