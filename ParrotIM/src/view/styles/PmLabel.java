@@ -55,6 +55,7 @@ public class PmLabel extends JTextField {
 	/**
 	 * PmLabel constructor. It takes a MainController object as its argument.
 	 * It also sets up some settings for the object.
+	 * @param c
 	 */
 	public PmLabel (MainController c){
 		core = c;

@@ -41,7 +41,7 @@ public class LinkLabel extends JLabel {
 	/**
 	 * LinkLabel constructor. It takes a String object as its argument.
 	 * It sets up the String to be underlined and show it on the GUI.
-	 */
+	 * @param text */
 	public LinkLabel (String text){
 		this.setHorizontalAlignment(CENTER);
 		this.text = text;
@@ -62,6 +62,7 @@ public class LinkLabel extends JLabel {
 		/**
 		 * labelMouseListener constructor.
 		 * It takes a PmLabel object.
+		 * @param lbl
 		 */
 		public labelMouseListener (LinkLabel lbl){
 			label = lbl; 
@@ -71,13 +72,15 @@ public class LinkLabel extends JLabel {
 		}
 
 		/** When the user hover on label, the text will be bolded.
-		 * It takes a MouseEvent argument */
+		 * It takes a MouseEvent argument
+		 * @param e */
 		public void mouseEntered(MouseEvent e) {
 			label.setText("<html><b>"+label.text+"</b></html>");
 		}
 		
 		/** When the user hover on label, the text will be underlined.
-		 * It takes a MouseEvent argument */
+		 * It takes a MouseEvent argument 
+		 * @param e */
 		public void mouseExited(MouseEvent e) {
 			label.setText("<html><u>"+ text +"</u></html>");
 		}

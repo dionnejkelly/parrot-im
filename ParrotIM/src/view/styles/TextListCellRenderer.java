@@ -43,6 +43,11 @@ public class TextListCellRenderer extends JLabel implements ListCellRenderer{
  
 	/**
 	 * It returns a cell component which background white and foreground are black at all time
+	 * @param list
+	 * @param value
+	 * @param index
+	 * @param isSelected
+	 * @param cellHasFocus
 	 */
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 	{

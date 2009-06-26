@@ -36,17 +36,20 @@ public class ChatWindowListener implements WindowListener {
 	/** model allows to store the state of ChatWindow (ie. whether it is opened or not). */
 	Model model;
 	
-	/** ChatWindowListener takes Model object as an argument. */
+	/** ChatWindowListener takes Model object as an argument.
+	 * @param model */
 	public ChatWindowListener(Model model){
 		this.model = model;
 	}
 
-	/** Sets chatWindowOpen to false. It takes a WindowEvent argument. */
+	/** Sets chatWindowOpen to false. It takes a WindowEvent argument. 
+	 * @param e */
 	public void windowClosed(WindowEvent e) {
 		model.chatWindowOpen = false;
 	}
 	
-	/** Sets chatWindowOpen to false. It takes a WindowEvent argument.*/
+	/** Sets chatWindowOpen to false. It takes a WindowEvent argument.
+	 * @param e */
 	public void windowClosing(WindowEvent e) {
 		model.chatWindowOpen = false;
 	}

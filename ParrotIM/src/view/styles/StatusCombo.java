@@ -49,7 +49,7 @@ public class StatusCombo extends JComboBox{
 	/**
 	 * StatusCombo constructor. It takes a MainController object as its argument.
 	 * It also sets up some settings for the object.
-	 */
+	 * @param c */
 	public StatusCombo(MainController c){
 		super(status);
 		chatClient = c;
@@ -66,9 +66,9 @@ public class StatusCombo extends JComboBox{
 		//TODO: Change this to inputmethodlistener!!!
 
 		/**
-	     * Changes the status of the user on the server. It takes an ActionEvent argument
-	     * and returns null.
-	     */
+	     * Changes the status of the user on the server.
+	     * It takes an ActionEvent argument and returns null.
+	     * @param e */
 		public void actionPerformed(ActionEvent e) {
 			if (getSelectedIndex() > -1){
 				System.out.println("-----------------------------------Coming from here");

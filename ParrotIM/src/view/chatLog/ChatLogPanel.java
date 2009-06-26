@@ -121,6 +121,10 @@ public class ChatLogPanel extends JSplitPane {
     /** 
      * The constructor of ChatLogPanel. It takes model and currently used profile name as arguments.
      * It sets up the panel, including the nested splitPane. 
+     * @param model
+     * @param profile
+     * @throws ClassNotFoundException
+     * @throws SQLException
      */
     public ChatLogPanel(Model model, String profile) throws ClassNotFoundException, SQLException {
         // model stub
@@ -178,6 +182,7 @@ public class ChatLogPanel extends JSplitPane {
     	/**
          * If the selected buddy of the buddies JList is changed, then regenerate
          * the list of dates on dateList JList.
+         * @param e
          */
         public void valueChanged(ListSelectionEvent e) {
             if (buddies.getSelectedIndex() > -1) {
@@ -207,6 +212,7 @@ public class ChatLogPanel extends JSplitPane {
          * If user selected a date of the dateList JList changed,
          * text will show the logged message of the date. 
          * It takes a ListSelectionEvent argument.
+         * @param e
          */
         public void valueChanged(ListSelectionEvent e) {
             JList source = (JList) e.getSource();
@@ -224,6 +230,7 @@ public class ChatLogPanel extends JSplitPane {
          * This method grabs the message from the database and sets the Vector returned
          * by the model as the text's data source. It also update the message shown by text.
          * It takes a String argument that specify the date.
+         * @param date
          */
         private void updateLog(String date) {
         	// Grab all message objects from the database

@@ -49,6 +49,10 @@ public class BuddyPanel extends JPanel {
     /** 
      * The constructor of BuddyPanel. It takes model and currently used profile name as arguments.
      * It sets up the right component of ChatLogPanel.
+     * @param model
+     * @param profile
+     * @throws SQLException
+     * @throws ClassNotFoundException
      */
     public BuddyPanel(Model model, String profile) throws SQLException, ClassNotFoundException {
 
