@@ -1,5 +1,12 @@
 #summary Assignment 3 submission
 
+= Source = 
+All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
+
+Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/ParrotIM]
+
+----
+
 = Executable File =
 (link to Jar file)
 
@@ -30,20 +37,13 @@ The low-level data types were checked for consistency, and each method was verif
 
 Development of unit test cases allowed us to remove redundant code and add more robust methods to our low-level data. For instance, the Quality Assurance team identified methods that effectively did the same task, and merged them into one. 
 
-Another important find was that the search functions were comparing based on an equals method inherited by the Object class. Essentially, two UserData or AccountData objects were treated as equal only if they had the same reference; not if their data was equal. This posed subtle problems for removing or checking for the existence of these objects. As The equals() method was overridden as a result of the test cases.
+Another important find was that the search functions were comparing based on an equals method inherited by the Object class. Essentially, two !UserData or !AccountData objects were treated as equal only if they had the same reference; not if their data was equal. This posed subtle problems for removing or checking for the existence of these objects. As The equals() method was overridden as a result of the test cases.
 
 Furthermore, these tests will be conducted and updated as our low-level data types under go upgrades in future revisions of the program.
 
 == Integration Testing ==
 
 == User Acceptance Testing ==
-
-----
-
-= Source = 
-All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
-
-Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/ParrotIM]
 
 ----
 
