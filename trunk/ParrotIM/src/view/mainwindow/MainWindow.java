@@ -64,6 +64,11 @@ import model.*;
 import model.dataType.CurrentProfileData;
 import model.enumerations.UpdatedType;
 
+/**
+ * The container frame of SignInPanel.
+ *
+ * This class inherits JFrame methods and variables, and implements Observer.
+ */
 public class MainWindow extends JFrame implements Observer {
 	private SignInPanel signPanel;
 	public MainWindow (MainController chatClient, Model model) 

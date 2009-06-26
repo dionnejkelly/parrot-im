@@ -84,12 +84,6 @@ public class ChatLogPanel extends JSplitPane {
     private JScrollPane datesScroll;
     
     /** 
-     * dateVectorString is a String vector that holds the dates of chat history.
-     * This Vector is actually not needed. Will remove it when the program runs normally.
-     */
-    private Vector<String> dateVectorList;
-    
-    /** 
      * dateList is a JList that shows the dates of chat history.
      * It shows the dates on dateVectorList.
      */
@@ -116,7 +110,7 @@ public class ChatLogPanel extends JSplitPane {
      * stub is an array of String with one member.
      * It used if there is no message to display on text.
      */
-    private String[] stub = new String[]{"<html><i>no chat log is displayed</i></html>"};
+    private String[] stub = new String[]{"<html><i>no data is displayed</i></html>"};
 
     /** 
      * The constructor of ChatLogPanel. It takes model and currently used profile name as arguments.
@@ -158,8 +152,8 @@ public class ChatLogPanel extends JSplitPane {
         logPane.setBottomComponent(chatlog);
 
         // top right component shows the list of dates
-        dateVectorList = new Vector<String>();
-        dateList = new JList(dateVectorList);
+        dateList = new JList(stub);
+        dateList.setEnabled(false);
         dateList.addListSelectionListener(new datesListener());
         dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         datesScroll = new JScrollPane(dateList);
@@ -187,12 +181,13 @@ public class ChatLogPanel extends JSplitPane {
         public void valueChanged(ListSelectionEvent e) {
             if (buddies.getSelectedIndex() > -1) {
 
-                dateVectorList = model.getBuddyDateList(profile, buddies
+                Vector<String> dateVectorList = model.getBuddyDateList(profile, buddies
                         .getSelectedValue().toString());
                 
 
 //                System.out.println("dateVectorList is null??  "+dateVectorList.size());
                 dateList.setListData(dateVectorList);
+                dateList.setEnabled(true);
                 dateList.updateUI();
                 	
                 text.setListData(stub);
