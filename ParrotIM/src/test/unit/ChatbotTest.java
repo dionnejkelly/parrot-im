@@ -63,7 +63,7 @@ public class ChatbotTest {
 			check.add(cb1.get_knowledgebase()[0][i]);
 		}
 		
-		assertSame(expected,check);
+		assertArrayEquals(expected.toArray(),check.toArray());
 		
 	}
 
@@ -91,9 +91,11 @@ public class ChatbotTest {
 		String expected = "WHAT IS YOUR NAME";
 		
 		cb1.get_input(q1);
+		cb1.save_prev_input();
+		cb1.handle_user_repetition();
 		String result = cb1.getHandle_user_repetion();
 		
-		assertSame(expected, result);
+		assertEquals(expected, result);
 		
 		
 		
@@ -102,12 +104,12 @@ public class ChatbotTest {
 	@Test
 	public void testHandle_event() throws Exception {
 		String q1 = "What is your name?";
-		String expected = "WHAT IS YOUR NAME";
+		String expected = "WHAT IS YOUR NAME ";
 		
 		cb1.get_input(q1);
 		String result = cb1.getHandle_event();
 		
-		assertSame(expected, result);
+		assertEquals(expected, result);
 	}
 
 	@Test
@@ -131,25 +133,26 @@ public class ChatbotTest {
 	@Test
 	public void testSave_prev_input() throws Exception {
 		String q1 = "What is your name?";
-		String expected = "WHAT IS YOUR NAME";
+		String expected = "WHAT IS YOUR NAME ";
 		
 		cb1.get_input(q1);
+		cb1.save_prev_input();
 		String result = cb1.getSave_prev_input();
 		
-		assertSame(expected, result);
+		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testSave_prev_response() throws Exception {
-		String q1 = "What is your name?";
+		String q1 = "YES";
 
 		cb1.get_input(q1);
 		
 		String expected = cb1.get_response();
-		
+		cb1.save_prev_input();
 		String result = cb1.getSave_preve_response();
 		
-		assertSame(expected, result);
+		assertEquals(expected, result);
 	}
 
 	@Test
@@ -159,10 +162,10 @@ public class ChatbotTest {
 		cb1.get_input(q1);
 		
 		String expected = "";
-		
+		cb1.save_prev_event();
 		String result = cb1.getSave_prev_event();
 		
-		assertSame(expected, result);
+		assertEquals(expected, result);
 	}
 
 	@Test
@@ -182,10 +185,10 @@ public class ChatbotTest {
 		
 		cb1.save_input();
 		
-		String expected = "WHAT IS YOUR NAME";
+		String expected = "WHAT IS YOUR NAME ";
 		
 		
-		assertSame(expected, cb1.getSave_input());
+		assertEquals(expected, cb1.getSave_input());
 	}
 
 	@Test
@@ -205,17 +208,18 @@ public class ChatbotTest {
 		cb1.restore_input();
 		
 		String expected = "";
-		assertSame(expected, cb1.getRestore_input());
+		assertEquals(expected, cb1.getRestore_input());
 	}
 
 	@Test
 	public void testGet_response() throws Exception {
+		assertEquals("",cb1.get_response());
 		String q1 = "What is your name?";
 		cb1.get_input(q1);
 		
-		String expected = cb1.get_response();
+		String expected = cb1.respond();
 		
-		assertSame(expected, cb1.respond());
+		assertSame(expected, cb1.get_response());
 		
 		
 	}
@@ -227,9 +231,9 @@ public class ChatbotTest {
 		cb1.preprocess_input();
 	
 		
-		String expected = "WHAT IS YOUR NAME";
+		String expected = "WHAT IS YOUR NAME ";
 		
-		assertSame(expected, cb1.respond());
+		assertEquals(expected, cb1.getPreprocess_input());
 	}
 
 	@Test
@@ -303,10 +307,10 @@ public class ChatbotTest {
 
 	@Test
 	public void testNo_response() throws Exception {
+		assertTrue(cb1.no_response());
 		String q1 = "Hi";
 		cb1.get_input(q1);
-		
-		assertSame(true, !cb1.no_response());
+		assertFalse(!cb1.no_response());
 	}
 
 	@Test
@@ -317,7 +321,7 @@ public class ChatbotTest {
 		cb1.get_input(q1);
 		cb1.get_input(q1);
 		
-		assertSame(true, cb1.same_input());
+		assertTrue( cb1.same_input());
 	}
 
 	@Test
@@ -335,7 +339,7 @@ public class ChatbotTest {
 	@Test
 	public void testCleanString() {
 		String expected = "What is your age ";
-		assertSame(expected,cb1.cleanString("What is your age?"));
+		assertEquals(expected,cb1.cleanString("What is your age?"));
 	}
 
 }
