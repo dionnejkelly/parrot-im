@@ -8,7 +8,8 @@ Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/Parrot
 ----
 
 = Executable File =
-(link to Jar file)
+
+Direct link: [http://parrot-im.googlecode.com/files/ParrotIM_alpha_preSubmit_v1.jar]
 
 ----
 
