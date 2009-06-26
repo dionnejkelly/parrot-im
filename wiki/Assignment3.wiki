@@ -3,8 +3,8 @@
 = Source = 
 All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
-Note to Scott: This originally pointed to branches-->Alpha, but I wasn't able to branch it over. Sorry, am still trying to figure it out. In the meantime, here is a direct link to the zipped source.
-Direct link: [http://parrot-im.googlecode.com/files/ParrotIM_alpha.zip]
+SVN link to source (deadline of June 26 1:30pm for updates to its files) [http://static.twitter.com/images/default_profile_normal.png] <br>
+Direct link (last update, before June 26 1:30pm): [http://parrot-im.googlecode.com/files/ParrotIM_alpha.zip]
 
 ----
 
