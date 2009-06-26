@@ -17,6 +17,8 @@ import javax.swing.*;
 
 import org.jivesoftware.smack.XMPPException;
 
+import view.styles.PopupWindowListener;
+
 import controller.MainController;
 
 import model.*;
@@ -62,6 +64,8 @@ public class ChatPanel extends JPanel {
     private MainController c;
     private SpinnerModel fontSizemodel;
     public boolean bold, italics, underlined;
+    
+    protected JFrame chatFrame;
 
     /**
      * This is the constructor of the ChatPanel.
@@ -70,8 +74,9 @@ public class ChatPanel extends JPanel {
      * @param model
      */
 
-    public ChatPanel(MainController c, Model model) {
+    public ChatPanel(MainController c, Model model, JFrame chatFrame) {
         setLayout(new BorderLayout());
+        this.chatFrame = chatFrame;
 
         this.model = model;
         this.c = c;
@@ -338,6 +343,7 @@ public class ChatPanel extends JPanel {
         public void actionPerformed(ActionEvent evt) {
 
             JFrame frame = new JFrame("Color Chooser");
+            frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
 
             // Create and set up the content pane.
             JComponent newContentPane = new ColorUserSelect(); 
