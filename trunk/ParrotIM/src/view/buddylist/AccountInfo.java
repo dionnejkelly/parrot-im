@@ -92,7 +92,7 @@ public class AccountInfo extends JPanel
 	MainController chatClient;
 	
 	/**
-	 * status of message
+	 * user status message
 	 */
 	protected PmLabel statusMessage;
 	/**
@@ -105,7 +105,7 @@ public class AccountInfo extends JPanel
 	protected String text;
 	
 	/**
-	 * model
+	 * variable model for extracting buddy list, each buddy's information and , conversation 
 	 */
 	private Model model;
 	//SELECTION

@@ -30,12 +30,25 @@ import model.Model;
  * BuddyList display Friend contact list for Parrot IM users.
  */
 public class BuddyList extends JFrame {
+    /**
+     * menu bar in buddy list
+     */
     JMenuBar menu;
+    /**
+     * variable model for extracting buddy list, each buddy's information and , conversation 
+     */
     protected Model model;
+    /**
+     * variable controller for setting user status and instantiates conversations.
+     */
     private MainController controller;
+    /**
+     * buddy window frame
+     */
     protected JFrame buddywindow;
 
     /**
+     * BuddyList display friend contact list, status, information and conversation.
      * @param c
      * @param model
      */
@@ -70,7 +83,8 @@ public class BuddyList extends JFrame {
 
     // Creates top Text Menu
     /**
-     * @return
+     * createMenu(), create menu on top of buddy list. It provide access to functions such as files, contact, options and help.
+     * @return menuBar
      */
     public JMenuBar createMenu() {
         JMenuBar menuBar;
@@ -133,12 +147,12 @@ public class BuddyList extends JFrame {
     }
     
     /**
-     * @author TOSHIBA
+     * helpListener
      *
      */
     private class helpListener implements ActionListener {
-        /* (non-Javadoc)
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+        /* 
+         * 
          */
         public void actionPerformed(ActionEvent e) {
             new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_Exit");
@@ -149,12 +163,12 @@ public class BuddyList extends JFrame {
     
 
     /**
-     * @author TOSHIBA
+     * chatLog listener
      *
      */
     private class chatLogListener implements ActionListener {
-        /* (non-Javadoc)
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+        /* 
+         * 
          */
         public void actionPerformed(ActionEvent e) {
         	if (!model.logWindowOpen){
@@ -173,7 +187,7 @@ public class BuddyList extends JFrame {
     }
 
     /**
-     * @author TOSHIBA
+     * option listener
      *
      */
     private class optionListener implements ActionListener {
