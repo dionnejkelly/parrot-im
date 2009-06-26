@@ -92,6 +92,11 @@ h) log out
   * User did not like the design of the Help window.
   * User did not like the fact that he can't find out which account he's logged into while logged on, only the profile.
   * User did not like the Help/About Parrot.IM link opening right on top of the main window, causing a confusing effect.
+  * Didn't like buttons with icons not having tooltips
+  * Didn't like text formatting buttons not changing the text in the input box
+  * Add a buddy asked for an "Input", not user friendly
+  * Didn't like message box having a delay after pressing enter to clear the box
+  * When opening a conversation, the keyboard input should be focused on the text input field
   * please add!
 
 
