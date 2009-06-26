@@ -1,7 +1,27 @@
+/* guestAccountFrame.java
+ * 
+ * Programmed By:
+ * 	   Vera Lukman
+ *     
+ * Change Log:
+ *     2009-June-25, VL
+ *         Initial write.
+ *         
+ * Known Issues:
+ *     None
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package view.mainwindow;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -11,20 +31,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import model.Model;
+
 /**
  * The container frame of About ParrotIM Window. User can view the details about ParrotIM
  * 
  * This object inherits JFrame variables and methods
  */
 public class aboutFrame extends JFrame{
+	/** model allows aboutFrame to store the state of aboutFrame (ie. whether it is opened or not). */
+	Model model;
 	
-	public aboutFrame(){
+	/**
+	 * aboutFrame constructor. This window describes about ParrotIM
+	 */
+	public aboutFrame(Model model){
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.model = model;
+		this.addWindowListener(new aboutWindowListener());
 		this.setTitle("About ParrotIM");
 		this.setPreferredSize(new Dimension(300,500));
 		this.setResizable(false);
 		
 		//our logo + parrotIM label
 		JPanel topPanel = new JPanel();
+		topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 		topPanel.setLayout(new BorderLayout());
 		JLabel avatarDisplay = new JLabel ();
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
@@ -32,28 +63,35 @@ public class aboutFrame extends JFrame{
 		avatarDisplay.setIcon(avatar);
 		topPanel.add(avatarDisplay, BorderLayout.NORTH);
 		
-		JLabel parrotLabel = new JLabel("ParrotIM");
+		JLabel parrotLabel = new JLabel("(c) Pirate Captains 2009");
 		parrotLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		topPanel.add(parrotLabel, BorderLayout.CENTER);
 		
 		//informations
-		JLabel informations = new JLabel();
-		informations.setText("<html>This software is developed by<br>" +
-				"* Rakan Alkheliwi <br>* William (Wei-Lun) Chen <br>* Jihoon Choi <br>* Kevin Fahy <br>" +
-				"* Jordan Fox <br>* Chenny Huang <br>* Vera Lukman <br>* Ahmad Sidiqi <br>* Aaron Siu <br>* Wei Zhang</html>");
-		informations.setHorizontalAlignment(SwingConstants.CENTER);
+		JPanel informations = new JPanel();
+		String[] infoArray = new String[] {"This software is developed by", "Rakan Alkheliwi", 
+				"William (Wei-Lun) Chen", "Jihoon Choi", "Kevin Fahy", "Jordan Fox", "Chenny Huang", 
+				"Vera Lukman", "Ahmad Sidiqi", "Aaron Siu", "Wei Zhang"};
+		GridLayout infoLayout = new GridLayout(infoArray.length, 1);
+		informations.setLayout(infoLayout);
+//		infoLayout.setVgap(3);
 		
-		//pirate captains
-		JLabel author = new JLabel ("(c) Pirate Captains 2009");
-		author.setHorizontalAlignment(SwingConstants.CENTER);
+		for (int pos = 0; pos < infoArray.length; pos++){
+			JLabel infoLabel = new JLabel(infoArray[pos]);
+			infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			informations.add(infoLabel);
+		}
+		
+		JPanel infoLabelAll = new JPanel();
+		infoLabelAll.setLayout(new BorderLayout());
+		infoLabelAll.add(informations, BorderLayout.NORTH);
 		
 		//setting aboutPanel
 		JPanel aboutPanel = new JPanel();
 		aboutPanel.setLayout(new BorderLayout());
 		aboutPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
 		aboutPanel.add(topPanel, BorderLayout.NORTH);
-		aboutPanel.add(informations, BorderLayout.CENTER);
-		aboutPanel.add(author, BorderLayout.SOUTH);
+		aboutPanel.add(infoLabelAll, BorderLayout.CENTER);
 		
 		//setting frame
 		this.getContentPane().add(aboutPanel);
@@ -61,4 +99,35 @@ public class aboutFrame extends JFrame{
 		this.setVisible(true);
 	}
 
+	/**
+     * This is a private class that controls the WindowListener for ChatLogFrame.
+     * It sets the variable logWindowOpen in Model class.
+     * 
+     * This class inherits WindowListener variables and methods.
+     */
+	private class aboutWindowListener implements WindowListener{
+
+		public void windowActivated(WindowEvent e) {}
+
+	    /**
+	     * When the aboutFrame is closed, aboutWindowOpen will be set to false.
+	     * It returns nothing.
+	     */
+		public void windowClosed(WindowEvent e) {
+			model.aboutWindowOpen = false;
+		}
+
+		public void windowClosing(WindowEvent e) {}
+		public void windowDeactivated(WindowEvent e) {}
+		public void windowDeiconified(WindowEvent e) {}
+		public void windowIconified(WindowEvent e) {}
+		
+	    /**
+	     * When the aboutFrame is closed, aboutWindowOpen will be set to true.
+	     * It returns nothing.
+	     */
+		public void windowOpened(WindowEvent e) {
+			model.aboutWindowOpen = true;
+		}
+	}
 }
