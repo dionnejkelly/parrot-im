@@ -6,7 +6,37 @@
 ----
 
 = Testing Report =
-(Place User Acceptance testing logs here)
+
+Testing for the Alpha released consisted of three parts:
+
+== Unit Testing ==
+
+The low-level data types were checked for consistency, and each method was verified to return the expected results and make state changes to the objects as expected. The test cases are as follows:
+
+|| *Filename* || *Components Tested* ||
+|| AccountDataTest.java || data consistency, adding friends, removing friends, searching for friends ||
+|| AccountTempDataTest.java || data consistency ||
+|| ChatbotTest || response generation, response triggering, enabler ||
+|| ChatlogMessageTempDataTest || data consistency ||
+|| ConversationDataTest || data consistency, message retrieval, message formatting, message storage ||
+|| CurrentProfileDataTest || data consistency, adding accounts, removing friends, getting friend list ||
+|| GoogleTalkUserData || data consistency ||
+|| JabberUserData || data consistency ||
+|| MessageDataTest || data consistency, message manipulation, message retrieval ||
+|| ServerTypeTest || utility methods for enumerated type ||
+|| UserDataTest || inheritance test, data consistency ||
+
+*Results:*
+
+Development of unit test cases allowed us to remove redundant code and add more robust methods to our low-level data. For instance, the Quality Assurance team identified methods that effectively did the same task, and merged them into one. 
+
+Another important find was that the search functions were comparing based on an equals method inherited by the Object class. Essentially, two UserData or AccountData objects were treated as equal only if they had the same reference; not if their data was equal. This posed subtle problems for removing or checking for the existence of these objects. As The equals() method was overridden as a result of the test cases.
+
+Furthermore, these tests will be conducted and updated as our low-level data types under go upgrades in future revisions of the program.
+
+== Integration Testing ==
+
+== User Acceptance Testing ==
 
 ----
 
@@ -65,6 +95,7 @@ Listed are the conventions for all visual aspects of the code.
 || *Type* || *Convention* ||
 || Block Indentations || 4 spaces wide ||
 || Tabs || 8 spaces wide ||
+|| Maximum line size || 80 characters long ||
 
 === Comments ===
 || *Type* || *Convention* ||
