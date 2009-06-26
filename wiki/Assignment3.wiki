@@ -71,7 +71,8 @@ Additionally, we asked some testers to try out Parrot IM alone, and they reporte
 
 *Results:*
   * Need to improve the GUI so the user can easily distinguish profile and account.
-
+  * I think we need to impove the view of the buddy list in the Beta version.
+  * We should make the block friend icon as clear as the add friend and remove friend icon. 
 ----
 
 = Known Bugs =
