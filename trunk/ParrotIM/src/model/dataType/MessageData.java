@@ -66,6 +66,11 @@ public class MessageData {
      */
     private String size;
 
+    /** These are the font settings as set by the
+     * corresponding buttons on the chatPanel
+     */
+    private boolean bold, italics, underlined;
+    
     // Section
     // II - Constructors
 
@@ -77,11 +82,15 @@ public class MessageData {
      * @param font
      * @param size
      */
-    public MessageData(String fromUser, String message, String font, String size) {
+    public MessageData(String fromUser, String message, String font, String size,
+    		boolean bold, boolean italics, boolean underlined) {
         this.fromUser = fromUser;
         this.message = message;
         this.font = font;
         this.size = size;
+        this.bold = bold;
+        this.italics = italics;
+        this.underlined = underlined;
     }
 
     // Section
@@ -153,11 +162,21 @@ public class MessageData {
      * @return The message with HTML tags attached for display.
      */
     public String text() {
-        String text =   "<U><font face = \"Arial\">"
-                        + this.fromUser + ":</font></U> " + "<font face=\""
+    	String toUserText = "<U><font face = \"Arial\">"
+            			+ this.fromUser + ":</font></U> ";
+        String text =   "<font face=\""
                         + this.font + "\" size=\"" + this.size + "\">"
                         + this.message + "</font><br><br>";
-
+        if(this.bold){ 
+        	text = "<b>" + text + "</b>"; 
+        }
+        if(this.italics){ 
+        	text = "<i>" + text + "</i>"; 
+        }
+        if(this.underlined){ 
+        	text = "<u>" + text + "</u>"; 
+        }
+        text = toUserText + text;
         return text;
     }
 

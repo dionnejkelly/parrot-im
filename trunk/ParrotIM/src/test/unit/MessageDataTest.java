@@ -13,7 +13,8 @@ public class MessageDataTest {
 	private MessageData md2;
 	@Before
 	public void setUp() throws Exception {
-		md1 = new MessageData("Gina","Hey, are you coming?","TimesNewRoman","17");
+		md1 = new MessageData("Gina","Hey, are you coming?","TimesNewRoman","17",
+				false, false, false);
 		
 	}
 
@@ -24,7 +25,8 @@ public class MessageDataTest {
 
 	@Test
 	public void testMessageData() {
-		md2 = new MessageData("Niko","What did you say?","Bold","20");
+		md2 = new MessageData("Niko","What did you say?","Bold","20", false,
+				false, false);
 		assertSame("Niko",md2.getFromUser());
 		assertSame("What did you say?",md2.getMessage());
 		assertSame("Bold",md2.getFont());
