@@ -31,7 +31,10 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
+import view.styles.PopupEnableMainWindowListener;
+
 import model.Model;
+import model.enumerations.PopupEnableWindowType;
 
 /**
  * The container frame of ChatLogPanel.
@@ -59,39 +62,7 @@ public class ChatLogFrame extends JFrame {
         this.setMinimumSize(new Dimension(400, 300));
         this.pack();
         this.setVisible(true); // might want to change this
-        this.addWindowListener(new chatLogWindowListener());
+        this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.CHATLOG));
     }
     
-    /**
-     * This is a private class that controls the WindowListener for ChatLogFrame.
-     * It sets the variable logWindowOpen in Model class.
-     * 
-     * This class inherits WindowListener variables and methods.
-     */
-    private class chatLogWindowListener implements WindowListener{
-
-		public void windowActivated(WindowEvent e) {}
-
-	    /**
-	     * When the chatLogWindow is closed, logWindowOpen will be set to false.
-	     * It returns nothing.
-	     */
-		public void windowClosed(WindowEvent e) {
-			model.logWindowOpen = false;
-		}
-
-		public void windowClosing(WindowEvent e) {}
-		public void windowDeactivated(WindowEvent e) {}
-		public void windowDeiconified(WindowEvent e) {}
-		public void windowIconified(WindowEvent e) {}
-		
-	    /**
-	     * When the chatLogWindow is opened, logWindowOpen will be set to true.
-	     * It returns nothing.
-	     */
-		public void windowOpened(WindowEvent e) {
-			model.logWindowOpen = true;
-		}
-    	
-    }
 }
