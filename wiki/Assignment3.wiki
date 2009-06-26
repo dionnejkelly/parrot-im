@@ -100,7 +100,6 @@ h) log out
   * Wanted an indicator for signing it. Currently it looks like it's frozen when logging in.
   * Exiting Buddy list with File->Exit doesn't also close the chat window.
   * Wanted a Account Setup wizard to open on first run of the program.
-  * please add!
 
 
 *Future Plans:*
