@@ -75,7 +75,7 @@ public class Model extends Observable {
 
     // Section
     // I - Data Members
-	
+
     /**
      * Holds a collection of all conversations. If no conversations are
      * currently active, the collection is simply empty.
@@ -325,7 +325,7 @@ public class Model extends Observable {
 
         return conversation;
     }
-    
+
     /**
      * Searches the current list of conversations for a conversation with the
      * specified user. Returns the ConversationData object if found; null
@@ -347,14 +347,13 @@ public class Model extends Observable {
         return conversation;
     }
 
-    
     /**
      * Handles the receiving message.
      * 
      * @param account
      * @param message
      */
-    
+
     public void receiveMessage(AccountData account, MessageData message) {
         UserData user = null;
         ConversationData modifiedConversation = null;
@@ -375,12 +374,12 @@ public class Model extends Observable {
         user = this.findUserByAccountName(fromUser);
         modifiedConversation = this.findConversationByFriend(user);
 
-        
         if (modifiedConversation != null) {
             // Case 1: We found a matching conversation
             modifiedConversation.addMessage(message);
         } else {
-            // Case 2: No match found; create conversation and add it to the list
+            // Case 2: No match found; create conversation and add it to the
+            // list
             modifiedConversation = new ConversationData(account, user);
             this.conversations.add(modifiedConversation);
             this.activeConversation = modifiedConversation;
@@ -392,7 +391,7 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     /**
      * Sends the outgoing message.
      * 
@@ -415,7 +414,7 @@ public class Model extends Observable {
         notifyObservers(UpdatedType.CHAT);
         return;
     }
-    
+
     /**
      * Starts new conversation.
      * 
@@ -452,7 +451,7 @@ public class Model extends Observable {
         notifyObservers(UpdatedType.CHAT);
         return conversation;
     }
-    
+
     /**
      * Returns the current conversation.
      * 
@@ -461,11 +460,11 @@ public class Model extends Observable {
     public ArrayList<ConversationData> getConversations() {
         return this.conversations;
     }
-    
+
     public void clearAllConversations() {
-        this.activeConversation = null;        
+        this.activeConversation = null;
         this.conversations.clear();
-        
+
         return;
     }
 
@@ -481,13 +480,17 @@ public class Model extends Observable {
      * @param accountName
      * @param password
      */
-    
+
     public void addAccount(
-            String profile, String server, String accountName, String password) {
+            String profile, String server, String accountName,
+            String password) {
         DatabaseFunctions db;
         try {
             db = new DatabaseFunctions();
-            db.addUsers(profile, server, accountName, password);
+            if (!db.checkAccountExists(profile, accountName)) {
+                db = new DatabaseFunctions();
+                db.addUsers(profile, server, accountName, password);
+            }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -501,7 +504,7 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     /**
      * Removes account from the database.
      * 
@@ -529,7 +532,7 @@ public class Model extends Observable {
     }
 
     /* Current Profile manipulation */
-    
+
     /**
      * Adds profile to the the database.
      * 
@@ -537,7 +540,7 @@ public class Model extends Observable {
      * @param pwd
      * @param defaultProfile
      */
-    
+
     public void addProfile(String name, String pwd, boolean defaultProfile) {
         DatabaseFunctions db;
         try {
@@ -556,7 +559,7 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     /**
      * Removes profile from the the database.
      * 
@@ -581,7 +584,7 @@ public class Model extends Observable {
 
         return;
     }
-    
+
     /**
      * Creates current profile.
      * 
@@ -593,7 +596,7 @@ public class Model extends Observable {
         currentProfile = new CurrentProfileData(account, profileName);
         return;
     }
-    
+
     /**
      * Adds account to current profile.
      * 
@@ -610,39 +613,37 @@ public class Model extends Observable {
      * 
      * @return CurrentProfileData
      */
-    
+
     public CurrentProfileData getCurrentProfile() {
         return currentProfile;
     }
-    
-    
+
     /**
      * Clears current profile.
      * 
      */
-    
+
     public void clearCurrentProfile() {
         this.currentProfile = null;
-        
+
         return;
     }
-    
+
     /**
      * Check whether current profile exists.
      * 
      * @return boolean
      */
-    
+
     public boolean currentProfileExists() {
         return (currentProfile != null);
     }
-    
+
     /**
      * Connect the account.
      * 
      * @param accountData
      */
-    
 
     public void connectAccount(AccountData accountData) {
         accountData.setConnected(true);
@@ -650,7 +651,7 @@ public class Model extends Observable {
         notifyObservers();
         return;
     }
-    
+
     /**
      * Disconnects the account.
      * 
@@ -669,7 +670,7 @@ public class Model extends Observable {
      * 
      * @param updatedType
      */
-    
+
     public void forceUpdate(UpdatedType updatedType) {
         setChanged();
         notifyObservers(updatedType);
@@ -734,7 +735,9 @@ public class Model extends Observable {
         // Database manipulation
         try {
             db = new DatabaseFunctions();
-            if (!db.checkFriendExists(account.getAccountName(), accountName)) {
+            if (!db
+                    .checkFriendExists(
+                            account.getAccountName(), accountName)) {
                 friend = new FriendTempData(accountName, false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
@@ -774,7 +777,9 @@ public class Model extends Observable {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), userToAdd
                     .getAccountName())) {
-                friend = new FriendTempData(userToAdd.getAccountName(), false);
+                friend =
+                        new FriendTempData(
+                                userToAdd.getAccountName(), false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
             }
@@ -815,7 +820,10 @@ public class Model extends Observable {
             db = new DatabaseFunctions();
             account = this.findAccountByFriend(exFriend);
             friendName = exFriend.getAccountName();
-            if (db.checkFriendExists(account.getAccountName(), friendName)) {
+            if (friendName != null
+                    && account != null
+                    && db.checkFriendExists(
+                            account.getAccountName(), friendName)) {
                 db = new DatabaseFunctions();
                 db.removeFriend(account.getAccountName(), friendName);
             }
@@ -952,7 +960,7 @@ public class Model extends Observable {
      * 
      * @return Vector<UserData> representation of the blocked friends.
      */
-    
+
     public Vector<UserData> getBannedUserList() {
         Vector<UserData> blockedFriends = new Vector<UserData>();
 
@@ -966,18 +974,18 @@ public class Model extends Observable {
         return blockedFriends;
 
     }
-    
+
     /**
      * Returns the unblocked user list.
      * 
      * @return Vector<UserData> representation of the bunlocked friends.
      */
-    
+
     public ArrayList<UserData> getUnblockedFriendList() {
         // Sorts alphabetically. Does not sort with regard to any other
         // properties (e.g. online, busy). Does not accept blocked friends
         // in the sorted list.
-        
+
         ArrayList<UserData> unsortedFriends = new ArrayList<UserData>();
         ArrayList<UserData> friends = new ArrayList<UserData>();
         UserData candidate = null;
@@ -1010,14 +1018,13 @@ public class Model extends Observable {
 
         return friends;
     }
-    
-    
+
     /**
      * Sorts the friend list.
      * 
      * @return Vector<UserData> representation of the sorted friends.
      */
-    
+
     public ArrayList<UserData> getOrderedFriendList() {
         ArrayList<UserData> unsortedFriends = new ArrayList<UserData>();
         ArrayList<UserData> friends = new ArrayList<UserData>();
@@ -1079,7 +1086,7 @@ public class Model extends Observable {
      * @param accountName
      * @return Vector<FriendTempData> representation of the saved friends.
      */
-    
+
     public Vector<FriendTempData> getSavedFriends(String accountName) {
         Vector<FriendTempData> friends = null;
         DatabaseFunctions db = null;
@@ -1103,15 +1110,16 @@ public class Model extends Observable {
     /*
      * ChatLog functions
      */
-    
+
     /**
      * Returns the buddy log list.
      * 
      * @param profile
      * @return Vector<String> representation of the buddy log list.
      */
-    
-    public Vector<String> getBuddyLogList(String profile) throws SQLException, ClassNotFoundException {
+
+    public Vector<String> getBuddyLogList(String profile)
+            throws SQLException, ClassNotFoundException {
         // returns list of buddies (that have chat log)
         // We might need to consider the case in which the same
         // user is on multiple accounts. With this scheme, the
@@ -1119,16 +1127,15 @@ public class Model extends Observable {
         Vector<String> buddies = new Vector<String>();
         DatabaseFunctions db = null;
 
-            db = new DatabaseFunctions();
+        db = new DatabaseFunctions();
 
-                // Iterates over all accounts, and adds the messages from the
-                // database of all accounts into messages
-                buddies.addAll(db.getChatNameList(profile));
-           
+        // Iterates over all accounts, and adds the messages from the
+        // database of all accounts into messages
+        buddies.addAll(db.getChatNameList(profile));
 
         return buddies;
     }
-    
+
     /**
      * Returns the deleted buddy date list.
      * 
@@ -1155,7 +1162,7 @@ public class Model extends Observable {
 
         return chats;
     }
-    
+
     /**
      * Returns the log list.
      * 
@@ -1178,8 +1185,8 @@ public class Model extends Observable {
 
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                messages.addAll(db.getMessageFromDate(
-                        account.getAccountName(), buddyname, date));
+                messages.addAll(db.getMessageFromDate(account
+                        .getAccountName(), buddyname, date));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

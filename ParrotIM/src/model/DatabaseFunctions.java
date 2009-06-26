@@ -475,25 +475,16 @@ public class DatabaseFunctions {
     public void addUsers(
             String profile, String server, String accountName,
             String password) throws SQLException {
-        if (!this.checkAccountExists(profile, accountName)) {
-            // Setup for returning from DB call. Fix this?
-            conn =
-                    DriverManager.getConnection("jdbc:sqlite:"
-                            + DatabaseFunctions.getDatabaseName());
-            stat = conn.createStatement();
-            // End setup
+        prep =
+                conn
+                        .prepareStatement("insert into people values (?, ?, ?, ?);");
+        conn.setAutoCommit(false);
 
-            prep =
-                    conn
-                            .prepareStatement("insert into people values (?, ?, ?, ?);");
-            conn.setAutoCommit(false);
-
-            prep.setString(1, profile);
-            prep.setString(2, server);
-            prep.setString(3, accountName);
-            prep.setString(4, password);
-            prep.executeUpdate();
-        }
+        prep.setString(1, profile);
+        prep.setString(2, server);
+        prep.setString(3, accountName);
+        prep.setString(4, password);
+        prep.executeUpdate();
 
         conn.commit();
         conn.close();
