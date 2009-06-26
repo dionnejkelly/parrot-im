@@ -16,7 +16,7 @@ No change in sequence diagram
 
 http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram.png
 
-New UML diagram
+The new UML diagram
 
 http://parrot-im.googlecode.com/files/alphaUML.png
 
