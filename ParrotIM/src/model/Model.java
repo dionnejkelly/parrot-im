@@ -728,10 +728,16 @@ public class Model extends Observable {
         UserData userToAdd = null;
 
         account = currentProfile.getAccountFromServer(server);
+        
         // Temp fix for user bug in jabber
+        // Shouldn't actually cycle through all of the accounts
         if (account == null) {
             server = ServerType.JABBER;
             account = currentProfile.getAccountFromServer(server);
+            if (account == null) {
+                server = ServerType.GOOGLE_TALK;
+                account = currentProfile.getAccountFromServer(server);
+            }
         }
         
         if (server == ServerType.GOOGLE_TALK) {
@@ -739,8 +745,6 @@ public class Model extends Observable {
         } else if (server == ServerType.JABBER) {
             userToAdd = new JabberUserData(accountName);
         }
-        
-        
 
         account.addFriend(userToAdd);
 
