@@ -2,11 +2,33 @@
 package view.options;
 
 import javax.swing.*;
-
 import java.awt.*;
 
+/**
+ * The OptionMenu is currently responsible for providing option menu for 
+ * Parrot IM users with their preference settings.
+ * 
+ */
+
 public class OptionMenu extends JPanel {
+	
+	// Section
+    // I - Non-Static Data Member
+
+    /**
+     * The options window frame.
+    */
 	private JFrame frame;
+	
+	// Section
+    // II - Constructor
+
+    /**
+     * OptionMenu() connects you to the Option Menu handler. 
+     * Every time you want to run a OptionMenu window you have to
+     * "OptionMenu optionMenu = new OptionMenu();" 
+     */
+	
 	
     public OptionMenu() {
         frame = new JFrame("User Preference");
@@ -23,6 +45,12 @@ public class OptionMenu extends JPanel {
         frame.setVisible(true);
     }
 
+    /**
+     * Returns the option menu.
+     * 
+     * @return JPanel
+     */ 
+    
 	private JPanel optionMenu()
 	{
 		JPanel options = new JPanel();
@@ -36,7 +64,7 @@ public class OptionMenu extends JPanel {
         tabbedPane.addTab("Personal Profile", panel1);
 
 		BuddyManage buddyPanel = new BuddyManage();
-        JComponent panel2 = buddyPanel.account();
+        JComponent panel2 = buddyPanel.getAccount();
         panel2.setPreferredSize(new Dimension(400,200));
         tabbedPane.addTab("Account Management", panel2);
 

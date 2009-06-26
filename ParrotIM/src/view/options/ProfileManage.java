@@ -5,24 +5,88 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/**
+ * The ProfileManage is currently responsible for providing the profile
+ * management for Parrot IM users with their preference settings.
+ * 
+ */
 
 
 public class ProfileManage extends JComponent implements ActionListener
 {
-	JPanel pProfile = new JPanel(false);
-    JPanel pInfo = new JPanel(false);
-    JPanel pCheckList = new JPanel(false);
-	JPanel pEntry = new JPanel(false);
+	// Section
+    // I - Non-Static Data Members
 
-    JLabel lName;
-    JTextField tName;
-    JLabel lPMessage;
-	JTextField tPMessage;
+    /**
+     * The JPanel profile data.
+    */
+	
+	private JPanel pProfile = new JPanel(false);
+	
+	/**
+     * The JPanel info data.
+    */
+	
+	private JPanel pInfo = new JPanel(false);
+    
+    /**
+     * The JPanel checklist data.
+    */
+    
+	private JPanel pCheckList = new JPanel(false);
+    
+    /**
+     * The JPanel entry data.
+    */
+    
+	private JPanel pEntry = new JPanel(false);
 
-    JButton bOK;
-	JButton bCancel;
+	/**
+     * The JLabel name data.
+    */
+	
+	private JLabel lName;
+    
+    /**
+     * The JLabel message data.
+    */
+	
+    
+	private JLabel lPMessage;
+    
+    /**
+     * The JTextField name data.
+    */
+    
+	private JTextField tName;
+	
+	/**
+     * The JTextField message data.
+    */
+  
+	private JTextField tPMessage;
 
+	/**
+     * The OK button.
+    */
+	
+	private JButton bOK;
+	
+	/**
+     * The Cancel button.
+    */
+	
+	private JButton bCancel;
+
+	// Section
+    // II - Constructor
+
+    /**
+     * ProfileManage() connects you to the Profile Manager handler. 
+     * Every time you want to run a ProfileManage window you have to
+     * "ProfileManage profileManage = new ProfileManage();" 
+     */
+	
     public ProfileManage() {
 
         pProfile.setLayout(new BorderLayout());
@@ -72,17 +136,28 @@ public class ProfileManage extends JComponent implements ActionListener
         pProfile.add(pInfo, BorderLayout.CENTER);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if ("OK".equals(e.getActionCommand()))
+    /**
+     * Checks for user's action.
+     * 
+     * @param event
+     */
+    
+    public void actionPerformed(ActionEvent event) {
+        if ("OK".equals(event.getActionCommand()))
         {
         }
-        else if ("Cancel".equals(e.getActionCommand()))
+        else if ("Cancel".equals(event.getActionCommand()))
         {
 
         }
 
     }
 
+    /**
+     * Returns user's action.
+     * 
+     * @return JComponent
+     */
 
     public JComponent profile()
     {
