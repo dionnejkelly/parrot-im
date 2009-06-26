@@ -14,17 +14,17 @@ Testing for the Alpha released consisted of three parts:
 The low-level data types were checked for consistency, and each method was verified to return the expected results and make state changes to the objects as expected. The test cases are as follows:
 
 || *Filename* || *Components Tested* ||
-|| AccountDataTest.java || data consistency, adding friends, removing friends, searching for friends ||
-|| AccountTempDataTest.java || data consistency ||
-|| ChatbotTest || response generation, response triggering, enabler ||
-|| ChatlogMessageTempDataTest || data consistency ||
-|| ConversationDataTest || data consistency, message retrieval, message formatting, message storage ||
-|| CurrentProfileDataTest || data consistency, adding accounts, removing friends, getting friend list ||
-|| GoogleTalkUserData || data consistency ||
-|| JabberUserData || data consistency ||
-|| MessageDataTest || data consistency, message manipulation, message retrieval ||
-|| ServerTypeTest || utility methods for enumerated type ||
-|| UserDataTest || inheritance test, data consistency ||
+|| !AccountDataTest.java || data consistency, adding friends, removing friends, searching for friends ||
+|| !AccountTempDataTest.java || data consistency ||
+|| !ChatbotTest || response generation, response triggering, enabler ||
+|| !ChatlogMessageTempDataTest || data consistency ||
+|| !ConversationDataTest || data consistency, message retrieval, message formatting, message storage ||
+|| !CurrentProfileDataTest || data consistency, adding accounts, removing friends, getting friend list ||
+|| !GoogleTalkUserData || data consistency ||
+|| !JabberUserData || data consistency ||
+|| !MessageDataTest || data consistency, message manipulation, message retrieval ||
+|| !ServerTypeTest || utility methods for enumerated type ||
+|| !UserDataTest || inheritance test, data consistency ||
 
 *Results:*
 
