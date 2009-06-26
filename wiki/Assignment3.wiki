@@ -63,3 +63,29 @@ Listed are the conventions for all visual aspects of the code.
 || Single-line comments || C++ style comments ||
 || Multi-line comments || C++ or C-style comments ||
 || Commenting-out code || C++ or C-style comments ||
+
+== Naming Conventions ==
+
+=== Files and terms ===
+Terminology:
+  * *userID* - The username, with the "@server.com" for a friend or an account.
+  * *account* - Represents one userID for the local user. Used to log-in to the server.
+  * *profile* - An identity that contains a list of accounts for the local user.
+  * *friends* - A list of userIDs in an account, shown in the buddy list.
+
+Filename conventions:
+  * Data types, such as an Account or Profile, are suffixed with "DataType" in the filename.
+  * Enumerated types are suffixed with "Type" in the filename.
+  * Test cases are suffixed with "Test" in the filename.
+
+=== Data Hierarchy ===
+The Model holds Conversations and Profiles.   
+
+Model's Chat Data:
+  * ConversationData has:
+    * MessageData
+
+Model's Profile Data
+  * CurrentProfileData has:
+    * AccountData, which has:
+      * UserData
