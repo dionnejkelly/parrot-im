@@ -396,7 +396,7 @@ public class BuddyPanel extends JPanel implements Observer {
      * listener for the add button add a new buddy when event occurs
      */
     class addFriendListener extends MouseAdapter {
-        /*
+        /**
          * mousePressed, display feedback when pressing mouse
          */
         public void mousePressed(MouseEvent event) {
@@ -509,7 +509,7 @@ public class BuddyPanel extends JPanel implements Observer {
         return friendItem;
     }
 
-    /*
+    /**
      * update current friend status on the buddy list.
      */
     public void update(Observable o, Object arg) {
@@ -546,7 +546,7 @@ public class BuddyPanel extends JPanel implements Observer {
             selected = false;
         }
 
-        /*
+        /**
          * mouseClicked to unhighlight the last selected
          */
         public void mouseClicked(MouseEvent event) {
@@ -587,7 +587,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
-        /*
+        /**
          * change background to color when mouse Entered
          */
         public void mouseEntered(MouseEvent event) {
@@ -599,7 +599,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
-        /*
+        /**
          * change background to white when mouse Exited
          */
         public void mouseExited(MouseEvent event) {
@@ -636,13 +636,13 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
-        /*
+        /**
          * mouse Pressed
          */
         public void mousePressed(MouseEvent e) {
         }
 
-        /*
+        /**
          * mouse Released
          */
         public void mouseReleased(MouseEvent e) {
