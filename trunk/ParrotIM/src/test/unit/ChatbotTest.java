@@ -12,6 +12,7 @@ import controller.chatbot.Chatbot;
 
 public class ChatbotTest {
 	private Chatbot cb1;
+	// Test completed
 	@Before
 	public void setUp() throws Exception {
 		cb1 = new Chatbot();
@@ -19,6 +20,7 @@ public class ChatbotTest {
 
 	@After
 	public void tearDown() throws Exception {
+		cb1 = null;
 	}
 
 	@Test
@@ -70,31 +72,28 @@ public class ChatbotTest {
 	@Test
 	public void testHandle_repetition() throws Exception {
 		
-//		String q1 = "What is your name?";
-//		cb1.get_input(q1);
-//		String expected = cb1.handle_repetition();
-//		
-//		System.out.println("Expected = " + expected);
-//		
-//		for(int i=0;i<cb1.get_knowlegebase()[0].length;i++){
-//			if(expected.contains(cb1.get_knowlegebase()[0][i])){
-//				assertSame(expected,cb1.get_knowlegebase()[0][i]);
-//				break;
-//			}
-//		}
+		String q1 = "What is your name?";
+		cb1.get_input(q1);
+		cb1.find_match();
+		String expected = cb1.handle_repetition();
+		for(int i=0;i<cb1.get_knowledgebase()[0].length;i++){
+			if(expected.contains(cb1.get_knowledgebase()[0][i])){
+				assertSame(expected,cb1.get_knowledgebase()[0][i]);
+				break;
+			}
+		}
 		
 	}
 
 	@Test
 	public void testHandle_user_repetition() throws Exception {
 		String q1 = "What is your name?";
-		String expected = "WHAT IS YOUR NAME";
+		String expected = "WHAT IS YOUR NAME ";
 		
 		cb1.get_input(q1);
 		cb1.save_prev_input();
 		cb1.handle_user_repetition();
 		String result = cb1.getHandle_user_repetion();
-		
 		assertEquals(expected, result);
 		
 		
@@ -107,28 +106,32 @@ public class ChatbotTest {
 		String expected = "WHAT IS YOUR NAME ";
 		
 		cb1.get_input(q1);
+		cb1.handle_event(q1);
 		String result = cb1.getHandle_event();
-		
 		assertEquals(expected, result);
 	}
 
 	@Test
 	public void testSelect_response() throws Exception {
-//		String q1 = "What is your name?";
-//		cb1.get_input(q1);
-//		String expected = cb1.select_response();
-//		
-//		for(int i=0;i<cb1.get_knowlegebase()[0].length;i++){
-//			if(expected.contains(cb1.get_knowlegebase()[0][i])){
-//				assertSame(expected,cb1.get_knowlegebase()[0][i]);
-//				break;
-//			}
-//		}
+		String q1 = "What is your name?";
+		cb1.get_input(q1);
+		cb1.find_match();
+		String expected = cb1.select_response();
+		boolean condition = false;
+		for(int i=0;i<cb1.get_knowledgebase()[0].length;i++){
+			if(cb1.get_knowledgebase()[0][i].equals(expected.toString())&& !condition){
+				condition = true;
+			}
+		}
+		// The response came from the knowledge base
+		assertTrue(condition);
+		assertEquals(expected,cb1.get_response());
+		}
 		
 		
 		
 		
-	}
+	
 
 	@Test
 	public void testSave_prev_input() throws Exception {
