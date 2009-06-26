@@ -229,7 +229,7 @@ public class GuestAccountFrame extends JFrame {
     /**
      * This method is used to get the password from the user.
      * @param pass
-     * @return
+     * @return the string of password
      */
     private String password(char[] pass) {
         String str = new String();
