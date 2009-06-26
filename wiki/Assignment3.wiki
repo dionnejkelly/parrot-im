@@ -9,7 +9,7 @@ Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/branches/ass
 
 = Executable File =
 
-Direct link: [http://parrot-im.googlecode.com/files/ParrotIM_alpha_preSubmit_v1.jar]
+Direct link: [http://parrot-im.googlecode.com/files/ParrotIM_alpha_submit.jar]
 
 ----
 
