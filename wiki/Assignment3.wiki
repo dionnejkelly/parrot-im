@@ -3,7 +3,7 @@
 = Source = 
 All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
-SVN link to source (deadline of June 26 1:30pm for updates to its files) [http://static.twitter.com/images/default_profile_normal.png] <br>
+SVN link to source (deadline of June 26 1:30pm for updates to its files) [http://code.google.com/p/parrot-im/source/browse/#svn/branches/assignment3_alphaVersion] <br>
 Direct link (last update, before June 26 1:30pm): [http://parrot-im.googlecode.com/files/ParrotIM_alpha.zip]
 
 ----
