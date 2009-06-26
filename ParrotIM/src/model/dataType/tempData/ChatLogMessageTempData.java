@@ -142,6 +142,12 @@ public class ChatLogMessageTempData {
         return;
     }
     
+    /**
+     * Returns string.
+     * 
+     * @return the friend's account, the date, and the message
+     */
+    
     public String toString(){
 		return getFrom() + " (" + getTime() + "): " + getText() + "\n";
     	
