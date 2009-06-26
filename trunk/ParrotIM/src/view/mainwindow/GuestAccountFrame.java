@@ -59,11 +59,36 @@ import controller.MainController;
 import view.buddylist.BuddyList;
 import view.styles.PopupWindowListener;
 
+/**
+ * 
+ * This class defines the frame of the guest account. And the user can use this frame 
+ * to log in parrot-im as a guest.
+ *
+ */
 public class GuestAccountFrame extends JFrame {
 
-    private Model model;
-    private MainController core;
+    /**
+     * These are the parameter for create the guest account frame.
+     */
+	/**
+	 * Connect to the model
+	 */
+	private Model model;
+    
+	/**
+	 * connect to the MainController, in order to get the guest account information from the
+	 * server. 
+	 */
+	private MainController core;
+    
+	/**
+     * Connect the guest account frame to the MainWindow
+     */
     private MainWindow mainFrame;
+    
+    /**
+     * These parameter are used to design the frame
+     */
     private JFrame popup;
     private SignInPanel mainPanel;
 
@@ -71,6 +96,13 @@ public class GuestAccountFrame extends JFrame {
     private JPasswordField PwdFieldGuest;
     private JComboBox server;
 
+    /**
+     * This is the constructor of the Guest Account frame.
+     * @param model
+     * @param c
+     * @param frame
+     * @param signin
+     */
     public GuestAccountFrame(Model model, MainController c, MainWindow frame,
             SignInPanel signin) {
     	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -161,7 +193,11 @@ public class GuestAccountFrame extends JFrame {
         setVisible(true);
 
     }
-
+    /**
+     * This method is called when the guest login into parrot-im. The user will allow to login
+     * to Google talk account only.
+     * @param e
+     */
     private void signIn_ActionPerformed(ActionEvent e) {
         ServerType serverType = (ServerType) server.getSelectedItem();
         String username = UNFieldGuest.getText();
@@ -189,7 +225,12 @@ public class GuestAccountFrame extends JFrame {
         }
        
     }
-
+    
+    /**
+     * This method is used to get the password from the user.
+     * @param pass
+     * @return
+     */
     private String password(char[] pass) {
         String str = new String();
         str = "";
