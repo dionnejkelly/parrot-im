@@ -3,15 +3,23 @@
 = Executable File =
 (link to Jar file)
 
+----
+
 = Testing Report =
 (Place User Acceptance testing logs here)
+
+----
 
 = Source = 
 All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
 Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/ParrotIM]
 
+----
+
 = Known Bugs =
+
+----
 
 = Documents =
 
@@ -25,12 +33,12 @@ All changes to the documents are given here:
   *[DesignDocumenta3 Design Document]
   *[QualityAssurancePlana3 Quality Assurance Plan]
 
-= Coding Conventions = 
+----
 
+= Coding Conventions = 
 The following are the conventions used in coding Parrot IM:
 
 == Code Style ==
-
 Listed are the conventions for all visual aspects of the code.
 
 === Capitalization ===
@@ -41,3 +49,17 @@ Listed are the conventions for all visual aspects of the code.
 || Constants || All upper case, words separated by underscores ||
 || Data Members || Start with lower case, follow in !CamelCase ||
 
+=== Spacing ===
+|| *Type* || *Convention* ||
+|| Block Indentations || 4 spaces wide ||
+|| Tabs || 8 spaces wide ||
+
+=== Comments ===
+|| *Type* || *Convention* ||
+|| Header comment || C-Style, include filename, programmers, change log, known issues, and license pointer ||
+|| Classes || Include !JavaDoc comment block ||
+|| Data Members || Include !JavaDoc comment block ||
+|| Methods || Include !JavaDoc comment block ||
+|| Single-line comments || C++ style comments ||
+|| Multi-line comments || C++ or C-style comments ||
+|| Commenting-out code || C++ or C-style comments ||
