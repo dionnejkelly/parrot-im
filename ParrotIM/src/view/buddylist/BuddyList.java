@@ -19,7 +19,7 @@ import org.jivesoftware.smack.XMPPException;
 
 import view.mainwindow.HelpPanel;
 import view.mainwindow.MainWindow;
-import view.mainwindow.aboutFrame;
+import view.mainwindow.AboutFrame;
 import view.options.OptionMenu;
 
 import view.chatLog.ChatLogFrame;
@@ -158,7 +158,7 @@ public class BuddyList extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
         	if (!model.aboutWindowOpen){
-					new aboutFrame(model);
+					new AboutFrame(model);
         	}
             return;
         }        
