@@ -26,83 +26,86 @@ Below is the list of features and indications of progress.
 
 [Feature_AvatarPicture Avatar picture]: GUI elements implemented. That is, users can select the image file on their computer by clicking on the current avatar. However, doing so will not have any effect. Not completely implemented.
 
-Tabbed Windows: No change. Implemented.
+[Feature_TabbedWindows Tabbed Windows]: No change. Implemented. Users can click on tabs on the left-hand side of the chat window to toggle between open conversations.
 
-Blocking Another User: No change. Not fully implemented.
+[Feature_BlockingAnotherUser Blocking Another User]: Implemented via a work-around. While the proper method of blocking users via XMPP is not adhered to, we have devised a way to achieve the same effect of blocking a user on one computer. The user is technically removed from the friend list, but is stored in the local computer's database. This allows the GUI to show that the user has been blocked, and allow for the user to be unblocked easily. The blocked user cannot see the online status of the person who blocked him or her.
 
-Status: No change. Implemented.
+[Feature_Status Status]: Implemented. Users can set their status and state, and see the status of others on the buddy list. The states are colour coded on both the buddy list and the chat window so the user can quickly know how available their friend is.
 
-Chat Log: No change. Implemented.
+[Feature_ChatLog Chat Log]: No change. Implemented. Not searchable, yet.
 
-Search Engine: Not implement yet. GUI is provided for buddy list, not yet implemented for chatlog.
+[Feature_SearchEngine Search Engine]: Not implemented yet. GUI is provided for buddy list, not yet implemented for chatlog.
 
-Twitter and ICQ Protocols: Not implement yet.
+[Feature_TwitterAndICQProtocols Twitter and ICQ Protocols]: Not implemented yet.
 
-Is Typing: Not implement yet.
+[Feature_IsTyping Is Typing]: Not implemented yet.
 
-Emoticons: Not implement yet.
+[Feature_Emoticons Emoticons]: Not implemented yet.
 
-Spellchecker: Not implement yet.
+[Feature_Spellchecker Spellchecker]: Not implemented yet.
 
-Conference Chatting: No change.
+[Feature_ConferenceChatting Conference Chatting]: Not implemented yet.
 
-File Transfer: Not implement yet.
+[Feature_FileTransfer File Transfer]: Not implemented yet.
 
-Sound Notification: Not implement yet.
+[Feature_SoundNotification Sound Notification]: Not implemented yet.
 
-UICustomization: Not implement yet.
+Feature_UICustomization UICustomization]: Not implemented yet.
 
-Additional Protocol Modules: Not implement yet.
+[Feature_AdditionalProtocolModules Additional Protocol Modules]: Not implement yet.
 
-Offline Messaging: No change. Implemented.
+[Feature_OfflineMessaging Offline Messaging]: Implemented by means of the XMPP protocol. No specific GUI messages show to indicate which messages are offline messages, though.
 
-Advanced And Simplified Modes: No change.
+[Feature_AdvancedAndSimplifiedModes Advanced And Simplified Modes]: The switch is not implemented yet.
 
-Spam Filter: Not implement yet.
+[Feature_SpamFilter Spam Filter]: Not implemented yet.
 
-Multiple OS Compatibility: Not implement yet. Works for both windows and mac for now. (Kevin, can you verify for linux?)
+[Feature_MultipleOSCompatibility Multiple OS Compatibility]: Packaging not designed to install on all OSs, but will run via a .jar file on Mac, Windows, and Linux.
 
-Language Localization: Not implement yet.
+[Feature_LanguageLocalization Language Localization]: Not implemented yet.
 
-Email Notification: Not implement yet.
+[Feature_EmailNotification Email Notification]: Not implemented yet.
 
-Slash Commands: Not implement yet.
+[Feature_SlashCommands Slash Commands]: Not implemented yet.
 
 = Intended Audience =
 
-No change here.
+We did not make any changes to this section. Please view the [RequirementsDocument previous document].
 
 = Non-Functional Requirements =
 
+Noted are only the changed non-functional requirements:
+
 === Product Requirements ===
+  * *Performance Requirements:* The program will occupy between *30 MB* and *50 MB* of RAM while running.
 
-Portability Requirements: We still can not run on Macintosh, and Linux operating environments. (NOT true! I can run it on my mac. Kevin can run it on Linux I think)
+(Rest unchanged.)
 
-=== Organizational Requirements ===
+=== Organizational Requirements === 
+  * *Process Standards:* Conventions detailed on the Parrot IM website will be followed with regards to naming and style conventions.
 
-No change here.
+(Rest unchanged.)
 
-=== External requirements ===
+=== External requirements === 
 
-No change here.
+(All unchanged)
+
+Metrics for specifying non-functional requirements:
 
 === The Non-functional Requirements Table ===
-
-No change here. 
-
-All the requirements will be the same, but we have not meet the "Portability" yet.
+|| Property || Measure ||
+|| Size || Hard disk Requirements = The program will take up to *5 MB* on the computer's hard drive to function all the features of Parrot IM that includes storing users' profile and their preference, sound notification, and images. <br> Memory Requirements = The program will occupy between *30 MB* and *50 MB* of RAM while running. ||
+|| Security || All stored passwords are encrypted inside the database. (Encryption not implemented yet) ||
 
 = Example Tutorials =
-we add new screentshots here:
+We have added new user tutorials here:
 
   * [NewTutorial_CreateAccount (new)How to create an account?]
   * [NewTutorial_LogIn (new)How to log in?]
   * [NewTutorial_Chat (new)How to chat?]
   * [NewTutorial_Exit (new)How to exit Parrot IM?]
   * [NewTutorial_ManageBuddyList   How to manage Friend list?]
- 
-
 
 = Glossary =
 
-No change here.
+We did not make any changes to this section. Please view the [RequirementsDocument previous document].
