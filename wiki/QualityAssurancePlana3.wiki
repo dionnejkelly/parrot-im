@@ -22,7 +22,7 @@ Notes of change: For the Alpha version: Since we haven't finish Avatar picture f
 
 = Testing Schedule =
 
-* Alpha (On Schedule)
+ * Alpha (On Schedule)
         Unit Testing Deadline: June 18, 2009 <br> 
         Integration Testing Deadline: June 22, 2009 <br>
         User Acceptance Testing Deadline: June 25, 2009<br>
