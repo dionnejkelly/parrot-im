@@ -26,13 +26,19 @@ import view.chatLog.ChatLogFrame;
 import controller.MainController;
 
 import model.Model;
-
+/**
+ * BuddyList display Friend contact list for Parrot IM users.
+ */
 public class BuddyList extends JFrame {
     JMenuBar menu;
     protected Model model;
     private MainController controller;
     protected JFrame buddywindow;
 
+    /**
+     * @param c
+     * @param model
+     */
     public BuddyList(MainController c, Model model) {
     	buddywindow = this;
         this.setTitle("Buddy List");
@@ -63,6 +69,9 @@ public class BuddyList extends JFrame {
     }
 
     // Creates top Text Menu
+    /**
+     * @return
+     */
     public JMenuBar createMenu() {
         JMenuBar menuBar;
         JMenu fileMenu, acctsMenu, contactMenu, optionsMenu, helpMenu;
@@ -123,7 +132,14 @@ public class BuddyList extends JFrame {
         return menuBar;
     }
     
+    /**
+     * @author TOSHIBA
+     *
+     */
     private class helpListener implements ActionListener {
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {
             new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_Exit");
 
@@ -132,7 +148,14 @@ public class BuddyList extends JFrame {
     }
     
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     private class chatLogListener implements ActionListener {
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {
         	if (!model.logWindowOpen){
         		try {
@@ -149,7 +172,14 @@ public class BuddyList extends JFrame {
         }        
     }
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     private class optionListener implements ActionListener {
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {
             new OptionMenu();
 
@@ -157,7 +187,14 @@ public class BuddyList extends JFrame {
         }
     }
     
+    /**
+     * @author TOSHIBA
+     *
+     */
     private class ChatbotToggleListener implements ActionListener {
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {
             controller.toggleChatbot();
             
@@ -165,8 +202,15 @@ public class BuddyList extends JFrame {
         }
     }
     
+    /**
+     * @author TOSHIBA
+     *
+     */
     private class exitActionListener implements ActionListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			
 			try {
@@ -181,8 +225,15 @@ public class BuddyList extends JFrame {
     	
     }
     
+    /**
+     * @author TOSHIBA
+     *
+     */
     private class signoutActionListener implements ActionListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			try {
 				controller.disconnect();

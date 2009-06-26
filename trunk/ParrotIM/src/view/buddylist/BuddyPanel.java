@@ -45,28 +45,80 @@ import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.UserData;
 import model.enumerations.UpdatedType;
-
+/**
+ * BuddyPanel display FriendList and Account information for Parrot IM users.
+ */
 public class BuddyPanel extends JPanel implements Observer {
     /*
      * TODO: BUDDY PANEL HAS Center: Buddy List South: Buddy Options
      */
+    /**
+     * 
+     */
     protected SelectListener lastSelectedListener; // selectedIndex of Buddylist
+    /**
+     * 
+     */
     protected Object lastSelectedSource;
+    /**
+     * 
+     */
     protected JFrame buddyWindow;
+    /**
+     * 
+     */
     ChatWindow chat;
+    /**
+     * 
+     */
     JToolBar options;
+    /**
+     * 
+     */
     JScrollPane scroller;
+    /**
+     * 
+     */
     JPanel friendList;
+    /**
+     * 
+     */
     JPopupMenu rightClickMenu;
+    /**
+     * 
+     */
     JMenuItem menuItem1, menuItem2, menuItem3, menuItem4, menuItem5;
+    /**
+     * 
+     */
     Box boxes[] = new Box[1];
+    /**
+     * 
+     */
     String selectedName;
+    /**
+     * 
+     */
     MainController chatClient;
+    /**
+     * 
+     */
     Model model;
+    /**
+     * 
+     */
     UserData selectedFriend;
 
+    /**
+     * 
+     */
     private ArrayList<UserData> buddies;
 
+    /**
+     * @param c
+     * @param model
+     * @param buddyWindow
+     */
     public BuddyPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
@@ -128,6 +180,9 @@ public class BuddyPanel extends JPanel implements Observer {
         add(options, BorderLayout.SOUTH);
     }
 
+    /**
+     * @return
+     */
     public JToolBar OptionsBar() {
         JToolBar options = new JToolBar();
 
@@ -165,7 +220,14 @@ public class BuddyPanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     class RightClickMenuBlockFriendListener extends MouseAdapter {
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+         */
         public void mousePressed(MouseEvent event) {
             chatClient.blockFriend(selectedFriend.getAccountName());
 
@@ -196,7 +258,14 @@ public class BuddyPanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+         */
         public void mousePressed(MouseEvent event) {
 
             System.out.println("Remove this user from the buddy list = "
@@ -222,7 +291,14 @@ public class BuddyPanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     class removeFriendListener extends MouseAdapter {
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+         */
         public void mousePressed(MouseEvent event) {
 
             if (selectedFriend != null) {
@@ -253,7 +329,14 @@ public class BuddyPanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     class addFriendListener extends MouseAdapter {
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+         */
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
             String userFriendID, userInput;
@@ -291,6 +374,10 @@ public class BuddyPanel extends JPanel implements Observer {
 
         }
 
+        /**
+         * @param userID
+         * @return
+         */
         public boolean userExist(String userID) {
             for (int i = 0; i < buddies.size(); i++) {
                 if (buddies.get(i).getAccountName().equals(userID)) {
@@ -302,6 +389,10 @@ public class BuddyPanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * @param user
+     * @return
+     */
     public JPanel FriendItem(UserData user) {
         JPanel friendItem = new JPanel();
         friendItem.setLayout(new BorderLayout());
@@ -344,6 +435,9 @@ public class BuddyPanel extends JPanel implements Observer {
         return friendItem;
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+     */
     public void update(Observable o, Object arg) {
         /* If chat window has not been made, make it if message sent */
         if (arg == UpdatedType.CHAT) {
@@ -372,13 +466,26 @@ public class BuddyPanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     private class SelectListener implements MouseListener {
+        /**
+         * 
+         */
         protected boolean selected;
 
+        /**
+         * 
+         */
         public SelectListener() {
             selected = false;
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+         */
         public void mouseClicked(MouseEvent event) {
             if (lastSelectedListener != null) { // unhighlight the last selected
                 lastSelectedListener.whiteBackground(event);
@@ -427,6 +534,9 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+         */
         public void mouseEntered(MouseEvent event) {
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
@@ -436,6 +546,9 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+         */
         public void mouseExited(MouseEvent event) {
             Color c;
             if (selected) {
@@ -452,6 +565,9 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
+        /**
+         * @param event
+         */
         public void whiteBackground(MouseEvent event) {
             selected = false;
             if (lastSelectedSource == null)
@@ -465,13 +581,23 @@ public class BuddyPanel extends JPanel implements Observer {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+         */
         public void mousePressed(MouseEvent e) {
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+         */
         public void mouseReleased(MouseEvent e) {
         }
     }
 
+    /**
+     * @author TOSHIBA
+     *
+     */
     class RightCickMenuListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent event) {
