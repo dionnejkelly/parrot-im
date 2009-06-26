@@ -50,7 +50,7 @@ Below is the list of features and indications of progress.
 
 [Feature_SoundNotification Sound Notification]: Not implemented yet.
 
-Feature_UICustomization UICustomization]: Not implemented yet.
+[Feature_UICustomization UICustomization]: Not implemented yet.
 
 [Feature_AdditionalProtocolModules Additional Protocol Modules]: Not implement yet.
 
