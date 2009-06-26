@@ -427,6 +427,13 @@ public class BuddyPanel extends JPanel implements Observer {
                 // friendList.updateUI();
 
             }
+            
+            else if (userFriendID == null) {
+            	String redundancy =
+                    "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
+            JOptionPane.showMessageDialog(null, redundancy);
+            	
+            }
 
             else {
                 String redundancy =
