@@ -20,6 +20,8 @@ public class GoogleTalkUserDataTest {
 	@After
 	public void tearDown() throws Exception {
 		u1 = null;
+		u2 = null;
+		u3 = null;
 	}
 	
 	public void testGoogleTalkUserDataStringStringString(){

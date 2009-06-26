@@ -45,6 +45,7 @@ public class ProfileListTest {
 	public void tearDown() throws Exception {
 		pl1 = null;
 		pl2 = null;
+		pl3 = null;
 	}
 
 	@Test

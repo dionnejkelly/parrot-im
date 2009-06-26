@@ -31,6 +31,9 @@ public class ProfileTest {
 	@After
 	public void tearDown() throws Exception {
 		p1 = null;
+		p2 = null;
+		p3 = null;
+		p4 = null;
 	}
 
 	@Test

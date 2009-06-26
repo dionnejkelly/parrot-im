@@ -29,6 +29,7 @@ public class ConversationDataTest {
 	public void tearDown() throws Exception {
 		cd1 = null;
 		cd2 = null;
+		cd3 = null;
 	}
 
 	@Test

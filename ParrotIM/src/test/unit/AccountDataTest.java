@@ -55,6 +55,7 @@ public class AccountDataTest {
         ad3 = null;
         ad4 = null;
         ad5 = null;
+        ad6 = null;
     }
 
     public void testAccountData() {
