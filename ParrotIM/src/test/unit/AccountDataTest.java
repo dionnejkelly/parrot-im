@@ -67,8 +67,8 @@ public class AccountDataTest {
 
     @Test
     public void testSetServer() {
-        AccountData expected = new AccountData(ServerType.JABBER, "Rakan",
-                "1234");
+        AccountData expected =
+                new AccountData(ServerType.JABBER, "Rakan", "1234");
         ad1.setServer(ServerType.JABBER);
         assertSame(expected.getServer(), ad1.getServer());
     }
@@ -83,8 +83,8 @@ public class AccountDataTest {
     @Test
     public void testSetAccountName() {
         ad2.setAccountName("Chandler");
-        AccountData expected = new AccountData(ServerType.ICQ, "Chandler",
-                "abc");
+        AccountData expected =
+                new AccountData(ServerType.ICQ, "Chandler", "abc");
         assertSame(expected.getAccountName(), ad2.getAccountName());
     }
 
@@ -97,8 +97,8 @@ public class AccountDataTest {
     @Test
     public void testSetPassword() {
         ad3.setPassword("qwerty");
-        AccountData expected = new AccountData(ServerType.MSN, "Janice",
-                "qwerty");
+        AccountData expected =
+                new AccountData(ServerType.MSN, "Janice", "qwerty");
         assertSame(expected.getPassword(), ad3.getPassword());
     }
 
@@ -119,23 +119,28 @@ public class AccountDataTest {
 
     @Test
     public void testRemoveFriend() {
-        GoogleTalkUserData e1 = new GoogleTalkUserData("Horton", "tim", "away");
-        GoogleTalkUserData e2 = new GoogleTalkUserData("Star", "Bucks", "Busy");
+        GoogleTalkUserData e1 =
+                new GoogleTalkUserData("Horton", "tim", "away");
+        GoogleTalkUserData e2 =
+                new GoogleTalkUserData("Star", "Bucks", "Busy");
         ad2.addFriend(e1);
         ad2.addFriend(e2);
         assertTrue(ad2.removeFriend(e2));
-        assertTrue(ad2.removeFriend(new GoogleTalkUserData("Horton", "tim",
-                "away")));
+        assertTrue(ad2.removeFriend(new GoogleTalkUserData(
+                "Horton", "tim", "away")));
 
     }
 
     @Test
     public void testGetFriends() {
-        GoogleTalkUserData e1 = new GoogleTalkUserData("Horton", "tim", "away");
-        GoogleTalkUserData e2 = new GoogleTalkUserData("Star", "Bucks", "Busy");
+        GoogleTalkUserData e1 =
+                new GoogleTalkUserData("Horton", "tim", "away");
+        GoogleTalkUserData e2 =
+                new GoogleTalkUserData("Star", "Bucks", "Busy");
         ad4.addFriend(e1);
         ad4.addFriend(e2);
-        ArrayList<GoogleTalkUserData> expected = new ArrayList<GoogleTalkUserData>();
+        ArrayList<GoogleTalkUserData> expected =
+                new ArrayList<GoogleTalkUserData>();
         expected.add(e1);
         expected.add(e2);
         Object[] array1 = expected.toArray();
@@ -147,24 +152,24 @@ public class AccountDataTest {
 
     @Test
     public void testFriendExists() {
-        GoogleTalkUserData expected = new GoogleTalkUserData("expected", "e",
-                "good");
+        GoogleTalkUserData expected =
+                new GoogleTalkUserData("expected", "e", "good");
         ad4.addFriend(expected);
         assertTrue(ad4.friendExists(expected));
     }
 
     @Test
     public void testSetOwnUserData() {
-        GoogleTalkUserData expected = new GoogleTalkUserData("Griffen",
-                "Peter", "online");
+        GoogleTalkUserData expected =
+                new GoogleTalkUserData("Griffen", "Peter", "online");
         ad5.setOwnUserData(expected);
         assertSame(expected, ad5.getOwnUserData());
     }
 
     @Test
     public void testGetOwnUserData() {
-        GoogleTalkUserData expected = new GoogleTalkUserData("Stewie", "Stew",
-                "online");
+        GoogleTalkUserData expected =
+                new GoogleTalkUserData("Stewie", "Stew", "online");
         ad1.setOwnUserData(expected);
         assertSame(expected, ad1.getOwnUserData());
     }
@@ -188,8 +193,8 @@ public class AccountDataTest {
 
     @Test
     public void testFindFriendByUserID() {
-        GoogleTalkUserData expected = new GoogleTalkUserData("expected", "e",
-                "good");
+        GoogleTalkUserData expected =
+                new GoogleTalkUserData("expected", "e", "good");
         ad4.addFriend(expected);
         assertTrue(ad4.findFriendByUserID(expected.getAccountName()));
         ad4.addFriend(expected);

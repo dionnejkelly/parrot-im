@@ -1,3 +1,21 @@
+/* MainController.java
+ * 
+ * Programmed By:
+ *     Jihoon Choi
+ *     
+ * Change Log:
+ *         
+ * Known Issues:
+ *     1. Needs to be more modular; functionality needs to be split off.
+ *     2. Unclear how to handle multiple connections; are there multiple
+ *        controller objects?
+ *        
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package controller;
 
 import java.sql.SQLException;
@@ -23,11 +41,9 @@ import org.jivesoftware.smack.XMPPException;
 
 import org.jivesoftware.smack.util.StringUtils;
 
-import view.chatwindow.ChatWindow;
-
 import controller.chatbot.Chatbot;
 
-import model.*;
+import model.Model;
 import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
@@ -70,6 +86,7 @@ public class MainController {
 
     /** Holds the Chatbot data that is initially set to null. */
     private Chatbot chatbot = new Chatbot();
+
     /**
      * This is the constructor of Xmpp.
      * 
@@ -115,7 +132,8 @@ public class MainController {
      * @param presenceStatus
      * @throws InterruptedException
      */
-    public void setPresence(String presenceStatus) throws InterruptedException {
+    public void setPresence(String presenceStatus)
+            throws InterruptedException {
         Presence presence = new Presence(Presence.Type.available);
         presence.setStatus(presenceStatus);
         connection.sendPacket(presence);
@@ -301,7 +319,7 @@ public class MainController {
         Roster roster = connection.getRoster();
         String nickname = StringUtils.parseBareAddress(userID);
         System.out.println(userID + " 000");
-        
+
         // Temporary filter to find jabber/Google servers
         if (StringUtils.parseServer(userID).equals("gmail.com")) {
             server = ServerType.GOOGLE_TALK;
@@ -319,7 +337,7 @@ public class MainController {
             e.printStackTrace();
 
         }
-        
+
         return;
     }
 
@@ -450,7 +468,8 @@ public class MainController {
                 // Decide which type of user to use
                 accountName = r.getUser();
                 nickname = r.getName();
-                if (nickname == null || nickname.equalsIgnoreCase(accountName)) {
+                if (nickname == null
+                        || nickname.equalsIgnoreCase(accountName)) {
                     nickname = StringUtils.parseName(accountName);
                     r.setName(nickname);
                 }
@@ -460,7 +479,9 @@ public class MainController {
                             new GoogleTalkUserData(
                                     accountName, nickname, status);
                 } else if (account.getServer() == ServerType.JABBER) {
-                    user = new JabberUserData(accountName, nickname, status);
+                    user =
+                            new JabberUserData(
+                                    accountName, nickname, status);
                 } else { // some other user
                     // TODO implement me!
                 }
@@ -484,18 +505,18 @@ public class MainController {
                 if (!f.isBlocked()) {
                     // Temp fix for the smack "name is null" error
                     // Now removes the friend from the database...
-                    
-                    
-                    //this.addFriend(f.getUserID());
+
+                    // this.addFriend(f.getUserID());
                 } else { // is blocked, need to add not on server
-                    
+
                     // TODO, separate the strings better
-                    if (StringUtils.parseServer(f.getUserID()).equals("gmail.com")) {
-                        user = new GoogleTalkUserData(f.getUserID());    
+                    if (StringUtils.parseServer(f.getUserID()).equals(
+                            "gmail.com")) {
+                        user = new GoogleTalkUserData(f.getUserID());
                     } else {
                         user = new JabberUserData(f.getUserID());
                     }
-                    
+
                     user.setBlocked(true);
                     model.addFriend(account, user);
                 }
@@ -503,15 +524,15 @@ public class MainController {
         }
         return;
     }
-    
+
     public void startConversation(UserData friend, boolean focus) {
         ConversationData conversation = null;
-        
+
         conversation = model.startConversation(friend);
         if (focus || model.numberOfConversations() < 2) {
             model.setActiveConversation(conversation);
         }
-         
+
         return;
     }
 
@@ -550,7 +571,10 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size, bold, italics, underlined);
+        messageObject =
+                new MessageData(
+                        fromUser, messageString, font, size, bold, italics,
+                        underlined);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -587,9 +611,9 @@ public class MainController {
      * @param size
      * @throws XMPPException
      */
-    public void sendMessage(String messageString, String font, String size,
-    		boolean bold, boolean italics, boolean underlined)
-            throws XMPPException {
+    public void sendMessage(
+            String messageString, String font, String size, boolean bold,
+            boolean italics, boolean underlined) throws XMPPException {
         Chat chat = null;
         boolean chatExists = false;
         String to = null;
@@ -602,7 +626,10 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size, bold, italics, underlined);
+        messageObject =
+                new MessageData(
+                        fromUser, messageString, font, size, bold, italics,
+                        underlined);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -660,7 +687,8 @@ public class MainController {
      * @param bareAddress
      */
 
-    public void updateStateAndStatus(UserData userToUpdate, String bareAddress) {
+    public void updateStateAndStatus(
+            UserData userToUpdate, String bareAddress) {
         Presence truePresence = null;
 
         truePresence = roster.getPresence(bareAddress);
@@ -847,7 +875,7 @@ public class MainController {
          */
 
         public void processPacket(Packet packet) {
-            //Chatbot chatbot = new Chatbot();
+            // Chatbot chatbot = new Chatbot();
 
             /* packet is a new message, make chat if from new person */
 
@@ -856,7 +884,8 @@ public class MainController {
             String bareAddress =
                     StringUtils.parseBareAddress(message.getFrom());
 
-            if ((message.getType() == Message.Type.normal || message.getType() == Message.Type.chat)
+            if ((message.getType() == Message.Type.normal || message
+                    .getType() == Message.Type.chat)
                     && message.getBody() != null) {
                 for (Chat c : chats) {
                     // System.out.println(c.getParticipant());
@@ -878,19 +907,21 @@ public class MainController {
                 // tempID = "";
                 user = model.findUserByAccountName(chat.getParticipant());
                 m =
-                        new MessageData(user.getAccountName(), message
-                                .getBody(), "font", "4", false, false, false);
+                        new MessageData(
+                                user.getAccountName(), message.getBody(),
+                                "font", "4", false, false, false);
 
                 model.receiveMessage(model.findAccountByFriend(user), m);
 
                 if (model.getCurrentProfile().isChatbotEnabled()) {
-                    //chatbot = new Chatbot();
+                    // chatbot = new Chatbot();
                     try {
                         chatbot.get_input(message.getBody());
                         String response = chatbot.respond();
                         sendMessage(response, chat.getParticipant());
-                        
-                        System.out.println("          OUTPUT = " + chatbot.getsInput() + ".");
+
+                        System.out.println("          OUTPUT = "
+                                + chatbot.getsInput() + ".");
                         // temporary to display in the chat window
                         // ConversationData conversation =
                         // model.getActiveConversation();
@@ -925,7 +956,8 @@ public class MainController {
      * @param defaultProfile
      */
 
-    public void addProfile(String name, String password, boolean defaultProfile) {
+    public void addProfile(
+            String name, String password, boolean defaultProfile) {
         this.model.addProfile(name, password, defaultProfile);
 
         return;
@@ -953,7 +985,8 @@ public class MainController {
      */
 
     public void addAccount(
-            String profile, ServerType server, String account, String password) {
+            String profile, ServerType server, String account,
+            String password) {
         String serverName = null;
 
         if (server == ServerType.GOOGLE_TALK) {

@@ -1,9 +1,25 @@
+/* ModelToDatabaseTest.java
+ * 
+ * Programmed By:
+ *     Rakan Alkheliwi
+ *     Kevin Fahy
+ *     
+ * Change Log:
+ *         
+ * Known Issues:
+ *     none
+ *     
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * License: GNU General Public License version 2.
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
 package test.integration;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import model.DatabaseFunctions;
 import model.Model;
@@ -18,8 +34,6 @@ import model.enumerations.ServerType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import controller.MainController;
 
 public class ModelToDatabaseTest {
 
@@ -57,7 +71,6 @@ public class ModelToDatabaseTest {
     @Test
     public void testAddRemoveAccount() throws Exception {
         ArrayList<AccountTempData> accountList = null;
-        UserData user = null;
 
         db = new DatabaseFunctions();
         assertTrue(db.getUserList().size() == 0);
