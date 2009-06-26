@@ -6,33 +6,33 @@ We do not make change in Introduction.
 
 = Features =
 
-Graphical User Interface: No change. 
+Graphical User Interface: No change. Implemented.
 
-Friend List: We do not have search function yet.
+Friend List: We do not have search function yet. GUI is provided.
 
-Live Instant Messaging: No change.
+Live Instant Messaging: No change. Implemented.
 
-XMPP Protocol: No change.
+XMPP Protocol: No change. Implemented.
 
-Chatbot: Enable or disable Chatbot is in the Contact menu, not in the chatWindow.
+Chatbot: Enable or disable Chatbot is in the Contact menu, not in the chatWindow. Implemented.
 
-Profile System: No change.
+Profile System: No change. Implemented. Might need to change the GUI.
 
-Font Customization:No change.
+Font Customization: No change.
 
-Auto Sign In: No change.  
+Auto Sign In: No change. Not implemented yet.
 
 Avatar picture: Not implement yet.
 
-Tabbed Windows: No change.
+Tabbed Windows: No change. Implemented.
 
-Blocking Another User: No change.
+Blocking Another User: No change. Not fully implemented.
 
-Status: No change.
+Status: No change. Implemented.
 
-Chat Log: No change.
+Chat Log: No change. Implemented.
 
-Search Engine: Not implement yet.
+Search Engine: Not implement yet. GUI is provided for buddy list, not yet implemented for chatlog.
 
 Twitter and ICQ Protocols: Not implement yet.
 
@@ -52,13 +52,13 @@ UICustomization: Not implement yet.
 
 Additional Protocol Modules: Not implement yet.
 
-Offline Messaging: No change.
+Offline Messaging: No change. Implemented.
 
 Advanced And Simplified Modes: No change.
 
 Spam Filter: Not implement yet.
 
-Multiple OS Compatibility: Not implement yet.
+Multiple OS Compatibility: Not implement yet. Works for both windows and mac for now. (Kevin, can you verify for linux?)
 
 Language Localization: Not implement yet.
 
@@ -74,7 +74,7 @@ No change here.
 
 === Product Requirements ===
 
-Portability Requirements: We still can not run on Macintosh, and Linux operating environments. (NOT true! I can run it on my mac. Kevin can run it on Linux)
+Portability Requirements: We still can not run on Macintosh, and Linux operating environments. (NOT true! I can run it on my mac. Kevin can run it on Linux I think)
 
 === Organizational Requirements ===
 
