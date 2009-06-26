@@ -31,4 +31,4 @@ Notes of change: For the Alpha version: Since we haven't finish Avatar picture f
 = Software Metrics =
 
 Notes of change: 
-Lines of code is around 6,000 in Alpha version.
+Lines of code is around 8,000 in Alpha version. This is 2,000 lines less than our prediction of 10,000 lines of code.
