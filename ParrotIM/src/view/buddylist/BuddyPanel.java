@@ -139,7 +139,7 @@ public class BuddyPanel extends JPanel implements Observer {
         this.chat = null;
 
         // Test code, make it hide at the start
-        this.chat = new ChatWindow(chatClient, model);
+        //this.chat = new ChatWindow(chatClient, model);
         buddies = null;
 
         friendList = new JPanel();

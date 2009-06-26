@@ -58,55 +58,64 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import view.chatwindow.ChatWindow;
+
 import controller.MainController;
 
-import model.*;
-import model.dataType.CurrentProfileData;
+import model.Model;
 import model.enumerations.UpdatedType;
 
 /**
  * The container frame of SignInPanel.
- *
+ * 
  * This class inherits JFrame methods and variables, and implements Observer.
  */
 public class MainWindow extends JFrame implements Observer {
-	
-	/** Sets the title of the window, size, and default close operation.
-	 * @param chatClient
-	 * @param model
-	 * @throws SQLException
-	 * @throws ClassNotFoundException */
-	public MainWindow (MainController chatClient, Model model) 
-	        throws ClassNotFoundException, SQLException {
 
-		//set Main Window Frame
-		setTitle("Parrot-IM");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension (300,500));
-		setPreferredSize(new Dimension (300,500));
-		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+    private ChatWindow chat;
+    
+    /**
+     * Sets the title of the window, size, and default close operation.
+     * 
+     * @param chatClient
+     * @param model
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public MainWindow(MainController chatClient, Model model)
+            throws ClassNotFoundException, SQLException {
 
-		//call SignIn Panel
-		getContentPane().add(new SignInPanel(this, chatClient, model));
-		
-		pack();
-		setVisible(true);
-		
-		// Testing for model observers
-		model.addObserver(this);
-		CurrentProfileData a = new CurrentProfileData();
-	}
-	
-	/**
-	 * Links the MainWindow with the observer.
-	 * @param t
-	 * @param o
-	 */
-	public void update(Observable t, Object o) {
-	    if (o == UpdatedType.ALL && o == UpdatedType.MAIN) {
-	        System.out.println("Observed!" + o);
-	    }else if (o == UpdatedType.PROFILE){
-	    	
-	    }
-	}
+        // set Main Window Frame
+        setTitle("Parrot-IM");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setMinimumSize(new Dimension(300, 500));
+        setPreferredSize(new Dimension(300, 500));
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+
+        // call SignIn Panel
+        getContentPane().add(new SignInPanel(this, chatClient, model));
+        
+        // Create chat window
+        this.chat = new ChatWindow(chatClient, model);
+
+        pack();
+        setVisible(true);
+
+        // Testing for model observers
+        model.addObserver(this);
+    }
+
+    /**
+     * Links the MainWindow with the observer.
+     * 
+     * @param t
+     * @param o
+     */
+    public void update(Observable t, Object o) {
+        if (o == UpdatedType.ALL && o == UpdatedType.MAIN) {
+            System.out.println("Observed!" + o);
+        } else if (o == UpdatedType.PROFILE) {
+
+        }
+    }
 }
