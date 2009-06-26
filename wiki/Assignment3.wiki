@@ -19,6 +19,18 @@ Direct link: [http://code.google.com/p/parrot-im/source/browse/#svn/trunk/Parrot
 
 = Known Bugs =
 
+== Critical Priority ==
+
+  # [http://code.google.com/p/parrot-im/issues/detail?id=22 Issue 22]
+    * Adding and remove friends used to work fine. However, after a period, certain accounts would give the errors detailed in the issue above, making adding and removing friends impossible. It appears to be an error with the smack API, and it is impossible to recover from the exception it throws.
+    * Was uncovered with integration testing using the XMPPTest test case.
+
+== Medium Priority ==
+  # http://code.google.com/p/parrot-im/issues/detail?id=9
+    * Exception thrown from an unknown source 50% of the time when receiving a message. No other effects seen.
+  # http://code.google.com/p/parrot-im/issues/detail?id=10
+    * Exception thrown from an unknown source 25% of the time when logging in. No other effects seen.  
+
 ----
 
 = Documents =
