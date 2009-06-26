@@ -1,5 +1,7 @@
 package controller.chatbot;
 
+import static org.junit.Assert.assertSame;
+
 import java.sql.SQLException;
 import java.util.*;
 
@@ -518,6 +520,8 @@ public class Chatbot {
       public void get_input(String message) throws Exception 
         {
   
+    	  System.out.println("Before = " + message + ")");
+    	  
                 save_prev_input();
 
                 sInput = message;
@@ -574,6 +578,7 @@ public class Chatbot {
                         response = get_response();
                 }
                 
+                //System.out.println("Response = " + sInput);
                 return response;
         }
 
@@ -606,9 +611,21 @@ public class Chatbot {
                                 {
                                         respList.add(KnowledgeBase[i][j]);
                                 }
+                             
+                                
                                 break;
                         }
                 }
+        }
+        
+        /**
+         * Returns the respond list.  
+         * 
+         * @return Vector<String>
+         */
+        
+        public Vector<String> getRespList() {
+        	return respList;
         }
         
         
@@ -635,6 +652,7 @@ public class Chatbot {
                         find_match();
                         restore_input();
                 }
+                
                 return select_response();
         }
         
@@ -657,7 +675,18 @@ public class Chatbot {
         }
         
         /**
-         * Appropriate handle events.
+         * Returns sInputBackup.
+         * 
+         * @return String
+         */
+        
+        public String getHandle_user_repetion() {
+        	return sInputBackup;
+        }
+        
+        
+        /**
+         * Appropriately handles events.
          * 
          * @param str
          */
@@ -677,6 +706,16 @@ public class Chatbot {
 
                 restore_input();
         }
+        
+        /**
+         * Returns sInputBackup.
+         * 
+         * @return String
+         */
+        
+        public String getHandle_event() {
+        	return sInputBackup;
+        }
 
         // Section
         // V - Chatbot Handling
@@ -690,7 +729,16 @@ public class Chatbot {
         public String select_response() {
                 Collections.shuffle(respList);
                 sResponse = respList.elementAt(0);
+                
+                System.out.println("Handle Repetion = " + sResponse);
+                getBuddy();
                 return sResponse;
+        }
+        
+        public void getBuddy() {
+        	for(int i=0;i< this.KnowledgeBase[0].length;i++){
+    			System.out.println("Answer = " + KnowledgeBase[0][i].toString());
+    		}
         }
         
         /**
@@ -703,12 +751,32 @@ public class Chatbot {
         }
         
         /**
+         * Returns user's previous input.
+         *
+         * @return String
+         */
+        
+        public String getSave_prev_input() {
+        	return sPrevInput;
+        }
+        
+        /**
          * Saves Chatbot's previous input.
          *
          */
  
         public void save_prev_response() {
                 sPrevResponse = sResponse;
+        }
+        
+        /**
+         * Returns Chatbot's Previous response.
+         *
+         * @return String
+         */
+        
+        public String getSave_preve_response() {
+        	return sPrevResponse;
         }
         
         /**
@@ -719,6 +787,17 @@ public class Chatbot {
         public void save_prev_event() {
                 sPrevEvent = sEvent;
         }
+        
+        /**
+         * Returns Chatbot's Previous event.
+         *
+         * @return String
+         */
+        
+        public String getSave_prev_event() {
+        	return sPrevEvent;
+        }
+        
 
         /**
          * Sets Chatbot's event.
@@ -731,6 +810,17 @@ public class Chatbot {
         }
         
         /**
+         * Returns Chatbot's current event.
+         *
+         * @return String
+         */
+        
+        public String getSet_event() {
+        	return sEvent;
+        }
+        
+        
+        /**
          * Saves User's event.
          *
          */
@@ -738,6 +828,17 @@ public class Chatbot {
         public void save_input() {
                 sInputBackup = sInput;
         }
+        
+        /**
+         * Returns Chatbot's backup input.
+         *
+         * @return String
+         */
+        
+        public String getSave_input() {
+        	return sInputBackup;
+        }
+        
         
         /**
          * Sets User's event.
@@ -750,13 +851,36 @@ public class Chatbot {
         }
         
         /**
+         * Returns Chatbot's current input.
+         *
+         * @return String
+         */
+        
+        public String getSet_input() {
+        	return sInput;
+        }
+        
+        
+        /**
          * Restores User's backup input.
          *
          */
         
         public void restore_input() {
+        	System.out.println("========== Backup = " + sInputBackup);
                 sInput = sInputBackup;
         }
+        
+        /**
+         * Returns Chatbot's current input.
+         *
+         * @return String
+         */
+        
+        public String getRestore_input() {
+        	return sInput;
+        }
+        
         
         /**
          * Return Chatbot's response.
@@ -785,6 +909,17 @@ public class Chatbot {
         }
         
         /**
+         * Returns Chatbot's current input.
+         *
+         * @return String
+         */
+        
+        public String getPreprocess_input() {
+        	return sInput;
+        }
+        
+        
+        /**
          * Checks whether Chatbot is repeating itself.
          * 
          * @return boolean
@@ -792,7 +927,7 @@ public class Chatbot {
 
         public boolean bot_repeat()  {
                 return (sPrevResponse.length() > 0 && 
-                        sResponse == sPrevResponse);
+                        sResponse.equals(sPrevResponse));
         }
         
         /**
@@ -803,7 +938,7 @@ public class Chatbot {
 
         public boolean user_repeat()  {
                 return (sPrevInput.length() > 0 &&
-                        ((sInput == sPrevInput) || 
+                        ((sInput.equals(sPrevInput)) || 
                         (sInput.indexOf(sPrevInput) != -1) ||
                         (sPrevInput.indexOf(sInput) != -1)));
         }
@@ -845,7 +980,7 @@ public class Chatbot {
          */
 
         public boolean same_event()  {
-                return (sEvent.length() > 0 && sEvent == sPrevEvent);
+                return (sEvent.length() > 0 && sEvent.equals(sPrevEvent));
         }
 
         /**
@@ -865,7 +1000,7 @@ public class Chatbot {
          */
 
         public boolean same_input()  {
-                return (sInput.length() > 0 && sInput == sPrevInput);
+                return (sInput.length() > 0 && sInput.equals(sPrevInput));
         }
         
         /**
@@ -915,7 +1050,7 @@ public class Chatbot {
                         
                 }
                 
-                System.out.println("From the chatbot = " + temp.toString());
+                //System.out.println("From the chatbot = " + temp.toString() + ")");
                 return temp.toString();
                 
             }
@@ -923,11 +1058,36 @@ public class Chatbot {
             return "";
                 
         }
+        
+        /**
+         * Returns Chatbot's current input.
+         *
+         * @param String
+         */
+        
         public String getsInput(){
+        	System.out.println("After  = " + sInput + ")");
         	return sInput;
         }
-        public String[][] get_knowlegebase(){
+        
+        /**
+         * Returns Chatbot's knowledgebase.
+         *
+         * @param String[][]
+         */
+        
+        public String[][] get_knowledgebase(){
         	return KnowledgeBase;
+        }
+        
+        /**
+         * Check if user's input is equal to Chatbot's current input.
+         *
+         * @param boolean
+         */
+        
+        public boolean check(String message) {
+        	return sInput.equals(message);
         }
 
 

@@ -198,10 +198,12 @@ public class ChatPanel extends JPanel {
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/emote.png")));
         emoticons.setToolTipText("Add an Emoticon");
+        emoticons.addActionListener(new emoticonListener());
         JButton pic =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/pic.png")));
         pic.setToolTipText("Insert a Picture");
+        pic.addActionListener(new pictureListener());
 
         //Text editing toolbar
         JToolBar bar1 = new JToolBar();
@@ -269,6 +271,50 @@ public class ChatPanel extends JPanel {
         txt1.setText(null);
     }
     
+    /** This is an emoticon listener class that is responsible for handling user's
+	 *	emoticon preference .
+     */
+    
+    public class emoticonListener implements ActionListener {
+        
+    	/** Listens for the uesr's action.
+         * 
+         * @param evt
+         */
+        
+        public void actionPerformed(ActionEvent evt) {
+        	
+        	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+        	JOptionPane.showMessageDialog(null, resultMessage);
+
+        	
+        }
+        
+       
+    }
+    
+    /** This is an picture listener class that is responsible for handling user's
+	 *	picture preference .
+     */
+    
+    public class pictureListener implements ActionListener {
+        
+    	/** Listens for the uesr's action.
+         * 
+         * @param evt
+         */
+        
+        public void actionPerformed(ActionEvent evt) {
+        	
+        	String resultMessage = "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+        	JOptionPane.showMessageDialog(null, resultMessage);
+             
+         
+        	
+        }
+        
+       
+    }
     
     /** This is a color listener class that is responsible for handling user's
 	 *	color preference through JColorChooser.
