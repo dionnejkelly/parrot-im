@@ -52,7 +52,7 @@ public class MessageData {
     private String toUser;
 
     /**
-     * The content of the message in string fromat.
+     * The content of the message in string format.
      */
     private String message;
 
@@ -71,6 +71,11 @@ public class MessageData {
      */
     private boolean bold, italics, underlined;
     
+    /** This is the users font color as a string
+     * of 6-digit hex codes ("#RRBBGG)
+     */
+    private String fontColor;
+    
     // Section
     // II - Constructors
 
@@ -83,7 +88,7 @@ public class MessageData {
      * @param size
      */
     public MessageData(String fromUser, String message, String font, String size,
-    		boolean bold, boolean italics, boolean underlined) {
+    		boolean bold, boolean italics, boolean underlined, String color) {
         this.fromUser = fromUser;
         this.message = message;
         this.font = font;
@@ -91,6 +96,7 @@ public class MessageData {
         this.bold = bold;
         this.italics = italics;
         this.underlined = underlined;
+        this.fontColor = color;
     }
 
     // Section
@@ -164,8 +170,8 @@ public class MessageData {
     public String text() {
     	String toUserText = "<U><font face = \"Arial\">"
             			+ this.fromUser + ":</font></U> ";
-        String text =   "<font face=\""
-                        + this.font + "\" size=\"" + this.size + "\">"
+        String text =   "<font face=\"" + this.font + "\" size=\"" + this.size +
+        				"\" color=\"" + fontColor + "\">" 
                         + this.message + "</font><br><br>";
         if(this.bold){ 
         	text = "<b>" + text + "</b>"; 

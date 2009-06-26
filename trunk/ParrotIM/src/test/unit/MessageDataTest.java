@@ -33,7 +33,7 @@ public class MessageDataTest {
         md1 =
                 new MessageData(
                         "Gina", "Hey, are you coming?", "TimesNewRoman",
-                        "17", false, false, false);
+                        "17", false, false, false, "#FFFFFF");
 
     }
 
@@ -48,7 +48,7 @@ public class MessageDataTest {
         md2 =
                 new MessageData(
                         "Niko", "What did you say?", "Bold", "20", false,
-                        false, false);
+                        false, false, "#FFFFFF");
         assertSame("Niko", md2.getFromUser());
         assertSame("What did you say?", md2.getMessage());
         assertSame("Bold", md2.getFont());
