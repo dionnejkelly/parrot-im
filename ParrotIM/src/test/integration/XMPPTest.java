@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import controller.MainController;
 
-public class loginTest {
+public class XMPPTest {
     
     private Model model;
     private MainController controller;
