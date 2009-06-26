@@ -70,13 +70,15 @@ public class MiscPanel extends JPanel{
         	 */
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-        		JFrame accMAN = new JFrame ("Help");
-        		accMAN.setLocation(100,100);
-        		accMAN.getContentPane().add(new HelpPanel());
-        		accMAN.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-        		
-        		accMAN.pack();
-        		accMAN.setVisible(true);
+            	HelpPanel helpPanel = new HelpPanel();
+            	
+//        		JFrame accMAN = new JFrame ("Help");
+//        		accMAN.setLocation(100,100);
+//        		accMAN.getContentPane().add(new HelpPanel());
+//        		accMAN.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+//        		
+//        		accMAN.pack();
+//        		accMAN.setVisible(true);
             }
         });
 		
