@@ -62,12 +62,12 @@ For the alpha release, each member asked friends and family members to try out P
 Additionally, we asked some testers to try out Parrot IM alone, and they reported back on any challenges they had or features they'd like changed or added. We also instructed these users to try to do certain tasks, such as adding a friend, or using the chat log, and report back on the experience.
 
 *Observations:*
-* User got confused with the idea of profile and account. Probably the GUI is confusing.
-* please add!
+  * User got confused with the idea of profile and account. Probably the GUI is confusing.
+  * please add!
 
 
 *Results:*
-* Need to improve the GUI so the user can easily distinguish profile and account.
+  * Need to improve the GUI so the user can easily distinguish profile and account.
 
 ----
 
