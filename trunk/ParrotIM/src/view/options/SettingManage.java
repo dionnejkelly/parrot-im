@@ -10,27 +10,74 @@ package view.options;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import javax.swing.plaf.basic.BasicFileChooserUI;
-import java.util.*;
-import javax.imageio.*;
 
+/**
+ * The SettingManage is currently responsible for providing the setting
+ * management for Parrot IM users with their preference settings.
+ * 
+ */
 
 public class SettingManage extends JComponent implements ItemListener, ActionListener
 {
-	JPanel pSetting = new JPanel(false);
-    JPanel pInfo = new JPanel(false);
-    JPanel pCheckList = new JPanel(false);
-	JPanel pEntry = new JPanel(false);
+	// Section
+    // I - Non-Static Data Members
 
-    JCheckBox cChart;
-    JCheckBox cSound;
+    /**
+     * The JPanel setting data.
+    */
+	
+	private JPanel pSetting = new JPanel(false);
+	
+	/**
+     * The JPanel info data.
+    */
+	
+	private JPanel pInfo = new JPanel(false);
+    
+    /**
+     * The JPanel checklist data.
+    */
+    
+    private JPanel pCheckList = new JPanel(false);
+    
+    /**
+     * The JPanel entry data.
+    */
+    
+    private JPanel pEntry = new JPanel(false);
 
-    JButton bOK;
-	JButton bCancel;
+	/**
+     * The JCheckBox spam filter data.
+    */
+	
+	private JCheckBox cSpamFilter;
+    
+    /**
+     * The JCheckBox sound data.
+    */
+    
+    private JCheckBox cSound;
 
+    /**
+     * The OK button.
+    */
+    
+    private JButton bOK;
+    
+    /**
+     * The Cancel button.
+    */
+    private JButton bCancel;
+
+    // Section
+    // II - Constructor
+
+    /**
+     * SettingManage() connects you to the Setting Manager handler. 
+     * Every time you want to run a SettingManage window you have to
+     * "SettingManage settingManage = new SettingManage();" 
+     */
+    
     public SettingManage() {
 
         pSetting.setLayout(new BorderLayout());
@@ -41,12 +88,12 @@ public class SettingManage extends JComponent implements ItemListener, ActionLis
 
 
 
-        cChart = new JCheckBox("Spam filter");
-        cChart.setSelected(true);
+        cSpamFilter = new JCheckBox("Spam filter");
+        cSpamFilter.setSelected(true);
         cSound = new JCheckBox("Sound effect");
         cSound.setSelected(true);
 
-        cChart.addItemListener(this);
+        cSpamFilter.addItemListener(this);
         cSound.addItemListener(this);
 
         bOK = new JButton("OK");
@@ -60,7 +107,7 @@ public class SettingManage extends JComponent implements ItemListener, ActionLis
         bCancel.setActionCommand("Cancel");
 
         pCheckList.setLayout(new GridLayout(5, 1));
-        pCheckList.add(cChart);
+        pCheckList.add(cSpamFilter);
         pCheckList.add(cSound);
 
 
@@ -80,25 +127,47 @@ public class SettingManage extends JComponent implements ItemListener, ActionLis
         pSetting.add(pInfo, BorderLayout.CENTER);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if ("OK".equals(e.getActionCommand()))
+    
+    /**
+     * Checks for user's action.
+     * 
+     * @param event
+     */
+    
+    
+    public void actionPerformed(ActionEvent event) {
+        if ("OK".equals(event.getActionCommand()))
         {
         	
         }
-        else if ("Cancel".equals(e.getActionCommand()))
+        else if ("Cancel".equals(event.getActionCommand()))
         {
 
         }
 
     }
 
-    public void itemStateChanged(ItemEvent e) {
-
-    }
+    /**
+     * Returns user's setting.
+     * 
+     * @return JComponent
+     */
 
     public JComponent settings()
     {
         return pSetting;
     }
+
+
+    /**
+     * Changes the item's state.
+     * 
+     * @param event
+     */
+    
+	public void itemStateChanged(ItemEvent event) {
+		
+		
+	}
 
 }

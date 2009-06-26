@@ -111,7 +111,7 @@ public class BlockManager extends JFrame {
     /**
      * BlockManager() connects you to the Block Manager handler. 
      * Every time you want to run a BlockManager window you have to
-     * "BlockManager db = new BlockManager(MainController c, Model model);" 
+     * "BlockManager blockManager = new BlockManager(MainController c, Model model);" 
      */
     
     public BlockManager(MainController c, Model model) {

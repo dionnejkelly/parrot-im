@@ -6,49 +6,114 @@
  */
 
 package view.options;
-//import statements
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import javax.swing.border.*;
 import javax.swing.event.*;
-import javax.swing.plaf.basic.BasicFileChooserUI;
-import java.util.*;
-import javax.imageio.*;
 
-/* BuddyManage class
- *
- *
- * Written by : Peng-Tzu Huang
- *
- *
- * Version 20 Jun 2009
- *
- * Revision    Status       Date            By:
- * 1.0         Created      20 Jun 2009     Peng-Tzu Huang
+/**
+ * The BuddyManage is currently responsible for providing the appropriate
+ * panels for Parrot IM users with their preference settings.
+ * 
  */
+
 
 public class BuddyManage extends JComponent implements ListSelectionListener, ActionListener
 {
+	 
+    // Section
+    // I - Non-Static Data Members
+
+    /**
+     * The JPanel buddy data.
+    */
+	
 	private JPanel pBuddy = new JPanel(false);
+	
+	/**
+     * The JPanel buddy info.
+    */
+	
     private JPanel pInfo = new JPanel(false);
-    private JPanel pButtom = new JPanel(false);
+    
+    /**
+     * The JPanel button data.
+    */
+    
+    private JPanel pButton = new JPanel(false);
+    
+    /**
+     * The JPanel checklist data.
+    */
+    
     private JPanel pCheckList = new JPanel(false);
+    
+    /**
+     * The JPanel edit data.
+    */
+    
+    
 	private JPanel pEdit = new JPanel(false);
+	
+	/**
+     * The JPanel entry data.
+    */
+	
 	private JPanel pEntry = new JPanel(false);
 	//private JPanel pEmpty = new JPanel(false);
 
+	/**
+     * The JList buddy data.
+    */
+	
     private JList lBuddy;
+    
+	/**
+     * The JList scrollpane data.
+    */
+    
 	private JScrollPane listScrollPane;
 
+	/**
+     * The add button.
+    */
+	
 	private JButton bAdd;
+	
+	/**
+     * The delete button.
+    */
+	
 	private JButton bDelete;
+	
+	/**
+     * The block button.
+    */
+	
 	private JButton bBlock;
 
+	/**
+     * The ok button.
+    */
+	
     private JButton bOK;
+    
+    /**
+     * The cancel button.
+    */
+    
 	private JButton bCancel;
 
+	// Section
+    // II - Constructor
+
+    /**
+     * BuddyManage() connects you to the Buddy Manager handler. 
+     * Every time you want to run a BuddyManager window you have to
+     * "BuddyManage buddyManage = new BuddyManage();" 
+     */
+	
     public BuddyManage() {
 
         pBuddy.setLayout(new BorderLayout());
@@ -110,48 +175,66 @@ public class BuddyManage extends JComponent implements ListSelectionListener, Ac
         pEntry.add(bOK);
         pEntry.add(bCancel);
 
-		pButtom.setLayout(new BorderLayout());
-        pButtom.add(pEdit, BorderLayout.NORTH);
+		pButton.setLayout(new BorderLayout());
+        pButton.add(pEdit, BorderLayout.NORTH);
         //pButtom.add(pEmpty,BorderLayout.CENTER);
-        pButtom.add(pEntry, BorderLayout.SOUTH);
+        pButton.add(pEntry, BorderLayout.SOUTH);
 
         pInfo.setLayout(new BorderLayout());
         pInfo.add(pCheckList, BorderLayout.NORTH);
-        pInfo.add(pButtom, BorderLayout.SOUTH);
+        pInfo.add(pButton, BorderLayout.SOUTH);
 
         pBuddy.add(filler, BorderLayout.NORTH);
         pBuddy.add(pInfo, BorderLayout.CENTER);
     }
+    
+    /**
+     * Check for user's action
+     * 
+     *  @param event
+     */
 
-    public void actionPerformed(ActionEvent e) {
-        if ("OK".equals(e.getActionCommand()))
+    public void actionPerformed(ActionEvent event) {
+        if ("OK".equals(event.getActionCommand()))
         {
 
         }
-        else if ("Cancel".equals(e.getActionCommand()))
+        else if ("Cancel".equals(event.getActionCommand()))
         {
 
         }
-        else if ("Add".equals(e.getActionCommand()))
+        else if ("Add".equals(event.getActionCommand()))
         {
 
         }
-        else if ("Delete".equals(e.getActionCommand()))
+        else if ("Delete".equals(event.getActionCommand()))
         {
 
         }
-        else if ("Block".equals(e.getActionCommand()))
+        else if ("Block".equals(event.getActionCommand()))
         {
 
         }
     }
+    
+    /**
+     * Changes the value
+     * 
+     *  @param event
+     */
 
-	public void valueChanged(ListSelectionEvent e) {
+	public void valueChanged(ListSelectionEvent event) {
     }
+	
+	 /**
+     * Returns the buddy
+     * 
+     *  @return JComponent
+     */
 
-    public JComponent account()
+    public JComponent getAccount()
     {
         return pBuddy;
     }
-//----------------------------------------
+
 }
