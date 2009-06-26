@@ -11,6 +11,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -29,32 +31,29 @@ import javax.swing.border.TitledBorder;
 
 import controller.MainController;
 
-import model.DatabaseFunctions;
 import model.Model;
-import model.dataType.GoogleTalkUserData;
 import model.dataType.UserData;
-import view.mainwindow.MainWindow;
+import model.enumerations.UpdatedType;
 
 /**
- * Provides auto-mated messaging capability to users in the chat window. 
- * For the Alpha Version, the Chatbot is capable of handling simple queries, and 
- * respond to some extent.
+ * Provides auto-mated messaging capability to users in the chat window. For the
+ * Alpha Version, the Chatbot is capable of handling simple queries, and respond
+ * to some extent.
  */
 
-public class BlockManager extends JFrame {
+public class BlockManager extends JFrame implements Observer {
 
-	// Section
+    // Section
     // I - Protected Data Member
 
     /**
-     * Holds the main frame of the Block Manager that is used to dispose the window
-     * when its task is finished.
+     * Holds the main frame of the Block Manager that is used to dispose the
+     * window when its task is finished.
      */
-	
-	protected JFrame popup;
-	
-	
-	// Section
+
+    protected JFrame popup;
+
+    // Section
     // II - Non-Static Data Members
 
     /**
@@ -62,43 +61,51 @@ public class BlockManager extends JFrame {
      */
 
     private JPanel accMANPanel;
-    
+
     /**
      * Holds the integrity of our database.
      */
-    
+
     private Model model;
-    
+
     /**
      * Temporarily holds the integrity of user's buddylist model.
      */
-    
     private DefaultListModel usersBuddyListModel;
     
     /**
+     * Temporarily holds the integrity of blocked users.
+     */
+    private DefaultListModel blockedBuddyListModel;
+
+
+    /**
      * Temporarily holds the integrity of Parrot IM user's buddylist model.
      */
-    
+
     private JList usersBuddyList;
-    
+
     /**
-     * Temporarily holds the integrity of blocked Parrot IM user's buddylist model.
+     * Temporarily holds the integrity of blocked Parrot IM user's buddylist
+     * model.
      */
-    
+
     private JList usersBannedBuddyList;
-    
+
     /**
-     * Temporarily holds the integrity of Parrot IM user's buddylist in ArrayList.
+     * Temporarily holds the integrity of Parrot IM user's buddylist in
+     * ArrayList.
      */
 
     private ArrayList<UserData> usersProfileBuddyList;
-    
+
     /**
-     * Temporarily holds the integrity of blocked Parrot IM user's buddylist in ArrayList.
+     * Temporarily holds the integrity of blocked Parrot IM user's buddylist in
+     * ArrayList.
      */
-    
+
     private Vector<UserData> bannedAccountList;
-    
+
     /**
      * Maintains the Parrot IM XMPP Protocol .
      */
@@ -109,11 +116,11 @@ public class BlockManager extends JFrame {
     // III - Constructors
 
     /**
-     * BlockManager() connects you to the Block Manager handler. 
-     * Every time you want to run a BlockManager window you have to
-     * "BlockManager blockManager = new BlockManager(MainController c, Model model);" 
+     * BlockManager() connects you to the Block Manager handler. Every time you
+     * want to run a BlockManager window you have to
+     * "BlockManager blockManager = new BlockManager(MainController c, Model model);"
      */
-    
+
     public BlockManager(MainController c, Model model) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
@@ -121,6 +128,8 @@ public class BlockManager extends JFrame {
         this.usersProfileBuddyList = this.model.getUnblockedFriendList();
         // this.bannedAccountList = bannedUsersList.getBannedUserList();
         this.bannedAccountList = model.getBannedUserList();
+
+        this.model.addObserver(this);
 
         // mainFrame = frame;
         popup = this;
@@ -190,31 +199,30 @@ public class BlockManager extends JFrame {
         leftPanel.add(listScroller, BorderLayout.NORTH);
         leftPanel.add(addremovePanel, BorderLayout.SOUTH);
         TitledBorder profTitle;
-        profTitle = BorderFactory.createTitledBorder(BorderFactory
-                .createEtchedBorder(EtchedBorder.LOWERED), "Parrot IM Users");
+        profTitle =
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
+                        "Parrot IM Users");
         profTitle.setTitleJustification(TitledBorder.CENTER);
         leftPanel.setBorder(profTitle);
 
         // add to account manager pop up main panel
         accMANPanel.add(leftPanel, BorderLayout.WEST);
     }
-    
-    
-    
 
     /**
-     * Provides Block Button Listener capability to users in the Left Panel Block Manager. 
+     * Provides Block Button Listener capability to users in the Left Panel
+     * Block Manager.
      */
-    
+
     class blockUserListener implements ActionListener {
 
-    	
-    	/**
+        /**
          * Listens for the user's blocking event.
          * 
          * @param event
-        */
-    	
+         */
+
         public void actionPerformed(ActionEvent event) {
 
             int selected = usersBuddyList.getSelectedIndex();
@@ -228,16 +236,17 @@ public class BlockManager extends JFrame {
                 System.out.println("Blocked user = " + blockedUser);
 
                 chatClient.blockFriend(blockedUser.getAccountName());
-                usersBuddyListModel.remove(selected);
-                usersBuddyList.updateUI();
+                // usersBuddyListModel.remove(selected);
+                // usersBuddyList.updateUI();
 
-                bannedAccountList.add(blockedUser);
-                usersBannedBuddyList.updateUI();
+                // bannedAccountList.add(blockedUser);
+                // usersBannedBuddyList.updateUI();
 
             }
 
             else {
-                String resultMessage = "Sorry for the inconvenience but there is no one to block. Please click on the users you want to block on the list. Thank you for your co-operation.";
+                String resultMessage =
+                        "Sorry for the inconvenience but there is no one to block. Please click on the users you want to block on the list. Thank you for your co-operation.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
 
@@ -245,17 +254,18 @@ public class BlockManager extends JFrame {
     }
 
     /**
-     * Provides Unblock Button Listener capability to users in the Right Panel Unblock Manager. 
+     * Provides Unblock Button Listener capability to users in the Right Panel
+     * Unblock Manager.
      */
-    
+
     class unBlockUserListener implements ActionListener {
 
-    	/**
+        /**
          * Listens for the user's unblocking event.
          * 
          * @param event
-        */
-    	
+         */
+
         public void actionPerformed(ActionEvent event) {
 
             int selected = usersBannedBuddyList.getSelectedIndex();
@@ -266,17 +276,18 @@ public class BlockManager extends JFrame {
                 System.out.println("Unblocked user = " + unBlockedUser);
 
                 chatClient.unblockFriend(unBlockedUser.getAccountName());
-                bannedAccountList.remove(selected);
-                usersBannedBuddyList.updateUI();
+                // bannedAccountList.remove(selected);
+                // usersBannedBuddyList.updateUI();
 
-                usersProfileBuddyList.add(unBlockedUser);
-                usersBuddyListModel.addElement(unBlockedUser);
-                usersBuddyList.updateUI();
+                // usersProfileBuddyList.add(unBlockedUser);
+                // usersBuddyListModel.addElement(unBlockedUser);
+                // usersBuddyList.updateUI();
 
             }
 
             else {
-                String resultMessage = "Sorry for the inconvenience but there is no one to unblock. Please click on the users you want to unblock on the list. Thank you for your co-operation.";
+                String resultMessage =
+                        "Sorry for the inconvenience but there is no one to unblock. Please click on the users you want to unblock on the list. Thank you for your co-operation.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
 
@@ -284,10 +295,10 @@ public class BlockManager extends JFrame {
     }
 
     /**
-     * rightPanelManager() connects you with the Right Panel Unblock Manager handler
-     * that allows users to unblock their friends.
+     * rightPanelManager() connects you with the Right Panel Unblock Manager
+     * handler that allows users to unblock their friends.
      */
-    
+
     private void rightPanelManager() {
         // setting right panel
         JPanel rightPanel = new JPanel();
@@ -298,7 +309,14 @@ public class BlockManager extends JFrame {
         JPanel topRight = new JPanel();
         topRight.setLayout(new BorderLayout());
         // bannedAccountList = bannedUsersList.getBannedUserList();
-        usersBannedBuddyList = new JList(bannedAccountList);
+
+        blockedBuddyListModel = new DefaultListModel();
+        // usersProfileBuddyList = model.getCurrentProfile().getAllFriends();
+        for (int i = 0; i < bannedAccountList.size(); i++) {
+            blockedBuddyListModel.addElement(bannedAccountList.get(i));
+        }
+        
+        usersBannedBuddyList = new JList(blockedBuddyListModel);
         usersBannedBuddyList
                 .setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -326,9 +344,10 @@ public class BlockManager extends JFrame {
         topRight.add(acctListScroller, BorderLayout.NORTH);
         topRight.add(addRemoveAcctPanel, BorderLayout.CENTER);
         TitledBorder acctTitle;
-        acctTitle = BorderFactory.createTitledBorder(BorderFactory
-                .createEtchedBorder(EtchedBorder.LOWERED),
-                "Blocked Parrot IM Accounts");
+        acctTitle =
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
+                        "Blocked Parrot IM Accounts");
         acctTitle.setTitleJustification(TitledBorder.CENTER);
         topRight.setBorder(acctTitle);
 
@@ -360,21 +379,41 @@ public class BlockManager extends JFrame {
     }
 
     /**
-     * Provides OK Button Listener capability to users in the Block Manager. 
+     * Provides OK Button Listener capability to users in the Block Manager.
      */
-    
+
     class okCancelButtonListener extends MouseAdapter {
-    	
-    	/**
+
+        /**
          * Listens for the user's mouse click event.
          * 
          * @param event
-        */
-    	
+         */
+
         public void mousePressed(MouseEvent event) {
             popup.removeAll();
             popup.dispose();
         }
     }
 
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.BUDDY) {
+
+            // Refresh the lists after a change
+            this.usersProfileBuddyList = this.model.getUnblockedFriendList();
+            this.bannedAccountList = model.getBannedUserList();
+
+            usersBuddyListModel.removeAllElements();
+            for (int i = 0; i < usersProfileBuddyList.size(); i++) {
+                usersBuddyListModel.addElement(usersProfileBuddyList.get(i));
+            }
+
+            blockedBuddyListModel.removeAllElements();
+            for (int i = 0; i < bannedAccountList.size(); i++) {
+                blockedBuddyListModel.addElement(bannedAccountList.get(i));
+            }
+            
+            return;
+        }
+    }
 }

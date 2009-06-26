@@ -469,12 +469,10 @@ public class ProfileManager extends JFrame implements Observer {
 
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.PROFILE) {
-            Vector<String> profileListArray = null;
             String profile = null;
 
             // Update profiles on the left-hand side
             profileListModel.removeAllElements();
-            profileListArray = model.getProfileList();
             for (String s : model.getProfileList()) {
                 profileListModel.addElement(s);
             }
