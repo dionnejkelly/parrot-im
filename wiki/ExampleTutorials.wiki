@@ -1,0 +1,8 @@
+= Example Tutorials =
+
+The following tutorials will walk you through the basic functions of Parrot IM.
+
+  * [Tutorial_CreateAccount How to create an account?]
+  * [Tutorial_LogIn How to log in?]
+  * [Tutorial_Chat How to chat?]
+  * [Tutorial_Exit How to exit Parrot IM?]
