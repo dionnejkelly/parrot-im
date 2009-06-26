@@ -70,6 +70,8 @@ public class DisplayPanel extends JPanel implements Observer {
 
         //Title Properties
         title = new JLabel();
+    
+        /*
         title.setText(model.getActiveConversation().getUser().getNickname());
         if (model.getActiveConversation().getUser().isBlocked()) {
             title.setForeground(Color.LIGHT_GRAY.darker());
@@ -82,6 +84,7 @@ public class DisplayPanel extends JPanel implements Observer {
         } else {
             title.setForeground(Color.RED.darker());
         }
+        */
         
         //Upper toolBar
         JToolBar bar1 = new JToolBar();

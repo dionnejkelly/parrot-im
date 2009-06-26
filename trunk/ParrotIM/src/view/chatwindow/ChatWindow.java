@@ -67,9 +67,9 @@ public class ChatWindow extends JFrame implements Observer {
         main = new MainPanel(c, model);
         
         getContentPane().add(main);
-
+        
         pack();
-        setVisible(true);
+        setVisible(false);
     }
 
     //Getters
@@ -95,7 +95,7 @@ public class ChatWindow extends JFrame implements Observer {
     public void setWindowIsOpen(boolean isOpen) {
         this.windowIsOpen = isOpen;
     }
-
+    
     //Update Method
     
     /**
@@ -104,10 +104,9 @@ public class ChatWindow extends JFrame implements Observer {
      * @param o
      * @param arg
      */
-    
     public void update(Observable o, Object arg) {
-        if (arg == UpdatedType.CHAT || arg == UpdatedType.CHAT_AND_BUDDY) {
-            if (!this.isVisible()) {
+        if (arg == UpdatedType.CHAT) {
+            if (model.numberOfConversations() > 0 && !this.isVisible()) {
                 this.setVisible(true);
             }
         }

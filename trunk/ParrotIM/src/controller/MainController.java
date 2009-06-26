@@ -23,6 +23,8 @@ import org.jivesoftware.smack.XMPPException;
 
 import org.jivesoftware.smack.util.StringUtils;
 
+import view.chatwindow.ChatWindow;
+
 import controller.chatbot.Chatbot;
 
 import model.*;
@@ -483,6 +485,17 @@ public class MainController {
                 }
             }
         }
+        return;
+    }
+    
+    public void startConversation(UserData friend, boolean focus) {
+        ConversationData conversation = null;
+        
+        conversation = model.startConversation(friend);
+        if (focus || model.numberOfConversations() < 2) {
+            model.setActiveConversation(conversation);
+        }
+         
         return;
     }
 

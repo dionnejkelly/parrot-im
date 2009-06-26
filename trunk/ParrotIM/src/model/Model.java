@@ -98,7 +98,6 @@ public class Model extends Observable {
     // window should not show if there are no conversations active. This
     // variable should be phased out.
     // TODO Phase this variable out.
-    public boolean chatWindowOpen;
     public boolean logWindowOpen;
     public boolean aboutWindowOpen;
 
@@ -459,9 +458,15 @@ public class Model extends Observable {
      * 
      * @return ArrayList<ConversationData>
      */
-
     public ArrayList<ConversationData> getConversations() {
         return this.conversations;
+    }
+    
+    public void clearAllConversations() {
+        this.activeConversation = null;        
+        this.conversations.clear();
+        
+        return;
     }
 
     /*
