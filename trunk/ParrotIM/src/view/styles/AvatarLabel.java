@@ -47,6 +47,8 @@ public class AvatarLabel extends JLabel{
 	/**
 	 * AvatarLabel constructor. It takes a String that describes
 	 * the path of the display picture as its argument.
+	 * 
+	 * @param defaultImage
 	 */
 	public AvatarLabel(String defaultImage){
 		avatarlbl = this;
@@ -78,7 +80,9 @@ public class AvatarLabel extends JLabel{
 		public void mousePressed(MouseEvent e) {}
 		
 		/** When the user click on the display picture label, a file chooser window will pop up.
-		 * It takes a MouseEvent argument */
+		 * It takes a MouseEvent argument
+		 * 
+		 *  @param e*/
 		public void mouseReleased(MouseEvent e) {
 			
 			System.out.println("clicked");
@@ -117,7 +121,9 @@ public class AvatarLabel extends JLabel{
 		@Override
 		
 		/** accept takes a File object argument. If the file is an image file or a directory, then it returns true.
-		 * It returns false otherwise */
+		 * It returns false otherwise 
+		 * 
+		 * @param f*/
 		public boolean accept(File f) {
 			
 			if (f.isDirectory()) return true; //if directory, return true
@@ -136,6 +142,7 @@ public class AvatarLabel extends JLabel{
 		}
 
 		@Override
+		/** Describes what file types the system will accept. */
 		public String getDescription() {
 			return "choose image file only";
 		}

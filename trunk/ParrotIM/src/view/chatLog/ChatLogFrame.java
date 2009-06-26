@@ -43,7 +43,10 @@ public class ChatLogFrame extends JFrame {
 	/** model allows the ChatLogFrame to store the state of ChatLogFrame (ie. whether it is opened or not). */
 	Model model;
 	
-	/** Sets the title of the window, size, and default close operation.*/
+	/** Sets the title of the window, size, and default close operation.
+	 * @param model
+	 * @throws SQLException
+	 * @throws ClassNotFoundException */
     public ChatLogFrame(Model model) throws SQLException, ClassNotFoundException {
         super("ParrotIM - Chat Log Viewer");
     	this.model = model;

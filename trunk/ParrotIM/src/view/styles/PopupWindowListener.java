@@ -50,6 +50,8 @@ public class PopupWindowListener implements WindowListener {
 	 * PopupWindowListener takes frame and popup as arguments.
 	 * frame is a JFrame object that calls the popup window.
 	 * popup is a JFrame object that is called (by frame).
+	 * @param frame
+	 * @param popup
 	 */
 	public PopupWindowListener(JFrame frame, JFrame popup){
 		mainFrame = frame;
@@ -57,7 +59,8 @@ public class PopupWindowListener implements WindowListener {
 	}
 
 	/**mainFrame is enabled when the popup window is closed.
-	 * It takes a WindowEvent argument.*/
+	 * It takes a WindowEvent argument.
+	 * @param e */
 	public void windowClosed(WindowEvent e) {
 		mainFrame.setEnabled(true);
 		mainFrame.setAlwaysOnTop(true);
@@ -69,9 +72,9 @@ public class PopupWindowListener implements WindowListener {
 	public void windowDeiconified(WindowEvent e) {}
 	public void windowIconified(WindowEvent e) {}
 	
-	/**mainFrame is disabled when the popup window is opened.
-	 *It takes a WindowEvent argument.
-	 */
+	/** mainFrame is disabled when the popup window is opened.
+	 * It takes a WindowEvent argument.
+	 * @param e */
 	public void windowOpened(WindowEvent e) {
 		mainFrame.setEnabled(false);
 	}
