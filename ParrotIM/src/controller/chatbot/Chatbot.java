@@ -923,6 +923,12 @@ public class Chatbot {
             return "";
                 
         }
+        public String getsInput(){
+        	return sInput;
+        }
+        public String[][] get_knowlegebase(){
+        	return KnowledgeBase;
+        }
 
 
 }
