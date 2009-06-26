@@ -74,7 +74,7 @@ No change here.
 
 === Product Requirements ===
 
-Portability Requirements: We still can not run on Macintosh, and Linux operating environments.
+Portability Requirements: We still can not run on Macintosh, and Linux operating environments. (NOT true! I can run it on my mac. Kevin can run it on Linux)
 
 === Organizational Requirements ===
 
@@ -102,4 +102,3 @@ we add new screentshots here:
 = Glossary =
 
 No change here.
-
