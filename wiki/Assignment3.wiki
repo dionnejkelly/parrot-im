@@ -68,7 +68,7 @@ GUI Testing and acceptance steps:
 
 2. We asked them to do the following tasks while one of the team is loggin with cmpt275testing@gmail.com
 
-a) Register with your GoogleTalk account
+a) Register with your !GoogleTalk account
 
 b) Add cmpt275testing@gmail.com
 
