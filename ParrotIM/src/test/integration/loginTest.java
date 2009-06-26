@@ -63,6 +63,15 @@ public class loginTest {
     }
     
     @Test
+    public void testDisconnect() throws Exception {
+        assertTrue(model.currentProfileExists());
+        controller.disconnect();
+        assertTrue(!model.currentProfileExists());
+        
+        return;
+    }
+    
+    @Test
     public void checkFriendAddition() throws Exception {
         // Ensure that adding a friend makes changes to both the
         // model and the database.
