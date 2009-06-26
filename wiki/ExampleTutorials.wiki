@@ -2,7 +2,7 @@
 
 The following tutorials will walk you through the basic functions of Parrot IM.
 
-  * [Tutorial_CreateAccount How to create an account?]
-  * [Tutorial_LogIn How to log in?]
-  * [Tutorial_Chat How to chat?]
-  * [Tutorial_Exit How to exit Parrot IM?]
+  * [NewTutorial_CreateAccount (new)How to create an account?]
+  * [NewTutorial_LogIn (new)How to log in?]
+  * [NewTutorial_Chat (new)How to chat?]
+  * [NewTutorial_Exit (new)How to exit Parrot IM?]
