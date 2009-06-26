@@ -21,6 +21,7 @@ public class MessageDataTest {
 	@After
 	public void tearDown() throws Exception {
 		md1 = null;
+		md2 = null;
 	}
 
 	@Test

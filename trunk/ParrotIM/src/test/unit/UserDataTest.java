@@ -9,7 +9,7 @@ import model.dataType.UserData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-// So completed
+// Test completed
 public class UserDataTest {
 	private UserData ud1;
 	private UserData ud2;
@@ -25,6 +25,8 @@ public class UserDataTest {
 	public void tearDown() throws Exception {
 		ud1 = null;
 		ud2 = null;
+		ud3 = null;
+		ud4 = null;
 	}
 
 	@Test

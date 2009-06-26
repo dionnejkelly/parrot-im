@@ -17,6 +17,8 @@ public class JabberUserDataTest {
 
 	@After
 	public void tearDown() throws Exception {
+		jabber1 = null;
+		jabber2 = null;
 	}
 
 	@Test

@@ -30,6 +30,7 @@ public class BuddyTest {
 		b2 = null;
 		b3 = null;
 		b4 = null;
+		b5 = null;
 	}
 	
 	@Test
