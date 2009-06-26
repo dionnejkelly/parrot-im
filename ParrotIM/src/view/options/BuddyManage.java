@@ -8,6 +8,7 @@
 package view.options;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
@@ -215,6 +216,11 @@ public class BuddyManage extends JComponent implements ListSelectionListener, Ac
         {
 
         }
+        
+        String resultMessage =
+            "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+        JOptionPane.showMessageDialog(null, resultMessage);
+    
     }
     
     /**
