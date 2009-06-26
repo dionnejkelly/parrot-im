@@ -89,6 +89,9 @@ public class AccountInfo extends JPanel
 	 * displayName display users name.
 	 */
 	JLabel avatarDisplay, displayName;
+	/**
+	 * variable to handles all inputs from user interaction
+	 */
 	MainController chatClient;
 	
 	/**
