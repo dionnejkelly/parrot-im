@@ -240,7 +240,7 @@ public class GuestAccountFrame extends JFrame {
                 mainFrame.dispose(); // TODO: consider if the sign in fails
             } catch (XMPPException e1) {
                 // e1.printStackTrace();
-                mainPanel.header.loadMain();
+                mainPanel.header.displaySystemStatus("Sign in failed!");
                 mainFrame.setEnabled(true);
                 System.out.println("sign in failed!");
             }
@@ -252,7 +252,7 @@ public class GuestAccountFrame extends JFrame {
                 mainFrame.dispose(); // TODO: consider if the sign in fails
             } catch (XMPPException e1) {
                 // e1.printStackTrace();
-                mainPanel.header.loadMain();
+            	mainPanel.header.displaySystemStatus("Sign in failed!");
                 mainFrame.setEnabled(true);
                 System.out.println("sign in failed!");
             }

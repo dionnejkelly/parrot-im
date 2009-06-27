@@ -1,16 +1,11 @@
-/* chatWindowListener.java
+/* PopupEnableMainWindowListener.java
  * 
  * Programmed By:
- * 	   William Chen
- *     Jordan Fox
+ * 	   Vera Lukman
  *     
  * Change Log:
- *     2009-June-12, JF
- *         Initial write.
- *     2009-June-13, WC
- *         Transferred file over to new project, ParrotIM.
- *     2009-June-23, KF
- *         Naming convention updates. Changed all class names.
+ *     2009-June-26, VL
+ *         Initial write to clean up redundant code.
  *         
  * Known Issues:
  *     None

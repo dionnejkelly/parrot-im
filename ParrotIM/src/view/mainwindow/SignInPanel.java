@@ -266,8 +266,9 @@ public class SignInPanel extends JPanel implements Observer {
             new BuddyList(core, model);
             mainFrame.dispose();
         } catch (XMPPException e1) {
-            header.loadMain();
+            header.displaySystemStatus("Sign in failed!");
             System.out.println("sign in failed!");
+            mainFrame.setEnabled(true);
         }
     }
     

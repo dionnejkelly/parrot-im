@@ -90,9 +90,10 @@ public class HeaderPanel extends JPanel{
 		System.out.println("headerPanel here");
 	}*/
 	
-	/** sets the status text to "Sign in failed" when the user fails to sign in*/
-	protected void loadMain(){
+	/** sets the status text to errormsg when the user fails to sign in
+	 * @param errormsg*/
+	protected void displaySystemStatus(String errormsg){
 		//avatarDisplay.setIcon(avatar);
-		status.setText("<html><FONT COLOR=RED>Sign in failed!</FONT></html>");
+		status.setText("<html><FONT COLOR=RED>"+errormsg+"</FONT></html>");
 	}
 }

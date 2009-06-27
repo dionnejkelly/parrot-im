@@ -52,6 +52,7 @@ public class AvatarLabel extends JLabel{
 	 * @param url
 	 */
 	public AvatarLabel(URL url){
+		this.setToolTipText("click to change your display picture");
 		avatarlbl = this;
 		avatar = new ImageIcon(url); // want to get this from model later
 		this.setMaximumSize(new Dimension(100,100));//want to look more into it
