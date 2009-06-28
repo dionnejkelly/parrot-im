@@ -56,6 +56,8 @@ public class PopupWindowListener implements WindowListener {
 	public PopupWindowListener(JFrame frame, JFrame popup){
 		mainFrame = frame;
 		this.popup = popup;
+		this.popup.setAlwaysOnTop(true);
+		this.popup.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	/**mainFrame is enabled when the popup window is closed.

@@ -105,9 +105,9 @@ public class ManageAccountFrame extends JFrame implements Observer
 	private JComboBox serviceField;
 	
 	protected ManageAccountFrame (Model model, MainWindow frame) throws ClassNotFoundException, SQLException {
-		this.setAlwaysOnTop(true);
+//		this.setAlwaysOnTop(true);
 		popup = this;
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+//		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.model = model;
 		mainFrame = frame;
 		this.addWindowListener(new PopupWindowListener(mainFrame, this));

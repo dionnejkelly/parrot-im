@@ -119,8 +119,8 @@ public class GuestAccountFrame extends JFrame {
     public GuestAccountFrame(
             Model model, MainController c, MainWindow frame,
             SignInPanel signin) {
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setAlwaysOnTop(true);
+//        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//        this.setAlwaysOnTop(true);
         popup = this;
         this.model = model;
         core = c;
