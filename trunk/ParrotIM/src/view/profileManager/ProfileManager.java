@@ -161,9 +161,9 @@ public class ProfileManager extends JFrame implements Observer {
     
     public ProfileManager(Model model, MainController controller, MainWindow frame)
             throws ClassNotFoundException, SQLException {
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+//        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         mainFrame = frame;
-        frame.setFocusable(false);
+//        frame.setFocusable(false);
         this.addWindowListener(new PopupWindowListener(mainFrame, this));
 
         this.model = model;

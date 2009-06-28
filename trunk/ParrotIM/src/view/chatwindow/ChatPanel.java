@@ -352,7 +352,7 @@ public class ChatPanel extends JPanel {
             JFrame frame = new JFrame("Color Chooser");
             oldContentPane = new ColorUserSelect();
             
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
 
             // Create and set up the content pane.
