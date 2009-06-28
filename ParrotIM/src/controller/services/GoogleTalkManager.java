@@ -16,19 +16,16 @@ public class GoogleTalkManager implements GenericConnection {
         this.connection = null;
     }
 
-    @Override
     public void addFriend(String userID) throws BadConnectionException {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void disconnect() throws BadConnectionException {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
     public void login(String userID, String password)
             throws BadConnectionException {
         ConnectionConfiguration config = null;
@@ -48,7 +45,6 @@ public class GoogleTalkManager implements GenericConnection {
         return;
     }
 
-    @Override
     public void removeFriend(String userID) throws BadConnectionException {
         // TODO Auto-generated method stub
 

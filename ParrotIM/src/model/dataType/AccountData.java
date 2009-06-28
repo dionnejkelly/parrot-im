@@ -37,6 +37,8 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import controller.services.GenericConnection;
+
 import model.enumerations.ServerType;
 
 /**
@@ -73,6 +75,8 @@ public class AccountData {
      * A boolean to indicate whether the account is connected or not.
      */
     private boolean connected;
+    
+    private GenericConnection connection;
 
     /**
      * Constructs for the basic required information: server, userID, and
