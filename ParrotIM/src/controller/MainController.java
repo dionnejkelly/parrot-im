@@ -219,7 +219,8 @@ public class MainController {
         if (account.getServer() == ServerType.GOOGLE_TALK) {
             config =
                     new ConnectionConfiguration(
-                            "talk.google.com", 5222, "gmail.com");
+                            "talk.google.com", 5223, "gmail.com");
+            config.setSocketFactory(SSLSocketFactory.getDefault());
         } else if (account.getServer() == ServerType.JABBER) {
             // Test code, please replace with jabber server selection
             config =
