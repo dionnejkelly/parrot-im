@@ -198,20 +198,28 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     public JToolBar OptionsBar() {
         JToolBar options = new JToolBar();
-
+        options.setFloatable(false);
+        
         JTextField search = new JTextField();
         JButton addF =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/add_user.png")));
+        addF.setToolTipText("Add a friend");
+        
         JButton removeF =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/delete_user.png")));
+        removeF.setToolTipText("Remove a friend");
+        
         JButton blockF =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/button_cancel.png")));
+        blockF.setToolTipText("Block a friend");
+        
         JButton searchButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/document_preview.png")));
+        searchButton.setToolTipText("Start searching");
 
         // add components
         options.add(addF);
