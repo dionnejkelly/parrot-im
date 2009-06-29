@@ -20,6 +20,11 @@
  *     2009-June-25, KF, RA
  *         Added equals() method to resolve an issue found in 
  *         testing by Rakan.
+ *     2009-June-28, KF
+ *         Removed ownUserData, which was scheduled to be phased out. Added
+ *         a field to hold a GenericConnection. It uses a getter to modify
+ *         its information, and this class isn't designed to specifically
+ *         change connection information; that's the job of the controller.
  *         
  * Known Issues:
  *     1. Bad implementation of adding ownUserData. Could use inheritance,
@@ -63,9 +68,6 @@ public class AccountData {
      */
     private String password;
 
-    /* Phase this field out */
-    private UserData ownUserData;
-
     /**
      * A friend list of this account.
      */
@@ -75,7 +77,10 @@ public class AccountData {
      * A boolean to indicate whether the account is connected or not.
      */
     private boolean connected;
-    
+
+    /**
+     * Holds the object that allows for connection to the server.
+     */
     private GenericConnection connection;
 
     /**
@@ -90,13 +95,27 @@ public class AccountData {
         this.server = server;
         this.accountName = accountName;
         this.password = password;
-        this.ownUserData = null;
         this.friends = new ArrayList<UserData>();
         this.connected = false;
+        this.connection = null;
+    }
 
-        if (this.server == ServerType.GOOGLE_TALK) {
-            this.ownUserData = new GoogleTalkUserData(this.accountName);
-        }
+    /**
+     * Constructs for the basic required information: server, userID, and
+     * password.
+     * 
+     * @param server
+     * @param accountName
+     * @param password
+     */
+    public AccountData(ServerType server, String accountName, String password,
+            GenericConnection connection) {
+        this.server = server;
+        this.accountName = accountName;
+        this.password = password;
+        this.friends = new ArrayList<UserData>();
+        this.connected = false;
+        this.connection = connection;
     }
 
     /**
@@ -209,12 +228,6 @@ public class AccountData {
         return this.findFriendByUserID(friend.getAccountName());
     }
 
-    // TODO phase this out.
-    public void setOwnUserData(UserData ownUserData) {
-        this.ownUserData = ownUserData;
-        return;
-    }
-
     /**
      * Searches for a friend by their userID, and returns true if found.
      * 
@@ -231,11 +244,6 @@ public class AccountData {
         }
 
         return foundFriend;
-    }
-
-    // TODO phase this out.
-    public UserData getOwnUserData() {
-        return ownUserData;
     }
 
     /**
@@ -258,6 +266,26 @@ public class AccountData {
     }
 
     /**
+     * Changes the connection object.
+     * 
+     * @param connection
+     */
+    public void setConnection(GenericConnection connection) {
+        this.connection = connection;
+
+        return;
+    }
+
+    /**
+     * Sets the connection object that communicates with the server.
+     * 
+     * @return The connection object for this account.
+     */
+    public GenericConnection getConnection() {
+        return connection;
+    }
+
+    /**
      * Checks if the accounts are the same. Determines so by whether their
      * userID is the same.
      * 
@@ -272,7 +300,8 @@ public class AccountData {
         if (account != null && account instanceof AccountData) {
             externalAccount = (AccountData) account;
             areEqual = this.accountName.equalsIgnoreCase(externalAccount
-                    .getAccountName()) && (this.server == externalAccount.getServer());
+                    .getAccountName())
+                    && (this.server == externalAccount.getServer());
         }
 
         return areEqual;

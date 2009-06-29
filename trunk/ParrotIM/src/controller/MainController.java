@@ -246,11 +246,6 @@ public class MainController {
         /* Get roster updated after the login */
         this.roster = connection.getRoster();
         this.roster.addRosterListener(new BuddyListener());
-        // this.userName = account.getAccountName();
-
-        /* Set up own user data. TODO REMOVE THIS */
-        user = new GoogleTalkUserData(account.getAccountName());
-        account.setOwnUserData(user);
 
         // Handle the current profile
         if (model.currentProfileExists()) {
