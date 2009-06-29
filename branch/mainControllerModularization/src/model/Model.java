@@ -51,6 +51,8 @@ package model;
 import java.util.*;
 import java.sql.*;
 
+import controller.services.GenericConnection;
+
 import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.CurrentProfileData;
@@ -598,6 +600,11 @@ public class Model extends Observable {
         currentProfile = new CurrentProfileData(account, profileName);
         return;
     }
+    
+    public void createCurrentProfile(String profileName) {
+        currentProfile = new CurrentProfileData(profileName);
+        return;
+    }
 
     /**
      * Adds account to current profile.
@@ -890,6 +897,32 @@ public class Model extends Observable {
             }
         }
 
+        return foundAccount;
+    }
+    
+    public AccountData findAccountByUserID(String userID) {
+        AccountData foundAccount = null; // Default return value
+        
+        for (AccountData account : currentProfile.getAccountData()) {
+            if (account.getAccountName().equalsIgnoreCase(userID)) {
+                foundAccount = account;
+                break;
+            }
+        }
+        
+        return foundAccount;
+    }
+    
+    public AccountData findAccountByConnection(GenericConnection connection) {
+        AccountData foundAccount = null; // Default return value
+        
+        for (AccountData account : currentProfile.getAccountData()) {
+            if (account.getConnection() == connection) {
+                foundAccount = account;
+                break;
+            }
+        }
+        
         return foundAccount;
     }
 

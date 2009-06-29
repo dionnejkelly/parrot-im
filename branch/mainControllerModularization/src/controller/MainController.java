@@ -42,6 +42,9 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
 
 import controller.chatbot.Chatbot;
+import controller.services.BadConnectionException;
+import controller.services.GenericConnection;
+import controller.services.GoogleTalkManager;
 
 import model.Model;
 import model.dataType.AccountData;
@@ -60,32 +63,20 @@ import model.enumerations.UpdatedType;
  */
 public class MainController {
 
-    /** The connection to the XMPP server. */
+    /**
+     * The connection to the XMPP server.
+     */
     private XMPPConnection connection;
 
-    /** Allows the ChatClient to store data for the GUI. */
+    /**
+     * Allows the ChatClient to store data for the GUI.
+     */
     private Model model;
 
-    /** Holds a list of friends for the current connection. */
-    private Roster roster;
-
-    /** Handles all chat message events, receipt and submission. */
-    private ChatManager chatManager;
-
-    /** Holds an array list of chats. */
-    private ArrayList<Chat> chats;
-
-    /** Holds the user data that is initially set to null. */
-    private UserData user = null;
-
-    /** Holds the message data that is initially set to null. */
-    private MessageData m = null;
-
-    /** Holds the chat data that is initially set to null. */
-    private Chat chat = null;
-
-    /** Holds the Chatbot data that is initially set to null. */
-    private Chatbot chatbot = new Chatbot();
+    /**
+     * Holds the Chatbot data that is initially set to null.
+     */
+    private Chatbot chatbot;
 
     /**
      * This is the constructor of Xmpp.
@@ -94,10 +85,8 @@ public class MainController {
      */
     public MainController(Model model) {
         this.model = model;
-        this.roster = null;
-        this.chatManager = null;
-        this.chats = new ArrayList<Chat>();
         this.connection = null;
+        this.chatbot = new Chatbot();
     }
 
     /**
@@ -132,20 +121,10 @@ public class MainController {
      * @param presenceStatus
      * @throws InterruptedException
      */
-    public void setPresence(String presenceStatus)
-            throws InterruptedException {
+    public void setPresence(String presenceStatus) throws InterruptedException {
         Presence presence = new Presence(Presence.Type.available);
         presence.setStatus(presenceStatus);
         connection.sendPacket(presence);
-    }
-
-    /**
-     * This method is using to get the Roster of someone.
-     * 
-     * @returns Roster
-     */
-    public Roster getRoster() {
-        return this.roster;
     }
 
     /**
@@ -207,57 +186,49 @@ public class MainController {
      * @param password
      * @throws XMPPException
      */
-    public void login(ServerType server, String accountName, String password)
-            throws XMPPException {
-        AccountData account = null;
-        UserData user = null;
-        ConnectionConfiguration config = null;
+    public AccountData login(ServerType server, String accountName,
+            String password) throws BadConnectionException {
+        AccountData account = null; // Default return value
+        GenericConnection connection = null;
 
-        /* Create an AccountData from entered information */
+        // Create an AccountData from entered information
         account = new AccountData(server, accountName, password);
 
-        if (account.getServer() == ServerType.GOOGLE_TALK) {
-            config =
-                    new ConnectionConfiguration(
-                            "talk.google.com", 5223, "gmail.com");
-            config.setSocketFactory(SSLSocketFactory.getDefault());
-        } else if (account.getServer() == ServerType.JABBER) {
-            // Test code, please replace with jabber server selection
-            config =
-                    new ConnectionConfiguration(
-                            "jabber.sfu.ca", 5223, "jabber.sfu.ca");
+        // Determine which type of connection the account requires, and add it
+        switch (account.getServer()) {
+        case GOOGLE_TALK:
+            connection = new GoogleTalkManager(this);
+            break;
 
-            // Enable SSL to let us connect to jabber.sfu.ca
-            config.setSocketFactory(SSLSocketFactory.getDefault());
-        } else {
-            // Other protocols
+        case JABBER:
+            // TODO Implement me!
+            break;
+
+        case TWITTER:
+            // TODO Implement me!
+            break;
+
+        default:
+            // Other servers
+            break;
         }
 
-        connection = new XMPPConnection(config);
-        connection.connect();
-        connection.login(account.getAccountName(), account.getPassword());
+        // While we implement....
+        if (connection == null) {
+            throw new BadConnectionException(); // ... until we implement
+        }
+
+        account.setConnection(connection);
 
         // If connected...
+        // TODO connect this with GUI sign-in animation?
+        // It not, we can just use account.setConnected() instead of model
         model.connectAccount(account);
 
-        connection.addPacketListener(
-                new MessagePacketListener(), new MessagePacketFilter());
-
-        /* Get roster updated after the login */
-        this.roster = connection.getRoster();
-        this.roster.addRosterListener(new BuddyListener());
-
-        // Handle the current profile
-        if (model.currentProfileExists()) {
-            model.addAccountToCurrentProfile(account);
-        } else { // current profile does not exist
-            model.createCurrentProfile(account, "Guest");
-        }
-
-        /* Set up friends' user data */
+        // Set up friends' user data
         this.populateBuddyList(account);
 
-        return;
+        return account;
     }
 
     /**
@@ -267,38 +238,34 @@ public class MainController {
      * @throws XMPPException
      */
 
-    public void loginProfile(String profile) throws XMPPException {
+    public void loginProfile(String profile) throws BadConnectionException {
         ArrayList<AccountTempData> accounts = null;
+        AccountData createdAccount = null;
+
+        // Disconnect in case already connected
+        this.disconnect();
+        model.createCurrentProfile(profile);
 
         accounts = model.getAccountsForProfile(profile);
-
-        // May not work for multiple accounts yet
         for (AccountTempData a : accounts) {
-            login(a.getServer(), a.getUserID(), a.getPassword());
+            createdAccount = login(a.getServer(), a.getUserID(), a
+                    .getPassword());
+            model.addAccountToCurrentProfile(createdAccount);
         }
-
-        model.getCurrentProfile().setProfileName(profile);
 
         return;
     }
 
     /**
-     * This method is used to disconnect the XMPP connection.
-     * 
-     * @throws XMPPException
+     * Disconnects all accounts associated with the current profile from the
+     * server, and sets the current profile to null.
      */
-    public void disconnect() throws XMPPException {
-        if (this.connection != null) {
+    public void disconnect() {
+        if (model.currentProfileExists()) {
             for (AccountData a : model.getCurrentProfile().getAccountData()) {
-                if (a.getServer() == ServerType.GOOGLE_TALK
-                        || a.getServer() == ServerType.JABBER) {
-                    this.connection.disconnect(); // Change to have connection
-                    // stored elsewhere.
-
-                }
+                a.getConnection().disconnect();
             }
         }
-        this.connection = null;
         this.model.clearCurrentProfile();
 
         return;
@@ -324,7 +291,7 @@ public class MainController {
         }
 
         try {
-        	
+
             System.out.println(roster.getEntryCount());
             roster.createEntry(userID, nickname, null);
             model.addFriend(server, userID);
@@ -464,20 +431,15 @@ public class MainController {
                 // Decide which type of user to use
                 accountName = r.getUser();
                 nickname = r.getName();
-                if (nickname == null
-                        || nickname.equalsIgnoreCase(accountName)) {
+                if (nickname == null || nickname.equalsIgnoreCase(accountName)) {
                     nickname = StringUtils.parseName(accountName);
                     r.setName(nickname);
                 }
 
                 if (account.getServer() == ServerType.GOOGLE_TALK) {
-                    user =
-                            new GoogleTalkUserData(
-                                    accountName, nickname, status);
+                    user = new GoogleTalkUserData(accountName, nickname, status);
                 } else if (account.getServer() == ServerType.JABBER) {
-                    user =
-                            new JabberUserData(
-                                    accountName, nickname, status);
+                    user = new JabberUserData(accountName, nickname, status);
                 } else { // some other user
                     // TODO implement me!
                 }
@@ -545,6 +507,8 @@ public class MainController {
      */
     public void sendMessage(String messageString, String to)
             throws XMPPException {
+        
+        // TODO, this next!
         Chat chat = null;
         boolean chatExists = false;
         ConversationData conversation = null;
@@ -568,10 +532,8 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject =
-                new MessageData(
-                        fromUser, messageString, font, size, bold, italics,
-                        underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -591,9 +553,8 @@ public class MainController {
         }
         /* Create if doesn't exist */
         if (!chatExists) {
-            chat =
-                    connection.getChatManager().createChat(
-                            to, new MsgListener());
+            chat = connection.getChatManager()
+                    .createChat(to, new MsgListener());
             chats.add(chat);
         }
         chat.sendMessage(messageString);
@@ -608,10 +569,9 @@ public class MainController {
      * @param size
      * @throws XMPPException
      */
-    public void sendMessage(
-            String messageString, String font, String size, boolean bold,
-            boolean italics, boolean underlined, String color)
-    			throws XMPPException {
+    public void sendMessage(String messageString, String font, String size,
+            boolean bold, boolean italics, boolean underlined, String color)
+            throws XMPPException {
         Chat chat = null;
         boolean chatExists = false;
         String to = null;
@@ -624,10 +584,8 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject =
-                new MessageData(
-                        fromUser, messageString, font, size, bold, italics,
-                        underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         try {
             model.sendMessage(conversation, messageObject);
@@ -649,9 +607,8 @@ public class MainController {
         }
         /* Create if doesn't exist */
         if (!chatExists) {
-            chat =
-                    connection.getChatManager().createChat(
-                            to, new MsgListener());
+            chat = connection.getChatManager()
+                    .createChat(to, new MsgListener());
             chats.add(chat);
         }
         chat.sendMessage(messageString);
@@ -678,268 +635,19 @@ public class MainController {
         return;
     }
 
-    /**
-     * Updates the Parrot IM user's state and status.
-     * 
-     * @param userToUpdate
-     * @param bareAddress
-     */
+    public void updateStateAndStatus(UserData userToUpdate,
+            GenericConnection connection) {
+        String userID = userToUpdate.getAccountName();
 
-    public void updateStateAndStatus(
-            UserData userToUpdate, String bareAddress) {
-        Presence truePresence = null;
-
-        truePresence = roster.getPresence(bareAddress);
-
-        /* Update state and status */
-        if (truePresence.getStatus() != null) {
-            userToUpdate.setStatus(truePresence.getStatus());
-        } else {
-            userToUpdate.setStatus("");
-        }
-
-        /* WEIRD BUG FIX BELOW */
-        if (truePresence.getMode() == Presence.Mode.dnd
-                || truePresence.getMode() == Presence.Mode.away
-                || truePresence.getMode() == Presence.Mode.xa) {
-            userToUpdate.setState(roster
-                    .getPresence(bareAddress).getMode().toString());
-        } else if (truePresence.isAvailable()) {
-            userToUpdate.setState("Available");
-        } else { // offline
-            userToUpdate.setState("Offline");
+        userToUpdate.setStatus(connection.retrieveStatus(userID));
+        if (connection instanceof GoogleTalkManager) {
+            userToUpdate.setState(((GoogleTalkManager) connection)
+                    .retrieveState(userID));
         }
 
         model.forceNotify(UpdatedType.BUDDY);
 
         return;
-    }
-
-    /* This is another class called BuddyListener. */
-
-    /**
-     * Changes to the roster, that is, changes to friends' statuses or
-     * availability, are handled by this class.
-     */
-    private class BuddyListener implements RosterListener {
-
-        /**
-         * Displays which user is added to the entry.
-         * 
-         * @param addresses
-         */
-
-        public void entriesAdded(Collection<String> addresses) {
-            // Fix me!
-            System.out.println(addresses + " from entriesAdded");
-            return;
-        }
-
-        /**
-         * Displays which user is updated in the entry.
-         * 
-         * @param addresses
-         */
-
-        public void entriesUpdated(Collection<String> addresses) {
-            // Fix me!
-            System.out.println(addresses + " from entriesUpdated");
-            return;
-        }
-
-        /**
-         * Displays which user is deleted in the entry.
-         * 
-         * @param addresses
-         */
-
-        public void entriesDeleted(Collection<String> addresses) {
-            // Fix me!
-            System.out.println(addresses + " from entriesDeleted");
-            return;
-        }
-
-        /**
-         * Updates user's changed presence
-         * 
-         * @param presence
-         */
-
-        public void presenceChanged(Presence presence) {
-            UserData userToUpdate = null;
-
-            String bareAddress =
-                    StringUtils.parseBareAddress(presence.getFrom());
-            userToUpdate = model.findUserByAccountName(bareAddress);
-            updateStateAndStatus(userToUpdate, bareAddress);
-            return;
-        }
-    }
-
-    /** This is another class call ChatListener. */
-
-    /**
-     * Controls program flow upon new chats being created.
-     */
-    private class ChatListener implements ChatManagerListener {
-
-        /**
-         * Adds net chat to the Chat Array List.
-         * 
-         * @param chat
-         * @param createdLocally
-         */
-
-        public void chatCreated(Chat chat, boolean createdLocally) {
-            System.out.println("CREATED CHAT!!");
-            /* Set up listener for the new Chat */
-            chat.addMessageListener(new MsgListener());
-
-            chats.add(chat);
-
-            return;
-        }
-    }
-
-    /** This is another class call MsgListener. */
-
-    /**
-     * Controls receiving message upon new arrival.
-     */
-
-    private class MsgListener implements MessageListener {
-
-        /**
-         * Processes the incoming message upon new arrival.
-         * 
-         * @param chat
-         * @param message
-         */
-
-        public void processMessage(Chat chat, Message message) {
-            UserData user = null;
-            MessageData m = null;
-
-            System.out.println("In processMessage");
-            // System.out.println(message.getFrom());
-            // System.out.println("Process message = " + message.getBody());
-            // System.out.println("            Process Message Type = " +
-            // message.getType());
-            //           
-            // System.out.println("            Process message ID ()  = " +
-            // message.getThread());
-            // System.out.println("            Process FROM PACKET ID = " +
-            // tempID);
-            //     
-            System.out.println("------------------");
-            // if (message.getType() == Message.Type.chat &&
-            // (!message.getThread().equals(tempID))) {
-            // user = model.findUserByAccountName(chat.getParticipant());
-            // m = new MessageData(user, message.getBody(), "font", "4");
-            // model.receiveMessage(user.getFriendOf(), m);
-            //                
-            // System.out.println("This should be printed!!!!");
-            // 
-            // }
-            return;
-        }
-    }
-
-    /** This is another class call MessagepackFilter. */
-
-    private class MessagePacketFilter implements PacketFilter {
-
-        /**
-         * Accepts the incoming packet upon new arrival.
-         * 
-         * @param packet
-         */
-
-        public boolean accept(Packet packet) {
-            // System.out.println(packet + "It's YOU, I KNOW IT!");
-
-            return (packet instanceof Message);
-        }
-    }
-
-    /** This is another class call MessagepacketListener. */
-
-    private class MessagePacketListener implements PacketListener {
-
-        /**
-         * Processes the incoming packet upon new arrival.
-         * 
-         * @param packet
-         */
-
-        public void processPacket(Packet packet) {
-            // Chatbot chatbot = new Chatbot();
-
-            /* packet is a new message, make chat if from new person */
-
-            boolean chatExists = false;
-            Message message = (Message) packet;
-            String bareAddress =
-                    StringUtils.parseBareAddress(message.getFrom());
-
-            if ((message.getType() == Message.Type.normal || message
-                    .getType() == Message.Type.chat)
-                    && message.getBody() != null) {
-                for (Chat c : chats) {
-                    // System.out.println(c.getParticipant());
-                    // System.out.println(bareAddress);
-                    if (c.getParticipant().equalsIgnoreCase(bareAddress)) {
-                        chatExists = true;
-                        chat = c;
-                        break;
-                    }
-                }
-
-                /* If no chats exist with the sender of the new message... */
-                if (!chatExists) {
-                    chat =
-                            connection.getChatManager().createChat(
-                                    bareAddress, new MsgListener());
-                    chats.add(chat);
-                }
-                // tempID = "";
-                user = model.findUserByAccountName(chat.getParticipant());
-                m =
-                        new MessageData(
-                                user.getAccountName(), message.getBody(),
-                                "font", "4", false, false, false, "#000000");
-
-                model.receiveMessage(model.findAccountByFriend(user), m);
-
-                if (model.getCurrentProfile().isChatbotEnabled()) {
-                    // chatbot = new Chatbot();
-                    try {
-                        chatbot.get_input(message.getBody());
-                        String response = chatbot.respond();
-                        sendMessage(response, chat.getParticipant());
-
-                        System.out.println("          OUTPUT = "
-                                + chatbot.getsInput() + ".");
-                        // temporary to display in the chat window
-                        // ConversationData conversation =
-                        // model.getActiveConversation();
-                        // UserData fromUser =
-                        // conversation.getAccount().getOwnUserData();
-                        // MessageData msg = new MessageData(fromUser, response,
-                        // chatPanel.getFontSelect().getSelectedItem().toString(),
-                        // "4");
-                        //                    
-                        // model.sendMessage(conversation, msg);
-
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            return;
-        }
     }
 
     /*
@@ -954,8 +662,7 @@ public class MainController {
      * @param defaultProfile
      */
 
-    public void addProfile(
-            String name, String password, boolean defaultProfile) {
+    public void addProfile(String name, String password, boolean defaultProfile) {
         this.model.addProfile(name, password, defaultProfile);
 
         return;
@@ -982,8 +689,7 @@ public class MainController {
      * @param password
      */
 
-    public void addAccount(
-            String profile, ServerType server, String account,
+    public void addAccount(String profile, ServerType server, String account,
             String password) {
         String serverName = null;
 
@@ -1013,13 +719,52 @@ public class MainController {
     /**
      * Toggles through Chatbot.
      */
-
     public void toggleChatbot() {
         this.model.getCurrentProfile().setChatbotEnabled(
-                this.model.getCurrentProfile().isChatbotEnabled()
-                        ? false : true);
+                this.model.getCurrentProfile().isChatbotEnabled() ? false
+                        : true);
 
         return;
     }
 
+    // Response methods
+
+    public void friendUpdated(GenericConnection connection, String userID) {
+        AccountData account = null;
+        UserData userToUpdate = null;
+
+        account = model.findAccountByConnection(connection);
+        if (account != null) {
+            userToUpdate = account.findFriendByUserID(userID);
+        }
+        updateStateAndStatus(userToUpdate, connection);
+
+        return;
+    }
+
+    public void messageReceived(String fromUserID, String toUserID,
+            String message) {
+        MessageData messageData = null;
+        AccountData account = null;
+
+        messageData = new MessageData(fromUserID, message, "font", "4", false,
+                false, false, "#000000");
+        account = model.findAccountByUserID(toUserID);
+
+        model.receiveMessage(account, messageData);
+
+        // Automatically add chatbot reply, if enabled
+        if (model.getCurrentProfile().isChatbotEnabled()) {
+            try {
+                chatbot.get_input(message);
+                String response = chatbot.respond();
+                sendMessage(response, fromUserID);
+            } catch (Exception e) {
+                System.err.println("Error with chatbot: messageReceived()");
+                e.printStackTrace();
+            }
+        }
+        
+        return;
+    }
 }

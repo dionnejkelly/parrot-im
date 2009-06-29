@@ -36,9 +36,13 @@ public interface GenericConnection {
     public void login(String userID, String password)
             throws BadConnectionException;
 
-    public void disconnect() throws BadConnectionException;
+    public void disconnect();
 
     public void addFriend(String userID) throws BadConnectionException;
 
     public void removeFriend(String userID) throws BadConnectionException;
+    
+    public String retrieveStatus(String userID);
+    
+    public void sendMessage(String toUserID, String message) throws BadConnectionException;
 }

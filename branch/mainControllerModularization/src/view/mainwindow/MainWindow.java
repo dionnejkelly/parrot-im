@@ -82,9 +82,7 @@ public class MainWindow extends JFrame implements Observer {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public MainWindow(MainController chatClient, Model model)
-            throws ClassNotFoundException, SQLException {
-
+    public MainWindow(MainController chatClient, Model model) {
         // set Main Window Frame
         setTitle("Parrot-IM");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -31,6 +31,8 @@
 
 package model.dataType;
 
+import model.enumerations.UserStateType;
+
 /**
  * Holds all data pertaining to users, including the account name, nickname, and
  * status message.
@@ -63,7 +65,7 @@ public abstract class UserData {
     /**
      * The state of the user (e.g. Available, Away, Offline).
      */
-    protected String state;
+    protected UserStateType state;
 
     // Section
     // II - Constructors
@@ -80,7 +82,7 @@ public abstract class UserData {
         this.nickname = nickname;
         this.status = status;
         this.blocked = false;
-        this.state = "Offline";
+        this.state = UserStateType.OFFLINE;
     }
 
     /**
@@ -93,7 +95,7 @@ public abstract class UserData {
         this.nickname = this.accountName;
         this.status = "";
         this.blocked = false;
-        this.state = "Offline";
+        this.state = UserStateType.OFFLINE;
     }
 
     // Section
@@ -180,7 +182,7 @@ public abstract class UserData {
      * 
      * @param state
      */
-    public void setState(String state) {
+    public void setState(UserStateType state) {
         this.state = state;
     }
 
@@ -189,7 +191,7 @@ public abstract class UserData {
      * 
      * @return The state of the user as a String.
      */
-    public String getState() {
+    public UserStateType getState() {
         return this.state;
     }
     
@@ -211,9 +213,9 @@ public abstract class UserData {
 
         if (this.blocked) {
             ownPriority = 1;
-        } else if (this.state.equalsIgnoreCase("Available")) {
+        } else if (this.state == UserStateType.ONLINE) {
             ownPriority = 4;
-        } else if (this.state.equalsIgnoreCase("Offline")) {
+        } else if (this.state == UserStateType.OFFLINE) {
             ownPriority = 2;
         } else {
             ownPriority = 3;
@@ -221,9 +223,9 @@ public abstract class UserData {
 
         if (user.isBlocked()) {
             userPriority = 1;
-        } else if (user.getState().equalsIgnoreCase("Available")) {
+        } else if (user.getState() == UserStateType.ONLINE) {
             userPriority = 4;
-        } else if (user.getState().equalsIgnoreCase("Offline")) {
+        } else if (user.getState() == UserStateType.OFFLINE) {
             userPriority = 2;
         } else {
             userPriority = 3;

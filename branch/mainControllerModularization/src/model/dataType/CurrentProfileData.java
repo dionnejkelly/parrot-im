@@ -79,6 +79,16 @@ public class CurrentProfileData {
         this.profileName = EMPTY_NAME;
         this.chatbotEnabled = false;
     }
+    
+    /**
+     * Creates a new profile with no valid accounts or information. The name is
+     * set to the passed in name.
+     */
+    public CurrentProfileData(String profileName) {
+        this.accountData = new ArrayList<AccountData>();
+        this.profileName = profileName;
+        this.chatbotEnabled = false;
+    }
 
     /**
      * Creates a new profile with all valid accounts and a name. The accounts
