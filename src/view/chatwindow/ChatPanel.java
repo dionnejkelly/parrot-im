@@ -19,6 +19,7 @@ import org.jivesoftware.smack.XMPPException;
 import view.styles.PopupWindowListener;
 
 import controller.MainController;
+import controller.services.BadConnectionException;
 
 import model.*;
 
@@ -280,7 +281,7 @@ public class ChatPanel extends JPanel {
 	                        underlined, oldContentPane.hexColor);
             	}
 
-            } catch (XMPPException e) {
+            } catch (BadConnectionException e) {
                 e.printStackTrace();
                 System.out.println("failed in sending text");
             }

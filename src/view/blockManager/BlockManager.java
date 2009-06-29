@@ -251,7 +251,7 @@ public class BlockManager extends JFrame implements Observer {
 
                 System.out.println("Blocked user = " + blockedUser);
 
-                chatClient.blockFriend(blockedUser.getAccountName());
+                chatClient.blockFriend(blockedUser);
                 // usersBuddyListModel.remove(selected);
                 // usersBuddyList.updateUI();
 
@@ -291,7 +291,7 @@ public class BlockManager extends JFrame implements Observer {
 
                 System.out.println("Unblocked user = " + unBlockedUser);
 
-                chatClient.unblockFriend(unBlockedUser.getAccountName());
+                chatClient.unblockFriend(unBlockedUser);
                 // bannedAccountList.remove(selected);
                 // usersBannedBuddyList.updateUI();
 

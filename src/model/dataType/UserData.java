@@ -19,6 +19,8 @@
  *     2009-June-25, KF, RA
  *         Added equals() method to resolve an issue found in 
  *         testing by Rakan.
+ *     2009-June-28, KF
+ *         Implemented a unique ID as a means to identify each UserData.
  *         
  * Known Issues:
  *     1. The data members may not apply to every protocol.
@@ -38,9 +40,11 @@ import model.enumerations.UserStateType;
  * status message.
  */
 public abstract class UserData {
-
+    
     // Section
     // I - Data Members
+    
+    private static int userDataCount = 1;
     
     /**
      * The userID of the external user.
@@ -66,6 +70,11 @@ public abstract class UserData {
      * The state of the user (e.g. Available, Away, Offline).
      */
     protected UserStateType state;
+    
+    /**
+     * The unique identification number of the UserData.
+     */
+    protected int uniqueID;
 
     // Section
     // II - Constructors
@@ -83,6 +92,7 @@ public abstract class UserData {
         this.status = status;
         this.blocked = false;
         this.state = UserStateType.OFFLINE;
+        this.uniqueID = userDataCount++;
     }
 
     /**
@@ -96,6 +106,7 @@ public abstract class UserData {
         this.status = "";
         this.blocked = false;
         this.state = UserStateType.OFFLINE;
+        this.uniqueID = userDataCount++;
     }
 
     // Section
@@ -193,6 +204,14 @@ public abstract class UserData {
      */
     public UserStateType getState() {
         return this.state;
+    }
+
+    public int getUniqueID() {
+        return uniqueID;
+    }
+
+    public void setUniqueID(int uniqueID) {
+        this.uniqueID = uniqueID;
     }
     
     // Section 

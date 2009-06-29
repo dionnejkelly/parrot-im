@@ -889,7 +889,7 @@ public class Model extends Observable {
         /* Find the AccountData by searching through all accounts */
         for (AccountData account : currentProfile.getAccountData()) {
             for (UserData user : account.getFriends()) {
-                if (user == userToBeFound) {
+                if (user.getUniqueID() == userToBeFound.getUniqueID()) {
                     foundAccount = account;
                     break;
                 }
