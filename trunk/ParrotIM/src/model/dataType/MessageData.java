@@ -189,9 +189,15 @@ public class MessageData {
         return text;
     }
     
+    /**
+     * Uses searches for matches to emoticons using regular expressions and
+     * replaces with HTML tag for the emoticon
+     *  
+     * @param text
+     * @return The text with HTML tags for the emoticons added.
+     */
     private String addEmoticons(String text){
-    	
-    	text = text.replaceAll(":[)]", "<img src=\"" + this.getClass().getResource(
+    	text = text.replaceAll("(:[)])|(:-[)])", "<img src=\"" + this.getClass().getResource(
         "/images/emoticons/happy.png").toString() + "\" alt=\":)\" />");
     	return text;
     }
