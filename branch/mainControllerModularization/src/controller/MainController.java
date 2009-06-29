@@ -64,11 +64,6 @@ import model.enumerations.UpdatedType;
 public class MainController {
 
     /**
-     * The connection to the XMPP server.
-     */
-    private XMPPConnection connection;
-
-    /**
      * Allows the ChatClient to store data for the GUI.
      */
     private Model model;
@@ -85,7 +80,6 @@ public class MainController {
      */
     public MainController(Model model) {
         this.model = model;
-        this.connection = null;
         this.chatbot = new Chatbot();
     }
 
@@ -162,20 +156,6 @@ public class MainController {
         return userID + " = " + status;
     }
 
-    /*
-     * These are other utility methods of Xmpp class.
-     */
-
-    /**
-     * This is the helper method using to determine if we connect to the sever
-     * successfully.
-     * 
-     * @return boolean
-     */
-    public boolean isConnected() {
-        return connection.isConnected();
-    }
-
     /**
      * Attempts to log a user into the server based on the given account
      * information. If the current profile already exists, this account
@@ -237,7 +217,6 @@ public class MainController {
      * @param profile
      * @throws XMPPException
      */
-
     public void loginProfile(String profile) throws BadConnectionException {
         ArrayList<AccountTempData> accounts = null;
         AccountData createdAccount = null;
@@ -252,6 +231,20 @@ public class MainController {
                     .getPassword());
             model.addAccountToCurrentProfile(createdAccount);
         }
+
+        return;
+    }
+
+    public void loginAsGuest(ServerType server, String userID, String password)
+            throws BadConnectionException {
+        AccountData createdAccount = null;
+
+        // Disconnect in case already connected
+        this.disconnect();
+        model.createCurrentProfile("Guest Profile");
+
+        createdAccount = login(server, userID, password);
+        model.addAccountToCurrentProfile(createdAccount);
 
         return;
     }
@@ -506,9 +499,7 @@ public class MainController {
      * 
      */
     public void sendMessage(String messageString, String to)
-            throws XMPPException {
-        
-        // TODO, this next!
+            throws BadConnectionException {
         Chat chat = null;
         boolean chatExists = false;
         ConversationData conversation = null;
@@ -520,14 +511,15 @@ public class MainController {
         boolean italics = false;
         boolean underlined = false;
         String color = "#000000";
+        GenericConnection connection = null;
 
         conversation = model.findConversationByFriend(to);
 
-        // TEMP FIX TO MAKE CONVERSATION
         if (conversation == null) {
             model.startConversation(model.findUserByAccountName(to));
             conversation = model.findConversationByFriend(to);
         }
+        connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
@@ -535,29 +527,9 @@ public class MainController {
         messageObject = new MessageData(fromUser, messageString, font, size,
                 bold, italics, underlined, color);
 
-        try {
-            model.sendMessage(conversation, messageObject);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        connection.sendMessage(to, messageString);
+        model.sendMessage(conversation, messageObject);
 
-        /* Check for existing chats */
-        for (Chat c : chats) {
-            if (c.getParticipant().equalsIgnoreCase(to)) {
-                chatExists = true;
-                chat = c;
-                break;
-            }
-        }
-        /* Create if doesn't exist */
-        if (!chatExists) {
-            chat = connection.getChatManager()
-                    .createChat(to, new MsgListener());
-            chats.add(chat);
-        }
-        chat.sendMessage(messageString);
         return;
     }
 
@@ -571,48 +543,28 @@ public class MainController {
      */
     public void sendMessage(String messageString, String font, String size,
             boolean bold, boolean italics, boolean underlined, String color)
-            throws XMPPException {
+            throws BadConnectionException {
         Chat chat = null;
         boolean chatExists = false;
         String to = null;
         MessageData messageObject = null;
         ConversationData conversation = null;
         String fromUser = null;
+        GenericConnection connection = null;
 
-        /* Default to sending to the active user */
+        // Default to sending to the active user
         conversation = model.getActiveConversation();
+        connection = conversation.getAccount().getConnection();
+        
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
         messageObject = new MessageData(fromUser, messageString, font, size,
                 bold, italics, underlined, color);
 
-        try {
-            model.sendMessage(conversation, messageObject);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        /* Check for existing chats */
-        for (Chat c : chats) {
-            if (c.getParticipant().equalsIgnoreCase(to)) {
-                chatExists = true;
-                chat = c;
-                break;
-            }
-        }
-        /* Create if doesn't exist */
-        if (!chatExists) {
-            chat = connection.getChatManager()
-                    .createChat(to, new MsgListener());
-            chats.add(chat);
-        }
-        chat.sendMessage(messageString);
-
+        connection.sendMessage(to, messageString);
+        model.sendMessage(conversation, messageObject);
+        
         return;
     }
 
@@ -764,7 +716,7 @@ public class MainController {
                 e.printStackTrace();
             }
         }
-        
+
         return;
     }
 }

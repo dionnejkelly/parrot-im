@@ -76,6 +76,7 @@ import model.enumerations.UpdatedType;
 import org.jivesoftware.smack.XMPPException;
 
 import controller.MainController;
+import controller.services.BadConnectionException;
 
 import view.profileManager.ProfileManager;
 import view.styles.LinkLabel;
@@ -279,19 +280,18 @@ public class SignInPanel extends JPanel implements Observer {
      */
     private void signIn_ActionPerformed() throws ClassNotFoundException,
             SQLException {
-        ServerType serverType = ServerType.GOOGLE_TALK; // temporary
         String username = (String) account_select.getSelectedItem();
-        String password = model.getPassword(username);
 
         try {
             // Login with server and set model info
-            // core.login(serverType, username, password);
-            core.loginProfile((String) account_select.getSelectedItem());
+            
+            // TODO think of how to implement profile password
+            core.loginProfile(username);
 
             // Handle the GUI changes
             new BuddyList(core, model);
             mainFrame.dispose();
-        } catch (XMPPException e1) {
+        } catch (BadConnectionException e1) {
             header.displaySystemStatus("Sign in failed!");
             System.out.println("sign in failed!");
             mainFrame.setEnabled(true);

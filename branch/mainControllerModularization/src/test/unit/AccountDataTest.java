@@ -180,9 +180,9 @@ public class AccountDataTest {
         GoogleTalkUserData expected =
                 new GoogleTalkUserData("expected", "e", "good");
         ad4.addFriend(expected);
-        assertTrue(ad4.findFriendByUserID(expected.getAccountName()));
+        assertNotNull(ad4.findFriendByUserID(expected.getAccountName()));
         ad4.addFriend(expected);
-        assertTrue(ad4.findFriendByUserID("expected"));
+        assertNotNull(ad4.findFriendByUserID("expected"));
     }
 
     @Test

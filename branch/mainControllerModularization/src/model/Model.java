@@ -405,15 +405,22 @@ public class Model extends Observable {
      * @throws SQLException
      */
 
-    public void sendMessage(
-            ConversationData modifiedConversation, MessageData message)
-            throws ClassNotFoundException, SQLException {
+    public void sendMessage(ConversationData modifiedConversation,
+            MessageData message) {
+        DatabaseFunctions db = null;
+
         modifiedConversation.addMessage(message);
-        DatabaseFunctions db = new DatabaseFunctions();
-        db.addChat(
-                currentProfile.getProfileName(), message.getFromUser(),
-                modifiedConversation.getUser().getAccountName(), message
-                        .getMessage());
+
+        try {
+            db = new DatabaseFunctions();
+            db.addChat(currentProfile.getProfileName(), message.getFromUser(),
+                    modifiedConversation.getUser().getAccountName(), message
+                            .getMessage());
+        } catch (Exception e) {
+            System.err.println("Database error, adding chat.");
+            e.printStackTrace();
+        }
+
         setChanged();
         notifyObservers(UpdatedType.CHAT);
         return;
@@ -485,8 +492,7 @@ public class Model extends Observable {
      * @param password
      */
 
-    public void addAccount(
-            String profile, String server, String accountName,
+    public void addAccount(String profile, String server, String accountName,
             String password) {
         DatabaseFunctions db;
         try {
@@ -600,7 +606,7 @@ public class Model extends Observable {
         currentProfile = new CurrentProfileData(account, profileName);
         return;
     }
-    
+
     public void createCurrentProfile(String profileName) {
         currentProfile = new CurrentProfileData(profileName);
         return;
@@ -736,7 +742,7 @@ public class Model extends Observable {
         UserData userToAdd = null;
 
         account = currentProfile.getAccountFromServer(server);
-        
+
         // Temp fix for user bug in jabber
         // Shouldn't actually cycle through all of the accounts
         if (account == null) {
@@ -747,7 +753,7 @@ public class Model extends Observable {
                 account = currentProfile.getAccountFromServer(server);
             }
         }
-        
+
         if (server == ServerType.GOOGLE_TALK) {
             userToAdd = new GoogleTalkUserData(accountName);
         } else if (server == ServerType.JABBER) {
@@ -759,9 +765,7 @@ public class Model extends Observable {
         // Database manipulation
         try {
             db = new DatabaseFunctions();
-            if (!db
-                    .checkFriendExists(
-                            account.getAccountName(), accountName)) {
+            if (!db.checkFriendExists(account.getAccountName(), accountName)) {
                 friend = new FriendTempData(accountName, false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
@@ -801,9 +805,7 @@ public class Model extends Observable {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), userToAdd
                     .getAccountName())) {
-                friend =
-                        new FriendTempData(
-                                userToAdd.getAccountName(), false);
+                friend = new FriendTempData(userToAdd.getAccountName(), false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
             }
@@ -846,8 +848,8 @@ public class Model extends Observable {
             friendName = exFriend.getAccountName();
             if (friendName != null
                     && account != null
-                    && db.checkFriendExists(
-                            account.getAccountName(), friendName)) {
+                    && db.checkFriendExists(account.getAccountName(),
+                            friendName)) {
                 db = new DatabaseFunctions();
                 db.removeFriend(account.getAccountName(), friendName);
             }
@@ -899,30 +901,30 @@ public class Model extends Observable {
 
         return foundAccount;
     }
-    
+
     public AccountData findAccountByUserID(String userID) {
         AccountData foundAccount = null; // Default return value
-        
+
         for (AccountData account : currentProfile.getAccountData()) {
             if (account.getAccountName().equalsIgnoreCase(userID)) {
                 foundAccount = account;
                 break;
             }
         }
-        
+
         return foundAccount;
     }
-    
+
     public AccountData findAccountByConnection(GenericConnection connection) {
         AccountData foundAccount = null; // Default return value
-        
+
         for (AccountData account : currentProfile.getAccountData()) {
             if (account.getConnection() == connection) {
                 foundAccount = account;
                 break;
             }
         }
-        
+
         return foundAccount;
     }
 
@@ -1168,8 +1170,8 @@ public class Model extends Observable {
      * @return Vector<String> representation of the buddy log list.
      */
 
-    public Vector<String> getBuddyLogList(String profile)
-            throws SQLException, ClassNotFoundException {
+    public Vector<String> getBuddyLogList(String profile) throws SQLException,
+            ClassNotFoundException {
         // returns list of buddies (that have chat log)
         // We might need to consider the case in which the same
         // user is on multiple accounts. With this scheme, the
@@ -1222,21 +1224,20 @@ public class Model extends Observable {
      * @return Vector<ChatLogMessageTempData> representation of the log list.
      */
 
-    public Vector<ChatLogMessageTempData> getLogMessage(
-            String username, String buddyname, String date) {
+    public Vector<ChatLogMessageTempData> getLogMessage(String username,
+            String buddyname, String date) {
         DatabaseFunctions db = null;
-        Vector<ChatLogMessageTempData> messages =
-                new Vector<ChatLogMessageTempData>();
+        Vector<ChatLogMessageTempData> messages = new Vector<ChatLogMessageTempData>();
 
         try {
             db = new DatabaseFunctions();
-            for (AccountData account : this
-                    .getCurrentProfile().getAccountData()) {
+            for (AccountData account : this.getCurrentProfile()
+                    .getAccountData()) {
 
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                messages.addAll(db.getMessageFromDate(account
-                        .getAccountName(), buddyname, date));
+                messages.addAll(db.getMessageFromDate(account.getAccountName(),
+                        buddyname, date));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -1280,20 +1281,21 @@ public class Model extends Observable {
 
         return servers;
     }
-    
+
     /**
-     * sets the boolean of the popup window either true or false
-     * true if the window is opened
-     * false if the closed
-     * @param popupInt 
-     * @param state */
-    public void updatePopupState (PopupEnableWindowType popupInt, boolean state){
-    	if (popupInt == PopupEnableWindowType.CHATLOG){
-    		System.out.println("Model:  ChatWindow");
-    		this.logWindowOpen = state;
-    	}else if (popupInt == PopupEnableWindowType.ABOUT){
-    		System.out.println("Model: About");
-    		this.aboutWindowOpen = state;
-    	}
+     * sets the boolean of the popup window either true or false true if the
+     * window is opened false if the closed
+     * 
+     * @param popupInt
+     * @param state
+     */
+    public void updatePopupState(PopupEnableWindowType popupInt, boolean state) {
+        if (popupInt == PopupEnableWindowType.CHATLOG) {
+            System.out.println("Model:  ChatWindow");
+            this.logWindowOpen = state;
+        } else if (popupInt == PopupEnableWindowType.ABOUT) {
+            System.out.println("Model: About");
+            this.aboutWindowOpen = state;
+        }
     }
 }

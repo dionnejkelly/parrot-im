@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberUserData;
 import model.dataType.UserData;
+import model.enumerations.UserStateType;
 
 import org.junit.After;
 import org.junit.Before;
@@ -116,15 +117,15 @@ public class UserDataTest {
 
     @Test
     public void testSetState() {
-        String expected = "online";
+        UserStateType expected = UserStateType.ONLINE;
         ud1.setState(expected);
         assertSame(expected, ud1.getState());
     }
 
     @Test
     public void testGetState() {
-        assertSame("Offline", ud2.getState());
-        String expected = "busy";
+        assertSame(UserStateType.OFFLINE, ud2.getState());
+        UserStateType expected = UserStateType.BUSY;
         ud2.setState(expected);
         assertSame(expected, ud2.getState());
     }
@@ -132,13 +133,13 @@ public class UserDataTest {
     @Test
     public void testIsMoreOnline() {
         ud1.setBlocked(true);
-        ud2.setState("Avaliable");
+        ud2.setState(UserStateType.ONLINE);
         assertFalse(ud1.isMoreOnline(ud2));
         ud1.setBlocked(false);
-        ud1.setState("Available");
-        ud2.setState("busy");
+        ud1.setState(UserStateType.ONLINE);
+        ud2.setState(UserStateType.BUSY);
         assertTrue(ud1.isMoreOnline(ud2));
-        ud2.setState("Online");
+        ud2.setState(UserStateType.ONLINE);
         // Being equel will not cause a problem
         assertTrue(ud1.isMoreOnline(ud2));
         assertFalse(ud2.isMoreOnline(ud1));
