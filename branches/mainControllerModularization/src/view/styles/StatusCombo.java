@@ -71,11 +71,9 @@ public class StatusCombo extends JComboBox{
 	     * @param e */
 		public void actionPerformed(ActionEvent e) {
 			if (getSelectedIndex() > -1){
-				System.out.println("-----------------------------------Coming from here");
 				String userStatus = getSelectedItem().toString();
-				System.out.println("Status changed to: " + userStatus);
 				
-				chatClient.setStatus(userStatus);
+				chatClient.setPresence(userStatus);
 			}
 		}
 	}

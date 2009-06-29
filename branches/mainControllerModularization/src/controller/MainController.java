@@ -79,8 +79,10 @@ public class MainController {
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            a.getConnection().changeStatus(status);
+            a.getConnection().changeStatus(
+                    model.getCurrentProfile().getState(), status);
         }
+        model.getCurrentProfile().setStatus(status);
 
         return;
     }
@@ -96,7 +98,7 @@ public class MainController {
         // TODO may a user wants to go "invisible" in just one account?
         // TODO handle input from GUI, maybe enum type input?
         UserStateType state = null;
-        
+
         if (stateString.equalsIgnoreCase("Online")) {
             state = UserStateType.ONLINE;
         } else if (stateString.equalsIgnoreCase("Away")) {
@@ -107,10 +109,12 @@ public class MainController {
             // TODO implement me
             state = UserStateType.ONLINE;
         }
-        
+
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            a.getConnection().changeState(state);
+            a.getConnection().changeStatus(
+                    state, model.getCurrentProfile().getStatus());
         }
+        model.getCurrentProfile().setState(state);
 
         return;
     }
@@ -157,7 +161,7 @@ public class MainController {
         if (connection == null) {
             throw new BadConnectionException(); // ... until we implement
         }
-        
+
         connection.login(accountName, password);
         account.setConnection(connection);
 
@@ -402,7 +406,7 @@ public class MainController {
                 model.addFriend(account, user);
             }
         }
-        
+
         model.forceNotify(UpdatedType.BUDDY);
 
         return;
