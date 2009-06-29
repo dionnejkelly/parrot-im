@@ -78,6 +78,14 @@ public class MessageData {
      */
     private String fontColor;
     
+    /** String[][] emoticons is a 2-dimensional array of strings with
+	 * the first string being the regular expression of shortcuts which
+	 * will be replaced by an image, and the second string is the file
+	 * name of the image located within the "/images/emoticons/" folder
+	 */
+    private String[][] emoticons = {{"(:[)]) | (:-[)])", "happy.png"}, 
+									{"(:[(]) | (:-[(])", "happy.png"}};
+    
     // Section
     // II - Constructors
 
@@ -197,14 +205,6 @@ public class MessageData {
      * @return The text with HTML tags for the emoticons added.
      */
     private String addEmoticons(String text){
-    	/* String[][] emoticons is a 2-dimensional array of strings with
-    	 * the first string being the regular expression of shortcuts which
-    	 * will be replaced by an image, and the second string is the file
-    	 * name of the image located within the "/images/emoticons/" folder
-    	 */
-    	String[][] emoticons = {{"(:[)]) | (:-[)])", "happy.png"}, 
-    							{"(:[(]) | (:-[(])", "happy.png"}};
-    	
     	for(int i = 0; i < emoticons.length; i++){
 	    	text = text.replaceAll(emoticons[i][0], "<img src=\"" + this.getClass().getResource(
 	        "/images/emoticons/" + emoticons[i][1]).toString() + "\" alt=\":)\" />");
