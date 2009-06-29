@@ -33,7 +33,7 @@ public enum ServerType {
 
     // Section
     // I - Enumerated Types
-    GOOGLE_TALK("Google Talk"), JABBER("Jabber"), TWITTER("Twitter"),
+     JABBER("Jabber"),GOOGLE_TALK("Google Talk"), TWITTER("Twitter"),
     ICQ("ICQ"), MSN("MSN"), AIM("AIM");
 
     // Section

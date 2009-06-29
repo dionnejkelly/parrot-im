@@ -29,10 +29,13 @@
 
 package view.mainwindow;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -48,8 +51,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import model.Model;
-import model.dataType.AccountData;
-import model.dataType.GoogleTalkUserData;
 import model.enumerations.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
@@ -67,6 +68,9 @@ import view.styles.PopupWindowListener;
  */
 public class GuestAccountFrame extends JFrame {
 
+	protected JTextField jabberServer;
+	protected JPanel serverPanel;
+	
     /**
      * model stores the needed data of the system. It also connects it with
      * database
@@ -119,8 +123,6 @@ public class GuestAccountFrame extends JFrame {
     public GuestAccountFrame(
             Model model, MainController c, MainWindow frame,
             SignInPanel signin) {
-//        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//        this.setAlwaysOnTop(true);
         popup = this;
         this.model = model;
         core = c;
@@ -140,34 +142,47 @@ public class GuestAccountFrame extends JFrame {
         // select server
         server = new JComboBox(model.getServerList());
         server.setPreferredSize(new Dimension(200, 20));
-        server.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+        server.addItemListener(new serverListener());
+        //server name for jabber
+        //textfield
+        jabberServer = new JTextField();
+        jabberServer.setPreferredSize(new Dimension(jabberServer.getWidth(), 20));
+        jabberServer.setToolTipText("specify jabber server");
+        JPanel jabberServerPanel = new JPanel();
+        jabberServerPanel.setLayout(new BorderLayout());
+        jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
+        //label
+        JPanel jabberServerLabel = new JPanel();
+        jabberServerLabel.setLayout(new BorderLayout());
+        jabberServerLabel.add(new JLabel("Jabber server: "), BorderLayout.NORTH);
 
-        // username + password
-        JPanel accountInfoPanel = new JPanel();
+        serverPanel = new JPanel();
+        serverPanel.setLayout(new BorderLayout());
+        serverPanel.add(jabberServerLabel, BorderLayout.WEST);
+        serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
+
         // set username
         JPanel usernamePanel = new JPanel();
         UNFieldGuest = new JTextField();
         UNFieldGuest.setPreferredSize(new Dimension(200, 20));
         usernamePanel.add(new JLabel("Username:     "));
         usernamePanel.add(UNFieldGuest);
-        accountInfoPanel.add(usernamePanel);
         // set password
+        JPanel passwordPanel = new JPanel();
         PwdFieldGuest = new JPasswordField();
         PwdFieldGuest.setPreferredSize(new Dimension(200, 20));
-        accountInfoPanel.add(new JLabel("Password:      "));
-        accountInfoPanel.add(PwdFieldGuest);
+        passwordPanel.add(new JLabel ("Password:      "));
+        passwordPanel.add(PwdFieldGuest);
 
         // set ok-cancel button
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setPreferredSize(new Dimension(20, 90));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(
-                15, 40, 15, 40));
+                0, 40, 10, 40));
         GridLayout buttonsLayout = new GridLayout(1, 2);
         buttonsLayout.setHgap(5);
         buttonsPanel.setLayout(buttonsLayout);
         // OK Button
         JButton okButton = new JButton("OK");
-        okButton.setPreferredSize(new Dimension(20, 40));
         okButton.addActionListener(new ActionListener() {
             /**
              * When the OK button is clicked, the system will try to connect to
@@ -193,7 +208,6 @@ public class GuestAccountFrame extends JFrame {
         buttonsPanel.add(okButton);
         // Cancel Button
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.setPreferredSize(new Dimension(20, 40));
         cancelButton.addActionListener(new ActionListener() {
             /**
              * When the CANCEL button is clicked, then go back to MainWindow
@@ -209,12 +223,14 @@ public class GuestAccountFrame extends JFrame {
 
         // set main panel
         JPanel GALPanel = new JPanel();
-        GALPanel.setLayout(new GridLayout(3, 1));
+        GALPanel.setLayout(new GridLayout(5, 1));
         GALPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         GALPanel.add(server); // server dropdown menu
-        GALPanel.add(accountInfoPanel); // username+password
+        GALPanel.add(serverPanel); // servername
+        GALPanel.add(usernamePanel); // username
+        GALPanel.add(passwordPanel); // password
         GALPanel.add(buttonsPanel); // ok+cancel buttons
-
+        
         getContentPane().add(GALPanel);
         pack();
         setVisible(true);
@@ -247,6 +263,7 @@ public class GuestAccountFrame extends JFrame {
 
         } else if (serverType == ServerType.JABBER) {
             try {
+//            	jabberServer.getText();
                 core.login(serverType, username, password);
                 new BuddyList(core, model);// pops buddylist window
                 mainFrame.dispose(); // TODO: consider if the sign in fails
@@ -280,5 +297,19 @@ public class GuestAccountFrame extends JFrame {
         }
         return str;
 
+    }
+    
+    private class serverListener implements ItemListener{
+
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			if (server.getSelectedIndex()==0){
+				serverPanel.setVisible(true);
+//				jabberServer.updateUI();
+			}else{
+				serverPanel.setVisible(false);
+			}
+		}
+    	
     }
 }
