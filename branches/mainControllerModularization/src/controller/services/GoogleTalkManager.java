@@ -7,6 +7,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 import model.dataType.MessageData;
 import model.dataType.UserData;
+import model.dataType.tempData.FriendTempData;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
@@ -14,6 +15,8 @@ import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.PacketListener;
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -48,8 +51,22 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     public void addFriend(String userID) throws BadConnectionException {
-        // TODO Auto-generated method stub
+        Roster roster = null;
+        String nickname = null;
 
+        nickname = StringUtils.parseBareAddress(userID);
+
+        roster = connection.getRoster();
+        if (!roster.contains(userID)) {
+            try {
+                roster.createEntry(userID, nickname, null);
+            } catch (XMPPException e) {
+                System.err.println("Error in adding friend");
+                throw new BadConnectionException();
+            }
+        }
+
+        return;
     }
 
     public void disconnect() {
@@ -62,8 +79,9 @@ public class GoogleTalkManager implements GenericConnection {
             throws BadConnectionException {
         ConnectionConfiguration config = null;
 
-        config = new ConnectionConfiguration(GOOGLE_SERVER, GOOGLE_PORT,
-                GOOGLE_DOMAIN);
+        config =
+                new ConnectionConfiguration(
+                        GOOGLE_SERVER, GOOGLE_PORT, GOOGLE_DOMAIN);
         config.setSocketFactory(SSLSocketFactory.getDefault());
 
         connection = new XMPPConnection(config);
@@ -76,31 +94,77 @@ public class GoogleTalkManager implements GenericConnection {
         }
 
         // Setup the listeners for messages and buddy changes
-        connection.addPacketListener(new MessagePacketListener(),
-                new MessagePacketFilter());
+        connection.addPacketListener(
+                new MessagePacketListener(), new MessagePacketFilter());
         connection.getRoster().addRosterListener(new BuddyListener());
 
         return;
     }
 
-    public void removeFriend(String userID) throws BadConnectionException {
-        // TODO Auto-generated method stub
+    public boolean removeFriend(String userID)
+            throws BadConnectionException {
+        boolean removed = false; // Default return value
+        Roster roster = this.connection.getRoster();
 
+        for (RosterEntry r : roster.getEntries()) {
+            if (r.getUser().equalsIgnoreCase(userID)) {
+                try {
+                    roster.removeEntry(r);
+                } catch (XMPPException e) {
+                    System.err.println("Error in removing friend.");
+                    throw new BadConnectionException();
+                }
+                removed = true;
+                break;
+            }
+        }
+
+        return removed;
+    }
+
+    public void changeStatus(String status) {
+        Presence presence = new Presence(Presence.Type.available);
+        presence.setStatus(status);
+        connection.sendPacket(presence);
+
+        return;
     }
 
     public String retrieveStatus(String userID) {
         String userStatus = ""; // default return value
 
         try {
-            userStatus = this.connection.getRoster().getPresence(userID)
-                    .getStatus();
+            userStatus =
+                    this.connection
+                            .getRoster().getPresence(userID).getStatus();
         } catch (NullPointerException e) {
             System.err.println("Invalid connection or "
                     + "user in retrieveStatus()");
-            userStatus = null;
+            userStatus = "";
+        }
+        
+        // Server may set their status to null; we want empty string
+        if (userStatus == null) {
+            userStatus = "";
         }
 
         return userStatus;
+    }
+
+    public void changeState(UserStateType state) {
+        Presence presence = new Presence(Presence.Type.available);
+        if (state == UserStateType.ONLINE) {
+            presence.setMode(Presence.Mode.available);
+        } else if (state == UserStateType.AWAY) {
+            presence.setMode(Presence.Mode.away);
+        } else if (state == UserStateType.BUSY) {
+            presence.setMode(Presence.Mode.dnd);
+        } else {
+            presence.setMode(Presence.Mode.chat);
+        }
+        connection.sendPacket(presence);
+
+        return;
     }
 
     public UserStateType retrieveState(String userID) {
@@ -109,7 +173,8 @@ public class GoogleTalkManager implements GenericConnection {
         Mode userStateFromServer = null;
 
         try {
-            userFromServer = this.connection.getRoster().getPresence(userID);
+            userFromServer =
+                    this.connection.getRoster().getPresence(userID);
             userStateFromServer = userFromServer.getMode();
 
             if (userStateFromServer == Presence.Mode.dnd) {
@@ -131,6 +196,26 @@ public class GoogleTalkManager implements GenericConnection {
         return userState;
     }
 
+    public ArrayList<FriendTempData> retrieveFriendList() {
+        ArrayList<FriendTempData> friends = new ArrayList<FriendTempData>();
+        FriendTempData friendToAdd = null;
+        String userID = null;
+        Roster roster = null;
+
+        roster = this.connection.getRoster();
+
+        for (RosterEntry r : roster.getEntries()) {
+            userID = r.getUser();
+            friendToAdd =
+                    new FriendTempData(userID, r.getName(), this
+                            .retrieveStatus(userID), this
+                            .retrieveState(userID), false);
+            friends.add(friendToAdd);
+        }
+
+        return friends;
+    }
+
     public void sendMessage(String toUserID, String message)
             throws BadConnectionException {
         Chat ourChat = null;
@@ -143,14 +228,16 @@ public class GoogleTalkManager implements GenericConnection {
         }
 
         if (ourChat == null) {
-            ourChat = connection.getChatManager().createChat(toUserID,
-                    new MessageListener() {
-                        public void processMessage(Chat chat, Message message) {
-                            // Do nothing
+            ourChat =
+                    connection.getChatManager().createChat(
+                            toUserID, new MessageListener() {
+                                public void processMessage(
+                                        Chat chat, Message message) {
+                                    // Do nothing
 
-                            return;
-                        }
-                    });
+                                    return;
+                                }
+                            });
         }
 
         try {
@@ -217,8 +304,8 @@ public class GoogleTalkManager implements GenericConnection {
          * @param presence
          */
         public void presenceChanged(Presence presence) {
-            String bareAddress = StringUtils.parseBareAddress(presence
-                    .getFrom());
+            String bareAddress =
+                    StringUtils.parseBareAddress(presence.getFrom());
             controller.friendUpdated(genericConnection, bareAddress);
             return;
         }
@@ -234,9 +321,10 @@ public class GoogleTalkManager implements GenericConnection {
 
         public void processPacket(Packet packet) {
             Message message = (Message) packet;
-            String fromUserID = StringUtils.parseBareAddress(message.getFrom());
-            String toUserID = StringUtils
-                    .parseBareAddress(connection.getUser());
+            String fromUserID =
+                    StringUtils.parseBareAddress(message.getFrom());
+            String toUserID =
+                    StringUtils.parseBareAddress(connection.getUser());
 
             if (message.getBody() != null) {
                 controller.messageReceived(fromUserID, toUserID, message

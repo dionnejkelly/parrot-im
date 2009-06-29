@@ -18,26 +18,7 @@
 
 package controller;
 
-import java.sql.SQLException;
 import java.util.*;
-
-import javax.net.ssl.SSLSocketFactory;
-
-import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.ChatManager;
-import org.jivesoftware.smack.filter.PacketFilter;
-import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smack.packet.Packet;
-import org.jivesoftware.smack.packet.Presence;
-import org.jivesoftware.smack.ChatManagerListener;
-import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.PacketListener;
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
-import org.jivesoftware.smack.RosterListener;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
 
 import org.jivesoftware.smack.util.StringUtils;
 
@@ -57,6 +38,7 @@ import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
+import model.enumerations.UserStateType;
 
 /**
  * Handles all connections involving XMPP protocol.
@@ -93,20 +75,14 @@ public class MainController {
      * 
      * @param status
      */
-
     public void setStatus(String status) {
-        Presence presence = new Presence(Presence.Type.available);
-        if (status.equals("Available")) {
-            presence.setMode(Presence.Mode.available);
-        } else if (status.equals("Away")) {
-            presence.setMode(Presence.Mode.away);
-        } else if (status.equals("Busy")) {
-            presence.setMode(Presence.Mode.dnd);
-        } else {
-            presence.setMode(Presence.Mode.chat);
+        // Updates status for all accounts
+        // TODO may not wanted for twitter?
+        for (AccountData a : model.getCurrentProfile().getAccountData()) {
+            a.getConnection().changeStatus(status);
         }
-        System.out.println("Called");
-        connection.sendPacket(presence);
+
+        return;
     }
 
     /**
@@ -115,45 +91,28 @@ public class MainController {
      * @param presenceStatus
      * @throws InterruptedException
      */
-    public void setPresence(String presenceStatus) throws InterruptedException {
-        Presence presence = new Presence(Presence.Type.available);
-        presence.setStatus(presenceStatus);
-        connection.sendPacket(presence);
-    }
-
-    /**
-     * This method is using to get the presence of the user.
-     * 
-     * @param userID
-     * @returns String
-     */
-    public String getUserPresence(String userID) {
-        String status = "offline";
-        if (connection != null && connection.getRoster() != null) {
-            Presence presence = connection.getRoster().getPresence(userID);
-            if (presence.isAvailable()) {
-                if (presence.isAvailable()) {
-
-                    if (presence.getMode() == Presence.Mode.away) {
-                        status = presence.getStatus();
-                        if (status != null) {
-                            status = "Away";
-                        }
-                    } else if (presence.getMode() == Presence.Mode.dnd) {
-                        status = presence.getStatus();
-                        if (status != null) {
-                            status = "Busy";
-                        }
-                    } else { // if (presence.getMode() != Presence.Mode.dnd) {
-                        status = presence.getStatus();
-                        if (status != null) {
-                            status = "Online";
-                        }
-                    }
-                }
-            }
+    public void setPresence(String stateString) {
+        // Iterates over all accounts and sets the state
+        // TODO may a user wants to go "invisible" in just one account?
+        // TODO handle input from GUI, maybe enum type input?
+        UserStateType state = null;
+        
+        if (stateString.equalsIgnoreCase("Online")) {
+            state = UserStateType.ONLINE;
+        } else if (stateString.equalsIgnoreCase("Away")) {
+            state = UserStateType.AWAY;
+        } else if (stateString.equalsIgnoreCase("Busy")) {
+            state = UserStateType.BUSY;
+        } else {
+            // TODO implement me
+            state = UserStateType.ONLINE;
         }
-        return userID + " = " + status;
+        
+        for (AccountData a : model.getCurrentProfile().getAccountData()) {
+            a.getConnection().changeState(state);
+        }
+
+        return;
     }
 
     /**
@@ -166,8 +125,9 @@ public class MainController {
      * @param password
      * @throws XMPPException
      */
-    public AccountData login(ServerType server, String accountName,
-            String password) throws BadConnectionException {
+    public AccountData login(
+            ServerType server, String accountName, String password)
+            throws BadConnectionException {
         AccountData account = null; // Default return value
         GenericConnection connection = null;
 
@@ -197,7 +157,8 @@ public class MainController {
         if (connection == null) {
             throw new BadConnectionException(); // ... until we implement
         }
-
+        
+        connection.login(accountName, password);
         account.setConnection(connection);
 
         // If connected...
@@ -227,15 +188,16 @@ public class MainController {
 
         accounts = model.getAccountsForProfile(profile);
         for (AccountTempData a : accounts) {
-            createdAccount = login(a.getServer(), a.getUserID(), a
-                    .getPassword());
+            createdAccount =
+                    login(a.getServer(), a.getUserID(), a.getPassword());
             model.addAccountToCurrentProfile(createdAccount);
         }
 
         return;
     }
 
-    public void loginAsGuest(ServerType server, String userID, String password)
+    public void loginAsGuest(
+            ServerType server, String userID, String password)
             throws BadConnectionException {
         AccountData createdAccount = null;
 
@@ -271,27 +233,21 @@ public class MainController {
      */
 
     public void addFriend(String userID) {
-        ServerType server = null;
-        Roster roster = connection.getRoster();
-        String nickname = StringUtils.parseBareAddress(userID);
-        System.out.println(userID + " 000");
-
-        // Temporary filter to find jabber/Google servers
-        if (StringUtils.parseServer(userID).equals("gmail.com")) {
-            server = ServerType.GOOGLE_TALK;
-        } else {
-            server = ServerType.JABBER;
-        }
+        // TODO create an account selection GUI
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
 
         try {
+            // connection should be found from account!!
+            account = model.getCurrentProfile().getAccountData().get(0);
+            connection = account.getConnection();
+            connection.addFriend(userID);
 
-            System.out.println(roster.getEntryCount());
-            roster.createEntry(userID, nickname, null);
-            model.addFriend(server, userID);
-        } catch (XMPPException e) {
-            // TODO Auto-generated catch block
+            // TODO make a more accurate Model.addFriend
+            model.addFriend(account.getServer(), userID);
+        } catch (BadConnectionException e) {
+            // TODO throw another exception to prompt for re-entry
             e.printStackTrace();
-
         }
 
         return;
@@ -302,23 +258,26 @@ public class MainController {
      * 
      * @param userID
      */
-    public void removeFriend(String userID) {
-        UserData user = null;
-        Roster roster = connection.getRoster();
-        Collection<RosterEntry> entries = roster.getEntries();
-        Iterator<RosterEntry> i = entries.iterator();
-        while (i.hasNext()) {
-            RosterEntry nextEntry = (i.next());
-            // remove entries
-            if (nextEntry.getUser().equals(userID))
-                try {
-                    roster.removeEntry(nextEntry);
-                    user = model.findUserByAccountName(userID);
-                    model.removeFriend(user);
-                } catch (XMPPException e) {
-                    e.printStackTrace();
-                }
+    public void removeFriend(UserData friendToRemove) {
+        boolean removed = false;
+        GenericConnection connection = null;
+
+        connection =
+                model.findAccountByFriend(friendToRemove).getConnection();
+
+        try {
+            removed =
+                    connection
+                            .removeFriend(friendToRemove.getAccountName());
+        } catch (BadConnectionException e) {
+            // TODO Make the GUI know the friend doesn't exist?
+            e.printStackTrace();
         }
+        if (removed) {
+            model.removeFriend(friendToRemove);
+        }
+
+        return;
     }
 
     /**
@@ -326,21 +285,23 @@ public class MainController {
      * 
      * @param userID
      */
+    public void blockFriend(UserData friendToBlock) {
+        // TODO convert this to use privacy list for XMPP
+        boolean removed = false;
+        GenericConnection connection = null;
 
-    public void blockFriend(String userID) {
-        UserData user = null;
-        Roster roster = connection.getRoster();
+        connection =
+                model.findAccountByFriend(friendToBlock).getConnection();
 
-        for (RosterEntry r : roster.getEntries()) {
-            if (r.getUser().equals(userID)) {
-                try {
-                    roster.removeEntry(r);
-                    user = model.findUserByAccountName(userID);
-                    model.blockFriend(user);
-                } catch (XMPPException e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+            removed =
+                    connection.removeFriend(friendToBlock.getAccountName());
+        } catch (BadConnectionException e) {
+            // TODO Make the GUI know the friend doesn't exist?
+            e.printStackTrace();
+        }
+        if (removed) {
+            model.blockFriend(friendToBlock);
         }
 
         return;
@@ -352,51 +313,23 @@ public class MainController {
      * @param userID
      */
 
-    public void unblockFriend(String userID) {
-        UserData user = null;
-        Roster roster = connection.getRoster();
-        String nickname = StringUtils.parseBareAddress(userID);
+    public void unblockFriend(UserData friendToUnblock) {
+        // TODO convert this to use privacy list for XMPP
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
 
         try {
-            roster.createEntry(userID, nickname, null);
-            user = model.findUserByAccountName(userID);
-            model.unblockFriend(user);
-        } catch (XMPPException e) {
-            // TODO Auto-generated catch block
+            account = model.findAccountByFriend(friendToUnblock);
+            connection = account.getConnection();
+            connection.addFriend(friendToUnblock.getAccountName());
+
+            model.unblockFriend(friendToUnblock);
+        } catch (BadConnectionException e) {
+            System.err.println("Error in unblocking friend.");
             e.printStackTrace();
         }
+
         return;
-    }
-
-    /** This method is the helper method to display the buddylist. */
-    public void displayBuddyList() {
-        Roster roster = connection.getRoster();
-        Collection<RosterEntry> entries = roster.getEntries();
-
-        System.out.println("\n\n" + entries.size() + " buddy(ies):");
-        for (RosterEntry r : entries) {
-            System.out.println(r.getUser());
-        }
-    }
-
-    /**
-     * This method is used to get the buddy list of the user.
-     * 
-     * @return ArrayList<String>
-     */
-    public ArrayList<String> getBuddyList() {
-        ArrayList<String> buddies = new ArrayList<String>();
-
-        if (connection != null && connection.getRoster() != null) {
-            Roster roster = connection.getRoster();
-            Collection<RosterEntry> entries = roster.getEntries();
-
-            for (RosterEntry r : entries) {
-                buddies.add(r.getUser());
-            }
-        }
-        Collections.sort(buddies);
-        return buddies;
     }
 
     /**
@@ -404,75 +337,74 @@ public class MainController {
      * 
      * @param account
      */
-
     public void populateBuddyList(AccountData account) {
+        Vector<FriendTempData> savedFriends = null;
         UserData user = null;
-        String accountName = null;
+        String userID = null;
         String nickname = null;
-        String status = null;
+        GenericConnection connection = null;
 
-        if (connection != null && connection.getRoster() != null) {
-            Vector<FriendTempData> savedFriends = null;
-            Roster roster = connection.getRoster();
-            Collection<RosterEntry> entries = roster.getEntries();
+        // Get friends from the database to cross reference against
+        // those found in Roster.
+        savedFriends = model.getSavedFriends(account.getAccountName());
 
-            // Get friends from the database to cross reference against
-            // those found in Roster.
-            savedFriends = model.getSavedFriends(account.getAccountName());
+        connection = account.getConnection();
+        for (FriendTempData f : connection.retrieveFriendList()) {
+            // Decide which type of user to use
+            userID = f.getUserID();
+            nickname = f.getNickname();
+            if (nickname == null || nickname.equalsIgnoreCase(userID)) {
+                nickname = StringUtils.parseName(userID);
+            }
 
-            for (RosterEntry r : entries) {
-                // Decide which type of user to use
-                accountName = r.getUser();
-                nickname = r.getName();
-                if (nickname == null || nickname.equalsIgnoreCase(accountName)) {
-                    nickname = StringUtils.parseName(accountName);
-                    r.setName(nickname);
+            if (account.getServer() == ServerType.GOOGLE_TALK) {
+                user =
+                        new GoogleTalkUserData(userID, nickname, f
+                                .getStatus());
+                user.setState(f.getState());
+            } else if (account.getServer() == ServerType.JABBER) {
+                user = new JabberUserData(userID, nickname, f.getStatus());
+                user.setState(f.getState());
+            } else { // some other user
+                // TODO implement me!
+            }
+
+            /* Search the savedFriends to find if was saved locally */
+            for (FriendTempData databaseFriend : savedFriends) {
+                if (userID.equalsIgnoreCase(databaseFriend.getUserID())) {
+                    user.setBlocked(databaseFriend.isBlocked());
+                    savedFriends.remove(databaseFriend);
+                    break;
+                }
+            }
+
+            model.addFriend(account, user);
+        }
+
+        // Check if there are still saved friends to be added
+        // and adds the roster friend if not blocked.
+        for (FriendTempData f : savedFriends) {
+            if (!f.isBlocked()) {
+                // Temp fix for the smack "name is null" error
+
+                // this.addFriend(f.getUserID());
+            } else { // is blocked, need to add not on server
+
+                // TODO, separate the strings better
+                if (StringUtils.parseServer(f.getUserID()).equals(
+                        "gmail.com")) {
+                    user = new GoogleTalkUserData(f.getUserID());
+                } else {
+                    user = new JabberUserData(f.getUserID());
                 }
 
-                if (account.getServer() == ServerType.GOOGLE_TALK) {
-                    user = new GoogleTalkUserData(accountName, nickname, status);
-                } else if (account.getServer() == ServerType.JABBER) {
-                    user = new JabberUserData(accountName, nickname, status);
-                } else { // some other user
-                    // TODO implement me!
-                }
-                updateStateAndStatus(user, accountName);
-
-                /* Search the savedFriends to find if was saved locally */
-                for (FriendTempData f : savedFriends) {
-                    if (accountName.equalsIgnoreCase(f.getUserID())) {
-                        user.setBlocked(f.isBlocked());
-                        savedFriends.remove(f);
-                        break;
-                    }
-                }
-
+                user.setBlocked(true);
                 model.addFriend(account, user);
             }
-
-            // Check if there are still saved friends to be added
-            // and adds the roster friend if not blocked.
-            for (FriendTempData f : savedFriends) {
-                if (!f.isBlocked()) {
-                    // Temp fix for the smack "name is null" error
-                    // Now removes the friend from the database...
-
-                    // this.addFriend(f.getUserID());
-                } else { // is blocked, need to add not on server
-
-                    // TODO, separate the strings better
-                    if (StringUtils.parseServer(f.getUserID()).equals(
-                            "gmail.com")) {
-                        user = new GoogleTalkUserData(f.getUserID());
-                    } else {
-                        user = new JabberUserData(f.getUserID());
-                    }
-
-                    user.setBlocked(true);
-                    model.addFriend(account, user);
-                }
-            }
         }
+        
+        model.forceNotify(UpdatedType.BUDDY);
+
         return;
     }
 
@@ -500,8 +432,7 @@ public class MainController {
      */
     public void sendMessage(String messageString, String to)
             throws BadConnectionException {
-        Chat chat = null;
-        boolean chatExists = false;
+        // TODO we may want a conversation object to be passed in
         ConversationData conversation = null;
         MessageData messageObject = null;
         String fromUser = null;
@@ -524,8 +455,10 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(
+                        fromUser, messageString, font, size, bold, italics,
+                        underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -541,11 +474,10 @@ public class MainController {
      * @param size
      * @throws XMPPException
      */
-    public void sendMessage(String messageString, String font, String size,
-            boolean bold, boolean italics, boolean underlined, String color)
+    public void sendMessage(
+            String messageString, String font, String size, boolean bold,
+            boolean italics, boolean underlined, String color)
             throws BadConnectionException {
-        Chat chat = null;
-        boolean chatExists = false;
         String to = null;
         MessageData messageObject = null;
         ConversationData conversation = null;
@@ -555,16 +487,18 @@ public class MainController {
         // Default to sending to the active user
         conversation = model.getActiveConversation();
         connection = conversation.getAccount().getConnection();
-        
+
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(
+                        fromUser, messageString, font, size, bold, italics,
+                        underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
-        
+
         return;
     }
 
@@ -587,8 +521,8 @@ public class MainController {
         return;
     }
 
-    public void updateStateAndStatus(UserData userToUpdate,
-            GenericConnection connection) {
+    public void updateStateAndStatus(
+            UserData userToUpdate, GenericConnection connection) {
         String userID = userToUpdate.getAccountName();
 
         userToUpdate.setStatus(connection.retrieveStatus(userID));
@@ -614,7 +548,8 @@ public class MainController {
      * @param defaultProfile
      */
 
-    public void addProfile(String name, String password, boolean defaultProfile) {
+    public void addProfile(
+            String name, String password, boolean defaultProfile) {
         this.model.addProfile(name, password, defaultProfile);
 
         return;
@@ -641,7 +576,8 @@ public class MainController {
      * @param password
      */
 
-    public void addAccount(String profile, ServerType server, String account,
+    public void addAccount(
+            String profile, ServerType server, String account,
             String password) {
         String serverName = null;
 
@@ -673,8 +609,8 @@ public class MainController {
      */
     public void toggleChatbot() {
         this.model.getCurrentProfile().setChatbotEnabled(
-                this.model.getCurrentProfile().isChatbotEnabled() ? false
-                        : true);
+                this.model.getCurrentProfile().isChatbotEnabled()
+                        ? false : true);
 
         return;
     }
@@ -694,13 +630,15 @@ public class MainController {
         return;
     }
 
-    public void messageReceived(String fromUserID, String toUserID,
-            String message) {
+    public void messageReceived(
+            String fromUserID, String toUserID, String message) {
         MessageData messageData = null;
         AccountData account = null;
 
-        messageData = new MessageData(fromUserID, message, "font", "4", false,
-                false, false, "#000000");
+        messageData =
+                new MessageData(
+                        fromUserID, message, "font", "4", false, false,
+                        false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
         model.receiveMessage(account, messageData);

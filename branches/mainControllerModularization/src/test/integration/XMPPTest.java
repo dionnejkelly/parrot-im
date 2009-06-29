@@ -85,6 +85,7 @@ public class XMPPTest {
         return;
     }
 
+/*
     @Test
     public void checkFriendAddition() throws Exception {
         // Ensure that adding a friend makes changes to both the
@@ -144,5 +145,5 @@ public class XMPPTest {
 
         return;
     }
-
+*/
 }
