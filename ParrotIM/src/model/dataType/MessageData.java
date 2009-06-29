@@ -30,6 +30,8 @@
 
 package model.dataType;
 
+import javax.swing.ImageIcon;
+
 /**
  * Holds message data from a conversation. Each MessageData object represents
  * one message from a user.
@@ -171,8 +173,8 @@ public class MessageData {
     	String toUserText = "<U><font face = \"Arial\">"
             			+ this.fromUser + ":</font></U> ";
         String text =   "<font face=\"" + this.font + "\" size=\"" + this.size +
-        				"\" color=\"" + fontColor + "\">" 
-                        + this.message + "</font><br><br>";
+        				"\" color=\"" + fontColor + "\"> " 
+                        + this.message + " </font><br><br>";
         if(this.bold){ 
         	text = "<b>" + text + "</b>"; 
         }
@@ -183,7 +185,15 @@ public class MessageData {
         	text = "<u>" + text + "</u>"; 
         }
         text = toUserText + text;
+        text = addEmoticons(text);
         return text;
+    }
+    
+    private String addEmoticons(String text){
+    	
+    	text = text.replaceAll(":[)]", "<img src=\"" + this.getClass().getResource(
+        "/images/emoticons/happy.png").toString() + "\" alt=\":)\" />");
+    	return text;
     }
 
     /**
