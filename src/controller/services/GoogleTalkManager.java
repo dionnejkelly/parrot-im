@@ -122,8 +122,18 @@ public class GoogleTalkManager implements GenericConnection {
         return removed;
     }
 
-    public void changeStatus(String status) {
+    public void changeStatus(UserStateType state, String status) {
         Presence presence = new Presence(Presence.Type.available);
+        if (state == UserStateType.ONLINE) {
+            presence.setMode(Presence.Mode.available);
+        } else if (state == UserStateType.AWAY) {
+            presence.setMode(Presence.Mode.away);
+        } else if (state == UserStateType.BUSY) {
+            presence.setMode(Presence.Mode.dnd);
+        } else {
+            presence.setMode(Presence.Mode.chat);
+        }
+        
         presence.setStatus(status);
         connection.sendPacket(presence);
 
@@ -149,22 +159,6 @@ public class GoogleTalkManager implements GenericConnection {
         }
 
         return userStatus;
-    }
-
-    public void changeState(UserStateType state) {
-        Presence presence = new Presence(Presence.Type.available);
-        if (state == UserStateType.ONLINE) {
-            presence.setMode(Presence.Mode.available);
-        } else if (state == UserStateType.AWAY) {
-            presence.setMode(Presence.Mode.away);
-        } else if (state == UserStateType.BUSY) {
-            presence.setMode(Presence.Mode.dnd);
-        } else {
-            presence.setMode(Presence.Mode.chat);
-        }
-        connection.sendPacket(presence);
-
-        return;
     }
 
     public UserStateType retrieveState(String userID) {

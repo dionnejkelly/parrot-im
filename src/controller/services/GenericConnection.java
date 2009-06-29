@@ -47,11 +47,9 @@ public interface GenericConnection {
 
     public boolean removeFriend(String userID) throws BadConnectionException;
     
-    public void changeStatus(String status);
+    public void changeStatus(UserStateType state, String status);
     
     public String retrieveStatus(String userID);
-    
-    public void changeState(UserStateType state);
     
     public UserStateType retrieveState(String userID);
     

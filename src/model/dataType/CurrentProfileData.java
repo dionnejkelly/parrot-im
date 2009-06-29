@@ -37,6 +37,7 @@ package model.dataType;
 import java.util.ArrayList;
 
 import model.enumerations.ServerType;
+import model.enumerations.UserStateType;
 
 /**
  * Holds the account information of the current account being used, whether it
@@ -61,6 +62,10 @@ public class CurrentProfileData {
      * The name of the current profile. Not necessarily a userID of an account.
      */
     private String profileName;
+    
+    private String status;
+    
+    private UserStateType state;
 
     /**
      * Determines whether chatbot is on or not. Defaults to off.
@@ -158,6 +163,22 @@ public class CurrentProfileData {
      */
     public String getProfileName() {
         return profileName;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setState(UserStateType state) {
+        this.state = state;
+    }
+
+    public UserStateType getState() {
+        return state;
     }
 
     /**
