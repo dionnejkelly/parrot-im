@@ -190,7 +190,7 @@ public class MessageData {
     }
     
     /**
-     * Uses searches for matches to emoticons using regular expressions and
+     * Searches for matches to emoticons using regular expressions and
      * replaces with HTML tag for the emoticon
      *  
      * @param text
