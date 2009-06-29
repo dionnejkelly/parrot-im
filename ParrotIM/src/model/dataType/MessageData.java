@@ -74,7 +74,7 @@ public class MessageData {
     private boolean bold, italics, underlined;
     
     /** This is the users font color as a string
-     * of 6-digit hex codes ("#RRBBGG)
+     * of 6-digit hex codes ("#RRGGBB)
      */
     private String fontColor;
     

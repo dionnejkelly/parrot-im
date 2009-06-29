@@ -131,7 +131,21 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     }
 
     public String getColorHex() {
-    	return "#" + getUserRedHex() + getUserGreenHex() + getUserBlueHex();
+    	String red = getUserRedHex();
+    	if(red.length() == 1){
+    		red = "0" + red;
+    	}
+    	
+    	String green = getUserGreenHex();
+    	if(green.length() == 1){
+    		green = "0" + green;
+    	}
+    	
+    	String blue = getUserBlueHex();
+    	if(blue.length() == 1){
+    		blue = "0" + blue;
+    	}
+    	
+    	return "#" + red + green + blue;
     }
-
 }
