@@ -159,22 +159,6 @@ public class AccountDataTest {
     }
 
     @Test
-    public void testSetOwnUserData() {
-        GoogleTalkUserData expected =
-                new GoogleTalkUserData("Griffen", "Peter", "online");
-        ad5.setOwnUserData(expected);
-        assertSame(expected, ad5.getOwnUserData());
-    }
-
-    @Test
-    public void testGetOwnUserData() {
-        GoogleTalkUserData expected =
-                new GoogleTalkUserData("Stewie", "Stew", "online");
-        ad1.setOwnUserData(expected);
-        assertSame(expected, ad1.getOwnUserData());
-    }
-
-    @Test
     public void testSetConnected() {
         boolean expected = true;
         ad1.setConnected(true);
