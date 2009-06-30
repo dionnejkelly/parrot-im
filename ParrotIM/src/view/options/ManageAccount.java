@@ -48,14 +48,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.Model;
 import model.dataType.AccountData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
-
-/*                            SORRY TESTING PROFILE MANAGER LAYOUT                         */
-
 
 public class ManageAccount extends JPanel implements Observer
 {
@@ -69,6 +68,7 @@ public class ManageAccount extends JPanel implements Observer
 	
 	protected JPanel serverPanel;
 	protected JTextField jabberServer;
+	protected JButton removeButton;
 	
 	protected ManageAccount (Model model) throws ClassNotFoundException, SQLException {
 
@@ -91,11 +91,12 @@ public class ManageAccount extends JPanel implements Observer
 		//saved account list
 		accountArray = model.getAccountList();
 		accList = new JList(accountArray);
+		accList.addListSelectionListener(new accListSelectionListener());
 		System.out.println(model.getAccountList().size());
 		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
 		JScrollPane listScroller = new JScrollPane(accList);
-		listScroller.setPreferredSize(new Dimension(180, 200));
+		listScroller.setPreferredSize(new Dimension(180, 190));
 		listScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
@@ -114,19 +115,9 @@ public class ManageAccount extends JPanel implements Observer
 		});
 
 		//remove button
-		JButton removeButton = new JButton ("Remove");
-		removeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-            	int selected = accList.getSelectedIndex();
-				if (selected>=0 && selected < accountArray.size()){
-					//model.getAccountList().remove(selected);
-					accountArray.remove(selected);
-					accList.updateUI();
-				}
-					
-            }
-		});
-
+		removeButton = new JButton ("Remove");
+		removeButton.setEnabled(false);
+		removeButton.addActionListener(new removeActionListener());
 
 		//add-remove button panel
 		JPanel addremovePanel = new JPanel();
@@ -230,15 +221,9 @@ public class ManageAccount extends JPanel implements Observer
 		if (UNField.getText().length() != 0 && pwdField.getPassword().length != 0){
 			//search if it exists or not
 			//TODO: newACC is supposed to be an Object that includes server, username, password
-			boolean match = false;
-			
-			
-			
-			  //DatabaseFunctions db = new DatabaseFunctions();
-			  //db.addUsers("John", new String(model.getServerList().get(serviceField.getSelectedIndex())), new String(UNField.getText()), new String(pwdField.getPassword()), "Y");
-			// HEY TODO TODO TODO TODO ADD MORE USERS THAN JOHN, 
-			  //AND AND AND CHANGE TO HAVE A CHOICE TO REMEMBER PASSWORD
-			
+			boolean match = false; //someone deleted my code here. or will model provide this method?
+			//(if there the account has already beed added, then do something.)
+
 			if (match) {
 				//if found, then edit the password as manage
 				//TODO:edit password
@@ -290,6 +275,26 @@ public class ManageAccount extends JPanel implements Observer
 				serverPanel.setVisible(false);
 			}
 		}
-    	
     }
+	
+	private class removeActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent evt) {
+        	int selected = accList.getSelectedIndex();
+			if (selected>=0 && selected < accountArray.size()){
+				model.removeAccount(model.getCurrentProfile().getProfileName(), accList.getSelectedValue().toString());
+				accountArray.remove(selected);
+				accList.updateUI();
+			}
+        }
+	}
+	
+	private class accListSelectionListener implements ListSelectionListener{
+
+		public void valueChanged(ListSelectionEvent e) {
+			if (accList.getSelectedIndex()>-1){
+				removeButton.setEnabled(true);
+			}
+		}
+		
+	}
 }
