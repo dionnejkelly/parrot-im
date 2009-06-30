@@ -46,6 +46,7 @@ import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.UserData;
 import model.enumerations.UpdatedType;
+import model.enumerations.UserStateType;
 
 /**
  * BuddyPanel display FriendList and Account information for Parrot IM users.
@@ -139,7 +140,7 @@ public class BuddyPanel extends JPanel implements Observer {
         this.chat = null;
 
         // Test code, make it hide at the start
-        //this.chat = new ChatWindow(chatClient, model);
+        // this.chat = new ChatWindow(chatClient, model);
         buddies = null;
 
         friendList = new JPanel();
@@ -169,7 +170,8 @@ public class BuddyPanel extends JPanel implements Observer {
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new RightCickMenuListener());
-        menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
+        menuItem3
+                .addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
 
         rightClickMenu.add(menuItem1);
@@ -199,23 +201,23 @@ public class BuddyPanel extends JPanel implements Observer {
     public JToolBar OptionsBar() {
         JToolBar options = new JToolBar();
         options.setFloatable(false);
-        
+
         JTextField search = new JTextField();
         JButton addF =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/add_user.png")));
         addF.setToolTipText("Add a friend");
-        
+
         JButton removeF =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/delete_user.png")));
         removeF.setToolTipText("Remove a friend");
-        
+
         JButton blockF =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/button_cancel.png")));
         blockF.setToolTipText("Block a friend");
-        
+
         JButton searchButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/document_preview.png")));
@@ -292,7 +294,7 @@ public class BuddyPanel extends JPanel implements Observer {
          */
 
         public void mousePressed(MouseEvent event) {
-            chatClient.blockFriend(selectedFriend.getAccountName());
+            chatClient.blockFriend(selectedFriend);
 
             // buddies.remove(selectedFriend);
 
@@ -334,10 +336,7 @@ public class BuddyPanel extends JPanel implements Observer {
          */
 
         public void mousePressed(MouseEvent event) {
-
-            System.out.println("Remove this user from the buddy list = "
-                    + selectedFriend.toString());
-            chatClient.removeFriend(selectedFriend.getAccountName());
+            chatClient.removeFriend(selectedFriend);
 
             // weird this wasn't used in the past but it seems non-functional
             // without them
@@ -351,7 +350,8 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                boxes[0].getComponent(i).addMouseListener(new SelectListener());
+                boxes[0].getComponent(i).addMouseListener(
+                        new SelectListener());
             }
 
             friendList.updateUI();
@@ -373,10 +373,7 @@ public class BuddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
 
             if (selectedFriend != null) {
-                System.out.println("Remove this user from the button = "
-                        + selectedFriend.toString());
-
-                chatClient.removeFriend(selectedFriend.getAccountName());
+                chatClient.removeFriend(selectedFriend);
 
                 for (int i = 0; i < model.getOrderedFriendList().size(); i++) {
                 }
@@ -435,12 +432,12 @@ public class BuddyPanel extends JPanel implements Observer {
                 // friendList.updateUI();
 
             }
-            
+
             else if (userFriendID.equals("")) {
-            	String redundancy =
-                    "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
-            JOptionPane.showMessageDialog(null, redundancy);
-            	
+                String redundancy =
+                        "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
+                JOptionPane.showMessageDialog(null, redundancy);
+
             }
 
             else {
@@ -484,7 +481,8 @@ public class BuddyPanel extends JPanel implements Observer {
         friendItem.setName(user.getNickname());
 
         // end it
-        friendItem.setToolTipText("Right click to see options for this item");
+        friendItem
+                .setToolTipText("Right click to see options for this item");
 
         JLabel friendName;
 
@@ -494,18 +492,18 @@ public class BuddyPanel extends JPanel implements Observer {
             friendName =
                     new JLabel("* Blocked: " + user.getAccountName() + " *");
             friendName.setForeground(Color.LIGHT_GRAY.darker());
-        } else if (user.getState().toString().equals("Available")) {
+        } else if (user.getState() == UserStateType.ONLINE) {
             friendName =
                     new JLabel(user.getNickname()
-                            + " - " + user.getStatus() + " (" + user.getState()
-                            + ")");
+                            + " - " + user.getStatus() + " ("
+                            + user.getState() + ")");
             friendName.setForeground(Color.GREEN.darker());
-        } else if (user.getState().toString().equals("dnd")) {
+        } else if (user.getState() == UserStateType.BUSY) {
             friendName =
                     new JLabel(user.getNickname()
                             + " - " + user.getStatus() + " (Busy)");
             friendName.setForeground(Color.ORANGE.darker());
-        } else if (user.getState().toString().equals("away")) {
+        } else if (user.getState() == UserStateType.AWAY) {
             friendName =
                     new JLabel(user.getNickname()
                             + " - " + user.getStatus() + " (Away)");
@@ -513,8 +511,8 @@ public class BuddyPanel extends JPanel implements Observer {
         } else {
             friendName =
                     new JLabel(user.getNickname()
-                            + " - " + user.getStatus() + " (" + user.getState()
-                            + ")");
+                            + " - " + user.getStatus() + " ("
+                            + user.getState() + ")");
             friendName.setForeground(Color.RED.darker());
         }
 
@@ -538,7 +536,8 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                boxes[0].getComponent(i).addMouseListener(new SelectListener());
+                boxes[0].getComponent(i).addMouseListener(
+                        new SelectListener());
             }
             friendList.updateUI();
         }
@@ -586,7 +585,8 @@ public class BuddyPanel extends JPanel implements Observer {
 
                         if (event.getClickCount() == 2) {
                             selected = false;
-                            chatClient.startConversation(selectedFriend, true);
+                            chatClient.startConversation(
+                                    selectedFriend, true);
                         }
                     } else if (event.getSource().equals(
                             boxes[0].getComponent(i))) {

@@ -56,6 +56,7 @@ import model.enumerations.ServerType;
 import org.jivesoftware.smack.XMPPException;
 
 import controller.MainController;
+import controller.services.BadConnectionException;
 
 import view.buddylist.BuddyList;
 import view.styles.PopupWindowListener;
@@ -250,11 +251,11 @@ public class GuestAccountFrame extends JFrame {
 
         if (serverType == ServerType.GOOGLE_TALK) {
             try {
-                core.login(serverType, username, password);
+                core.loginAsGuest(serverType, username, password);
 
                 new BuddyList(core, model);// pops buddylist window
                 mainFrame.dispose(); // TODO: consider if the sign in fails
-            } catch (XMPPException e1) {
+            } catch (BadConnectionException e1) {
                 // e1.printStackTrace();
                 mainPanel.header.displaySystemStatus("Sign in failed!");
                 mainFrame.setEnabled(true);
@@ -263,11 +264,10 @@ public class GuestAccountFrame extends JFrame {
 
         } else if (serverType == ServerType.JABBER) {
             try {
-//            	jabberServer.getText();
-                core.login(serverType, username, password);
+                core.loginAsGuest(serverType, username, password);
                 new BuddyList(core, model);// pops buddylist window
                 mainFrame.dispose(); // TODO: consider if the sign in fails
-            } catch (XMPPException e1) {
+            } catch (BadConnectionException e1) {
                 // e1.printStackTrace();
             	mainPanel.header.displaySystemStatus("Sign in failed!");
                 mainFrame.setEnabled(true);
