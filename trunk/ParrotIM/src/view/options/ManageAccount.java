@@ -150,11 +150,11 @@ public class ManageAccount extends JPanel implements Observer
         //label
         JPanel jabberServerLabel = new JPanel();
         jabberServerLabel.setLayout(new BorderLayout());
-        jabberServerLabel.add(new JLabel("Jabber server: "), BorderLayout.NORTH);
+        jabberServerLabel.add(new JLabel("Jabber server:  "), BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
-        serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 15, 0));
+        serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
         serverPanel.add(jabberServerLabel, BorderLayout.WEST);
         serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
 
@@ -209,7 +209,7 @@ public class ManageAccount extends JPanel implements Observer
 		//adding to rightPanel
 		rightPanel.setPreferredSize(new Dimension(280, 400));
 		rightPanel.add(setupPanel, BorderLayout.NORTH);
-		rightPanel.add(otherSetupPanel, BorderLayout.CENTER);
+		rightPanel.add(otherSetupPanel, BorderLayout.SOUTH);
 
 		//add to account manager pop up main panel
 		add(rightPanel,BorderLayout.EAST);
