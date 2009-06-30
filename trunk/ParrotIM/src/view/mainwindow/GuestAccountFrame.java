@@ -31,6 +31,7 @@ package view.mainwindow;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,8 +39,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -137,13 +140,16 @@ public class GuestAccountFrame extends JFrame {
                 .getImage());
 
         // select server
+        JPanel GALPanel = new JPanel();
+		GALPanel.setLayout(new BorderLayout());
+        // select server
         server = new JComboBox(model.getServerList());
-        server.setPreferredSize(new Dimension(200, 20));
+        server.setPreferredSize(new Dimension(200, 30));
         server.addItemListener(new serverListener());
         //server name for jabber
         //textfield
         jabberServer = new JTextField();
-        jabberServer.setPreferredSize(new Dimension(jabberServer.getWidth(), 20));
+        jabberServer.setPreferredSize(new Dimension(200, 20));
         jabberServer.setToolTipText("specify jabber server");
         JPanel jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
@@ -151,84 +157,58 @@ public class GuestAccountFrame extends JFrame {
         //label
         JPanel jabberServerLabel = new JPanel();
         jabberServerLabel.setLayout(new BorderLayout());
-        jabberServerLabel.add(new JLabel("Jabber server: "), BorderLayout.NORTH);
+        jabberServerLabel.add(new JLabel("Jabber server:  "), BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
+        serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
         serverPanel.add(jabberServerLabel, BorderLayout.WEST);
         serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
 
         // set username
         JPanel usernamePanel = new JPanel();
+        usernamePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         UNFieldGuest = new JTextField();
-        UNFieldGuest.setPreferredSize(new Dimension(200, 20));
+        UNFieldGuest.setPreferredSize(new Dimension(180, 20));
         usernamePanel.add(new JLabel("Username:     "));
         usernamePanel.add(UNFieldGuest);
         // set password
         JPanel passwordPanel = new JPanel();
         PwdFieldGuest = new JPasswordField();
-        PwdFieldGuest.setPreferredSize(new Dimension(200, 20));
+        PwdFieldGuest.setPreferredSize(new Dimension(180, 20));
         passwordPanel.add(new JLabel ("Password:      "));
         passwordPanel.add(PwdFieldGuest);
 
-        // set ok-cancel button
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(
-                0, 40, 10, 40));
-        GridLayout buttonsLayout = new GridLayout(1, 2);
-        buttonsLayout.setHgap(5);
-        buttonsPanel.setLayout(buttonsLayout);
-        // OK Button
-        JButton okButton = new JButton("OK");
-        okButton.addActionListener(new ActionListener() {
-            /**
-             * When the OK button is clicked, the system will try to connect to
-             * the server
-             * 
-             * @param evt
-             */
-            public void actionPerformed(ActionEvent evt) {
-                if (UNFieldGuest.getText().length() != 0
-                        && PwdFieldGuest.getPassword().length != 0) {
-                    setVisible(false);
-                    signIn_ActionPerformed(evt);
-                }
+		//account setup Panel
+		JPanel setupPanel = new JPanel();
+		setupPanel.setLayout(new BoxLayout (setupPanel, BoxLayout.Y_AXIS));
+		setupPanel.add(server);
+		setupPanel.add(serverPanel);
+		setupPanel.add(usernamePanel);
+		setupPanel.add(passwordPanel);
 
-                else {
-                    String resultMessage =
-                            "Please provide appropriate user ID and password in the field.";
-                    JOptionPane.showMessageDialog(null, resultMessage);
 
-                }
-            }
-        });
-        buttonsPanel.add(okButton);
-        // Cancel Button
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new ActionListener() {
-            /**
-             * When the CANCEL button is clicked, then go back to MainWindow
-             * 
-             * @param evt
-             */
-            public void actionPerformed(ActionEvent evt) {
-                popup.removeAll();
-                popup.dispose();
-            }
-        });
-        buttonsPanel.add(cancelButton);
+		/*BOTTOM PART: OK + CANCEL BUTTONs*/
+		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new okButtonActionListener());
+		JButton cancelButton = new JButton ("Cancel");
+		cancelButton.addActionListener(new cancelButtonActionListener());
+		JPanel buttonsPanel = new JPanel ();
+		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,90,0,0));
+		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
+		buttonsPanel.add(okButton);
+		buttonsPanel.add(cancelButton);
 
-        // set main panel
-        JPanel GALPanel = new JPanel();
-        GALPanel.setLayout(new GridLayout(5, 1));
-        GALPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
-        GALPanel.add(server); // server dropdown menu
-        GALPanel.add(serverPanel); // servername
-        GALPanel.add(usernamePanel); // username
-        GALPanel.add(passwordPanel); // password
-        GALPanel.add(buttonsPanel); // ok+cancel buttons
+
+		//adding to rightPanel
+		GALPanel.setPreferredSize(new Dimension(280, 400));
+		GALPanel.setBorder(BorderFactory.createEmptyBorder(25, 40, 30, 40));
+		GALPanel.add(setupPanel, BorderLayout.NORTH);
+		GALPanel.add(buttonsPanel, BorderLayout.SOUTH);
+
+		//add to account manager pop up main panel
+		add(GALPanel,BorderLayout.EAST);
         
-
         getContentPane().add(GALPanel);
         pack();
         setVisible(true);
@@ -238,10 +218,8 @@ public class GuestAccountFrame extends JFrame {
     /**
      * This method is called when the guest login into parrot-im. The user will
      * allow to login to Google talk account only.
-     * 
-     * @param e
      */
-    private void signIn_ActionPerformed(ActionEvent e) {
+    private void signIn_ActionPerformed() {
         ServerType serverType = (ServerType) server.getSelectedItem();
         String username = UNFieldGuest.getText();
         String password = password(PwdFieldGuest.getPassword());
@@ -272,7 +250,7 @@ public class GuestAccountFrame extends JFrame {
             }
         } else {
             String resultMessage =
-                    "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
+                    "We are only supporting XMPP Protocol for the Alpha Version. Sorry for the inconvenience.";
             JOptionPane.showMessageDialog(null, resultMessage);
             mainFrame.setEnabled(true);
         }
@@ -306,5 +284,41 @@ public class GuestAccountFrame extends JFrame {
 			}
 		}
     	
+    }
+    
+    private class okButtonActionListener implements ActionListener{
+
+		/**
+         * When the OK button is clicked, the system will try to connect to
+         * the server
+         * 
+         * @param evt
+         */
+        public void actionPerformed(ActionEvent evt) {
+            if (UNFieldGuest.getText().length() != 0
+                    && PwdFieldGuest.getPassword().length != 0) {
+                setVisible(false);
+                signIn_ActionPerformed();
+            }
+
+            else {
+                String resultMessage =
+                        "Please provide appropriate user ID and password in the field.";
+                JOptionPane.showMessageDialog(null, resultMessage);
+
+            }
+        }
+    }
+    
+    private class cancelButtonActionListener implements ActionListener{
+    	/**
+         * When the CANCEL button is clicked, then go back to MainWindow
+         * 
+         * @param evt
+         */
+        public void actionPerformed(ActionEvent evt) {
+            popup.removeAll();
+            popup.dispose();
+        }
     }
 }
