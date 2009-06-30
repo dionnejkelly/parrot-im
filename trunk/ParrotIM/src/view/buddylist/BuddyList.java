@@ -73,7 +73,7 @@ public class BuddyList extends JFrame {
 
         JPanel buddylistPanel = new JPanel();
         buddylistPanel.setLayout(new BorderLayout());
-        buddylistPanel.setPreferredSize(new Dimension(300, 600));
+        buddylistPanel.setPreferredSize(new Dimension(320, 600));
 
         // INSIDE PANEL
         JPanel mainListPanel = new BuddyPanel(c, model, this);

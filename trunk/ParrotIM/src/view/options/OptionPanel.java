@@ -26,19 +26,23 @@ import java.sql.SQLException;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 
 import model.Model;
 
 import controller.MainController;
 
 public class OptionPanel extends JPanel{
+	protected JTextArea personalMessage;
 	
 	public OptionPanel(MainController c, Model model) throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
 		//tabbed options
 		JTabbedPane tabbedOptions = new JTabbedPane(JTabbedPane.TOP);
-		tabbedOptions.addTab("Personal Profile", new PersonalProfileTab());
+		PersonalProfileTab personalProfile = new PersonalProfileTab();
+		personalMessage = personalProfile.personalMessage;
+		tabbedOptions.addTab("Personal Profile", personalProfile);
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c));
 		//setting layout

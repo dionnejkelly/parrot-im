@@ -62,9 +62,7 @@ public class PmLabel extends JTextField {
      */
     public PmLabel(MainController c) {
         core = c;
-        // this.setHorizontalAlignment(JTextField.CENTER);
         changePM(false);
-
         this.setToolTipText("Click to edit your personal message");
         this.addMouseListener(new labelMouseListener(this));
         this.addKeyListener(new labelKeyListener(this));
@@ -88,15 +86,15 @@ public class PmLabel extends JTextField {
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             this.setBackground(Color.WHITE);
             this.setEditable(true);
-            this.setEnabled(true);
             this.setOpaque(true);
 
         } else {// not editable
+            this.setEditable(false);
             this.setBorder(null);
             this.setText(this.getText());
-            this.setEditable(false);
-            this.setEnabled(false);
             this.setOpaque(false);
+
+            this.setForeground(Color.GRAY);
             // send status to core
 
             if (this.getText().length() == 0) {
@@ -123,6 +121,7 @@ public class PmLabel extends JTextField {
          */
         public labelMouseListener(PmLabel lbl) {
             label = lbl;
+            label.setForeground(Color.GRAY);
         }
 
         /**
@@ -140,7 +139,7 @@ public class PmLabel extends JTextField {
          * takes a MouseEvent argument
          */
         public void mouseEntered(MouseEvent e) {
-            label.setEnabled(true);
+        	label.setForeground(Color.BLACK);
         }
 
         /**
@@ -149,15 +148,12 @@ public class PmLabel extends JTextField {
          */
         public void mouseExited(MouseEvent e) {
             if (!label.isEditable()) {
-                label.setEnabled(false);
+            	label.setForeground(Color.GRAY);
             }
         }
 
-        public void mousePressed(MouseEvent e) {
-        }
-
-        public void mouseReleased(MouseEvent e) {
-        }
+        public void mousePressed(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {}
     }
 
     /**
