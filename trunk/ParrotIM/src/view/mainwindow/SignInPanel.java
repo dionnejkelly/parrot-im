@@ -58,7 +58,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -68,12 +67,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import model.Model;
-import model.dataType.AccountData;
-import model.dataType.GoogleTalkUserData;
-import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
-
-import org.jivesoftware.smack.XMPPException;
 
 import controller.MainController;
 import controller.services.BadConnectionException;

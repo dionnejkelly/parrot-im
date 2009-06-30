@@ -15,8 +15,6 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-import org.jivesoftware.smack.XMPPException;
-
 import view.mainwindow.HelpPanel;
 import view.mainwindow.MainWindow;
 import view.mainwindow.AboutFrame;

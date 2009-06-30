@@ -32,7 +32,6 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
-import view.mainwindow.MainWindow;
 
 /**
  * This object is a WindowListener for popup window objects.

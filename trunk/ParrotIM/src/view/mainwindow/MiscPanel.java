@@ -33,12 +33,7 @@
 package view.mainwindow;
 
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 

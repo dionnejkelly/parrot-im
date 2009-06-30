@@ -24,7 +24,6 @@ package view.options;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
