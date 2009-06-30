@@ -18,6 +18,8 @@
  *         Fixed alignment to left.
  *     2009-June-23, KF
  *         Naming convention updates. Changed all class names.
+ *     2009-June-30, VL
+ *         Added Jabber server field. Code clean up.
  *         
  * Known Issues:
  *     None
@@ -31,8 +33,6 @@ package view.mainwindow;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -42,7 +42,6 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
