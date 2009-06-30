@@ -21,10 +21,18 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -49,10 +57,18 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
 	
     protected JLabel banner;
     
+    /** Buttons label.*/
+	
+    protected JPanel buttonPanel;
+    
     /** User's color preference.*/
     protected Color userColor;
     
+    /** Default User's font color.*/
     public String hexColor = "#000000";
+       
+    /** Color Chooser's main frame.*/
+    private JFrame mainFrame;
     
     
     /**
@@ -61,18 +77,18 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
      */
     
     
-    public ColorUserSelect() {
+    public ColorUserSelect(JFrame frame) {
     	
     	super(new BorderLayout());
     	
-
+    	 this.mainFrame = frame;
          //Set up the banner at the top of the window
          banner = new JLabel("Welcome to the Parrot IM Color Zone!",JLabel.CENTER);
          banner.setForeground(Color.yellow);
          banner.setBackground(Color.blue);
          banner.setOpaque(true);
          banner.setFont(new Font("SansSerif", Font.BOLD, 24));
-         banner.setPreferredSize(new Dimension(570, 65));
+         banner.setPreferredSize(new Dimension(540, 5));
 
          JPanel bannerPanel = new JPanel(new BorderLayout());
          bannerPanel.add(banner, BorderLayout.CENTER);
@@ -84,10 +100,49 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
          colorChooser.setBorder(BorderFactory.createTitledBorder(
                                               "Choose Text Color"));
 
+         buttonPanel = new JPanel();
+         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 10, 40));
+         GridLayout buttonsLayout = new GridLayout(1, 2);
+         buttonsLayout.setHgap(5);
+         buttonPanel.setLayout(buttonsLayout);
+         buttonPanel.setPreferredSize(new Dimension(170, 35));
+         
+         JButton okButton = new JButton("OK");
+         JButton cancelButton = new JButton("Cancel");
+         
+         okButton.addActionListener(new okButtonListener());
+         cancelButton.addActionListener(new okButtonListener());
+         
+         buttonPanel.add(okButton);
+         buttonPanel.add(cancelButton);
+         
          add(bannerPanel, BorderLayout.CENTER);
-         add(colorChooser, BorderLayout.PAGE_END);
+         add(colorChooser, BorderLayout.AFTER_LINE_ENDS);
+         add(buttonPanel, BorderLayout.PAGE_END);
         
     }
+    
+    /**
+     * Check for the user's color preference.
+     * 
+     * @param e
+     */
+    
+    class okButtonListener implements ActionListener {
+
+        /**
+         * Listens for the uesr's event.
+         * 
+         * @param event
+         */
+
+		public void actionPerformed(ActionEvent event) {
+			mainFrame.dispose();
+		
+		}
+    }
+    
+
     
     /**
      * Check for the user's color preference.

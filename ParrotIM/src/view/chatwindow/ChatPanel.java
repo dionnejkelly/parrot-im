@@ -350,7 +350,7 @@ public class ChatPanel extends JPanel {
         public void actionPerformed(ActionEvent evt) {
 
             JFrame frame = new JFrame("Color Chooser");
-            oldContentPane = new ColorUserSelect();
+            oldContentPane = new ColorUserSelect(frame);
             
 //            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
