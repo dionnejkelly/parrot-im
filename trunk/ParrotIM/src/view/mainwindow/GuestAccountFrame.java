@@ -228,6 +228,7 @@ public class GuestAccountFrame extends JFrame {
         GALPanel.add(passwordPanel); // password
         GALPanel.add(buttonsPanel); // ok+cancel buttons
         
+
         getContentPane().add(GALPanel);
         pack();
         setVisible(true);

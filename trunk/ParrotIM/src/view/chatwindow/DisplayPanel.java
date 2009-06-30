@@ -75,21 +75,24 @@ public class DisplayPanel extends JPanel implements Observer {
         // Title Properties
         title = new JLabel();
 
-        /*
-         * title.setText(model.getActiveConversation().getUser().getNickname());
-         * if (model.getActiveConversation().getUser().isBlocked()) {
-         * title.setForeground(Color.LIGHT_GRAY.darker()); } else if
-         * (model.getActiveConversation
-         * ().getUser().getState().toString().equals("Available")) {
-         * title.setForeground(Color.GREEN.darker()); } else if
-         * (model.getActiveConversation
-         * ().getUser().getState().toString().equals("dnd")) {
-         * title.setForeground(Color.ORANGE.darker()); } else if
-         * (model.getActiveConversation
-         * ().getUser().getState().toString().equals("away")) {
-         * title.setForeground(Color.ORANGE.darker()); } else {
-         * title.setForeground(Color.RED.darker()); }
-         */
+        
+//         title.setText(model.getActiveConversation().getUser().getNickname());
+//         if (model.getActiveConversation().getUser().isBlocked()) {
+//        	  title.setForeground(Color.LIGHT_GRAY.darker()); 
+//         	 } 
+//         else if (model.getActiveConversation().getUser().getState().toString().equals("Available")) {
+//        	  title.setForeground(Color.GREEN.darker()); 
+//         	 } 
+//         else if (model.getActiveConversation().getUser().getState().toString().equals("dnd")) {
+//        	  title.setForeground(Color.ORANGE.darker()); 
+//         	 } 
+//         else if (model.getActiveConversation().getUser().getState().toString().equals("away")) {
+//        	  title.setForeground(Color.ORANGE.darker()); 
+//         	 } 
+//         else {
+//        	  title.setForeground(Color.RED.darker()); 
+//        	 }
+         
 
         // Upper toolBar
         JToolBar bar1 = new JToolBar();
@@ -131,6 +134,8 @@ public class DisplayPanel extends JPanel implements Observer {
 
     public void update(Observable o, Object arg) {
         // TODO: May want to update this to update line-per-line
+    	
+    	System.out.println("Not getting called");
         if (arg == UpdatedType.CHAT && model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
             title
