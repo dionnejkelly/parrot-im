@@ -26,6 +26,11 @@
 
 package controller.services;
 
+import java.util.ArrayList;
+
+import model.dataType.tempData.FriendTempData;
+import model.enumerations.UserStateType;
+
 /**
  * An interface the dictates the functions that connections can perform.
  * Specifically, this interface defines a set of operations on connections that
@@ -36,9 +41,19 @@ public interface GenericConnection {
     public void login(String userID, String password)
             throws BadConnectionException;
 
-    public void disconnect() throws BadConnectionException;
+    public void disconnect();
 
     public void addFriend(String userID) throws BadConnectionException;
 
-    public void removeFriend(String userID) throws BadConnectionException;
+    public boolean removeFriend(String userID) throws BadConnectionException;
+    
+    public void changeStatus(UserStateType state, String status);
+    
+    public String retrieveStatus(String userID);
+    
+    public UserStateType retrieveState(String userID);
+    
+    public ArrayList<FriendTempData> retrieveFriendList();
+    
+    public void sendMessage(String toUserID, String message) throws BadConnectionException;
 }

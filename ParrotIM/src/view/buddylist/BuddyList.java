@@ -27,6 +27,7 @@ import view.chatLog.ChatLogFrame;
 import controller.MainController;
 
 import model.Model;
+
 /**
  * BuddyList display Friend contact list for Parrot IM users.
  */
@@ -36,11 +37,13 @@ public class BuddyList extends JFrame {
      */
     JMenuBar menu;
     /**
-     * variable model for extracting buddy list, each buddy's information and , conversation 
+     * variable model for extracting buddy list, each buddy's information and ,
+     * conversation
      */
     protected Model model;
     /**
-     * variable controller for setting user status and instantiates conversations.
+     * variable controller for setting user status and instantiates
+     * conversations.
      */
     private MainController controller;
     /**
@@ -49,12 +52,14 @@ public class BuddyList extends JFrame {
     protected JFrame buddywindow;
 
     /**
-     * BuddyList display friend contact list, status, information and conversation.
+     * BuddyList display friend contact list, status, information and
+     * conversation.
+     * 
      * @param c
      * @param model
      */
     public BuddyList(MainController c, Model model) {
-    	buddywindow = this;
+        buddywindow = this;
         this.setTitle("Buddy List");
         this.model = model;
         this.controller = c;
@@ -64,7 +69,8 @@ public class BuddyList extends JFrame {
         // Attach the top text menu
         this.setJMenuBar(this.createMenu());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon("src/images/buddywindow/avatar.png").getImage());
+        setIconImage(new ImageIcon("src/images/buddywindow/avatar.png")
+                .getImage());
 
         JPanel buddylistPanel = new JPanel();
         buddylistPanel.setLayout(new BorderLayout());
@@ -84,7 +90,9 @@ public class BuddyList extends JFrame {
 
     // Creates top Text Menu
     /**
-     * createMenu(), create menu on top of buddy list. It provide access to functions such as files, contact, options and help.
+     * createMenu(), create menu on top of buddy list. It provide access to
+     * functions such as files, contact, options and help.
+     * 
      * @return menuBar
      */
     public JMenuBar createMenu() {
@@ -105,19 +113,21 @@ public class BuddyList extends JFrame {
         fileMenu.add(exitItem1);
         exitItem1.addActionListener(new exitActionListener());
 
-       /* acctsMenu = new JMenu("Accounts");
-        acctsMenu.setMnemonic(KeyEvent.VK_A);
-        menuBar.add(acctsMenu);
-        JMenuItem accountsItem1 = new JMenuItem("Edit Accounts", KeyEvent.VK_E);
-        acctsMenu.add(accountsItem1);*/
+        /*
+         * acctsMenu = new JMenu("Accounts");
+         * acctsMenu.setMnemonic(KeyEvent.VK_A); menuBar.add(acctsMenu);
+         * JMenuItem accountsItem1 = new JMenuItem("Edit Accounts",
+         * KeyEvent.VK_E); acctsMenu.add(accountsItem1);
+         */
 
         contactMenu = new JMenu("Contacts");
         contactMenu.setMnemonic(KeyEvent.VK_C);
         JMenuItem viewChatLog = new JMenuItem("View Chat Log", KeyEvent.VK_C);
         viewChatLog.addActionListener(new chatLogListener());
         contactMenu.add(viewChatLog);
-        
-        JCheckBoxMenuItem chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled");
+
+        JCheckBoxMenuItem chatbotEnabler = new JCheckBoxMenuItem(
+                "Chatbot Enabled");
         chatbotEnabler.setMnemonic(KeyEvent.VK_H);
         chatbotEnabler.addActionListener(new ChatbotToggleListener());
         contactMenu.add(chatbotEnabler);
@@ -144,87 +154,92 @@ public class BuddyList extends JFrame {
         helpMenu.add(helpItem2);
         helpMenu.addSeparator();
         helpMenu.add(helpItem3);
-        
 
         return menuBar;
     }
-    
+
     /**
      * about listener
-     *
+     * 
      */
     private class aboutListener implements ActionListener {
         /* 
          * 
          */
         public void actionPerformed(ActionEvent e) {
-        	if (!model.aboutWindowOpen){
-					new AboutFrame(model);
-        	}
+            if (!model.aboutWindowOpen) {
+                new AboutFrame(model);
+            }
             return;
-        }        
+        }
     }
+
     /**
      * helpListener
-     *
+     * 
      */
     private class helpListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_Exit");
+            new HelpPanel(
+                    "http://code.google.com/p/parrot-im/wiki/NewTutorial_Exit");
 
             return;
         }
     }
+
     /**
-    * reportBugListener
-    *
-    */
-   private class reportBugListener implements ActionListener {
-       /* 
+     * reportBugListener
+     * 
+     */
+    private class reportBugListener implements ActionListener {
+        /* 
         * 
         */
-       public void actionPerformed(ActionEvent e) {
-           new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
+        public void actionPerformed(ActionEvent e) {
+            new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
 
-           return;
-       }
-   }
-    
+            return;
+        }
+    }
 
     /**
      * chatLog listener
-     *
+     * 
      */
     private class chatLogListener implements ActionListener {
-    	/**
+        /**
          * Listens for the uesr's event.
          * 
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
-        	if (!model.logWindowOpen){
-        		try {
-					new ChatLogFrame(model);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
+            if (!model.logWindowOpen) {
+                try {
+                    new ChatLogFrame(model);
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
             return;
-        }        
+        }
     }
 
     /**
      * option listener
-     *
+     * 
      */
     private class optionListener implements ActionListener {
-        /* (non-Javadoc)
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent
+         * )
          */
         public void actionPerformed(ActionEvent e) {
             new OptionMenu();
@@ -232,74 +247,63 @@ public class BuddyList extends JFrame {
             return;
         }
     }
-    
+
     /**
      * Listens for the Chatbot toggle
-     *
+     * 
      */
     private class ChatbotToggleListener implements ActionListener {
-    	/**
+        /**
          * Listens for the uesr's event.
          * 
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
             controller.toggleChatbot();
-            
+
             return;
         }
     }
-    
+
     /**
      * Listens for the exit action.
-     *
+     * 
      */
     private class exitActionListener implements ActionListener {
 
-    	/**
+        /**
          * Listens for the uesr's event.
          * 
          * @param e
          */
-		public void actionPerformed(ActionEvent e) {
-			
-			try {
-				controller.disconnect();
-				buddywindow.dispose();
-			} catch (XMPPException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-		}
-    	
+        public void actionPerformed(ActionEvent e) {
+            controller.disconnect();
+            buddywindow.dispose();
+
+            return;
+        }
+
     }
-    
+
     /**
      * Listens for the signout action
-     *
+     * 
      */
     private class signoutActionListener implements ActionListener {
 
-    	/**
+        /**
          * Listens for the uesr's event.
          * 
          * @param e
          */
-		public void actionPerformed(ActionEvent e) {
-			try {
-				controller.disconnect();
-				new MainWindow(controller, model);
-				//TODO: might want to reset the data/variables/list in model
-				buddywindow.dispose();
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			} catch (XMPPException e2) {
-				e2.printStackTrace();
-			}
-		}
-    	
+        public void actionPerformed(ActionEvent e) {
+            controller.disconnect();
+            new MainWindow(controller, model);
+            // TODO: might want to reset the data/variables/list in model
+            buddywindow.dispose();
+
+            return;
+        }
+
     }
 }
