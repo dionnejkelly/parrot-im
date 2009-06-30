@@ -24,6 +24,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -59,6 +62,10 @@ public class EditAccountFrame extends JFrame {
      */
 
     protected EditAccountFrame popup;
+    
+    
+    protected JTextField jabberServer;
+	protected JPanel serverPanel;
 
     // Section
     // II - Non-Static Data Members
@@ -167,6 +174,8 @@ public class EditAccountFrame extends JFrame {
         setupFieldPanel.setLayout(setupFieldLayout);
         serviceField = new JComboBox(model.getServerList());
         serviceField.setPreferredSize(new Dimension(170, 27));
+        serviceField.addItemListener(new serverListener());
+        
         UNField = new JTextField();
         UNField.setPreferredSize(new Dimension(85, 20));
         pwdField = new JPasswordField();
@@ -226,14 +235,47 @@ public class EditAccountFrame extends JFrame {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new CancelListener());
         buttonsPanel.add(cancelButton);
+        
+        jabberServer = new JTextField();
+        jabberServer.setPreferredSize(new Dimension(200, 20));
+        jabberServer.setToolTipText("specify jabber server");
+        
+        JPanel jabberServerPanel = new JPanel();
+        jabberServerPanel.setLayout(new BorderLayout());
+        jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
+        
+        JPanel jabberServerLabel = new JPanel();
+        jabberServerLabel.setLayout(new BorderLayout());
+        jabberServerLabel.add(new JLabel("Jabber server:  "), BorderLayout.NORTH);
+
+        serverPanel = new JPanel();
+        serverPanel.setLayout(new BorderLayout());
+        serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
+        serverPanel.add(jabberServerLabel, BorderLayout.WEST);
+        serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
 
         // Add Content to main Panel and display
         modAcctPanel.add(setupPanel, BorderLayout.NORTH);
         modAcctPanel.add(otherSetupPanel, BorderLayout.CENTER);
         modAcctPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        modAcctPanel.add(serverPanel, BorderLayout.CENTER);
+        
         getContentPane().add(modAcctPanel);
         pack();
         setVisible(true);
+    }
+    
+    
+    private class serverListener implements ItemListener{
+
+		public void itemStateChanged(ItemEvent e) {
+			if (serviceField.getSelectedIndex()==0){
+				serverPanel.setVisible(true);
+			}else{
+				serverPanel.setVisible(false);
+			}
+		}
+    	
     }
 
     // Instance 2 -- Edit Account (User/Pass already filled in, Disable username
