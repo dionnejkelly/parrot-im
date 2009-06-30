@@ -23,21 +23,7 @@
 
 package view.mainwindow;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
-import javax.swing.text.Document;
-
 /**
  * Sets the GUI component of Help pop up window.
  * 

@@ -30,8 +30,6 @@
 
 package model.dataType;
 
-import javax.swing.ImageIcon;
-
 /**
  * Holds message data from a conversation. Each MessageData object represents
  * one message from a user.

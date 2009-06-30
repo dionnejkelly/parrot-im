@@ -23,8 +23,6 @@ import view.mainwindow.HelpPanel;
 import controller.MainController;
 
 import model.Model;
-import model.enumerations.UpdatedType;
-
 /**
  * The MainPanel contains the main panel that handles the integrity of the
  * panels and provides option.

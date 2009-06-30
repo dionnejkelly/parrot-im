@@ -5,10 +5,7 @@ import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
 
-import model.dataType.MessageData;
-import model.dataType.UserData;
 import model.dataType.tempData.FriendTempData;
-import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;

@@ -15,7 +15,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.*;
 
-import org.jivesoftware.smack.XMPPException;
 import view.styles.PopupWindowListener;
 
 import controller.MainController;

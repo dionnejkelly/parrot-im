@@ -72,11 +72,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.WindowConstants;
 
 import view.styles.PopupWindowListener;
 
-import model.DatabaseFunctions;
 import model.Model;
 import model.enumerations.UpdatedType;
 
