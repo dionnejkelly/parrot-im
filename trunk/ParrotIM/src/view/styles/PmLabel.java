@@ -94,7 +94,7 @@ public class PmLabel extends JTextField {
             this.setText(this.getText());
             this.setOpaque(false);
 
-            this.setForeground(Color.GRAY);
+            this.setForeground(Color.BLACK);
             // send status to core
 
             if (this.getText().length() == 0) {
@@ -121,7 +121,7 @@ public class PmLabel extends JTextField {
          */
         public labelMouseListener(PmLabel lbl) {
             label = lbl;
-            label.setForeground(Color.GRAY);
+            label.setForeground(Color.BLACK);
         }
 
         /**
@@ -139,7 +139,7 @@ public class PmLabel extends JTextField {
          * takes a MouseEvent argument
          */
         public void mouseEntered(MouseEvent e) {
-        	label.setForeground(Color.BLACK);
+        	label.setForeground(Color.GRAY);
         }
 
         /**
@@ -148,7 +148,7 @@ public class PmLabel extends JTextField {
          */
         public void mouseExited(MouseEvent e) {
             if (!label.isEditable()) {
-            	label.setForeground(Color.GRAY);
+            	label.setForeground(Color.BLACK);
             }
         }
 
