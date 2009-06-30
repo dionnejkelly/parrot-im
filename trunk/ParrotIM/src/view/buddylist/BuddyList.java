@@ -20,7 +20,7 @@ import org.jivesoftware.smack.XMPPException;
 import view.mainwindow.HelpPanel;
 import view.mainwindow.MainWindow;
 import view.mainwindow.AboutFrame;
-import view.options.OptionMenu;
+import view.options.OptionFrame;
 
 import view.chatLog.ChatLogFrame;
 
@@ -59,6 +59,7 @@ public class BuddyList extends JFrame {
      * @param model
      */
     public BuddyList(MainController c, Model model) {
+//    	setLocationRelativeTo(null);
         buddywindow = this;
         this.setTitle("Buddy List");
         this.model = model;
@@ -242,7 +243,15 @@ public class BuddyList extends JFrame {
          * )
          */
         public void actionPerformed(ActionEvent e) {
-            new OptionMenu();
+            try {
+				new OptionFrame(controller, model);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
             return;
         }

@@ -84,6 +84,7 @@ public class MainWindow extends JFrame implements Observer {
      */
     public MainWindow(MainController chatClient, Model model) {
         // set Main Window Frame
+//    	setLocationRelativeTo(null);
         setTitle("Parrot-IM");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(300, 500));

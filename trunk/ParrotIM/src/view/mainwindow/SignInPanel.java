@@ -251,7 +251,7 @@ public class SignInPanel extends JPanel implements Observer {
         guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new GuestAccountFrame(model, core, mainFrame, signin);
+                GuestAccountFrame guest = new GuestAccountFrame(model, core, mainFrame, signin);
             }
         });
 
