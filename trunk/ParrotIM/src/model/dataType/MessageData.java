@@ -83,7 +83,8 @@ public class MessageData {
 	 */
     private String[][] emoticons = {{"(:-?([)]|]))", "happy.png"},
 									{"(:-?([(]|c))", "sad.png"},
-									{"(:-?[|])", "neutral.png"}};
+									{"(:-?[|])", "neutral.png"},
+									{"(:-?(X|#))", "zipper.png"}};
     
     // Section
     // II - Constructors
