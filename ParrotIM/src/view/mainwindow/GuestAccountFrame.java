@@ -128,14 +128,14 @@ public class GuestAccountFrame extends JFrame {
         this.model = model;
         core = c;
         mainFrame = frame;
+        setLocationRelativeTo(mainFrame);
         mainPanel = signin;
         this.addWindowListener(new PopupWindowListener(mainFrame, this));
 
         // set Frame
         setTitle("Guest Account Login");
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+//        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(400, 250));
-        setLocation(100, 100);
         setResizable(false);
         setIconImage(new ImageIcon("imagesimage/mainwindow/logo.png")
                 .getImage());
@@ -302,10 +302,8 @@ public class GuestAccountFrame extends JFrame {
     private class serverListener implements ItemListener{
 
 		public void itemStateChanged(ItemEvent e) {
-			// TODO Auto-generated method stub
 			if (server.getSelectedIndex()==0){
 				serverPanel.setVisible(true);
-//				jabberServer.updateUI();
 			}else{
 				serverPanel.setVisible(false);
 			}

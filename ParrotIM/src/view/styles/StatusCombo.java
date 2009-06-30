@@ -28,6 +28,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
+import model.enumerations.StatusType;
+
 import controller.MainController;
 
 /**
@@ -36,11 +38,6 @@ import controller.MainController;
  * It inherits JComboBox methods and variables.
  */
 public class StatusCombo extends JComboBox{
-	/**
-	 * status is an array of Strings which provides the status options the user can choose from.
-	 */
-	private static String status[] = {"Available", "Away", "Busy", "Chatty"};
-	
 	/**
 	 * chatClient is a MainController object. It helps the user to change their status on the server.
 	 */
@@ -51,7 +48,7 @@ public class StatusCombo extends JComboBox{
 	 * It also sets up some settings for the object.
 	 * @param c */
 	public StatusCombo(MainController c){
-		super(status);
+		super(StatusType.getStatusList());
 		chatClient = c;
 		this.addActionListener(new statusComboListener());
 		this.setMaximumSize(new Dimension(200, 30));

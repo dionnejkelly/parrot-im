@@ -60,11 +60,37 @@ public class AvatarLabel extends JLabel{
 		this.addMouseListener(new avatarMouseListener());
 	}
 	
+	public void changeAvatarWindow(){
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setAcceptAllFileFilterUsed(false);
+		ImageFileFilter filefilter = new ImageFileFilter();
+		fileChooser.setFileFilter(filefilter);
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fileChooser.setMultiSelectionEnabled(false);
+		fileChooser.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		
+		//Show it.
+        int returnVal = fileChooser.showOpenDialog(avatarlbl);
+
+        //Process the results.
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            avatarlbl.changeAvatar(file.getAbsolutePath());
+            System.out.println(file.getAbsolutePath()+ " is choosen");
+        	fileChooser.setVisible(false);//DISPOSE!!!
+        } else {
+        	System.out.println("Attachment cancelled by user.");
+        	fileChooser.setVisible(false);//DISPOSE!!!
+        }
+
+        //Reset the file chooser for the next time it's shown.
+        fileChooser.setSelectedFile(null);
+	}
 	/**
 	 * Sets the AvatarLabel to a new image. It takes a String that describes
 	 * the path of the display picture as its argument.
 	 */
-	public void changeAvatar(String path){
+	private void changeAvatar(String path){
 		avatar = new ImageIcon (path);
 		this.setIcon(avatar);
 	}
@@ -88,37 +114,13 @@ public class AvatarLabel extends JLabel{
 		public void mouseReleased(MouseEvent e) {
 			
 			System.out.println("clicked");
-			
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setAcceptAllFileFilterUsed(false);
-			ImageFileFilter filefilter = new ImageFileFilter();
-			fileChooser.setFileFilter(filefilter);
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			fileChooser.setMultiSelectionEnabled(false);
-			fileChooser.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-			
-			//Show it.
-	        int returnVal = fileChooser.showOpenDialog(avatarlbl);
-
-	        //Process the results.
-	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            File file = fileChooser.getSelectedFile();
-	            avatarlbl.changeAvatar(file.getAbsolutePath());
-	            System.out.println(file.getAbsolutePath()+ " is choosen");
-	        	fileChooser.setVisible(false);//DISPOSE!!!
-	        } else {
-	        	System.out.println("Attachment cancelled by user.");
-	        	fileChooser.setVisible(false);//DISPOSE!!!
-	        }
-
-	        //Reset the file chooser for the next time it's shown.
-	        fileChooser.setSelectedFile(null);
+			changeAvatarWindow();
 		}
 	}
 	
 	/** This class controls the file types that can be selected for the file browser. 
 	 * It can only select either a directory or an image file. */
-	private class ImageFileFilter extends FileFilter{
+	protected class ImageFileFilter extends FileFilter{
 
 		@Override
 		
