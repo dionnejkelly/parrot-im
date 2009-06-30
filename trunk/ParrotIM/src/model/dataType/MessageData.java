@@ -82,7 +82,8 @@ public class MessageData {
 	 * name of the image located within the "/images/emoticons/" folder
 	 */
     private String[][] emoticons = {{"(:-?([)]|]))", "happy.png"},
-									{"(:-?[(])", "happy.png"}};
+									{"(:-?([(]|c))", "sad.png"},
+									{"(:-?[|])", "neutral.png"}};
     
     // Section
     // II - Constructors
