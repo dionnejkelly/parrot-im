@@ -28,7 +28,7 @@ import controller.MainController;
 
 public class JabberManager implements GenericConnection {
    
-    private static final int GOOGLE_PORT = 5223;
+    private static final int DEFAULT_PORT = 5223;
    
     private XMPPConnection connection;
 
@@ -37,6 +37,10 @@ public class JabberManager implements GenericConnection {
     private GenericConnection genericConnection;
 
     private ArrayList<Chat> chats;
+    
+    private String server;
+    
+    private String domain;
 
     public JabberManager(MainController controller) {
         this.connection = null;
@@ -70,13 +74,17 @@ public class JabberManager implements GenericConnection {
         return;
     }
 
-    public void login(String userID, String password)
+    public void login(String userID, String password, String server, int port)
             throws BadConnectionException {
         ConnectionConfiguration config = null;
+        
+        this.domain = StringUtils.parseServer(userID); // will this work?
+        this.server = server;
+        // port currently not assigned
 
         config =
                 new ConnectionConfiguration(
-                        GOOGLE_SERVER, GOOGLE_PORT, GOOGLE_DOMAIN);
+                        this.server, DEFAULT_PORT, this.domain);
         config.setSocketFactory(SSLSocketFactory.getDefault());
 
         connection = new XMPPConnection(config);

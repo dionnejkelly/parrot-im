@@ -99,7 +99,7 @@ public class PmLabel extends JTextField {
 
             if (this.getText().length() == 0) {
                 this.setText("(Type your status message)");
-                core.setStatus("");
+                core.setStatus(""); 
             } else {
                 core.setStatus(this.getText());
             }
