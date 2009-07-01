@@ -115,6 +115,9 @@ public class ChatPanel extends JPanel {
         txt1.setToolTipText("Enter text and HTML tags here");
         txt1.addKeyListener(new TextBoxListener());
 
+        JScrollPane chatInputWindowScroller = new JScrollPane(txt1);
+        chatInputWindowScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
         JButton sendButton = new JButton("SEND");
         sendButton.addActionListener(new SendButtonPressed());
         // displayPanel.addMessage(incoming messages); //TODO
@@ -223,7 +226,7 @@ public class ChatPanel extends JPanel {
         // add to editing panel
         editingPanel.add(bar1, BorderLayout.NORTH);
         editingPanel.add(sendButton, BorderLayout.EAST);
-        editingPanel.add(txt1, BorderLayout.CENTER);
+        editingPanel.add(chatInputWindowScroller, BorderLayout.CENTER);
 
         // setup and add to split pane
         JSplitPane sPane = new JSplitPane();
@@ -404,8 +407,20 @@ public class ChatPanel extends JPanel {
                 shiftPressed = true;
             }
             
-            if (e.getKeyCode() == e.VK_CONTROL) {
+            else if (e.getKeyCode() == e.VK_CONTROL) {
             	controlPressed = true;
+            }
+            
+            else if (isMaxed()) {
+            	txt1.setEditable(false);
+            }
+            
+            else if (e.getKeyCode() == e.VK_BACK_SPACE) {
+            	txt1.setEditable(true);
+            }
+            
+            else if (txt1.getText().length() == 1) {
+            	keyCount = 1;
             }
             
             else if (txt1.getText().equals("")) {
