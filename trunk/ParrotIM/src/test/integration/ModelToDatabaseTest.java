@@ -75,7 +75,7 @@ public class ModelToDatabaseTest {
         db = new DatabaseFunctions();
         assertTrue(db.getUserList().size() == 0);
         assertTrue(model.getAccountList().size() == 0);
-        this.model.addAccount(profileName, serverString, userID, password);
+        this.model.addAccount(profileName, serverString, "", userID, password);
         assertTrue(model.getAccountList().size() == 1);
         db = new DatabaseFunctions();
         accountList = db.getAccountList(profileName);
@@ -83,7 +83,7 @@ public class ModelToDatabaseTest {
                 .getAccountsForProfile(profileName).get(0).getUserID());
 
         assertTrue(model.getAccountsForProfile("false").size() == 0);
-        this.model.addAccount(profileName, serverString, userID, password);
+        this.model.addAccount(profileName, serverString, "", userID, password);
         assertTrue(model.getAccountList().size() == 1);
 
         model.removeAccount(profileName, "do not remove me!");

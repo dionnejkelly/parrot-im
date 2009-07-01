@@ -109,13 +109,13 @@ public enum ServerType {
         } else if (server.equals(ServerType.JABBER.toString())) {
             serverToReturn = ServerType.JABBER;
         } else if (server.equals(ServerType.TWITTER.toString())) {
-            serverToReturn = ServerType.JABBER;
+            serverToReturn = ServerType.TWITTER;
         } else if (server.equals(ServerType.ICQ.toString())) {
-            serverToReturn = ServerType.JABBER;
+            serverToReturn = ServerType.ICQ;
         } else if (server.equals(ServerType.AIM.toString())) {
-            serverToReturn = ServerType.JABBER;
+            serverToReturn = ServerType.AIM;
         } else if (server.equals(ServerType.MSN.toString())) {
-            serverToReturn = ServerType.JABBER;
+            serverToReturn = ServerType.MSN;
         } else { // invalid server data is stored
             serverToReturn = null;
         }
