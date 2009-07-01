@@ -44,6 +44,7 @@ import java.util.ArrayList;
 
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
+import controller.services.JabberManager;
 import controller.services.TwitterManager;
 
 import model.enumerations.ServerType;
@@ -121,6 +122,8 @@ public class AccountData {
         ServerType serverToReturn = null;
         if (this.connection instanceof GoogleTalkManager) {
             serverToReturn = ServerType.GOOGLE_TALK;
+        } else if (this.connection instanceof JabberManager) {
+            serverToReturn = ServerType.JABBER;
         } else if (this.connection instanceof TwitterManager) {
             serverToReturn = ServerType.TWITTER;
         }
@@ -289,10 +292,9 @@ public class AccountData {
 
         if (account != null && account instanceof AccountData) {
             externalAccount = (AccountData) account;
-            areEqual =
-                    this.accountName.equalsIgnoreCase(externalAccount
-                            .getAccountName())
-                            && (this.getServer() == externalAccount.getServer());
+            areEqual = this.accountName.equalsIgnoreCase(externalAccount
+                    .getAccountName())
+                    && (this.getServer() == externalAccount.getServer());
         }
 
         return areEqual;

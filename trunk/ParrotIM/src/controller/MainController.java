@@ -157,6 +157,7 @@ public class MainController {
             break;
 
         case JABBER:
+            accountName += "@" + serverAddress;
             connection = new JabberManager(this);
             break;
 
