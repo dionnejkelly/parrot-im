@@ -136,7 +136,7 @@ public class DatabaseFunctions {
          * commands unless necessary.
          */
 
-        stat.executeUpdate("drop table if exists people;");
+        // stat.executeUpdate("drop table if exists people;");
         // stat.executeUpdate("drop table if exists chatLog;");
         // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
@@ -465,15 +465,16 @@ public class DatabaseFunctions {
      * @param password
      * @throws SQLException
      */
-    public void addUsers(String profile, String server, String accountName,
+    public void addUsers(String profile, String serverType, String accountName,
             String password) throws SQLException {
-        prep = conn.prepareStatement("insert into people values (?, ?, ?, ?);");
+        prep = conn.prepareStatement("insert into people values (?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
-        prep.setString(2, server);
-        prep.setString(3, accountName);
-        prep.setString(4, password);
+        prep.setString(2, serverType);
+        prep.setString(3, "");
+        prep.setString(4, accountName);
+        prep.setString(5, password);
         prep.executeUpdate();
 
         conn.commit();
@@ -554,7 +555,7 @@ public class DatabaseFunctions {
         String server = null;
         String accountName = null;
         String password = null;
-        ServerType serverType = null;
+        String serverAddress = null;
         AccountTempData account = null;
         ArrayList<AccountTempData> accountList =
                 new ArrayList<AccountTempData>();
@@ -565,11 +566,11 @@ public class DatabaseFunctions {
         while (rs.next()) {
             accountName = rs.getString("accountName");
             password = rs.getString("password");
-            server = rs.getString("server");
+            server = rs.getString("serverType");
+            serverAddress = rs.getString("serverAddress");
+            System.out.println(server);
 
-            serverType = serverStringToServerType(server);
-
-            account = new AccountTempData(serverType, accountName, password);
+            account = new AccountTempData(server, serverAddress, accountName, password);
             accountList.add(account);
         }
         rs.close();
@@ -766,27 +767,4 @@ public class DatabaseFunctions {
         return exists;
     }
 
-    // Utility methods
-
-    private static ServerType serverStringToServerType(String server) {
-        ServerType serverToReturn = null; // Default return value
-
-        if (server.equals(ServerType.GOOGLE_TALK.toString())) {
-            serverToReturn = ServerType.GOOGLE_TALK;
-        } else if (server.equals(ServerType.JABBER.toString())) {
-            serverToReturn = ServerType.JABBER;
-        } else if (server.equals(ServerType.TWITTER.toString())) {
-            serverToReturn = ServerType.JABBER;
-        } else if (server.equals(ServerType.ICQ.toString())) {
-            serverToReturn = ServerType.JABBER;
-        } else if (server.equals(ServerType.AIM.toString())) {
-            serverToReturn = ServerType.JABBER;
-        } else if (server.equals(ServerType.MSN.toString())) {
-            serverToReturn = ServerType.JABBER;
-        } else { // invalid server data is stored
-            serverToReturn = null;
-        }
-
-        return serverToReturn;
-    }
 }

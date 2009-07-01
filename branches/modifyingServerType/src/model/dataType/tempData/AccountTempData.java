@@ -34,10 +34,10 @@ public class AccountTempData {
      * the database, but will be represented as a ServerType enumeration in the
      * AccountData object.
      */
-    private ServerType server; // TODO change this to String, the 
-                               // database shouldn't have to worry about
-                               // the conversion of types.
+    private ServerType server; 
 
+    private String serverAddress;
+    
     /**
      * The userID is the account name, with the "@server.com" affixed to it.
      */
@@ -56,8 +56,9 @@ public class AccountTempData {
      * @param userID
      * @param password
      */
-    public AccountTempData(ServerType server, String userID, String password) {
+    public AccountTempData(String server, String serverAddress, String userID, String password) {
         this.setServer(server);
+        this.setServerAddress(serverAddress);
         this.setUserID(userID);
         this.setPassword(password);
     }
@@ -65,10 +66,21 @@ public class AccountTempData {
     /**
      * Change the server type.
      * 
-     * @param server
+     * @param server Server as a ServerType enum.
      */
     public void setServer(ServerType server) {
         this.server = server;
+
+        return;
+    }
+    
+    /**
+     * Change the server type.
+     * 
+     * @param server Server as a String.
+     */
+    public void setServer(String server) {
+        this.server = ServerType.serverStringToServerType(server);
 
         return;
     }
@@ -80,6 +92,16 @@ public class AccountTempData {
      */
     public ServerType getServer() {
         return server;
+    }
+
+    public void setServerAddress(String serverAddress) {
+        this.serverAddress = serverAddress;
+        
+        return;
+    }
+
+    public String getServerAddress() {
+        return serverAddress;
     }
 
     /**
@@ -122,4 +144,5 @@ public class AccountTempData {
     public String getPassword() {
         return password;
     }
+    
 }
