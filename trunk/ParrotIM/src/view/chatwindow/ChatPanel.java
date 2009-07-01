@@ -193,12 +193,18 @@ public class ChatPanel extends JPanel {
         		{"dead", "XP"}, {"surprise", ":o"}, {"tongue", ":P"}, {"zipper", ":X"}, 
         		{"wink", ";)"}, {"afraid", "=0"}, {"angel", "O:)"}, {"party","<:)"}, 
         		{"heart", "<3"}, {"brokenheart", "</3"}};
-        for(String[] str : emoticonImages){
+        for(final String[] str : emoticonImages){
         	JButton newButton = new JButton(new ImageIcon(this.getClass().getResource(
 					"/images/emoticons/" + str[0] + ".png")));
         	newButton.setToolTipText(str[0] + " " + str[1]);
+        	newButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                	txt1.setText(txt1.getText().substring(0, txt1.getCaretPosition()) +
+                			str[1] + txt1.getText().substring(txt1.getCaretPosition()));
+                	emoticonChooser.setVisible(false);
+                }
+            });
         	emoticonChooser.add(newButton);
-        	
         }
         emoticonChooser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         emoticonChooser.pack();
