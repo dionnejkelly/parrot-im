@@ -183,20 +183,23 @@ public class ChatPanel extends JPanel {
         emoticons.addActionListener(new emoticonListener());
         
         //Emoticon Chooser
-        emoticonChooser = new JFrame();
+        emoticonChooser = new JFrame("Emoticons");
         emoticonChooser.setVisible(false);
-        emoticonChooser.setTitle("Emoticons");
+        emoticonChooser.setPreferredSize(new Dimension(200, 260));
+        emoticonChooser.setResizable(false);
         emoticonChooser.setLayout(new FlowLayout());
-        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
-        									"/images/emoticons/happy.png"))));
-        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
-											"/images/emoticons/sad.png"))));
-        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
-											"/images/emoticons/neutral.png"))));
-        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
-											"/images/emoticons/zipper.png"))));
-        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
-											"/images/emoticons/party.png"))));
+        String[][] emoticonImages = {{"happy", ":)"}, {"sad", ":("}, {"neutral", ":|"}, 
+        		{"laugh", "XD"}, {"cool", "B)"}, {"sick", ":S"}, {"glasses", "8)"},
+        		{"dead", "XP"}, {"surprise", ":o"}, {"tongue", ":P"}, {"zipper", ":X"}, 
+        		{"wink", ";)"}, {"afraid", "=0"}, {"angel", "O:)"}, {"party","<:)"}, 
+        		{"heart", "<3"}, {"brokenheart", "</3"}};
+        for(String[] str : emoticonImages){
+        	JButton newButton = new JButton(new ImageIcon(this.getClass().getResource(
+					"/images/emoticons/" + str[0] + ".png")));
+        	newButton.setToolTipText(str[0] + " " + str[1]);
+        	emoticonChooser.add(newButton);
+        	
+        }
         emoticonChooser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         emoticonChooser.pack();
         
