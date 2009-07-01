@@ -125,9 +125,8 @@ public class DatabaseFunctions {
      */
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        conn =
-                DriverManager.getConnection("jdbc:sqlite:"
-                        + DatabaseFunctions.getDatabaseName());
+        conn = DriverManager.getConnection("jdbc:sqlite:"
+                + DatabaseFunctions.getDatabaseName());
         stat = conn.createStatement();
 
         /*
@@ -212,12 +211,11 @@ public class DatabaseFunctions {
         Date date1 = new Date();
         String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
         String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
-        String time =
-                DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
+        String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(
+                date1);
 
-        prep =
-                conn
-                        .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
+        prep = conn
+                .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -246,9 +244,8 @@ public class DatabaseFunctions {
      */
     public Vector<String> getChatNameList(String profile) throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        rs =
-                stat.executeQuery("select * from chatLog where profile='"
-                        + profile + "';");
+        rs = stat.executeQuery("select * from chatLog where profile='"
+                + profile + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
                 accountList.add(rs.getString("toUser"));
@@ -274,11 +271,9 @@ public class DatabaseFunctions {
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
 
-        rs =
-                stat.executeQuery("select * from chatLog where profile = '"
-                        + profile + "' AND (toUser='" + buddyname
-                        + "' OR fromUser='" + buddyname
-                        + "') order by timestamp;");
+        rs = stat.executeQuery("select * from chatLog where profile = '"
+                + profile + "' AND (toUser='" + buddyname + "' OR fromUser='"
+                + buddyname + "') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -303,22 +298,18 @@ public class DatabaseFunctions {
      */
     public ArrayList<ChatLogMessageTempData> getMessageFromDate(
             String username, String buddyname, String date) throws SQLException {
-        ArrayList<ChatLogMessageTempData> messageList =
-                new ArrayList<ChatLogMessageTempData>();
+        ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
 
-        rs =
-                stat.executeQuery("select * from chatLog where (toUser='"
-                        + buddyname + "' AND fromUser='" + username
-                        + "') || (toUser='" + username + "' AND fromUser='"
-                        + buddyname + "') AND date='" + date
-                        + "' order by timestamp;");
+        rs = stat.executeQuery("select * from chatLog where (toUser='"
+                + buddyname + "' AND fromUser='" + username + "') || (toUser='"
+                + username + "' AND fromUser='" + buddyname + "') AND date='"
+                + date + "' order by timestamp;");
 
         while (rs.next()) {
-            message =
-                    new ChatLogMessageTempData(rs.getString("time"), rs
-                            .getString("fromUser"), rs.getString("toUser"), rs
-                            .getString("message"));
+            message = new ChatLogMessageTempData(rs.getString("time"), rs
+                    .getString("fromUser"), rs.getString("toUser"), rs
+                    .getString("message"));
             messageList.add(message);
         }
         rs.close();
@@ -414,9 +405,8 @@ public class DatabaseFunctions {
         String password = null;
         boolean defaultProfile = false;
 
-        rs =
-                stat.executeQuery("SELECT * FROM defaultProfile WHERE "
-                        + "defaultProfile = 'yes';");
+        rs = stat.executeQuery("SELECT * FROM defaultProfile WHERE "
+                + "defaultProfile = 'yes';");
 
         if (rs.next()) {
             name = rs.getString("name");
@@ -465,14 +455,16 @@ public class DatabaseFunctions {
      * @param password
      * @throws SQLException
      */
-    public void addUsers(String profile, String serverType, String accountName,
-            String password) throws SQLException {
-        prep = conn.prepareStatement("insert into people values (?, ?, ?, ?, ?);");
+    public void addUsers(String profile, String serverType,
+            String serverAddress, String accountName, String password)
+            throws SQLException {
+        prep = conn
+                .prepareStatement("insert into people values (?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
         prep.setString(2, serverType);
-        prep.setString(3, "");
+        prep.setString(3, serverAddress);
         prep.setString(4, accountName);
         prep.setString(5, password);
         prep.executeUpdate();
@@ -511,9 +503,8 @@ public class DatabaseFunctions {
             throws ClassNotFoundException, SQLException {
         String password = null;
 
-        rs =
-                stat.executeQuery("select * from people where accountName = '"
-                        + accountName + "'");
+        rs = stat.executeQuery("select * from people where accountName = '"
+                + accountName + "'");
 
         if (rs.next()) {
             password = rs.getString("password");
@@ -557,20 +548,18 @@ public class DatabaseFunctions {
         String password = null;
         String serverAddress = null;
         AccountTempData account = null;
-        ArrayList<AccountTempData> accountList =
-                new ArrayList<AccountTempData>();
+        ArrayList<AccountTempData> accountList = new ArrayList<AccountTempData>();
 
-        rs =
-                stat.executeQuery("SELECT * FROM people WHERE profile = '"
-                        + profile + "';");
+        rs = stat.executeQuery("SELECT * FROM people WHERE profile = '"
+                + profile + "';");
         while (rs.next()) {
             accountName = rs.getString("accountName");
             password = rs.getString("password");
             server = rs.getString("serverType");
             serverAddress = rs.getString("serverAddress");
-            System.out.println(server);
 
-            account = new AccountTempData(server, serverAddress, accountName, password);
+            account = new AccountTempData(server, serverAddress, accountName,
+                    password);
             accountList.add(account);
         }
         rs.close();
@@ -588,9 +577,8 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        rs =
-                stat.executeQuery("select * from people where profile='" + name
-                        + "';");
+        rs = stat.executeQuery("select * from people where profile='" + name
+                + "';");
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
@@ -611,9 +599,8 @@ public class DatabaseFunctions {
             throws SQLException {
         boolean exists = false;
         stat = conn.createStatement();
-        rs =
-                stat.executeQuery("SELECT * FROM people WHERE profile='"
-                        + profile + "' and accountName='" + account + "';");
+        rs = stat.executeQuery("SELECT * FROM people WHERE profile='" + profile
+                + "' and accountName='" + account + "';");
 
         // Only check resultSet once
         if (rs.next()) {
@@ -641,10 +628,8 @@ public class DatabaseFunctions {
         boolean blocked = false;
 
         stat = conn.createStatement();
-        rs =
-                stat
-                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
-                                + accountName + "';");
+        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
+                + accountName + "';");
 
         /* Only check resultSet once */
         while (rs.next()) {
@@ -680,9 +665,8 @@ public class DatabaseFunctions {
             blocked = "no";
         }
 
-        prep =
-                conn
-                        .prepareStatement("insert into friendList values (?, ?, ?);");
+        prep = conn
+                .prepareStatement("insert into friendList values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, accountName);
@@ -751,12 +735,8 @@ public class DatabaseFunctions {
             throws SQLException {
         boolean exists = false;
         stat = conn.createStatement();
-        rs =
-                stat
-                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
-                                + accountName
-                                + "' and friendName='"
-                                + friendName + "';");
+        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
+                + accountName + "' and friendName='" + friendName + "';");
 
         // Only check resultSet once
         if (rs.next()) {

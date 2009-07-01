@@ -492,14 +492,15 @@ public class Model extends Observable {
      * @param password
      */
 
-    public void addAccount(String profile, String server, String accountName,
-            String password) {
+    public void addAccount(String profile, String serverType,
+            String serverAddress, String accountName, String password) {
         DatabaseFunctions db;
         try {
             db = new DatabaseFunctions();
             if (!db.checkAccountExists(profile, accountName)) {
                 db = new DatabaseFunctions();
-                db.addUsers(profile, server, accountName, password);
+                db.addUsers(profile, serverType, serverAddress, accountName,
+                        password);
             }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block

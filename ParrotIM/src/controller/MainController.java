@@ -174,7 +174,7 @@ public class MainController {
         if (connection == null) {
             throw new BadConnectionException(); // ... until we implement
         }
-
+       
         connection.login(accountName, password, serverAddress, port);
         account.setConnection(connection);
 
@@ -602,14 +602,22 @@ public class MainController {
      * @param account
      * @param password
      */
-
     public void addAccount(String profile, ServerType server, String account,
             String password) {
         String serverName = null;
 
         serverName = server.toString();
 
-        this.model.addAccount(profile, serverName, account, password);
+        this.model.addAccount(profile, serverName, "", account, password);
+    }
+
+    public void addAccount(String profile, ServerType server,
+            String serverAddress, String account, String password) {
+        String serverName = null;
+
+        serverName = server.toString();
+
+        this.model.addAccount(profile, serverName, serverAddress, account, password);
     }
 
     /**
