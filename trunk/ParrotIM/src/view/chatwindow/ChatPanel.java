@@ -64,8 +64,10 @@ public class ChatPanel extends JPanel {
     private SpinnerModel fontSizemodel;
     public boolean bold, italics, underlined;
     private ColorUserSelect oldContentPane;
-    
+
     protected JFrame chatFrame;
+    
+    private JFrame emoticonChooser;
 
     /**
      * This is the constructor of the ChatPanel.
@@ -168,41 +170,40 @@ public class ChatPanel extends JPanel {
                         "/images/chatwindow/colorscm.png")));
         colorButton.setToolTipText("Change Font Color");
         colorButton.addActionListener(new colorListener());
-        // colorButton.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent event) {
-        //            	           
-        // JFrame colorFrame = new JFrame("Color chooser");
-        //                           
-        // colorChooser = new JColorChooser();
-        //                
-        //              
-        // int userRedColor = colorChooser.getColor().getRed();
-        // int userGreenColor = colorChooser.getColor().getGreen();
-        // int userBlueColor = colorChooser.getColor().getBlue();
-        //                
-        // System.out.println("Red = " + userRedColor);
-        // System.out.println("Green = " + userGreenColor);
-        // System.out.println("Blue = " + userBlueColor);
-        //                
-        // colorChooser.getSelectionModel().addChangeListener(
-        // new ChangeListener() {
-        // public void stateChanged(ChangeEvent event) {
-        // System.out.print("Helloworld");
-        // }
-        // });
-        // colorFrame.add(new JColorChooser());
-        // colorFrame.pack();
-        // colorFrame.setVisible(true);
-        // }
-        // });
+ 
+        
+        //emoticon button
         JButton emoticons =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/emote.png")));
         emoticons.setToolTipText("Add an Emoticon");
         emoticons.addActionListener(new emoticonListener());
+        
+        //Emoticon Chooser
+        emoticonChooser = new JFrame();
+        emoticonChooser.setVisible(false);
+        emoticonChooser.setTitle("Emoticons");
+        emoticonChooser.setLayout(new FlowLayout());
+        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
+        									"/images/emoticons/happy.png"))));
+        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
+											"/images/emoticons/sad.png"))));
+        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
+											"/images/emoticons/neutral.png"))));
+        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
+											"/images/emoticons/zipper.png"))));
+        emoticonChooser.add(new JButton(new ImageIcon(this.getClass().getResource(
+											"/images/emoticons/party.png"))));
+        emoticonChooser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        emoticonChooser.pack();
+        
+        //Image button
         JButton pic =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/pic.png")));
+        
+        
+        
         pic.setToolTipText("Insert a Picture");
         pic.addActionListener(new pictureListener());
 
@@ -303,10 +304,10 @@ public class ChatPanel extends JPanel {
 
         public void actionPerformed(ActionEvent evt) {
 
-            String resultMessage =
-                    "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
-            JOptionPane.showMessageDialog(null, resultMessage);
-
+            //String resultMessage =
+            //        "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+            //JOptionPane.showMessageDialog(null, resultMessage);
+            emoticonChooser.setVisible(true);
         }
 
     }
