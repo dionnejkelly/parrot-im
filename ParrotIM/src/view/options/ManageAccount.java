@@ -50,6 +50,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import controller.MainController;
+
 import model.Model;
 import model.dataType.AccountData;
 import model.enumerations.ServerType;
@@ -59,6 +61,7 @@ public class ManageAccount extends JPanel implements Observer
 {
 	
 	private Model model;
+	private MainController controller;
 	private Vector<String> accountArray;
 	private JList accList;
 	private JTextField UNField;
@@ -69,9 +72,10 @@ public class ManageAccount extends JPanel implements Observer
 	protected JTextField jabberServer;
 	protected JButton removeButton;
 	
-	protected ManageAccount (Model model) throws ClassNotFoundException, SQLException {
+	protected ManageAccount (Model model, MainController controller) throws ClassNotFoundException, SQLException {
 
 		this.model = model;
+		this.controller = controller;
 
 		//set main panel
 		setLayout(new BorderLayout());
@@ -229,10 +233,13 @@ public class ManageAccount extends JPanel implements Observer
 			}
 			else {
 				//insert new
-				model.addAccountToCurrentProfile
-					(new AccountData((ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword())));
-				accountArray.add(UNField.getText());
-				accList.updateUI();
+			//	model.addAccountToCurrentProfile
+			//		(new AccountData((ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword())));
+			        controller.addAccount(model.getCurrentProfile().getProfileName(), (ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword()));
+			        accountArray.add(UNField.getText());
+		
+		                 
+			        accList.updateUI();
 				UNField.setText("");
 				pwdField.setText("");
         		//TODO: update the JComboBox in siginPanel too!

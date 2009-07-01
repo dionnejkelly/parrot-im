@@ -40,12 +40,12 @@ import model.enumerations.UserStateType;
  * status message.
  */
 public abstract class UserData {
-    
+
     // Section
     // I - Data Members
-    
+
     private static int userDataCount = 1;
-    
+
     /**
      * The userID of the external user.
      */
@@ -70,7 +70,7 @@ public abstract class UserData {
      * The state of the user (e.g. Available, Away, Offline).
      */
     protected UserStateType state;
-    
+
     /**
      * The unique identification number of the UserData.
      */
@@ -78,7 +78,7 @@ public abstract class UserData {
 
     // Section
     // II - Constructors
-    
+
     /**
      * Creates a new user with their userID, nickname, and status.
      * 
@@ -111,7 +111,7 @@ public abstract class UserData {
 
     // Section
     // III - Accessors and Mutators
-    
+
     /**
      * Sets the userID.
      * 
@@ -213,15 +213,15 @@ public abstract class UserData {
     public void setUniqueID(int uniqueID) {
         this.uniqueID = uniqueID;
     }
-    
-    // Section 
+
+    // Section
     // IV - Information Methods
 
     /**
      * Determines a hierarchy of states, that is, returns true if this user has
      * a more online state than the passed-in user. The hierarchy is: online -->
-     * away/busy --> offline --> blocked. This method is useful in ordering
-     * the buddy list to show the more online people at the top.
+     * away/busy --> offline --> blocked. This method is useful in ordering the
+     * buddy list to show the more online people at the top.
      * 
      * @param user
      * @return true if this user is more online than the passed-in user
@@ -262,7 +262,7 @@ public abstract class UserData {
     public String toString() {
         return nickname;
     }
-    
+
     /**
      * Checks if the accounts are the same. Determines so by whether their
      * userID is the same.
@@ -277,10 +277,24 @@ public abstract class UserData {
 
         if (user != null && user instanceof UserData) {
             externalUser = (UserData) user;
-            areEqual = this.accountName.equalsIgnoreCase(externalUser
-                    .getAccountName());
+            areEqual =
+                    this.accountName.equalsIgnoreCase(externalUser
+                            .getAccountName());
         }
 
         return areEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+
+        hash =
+                hash
+                        * 31
+                        + (this.accountName == null ? 0 : this.accountName
+                                .toLowerCase().hashCode());
+
+        return hash;
     }
 }

@@ -55,7 +55,7 @@ import controller.services.GenericConnection;
 
 import model.dataType.AccountData;
 import model.dataType.ConversationData;
-import model.dataType.CurrentProfileData;
+import model.dataType.ProfileData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
@@ -96,7 +96,7 @@ public class Model extends Observable {
      * A reference to the profile currently being used. Holds references to all
      * accounts and friends involved.
      */
-    private CurrentProfileData currentProfile;
+    private ProfileData currentProfile;
 
     // This is clumsy. Can we integrate this into conversations? The chat
     // window should not show if there are no conversations active. This
@@ -603,12 +603,12 @@ public class Model extends Observable {
      */
 
     public void createCurrentProfile(AccountData account, String profileName) {
-        currentProfile = new CurrentProfileData(account, profileName);
+        currentProfile = new ProfileData(account, profileName);
         return;
     }
 
     public void createCurrentProfile(String profileName) {
-        currentProfile = new CurrentProfileData(profileName);
+        currentProfile = new ProfileData(profileName);
         return;
     }
 
@@ -629,7 +629,7 @@ public class Model extends Observable {
      * @return CurrentProfileData
      */
 
-    public CurrentProfileData getCurrentProfile() {
+    public ProfileData getCurrentProfile() {
         return currentProfile;
     }
 

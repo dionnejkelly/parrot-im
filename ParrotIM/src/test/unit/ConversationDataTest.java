@@ -37,13 +37,10 @@ public class ConversationDataTest {
     @Before
     public void setUp() throws Exception {
         cd1 =
-                new ConversationData(
-                        new AccountData(
-                                ServerType.GOOGLE_TALK, "Rakan", "1234"),
+                new ConversationData(new AccountData("Rakan", "1234"),
                         new GoogleTalkUserData("Rakan", "Rick", "1234"));
         cd2 =
-                new ConversationData(
-                        new AccountData(ServerType.AIM, "Rocky", "a8"),
+                new ConversationData(new AccountData("Rocky", "a8"),
                         new GoogleTalkUserData("Rocky", "movie", "a8"));
     }
 
@@ -57,9 +54,7 @@ public class ConversationDataTest {
     @Test
     public void testConversationData() {
         cd3 =
-                new ConversationData(
-                        new AccountData(
-                                ServerType.GOOGLE_TALK, "Rakan", "1234"),
+                new ConversationData(new AccountData("Rakan", "1234"),
                         new GoogleTalkUserData("Rakan", "Rick", "1234"));
         assertEquals("Rakan", cd3.getUser().getAccountName());
         assertSame("1234", cd3.getAccount().getPassword());
@@ -71,19 +66,16 @@ public class ConversationDataTest {
     public void testGetUser() {
 
         UserData expected = new GoogleTalkUserData("Rakan", "Rick", "1234");
-        assertSame(expected.getAccountName(), cd1
-                .getUser().getAccountName());
+        assertSame(expected.getAccountName(), cd1.getUser().getAccountName());
         assertSame(expected.getNickname(), cd1.getUser().getNickname());
         assertSame(expected.getStatus(), cd1.getUser().getStatus());
     }
 
     @Test
     public void testSetUser() {
-        UserData expected =
-                new GoogleTalkUserData("Meryam", "Faris", "idle");
+        UserData expected = new GoogleTalkUserData("Meryam", "Faris", "idle");
         cd2.setUser(expected);
-        assertSame(expected.getAccountName(), cd2
-                .getUser().getAccountName());
+        assertSame(expected.getAccountName(), cd2.getUser().getAccountName());
         assertSame(expected.getNickname(), cd2.getUser().getNickname());
         assertSame(expected.getStatus(), cd2.getUser().getStatus());
 
@@ -92,9 +84,8 @@ public class ConversationDataTest {
     @Test
     public void testGetAccount() {
         AccountData expected =
-                new AccountData(ServerType.GOOGLE_TALK, "Rakan", "1234");
-        assertSame(expected.getAccountName(), cd1
-                .getAccount().getAccountName());
+                new AccountData("Rakan", "1234");
+        assertSame(expected.getAccountName(), cd1.getAccount().getAccountName());
         assertSame(expected.getServer(), cd1.getAccount().getServer());
         assertSame(expected.getPassword(), cd1.getAccount().getPassword());
 
@@ -103,10 +94,9 @@ public class ConversationDataTest {
     @Test
     public void testSetAccountData() {
         AccountData expected =
-                new AccountData(ServerType.GOOGLE_TALK, "Joseph", "staid");
+                new AccountData("Joseph", "staid");
         cd2.setAccountData(expected);
-        assertSame(expected.getAccountName(), cd2
-                .getAccount().getAccountName());
+        assertSame(expected.getAccountName(), cd2.getAccount().getAccountName());
         assertSame(expected.getServer(), cd2.getAccount().getServer());
         assertSame(expected.getPassword(), cd2.getAccount().getPassword());
     }
@@ -115,9 +105,8 @@ public class ConversationDataTest {
     public void testGetText() {
         // This test should be modified
         MessageData expected =
-                new MessageData(
-                        "Rakan", "Hey how are you doing?", "TimesNewRoman",
-                        "13", false, false, false, "#000000");
+                new MessageData("Rakan", "Hey how are you doing?",
+                        "TimesNewRoman", "13", false, false, false, "#000000");
         cd1.addMessage(expected);
         assertSame(expected, cd1.getText().get(0));
     }
@@ -125,8 +114,7 @@ public class ConversationDataTest {
     @Test
     public void testAddMessage() {
         MessageData expected =
-                new MessageData(
-                        "Ray", "Hey, can I see at Coffeshop", "Gothic",
+                new MessageData("Ray", "Hey, can I see at Coffeshop", "Gothic",
                         "20", false, false, false, "#000000");
         cd1.addMessage(expected);
         assertTrue(cd1.getText().contains(expected));
@@ -138,9 +126,8 @@ public class ConversationDataTest {
         int expected = 0;
         assertSame(expected, cd2.getMessageCount());
         MessageData e =
-                new MessageData(
-                        "DeNiro", "Did you saw my movie?", "Italic", "15",
-                        false, false, false, "#000000");
+                new MessageData("DeNiro", "Did you saw my movie?", "Italic",
+                        "15", false, false, false, "#000000");
         cd2.addMessage(e);
         expected++;
         assertTrue(expected == cd2.getMessageCount());
@@ -151,13 +138,11 @@ public class ConversationDataTest {
     @Test
     public void testDisplayMessages() {
         MessageData e1 =
-                new MessageData(
-                        "Godfather",
+                new MessageData("Godfather",
                         "I'll give you an offer that you can't refuse",
                         "Calbarie", "18", false, false, false, "#000000");
         MessageData e2 =
-                new MessageData(
-                        "Fannuci", "Meet me at the restuarant",
+                new MessageData("Fannuci", "Meet me at the restuarant",
                         "TimesNewRoman", "16", false, false, false, "#000000");
         cd1.addMessage(e1);
         cd1.addMessage(e2);
