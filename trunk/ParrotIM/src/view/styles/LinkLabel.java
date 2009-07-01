@@ -27,6 +27,7 @@ package view.styles;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 /**
@@ -46,6 +47,8 @@ public class LinkLabel extends JLabel {
 		this.setHorizontalAlignment(CENTER);
 		this.text = text;
 		this.setText("<html><u>"+ text +"</u></html>");
+
+        this.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		
 		this.addMouseListener(new labelMouseListener(this));
 	}
