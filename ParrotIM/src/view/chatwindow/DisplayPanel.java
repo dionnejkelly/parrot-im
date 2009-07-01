@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.*;
 import model.*;
 import model.enumerations.UpdatedType;
+import model.enumerations.UserStateType;
 
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
@@ -145,16 +146,13 @@ public class DisplayPanel extends JPanel implements Observer {
             if (model.getActiveConversation().getUser().isBlocked()) {
                 title.setForeground(Color.LIGHT_GRAY.darker());
             } else if (model
-                    .getActiveConversation().getUser().getState().toString()
-                    .equals("Available")) {
+                    .getActiveConversation().getUser().getState() == UserStateType.ONLINE) {
                 title.setForeground(Color.GREEN.darker());
             } else if (model
-                    .getActiveConversation().getUser().getState().toString()
-                    .equals("dnd")) {
+                    .getActiveConversation().getUser().getState() == UserStateType.BUSY) {
                 title.setForeground(Color.ORANGE.darker());
             } else if (model
-                    .getActiveConversation().getUser().getState().toString()
-                    .equals("away")) {
+                    .getActiveConversation().getUser().getState() == UserStateType.AWAY) {
                 title.setForeground(Color.ORANGE.darker());
             } else {
                 title.setForeground(Color.RED.darker());
