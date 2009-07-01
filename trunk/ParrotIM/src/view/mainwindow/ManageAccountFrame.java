@@ -88,7 +88,6 @@ public class ManageAccountFrame extends JFrame implements Observer
 	private Model model;
 	private MainWindow mainFrame;
 	protected JFrame popup;
-	private JList profileList;
 	private Vector<String> accountArray;
 	private JList accList;
 	

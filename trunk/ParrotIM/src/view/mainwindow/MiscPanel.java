@@ -32,7 +32,6 @@
 
 package view.mainwindow;
 
-import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -46,7 +45,6 @@ public class MiscPanel extends JPanel{
 	
 	/** MiscPanel constructor. It sets up the panel layout.*/
 	public MiscPanel(){
-//		GridLayout miscLayout = new GridLayout(2,1);
 		setLayout (new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40));
 		this.setOpaque(false);
@@ -66,14 +64,6 @@ public class MiscPanel extends JPanel{
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 
             	HelpPanel helpPanel = new HelpPanel("http://code.google.com/p/parrot-im/wiki/NewTutorial_CreateAccount");
-            	
-//        		JFrame accMAN = new JFrame ("Help");
-//        		accMAN.setLocation(100,100);
-//        		accMAN.getContentPane().add(new HelpPanel());
-//        		accMAN.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-//        		
-//        		accMAN.pack();
-//        		accMAN.setVisible(true);
             }
         });
 		
