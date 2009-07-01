@@ -384,6 +384,11 @@ public class ChatPanel extends JPanel {
      */
     public class TextBoxListener implements KeyListener {
         private boolean shiftPressed = false;
+        private boolean controlPressed = false;
+        
+        private boolean twitterEnabled;
+        private int keyCount = 0;
+        private int keyEvent;
 
         /**
          * Listens for the key pressed.
@@ -398,6 +403,19 @@ public class ChatPanel extends JPanel {
             if (e.getKeyCode() == e.VK_SHIFT) {
                 shiftPressed = true;
             }
+            
+            if (e.getKeyCode() == e.VK_CONTROL) {
+            	controlPressed = true;
+            }
+            
+            else if (txt1.getText().equals("")) {
+            	keyCount = 0;
+            	System.out.println("Emptied out!!!!!!!");
+            }
+            
+            keyEvent = e.getKeyCode();
+            
+           
         }
 
         /**
@@ -415,6 +433,7 @@ public class ChatPanel extends JPanel {
                 txt1.setText(txt1.getText().substring(
                         0, txt1.getText().length() - 1));
                 sendMessage();
+                keyCount = 0;
             }
 
             else if (shiftPressed && (e.getKeyCode() == e.VK_ENTER)) {
@@ -422,10 +441,12 @@ public class ChatPanel extends JPanel {
                         .println("-------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 txt1.setText(txt1.getText() + "\n");
                 shiftPressed = false;
+                controlPressed = false;
             }
 
             else {
                 shiftPressed = false;
+                controlPressed = false;
             }
         }
 
@@ -436,6 +457,36 @@ public class ChatPanel extends JPanel {
          */
 
         public void keyTyped(KeyEvent e) {
+        	
+        	if (!controlPressed && (keyEvent == e.VK_BACK_SPACE) && (keyCount != 0)) {
+        		keyCount--;
+        		System.out.println("Key count = " + keyCount);
+        	}
+        	
+        	else if (!controlPressed && keyCount == 0 && (keyEvent == e.VK_BACK_SLASH)) {
+        		keyCount = 0;
+        		System.out.println("Key count = " + keyCount);
+        	}
+        	
+        	else if (!controlPressed && !isMaxed()) {
+        		System.out.println("I shouldn't be getting called");
+        		keyCount++;
+        		System.out.println("Key count = " + keyCount);
+        	}
+        	
+        	System.out.println("Key character = " + keyEvent);
+        	
+        	
+        }
+        
+        /**
+         * Returns true if the key count reaches 140.
+         * 
+         * @param e
+         */
+        
+        public boolean isMaxed() {
+        	return keyCount == 140;
         }
     }
 }
