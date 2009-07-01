@@ -57,11 +57,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -89,7 +91,8 @@ public class SignInPanel extends JPanel implements Observer {
      */
     protected MainController core;
 
-    /** mainFrame is a MainWindow object which is a container of this panel. */
+    /** 
+     * mainFrame is a MainWindow object which is a container of this panel. */
     private MainWindow mainFrame;
 
     /**
@@ -98,7 +101,8 @@ public class SignInPanel extends JPanel implements Observer {
      */
     private Model model;
 
-    /** account_select is a JComboBox object. It shows the listed saved profiles */
+    /** 
+     * account_select is a JComboBox object. It shows the listed saved profiles */
     private JComboBox account_select;
 
     // part of the whole panel
@@ -127,19 +131,6 @@ public class SignInPanel extends JPanel implements Observer {
      * includes a separator and help LinkLabel.
      */
     protected MiscPanel misc;
-
-    // Account Options part (in Sign In Panel)
-    /**
-     * manageAccount is a LinkLabel object which will pop up ProfileManager when
-     * clicked
-     */
-    private LinkLabel manageAccount;
-
-    /**
-     * guestAccount is a LinkLabel object which will pop up GuestAccountFrame
-     * when clicked
-     */
-    private LinkLabel guestAccount;
 
     /**
      * SignInPanel constructor.It takes a Model, MainController, and MainWindow
@@ -180,7 +171,7 @@ public class SignInPanel extends JPanel implements Observer {
         FlowLayout accLayout = new FlowLayout();
         accLayout.setAlignment(FlowLayout.CENTER);
         accPanel.setLayout(accLayout);
-        accPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
+        accPanel.setBorder(BorderFactory.createEmptyBorder(5, 50, 10, 50));
 
         // list of accounts
         account_select = new JComboBox(model.getProfileList());
@@ -190,67 +181,34 @@ public class SignInPanel extends JPanel implements Observer {
         JButton connectButton = new JButton("Sign In");
         connectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         connectPanel.add(connectButton);
-        connectButton.addActionListener(new ActionListener() {
-            /**
-             * When the sign in button is clicked, the accounts of the currently
-             * chosen profile will be connected to the server.
-             * 
-             * @param evt
-             */
-            public void actionPerformed(ActionEvent evt) {
-                try {
-                    signIn_ActionPerformed();
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
+        connectButton.addActionListener(new signInButtonActionListener());
 
         // accOPTPanel (part of accPanel)
         JPanel accOptPanel = new JPanel();
-        accOptPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-        GridLayout accOptLayout = new GridLayout(2, 1);
-        accOptLayout.setVgap(15);
-        accOptPanel.setLayout(accOptLayout);
+        accOptPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        accOptPanel.setLayout(new BoxLayout(accOptPanel, BoxLayout.Y_AXIS));
 
+        // create account
+        LinkLabel createProfile = new LinkLabel("Create New Profile");
+        createProfile.addMouseListener(new createProfileListener());
+        
         // manage account
-        manageAccount = new LinkLabel("Add/Manage Profiles");
-        manageAccount.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            /*
-             * * if manageAccount is clicked, it will launched the Profile
-             * Manager
-             * 
-             * @param evt
-             */
-            public void mouseClicked(MouseEvent evt) {
-                try {
-                    new ProfileManager(model, core, mainFrame);
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
+        LinkLabel manageAccount = new LinkLabel("Manage Profile");
+        manageAccount.addMouseListener(new manageProfileListener());
 
+        // remove account
+        LinkLabel removeProfile = new LinkLabel("Remove Profile");
+        removeProfile.addMouseListener(new removeProfileListener());
+        
         // guest account
-        guestAccount = new LinkLabel("Connect Guest Account");
-        guestAccount.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GuestAccountFrame guest = new GuestAccountFrame(model, core, mainFrame, signin);
-            }
-        });
+        LinkLabel guestAccount = new LinkLabel("Connect Guest Account");
+        guestAccount.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
+        guestAccount.addMouseListener(new guestAccountListener());
 
         // add components to accOptPanel
+        accOptPanel.add(createProfile);
         accOptPanel.add(manageAccount);
+        accOptPanel.add(removeProfile);
         accOptPanel.add(guestAccount);
 
         JPanel panel = new JPanel();
@@ -272,7 +230,7 @@ public class SignInPanel extends JPanel implements Observer {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    private void signIn_ActionPerformed() throws ClassNotFoundException,
+    private void guestSignIn() throws ClassNotFoundException,
             SQLException {
         String username = (String) account_select.getSelectedItem();
 
@@ -304,10 +262,98 @@ public class SignInPanel extends JPanel implements Observer {
             for (String s : model.getProfileList()) {
                 this.account_select.addItem(s);
             }
-
-            // = new JComboBox(model.getProfileList());
         }
 
         return;
+    }
+    private class signInButtonActionListener implements ActionListener{
+    	/**
+         * When the sign in button is clicked, the accounts of the currently
+         * chosen profile will be connected to the server.
+         * 
+         * @param evt
+         */
+        public void actionPerformed(ActionEvent evt) {
+            try {
+            	guestSignIn();
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+    private class manageProfileListener implements MouseListener{
+
+    	/** 
+    	 * if manageAccount is clicked, it will launched the Profile
+         * Manager
+         * 
+         * @param evt
+         */
+        public void mouseClicked(MouseEvent evt) {
+            try {
+                new ProfileManager(model, core, mainFrame);
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+    }
+    private class createProfileListener implements MouseListener{
+
+    	/**
+    	 * if createProfile is clicked, it will launched the Profile
+         * creator wizard
+         * 
+         * @param evt
+         */
+        public void mouseClicked(MouseEvent evt) {
+            //TODO: set this
+        	System.out.println("Create Profile is clicked");
+        }
+
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+    }
+    private class removeProfileListener implements MouseListener{
+
+    	/**
+         * if removeProfile is clicked, it will prompt for password and verify
+         * 
+         * @param evt
+         */
+        public void mouseClicked(MouseEvent evt) {
+            //TODO: set this
+        	System.out.println("Remove Profile is clicked");
+        }
+
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+    }
+    private class guestAccountListener implements MouseListener{
+
+    	public void mouseClicked(MouseEvent evt) {
+            new GuestAccountFrame(model, core, mainFrame, signin);
+        }
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+    	
     }
 }

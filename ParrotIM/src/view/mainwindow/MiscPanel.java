@@ -34,6 +34,7 @@ package view.mainwindow;
 
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
@@ -45,9 +46,8 @@ public class MiscPanel extends JPanel{
 	
 	/** MiscPanel constructor. It sets up the panel layout.*/
 	public MiscPanel(){
-		GridLayout miscLayout = new GridLayout(2,1);
-		miscLayout.setVgap(5);
-		setLayout (miscLayout);
+//		GridLayout miscLayout = new GridLayout(2,1);
+		setLayout (new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40));
 		this.setOpaque(false);
 		
