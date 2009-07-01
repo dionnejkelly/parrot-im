@@ -1,7 +1,11 @@
 package controller.services;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+
+import model.dataType.tempData.FriendTempData;
+import model.enumerations.UserStateType;
 
 import winterwell.jtwitter.Twitter;
 import winterwell.jtwitter.Twitter.Status;
@@ -12,15 +16,14 @@ import winterwell.jtwitter.Twitter.User;
  */
 
 public class TwitterManager implements GenericConnection {
-	
-	/**
+
+    /**
      * Connection to twitter.
      */
-	
-	private Twitter twitter;
-	
-	
-	/**
+
+    private Twitter twitter;
+
+    /**
      * Attempts to log a user into the server based on the given account
      * information. If the current profile already exists, this account
      * information is added to it.
@@ -28,254 +31,299 @@ public class TwitterManager implements GenericConnection {
      * @param userID
      * @param password
      */
-	
-	public TwitterManager(String userID, String password) {
-		
-		// Make a Twitter object
-		twitter = new Twitter(userID,password);
 
-	}
-	
-	 /**
-     * This method is used to check if the user is following.
+    public TwitterManager(String userID, String password) {
+
+        // Make a Twitter object
+        twitter = new Twitter(userID, password);
+
+    }
+
+    public TwitterManager() {
+        this.twitter = null;
+    }
+
+    /**
+     * This method is used to add a friend to the friend list.
      * 
      * @param userID
-     * @return boolean
      */
-	
-	
-	private boolean isFollowing(String userID) {
-		return twitter.isFollower(userID);
-	}
-	
-	 /**
-     * This method is used to check if the user exists.
-     * 
-     * @param userID
-     * @return boolean
-     */
-	
-	private boolean doesExist(String userID) {
-		return twitter.userExists(userID);
-	}
-	
-	
-	 /**
-     * This method is using to set the status of the user.
-     * 
-     * @param status
-     */
-	
-	private void changeStatus(String status) {
-		twitter.updateStatus(status);
-	}
-	
-	 /**
-     * Returns a recent updated status.
-     * 
-     * @return String
-     */
-	
-	
-	private String getMyRecentStatus() {
-		return twitter.getStatus().toString();
-	}
-	
-	 /**
-     * Returns the 20 most recent status posted in 
-     * the last 24 hours from the authenticating user.
-     * 
-     * @return String
-     */
-	
-	private List<Status> getMyStatus() {
-		return twitter.getUserTimeline();
-	}
-	
-	/**
-     * Returns the 20 most recent replies/mentions in 
-     * the last 24 hours from the authenticating user.
-     * 
-     * @return String
-     */
-	
-	private List<Status> getMyReplies() {
-		return twitter.getReplies();
-	}
-	
-	/**
-     * Returns the URL link of the user.
-     * 
-     * @param userID
-     * @return URL
-     */
-	
-	
-	private URI getTwitterAvatar(String userID) {
-		return twitter.getStatus(userID).getUser().getProfileImageUrl();
-	}
-	
-	/**
+    public void addFriend(String userID) throws BadConnectionException {
+        try {
+            twitter.follow(userID);
+        } catch (Exception e) {
+            System.err.println("Error in adding friend in Twitter");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+
+        return;
+    }
+
+    public void changeStatus(UserStateType state, String status) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void disconnect() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void login(String userID, String password)
+            throws BadConnectionException {
+        try {
+            twitter = new Twitter(userID, password);
+        } catch (Exception e) {
+            System.err.println("Error logging into twitter");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+
+        return;
+    }
+
+    public boolean removeFriend(String userID) throws BadConnectionException {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public ArrayList<FriendTempData> retrieveFriendList() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public UserStateType retrieveState(String userID) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public String retrieveStatus(String userID) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
      * Sends message to a user. Maximum of 140 characters allowed.
      * 
      * @param userId
      * @param message
      */
-	
-	private void sendMessage(String userID, String message) {
-		
-		twitter.sendMessage(userID, message);
-		
-	}
-	
-	/**
-     * This method is used to add a friend to the friend list.
+    public void sendMessage(String toUserID, String message)
+            throws BadConnectionException {
+        try {
+            twitter.sendMessage(toUserID, message);
+        } catch (Exception e) {
+            System.err.println("Error in sendMessage in Twitter");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+        
+
+    }
+
+    /**
+     * This method is used to check if the user is following.
      * 
      * @param userID
+     * @return boolean
      */
-	
-	private void addFriend(String userID) {
-		twitter.follow(userID);
-	}
-	
-	/**
+
+    private boolean isFollowing(String userID) {
+        return twitter.isFollower(userID);
+    }
+
+    /**
+     * This method is used to check if the user exists.
+     * 
+     * @param userID
+     * @return boolean
+     */
+
+    private boolean doesExist(String userID) {
+        return twitter.userExists(userID);
+    }
+
+    /**
+     * This method is using to set the status of the user.
+     * 
+     * @param status
+     */
+
+    private void changeStatus(String status) {
+        twitter.updateStatus(status);
+    }
+
+    /**
+     * Returns a recent updated status.
+     * 
+     * @return String
+     */
+
+    private String getMyRecentStatus() {
+        return twitter.getStatus().toString();
+    }
+
+    /**
+     * Returns the 20 most recent status posted in the last 24 hours from the
+     * authenticating user.
+     * 
+     * @return String
+     */
+
+    private List<Status> getMyStatus() {
+        return twitter.getUserTimeline();
+    }
+
+    /**
+     * Returns the 20 most recent replies/mentions in the last 24 hours from the
+     * authenticating user.
+     * 
+     * @return String
+     */
+
+    private List<Status> getMyReplies() {
+        return twitter.getReplies();
+    }
+
+    /**
+     * Returns the URL link of the user.
+     * 
+     * @param userID
+     * @return URL
+     */
+
+    private URI getTwitterAvatar(String userID) {
+        return twitter.getStatus(userID).getUser().getProfileImageUrl();
+    }
+
+
+
+    /**
      * This method is used to remove a friend from the friend list.
      * 
      * @param userID
      */
-	
-	private void removeFriend(String userID) {
-		twitter.stopFollowing(userID);
-	
-	}
-	
-	/**
-     * This method is used to return a list of the direct 
-     * messages sent to the authenticating user.
+
+    private void removeFriend(String userID) {
+        twitter.stopFollowing(userID);
+
+    }
+
+    /**
+     * This method is used to return a list of the direct messages sent to the
+     * authenticating user.
      * 
      * @return List<Twitter.Message>
      */
-	
-	private List<Twitter.Message> receiveMessage() {
-		 return twitter.getDirectMessages();
-		
-	}
-	
-	/**
-     * This method is used to return the most
-     * recent direct message.
+
+    private List<Twitter.Message> receiveMessage() {
+        return twitter.getDirectMessages();
+
+    }
+
+    /**
+     * This method is used to return the most recent direct message.
      * 
      * @return String
      */
-	
-	private String receiveRecentMessage() {
-		return receiveMessage().get(twitter.getDirectMessages().size() - 1).getText();
-	}
-	
-	/**
-     * This method is used to return a list of the  
-     * followers.
+
+    private String receiveRecentMessage() {
+        return receiveMessage().get(twitter.getDirectMessages().size() - 1)
+                .getText();
+    }
+
+    /**
+     * This method is used to return a list of the followers.
      * 
      * @return List<User>
      */
-	
-	private List<User> retrieveFollowerList() {
-		return twitter.getFollowers();
-		
-	}
-	
-	/**
-     * This method is used to return the authenticating 
-     * user's (latest 100) friends, each with current status 
-     * inline.
-     * (Both followers and a user who wants to follow you)
+
+    private List<User> retrieveFollowerList() {
+        return twitter.getFollowers();
+
+    }
+
+    /**
+     * This method is used to return the authenticating user's (latest 100)
+     * friends, each with current status inline. (Both followers and a user who
+     * wants to follow you)
      * 
      * @return List<User>
      */
-	
-	private List<User> retrieveFriendList() {
-		return twitter.getFriends();
-		
-	}
-	
-	/**
-     * This method is used to return the 20 most recent statuses 
-     * posted in the last 24 hours from the authenticating user.
-     * 
-     * @return List<Status>
-     */
-	
-	private List<Status> getFriendsStatus() {
-		return twitter.getUserTimeline();
-		
-	}
-	
-	/**
-     * This method is used to return the most recent statuses 
-     * posted in the last 24 hours from the given user.
-     * 
-     * @return List<Status>
-     */
-	
-	private List<Status> getFriendsStatus(String userID) {
-		return twitter.getUserTimeline(userID);
-		
-	}
-	
-	/**
-     * This method is used to return the most recent status 
-     * posted in the last 24 hours from the given user.
-     * 
-     * @return List<Status>
-     */
-	
-	private String getFriendsRecentStatus(String userID) {
-		return twitter.getStatus(userID).getText();
-	}
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-		
-		TwitterManager twitt = new TwitterManager("cmpt275testing","abcdefghi");
-		
-//		twitt.updateTwitterStatus("testing Parrot");
-//		
-//		System.out.println("My status = " + twitt.getTwitterStatus());
-		
-		
-		//twitt.sendMessage("jfox2", "Hi Jordan, this is a testing and I hope you are having fun with creating a new framework for Twitter.");
-		
-		
-		for(int i = 0; i < twitt.getFriendsStatus("Fahelium").size(); i++) {
-			//System.out.println("Message = " + twitt.receiveMessage().get(i).getText());
-			System.out.println("Friends = " + twitt.getFriendsStatus("Fahelium").get(i).getText());
-			
-		}
-		
-		
-		//System.out.println("Friends = " + twitt.getFriendsLatestStatus("Fahelium"));
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	    @Override
-	    public int hashCode() {
-	        int hash = 7;
-	        
-	        hash = hash * 31 + "Twitter".hashCode();
-	        hash = hash * 31 + this.twitter.hashCode();
-	        
-	        return hash;
-	    }
 
+    private List<User> retrieveFriendList() {
+        return twitter.getFriends();
 
+    }
+
+    /**
+     * This method is used to return the 20 most recent statuses posted in the
+     * last 24 hours from the authenticating user.
+     * 
+     * @return List<Status>
+     */
+
+    private List<Status> getFriendsStatus() {
+        return twitter.getUserTimeline();
+
+    }
+
+    /**
+     * This method is used to return the most recent statuses posted in the last
+     * 24 hours from the given user.
+     * 
+     * @return List<Status>
+     */
+
+    private List<Status> getFriendsStatus(String userID) {
+        return twitter.getUserTimeline(userID);
+
+    }
+
+    /**
+     * This method is used to return the most recent status posted in the last
+     * 24 hours from the given user.
+     * 
+     * @return List<Status>
+     */
+
+    private String getFriendsRecentStatus(String userID) {
+        return twitter.getStatus(userID).getText();
+    }
+
+    public static void main(String[] args) {
+
+        TwitterManager twitt = new TwitterManager("cmpt275testing", "abcdefghi");
+
+        // twitt.updateTwitterStatus("testing Parrot");
+        //		
+        // System.out.println("My status = " + twitt.getTwitterStatus());
+
+        // twitt.sendMessage("jfox2",
+        // "Hi Jordan, this is a testing and I hope you are having fun with creating a new framework for Twitter.");
+
+        for (int i = 0; i < twitt.getFriendsStatus("Fahelium").size(); i++) {
+            // System.out.println("Message = " +
+            // twitt.receiveMessage().get(i).getText());
+            System.out.println("Friends = "
+                    + twitt.getFriendsStatus("Fahelium").get(i).getText());
+
+        }
+
+        // System.out.println("Friends = " +
+        // twitt.getFriendsLatestStatus("Fahelium"));
+
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+
+        hash = hash * 31 + "Twitter".hashCode();
+        hash = hash * 31 + this.twitter.hashCode();
+
+        return hash;
+    }
 
 }

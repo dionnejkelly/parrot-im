@@ -27,11 +27,9 @@ import org.jivesoftware.smack.util.StringUtils;
 import controller.MainController;
 
 public class JabberManager implements GenericConnection {
-
-    private static final String GOOGLE_SERVER = "talk.google.com";
+   
     private static final int GOOGLE_PORT = 5223;
-    private static final String GOOGLE_DOMAIN = "gmail.com";
-
+   
     private XMPPConnection connection;
 
     private MainController controller;
@@ -40,7 +38,7 @@ public class JabberManager implements GenericConnection {
 
     private ArrayList<Chat> chats;
 
-    public GoogleTalkManager(MainController controller) {
+    public JabberManager(MainController controller) {
         this.connection = null;
         this.controller = controller;
         this.genericConnection = this;
