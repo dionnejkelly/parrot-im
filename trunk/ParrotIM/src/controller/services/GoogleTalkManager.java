@@ -72,10 +72,12 @@ public class GoogleTalkManager implements GenericConnection {
         return;
     }
 
-    public void login(String userID, String password)
+    public void login(String userID, String password, String server, int port)
             throws BadConnectionException {
         ConnectionConfiguration config = null;
 
+        // server and port currently not assigned
+        
         config =
                 new ConnectionConfiguration(
                         GOOGLE_SERVER, GOOGLE_PORT, GOOGLE_DOMAIN);
@@ -326,4 +328,13 @@ public class GoogleTalkManager implements GenericConnection {
         }
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7; 
+            
+        hash = hash * 31 + "Google".hashCode();
+        hash = hash * 31 + this.connection.hashCode();
+        
+        return hash;
+    }
 }

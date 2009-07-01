@@ -26,6 +26,8 @@ import controller.chatbot.Chatbot;
 import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
+import controller.services.JabberManager;
+import controller.services.TwitterManager;
 
 import model.Model;
 import model.dataType.AccountData;
@@ -33,6 +35,7 @@ import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
+import model.dataType.TwitterUserData;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
@@ -79,8 +82,12 @@ public class MainController {
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            a.getConnection().changeStatus(
-                    model.getCurrentProfile().getState(), status);
+            try {
+                a.getConnection().changeStatus(
+                        model.getCurrentProfile().getState(), status);
+            } catch (BadConnectionException e) {
+                // TODO Throw something back?
+            }
         }
         model.getCurrentProfile().setStatus(status);
 
@@ -111,8 +118,12 @@ public class MainController {
         }
 
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            a.getConnection().changeStatus(
-                    state, model.getCurrentProfile().getStatus());
+            try {
+                a.getConnection().changeStatus(state,
+                        model.getCurrentProfile().getStatus());
+            } catch (BadConnectionException e) {
+                // TODO Throw something back?
+            }
         }
         model.getCurrentProfile().setState(state);
 
@@ -129,27 +140,28 @@ public class MainController {
      * @param password
      * @throws XMPPException
      */
-    public AccountData login(
-            ServerType server, String accountName, String password)
+    public AccountData login(ServerType server, String accountName,
+            String password, String serverAddress)
             throws BadConnectionException {
         AccountData account = null; // Default return value
         GenericConnection connection = null;
+        int port = 5223;
 
         // Create an AccountData from entered information
-        account = new AccountData(server, accountName, password);
+        account = new AccountData(accountName, password);
 
         // Determine which type of connection the account requires, and add it
-        switch (account.getServer()) {
+        switch (server) {
         case GOOGLE_TALK:
             connection = new GoogleTalkManager(this);
             break;
 
         case JABBER:
-            // TODO Implement me!
+            connection = new JabberManager(this);
             break;
 
         case TWITTER:
-            // TODO Implement me!
+            connection = new TwitterManager();
             break;
 
         default:
@@ -162,7 +174,7 @@ public class MainController {
             throw new BadConnectionException(); // ... until we implement
         }
 
-        connection.login(accountName, password);
+        connection.login(accountName, password, serverAddress, port);
         account.setConnection(connection);
 
         // If connected...
@@ -174,6 +186,11 @@ public class MainController {
         this.populateBuddyList(account);
 
         return account;
+    }
+
+    public AccountData login(ServerType server, String accountName,
+            String password) throws BadConnectionException {
+        return login(server, accountName, password, null);
     }
 
     /**
@@ -192,27 +209,31 @@ public class MainController {
 
         accounts = model.getAccountsForProfile(profile);
         for (AccountTempData a : accounts) {
-            createdAccount =
-                    login(a.getServer(), a.getUserID(), a.getPassword());
+            createdAccount = login(a.getServer(), a.getUserID(), a
+                    .getPassword());
             model.addAccountToCurrentProfile(createdAccount);
         }
 
         return;
     }
 
-    public void loginAsGuest(
-            ServerType server, String userID, String password)
-            throws BadConnectionException {
+    public void loginAsGuest(ServerType server, String userID, String password,
+            String serverAddress) throws BadConnectionException {
         AccountData createdAccount = null;
 
         // Disconnect in case already connected
         this.disconnect();
         model.createCurrentProfile("Guest Profile");
 
-        createdAccount = login(server, userID, password);
+        createdAccount = login(server, userID, password, serverAddress);
         model.addAccountToCurrentProfile(createdAccount);
 
         return;
+    }
+
+    public void loginAsGuest(ServerType server, String userID, String password)
+            throws BadConnectionException {
+        loginAsGuest(server, userID, password, null);
     }
 
     /**
@@ -266,13 +287,10 @@ public class MainController {
         boolean removed = false;
         GenericConnection connection = null;
 
-        connection =
-                model.findAccountByFriend(friendToRemove).getConnection();
+        connection = model.findAccountByFriend(friendToRemove).getConnection();
 
         try {
-            removed =
-                    connection
-                            .removeFriend(friendToRemove.getAccountName());
+            removed = connection.removeFriend(friendToRemove.getAccountName());
         } catch (BadConnectionException e) {
             // TODO Make the GUI know the friend doesn't exist?
             e.printStackTrace();
@@ -294,12 +312,10 @@ public class MainController {
         boolean removed = false;
         GenericConnection connection = null;
 
-        connection =
-                model.findAccountByFriend(friendToBlock).getConnection();
+        connection = model.findAccountByFriend(friendToBlock).getConnection();
 
         try {
-            removed =
-                    connection.removeFriend(friendToBlock.getAccountName());
+            removed = connection.removeFriend(friendToBlock.getAccountName());
         } catch (BadConnectionException e) {
             // TODO Make the GUI know the friend doesn't exist?
             e.printStackTrace();
@@ -343,6 +359,7 @@ public class MainController {
      */
     public void populateBuddyList(AccountData account) {
         Vector<FriendTempData> savedFriends = null;
+        ArrayList<FriendTempData> friendList = null;
         UserData user = null;
         String userID = null;
         String nickname = null;
@@ -353,7 +370,13 @@ public class MainController {
         savedFriends = model.getSavedFriends(account.getAccountName());
 
         connection = account.getConnection();
-        for (FriendTempData f : connection.retrieveFriendList()) {
+
+        try {
+            friendList = connection.retrieveFriendList();
+        } catch (BadConnectionException e) {
+            friendList = new ArrayList<FriendTempData>(); // make empty list
+        }
+        for (FriendTempData f : friendList) {
             // Decide which type of user to use
             userID = f.getUserID();
             nickname = f.getNickname();
@@ -362,13 +385,13 @@ public class MainController {
             }
 
             if (account.getServer() == ServerType.GOOGLE_TALK) {
-                user =
-                        new GoogleTalkUserData(userID, nickname, f
-                                .getStatus());
+                user = new GoogleTalkUserData(userID, nickname, f.getStatus());
                 user.setState(f.getState());
             } else if (account.getServer() == ServerType.JABBER) {
                 user = new JabberUserData(userID, nickname, f.getStatus());
                 user.setState(f.getState());
+            } else if (account.getServer() == ServerType.TWITTER) {
+                user = new TwitterUserData(userID, f.getStatus());
             } else { // some other user
                 // TODO implement me!
             }
@@ -395,8 +418,7 @@ public class MainController {
             } else { // is blocked, need to add not on server
 
                 // TODO, separate the strings better
-                if (StringUtils.parseServer(f.getUserID()).equals(
-                        "gmail.com")) {
+                if (StringUtils.parseServer(f.getUserID()).equals("gmail.com")) {
                     user = new GoogleTalkUserData(f.getUserID());
                 } else {
                     user = new JabberUserData(f.getUserID());
@@ -459,10 +481,8 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject =
-                new MessageData(
-                        fromUser, messageString, font, size, bold, italics,
-                        underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -478,9 +498,8 @@ public class MainController {
      * @param size
      * @throws XMPPException
      */
-    public void sendMessage(
-            String messageString, String font, String size, boolean bold,
-            boolean italics, boolean underlined, String color)
+    public void sendMessage(String messageString, String font, String size,
+            boolean bold, boolean italics, boolean underlined, String color)
             throws BadConnectionException {
         String to = null;
         MessageData messageObject = null;
@@ -495,10 +514,8 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject =
-                new MessageData(
-                        fromUser, messageString, font, size, bold, italics,
-                        underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -525,11 +542,17 @@ public class MainController {
         return;
     }
 
-    public void updateStateAndStatus(
-            UserData userToUpdate, GenericConnection connection) {
+    public void updateStateAndStatus(UserData userToUpdate,
+            GenericConnection connection) {
+        String status = null;
         String userID = userToUpdate.getAccountName();
 
-        userToUpdate.setStatus(connection.retrieveStatus(userID));
+        try {
+            status = connection.retrieveStatus(userID);
+        } catch (BadConnectionException e) {
+            status = "(loading...)";
+        }
+        userToUpdate.setStatus(status);
         if (connection instanceof GoogleTalkManager) {
             userToUpdate.setState(((GoogleTalkManager) connection)
                     .retrieveState(userID));
@@ -552,8 +575,7 @@ public class MainController {
      * @param defaultProfile
      */
 
-    public void addProfile(
-            String name, String password, boolean defaultProfile) {
+    public void addProfile(String name, String password, boolean defaultProfile) {
         this.model.addProfile(name, password, defaultProfile);
 
         return;
@@ -580,17 +602,11 @@ public class MainController {
      * @param password
      */
 
-    public void addAccount(
-            String profile, ServerType server, String account,
+    public void addAccount(String profile, ServerType server, String account,
             String password) {
         String serverName = null;
 
-        if (server == ServerType.GOOGLE_TALK) {
-            serverName = "talk.google.com";
-        } else {
-            // Temp, make different than sfu
-            serverName = "jabber.sfu.ca";
-        }
+        serverName = server.toString();
 
         this.model.addAccount(profile, serverName, account, password);
     }
@@ -613,8 +629,8 @@ public class MainController {
      */
     public void toggleChatbot() {
         this.model.getCurrentProfile().setChatbotEnabled(
-                this.model.getCurrentProfile().isChatbotEnabled()
-                        ? false : true);
+                this.model.getCurrentProfile().isChatbotEnabled() ? false
+                        : true);
 
         return;
     }
@@ -634,15 +650,13 @@ public class MainController {
         return;
     }
 
-    public void messageReceived(
-            String fromUserID, String toUserID, String message) {
+    public void messageReceived(String fromUserID, String toUserID,
+            String message) {
         MessageData messageData = null;
         AccountData account = null;
 
-        messageData =
-                new MessageData(
-                        fromUserID, message, "font", "4", false, false,
-                        false, "#000000");
+        messageData = new MessageData(fromUserID, message, "font", "4", false,
+                false, false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
         model.receiveMessage(account, messageData);

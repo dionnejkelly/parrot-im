@@ -38,7 +38,7 @@ import model.enumerations.UserStateType;
  */
 public interface GenericConnection {
     
-    public void login(String userID, String password)
+    public void login(String userID, String password, String server, int port)
             throws BadConnectionException;
 
     public void disconnect();
@@ -47,13 +47,16 @@ public interface GenericConnection {
 
     public boolean removeFriend(String userID) throws BadConnectionException;
     
-    public void changeStatus(UserStateType state, String status);
+    public void changeStatus(UserStateType state, String status) throws BadConnectionException;
     
-    public String retrieveStatus(String userID);
+    public String retrieveStatus(String userID) throws BadConnectionException;
     
-    public UserStateType retrieveState(String userID);
+    public UserStateType retrieveState(String userID)  throws BadConnectionException;
     
-    public ArrayList<FriendTempData> retrieveFriendList();
+    public ArrayList<FriendTempData> retrieveFriendList() throws BadConnectionException;
     
     public void sendMessage(String toUserID, String message) throws BadConnectionException;
+    
+    @Override
+    public int hashCode();
 }

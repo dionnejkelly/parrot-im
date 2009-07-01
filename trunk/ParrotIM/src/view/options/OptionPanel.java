@@ -43,7 +43,7 @@ public class OptionPanel extends JPanel{
 		PersonalProfileTab personalProfile = new PersonalProfileTab();
 		personalMessage = personalProfile.personalMessage;
 		tabbedOptions.addTab("Personal Profile", personalProfile);
-		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model));
+		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c));
 		//setting layout
 		this.add(tabbedOptions);
