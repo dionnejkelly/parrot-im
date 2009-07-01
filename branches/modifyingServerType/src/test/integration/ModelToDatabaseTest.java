@@ -58,7 +58,7 @@ public class ModelToDatabaseTest {
         password = "";
         server = ServerType.GOOGLE_TALK;
         serverString = "talk.google.com";
-        account = new AccountData(server, "tim@gmail.com", password);
+        account = new AccountData("tim@gmail.com", password);
 
         this.model.createCurrentProfile(account, profileName);
     }

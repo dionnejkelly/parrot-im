@@ -326,4 +326,13 @@ public class GoogleTalkManager implements GenericConnection {
         }
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7; 
+            
+        hash = hash * 31 + "Google".hashCode();
+        hash = hash * 31 + this.connection.hashCode();
+        
+        return hash;
+    }
 }

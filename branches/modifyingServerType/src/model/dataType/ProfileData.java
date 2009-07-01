@@ -1,4 +1,4 @@
-/* CurrentProfileData.java
+/* ProfileData.java
  * 
  * Programmed By:
  *     Kevin Fahy
@@ -43,7 +43,7 @@ import model.enumerations.UserStateType;
  * Holds the account information of the current account being used, whether it
  * is one stored in the database or a guest account.
  */
-public class CurrentProfileData {
+public class ProfileData {
 
     // Section:
     // I - Constants
@@ -62,9 +62,9 @@ public class CurrentProfileData {
      * The name of the current profile. Not necessarily a userID of an account.
      */
     private String profileName;
-    
+
     private String status;
-    
+
     private UserStateType state;
 
     /**
@@ -79,17 +79,17 @@ public class CurrentProfileData {
      * Creates a new profile with no valid accounts or information. The name is
      * set to a default "empty" name.
      */
-    public CurrentProfileData() {
+    public ProfileData() {
         this.accountData = new ArrayList<AccountData>();
         this.profileName = EMPTY_NAME;
         this.chatbotEnabled = false;
     }
-    
+
     /**
      * Creates a new profile with no valid accounts or information. The name is
      * set to the passed in name.
      */
-    public CurrentProfileData(String profileName) {
+    public ProfileData(String profileName) {
         this.accountData = new ArrayList<AccountData>();
         this.profileName = profileName;
         this.chatbotEnabled = false;
@@ -102,7 +102,7 @@ public class CurrentProfileData {
      * @param accountData
      * @param profileName
      */
-    public CurrentProfileData(
+    public ProfileData(
             ArrayList<AccountData> accountData, String profileName) {
         this.accountData = accountData;
         this.profileName = profileName;
@@ -115,7 +115,7 @@ public class CurrentProfileData {
      * @param account
      * @param profileName
      */
-    public CurrentProfileData(AccountData account, String profileName) {
+    public ProfileData(AccountData account, String profileName) {
         this.accountData = new ArrayList<AccountData>();
         this.accountData.add(account);
         this.profileName = profileName;
@@ -164,7 +164,7 @@ public class CurrentProfileData {
     public String getProfileName() {
         return profileName;
     }
-    
+
     public void setStatus(String status) {
         this.status = status;
     }
