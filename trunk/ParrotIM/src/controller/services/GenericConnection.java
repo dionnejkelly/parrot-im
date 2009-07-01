@@ -57,6 +57,6 @@ public interface GenericConnection {
     
     public void sendMessage(String toUserID, String message) throws BadConnectionException;
     
-    @Override
+    //@Override
     public int hashCode();
 }
