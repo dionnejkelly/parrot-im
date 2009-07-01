@@ -136,20 +136,20 @@ public class DatabaseFunctions {
          * commands unless necessary.
          */
 
-        // stat.executeUpdate("drop table if exists people;");
+        stat.executeUpdate("drop table if exists people;");
         // stat.executeUpdate("drop table if exists chatLog;");
         // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
         stat.executeUpdate("create table if not exists people "
-                + "(profile, server, accountName, password);");
-        stat
-                .executeUpdate("create table if not exists chatLog "
-                        + "(profile, fromUser, toUser, message, date, time, timestamp);");
+                + "(profile, serverType, serverAddress, "
+                + "accountName, password);");
+        stat.executeUpdate("create table if not exists chatLog "
+                + "(profile, fromUser, toUser, message, "
+                + "date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
-
     }
 
     // Section
@@ -207,14 +207,11 @@ public class DatabaseFunctions {
      * @param message
      * @throws SQLException
      */
-    public void addChat(
-            String profile, String fromUser, String toUser, String message)
-            throws SQLException {
+    public void addChat(String profile, String fromUser, String toUser,
+            String message) throws SQLException {
         Date date1 = new Date();
-        String timeStamp =
-                new SimpleDateFormat("yyMMddHHmmssS").format(date1);
-        String date =
-                new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
+        String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
+        String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
         String time =
                 DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
 
@@ -247,8 +244,7 @@ public class DatabaseFunctions {
      * @return A Vector of Strings holding 1 name per String.
      * @throws SQLException
      */
-    public Vector<String> getChatNameList(String profile)
-            throws SQLException {
+    public Vector<String> getChatNameList(String profile) throws SQLException {
         Vector<String> accountList = new Vector<String>();
         rs =
                 stat.executeQuery("select * from chatLog where profile='"
@@ -274,8 +270,8 @@ public class DatabaseFunctions {
      * @return A Vector of dates represented as Strings.
      * @throws SQLException
      */
-    public Vector<String> getChatDatesFromName(
-            String profile, String buddyname) throws SQLException {
+    public Vector<String> getChatDatesFromName(String profile, String buddyname)
+            throws SQLException {
         Vector<String> accountList = new Vector<String>();
 
         rs =
@@ -306,8 +302,7 @@ public class DatabaseFunctions {
      * @throws SQLException
      */
     public ArrayList<ChatLogMessageTempData> getMessageFromDate(
-            String username, String buddyname, String date)
-            throws SQLException {
+            String username, String buddyname, String date) throws SQLException {
         ArrayList<ChatLogMessageTempData> messageList =
                 new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
@@ -321,9 +316,9 @@ public class DatabaseFunctions {
 
         while (rs.next()) {
             message =
-                    new ChatLogMessageTempData(
-                            rs.getString("time"), rs.getString("fromUser"),
-                            rs.getString("toUser"), rs.getString("message"));
+                    new ChatLogMessageTempData(rs.getString("time"), rs
+                            .getString("fromUser"), rs.getString("toUser"), rs
+                            .getString("message"));
             messageList.add(message);
         }
         rs.close();
@@ -354,9 +349,7 @@ public class DatabaseFunctions {
             defaultProfile = "no";
         }
 
-        prep =
-                conn
-                        .prepareStatement("insert into profiles values (?, ?, ?);");
+        prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, name);
@@ -378,12 +371,12 @@ public class DatabaseFunctions {
      */
     public void removeProfile(String name) throws SQLException {
         // Delete the profile
-        stat.executeUpdate("DELETE FROM profiles WHERE name = '"
-                + name + "';");
+        stat.executeUpdate("DELETE FROM profiles WHERE name = '" + name + "';");
 
         // Delete the profile's accounts
-        stat.executeUpdate("DELETE FROM people WHERE profile = '"
-                + name + "';");
+        stat
+                .executeUpdate("DELETE FROM people WHERE profile = '" + name
+                        + "';");
 
         conn.close();
         return;
@@ -472,12 +465,9 @@ public class DatabaseFunctions {
      * @param password
      * @throws SQLException
      */
-    public void addUsers(
-            String profile, String server, String accountName,
+    public void addUsers(String profile, String server, String accountName,
             String password) throws SQLException {
-        prep =
-                conn
-                        .prepareStatement("insert into people values (?, ?, ?, ?);");
+        prep = conn.prepareStatement("insert into people values (?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -501,8 +491,8 @@ public class DatabaseFunctions {
      */
     public void removeAccountFromProfile(String profile, String accountName)
             throws SQLException {
-        stat.executeUpdate("DELETE FROM people WHERE profile = '"
-                + profile + "' AND accountName = '" + accountName + "'");
+        stat.executeUpdate("DELETE FROM people WHERE profile = '" + profile
+                + "' AND accountName = '" + accountName + "'");
 
         conn.close();
         return;
@@ -521,9 +511,8 @@ public class DatabaseFunctions {
         String password = null;
 
         rs =
-                stat
-                        .executeQuery("select * from people where accountName = '"
-                                + accountName + "'");
+                stat.executeQuery("select * from people where accountName = '"
+                        + accountName + "'");
 
         if (rs.next()) {
             password = rs.getString("password");
@@ -578,17 +567,9 @@ public class DatabaseFunctions {
             password = rs.getString("password");
             server = rs.getString("server");
 
-            // Note, make this into a private utillity method
-            if (server.equals("talk.google.com")) {
-                serverType = ServerType.GOOGLE_TALK;
-            } else if (server.equals("jabber.sfu.ca")) {
-                serverType = ServerType.JABBER;
-            } else {
-                // other servers
-            }
+            serverType = serverStringToServerType(server);
 
-            account =
-                    new AccountTempData(serverType, accountName, password);
+            account = new AccountTempData(serverType, accountName, password);
             accountList.add(account);
         }
         rs.close();
@@ -604,12 +585,11 @@ public class DatabaseFunctions {
      * @return A vector of account names represented by Strings.
      * @throws SQLException
      */
-    public Vector<String> getProfilesUserList(String name)
-            throws SQLException {
+    public Vector<String> getProfilesUserList(String name) throws SQLException {
         Vector<String> accountList = new Vector<String>();
         rs =
-                stat.executeQuery("select * from people where profile='"
-                        + name + "';");
+                stat.executeQuery("select * from people where profile='" + name
+                        + "';");
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
@@ -653,10 +633,9 @@ public class DatabaseFunctions {
      * @return A Vector of friend objects.
      * @throws SQLException
      */
-    public Vector<FriendTempData> getFriendListByAccountName(
-            String accountName) throws SQLException {
-        Vector<FriendTempData> friendsToReturn =
-                new Vector<FriendTempData>();
+    public Vector<FriendTempData> getFriendListByAccountName(String accountName)
+            throws SQLException {
+        Vector<FriendTempData> friendsToReturn = new Vector<FriendTempData>();
         FriendTempData friend = null;
         boolean blocked = false;
 
@@ -673,8 +652,7 @@ public class DatabaseFunctions {
             } else {
                 blocked = false;
             }
-            friend =
-                    new FriendTempData(rs.getString("friendName"), blocked);
+            friend = new FriendTempData(rs.getString("friendName"), blocked);
             friendsToReturn.add(friend);
         }
         rs.close();
@@ -726,9 +704,10 @@ public class DatabaseFunctions {
      */
     public void removeFriend(String accountName, String friendName)
             throws SQLException {
-        stat.executeUpdate("DELETE FROM friendList WHERE "
-                + "accountName = '" + accountName + "' and "
-                + "friendName = '" + friendName + "';");
+        stat
+                .executeUpdate("DELETE FROM friendList WHERE "
+                        + "accountName = '" + accountName + "' and "
+                        + "friendName = '" + friendName + "';");
 
         conn.close();
         return;
@@ -751,8 +730,8 @@ public class DatabaseFunctions {
             isBlocked = "no";
         }
 
-        stat.executeUpdate("UPDATE friendList SET blocked = '"
-                + isBlocked + "' WHERE friendName ='" + friendName + "';");
+        stat.executeUpdate("UPDATE friendList SET blocked = '" + isBlocked
+                + "' WHERE friendName ='" + friendName + "';");
 
         conn.close();
         return;
@@ -785,5 +764,29 @@ public class DatabaseFunctions {
         rs.close();
         conn.close();
         return exists;
+    }
+
+    // Utility methods
+
+    private static ServerType serverStringToServerType(String server) {
+        ServerType serverToReturn = null; // Default return value
+
+        if (server.equals(ServerType.GOOGLE_TALK.toString())) {
+            serverToReturn = ServerType.GOOGLE_TALK;
+        } else if (server.equals(ServerType.JABBER.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.TWITTER.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.ICQ.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.AIM.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.MSN.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else { // invalid server data is stored
+            serverToReturn = null;
+        }
+
+        return serverToReturn;
     }
 }
