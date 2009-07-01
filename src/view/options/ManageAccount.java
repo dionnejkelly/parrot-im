@@ -229,10 +229,10 @@ public class ManageAccount extends JPanel implements Observer
 			}
 			else {
 				//insert new
-				model.addAccountToCurrentProfile
-					(new AccountData((ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword())));
-				accountArray.add(UNField.getText());
-				accList.updateUI();
+			//	model.addAccountToCurrentProfile
+			//		(new AccountData((ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword())));
+			//	accountArray.add(UNField.getText());
+			        accList.updateUI();
 				UNField.setText("");
 				pwdField.setText("");
         		//TODO: update the JComboBox in siginPanel too!

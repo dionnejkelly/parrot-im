@@ -11,7 +11,7 @@ import winterwell.jtwitter.Twitter.User;
  * Handles all connections involving Twitter protocol.
  */
 
-public class TwitterManager {
+public class TwitterManager implements GenericConnection {
 	
 	/**
      * Connection to twitter.
@@ -266,7 +266,16 @@ public class TwitterManager {
 	
 	
 	
-	
+	    @Override
+	    public int hashCode() {
+	        int hash = 7;
+	        
+	        hash = hash * 31 + "Twitter".hashCode();
+	        hash = hash * 31 + this.twitter.hashCode();
+	        
+	        return hash;
+	    }
+
 
 
 }

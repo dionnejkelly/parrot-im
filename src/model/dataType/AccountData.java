@@ -43,6 +43,8 @@ package model.dataType;
 import java.util.ArrayList;
 
 import controller.services.GenericConnection;
+import controller.services.GoogleTalkManager;
+import controller.services.TwitterManager;
 
 import model.enumerations.ServerType;
 
@@ -51,12 +53,6 @@ import model.enumerations.ServerType;
  * guest accounts for log-in purposes.
  */
 public class AccountData {
-
-    /**
-     * The ServerType representation of which type of server (e.g. Google,
-     * Jabber, MSN)
-     */
-    private ServerType server;
 
     /**
      * The accountName, or more specifically, the userID for the account.
@@ -91,8 +87,7 @@ public class AccountData {
      * @param accountName
      * @param password
      */
-    public AccountData(ServerType server, String accountName, String password) {
-        this.server = server;
+    public AccountData(String accountName, String password) {
         this.accountName = accountName;
         this.password = password;
         this.friends = new ArrayList<UserData>();
@@ -108,9 +103,8 @@ public class AccountData {
      * @param accountName
      * @param password
      */
-    public AccountData(ServerType server, String accountName, String password,
+    public AccountData(String accountName, String password,
             GenericConnection connection) {
-        this.server = server;
         this.accountName = accountName;
         this.password = password;
         this.friends = new ArrayList<UserData>();
@@ -119,22 +113,18 @@ public class AccountData {
     }
 
     /**
-     * Changes the server type for the account.
-     * 
-     * @param server
-     */
-    public void setServer(ServerType server) {
-        this.server = server;
-        return;
-    }
-
-    /**
      * Returns the server type as a ServerType enumeration.
      * 
      * @return The ServerType of the account.
      */
     public ServerType getServer() {
-        return server;
+        ServerType serverToReturn = null;
+        if (this.connection instanceof GoogleTalkManager) {
+            serverToReturn = ServerType.GOOGLE_TALK;
+        } else if (this.connection instanceof TwitterManager) {
+            serverToReturn = ServerType.TWITTER;
+        }
+        return serverToReturn;
     }
 
     /**
@@ -299,11 +289,21 @@ public class AccountData {
 
         if (account != null && account instanceof AccountData) {
             externalAccount = (AccountData) account;
-            areEqual = this.accountName.equalsIgnoreCase(externalAccount
-                    .getAccountName())
-                    && (this.server == externalAccount.getServer());
+            areEqual =
+                    this.accountName.equalsIgnoreCase(externalAccount
+                            .getAccountName())
+                            && (this.getServer() == externalAccount.getServer());
         }
 
         return areEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = hash * 31 + this.accountName.toLowerCase().hashCode();
+        hash = hash * 31 + this.connection.hashCode();
+
+        return hash;
     }
 }

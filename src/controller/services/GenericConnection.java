@@ -56,4 +56,7 @@ public interface GenericConnection {
     public ArrayList<FriendTempData> retrieveFriendList();
     
     public void sendMessage(String toUserID, String message) throws BadConnectionException;
+    
+    @Override
+    public int hashCode();
 }
