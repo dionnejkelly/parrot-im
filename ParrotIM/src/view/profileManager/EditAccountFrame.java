@@ -330,7 +330,7 @@ public class EditAccountFrame extends JFrame {
 
             else {
                 String resultMessage =
-                        "Sorry for the inconvenience but for the Alpha Version, we are only supporting XMPP Protocol. Thank you for your co-operation.";
+                        "Sorry for the inconvenience but we only support XMPP, ICQ, and Twitter for the beta. Thank you for your co-operation.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
 

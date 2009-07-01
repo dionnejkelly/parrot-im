@@ -27,9 +27,9 @@ import org.jivesoftware.smack.util.StringUtils;
 import controller.MainController;
 
 public class JabberManager implements GenericConnection {
-   
+
     private static final int DEFAULT_PORT = 5223;
-   
+
     private XMPPConnection connection;
 
     private MainController controller;
@@ -37,9 +37,9 @@ public class JabberManager implements GenericConnection {
     private GenericConnection genericConnection;
 
     private ArrayList<Chat> chats;
-    
+
     private String server;
-    
+
     private String domain;
 
     public JabberManager(MainController controller) {
@@ -77,14 +77,15 @@ public class JabberManager implements GenericConnection {
     public void login(String userID, String password, String server, int port)
             throws BadConnectionException {
         ConnectionConfiguration config = null;
-        
+
         this.domain = StringUtils.parseServer(userID); // will this work?
         this.server = server;
+        userID = StringUtils.parseName(userID); // to make it work with sfu...
+                                                // check for others
         // port currently not assigned
 
-        config =
-                new ConnectionConfiguration(
-                        this.server, DEFAULT_PORT, this.domain);
+        config = new ConnectionConfiguration(this.server, DEFAULT_PORT,
+                this.domain);
         config.setSocketFactory(SSLSocketFactory.getDefault());
 
         connection = new XMPPConnection(config);
@@ -97,15 +98,14 @@ public class JabberManager implements GenericConnection {
         }
 
         // Setup the listeners for messages and buddy changes
-        connection.addPacketListener(
-                new MessagePacketListener(), new MessagePacketFilter());
+        connection.addPacketListener(new MessagePacketListener(),
+                new MessagePacketFilter());
         connection.getRoster().addRosterListener(new BuddyListener());
 
         return;
     }
 
-    public boolean removeFriend(String userID)
-            throws BadConnectionException {
+    public boolean removeFriend(String userID) throws BadConnectionException {
         boolean removed = false; // Default return value
         Roster roster = this.connection.getRoster();
 
@@ -136,7 +136,7 @@ public class JabberManager implements GenericConnection {
         } else {
             presence.setMode(Presence.Mode.chat);
         }
-        
+
         presence.setStatus(status);
         connection.sendPacket(presence);
 
@@ -147,15 +147,14 @@ public class JabberManager implements GenericConnection {
         String userStatus = ""; // default return value
 
         try {
-            userStatus =
-                    this.connection
-                            .getRoster().getPresence(userID).getStatus();
+            userStatus = this.connection.getRoster().getPresence(userID)
+                    .getStatus();
         } catch (NullPointerException e) {
             System.err.println("Invalid connection or "
                     + "user in retrieveStatus()");
             userStatus = "";
         }
-        
+
         // Server may set their status to null; we want empty string
         if (userStatus == null) {
             userStatus = "";
@@ -170,8 +169,7 @@ public class JabberManager implements GenericConnection {
         Mode userStateFromServer = null;
 
         try {
-            userFromServer =
-                    this.connection.getRoster().getPresence(userID);
+            userFromServer = this.connection.getRoster().getPresence(userID);
             userStateFromServer = userFromServer.getMode();
 
             if (userStateFromServer == Presence.Mode.dnd) {
@@ -203,10 +201,8 @@ public class JabberManager implements GenericConnection {
 
         for (RosterEntry r : roster.getEntries()) {
             userID = r.getUser();
-            friendToAdd =
-                    new FriendTempData(userID, r.getName(), this
-                            .retrieveStatus(userID), this
-                            .retrieveState(userID), false);
+            friendToAdd = new FriendTempData(userID, r.getName(), this
+                    .retrieveStatus(userID), this.retrieveState(userID), false);
             friends.add(friendToAdd);
         }
 
@@ -225,16 +221,14 @@ public class JabberManager implements GenericConnection {
         }
 
         if (ourChat == null) {
-            ourChat =
-                    connection.getChatManager().createChat(
-                            toUserID, new MessageListener() {
-                                public void processMessage(
-                                        Chat chat, Message message) {
-                                    // Do nothing
+            ourChat = connection.getChatManager().createChat(toUserID,
+                    new MessageListener() {
+                        public void processMessage(Chat chat, Message message) {
+                            // Do nothing
 
-                                    return;
-                                }
-                            });
+                            return;
+                        }
+                    });
         }
 
         try {
@@ -301,8 +295,8 @@ public class JabberManager implements GenericConnection {
          * @param presence
          */
         public void presenceChanged(Presence presence) {
-            String bareAddress =
-                    StringUtils.parseBareAddress(presence.getFrom());
+            String bareAddress = StringUtils.parseBareAddress(presence
+                    .getFrom());
             controller.friendUpdated(genericConnection, bareAddress);
             return;
         }
@@ -318,10 +312,9 @@ public class JabberManager implements GenericConnection {
 
         public void processPacket(Packet packet) {
             Message message = (Message) packet;
-            String fromUserID =
-                    StringUtils.parseBareAddress(message.getFrom());
-            String toUserID =
-                    StringUtils.parseBareAddress(connection.getUser());
+            String fromUserID = StringUtils.parseBareAddress(message.getFrom());
+            String toUserID = StringUtils
+                    .parseBareAddress(connection.getUser());
 
             if (message.getBody() != null) {
                 controller.messageReceived(fromUserID, toUserID, message
@@ -334,11 +327,11 @@ public class JabberManager implements GenericConnection {
 
     @Override
     public int hashCode() {
-        int hash = 7; 
-            
+        int hash = 7;
+
         hash = hash * 31 + "Google".hashCode();
         hash = hash * 31 + this.connection.hashCode();
-        
+
         return hash;
     }
 }
