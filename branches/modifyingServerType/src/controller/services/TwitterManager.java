@@ -60,18 +60,35 @@ public class TwitterManager implements GenericConnection {
         return;
     }
 
-    public void changeStatus(UserStateType state, String status) {
-        // TODO Auto-generated method stub
-
+    /**
+     * This method is using to set the status of the user.
+     * 
+     * @param status
+     */
+    public void changeStatus(UserStateType state, String status)
+            throws BadConnectionException {
+        // TODO figure out state
+        try {
+            twitter.updateStatus(status);
+        } catch (Exception e) {
+            System.err.println("Error posting status in twitter");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+        return;
     }
 
     public void disconnect() {
-        // TODO Auto-generated method stub
+        twitter = null; // Cannot actually disconnect in Twitter
 
+        return;
     }
 
-    public void login(String userID, String password)
+    public void login(String userID, String password, String server, int port)
             throws BadConnectionException {
+               
+        // server and port unneeded for twitter
+                
         try {
             twitter = new Twitter(userID, password);
         } catch (Exception e) {
@@ -83,24 +100,78 @@ public class TwitterManager implements GenericConnection {
         return;
     }
 
+    /**
+     * This method is used to remove a friend from the friend list.
+     * 
+     * @param userID
+     */
     public boolean removeFriend(String userID) throws BadConnectionException {
-        // TODO Auto-generated method stub
-        return false;
+        Twitter.User friend = null;
+
+        try {
+            friend = twitter.stopFollowing(userID);
+        } catch (Exception e) {
+            System.err.println("Error removing a friend in twitter");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+
+        return friend != null;
     }
 
-    public ArrayList<FriendTempData> retrieveFriendList() {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * This method is used to return the authenticating user's (latest 100)
+     * friends, each with current status inline. (Both followers and a user who
+     * wants to follow you)
+     * 
+     * @return List<User>
+     */
+    public ArrayList<FriendTempData> retrieveFriendList()
+            throws BadConnectionException {
+        List<Twitter.User> friends = null; // from server
+        ArrayList<FriendTempData> localFriends = null;
+
+        localFriends = new ArrayList<FriendTempData>();
+        try {
+            friends = twitter.getFriends();
+        } catch (Exception e) {
+            System.err.println("Error getting friend list in twitter");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+
+        for (Twitter.User f : friends) {
+            localFriends.add(new FriendTempData(f.getScreenName(), f
+                    .getScreenName(), f.getStatus().getText(),
+                    UserStateType.OFFLINE, false));
+        }
+
+        return localFriends;
     }
 
     public UserStateType retrieveState(String userID) {
-        // TODO Auto-generated method stub
-        return null;
+        // no real "states" in Twitter. Maybe remove from the interface spec?
+        return UserStateType.OFFLINE;
     }
 
-    public String retrieveStatus(String userID) {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * This method is used to return the most recent status posted in the last
+     * 24 hours from the given user.
+     * 
+     * @return List<Status>
+     */
+    public String retrieveStatus(String userID) throws BadConnectionException {
+        String status = "";
+        
+        try {
+            status = twitter.getStatus(userID).getText();
+        } catch (Exception e) {
+            System.err.println("Error getting friend status in twitter");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+        
+        return status;
     }
 
     /**
@@ -118,7 +189,6 @@ public class TwitterManager implements GenericConnection {
             e.printStackTrace();
             throw new BadConnectionException();
         }
-        
 
     }
 
@@ -142,16 +212,6 @@ public class TwitterManager implements GenericConnection {
 
     private boolean doesExist(String userID) {
         return twitter.userExists(userID);
-    }
-
-    /**
-     * This method is using to set the status of the user.
-     * 
-     * @param status
-     */
-
-    private void changeStatus(String status) {
-        twitter.updateStatus(status);
     }
 
     /**
@@ -197,19 +257,6 @@ public class TwitterManager implements GenericConnection {
         return twitter.getStatus(userID).getUser().getProfileImageUrl();
     }
 
-
-
-    /**
-     * This method is used to remove a friend from the friend list.
-     * 
-     * @param userID
-     */
-
-    private void removeFriend(String userID) {
-        twitter.stopFollowing(userID);
-
-    }
-
     /**
      * This method is used to return a list of the direct messages sent to the
      * authenticating user.
@@ -245,19 +292,6 @@ public class TwitterManager implements GenericConnection {
     }
 
     /**
-     * This method is used to return the authenticating user's (latest 100)
-     * friends, each with current status inline. (Both followers and a user who
-     * wants to follow you)
-     * 
-     * @return List<User>
-     */
-
-    private List<User> retrieveFriendList() {
-        return twitter.getFriends();
-
-    }
-
-    /**
      * This method is used to return the 20 most recent statuses posted in the
      * last 24 hours from the authenticating user.
      * 
@@ -279,17 +313,6 @@ public class TwitterManager implements GenericConnection {
     private List<Status> getFriendsStatus(String userID) {
         return twitter.getUserTimeline(userID);
 
-    }
-
-    /**
-     * This method is used to return the most recent status posted in the last
-     * 24 hours from the given user.
-     * 
-     * @return List<Status>
-     */
-
-    private String getFriendsRecentStatus(String userID) {
-        return twitter.getStatus(userID).getText();
     }
 
     public static void main(String[] args) {

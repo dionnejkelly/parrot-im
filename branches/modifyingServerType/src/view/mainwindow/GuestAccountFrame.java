@@ -67,9 +67,9 @@ import view.styles.PopupWindowListener;
  */
 public class GuestAccountFrame extends JFrame {
 
-	protected JTextField jabberServer;
-	protected JPanel serverPanel;
-	
+    protected JTextField jabberServer;
+    protected JPanel serverPanel;
+
     /**
      * model stores the needed data of the system. It also connects it with
      * database
@@ -119,8 +119,7 @@ public class GuestAccountFrame extends JFrame {
      * @param frame
      * @param signin
      */
-    public GuestAccountFrame(
-            Model model, MainController c, MainWindow frame,
+    public GuestAccountFrame(Model model, MainController c, MainWindow frame,
             SignInPanel signin) {
         popup = this;
         this.model = model;
@@ -132,7 +131,7 @@ public class GuestAccountFrame extends JFrame {
 
         // set Frame
         setTitle("Guest Account Login");
-//        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        // this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(400, 250));
         setResizable(false);
         setIconImage(new ImageIcon("imagesimage/mainwindow/logo.png")
@@ -140,23 +139,24 @@ public class GuestAccountFrame extends JFrame {
 
         // select server
         JPanel GALPanel = new JPanel();
-		GALPanel.setLayout(new BorderLayout());
+        GALPanel.setLayout(new BorderLayout());
         // select server
         server = new JComboBox(model.getServerList());
         server.setPreferredSize(new Dimension(200, 30));
         server.addItemListener(new serverListener());
-        //server name for jabber
-        //textfield
+        // server name for jabber
+        // textfield
         jabberServer = new JTextField();
         jabberServer.setPreferredSize(new Dimension(200, 20));
         jabberServer.setToolTipText("specify jabber server");
         JPanel jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
         jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
-        //label
+        // label
         JPanel jabberServerLabel = new JPanel();
         jabberServerLabel.setLayout(new BorderLayout());
-        jabberServerLabel.add(new JLabel("Jabber server:  "), BorderLayout.NORTH);
+        jabberServerLabel.add(new JLabel("Jabber server:  "),
+                BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
@@ -175,39 +175,37 @@ public class GuestAccountFrame extends JFrame {
         JPanel passwordPanel = new JPanel();
         PwdFieldGuest = new JPasswordField();
         PwdFieldGuest.setPreferredSize(new Dimension(180, 20));
-        passwordPanel.add(new JLabel ("Password:      "));
+        passwordPanel.add(new JLabel("Password:      "));
         passwordPanel.add(PwdFieldGuest);
 
-		//account setup Panel
-		JPanel setupPanel = new JPanel();
-		setupPanel.setLayout(new BoxLayout (setupPanel, BoxLayout.Y_AXIS));
-		setupPanel.add(server);
-		setupPanel.add(serverPanel);
-		setupPanel.add(usernamePanel);
-		setupPanel.add(passwordPanel);
+        // account setup Panel
+        JPanel setupPanel = new JPanel();
+        setupPanel.setLayout(new BoxLayout(setupPanel, BoxLayout.Y_AXIS));
+        setupPanel.add(server);
+        setupPanel.add(serverPanel);
+        setupPanel.add(usernamePanel);
+        setupPanel.add(passwordPanel);
 
+        /* BOTTOM PART: OK + CANCEL BUTTONs */
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new okButtonActionListener());
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new cancelButtonActionListener());
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 90, 0, 0));
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
+        buttonsPanel.add(okButton);
+        buttonsPanel.add(cancelButton);
 
-		/*BOTTOM PART: OK + CANCEL BUTTONs*/
-		JButton okButton = new JButton("OK");
-		okButton.addActionListener(new okButtonActionListener());
-		JButton cancelButton = new JButton ("Cancel");
-		cancelButton.addActionListener(new cancelButtonActionListener());
-		JPanel buttonsPanel = new JPanel ();
-		buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,90,0,0));
-		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
-		buttonsPanel.add(okButton);
-		buttonsPanel.add(cancelButton);
+        // adding to rightPanel
+        GALPanel.setPreferredSize(new Dimension(280, 400));
+        GALPanel.setBorder(BorderFactory.createEmptyBorder(25, 40, 30, 40));
+        GALPanel.add(setupPanel, BorderLayout.NORTH);
+        GALPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
+        // add to account manager pop up main panel
+        add(GALPanel, BorderLayout.EAST);
 
-		//adding to rightPanel
-		GALPanel.setPreferredSize(new Dimension(280, 400));
-		GALPanel.setBorder(BorderFactory.createEmptyBorder(25, 40, 30, 40));
-		GALPanel.add(setupPanel, BorderLayout.NORTH);
-		GALPanel.add(buttonsPanel, BorderLayout.SOUTH);
-
-		//add to account manager pop up main panel
-		add(GALPanel,BorderLayout.EAST);
-        
         getContentPane().add(GALPanel);
         pack();
         setVisible(true);
@@ -223,35 +221,27 @@ public class GuestAccountFrame extends JFrame {
         String username = UNFieldGuest.getText();
         String password = password(PwdFieldGuest.getPassword());
 
-        if (serverType == ServerType.GOOGLE_TALK) {
-            try {
-                core.loginAsGuest(serverType, username, password);
+        try {
+            if (serverType == ServerType.GOOGLE_TALK
+                    || serverType == ServerType.TWITTER) {
 
-                new BuddyList(core, model);// pops buddylist window
-                mainFrame.dispose(); // TODO: consider if the sign in fails
-            } catch (BadConnectionException e1) {
-                // e1.printStackTrace();
-                mainPanel.header.displaySystemStatus("Sign in failed!");
-                mainFrame.setEnabled(true);
-                System.out.println("sign in failed!");
-            }
-
-        } else if (serverType == ServerType.JABBER) {
-            try {
                 core.loginAsGuest(serverType, username, password);
-                new BuddyList(core, model);// pops buddylist window
-                mainFrame.dispose(); // TODO: consider if the sign in fails
-            } catch (BadConnectionException e1) {
-                // e1.printStackTrace();
-            	mainPanel.header.displaySystemStatus("Sign in failed!");
-                mainFrame.setEnabled(true);
-                System.out.println("sign in failed!");
+            } else if (serverType == ServerType.JABBER) {
+                core.loginAsGuest(serverType, username, password, jabberServer
+                        .getText());
+            } else {
+                String resultMessage = "We are only supporting XMPP, Twitter, and ICQ for the beta version. Sorry for the inconvenience.";
+                JOptionPane.showMessageDialog(null, resultMessage);
+                throw new BadConnectionException();
             }
-        } else {
-            String resultMessage =
-                    "We are only supporting XMPP Protocol for the Alpha Version. Sorry for the inconvenience.";
-            JOptionPane.showMessageDialog(null, resultMessage);
+            new BuddyList(core, model);// pops buddylist window
+            mainFrame.dispose(); // TODO: consider if the sign in fails
+        } catch (BadConnectionException e1) {
+            // e1.printStackTrace();
+            mainPanel.header.displaySystemStatus("Sign in failed!");
             mainFrame.setEnabled(true);
+            System.out.println("sign in failed!");
+
         }
 
     }
@@ -272,24 +262,24 @@ public class GuestAccountFrame extends JFrame {
         return str;
 
     }
-    
-    private class serverListener implements ItemListener{
 
-		public void itemStateChanged(ItemEvent e) {
-			if (server.getSelectedIndex()==0){
-				serverPanel.setVisible(true);
-			}else{
-				serverPanel.setVisible(false);
-			}
-		}
-    	
+    private class serverListener implements ItemListener {
+
+        public void itemStateChanged(ItemEvent e) {
+            if (server.getSelectedIndex() == 0) {
+                serverPanel.setVisible(true);
+            } else {
+                serverPanel.setVisible(false);
+            }
+        }
+
     }
-    
-    private class okButtonActionListener implements ActionListener{
 
-		/**
-         * When the OK button is clicked, the system will try to connect to
-         * the server
+    private class okButtonActionListener implements ActionListener {
+
+        /**
+         * When the OK button is clicked, the system will try to connect to the
+         * server
          * 
          * @param evt
          */
@@ -301,16 +291,15 @@ public class GuestAccountFrame extends JFrame {
             }
 
             else {
-                String resultMessage =
-                        "Please provide appropriate user ID and password in the field.";
+                String resultMessage = "Please provide appropriate user ID and password in the field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
 
             }
         }
     }
-    
-    private class cancelButtonActionListener implements ActionListener{
-    	/**
+
+    private class cancelButtonActionListener implements ActionListener {
+        /**
          * When the CANCEL button is clicked, then go back to MainWindow
          * 
          * @param evt
