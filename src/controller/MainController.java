@@ -570,12 +570,7 @@ public class MainController {
             String password) {
         String serverName = null;
 
-        if (server == ServerType.GOOGLE_TALK) {
-            serverName = "talk.google.com";
-        } else {
-            // Temp, make different than sfu
-            serverName = "jabber.sfu.ca";
-        }
+        serverName = server.toString();
 
         this.model.addAccount(profile, serverName, account, password);
     }

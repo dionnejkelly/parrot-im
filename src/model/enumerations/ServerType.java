@@ -100,4 +100,26 @@ public enum ServerType {
         }
         return serverList;
     }
+    
+    public static ServerType serverStringToServerType(String server) {
+        ServerType serverToReturn = null; // Default return value
+
+        if (server.equals(ServerType.GOOGLE_TALK.toString())) {
+            serverToReturn = ServerType.GOOGLE_TALK;
+        } else if (server.equals(ServerType.JABBER.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.TWITTER.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.ICQ.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.AIM.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else if (server.equals(ServerType.MSN.toString())) {
+            serverToReturn = ServerType.JABBER;
+        } else { // invalid server data is stored
+            serverToReturn = null;
+        }
+
+        return serverToReturn;
+    }
 }
