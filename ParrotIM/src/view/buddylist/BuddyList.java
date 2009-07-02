@@ -120,21 +120,21 @@ public class BuddyList extends JFrame {
          * KeyEvent.VK_E); acctsMenu.add(accountsItem1);
          */
 
-        contactMenu = new JMenu("Contacts");
+        contactMenu = new JMenu("Accounts");
         contactMenu.setMnemonic(KeyEvent.VK_C);
-        JMenuItem viewChatLog = new JMenuItem("View Chat Log", KeyEvent.VK_C);
+        JMenuItem viewChatLog = new JMenuItem("View Chat Log", KeyEvent.VK_D);
         viewChatLog.addActionListener(new chatLogListener());
         contactMenu.add(viewChatLog);
 
         JCheckBoxMenuItem chatbotEnabler = new JCheckBoxMenuItem(
                 "Chatbot Enabled");
-        chatbotEnabler.setMnemonic(KeyEvent.VK_H);
+        chatbotEnabler.setMnemonic(KeyEvent.VK_B);
         chatbotEnabler.addActionListener(new ChatbotToggleListener());
         contactMenu.add(chatbotEnabler);
         
         JCheckBoxMenuItem chatLogEnabler = new JCheckBoxMenuItem(
         "Chat Log Enabled");
-        chatLogEnabler.setMnemonic(KeyEvent.VK_H);
+        chatLogEnabler.setMnemonic(KeyEvent.VK_E);
         chatLogEnabler.addActionListener(new ChatLogToggleListener());
         contactMenu.add(chatLogEnabler);
         menuBar.add(contactMenu);
