@@ -17,15 +17,18 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import view.options.modelstub.ChatbotQADataType;
 import view.options.modelstub.model;
+import view.styles.PopupWindowListener;
 
 public class ChatbotQA extends JFrame{
 	private ChatbotQADataType QAObject;
 	private JPanel mainPanel;
+	private JFrame mainFrame;
 	
 	private JList QList;
 	private JButton addQ;
@@ -41,6 +44,7 @@ public class ChatbotQA extends JFrame{
 	 * @param edit
 	 * */
 	public ChatbotQA(ChatbotQADataType QAObject, boolean add){
+		mainFrame = this;
 		this.QAObject = QAObject;
 		
 		if(add){ //QAObject is empty
@@ -69,9 +73,9 @@ public class ChatbotQA extends JFrame{
 		QListScroll.setPreferredSize(new Dimension(450, 100));
 		
 		addQ = new JButton ("Add");
-		addQ.addActionListener(new addQActionListener());
+		addQ.addActionListener(new addActionListener('Q'));
 		removeQ = new JButton("Remove");
-		removeQ.addActionListener(new removeQActionListener());
+		removeQ.addActionListener(new removeActionListener('Q'));
 		removeQ.setEnabled(false);
 		JPanel QButtonsPanel = new JPanel();
 		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -94,9 +98,9 @@ public class ChatbotQA extends JFrame{
 		AListScroll.setPreferredSize(new Dimension(450, 100));
 		
 		addA = new JButton ("Add");
-		addA.addActionListener(new addAActionListener());
+		addA.addActionListener(new addActionListener('A'));
 		removeA = new JButton("Remove");
-		removeA.addActionListener(new removeAActionListener());
+		removeA.addActionListener(new removeActionListener('A'));
 		removeA.setEnabled(false);
 		JPanel AButtonsPanel = new JPanel();
 		AButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -142,38 +146,104 @@ public class ChatbotQA extends JFrame{
 			}
 		}
 	}
-	private class addQActionListener implements ActionListener{
-
+	private class addActionListener implements ActionListener{
+		char mode;
+		
+		public addActionListener (char mode){
+			this.mode = mode;
+		}
+		
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			//execute JDialog
-			JOptionPane QOption = new JOptionPane();
+			JFrame popupOption = new addNewQAFrame(mode);
+			popupOption.addWindowListener(new PopupWindowListener(mainFrame, popupOption));
 		}
 	}
 	
-	private class removeQActionListener implements ActionListener{
-
+	private class removeActionListener implements ActionListener{
+		char mode;
+		
+		public removeActionListener (char mode){
+			this.mode = mode;
+		}
+		
 		public void actionPerformed(ActionEvent e) {
-			QAObject.removeQuestion(QList.getSelectedIndex());
-			QList.setListData(QAObject.getQuestions());
-			QList.updateUI();
+			if (mode == 'Q'){
+				QAObject.removeQuestion(QList.getSelectedIndex());
+				QList.setListData(QAObject.getQuestions());
+				QList.updateUI();
+			} else if (mode == 'A'){
+				QAObject.removeAnswer(AList.getSelectedIndex());
+				AList.setListData(QAObject.getAnswers());
+				AList.updateUI();
+			}
 		}
 	}
-	
-	private class addAActionListener implements ActionListener{
+	private class addNewQAFrame extends JFrame{
+		private JTextField field;
+		private JFrame frame;
+		
+		public addNewQAFrame(char mode){
+			frame =this;
+			
+			/*PROMPT*/
+			JLabel label = new JLabel();
+			if (mode == 'Q') 
+				label.setText("Please type in your question: ");
+			else if (mode == 'A')
+				label.setText("Please type in your answer: ");
+			
+			field = new JTextField();
+			field.setPreferredSize(new Dimension(260, 20));
+			
+			JButton okButton = new JButton ("OK");
+			okButton.addActionListener(new okActionListener(mode));
+			JButton cancelButton = new JButton ("Cancel");
+			cancelButton.addActionListener(new cancelActionListener());
+			JPanel buttonPanel = new JPanel ();
+			buttonPanel.add(okButton);
+			buttonPanel.add(cancelButton);
+			
+			JPanel addNewQAPanel = new JPanel();
+			addNewQAPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+			addNewQAPanel.add(label);
+			addNewQAPanel.add(field);
+			addNewQAPanel.add(buttonPanel);
 
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			//execute JDialog
+			this.getContentPane().add(addNewQAPanel);
+			this.setLocationRelativeTo(mainFrame);
+			this.setResizable(false);
+			this.setPreferredSize(new Dimension (300,150));
+			this.pack();
+			this.setVisible(true);
 		}
-	}
-	
-	private class removeAActionListener implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			QAObject.removeAnswer(QList.getSelectedIndex());
-			AList.setListData(QAObject.getAnswers());
-			AList.updateUI();
+		private class cancelActionListener implements ActionListener{
+			
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}	
+		}
+		private class okActionListener implements ActionListener{
+			private char mode;
+			
+			public okActionListener(char mode){
+				this.mode = mode;
+			}
+			public void actionPerformed(ActionEvent e) {
+				if (field.getText().length()!=0)
+				if (mode == 'Q'){
+					QAObject.addQuestion(field.getText());
+					QList.setListData(QAObject.getQuestions());
+					QList.updateUI();
+				} else if (mode == 'A'){
+					QAObject.addAnswer(field.getText());
+					AList.setListData(QAObject.getAnswers());
+					AList.updateUI();
+				}
+				frame.dispose();
+				
+			}	
 		}
 	}
 }
