@@ -9,5 +9,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/smack_3_1_0/smackx-debug.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smack_3_1_0/smackx-jingle.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jtwitter.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Documents and Settings/HP_Administrator/Desktop/CMPT 275/Zortho Spell/jortho.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
