@@ -21,14 +21,11 @@
 
 package view.options;
 
-
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -55,6 +52,8 @@ public class FeaturesPanel extends JPanel{
 	
 	private JFrame mainframe;
 	private JCheckBox chatbotCheck;
+	private JCheckBox soundCheck;
+	private JCheckBox chatLogCheck;
 	private JList chatbotList;
 	private JButton chatbotAddButton;
 	private JButton chatbotEditButton;
@@ -104,14 +103,18 @@ public class FeaturesPanel extends JPanel{
 		chatbotPanel.add(chatbotOptions);
 		
 		/*SOUND NOTIFICATION*/
-		JCheckBox soundCheck = new JCheckBox("Enable Sound Notification");
+		soundCheck = new JCheckBox("Enable Sound Notification");
 		soundCheck.addChangeListener(new soundListener());
+		
+		/*CHATLOG*/
+		chatLogCheck = new JCheckBox("Enable Chat Log");
+		chatLogCheck.addChangeListener(new chatLogListener());
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.add(chatbotPanel);
 		this.add(soundCheck);
-		this.add(new JCheckBox("another one"));//just a test
+		this.add(chatLogCheck);//just a test
 	}
 	private void setEnabledChatbotButtons(boolean b){
 		chatbotEditButton.setEnabled(b);
@@ -195,9 +198,23 @@ public class FeaturesPanel extends JPanel{
 		}
 	}
 	private class soundListener implements ChangeListener{
-
+		//TODO: PLEASE SET THIS
 		public void stateChanged(ChangeEvent e) {
-			//TODO
+			if (soundCheck.isSelected()){
+				System.out.println("Enables sound");
+			} else {
+				System.out.println("Disables sound");
+			}
+		}
+	}
+	private class chatLogListener implements ChangeListener{
+		//TODO: PLEASE SET THIS
+		public void stateChanged(ChangeEvent e) {
+			if (soundCheck.isSelected()){
+				System.out.println("Enables Chat Log");
+			} else {
+				System.out.println("Disables Chat Log");
+			}
 			
 		}
 	}

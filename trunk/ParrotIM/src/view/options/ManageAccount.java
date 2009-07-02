@@ -53,7 +53,6 @@ import javax.swing.event.ListSelectionListener;
 import controller.MainController;
 
 import model.Model;
-import model.dataType.AccountData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 

@@ -131,6 +131,12 @@ public class BuddyList extends JFrame {
         chatbotEnabler.setMnemonic(KeyEvent.VK_H);
         chatbotEnabler.addActionListener(new ChatbotToggleListener());
         contactMenu.add(chatbotEnabler);
+        
+        JCheckBoxMenuItem chatLogEnabler = new JCheckBoxMenuItem(
+        "Chat Log Enabled");
+        chatLogEnabler.setMnemonic(KeyEvent.VK_H);
+        chatLogEnabler.addActionListener(new ChatLogToggleListener());
+        contactMenu.add(chatLogEnabler);
         menuBar.add(contactMenu);
 
         optionsMenu = new JMenu("Options");
@@ -272,6 +278,18 @@ public class BuddyList extends JFrame {
             return;
         }
     }
+    private class ChatLogToggleListener implements ActionListener {
+        /**
+         * Listens for the uesr's event.
+         * 
+         * @param e
+         */
+        public void actionPerformed(ActionEvent e) {
+            //TODO: PROVIDE THIS!!
+
+            return;
+        }
+    }
 
     /**
      * Listens for the exit action.
@@ -287,7 +305,7 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
             controller.disconnect();
             buddywindow.dispose();
-            MusicPlayer receiveMusic = new MusicPlayer("src/audio/exit/parrotExit.wav");
+            new MusicPlayer("src/audio/exit/parrotExit.wav");
 
             return;
         }
@@ -310,7 +328,7 @@ public class BuddyList extends JFrame {
             new MainWindow(controller, model);
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();
-            MusicPlayer receiveMusic = new MusicPlayer("src/audio/exit/parrotExit.wav");
+            new MusicPlayer("src/audio/exit/parrotExit.wav");
 
             return;
         }
