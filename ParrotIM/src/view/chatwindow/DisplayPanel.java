@@ -136,7 +136,6 @@ public class DisplayPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         // TODO: May want to update this to update line-per-line
     	
-    	System.out.println("Not getting called");
         if (arg == UpdatedType.CHAT && model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
             title

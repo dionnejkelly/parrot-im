@@ -54,6 +54,7 @@ import java.sql.*;
 import controller.services.GenericConnection;
 
 import model.dataType.AccountData;
+import model.dataType.ChatCollectionData;
 import model.dataType.ConversationData;
 import model.dataType.ProfileData;
 import model.dataType.GoogleTalkUserData;
@@ -80,17 +81,7 @@ public class Model extends Observable {
     // Section
     // I - Data Members
 
-    /**
-     * Holds a collection of all conversations. If no conversations are
-     * currently active, the collection is simply empty.
-     */
-    private ArrayList<ConversationData> conversations;
-
-    /**
-     * Holds a reference to the current active conversation. This conversation
-     * should be contained inside data member, conversations.
-     */
-    private ConversationData activeConversation;
+    private ChatCollectionData chatCollection;
 
     /**
      * A reference to the profile currently being used. Holds references to all
@@ -116,9 +107,8 @@ public class Model extends Observable {
      * @throws SQLException
      */
     public Model() throws ClassNotFoundException, SQLException {
-        this.conversations = new ArrayList<ConversationData>();
         this.currentProfile = null;
-        this.activeConversation = null;
+        this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
         logWindowOpen = false;
     }
@@ -244,34 +234,39 @@ public class Model extends Observable {
     // Section
     // IV = Conversation Manipulation Methods
 
+    public ConversationData findConversation(AccountData account, UserData user) {
+        ConversationData conversation = null;
+
+        for (ConversationData c : this.chatCollection.getAllConversations()) {
+            if (c.getAccount().equals(account) && c.getUser().equals(user)) {
+                conversation = c;
+                break;
+            }
+        }
+
+        return conversation;
+    }
+    
+    public ConversationData findConversation(UserData user) {
+        ConversationData conversation = null;
+
+        for (ConversationData c : this.chatCollection.getAllConversations()) {
+            if (c.getUser().equals(user)) {
+                conversation = c;
+                break;
+            }
+        }
+
+        return conversation;
+    }
+
     /**
      * Returns the number of conversations in existence.
      * 
      * @return The number of conversations open in the chat.
      */
     public int numberOfConversations() {
-        return conversations.size();
-    }
-
-    /**
-     * Switches the current active conversation. Should make messages sent in
-     * the chat window go to this user. Also, should be the window shown in the
-     * chat window.
-     * 
-     * @param user
-     */
-    public void setActiveConversation(UserData user) {
-        for (ConversationData c : this.conversations) {
-            if (c.getUser() == user) {
-                this.activeConversation = c;
-                break;
-            }
-        }
-
-        super.setChanged();
-        super.notifyObservers(UpdatedType.CHAT);
-
-        return;
+        return this.chatCollection.getConversations().size();
     }
 
     /**
@@ -282,7 +277,7 @@ public class Model extends Observable {
      * @param conversation
      */
     public void setActiveConversation(ConversationData conversation) {
-        this.activeConversation = conversation;
+        this.chatCollection.setActiveConversation(conversation);
 
         super.setChanged();
         super.notifyObservers(UpdatedType.CHAT);
@@ -294,7 +289,8 @@ public class Model extends Observable {
      * Removes the current active conversation from the list.
      */
     public void removeActiveConversation() {
-        this.conversations.remove(this.activeConversation);
+        this.chatCollection.removeConversation(this.chatCollection
+                .getActiveConversation());
 
         return;
     }
@@ -305,51 +301,8 @@ public class Model extends Observable {
      * @return The current active conversation object.
      */
     public ConversationData getActiveConversation() {
-        return this.activeConversation;
-    }
-
-    /**
-     * Searches the current list of conversations for a conversation with the
-     * specified user. Returns the ConversationData object if found; null
-     * otherwise.
-     * 
-     * @param userID
-     *            A string with the friend's userID.
-     * @return A ConversationData Object.
-     */
-    public ConversationData findConversationByFriend(String userID) {
-        ConversationData conversation = null;
-
-        for (ConversationData c : this.conversations) {
-            if (c.getUser().getAccountName().equalsIgnoreCase(userID)) {
-                conversation = c;
-                break;
-            }
-        }
-
-        return conversation;
-    }
-
-    /**
-     * Searches the current list of conversations for a conversation with the
-     * specified user. Returns the ConversationData object if found; null
-     * otherwise.
-     * 
-     * @param user
-     * @return A ConversationData Object.
-     */
-    public ConversationData findConversationByFriend(UserData user) {
-        ConversationData conversation = null;
-
-        for (ConversationData c : this.conversations) {
-            if (c.getUser() == user) {
-                conversation = c;
-                break;
-            }
-        }
-
-        return conversation;
-    }
+        return this.chatCollection.getActiveConversation();
+    }    
 
     /**
      * Handles the receiving message.
@@ -376,18 +329,18 @@ public class Model extends Observable {
         }
 
         user = this.findUserByAccountName(fromUser);
-        modifiedConversation = this.findConversationByFriend(user);
-
+        modifiedConversation = this.findConversation(account, user);
+        
         if (modifiedConversation != null) {
             // Case 1: We found a matching conversation
             modifiedConversation.addMessage(message);
+            this.chatCollection.addConversation(modifiedConversation);
         } else {
             // Case 2: No match found; create conversation and add it to the
             // list
             modifiedConversation = new ConversationData(account, user);
-            this.conversations.add(modifiedConversation);
-            this.activeConversation = modifiedConversation;
             modifiedConversation.addMessage(message);
+            this.chatCollection.addConversation(modifiedConversation);
         }
 
         setChanged();
@@ -432,34 +385,20 @@ public class Model extends Observable {
      * @param user
      */
 
-    public ConversationData startConversation(UserData user) {
-        // account = local user (eg. cmpt275testing@gmail.com)
-        // user = buddy
-        AccountData account = this.findAccountByFriend(user);
-        ConversationData conversation = new ConversationData(account, user);
-        String user_address = user.toString();
+    public ConversationData startConversation(AccountData account, UserData user) {
+        ConversationData conversation = null;
 
-        // check if the conversation exists
-        boolean conversation_found = false;
-        int conv;
-        for (conv = 0; conv < conversations.size(); conv++) {
-            if (conversations.get(conv).getUser().toString().compareTo(
-                    user_address) == 0) {
-                conversation_found = true;
-                break; // if conversation found, exit loop
-            }
+        conversation = this.findConversation(account, user);
+        if (conversation == null) {
+            conversation = new ConversationData(account, user);            
         }
-
-        if (!conversation_found) {// if conversation is not found, then add
-            this.conversations.add(conversation);
-        } else { // if found, replace conversation with the one found
-            conversation = conversations.get(conv);
-        }
-
-        this.activeConversation = conversation;
+        this.chatCollection.addConversation(conversation);
+        
+        this.chatCollection.setActiveConversation(conversation);
 
         setChanged();
         notifyObservers(UpdatedType.CHAT);
+        
         return conversation;
     }
 
@@ -469,13 +408,15 @@ public class Model extends Observable {
      * @return ArrayList<ConversationData>
      */
     public ArrayList<ConversationData> getConversations() {
-        return this.conversations;
+        return this.chatCollection.getConversations();
     }
 
     public void clearAllConversations() {
-        this.activeConversation = null;
-        this.conversations.clear();
+        this.chatCollection.hideAllConversations();
 
+        setChanged();
+        notifyObservers(UpdatedType.CHAT);
+        
         return;
     }
 
@@ -1228,7 +1169,8 @@ public class Model extends Observable {
     public Vector<ChatLogMessageTempData> getLogMessage(String username,
             String buddyname, String date) {
         DatabaseFunctions db = null;
-        Vector<ChatLogMessageTempData> messages = new Vector<ChatLogMessageTempData>();
+        Vector<ChatLogMessageTempData> messages =
+                new Vector<ChatLogMessageTempData>();
 
         try {
             db = new DatabaseFunctions();

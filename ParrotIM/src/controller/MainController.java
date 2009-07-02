@@ -174,7 +174,7 @@ public class MainController {
         if (connection == null) {
             throw new BadConnectionException(); // ... until we implement
         }
-       
+
         connection.login(accountName, password, serverAddress, port);
         account.setConnection(connection);
 
@@ -210,8 +210,8 @@ public class MainController {
 
         accounts = model.getAccountsForProfile(profile);
         for (AccountTempData a : accounts) {
-            createdAccount = login(a.getServer(), a.getUserID(), a
-                    .getPassword());
+            createdAccount =
+                    login(a.getServer(), a.getUserID(), a.getPassword());
             model.addAccountToCurrentProfile(createdAccount);
         }
 
@@ -437,8 +437,10 @@ public class MainController {
 
     public void startConversation(UserData friend, boolean focus) {
         ConversationData conversation = null;
+        AccountData account = null;
 
-        conversation = model.startConversation(friend);
+        account = model.findAccountByFriend(friend);
+        conversation = model.startConversation(account, friend);
         if (focus || model.numberOfConversations() < 2) {
             model.setActiveConversation(conversation);
         }
@@ -457,12 +459,13 @@ public class MainController {
      * @throws XMPPException
      * 
      */
-    public void sendMessage(String messageString, String to)
+    public void sendMessage(String messageString, String to, AccountData account)
             throws BadConnectionException {
         // TODO we may want a conversation object to be passed in
         ConversationData conversation = null;
         MessageData messageObject = null;
         String fromUser = null;
+        UserData toUser = null;
         String font = "Arial"; // temp values
         String size = "4";
         boolean bold = false;
@@ -471,19 +474,21 @@ public class MainController {
         String color = "#000000";
         GenericConnection connection = null;
 
-        conversation = model.findConversationByFriend(to);
+        toUser = model.findUserByAccountName(to);
+        conversation = model.findConversation(account, toUser);
 
         if (conversation == null) {
-            model.startConversation(model.findUserByAccountName(to));
-            conversation = model.findConversationByFriend(to);
+            model.startConversation(account, toUser);
+            conversation = model.findConversation(account,toUser);
         }
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(fromUser, messageString, font, size, bold,
+                        italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -515,8 +520,9 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getAccountName();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(fromUser, messageString, font, size, bold,
+                        italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -534,10 +540,12 @@ public class MainController {
 
     public void changeConversation(String accountName) {
         UserData user = null;
+        ConversationData conversation = null;
 
         user = model.findUserByAccountName(accountName);
         if (user != null) {
-            model.setActiveConversation(user);
+            conversation = model.findConversation(user);
+            model.setActiveConversation(conversation);
         }
 
         return;
@@ -617,7 +625,8 @@ public class MainController {
 
         serverName = server.toString();
 
-        this.model.addAccount(profile, serverName, serverAddress, account, password);
+        this.model.addAccount(profile, serverName, serverAddress, account,
+                password);
     }
 
     /**
@@ -664,8 +673,9 @@ public class MainController {
         MessageData messageData = null;
         AccountData account = null;
 
-        messageData = new MessageData(fromUserID, message, "font", "4", false,
-                false, false, "#000000");
+        messageData =
+                new MessageData(fromUserID, message, "font", "4", false, false,
+                        false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
         model.receiveMessage(account, messageData);
@@ -675,7 +685,7 @@ public class MainController {
             try {
                 chatbot.get_input(message);
                 String response = chatbot.respond();
-                sendMessage(response, fromUserID);
+                sendMessage(response, fromUserID, account);
             } catch (Exception e) {
                 System.err.println("Error with chatbot: messageReceived()");
                 e.printStackTrace();
