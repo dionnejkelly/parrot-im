@@ -415,7 +415,7 @@ public class BuddyPanel extends JPanel implements Observer {
             if ((userFriendID != null && !userFriendID.equals(""))
                     && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
-                MusicPlayer receiveMusic = new MusicPlayer("src/audio/buddy/addFriend.wav");
+                MusicPlayer addMusic = new MusicPlayer("src/audio/buddy/addFriend.wav");
                 JOptionPane.showMessageDialog(null, result);
                 
 
@@ -597,6 +597,8 @@ public class BuddyPanel extends JPanel implements Observer {
                     }
                 }
             }
+            
+            MusicPlayer highlightMusic = new MusicPlayer("src/audio/buddy/buddyHighlightedSound.wav"); 
         }
 
         /**

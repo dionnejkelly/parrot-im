@@ -15,7 +15,6 @@
  */
 
 import java.sql.SQLException;
-
 import controller.MainController;
 
 import view.mainwindow.MainWindow;
@@ -31,7 +30,7 @@ public class ParrotIM {
         MainController controller = new MainController(model);
         MainWindow mainWindow = new MainWindow(controller, model);
 
-        // XMPPConnection.DEBUG_ENABLED = true;
+        //XMPPConnection.DEBUG_ENABLED = true;
         
         return;
     }
