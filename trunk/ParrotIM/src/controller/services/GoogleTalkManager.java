@@ -325,7 +325,7 @@ public class GoogleTalkManager implements GenericConnection {
                 controller.messageReceived(fromUserID, toUserID, message
                         .getBody());
                 
-                MusicPlayer receiveMusic = new MusicPlayer("src/audio/message/austin_mail.wav");
+                MusicPlayer receiveMusic = new MusicPlayer("src/audio/message/receiveMessage.wav");
             }
 
             return;
