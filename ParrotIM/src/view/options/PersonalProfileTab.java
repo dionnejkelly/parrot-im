@@ -59,11 +59,14 @@ public class PersonalProfileTab extends JPanel {
 		//browse button
 		JButton browseButton = new JButton("browse");
 		browseButton.addActionListener(new BrowseActionListener());
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(browseButton);
+		
 		JPanel avatarPanel = new JPanel();
 		avatarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
-		avatarPanel.setLayout(new BoxLayout(avatarPanel, BoxLayout.Y_AXIS));
-		avatarPanel.add(avatar);
-		avatarPanel.add(browseButton);
+		avatarPanel.setLayout(new BorderLayout());
+		avatarPanel.add(avatar, BorderLayout.NORTH);
+		avatarPanel.add(buttonPanel, BorderLayout.CENTER);
 		
 		//set left layout
 		JPanel leftLayout = new JPanel();
