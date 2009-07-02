@@ -36,11 +36,14 @@ public class ChatCollectionData {
      * should be contained inside data member, conversations.
      */
     private ConversationData activeConversation;
+    
+    private boolean chatWindowHistoryEnabled;
 
     public ChatCollectionData() {
         this.conversations = new ArrayList<ConversationData>();
         this.hiddenConversations = new ArrayList<ConversationData>();
         this.activeConversation = null;
+        this.chatWindowHistoryEnabled = true;
     }
 
     public ArrayList<ConversationData> getConversations() {
@@ -72,6 +75,14 @@ public class ChatCollectionData {
     }
 
     // Addition/Removal methods
+
+    public void setChatWindowHistoryEnabled(boolean chatWindowHistoryEnabled) {
+        this.chatWindowHistoryEnabled = chatWindowHistoryEnabled;
+    }
+
+    public boolean isChatWindowHistoryEnabled() {
+        return chatWindowHistoryEnabled;
+    }
 
     public void addConversation(ConversationData conversation) {
         if (!this.conversations.contains(conversation)) {
