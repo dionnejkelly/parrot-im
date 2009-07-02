@@ -8,6 +8,7 @@
 
 package view.chatwindow;
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ import view.styles.PopupWindowListener;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
+import controller.spellcheck.SpellCheck;
 
 import model.*;
 
@@ -106,13 +108,15 @@ public class ChatPanel extends JPanel {
         fontSize.setMaximumSize(new Dimension(45, 30));
 
         // the input textarea properties
-        txt1 = new JTextArea();
-        txt1.setColumns(25);
-        txt1.setRows(2);
-        txt1.setAutoscrolls(true);
-        txt1.setLineWrap(true);
-        txt1.setWrapStyleWord(true);
-        txt1.setToolTipText("Enter text and HTML tags here");
+        SpellCheck createTextArea = new SpellCheck();
+        txt1 = createTextArea.getTextArea();
+//        txt1 = new JTextArea();
+//        txt1.setColumns(25);
+//        txt1.setRows(2);
+//        txt1.setAutoscrolls(true);
+//        txt1.setLineWrap(true);
+//        txt1.setWrapStyleWord(true);
+//        txt1.setToolTipText("Enter text and HTML tags here");
         txt1.addKeyListener(new TextBoxListener());
 
         JScrollPane chatInputWindowScroller = new JScrollPane(txt1);
@@ -412,6 +416,7 @@ public class ChatPanel extends JPanel {
             // this is functional but somewhat unstable
             // any ideas are welcome to be discussed in the upcoming meeting
 
+  	
             if (e.getKeyCode() == e.VK_SHIFT) {
                 shiftPressed = true;
             }
