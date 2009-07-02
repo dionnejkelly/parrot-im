@@ -65,6 +65,10 @@ public class ChatbotQA extends JFrame{
 		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 	}
 	
+	public ChatbotQADataType getQAObject(){
+		return QAObject;
+	}
+	
 	private void setPanels(){
 		
 		/*QUESTIONS*/
