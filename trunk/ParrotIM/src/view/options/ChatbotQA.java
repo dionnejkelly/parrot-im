@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -61,6 +62,7 @@ public class ChatbotQA extends JFrame{
 		pack();
 		getContentPane().add(mainPanel);
 		setVisible(true);
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 	}
 	
 	private void setPanels(){
@@ -217,6 +219,7 @@ public class ChatbotQA extends JFrame{
 			this.setPreferredSize(new Dimension (300,150));
 			this.pack();
 			this.setVisible(true);
+			this.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 		}
 		private class cancelActionListener implements ActionListener{
 			
