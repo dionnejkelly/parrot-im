@@ -209,6 +209,7 @@ public class GuestAccountFrame extends JFrame {
         getContentPane().add(GALPanel);
         pack();
         setVisible(true);
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
     }
 

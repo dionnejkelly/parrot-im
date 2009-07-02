@@ -28,6 +28,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -138,6 +139,8 @@ public class EditAccountFrame extends JFrame {
         this.profile = profile;
         managerFrame = pManager;
         // this.addWindowListener(new PopupWindowListener(managerFrame,this));
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        
         popup = this;
         this.setResizable(false);
         this.setLocationRelativeTo(managerFrame);

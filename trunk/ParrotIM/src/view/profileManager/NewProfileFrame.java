@@ -27,6 +27,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -214,6 +215,7 @@ public class NewProfileFrame extends JFrame {
         getContentPane().add(newProfPanel);
         pack();
         setVisible(true);
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
 
     /*

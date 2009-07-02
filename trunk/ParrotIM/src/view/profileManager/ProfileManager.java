@@ -187,6 +187,7 @@ public class ProfileManager extends JFrame implements Observer {
         getContentPane().add(accMANPanel);
         pack();
         setVisible(true);
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
     
     /**
