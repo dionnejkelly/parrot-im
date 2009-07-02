@@ -18,6 +18,7 @@ import javax.swing.*;
 import view.mainwindow.HelpPanel;
 import view.mainwindow.MainWindow;
 import view.mainwindow.AboutFrame;
+import view.options.MusicPlayer;
 import view.options.OptionFrame;
 
 import view.chatLog.ChatLogFrame;
@@ -84,6 +85,7 @@ public class BuddyList extends JFrame {
         getContentPane().add(buddylistPanel);
         pack();
         setVisible(true);
+        MusicPlayer receiveMusic = new MusicPlayer("src/audio/startup/parrotOpening.wav");
     }
 
     // Creates top Text Menu
@@ -285,6 +287,7 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
             controller.disconnect();
             buddywindow.dispose();
+            MusicPlayer receiveMusic = new MusicPlayer("src/audio/exit/parrotExit.wav");
 
             return;
         }
