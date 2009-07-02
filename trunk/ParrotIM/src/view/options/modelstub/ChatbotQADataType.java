@@ -26,8 +26,16 @@ public class ChatbotQADataType {
 		questions.add(question);
 	}
 	
+	public void removeQuestion (int index){
+		questions.remove(index);
+	}
+	
 	public void addAnswer(String answer){
 		answers.add(answer);
+	}
+	
+	public void removeAnswer (int index){
+		answers.remove(index);
 	}
 	
 	public String toString(){
