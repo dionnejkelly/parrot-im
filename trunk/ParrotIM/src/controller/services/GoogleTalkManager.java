@@ -24,6 +24,8 @@ import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
 
+import view.options.MusicPlayer;
+
 import controller.MainController;
 
 public class GoogleTalkManager implements GenericConnection {
@@ -322,6 +324,8 @@ public class GoogleTalkManager implements GenericConnection {
             if (message.getBody() != null) {
                 controller.messageReceived(fromUserID, toUserID, message
                         .getBody());
+                
+                MusicPlayer receiveMusic = new MusicPlayer("src/audio/message/austin_mail.wav");
             }
 
             return;
