@@ -168,8 +168,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new RightCickMenuListener());
-        menuItem3
-                .addMouseListener(new RightClickMenuRemoveFriendListener());
+        menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
 
         rightClickMenu.add(menuItem1);
@@ -273,8 +272,8 @@ public class BuddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
 
             BlockManager blockedUser = new BlockManager(chatClient, model);
-            blockedUser.addWindowListener(new PopupWindowListener(
-                    buddyWindow, blockedUser));
+            blockedUser.addWindowListener(new PopupWindowListener(buddyWindow,
+                    blockedUser));
 
         }
     }
@@ -348,8 +347,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                boxes[0].getComponent(i).addMouseListener(
-                        new SelectListener());
+                boxes[0].getComponent(i).addMouseListener(new SelectListener());
             }
 
             friendList.updateUI();
@@ -473,14 +471,16 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     public JPanel FriendItem(UserData user) {
         JPanel friendItem = new JPanel();
+        String server = null;
         friendItem.setLayout(new BorderLayout());
         friendItem.setBackground(Color.WHITE);
 
         friendItem.setName(user.getNickname());
 
+        server = UserData.serverTypeToString(user);
+
         // end it
-        friendItem
-                .setToolTipText("Right click to see options for this item");
+        friendItem.setToolTipText("Right click to see options for this item");
 
         JLabel friendName;
 
@@ -492,25 +492,23 @@ public class BuddyPanel extends JPanel implements Observer {
             friendName.setForeground(Color.LIGHT_GRAY.darker());
         } else if (user.getState() == UserStateType.ONLINE) {
             friendName =
-                    new JLabel(user.getNickname()
-                            + " - " + user.getStatus() + " ("
-                            + user.getState() + ")");
+                    new JLabel(server + " * " + user.getNickname() + " - "
+                            + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.GREEN.darker());
         } else if (user.getState() == UserStateType.BUSY) {
             friendName =
-                    new JLabel(user.getNickname()
-                            + " - " + user.getStatus() + " (Busy)");
+                    new JLabel(server + " * " + user.getNickname() + " - "
+                            + user.getStatus() + " (Busy)");
             friendName.setForeground(Color.ORANGE.darker());
         } else if (user.getState() == UserStateType.AWAY) {
             friendName =
-                    new JLabel(user.getNickname()
-                            + " - " + user.getStatus() + " (Away)");
+                    new JLabel(server + " * " + user.getNickname() + " - "
+                            + user.getStatus() + " (Away)");
             friendName.setForeground(Color.ORANGE.darker());
         } else {
             friendName =
-                    new JLabel(user.getNickname()
-                            + " - " + user.getStatus() + " ("
-                            + user.getState() + ")");
+                    new JLabel(server + " * " + user.getNickname() + " - "
+                            + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.RED.darker());
         }
 
@@ -534,8 +532,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                boxes[0].getComponent(i).addMouseListener(
-                        new SelectListener());
+                boxes[0].getComponent(i).addMouseListener(new SelectListener());
             }
             friendList.updateUI();
         }
@@ -583,8 +580,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
                         if (event.getClickCount() == 2) {
                             selected = false;
-                            chatClient.startConversation(
-                                    selectedFriend, true);
+                            chatClient.startConversation(selectedFriend, true);
                         }
                     } else if (event.getSource().equals(
                             boxes[0].getComponent(i))) {

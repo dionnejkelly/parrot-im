@@ -253,6 +253,22 @@ public abstract class UserData {
         return (ownPriority > userPriority);
     }
 
+    public static String serverTypeToString(UserData user) {
+        String server = null;
+        
+        if (user instanceof GoogleTalkUserData) {
+            server = "Google Talk";
+        } else if (user instanceof JabberUserData) {
+            server = "Jabber";
+        } else if (user instanceof TwitterUserData) {
+            server = "Twitter";
+        } else {
+            server = "(Not implemented yet)";
+        }
+        
+        return server;
+    }
+    
     /**
      * Converts the user to a String, returning the nickname.
      * 
