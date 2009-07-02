@@ -189,10 +189,10 @@ public class ChatPanel extends JPanel {
         emoticonChooser.setResizable(false);
         emoticonChooser.setLayout(new FlowLayout());
         String[][] emoticonImages = {{"happy", ":)"}, {"sad", ":("}, {"neutral", ":|"}, 
-        		{"laugh", "XD"}, {"cool", "B)"}, {"sick", ":S"}, {"glasses", "8)"},
-        		{"dead", "XP"}, {"surprise", ":o"}, {"tongue", ":P"}, {"zipper", ":X"}, 
-        		{"wink", ";)"}, {"afraid", "=0"}, {"angel", "O:)"}, {"party","<:)"}, 
-        		{"heart", "<3"}, {"brokenheart", "</3"}};
+        		{"joy", ":D"}, {"laugh", "XD"}, {"cool", "B)"}, {"sick", ":S"}, 
+        		{"glasses", "8)"}, {"dead", "XP"}, {"surprise", ":o"}, {"tongue", ":P"}, 
+        		{"zipper", ":X"}, {"wink", ";)"}, {"afraid", "=0"}, {"angel", "O:)"}, 
+        		{"party","<:)"}, {"heart", "<3"}, {"brokenheart", "</3"}};
         for(final String[] str : emoticonImages){
         	JButton newButton = new JButton(new ImageIcon(this.getClass().getResource(
 					"/images/emoticons/" + str[0] + ".png")));
