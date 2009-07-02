@@ -310,6 +310,7 @@ public class BuddyList extends JFrame {
             new MainWindow(controller, model);
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();
+            MusicPlayer receiveMusic = new MusicPlayer("src/audio/exit/parrotExit.wav");
 
             return;
         }
