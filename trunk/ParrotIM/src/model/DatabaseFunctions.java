@@ -243,7 +243,7 @@ public class DatabaseFunctions {
      * @return A Vector of Strings holding 1 name per String.
      * @throws SQLException
      */
-    public Vector<String> getChatNameList(String profile) throws SQLException {
+    public Vector<String> getChatNameList(String profile, String searched) throws SQLException {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
         r2 = stat.executeQuery("select * from people where profile='"
@@ -252,7 +252,9 @@ public class DatabaseFunctions {
                 profilesAccountList.add(r2.getString("accountName"));
         }
         rs = stat.executeQuery("select * from chatLog where profile='"
-                + profile + "';");
+                + profile + "' AND (message LIKE '%" + searched + "%'" +
+                		" || fromUser LIKE '%" + searched + "%' ||" +
+                				" toUser LIKE '%" + searched + "%');");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
             	if (!profilesAccountList.contains(rs.getString("toUser"))) {
@@ -266,6 +268,7 @@ public class DatabaseFunctions {
         return accountList;
     }
 
+
     /**
      * 
      * getChatDatesFromName(String name) gives you a Vector<String> with the
@@ -276,13 +279,15 @@ public class DatabaseFunctions {
      * @return A Vector of dates represented as Strings.
      * @throws SQLException
      */
-    public Vector<String> getChatDatesFromName(String profile, String buddyname)
+    public Vector<String> getChatDatesFromName(String profile, String buddyname, String searched)
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
 
         rs = stat.executeQuery("select * from chatLog where profile = '"
                 + profile + "' AND (toUser='" + buddyname + "' OR fromUser='"
-                + buddyname + "') order by timestamp;");
+                + buddyname + "') AND (message LIKE '%" + searched + "%'" +
+                		" || fromUser LIKE '%" + searched + "%' ||" +
+                				" toUser LIKE '%" + searched + "%')order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -306,14 +311,18 @@ public class DatabaseFunctions {
      * @throws SQLException
      */
     public ArrayList<ChatLogMessageTempData> getMessageFromDate(
-            String username, String buddyname, String date) throws SQLException {
+            String username, String buddyname, String date, String searched) 
+            throws SQLException {
         ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
 
         rs = stat.executeQuery("select * from chatLog where (toUser='"
                 + buddyname + "' AND fromUser='" + username + "') || (toUser='"
                 + username + "' AND fromUser='" + buddyname + "') AND date='"
-                + date + "' order by timestamp;");
+                + date + "'AND (message LIKE '%" + searched + "%'" +
+                		" || fromUser LIKE '%" + searched + "%' ||" +
+                				" toUser LIKE '%" + searched + "%')" +
+                						" order by timestamp;");
 
         while (rs.next()) {
             message = new ChatLogMessageTempData(rs.getString("time"), rs

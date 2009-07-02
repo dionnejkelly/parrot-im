@@ -1179,12 +1179,12 @@ public class Model extends Observable {
         // user will be returned twice.
         Vector<String> buddies = new Vector<String>();
         DatabaseFunctions db = null;
-
+        System.out.println(currentProfile.getProfileName());
         db = new DatabaseFunctions();
 
         // Iterates over all accounts, and adds the messages from the
         // database of all accounts into messages
-        buddies.addAll(db.getChatNameList(profile));
+        buddies.addAll(db.getChatNameList(profile, ""));
 
         return buddies;
     }
@@ -1204,7 +1204,7 @@ public class Model extends Observable {
         DatabaseFunctions db = null;
         try {
             db = new DatabaseFunctions();
-            chats = db.getChatDatesFromName(profile, buddyname);
+            chats = db.getChatDatesFromName(profile, buddyname, "");
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -1238,7 +1238,7 @@ public class Model extends Observable {
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
                 messages.addAll(db.getMessageFromDate(account.getAccountName(),
-                        buddyname, date));
+                        buddyname, date, ""));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

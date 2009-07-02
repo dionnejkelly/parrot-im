@@ -118,11 +118,11 @@ public class ModelToDatabaseTest {
         message = new MessageData("test", "me", "and", "win", false, false, false, "#FFFFFF");
         conversation = new ConversationData(account, new GoogleTalkUserData(userID));
         db = new DatabaseFunctions();
-        assertTrue(db.getChatNameList(profileName).size() == 0);
+        assertTrue(db.getChatNameList(profileName, "").size() == 0);
         model.sendMessage(conversation, message);
         
         db = new DatabaseFunctions();
-        assertTrue(db.getChatNameList(profileName).size() > 0);
+        assertTrue(db.getChatNameList(profileName, "").size() > 0);
         
         return;
     }
