@@ -43,7 +43,7 @@ public class OptionFrame extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		controller = c;
-		OptionPanel mainPanel =  new OptionPanel(c, model);
+		OptionPanel mainPanel =  new OptionPanel(c, model, this);
 		personalMessage = mainPanel.personalMessage;
         getContentPane().add(mainPanel);
         setPreferredSize(new Dimension(500,300));

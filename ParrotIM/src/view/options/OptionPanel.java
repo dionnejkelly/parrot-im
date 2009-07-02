@@ -24,6 +24,7 @@ package view.options;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -35,7 +36,7 @@ import controller.MainController;
 public class OptionPanel extends JPanel{
 	protected JTextArea personalMessage;
 	
-	public OptionPanel(MainController c, Model model) throws ClassNotFoundException, SQLException{
+	public OptionPanel(MainController c, Model model, JFrame mainframe) throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
 		//tabbed options
@@ -44,7 +45,7 @@ public class OptionPanel extends JPanel{
 		personalMessage = personalProfile.personalMessage;
 		tabbedOptions.addTab("Personal Profile", personalProfile);
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c));
-		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c));
+		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, mainframe));
 		//setting layout
 		this.add(tabbedOptions);
 	}
