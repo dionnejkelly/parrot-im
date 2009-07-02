@@ -35,6 +35,7 @@ import controller.MainController;
 
 import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
+import view.options.MusicPlayer;
 import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
 
@@ -414,7 +415,9 @@ public class BuddyPanel extends JPanel implements Observer {
             if ((userFriendID != null && !userFriendID.equals(""))
                     && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
+                MusicPlayer receiveMusic = new MusicPlayer("src/audio/buddy/addFriend.wav");
                 JOptionPane.showMessageDialog(null, result);
+                
 
                 // buddies.add(new GoogleTalkUserData(userFriendID));
 
