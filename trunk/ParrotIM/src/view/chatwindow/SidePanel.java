@@ -151,11 +151,9 @@ public class SidePanel extends JPanel implements Observer {
             // Temporary code to try and fix null bug
             if (selPath != null) {
                 c.changeConversation(selPath.getLastPathComponent().toString());
-                System.out.println("TESTING: Probably changing conversation");
-            } else {
-                System.out.println("TESTING: selPath is null");
             }
-
+            
+            return;
         }
 
         /**
