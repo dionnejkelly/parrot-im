@@ -70,7 +70,10 @@ public class ProfileData {
     /**
      * Determines whether chatbot is on or not. Defaults to off.
      */
+    // Phase out!
     private boolean chatbotEnabled;
+    
+    private ProfileOptionsData profileOptions;
 
     // Section:
     // III - Constructors
@@ -83,6 +86,7 @@ public class ProfileData {
         this.accountData = new ArrayList<AccountData>();
         this.profileName = EMPTY_NAME;
         this.chatbotEnabled = false;
+        this.profileOptions = new ProfileOptionsData();
     }
 
     /**
@@ -93,6 +97,7 @@ public class ProfileData {
         this.accountData = new ArrayList<AccountData>();
         this.profileName = profileName;
         this.chatbotEnabled = false;
+        this.profileOptions = new ProfileOptionsData();
     }
 
     /**
@@ -107,6 +112,7 @@ public class ProfileData {
         this.accountData = accountData;
         this.profileName = profileName;
         this.chatbotEnabled = false;
+        this.profileOptions = new ProfileOptionsData();
     }
 
     /**
@@ -120,6 +126,7 @@ public class ProfileData {
         this.accountData.add(account);
         this.profileName = profileName;
         this.chatbotEnabled = false;
+        this.profileOptions = new ProfileOptionsData();
     }
 
     // Section:
