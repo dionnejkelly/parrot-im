@@ -26,6 +26,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -75,9 +77,9 @@ public class FeaturesPanel extends JPanel{
 		
 		//chatbot buttons
 		chatbotAddButton = new JButton("Add");
-		chatbotAddButton.addActionListener(new chatbotAddButtonActionListener());
+		chatbotAddButton.addActionListener(new chatbotManageButtonActionListener('A'));
 		chatbotEditButton = new JButton ("Edit");
-		chatbotEditButton.addActionListener(new chatbotEditButtonActionListener());
+		chatbotEditButton.addActionListener(new chatbotManageButtonActionListener('E'));
 		chatbotRemoveButton = new JButton ("Remove");
 		chatbotRemoveButton.addActionListener(new chatbotRemoveButtonActionListener());
 		setEnabledChatbotButtons(false);
@@ -118,7 +120,7 @@ public class FeaturesPanel extends JPanel{
 	private class chatbotListener implements ChangeListener{
 
 		public void stateChanged(ChangeEvent e) {
-//			controller.toggleChatbot();
+			controller.toggleChatbot();
 			if (chatbotCheck.isSelected())
 				chatbotOptions.setVisible(true);
 			else
@@ -136,18 +138,46 @@ public class FeaturesPanel extends JPanel{
 		}
 		
 	}
-	private class chatbotAddButtonActionListener implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			ChatbotQA chatbotOptions = new ChatbotQA(new ChatbotQADataType(), true);
-			chatbotOptions.addWindowListener(new PopupWindowListener(mainframe ,chatbotOptions));
+	private class chatbotManageButtonActionListener implements ActionListener{
+		ChatbotQA addChatbotOptions;
+		char mode; 
+		
+		public chatbotManageButtonActionListener(char mode){
+			this.mode = mode;
 		}
-	}
-	private class chatbotEditButtonActionListener implements ActionListener{
-
 		public void actionPerformed(ActionEvent e) {
-			ChatbotQA chatbotOptions = new ChatbotQA(modelStub.getQAObject(chatbotList.getSelectedIndex()), false);
-			chatbotOptions.addWindowListener(new PopupWindowListener(mainframe ,chatbotOptions));
+			if (mode == 'A'){ //add
+				addChatbotOptions = new ChatbotQA(new ChatbotQADataType(), true);
+			} else if (mode == 'E')	{ //edit
+				addChatbotOptions = new ChatbotQA(modelStub.getQAObject(chatbotList.getSelectedIndex()), false);
+			}
+			addChatbotOptions.addWindowListener(new PopupWindowListener(mainframe ,addChatbotOptions));
+			addChatbotOptions.addWindowListener(new chatbotPopupWindowListener());
+		}
+		
+		private class chatbotPopupWindowListener implements WindowListener{
+
+			public void windowActivated(WindowEvent e) {}
+			public void windowClosed(WindowEvent e) {}
+			
+			public void windowClosing(WindowEvent e) {
+				if (mode == 'A'){
+					ChatbotQADataType QAObject = addChatbotOptions.getQAObject();
+				
+					if (!QAObject.isEmpty()){
+						modelStub.addQA(QAObject);
+					}
+				}
+
+				chatbotList.setListData(modelStub.getQAList());
+				chatbotList.updateUI();
+			}
+			
+			public void windowDeactivated(WindowEvent e) {}
+			public void windowDeiconified(WindowEvent e) {}
+			public void windowIconified(WindowEvent e) {}
+			public void windowOpened(WindowEvent e) {}
+			
 		}
 	}
 	private class chatbotRemoveButtonActionListener implements ActionListener{
