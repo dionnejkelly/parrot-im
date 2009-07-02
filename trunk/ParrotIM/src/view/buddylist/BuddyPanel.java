@@ -402,7 +402,7 @@ public class BuddyPanel extends JPanel implements Observer {
          */
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
-            String userFriendID, userInput;
+            String userFriendID;
             String result =
                     "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
 
@@ -429,7 +429,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
             }
 
-            else if (userFriendID.equals("")) {
+            else if (userFriendID == null || userFriendID.equals("")) {
                 String redundancy =
                         "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
                 JOptionPane.showMessageDialog(null, redundancy);
