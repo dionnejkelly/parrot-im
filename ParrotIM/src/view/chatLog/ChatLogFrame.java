@@ -27,6 +27,7 @@ package view.chatLog;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import view.styles.PopupEnableMainWindowListener;
@@ -61,6 +62,7 @@ public class ChatLogFrame extends JFrame {
         this.pack();
         this.setVisible(true); // might want to change this
         this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.CHATLOG));
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
     
 }

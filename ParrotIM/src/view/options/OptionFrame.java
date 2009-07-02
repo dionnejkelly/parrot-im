@@ -26,6 +26,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
@@ -52,6 +53,7 @@ public class OptionFrame extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 	}
 	
 	private class OptionWindowListener implements WindowListener{

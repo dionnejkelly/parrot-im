@@ -212,6 +212,7 @@ public class ChatPanel extends JPanel {
         }
         emoticonChooser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         emoticonChooser.pack();
+        emoticonChooser.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
         
         //Image button
         JButton pic =
@@ -381,6 +382,7 @@ public class ChatPanel extends JPanel {
             // Display the window.
             frame.pack();
             frame.setVisible(true);
+            frame.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
         }
     }
 
