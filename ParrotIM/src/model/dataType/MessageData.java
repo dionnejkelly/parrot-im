@@ -82,9 +82,19 @@ public class MessageData {
 	 * name of the image located within the "/images/emoticons/" folder
 	 */
     private String[][] emoticons = {{"((=|:)[ ]*-?[ ]*([)]|]))|([(][ ]*-?[ ]*(:|=))", "happy.png"},
-									{"((:|=)[ ]*-?([(]|c))|(([)]|])[ ]*-?[ ]*(:|=))", "sad.png"},
+									{"((:|=)[ ]*-?([(]|c|C))|(([)]|])[ ]*-?[ ]*(:|=))", "sad.png"},
 									{"((:|=)-?[|])|([|]-?(:|=))", "neutral.png"},
-									{"((:|=)[ ]*-?[ ]*(X|#))|((X|#)[ ]*-?[ ]*(:|=))", "zipper.png"}};
+									{"((:|=)[ ]*-?[ ]*(X|x|#))|((X|x|#)[ ]*-?[ ]*(:|=))", "zipper.png"},
+									{"((X|x)[ ]*-?[ ]*D)", "laugh.png"},
+									{"(B[ ]*-?[ ]*[)])", "cool.png"},
+									{"((:|=)[ ]*-?[ ]*(S|s))|((S|s)[ ]*-?[ ]*(:|=))", "sick.png"},
+									{"(8[ ]*-?[ ]*[)])", "glasses.png"},
+									{"((X|x)[ ]*-?[ ]*(P|p|b))|(q[ ]*-?[ ]*(X|x))", "dead.png"},
+									{"(;[ ]*-?[ ]*[)])|([(][ ]*-?[ ]*;)", "wink.png"},
+									{"(:[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*:)", "surprise.png"},
+									{"(=[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*=)", "afraid.png"},
+									{"((:|=)[ ]*-?[ ]*(P|p|b))|(q[ ]*-?[ ]*(:|=))", "tongue.png"},
+									{"<3", "heart.png"}, {"</3", "brokenheart.png"}};
     
     // Section
     // II - Constructors
