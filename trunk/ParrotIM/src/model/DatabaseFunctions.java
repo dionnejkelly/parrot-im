@@ -113,6 +113,7 @@ public class DatabaseFunctions {
      * Will be set to iterate over retrieved data from the database.
      */
     public ResultSet rs;
+    public ResultSet r2;
 
     // Section
     // III - Constructors
@@ -244,11 +245,19 @@ public class DatabaseFunctions {
      */
     public Vector<String> getChatNameList(String profile) throws SQLException {
         Vector<String> accountList = new Vector<String>();
+        Vector<String> profilesAccountList = new Vector<String>();
+        r2 = stat.executeQuery("select * from people where profile='"
+                + profile + "';");
+        while (r2.next()) {
+                profilesAccountList.add(r2.getString("accountName"));
+        }
         rs = stat.executeQuery("select * from chatLog where profile='"
                 + profile + "';");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
-                accountList.add(rs.getString("toUser"));
+            	if (!profilesAccountList.contains(rs.getString("toUser"))) {
+            		accountList.add(rs.getString("toUser"));
+            	}
             }
         }
         rs.close();
