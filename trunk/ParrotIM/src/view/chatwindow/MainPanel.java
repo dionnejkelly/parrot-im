@@ -83,6 +83,7 @@ public class MainPanel extends JPanel implements Observer {
 
         // Horizontal SplitPane Properties
         JSplitPane sPane = new JSplitPane();
+        
         chat = new ChatPanel(c, model, chatFrame);
         side = new SidePanel(c, model);
         side.setMinimumSize(new Dimension(500, 300));

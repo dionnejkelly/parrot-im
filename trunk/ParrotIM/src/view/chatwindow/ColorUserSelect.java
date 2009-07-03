@@ -77,7 +77,6 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
      * 
      */
     
-    
     public ColorUserSelect(JFrame frame, JButton colorButton) {
     	
     	super(new BorderLayout());
