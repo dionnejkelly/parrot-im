@@ -63,6 +63,7 @@ public class PmLabel extends JTextField {
     public PmLabel(MainController c) {
         core = c;
         changePM(false);
+        this.setForeground(Color.CYAN);
         this.setToolTipText("Click to edit your personal message");
         this.addMouseListener(new labelMouseListener(this));
         this.addKeyListener(new labelKeyListener(this));
@@ -139,7 +140,7 @@ public class PmLabel extends JTextField {
          * takes a MouseEvent argument
          */
         public void mouseEntered(MouseEvent e) {
-        	label.setForeground(Color.GRAY);
+        	label.setForeground(Color.BLUE);
         }
 
         /**
@@ -148,7 +149,7 @@ public class PmLabel extends JTextField {
          */
         public void mouseExited(MouseEvent e) {
             if (!label.isEditable()) {
-            	label.setForeground(Color.BLACK);
+            	label.setForeground(Color.CYAN);
             }
         }
 
@@ -181,6 +182,7 @@ public class PmLabel extends JTextField {
                 // test printing
                 // System.out.println("Pressed Enter!");
                 label.changePM(false);
+                label.setForeground(Color.CYAN);
             }
         }
 

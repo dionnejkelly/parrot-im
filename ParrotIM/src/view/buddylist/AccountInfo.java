@@ -142,7 +142,7 @@ public class AccountInfo extends JPanel
 		
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
-		statusMessage.setForeground(Color.black);
+		statusMessage.setForeground(Color.CYAN);
 		textInfo.add(name);
 		textInfo.add(statusMessage);
 		// new Listener
@@ -156,7 +156,6 @@ public class AccountInfo extends JPanel
 		
 		info.add(textInfo, BorderLayout.NORTH);
 		info.add(presence, BorderLayout.WEST);
-		
 		
 		add(avatarDisplay, BorderLayout.WEST);
 		add(info, BorderLayout.CENTER);
