@@ -39,7 +39,13 @@ public class DisplayPanel extends JPanel implements Observer {
 
     /** Sets buddies status. */
     private JLabel title;
+    
 
+    
+    private JToolBar bar2;
+    
+    private JLabel isTyping;
+    
     // private String previousText;
 
     /**
@@ -105,15 +111,38 @@ public class DisplayPanel extends JPanel implements Observer {
         // bar1.add(simpleView);
 
         // Lower toolBar
-        JToolBar bar2 = new JToolBar();
+        //JToolBar bar2 = new JToolBar();
+        bar2 = new JToolBar();
         bar2.setFloatable(false);
-        JLabel isTyping = new JLabel("Ready...");
+//        JLabel isTyping = new JLabel("Ready...");
+//        bar2.add(isTyping);
+//        JLabel isTyping = new JLabel("140");
+        isTyping = new JLabel("140");
+        isTyping.setForeground(Color.GRAY.darker());
         bar2.add(isTyping);
 
         // add to panel
         add(bar1, BorderLayout.NORTH);
         add(bar2, BorderLayout.SOUTH);
         add(chatWindowScroller, BorderLayout.CENTER);
+    }
+    
+    public void updateChar(int count) {
+    	isTyping.setText("" + count);
+    	
+    	if (20 <= count && count <= 140) {
+    		isTyping.setForeground(Color.GRAY.darker());
+    	}
+    	
+    	else if (10 <= count && count <= 19) {
+    		isTyping.setForeground(Color.ORANGE.darker());
+    	}
+    	
+    	else {
+    		isTyping.setForeground(Color.RED.darker());
+    	}
+    	
+    	
     }
 
     /**

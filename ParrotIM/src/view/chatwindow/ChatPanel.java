@@ -410,8 +410,10 @@ public class ChatPanel extends JPanel {
         private boolean controlPressed = false;
         
         private boolean twitterEnabled;
-        private int keyCount = 0;
+        private final int keyCapacity = 140;
         private int keyEvent;
+        
+        private int keyCount;
         
 
         /**
@@ -433,29 +435,9 @@ public class ChatPanel extends JPanel {
             	controlPressed = true;
             }
             
-            else if (isMaxed()) {
-            	txt1.setEditable(false);
-            	sendButton.setEnabled(false);
-
-            }
-            
-            else if (e.getKeyCode() == e.VK_BACK_SPACE) {
-            	txt1.setEditable(true);
-            	sendButton.setEnabled(true);
-    	
-            }
-            
-            else if (txt1.getText().length() == 1) {
-            	keyCount = 1;
-            }
-            
-            else if (txt1.getText().equals("")) {
-            	keyCount = 0;
-            	System.out.println("Emptied out!!!!!!!");
-            }
-            
-             
+          
             keyEvent = e.getKeyCode();
+           
             
            
         }
@@ -475,7 +457,7 @@ public class ChatPanel extends JPanel {
                 txt1.setText(txt1.getText().substring(
                         0, txt1.getText().length() - 1));
                 sendMessage();
-                keyCount = 0;
+                //keyCount = 140;
                 sendButton.setEnabled(true);
             }
 
@@ -491,6 +473,24 @@ public class ChatPanel extends JPanel {
                 shiftPressed = false;
                 controlPressed = false;
             }
+            
+            keyCount = txt1.getText().length();
+            
+            System.out.println("Key count = " + keyCount);
+            
+        	if (isMaxed()) {
+        		System.out.println("Maxed out");
+        		sendButton.setEnabled(false);
+        		
+        	}
+        	
+        	else {
+        		System.out.println("Haven't reached the capacity");
+        		sendButton.setEnabled(true);
+        		
+        	}
+        	
+        	displayPanel.updateChar(keyCapacity - keyCount);
         }
 
         /**
@@ -501,25 +501,7 @@ public class ChatPanel extends JPanel {
 
         public void keyTyped(KeyEvent e) {
         	
-        	if (!controlPressed && (keyEvent == e.VK_BACK_SPACE) && (keyCount != 0)) {
-        		keyCount--;
-        		System.out.println("Key count = " + keyCount);
-        	}
-        	
-        	else if (!controlPressed && keyCount == 0 && (keyEvent == e.VK_BACK_SLASH)) {
-        		keyCount = 0;
-        		System.out.println("Key count = " + keyCount);
-        	}
-        	
-        	else if (!controlPressed && !isMaxed()) {
-        		System.out.println("I shouldn't be getting called");
-        		keyCount++;
-        		System.out.println("Key count = " + keyCount);
-        	}
-        	
-        	System.out.println("Key character = " + keyEvent);
-        	
-        	
+	
         }
         
         /**
@@ -528,8 +510,13 @@ public class ChatPanel extends JPanel {
          * @param e
          */
         
-        public boolean isMaxed() {
-        	return keyCount >= 140;
+        private boolean isMaxed() {
+        	//return keyCount >= 140;
+        	return txt1.getText().length() > 140;
+        }
+        
+        private boolean isEmpty() {
+        	return txt1.getText().length() == 0;
         }
     }
 }
