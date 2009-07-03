@@ -21,6 +21,10 @@
  *         testing by Rakan.
  *     2009-June-28, KF
  *         Implemented a unique ID as a means to identify each UserData.
+ *     2009-July-2, KF
+ *         Removed the unique ID; the updated equals method is more effective.
+ *         Moved the sort algorithms to this class--they are now static 
+ *         methods.
  *         
  * Known Issues:
  *     1. The data members may not apply to every protocol.
@@ -39,19 +43,20 @@ import model.enumerations.UserStateType;
 
 /**
  * Holds all data pertaining to users, including the account name, nickname, and
- * status message.
+ * status message. This is an abstract class that must be inherited by other
+ * classes that implement users for different protocols. This class should only
+ * hold the common data members for all protocols. Also, this class holds static
+ * methods to aid the sorting of friends.
  */
 public abstract class UserData {
 
-    // Section
-    // I - Data Members
-
-    private static int userDataCount = 1;
+    // Section I
+    // Data Members
 
     /**
      * The userID of the external user.
      */
-    protected String accountName;
+    protected String userID;
 
     /**
      * The nickname of the external user.
@@ -73,54 +78,57 @@ public abstract class UserData {
      */
     protected UserStateType state;
 
-    /**
-     * The unique identification number of the UserData.
-     */
-    protected int uniqueID;
-
-    // Section
-    // II - Constructors
+    // Section II
+    // Constructors
 
     /**
      * Creates a new user with their userID, nickname, and status.
      * 
-     * @param accountName
+     * @param userID
+     *            A string representing the username. This is the name used to
+     *            communicate to the server.
      * @param nickname
+     *            A name that will be displayed in place of the userID, usually
+     *            a more readable version of the userID.
      * @param status
+     *            The current status for the user.
      */
-    public UserData(String accountName, String nickname, String status) {
-        this.accountName = accountName;
+    public UserData(String userID, String nickname, String status) {
+        this.userID = userID;
         this.nickname = nickname;
         this.status = status;
         this.blocked = false;
         this.state = UserStateType.OFFLINE;
-        this.uniqueID = userDataCount++;
     }
 
     /**
      * Creates a new user with only a userID defined.
      * 
-     * @param accountName
+     * @param userID
+     *            A string representing the username. This is the name used to
+     *            communicate to the server.
      */
-    public UserData(String accountName) {
-        this.accountName = accountName;
-        this.nickname = this.accountName;
+    public UserData(String userID) {
+        this.userID = userID;
+        this.nickname = this.userID;
         this.status = "";
         this.blocked = false;
         this.state = UserStateType.OFFLINE;
-        this.uniqueID = userDataCount++;
     }
 
-    // Section
-    // III - Accessors and Mutators
+    // Section III
+    // Accessors and Mutators
 
     /**
      * Sets the userID.
      * 
-     * @param accountName
+     * @param userID
+     *            A string representing the username. This is the name used to
+     *            communicate to the server.
      */
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public void setUserID(String userID) {
+        this.userID = userID;
+
         return;
     }
 
@@ -129,17 +137,20 @@ public abstract class UserData {
      * 
      * @return The userID of the user.
      */
-    public String getAccountName() {
-        return accountName;
+    public String getUserID() {
+        return userID;
     }
 
     /**
      * Changes the nickname.
      * 
      * @param nickname
+     *            A name that will be displayed in place of the userID, usually
+     *            a more readable version of the userID.
      */
     public void setNickname(String nickname) {
         this.nickname = nickname;
+
         return;
     }
 
@@ -156,9 +167,11 @@ public abstract class UserData {
      * Changes the user's status.
      * 
      * @param status
+     *            The current status for the user.
      */
     public void setStatus(String status) {
         this.status = status;
+
         return;
     }
 
@@ -175,9 +188,12 @@ public abstract class UserData {
      * Changes the blocked property of the user.
      * 
      * @param blocked
+     *            If true, this external user is unaware of the local account's
+     *            online status or messages
      */
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
+
         return;
     }
 
@@ -194,6 +210,11 @@ public abstract class UserData {
      * Sets the state of the user.
      * 
      * @param state
+     *            This is similar to the status, but shows a state, such as
+     *            online, away, or busy, that a user is in. A user can be both
+     *            busy (state) and have a "Working on STAT" message (status)
+     *            displayed. Requires a UserStateType enum to be passed in; that
+     *            is, the types of states are limited.
      */
     public void setState(UserStateType state) {
         this.state = state;
@@ -202,22 +223,69 @@ public abstract class UserData {
     /**
      * Gets the user's state.
      * 
-     * @return The state of the user as a String.
+     * @return The state of the user as a UserStateType enum.
      */
     public UserStateType getState() {
         return this.state;
     }
 
-    public int getUniqueID() {
-        return uniqueID;
+    // Section IV
+    // Utility Methods
+
+    /**
+     * Returns the type of the UserData object in String format (e.g. Google
+     * Talk, Twitter).
+     * 
+     * @return The string of the server type for this object.
+     */
+    public abstract String serverTypeToString();
+
+    /**
+     * Converts the user to a String, returning the nickname.
+     * 
+     * @return The string representation for a user. We have chosen the nickname
+     *         to be returned by default.
+     */
+    @Override
+    public String toString() {
+        return nickname;
     }
 
-    public void setUniqueID(int uniqueID) {
-        this.uniqueID = uniqueID;
+    /**
+     * Checks two UserData objects and determines if they are equal based on
+     * only their userID.
+     * 
+     * @param user
+     *            The other user to compare to.
+     * @return true if they have the same userID, false otherwise.
+     */
+    @Override
+    public boolean equals(Object user) {
+        boolean areEqual = false;
+        UserData externalUser = null;
+
+        if (user != null && user instanceof UserData) {
+            externalUser = (UserData) user;
+            areEqual = this.userID.equalsIgnoreCase(externalUser.getUserID());
+        }
+
+        return areEqual;
     }
 
-    // Section
-    // IV - Information Methods
+    @Override
+    public int hashCode() {
+        int hash = 7;
+
+        hash = hash
+                * 31
+                + (this.userID == null ? 0 : this.userID.toLowerCase()
+                        .hashCode());
+
+        return hash;
+    }
+
+    // Section V
+    // Sort Methods
 
     /**
      * Determines a hierarchy of states, that is, returns true if this user has
@@ -226,6 +294,7 @@ public abstract class UserData {
      * buddy list to show the more online people at the top.
      * 
      * @param user
+     *            The other user we are comparing.
      * @return true if this user is more online than the passed-in user
      */
     public boolean isMoreOnline(UserData user) {
@@ -255,24 +324,14 @@ public abstract class UserData {
         return (ownPriority > userPriority);
     }
 
-    public static String serverTypeToString(UserData user) {
-        String server = null;
-
-        if (user instanceof GoogleTalkUserData) {
-            server = "Google Talk";
-        } else if (user instanceof JabberUserData) {
-            server = "Jabber";
-        } else if (user instanceof TwitterUserData) {
-            server = "Twitter";
-        } else {
-            server = "(Not implemented yet)";
-        }
-
-        return server;
-    }
-
-    // Sorting methods
-
+    /**
+     * Takes in a friend list and returns back only the friends that are
+     * unblocked.
+     * 
+     * @param unsorted
+     *            The friend list to pass in.
+     * @return A friend list without any blocked users.
+     */
     public static ArrayList<UserData> cullBlocked(ArrayList<UserData> unsorted) {
         ArrayList<UserData> friends = new ArrayList<UserData>();
 
@@ -291,6 +350,14 @@ public abstract class UserData {
         return friends;
     }
 
+    /**
+     * Takes in a friend list and returns back a friend list sorted
+     * alphabetically by nickname.
+     * 
+     * @param unsorted
+     *            The friend list to pass in.
+     * @return A friend list sorted alphabetically by nickname.
+     */
     public static ArrayList<UserData> sortAlphabetical(
             ArrayList<UserData> unsorted) {
         UserData candidate = null;
@@ -321,6 +388,17 @@ public abstract class UserData {
         return friends;
     }
 
+    /**
+     * Takes in an unsorted list of friends and returns a list with more
+     * "online" friends at the top. This means that online friends will be
+     * placed first, followed by busy or away friends, followed by offline
+     * friends, etc.
+     * 
+     * @param unsorted
+     *            Any list of friends in an ArrayList of UserData.
+     * @return A list of friends sorted by "more online" in ArrayList of
+     *         UserData format.
+     */
     public static ArrayList<UserData> sortMostOnline(
             ArrayList<UserData> unsorted) {
         ArrayList<UserData> friends = new ArrayList<UserData>();
@@ -351,46 +429,38 @@ public abstract class UserData {
         return friends;
     }
 
-    /**
-     * Converts the user to a String, returning the nickname.
-     * 
-     * @return The string representation for a user.
-     */
-    @Override
-    public String toString() {
-        return nickname;
-    }
+    public static ArrayList<UserData> sortByStringMatch(
+            ArrayList<UserData> unsorted, String match) {
 
-    /**
-     * Checks if the accounts are the same. Determines so by whether their
-     * userID is the same.
-     * 
-     * @param account
-     * @return true if they have the same userID, false otherwise.
-     */
-    @Override
-    public boolean equals(Object user) {
-        boolean areEqual = false;
-        UserData externalUser = null;
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+        UserData candidate = null;
 
-        if (user != null && user instanceof UserData) {
-            externalUser = (UserData) user;
-            areEqual = this.accountName.equalsIgnoreCase(externalUser
-                    .getAccountName());
+        try {
+            while (!unsorted.isEmpty()) {
+                for (UserData user : unsorted) {
+                    if (candidate == null) {
+                        candidate = user;
+                    } else if (user.getNickname().matches(".*" + match + ".*")) {
+                        candidate = user;
+                    } else if (user.getUserID().matches(".*" + match + ".*")) {
+                        candidate = user;
+                    } else if (user.getStatus().matches(".*" + match + ".*")) {
+                        candidate = user;
+                    } else {
+                        // do nothing, next iteration please
+                    }
+                }
+                unsorted.remove(candidate);
+                friends.add(candidate);
+                candidate = null;
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Null unsorted getting passed in.");
+            e.printStackTrace();
+            friends.clear();
         }
 
-        return areEqual;
+        return friends;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-
-        hash = hash
-                * 31
-                + (this.accountName == null ? 0 : this.accountName
-                        .toLowerCase().hashCode());
-
-        return hash;
-    }
+    
 }

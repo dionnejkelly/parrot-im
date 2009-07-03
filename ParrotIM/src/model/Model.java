@@ -367,7 +367,7 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             db.addChat(currentProfile.getProfileName(), message.getFromUser(),
-                    modifiedConversation.getUser().getAccountName(), message
+                    modifiedConversation.getUser().getUserID(), message
                             .getMessage());
         } catch (Exception e) {
             System.err.println("Database error, adding chat.");
@@ -648,7 +648,7 @@ public class Model extends Observable {
         ArrayList<UserData> friends = this.currentProfile.getAllFriends();
         for (UserData user : friends) {
             // Temp fix for switching conversations
-            if (user.getAccountName().equals(accountName)
+            if (user.getUserID().equals(accountName)
                     || user.getNickname().equals(accountName)) {
                 found = user;
                 break;
@@ -746,8 +746,8 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             if (!db.checkFriendExists(account.getAccountName(), userToAdd
-                    .getAccountName())) {
-                friend = new FriendTempData(userToAdd.getAccountName(), false);
+                    .getUserID())) {
+                friend = new FriendTempData(userToAdd.getUserID(), false);
                 db = new DatabaseFunctions();
                 db.addFriend(account.getAccountName(), friend);
             }
@@ -787,7 +787,7 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             account = this.findAccountByFriend(exFriend);
-            friendName = exFriend.getAccountName();
+            friendName = exFriend.getUserID();
             if (friendName != null
                     && account != null
                     && db.checkFriendExists(account.getAccountName(),
@@ -831,7 +831,7 @@ public class Model extends Observable {
         /* Find the AccountData by searching through all accounts */
         for (AccountData account : currentProfile.getAccountData()) {
             for (UserData user : account.getFriends()) {
-                if (user.getUniqueID() == userToBeFound.getUniqueID()) {
+                if (user.equals(userToBeFound)) {
                     foundAccount = account;
                     break;
                 }
@@ -907,7 +907,7 @@ public class Model extends Observable {
 
         try {
             db = new DatabaseFunctions();
-            db.changeBlocked(friend.getAccountName(), true);
+            db.changeBlocked(friend.getUserID(), true);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -934,7 +934,7 @@ public class Model extends Observable {
 
         try {
             db = new DatabaseFunctions();
-            db.changeBlocked(friend.getAccountName(), false);
+            db.changeBlocked(friend.getUserID(), false);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

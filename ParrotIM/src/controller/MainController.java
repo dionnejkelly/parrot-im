@@ -291,7 +291,7 @@ public class MainController {
         connection = model.findAccountByFriend(friendToRemove).getConnection();
 
         try {
-            removed = connection.removeFriend(friendToRemove.getAccountName());
+            removed = connection.removeFriend(friendToRemove.getUserID());
         } catch (BadConnectionException e) {
             // TODO Make the GUI know the friend doesn't exist?
             e.printStackTrace();
@@ -316,7 +316,7 @@ public class MainController {
         connection = model.findAccountByFriend(friendToBlock).getConnection();
 
         try {
-            removed = connection.removeFriend(friendToBlock.getAccountName());
+            removed = connection.removeFriend(friendToBlock.getUserID());
         } catch (BadConnectionException e) {
             // TODO Make the GUI know the friend doesn't exist?
             e.printStackTrace();
@@ -342,7 +342,7 @@ public class MainController {
         try {
             account = model.findAccountByFriend(friendToUnblock);
             connection = account.getConnection();
-            connection.addFriend(friendToUnblock.getAccountName());
+            connection.addFriend(friendToUnblock.getUserID());
 
             model.unblockFriend(friendToUnblock);
         } catch (BadConnectionException e) {
@@ -484,7 +484,7 @@ public class MainController {
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getAccountName();
-        to = conversation.getUser().getAccountName();
+        to = conversation.getUser().getUserID();
 
         messageObject =
                 new MessageData(fromUser, messageString, font, size, bold,
@@ -518,7 +518,7 @@ public class MainController {
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getAccountName();
-        to = conversation.getUser().getAccountName();
+        to = conversation.getUser().getUserID();
 
         messageObject =
                 new MessageData(fromUser, messageString, font, size, bold,
@@ -554,7 +554,7 @@ public class MainController {
     public void updateStateAndStatus(UserData userToUpdate,
             GenericConnection connection) {
         String status = null;
-        String userID = userToUpdate.getAccountName();
+        String userID = userToUpdate.getUserID();
 
         try {
             status = connection.retrieveStatus(userID);

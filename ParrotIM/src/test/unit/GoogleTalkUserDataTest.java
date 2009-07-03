@@ -43,7 +43,7 @@ public class GoogleTalkUserDataTest {
 
     public void testGoogleTalkUserDataStringStringString() {
         u2 = new GoogleTalkUserData("Win", "vista", "away");
-        assertSame("Win", u2.getAccountName());
+        assertSame("Win", u2.getUserID());
         assertSame("vista", u2.getNickname());
         assertSame("away", u2.getStatus());
         assertFalse(u2.isBlocked());
@@ -52,8 +52,8 @@ public class GoogleTalkUserDataTest {
 
     public void testGoogleTalkUserDataString() {
         u3 = new GoogleTalkUserData("Fahad");
-        assertSame("Fahad", u3.getAccountName());
-        assertSame(u3.getAccountName(), u3.getNickname());
+        assertSame("Fahad", u3.getUserID());
+        assertSame(u3.getUserID(), u3.getNickname());
         assertSame("", u3.getStatus());
         assertFalse(u3.isBlocked());
         assertSame("Offline", u3.getState());

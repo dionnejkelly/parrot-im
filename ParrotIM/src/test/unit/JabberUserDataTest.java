@@ -42,7 +42,7 @@ public class JabberUserDataTest {
     public void testJabberUserDataString() {
         String expected = "Rakan";
         jabber1 = new JabberUserData(expected);
-        assertSame(expected, jabber1.getAccountName());
+        assertSame(expected, jabber1.getUserID());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class JabberUserDataTest {
         String expected2 = "ray";
         String expected3 = "away";
         jabber2 = new JabberUserData(expected1, expected2, expected3);
-        assertSame(expected1, jabber2.getAccountName());
+        assertSame(expected1, jabber2.getUserID());
         assertSame(expected2, jabber2.getNickname());
         assertSame(expected3, jabber2.getStatus());
 

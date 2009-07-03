@@ -50,7 +50,7 @@ public class UserDataTest {
     @Test
     public void testUserDataStringStringString() {
         ud3 = new GoogleTalkUserData("cmpt275", "SE", "It is tough");
-        assertSame("cmpt275", ud3.getAccountName());
+        assertSame("cmpt275", ud3.getUserID());
         assertSame("SE", ud3.getNickname());
         assertSame("It is tough", ud3.getStatus());
 
@@ -59,20 +59,20 @@ public class UserDataTest {
     @Test
     public void testUserDataString() {
         ud4 = new JabberUserData("Rayan");
-        assertSame("Rayan", ud4.getAccountName());
+        assertSame("Rayan", ud4.getUserID());
     }
 
     @Test
     public void testSetAccountName() {
         String expected = "Jamal";
-        ud1.setAccountName(expected);
-        assertSame(expected, ud1.getAccountName());
+        ud1.setUserID(expected);
+        assertSame(expected, ud1.getUserID());
     }
 
     @Test
     public void testGetAccountName() {
         String expected = "Vin";
-        assertSame(expected, ud2.getAccountName());
+        assertSame(expected, ud2.getUserID());
     }
 
     @Test

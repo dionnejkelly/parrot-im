@@ -9,6 +9,8 @@ package view.buddylist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -118,6 +120,10 @@ public class BuddyPanel extends JPanel implements Observer {
      * list of buddies
      */
     private ArrayList<UserData> buddies;
+    
+    private JTextField search;
+    
+    private boolean searchEnabled;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -137,6 +143,7 @@ public class BuddyPanel extends JPanel implements Observer {
         this.chatClient = c;
         this.model = model;
         this.chat = null;
+        this.searchEnabled = false;
 
         // Test code, make it hide at the start
         // this.chat = new ChatWindow(chatClient, model);
@@ -202,7 +209,7 @@ public class BuddyPanel extends JPanel implements Observer {
         JToolBar options = new JToolBar();
         options.setFloatable(false);
 
-        JTextField search = new JTextField();
+        this.search = new JTextField();
         JButton addF =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/add_user.png")));
@@ -233,6 +240,7 @@ public class BuddyPanel extends JPanel implements Observer {
         addF.addMouseListener(new addFriendListener());
         removeF.addMouseListener(new removeFriendListener());
         blockF.addMouseListener(new blockFriendListener());
+        search.addKeyListener(new SearchKeyListener());
         searchButton.addMouseListener(new searchListener());
 
         return options;
@@ -456,7 +464,7 @@ public class BuddyPanel extends JPanel implements Observer {
          */
         public boolean userExist(String userID) {
             for (int i = 0; i < buddies.size(); i++) {
-                if (buddies.get(i).getAccountName().equals(userID)) {
+                if (buddies.get(i).getUserID().equals(userID)) {
                     return true;
                 }
             }
@@ -479,7 +487,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         friendItem.setName(user.getNickname());
 
-        server = UserData.serverTypeToString(user);
+        server = user.serverTypeToString();
 
         // end it
         friendItem.setToolTipText("Right click to see options for this item");
@@ -490,7 +498,7 @@ public class BuddyPanel extends JPanel implements Observer {
         // Note: Separating the name and the status colours would be great.
         if (user.isBlocked()) {
             friendName =
-                    new JLabel("* Blocked: " + user.getAccountName() + " *");
+                    new JLabel("* Blocked: " + user.getUserID() + " *");
             friendName.setForeground(Color.LIGHT_GRAY.darker());
         } else if (user.getState() == UserStateType.ONLINE) {
             friendName =
@@ -526,20 +534,31 @@ public class BuddyPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         /* If chat window has not been made, make it if message sent */
         if (arg == UpdatedType.BUDDY) {
-            boxes[0].removeAll();
-            buddies = model.getCurrentProfile().getAllFriends();
-            buddies = UserData.sortAlphabetical(buddies);
-            buddies = UserData.sortMostOnline(buddies);
-
-            for (int i = 0; i < buddies.size(); i++) {
-                boxes[0].add(FriendItem(buddies.get(i)));
-            }
-
-            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                boxes[0].getComponent(i).addMouseListener(new SelectListener());
-            }
-            friendList.updateUI();
+            this.refreshBuddyList();
         }
+    }
+    
+    public void refreshBuddyList() {
+        boxes[0].removeAll();
+        buddies = model.getCurrentProfile().getAllFriends();
+        buddies = UserData.sortAlphabetical(buddies);
+        buddies = UserData.sortMostOnline(buddies);
+        
+        // Now check to see if there is a search going on
+        if (this.searchEnabled) {
+            this.searchBuddies();
+        }
+
+        for (int i = 0; i < buddies.size(); i++) {
+            boxes[0].add(FriendItem(buddies.get(i)));
+        }
+
+        for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+            boxes[0].getComponent(i).addMouseListener(new SelectListener());
+        }
+        friendList.updateUI();
+        
+        return;
     }
 
     /**
@@ -680,5 +699,37 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
         }
+    }
+    
+    class SearchKeyListener implements KeyListener {
+
+        public void keyPressed(KeyEvent e) {
+            // Do nothing
+            
+            return;
+        }
+
+        public void keyReleased(KeyEvent e) {
+            if (search.getText().length() < 1) {
+                searchEnabled = false;
+            } else { // we have text! search!
+                searchEnabled = true;
+            }
+            refreshBuddyList(); // automatically factors in the search
+            
+            return;      
+        }
+
+        public void keyTyped(KeyEvent e) {
+            // Do nothing
+         
+            return;
+        }
+    }
+    
+    private void searchBuddies() {
+        buddies = UserData.sortByStringMatch(buddies, search.getText());
+        
+        return;
     }
 }

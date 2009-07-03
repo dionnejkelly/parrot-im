@@ -21,6 +21,8 @@
 
 package model.dataType;
 
+import model.enumerations.ServerType;
+
 /**
  * Represents a friend from the Jabber protocol.
  */
@@ -28,8 +30,7 @@ public class JabberUserData extends UserData {
 
     // Section
     // I - Data Members
-    
-    // Section currently empty.
+
     
     // Section
     // II - Constructors
@@ -55,4 +56,9 @@ public class JabberUserData extends UserData {
     public JabberUserData(String accountName, String nickname, String status) {
         super(accountName, nickname, status);
     }
+    
+    public String serverTypeToString() {
+        return ServerType.JABBER.toString();
+    }
+    
 }
