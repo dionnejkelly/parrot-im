@@ -262,9 +262,17 @@ public class BuddyPanel extends JPanel implements Observer {
 
         public void mousePressed(MouseEvent event) {
 
-            String resultMessage =
-                    "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+
+            if (search.getText().length() > 0) {
+            	chatClient.startConversation(buddies.get(0), true);
+            }
+            
+            else {
+                String resultMessage =
+                    "Sorry for the inconvenience but please provide an appropiate parameter in the search field. Thank you for your co-operation.";
             JOptionPane.showMessageDialog(null, resultMessage);
+            }
+            
 
         }
     }
@@ -705,7 +713,10 @@ public class BuddyPanel extends JPanel implements Observer {
 
         public void keyPressed(KeyEvent e) {
             // Do nothing
-            
+        	if (search.getText().length() > 0 && e.getKeyCode() == e.VK_ENTER) {
+        		
+        		chatClient.startConversation(buddies.get(0), true);
+        	}
             return;
         }
 
@@ -722,7 +733,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         public void keyTyped(KeyEvent e) {
             // Do nothing
-         
+        	
             return;
         }
     }

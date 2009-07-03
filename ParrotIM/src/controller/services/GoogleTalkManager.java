@@ -251,7 +251,6 @@ public class GoogleTalkManager implements GenericConnection {
             // if we are receiving packets that aren't messages that we need
             // to deal with.
         	
-        	System.out.println("Is typing...");
             return (packet instanceof Message);
         }
     }
