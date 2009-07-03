@@ -67,6 +67,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
+import java.util.Random;
 
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
@@ -140,6 +141,7 @@ public class DatabaseFunctions {
         // stat.executeUpdate("drop table if exists chatLog;");
         // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
+        // stat.executeUpdate("drop table if exists chatBotResponses;");
         stat.executeUpdate("create table if not exists people "
                 + "(profile, serverType, serverAddress, "
                 + "accountName, password);");
@@ -150,6 +152,8 @@ public class DatabaseFunctions {
                 + "(name, password, defaultProfile);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
+        stat.executeUpdate("create table if not exists chatBotResponses "
+                + "(profile, input, output);");
     }
 
     // Section
@@ -764,5 +768,41 @@ public class DatabaseFunctions {
         conn.close();
         return exists;
     }
+    // Section
+    // X - Chatbot Responses
+
+    public void addResponse(String profile, String question, String answer) throws SQLException
+    {
+        prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
+        conn.setAutoCommit(false);
+
+        prep.setString(1, profile);
+        prep.setString(2, question);
+        prep.setString(3, answer);
+        prep.executeUpdate();
+
+        conn.commit();
+        conn.close();
+    }
+    public String getResponse(String question) throws SQLException
+    {
+    	Vector<String> responseList = new Vector<String>();
+        int counter = 0;
+        int whichResponse = 0;
+        rs = stat.executeQuery("SELECT * FROM profiles WHERE question='"
+                + question + "';");
+
+        // Only check resultSet once
+        while (rs.next()) {
+            counter++;
+            responseList.add(rs.getString("output"));
+            
+        }
+        whichResponse = new Random().nextInt(counter);
+        rs.close();
+        conn.close();
+        return responseList.get(whichResponse);
+    }
+    
 
 }
