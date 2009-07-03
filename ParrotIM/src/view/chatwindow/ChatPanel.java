@@ -8,7 +8,6 @@
 
 package view.chatwindow;
 
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -176,9 +175,10 @@ public class ChatPanel extends JPanel {
         });
 
         // color Button
-        JButton colorButton =
+        colorButton =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/colorscm.png")));
+        colorButton.setBackground(Color.BLACK);
         colorButton.setToolTipText("Change Font Color");
         colorButton.addActionListener(new colorListener());
  
@@ -222,9 +222,6 @@ public class ChatPanel extends JPanel {
         JButton pic =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/pic.png")));
-        
-        
-        
         pic.setToolTipText("Insert a Picture");
         pic.addActionListener(new pictureListener());
 
@@ -324,13 +321,8 @@ public class ChatPanel extends JPanel {
          */
 
         public void actionPerformed(ActionEvent evt) {
-
-            //String resultMessage =
-            //        "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
-            //JOptionPane.showMessageDialog(null, resultMessage);
             emoticonChooser.setVisible(true);
         }
-
     }
 
     /**
@@ -372,13 +364,13 @@ public class ChatPanel extends JPanel {
         public void actionPerformed(ActionEvent evt) {
 
             JFrame frame = new JFrame("Color Chooser");
-            oldContentPane = new ColorUserSelect(frame);
+            oldContentPane = new ColorUserSelect(frame, colorButton);
             
 //            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
 
             // Create and set up the content pane.
-            JComponent newContentPane = oldContentPane;
+            ColorUserSelect newContentPane = oldContentPane;
             
             newContentPane.setOpaque(true); // content panes must be opaque
             frame.setContentPane(newContentPane);
@@ -395,7 +387,6 @@ public class ChatPanel extends JPanel {
      */
     public class SendButtonPressed implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-        	
         	sendMessage();
         }
     }
@@ -438,8 +429,6 @@ public class ChatPanel extends JPanel {
             
           
             keyEvent = e.getKeyCode();
-           
-            
            
         }
 
