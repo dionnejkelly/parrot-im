@@ -40,7 +40,7 @@ public class DisplayPanel extends JPanel implements Observer {
     /** Sets buddies status. */
     private JLabel title;
     
-
+    private JScrollPane chatWindowScroller;
     
     private JToolBar bar2;
     
@@ -72,7 +72,7 @@ public class DisplayPanel extends JPanel implements Observer {
         }
 
         // ScrollPane's Properties
-        JScrollPane chatWindowScroller = new JScrollPane(txtPane);
+        chatWindowScroller = new JScrollPane(txtPane);
         chatWindowScroller
                 .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         chatWindowScroller.setPreferredSize(new Dimension(250, 300));
@@ -167,9 +167,7 @@ public class DisplayPanel extends JPanel implements Observer {
     	
         if (arg == UpdatedType.CHAT && model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
-            title
-                    .setText(model
-                            .getActiveConversation().getUser().getNickname());
+            title.setText(model.getActiveConversation().getUser().getNickname());
 
             if (model.getActiveConversation().getUser().isBlocked()) {
                 title.setForeground(Color.LIGHT_GRAY.darker());
