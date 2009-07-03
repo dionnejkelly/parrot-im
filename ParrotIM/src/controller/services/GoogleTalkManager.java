@@ -23,6 +23,8 @@ import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
+import org.jivesoftware.smackx.ChatState;
+import org.jivesoftware.smackx.ChatStateManager;
 
 import view.options.MusicPlayer;
 
@@ -343,4 +345,18 @@ public class GoogleTalkManager implements GenericConnection {
         
         return hash;
     }
+
+    
+    
+	@Override
+	//istyping  doesn't work yet
+	//chat object is incorrect
+	public void isTyping() throws BadConnectionException, XMPPException {
+		ChatStateManager state = ChatStateManager.getInstance(connection);
+        for (Chat c : this.chats) {
+        	state.setCurrentState(ChatState.active, c);
+            }
+        System.out.println("hey! I'm typing");
+		
+	}
 }

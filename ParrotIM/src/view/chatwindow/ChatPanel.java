@@ -364,7 +364,7 @@ public class ChatPanel extends JPanel {
         public void actionPerformed(ActionEvent evt) {
 
             JFrame frame = new JFrame("Color Chooser");
-            oldContentPane = new ColorUserSelect(frame, colorButton);
+            //oldContentPane = new ColorUserSelect(frame, colorButton);
             
 //            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
@@ -460,6 +460,8 @@ public class ChatPanel extends JPanel {
             else {
                 shiftPressed = false;
                 controlPressed = false;
+
+                c.isTyping();
             }
             
             keyCount = txt1.getText().length();
@@ -489,7 +491,6 @@ public class ChatPanel extends JPanel {
 
         public void keyTyped(KeyEvent e) {
         	
-	
         }
         
         /**

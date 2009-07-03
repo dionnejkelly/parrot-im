@@ -28,6 +28,8 @@ package controller.services;
 
 import java.util.ArrayList;
 
+import org.jivesoftware.smack.XMPPException;
+
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.UserStateType;
 
@@ -56,6 +58,8 @@ public interface GenericConnection {
     public ArrayList<FriendTempData> retrieveFriendList() throws BadConnectionException;
     
     public void sendMessage(String toUserID, String message) throws BadConnectionException;
+    
+    public void isTyping() throws BadConnectionException, XMPPException;
     
     //@Override
     public int hashCode();
