@@ -70,6 +70,7 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     /** Color Chooser's main frame.*/
     private JFrame mainFrame;
     
+    private JButton colorButton;
     
     /**
      * This is the constructor of the ColorUserSelect.
@@ -77,9 +78,11 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
      */
     
     
-    public ColorUserSelect(JFrame frame) {
+    public ColorUserSelect(JFrame frame, JButton colorButton) {
     	
     	super(new BorderLayout());
+    	
+    	 this.colorButton = colorButton;
     	
     	 this.mainFrame = frame;
          //Set up the banner at the top of the window
@@ -159,6 +162,7 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
         System.out.println("Hex = " + getColorHex());
         
         hexColor = getColorHex();
+        colorButton.setBackground(userColor);
     }
     
     /**
