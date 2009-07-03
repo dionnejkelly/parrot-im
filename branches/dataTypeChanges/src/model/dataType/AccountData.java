@@ -42,6 +42,7 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
 import controller.services.JabberManager;
@@ -53,64 +54,16 @@ import model.enumerations.ServerType;
  * Holds username, password, and account type. Info is used in user profiles and
  * guest accounts for log-in purposes.
  */
-public class AccountData {
+public abstract class AccountData extends PersonData {
 
     /**
-     * The accountName, or more specifically, the userID for the account.
-     */
-    private String accountName;
-
-    /**
-     * The password for the account. Non-encrypted!
+     * The password for the account. Pairs up with the userID.
      */
     private String password;
 
-    /**
-     * A friend list of this account.
-     */
-    private ArrayList<UserData> friends;
-
-    /**
-     * A boolean to indicate whether the account is connected or not.
-     */
-    private boolean connected;
-
-    /**
-     * Holds the object that allows for connection to the server.
-     */
-    private GenericConnection connection;
-
-    /**
-     * Constructs for the basic required information: server, userID, and
-     * password.
-     * 
-     * @param server
-     * @param accountName
-     * @param password
-     */
-    public AccountData(String accountName, String password) {
-        this.accountName = accountName;
+    public AccountData(String userID, String password) {
+        super(userID);
         this.password = password;
-        this.friends = new ArrayList<UserData>();
-        this.connected = false;
-        this.connection = null;
-    }
-
-    /**
-     * Constructs for the basic required information: server, userID, and
-     * password.
-     * 
-     * @param server
-     * @param accountName
-     * @param password
-     */
-    public AccountData(String accountName, String password,
-            GenericConnection connection) {
-        this.accountName = accountName;
-        this.password = password;
-        this.friends = new ArrayList<UserData>();
-        this.connected = false;
-        this.connection = connection;
     }
 
     /**
@@ -118,36 +71,7 @@ public class AccountData {
      * 
      * @return The ServerType of the account.
      */
-    public ServerType getServer() {
-        ServerType serverToReturn = null;
-        if (this.connection instanceof GoogleTalkManager) {
-            serverToReturn = ServerType.GOOGLE_TALK;
-        } else if (this.connection instanceof JabberManager) {
-            serverToReturn = ServerType.JABBER;
-        } else if (this.connection instanceof TwitterManager) {
-            serverToReturn = ServerType.TWITTER;
-        }
-        return serverToReturn;
-    }
-
-    /**
-     * Changes the userID of the account.
-     * 
-     * @param accountName
-     */
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-        return;
-    }
-
-    /**
-     * Gets the userID.
-     * 
-     * @return The userID as a String.
-     */
-    public String getAccountName() {
-        return accountName;
-    }
+    public abstract ServerType getServer();
 
     /**
      * Changes the password.
@@ -164,7 +88,6 @@ public class AccountData {
      * 
      * @return The password, not encrypted, for the account. Can be an empty
      *         string.
-     * 
      */
     public String getPassword() {
         return password;
@@ -178,16 +101,8 @@ public class AccountData {
      * @return true if successful, false otherwise. May return false due to a
      *         duplciate friend.
      */
-    public boolean addFriend(UserData friend) {
-        boolean notDuplicate = false;
-
-        if (!friendExists(friend)) {
-            this.friends.add(friend);
-            notDuplicate = true;
-        }
-
-        return notDuplicate;
-    }
+    public abstract boolean addFriend(UserData friend)
+            throws UserMismatchException;
 
     /**
      * Removes a friend from the account. Searches by UserData.
@@ -197,18 +112,14 @@ public class AccountData {
      * 
      * @return true if removed, false otherwise
      */
-    public boolean removeFriend(UserData exFriend) {
-        return this.friends.remove(exFriend);
-    }
+    public abstract boolean removeFriend(UserData exFriend);
 
     /**
      * Gets a list of all friends in UserData format.
      * 
      * @return An ArrayList of all friends in UserData objects.
      */
-    public ArrayList<UserData> getFriends() {
-        return this.friends;
-    }
+    public abstract ArrayList<UserData> getFriends();
 
     /**
      * Checks whether a friend is in the list or not.
@@ -227,9 +138,10 @@ public class AccountData {
      * @return true if found, false otherwise.
      */
     public UserData findFriendByUserID(String userID) {
+
         UserData foundFriend = null; // Default return value
 
-        for (UserData u : this.friends) {
+        for (UserData u : this.getFriends()) {
             if (u.getUserID().equalsIgnoreCase(userID)) {
                 foundFriend = u;
                 break;
@@ -240,43 +152,19 @@ public class AccountData {
     }
 
     /**
-     * Sets the connected field.
-     * 
-     * @param connected
-     */
-    public void setConnected(boolean connected) {
-        this.connected = connected;
-        return;
-    }
-
-    /**
-     * Returns whether it is connected or not.
-     * 
-     * @return true if connected, false otherwise.
-     */
-    public boolean isConnected() {
-        return connected;
-    }
-
-    /**
      * Changes the connection object.
      * 
      * @param connection
      */
-    public void setConnection(GenericConnection connection) {
-        this.connection = connection;
-
-        return;
-    }
+    public abstract void setConnection(GenericConnection connection)
+            throws BadConnectionException;
 
     /**
      * Sets the connection object that communicates with the server.
      * 
      * @return The connection object for this account.
      */
-    public GenericConnection getConnection() {
-        return connection;
-    }
+    public abstract GenericConnection getConnection();
 
     /**
      * Checks if the accounts are the same. Determines so by whether their
@@ -288,13 +176,14 @@ public class AccountData {
     @Override
     public boolean equals(Object account) {
         boolean areEqual = false;
-        AccountData externalAccount = null;
+        AccountData otherAccount = null;
 
         if (account != null && account instanceof AccountData) {
-            externalAccount = (AccountData) account;
-            areEqual = this.accountName.equalsIgnoreCase(externalAccount
-                    .getAccountName())
-                    && (this.getServer() == externalAccount.getServer());
+            otherAccount = (AccountData) account;
+            areEqual =
+                    this.userID.equalsIgnoreCase(otherAccount.getUserID())
+                            && (this.getServer().equals(otherAccount
+                                    .getServer()));
         }
 
         return areEqual;
@@ -303,8 +192,8 @@ public class AccountData {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = hash * 31 + this.accountName.toLowerCase().hashCode();
-        hash = hash * 31 + this.connection.hashCode();
+        hash = hash * 31 + this.userID.toLowerCase().hashCode();
+        hash = hash * 31 + this.getServer().hashCode();
 
         return hash;
     }
