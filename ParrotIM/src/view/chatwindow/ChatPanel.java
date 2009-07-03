@@ -339,7 +339,6 @@ public class ChatPanel extends JPanel {
      */
 
     public class pictureListener implements ActionListener {
-
         /**
          * Listens for the uesr's action.
          * 
