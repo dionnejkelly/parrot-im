@@ -48,18 +48,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import view.styles.AvatarLabel;
+
 /** HeaderPanel sets the top part of the MainWindow, which includes the avatar and the status of the system.
  * This object inherits JPanel variables and methods */
 public class HeaderPanel extends JPanel{
-	
-	/** avatarDisplay is a JLabel object that displays the avatar*/
-	protected JLabel avatarDisplay;
-	
 	/** status is a JLabel object that shows the system's status (ie. whether it is connected or not) */
-	protected JLabel status;
-	
-	/** avatar is an ImageIcon object of the user's display picture */
-	protected ImageIcon avatar;
+	private JLabel status;
 	
 	/** MiscPanel constructor. It sets up the panel layout.*/
 	public HeaderPanel() {
@@ -67,28 +62,21 @@ public class HeaderPanel extends JPanel{
 		setBorder(BorderFactory.createEmptyBorder(50,50,0,50));
 		
 		//logo-avatar
-		avatarDisplay = new JLabel ();
+//		JLabel avatarDisplay = new JLabel ();
+		JLabel avatarDisplay = new AvatarLabel(getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+//		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
 	
 		//TODO: set auto scaling + border later
-		avatarDisplay.setIcon(avatar);
+//		avatarDisplay.setIcon(avatar);
 		
 		status = new JLabel("Not signed in", SwingConstants.CENTER);
-		status.setBorder(BorderFactory.createEmptyBorder(15,0,0,0));
+		status.setBorder(BorderFactory.createEmptyBorder(7,0,8,0));
 		
 		//add to panel
 		add(avatarDisplay, BorderLayout.NORTH);
 		add(status, BorderLayout.CENTER);
 	}
-	
-	/*
-	protected void setAnimation(){
-		avatarDisplay.setIcon(new ImageIcon(getcwd() + "/src/mainwindow/animation.gif"));
-		status.setText("Signing in");
-		this.setVisible(true);
-		System.out.println("headerPanel here");
-	}*/
 	
 	/** sets the status text to errormsg when the user fails to sign in
 	 * @param errormsg*/

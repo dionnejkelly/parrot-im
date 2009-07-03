@@ -121,7 +121,7 @@ public class AccountInfo extends JPanel
 	{
 	    this.model = model;
 	    setBackground(Color.DARK_GRAY);
-		setPreferredSize(new Dimension(300,100));
+		setPreferredSize(new Dimension(300,110));
 		setBorder(BorderFactory.createEmptyBorder(5,15,5,5));
 		setLayout(new BorderLayout());
 		
