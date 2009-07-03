@@ -68,7 +68,7 @@ public class Chatbot {
      /**
       *  Collection of knowledge base.
      */  
-     
+      
      private String[][] KnowledgeBase = {
                         {"WHAT IS YOUR NAME", 
                          "My name is Phyllis.",
@@ -519,7 +519,23 @@ public class Chatbot {
                          "PLEASE DONT ASK ME SUCH QUESTION,IT GIVES ME HEADEACHES."
                         }            
                 };
-        
+//     private int firstIndex = 0;
+//     private int secondIndex = 0;
+//     
+//     private int prevSecondIndex = secondIndex;
+//     
+//     public Chatbot(String question, String answer) {
+//    	 KnowledgeBase[firstIndex][secondIndex] = question;
+//    	 KnowledgeBase[firstIndex][secondIndex + 1] = answer;
+//    	 
+//    	 firstIndex++;
+//    	 prevSecondIndex = secondIndex + 1;
+//     }
+//     
+//     public void setMoreAnswer(String answer) {
+//    	 KnowledgeBase[firstIndex - 1][prevSecondIndex] = answer;
+//    	 prevSecondIndex++;
+//     }
      // Section
      // III - Message Extraction
 

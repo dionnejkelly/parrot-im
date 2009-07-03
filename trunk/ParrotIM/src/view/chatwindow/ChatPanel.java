@@ -46,6 +46,10 @@ public class ChatPanel extends JPanel {
     /** Allows users to select the color type. */
 
     private JButton colorButton;
+    
+    /** Allows users to send the message. */
+    
+    private JButton sendButton;
 
     /** Allows users to select the color from JColorChooser. */
 
@@ -122,7 +126,7 @@ public class ChatPanel extends JPanel {
         JScrollPane chatInputWindowScroller = new JScrollPane(txt1);
         chatInputWindowScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
-        JButton sendButton = new JButton("SEND");
+        sendButton = new JButton("SEND");
         sendButton.addActionListener(new SendButtonPressed());
         // displayPanel.addMessage(incoming messages); //TODO
 
@@ -391,7 +395,8 @@ public class ChatPanel extends JPanel {
      */
     public class SendButtonPressed implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            sendMessage();
+        	
+        	sendMessage();
         }
     }
 
@@ -407,6 +412,7 @@ public class ChatPanel extends JPanel {
         private boolean twitterEnabled;
         private int keyCount = 0;
         private int keyEvent;
+        
 
         /**
          * Listens for the key pressed.
@@ -417,8 +423,8 @@ public class ChatPanel extends JPanel {
         public void keyPressed(KeyEvent e) {
             // this is functional but somewhat unstable
             // any ideas are welcome to be discussed in the upcoming meeting
-
-  	
+        	
+        	
             if (e.getKeyCode() == e.VK_SHIFT) {
                 shiftPressed = true;
             }
@@ -429,10 +435,14 @@ public class ChatPanel extends JPanel {
             
             else if (isMaxed()) {
             	txt1.setEditable(false);
+            	sendButton.setEnabled(false);
+
             }
             
             else if (e.getKeyCode() == e.VK_BACK_SPACE) {
             	txt1.setEditable(true);
+            	sendButton.setEnabled(true);
+    	
             }
             
             else if (txt1.getText().length() == 1) {
@@ -444,6 +454,7 @@ public class ChatPanel extends JPanel {
             	System.out.println("Emptied out!!!!!!!");
             }
             
+             
             keyEvent = e.getKeyCode();
             
            
@@ -457,7 +468,7 @@ public class ChatPanel extends JPanel {
 
         public void keyReleased(KeyEvent e) {
 
-            if (!shiftPressed && e.getKeyCode() == e.VK_ENTER) {
+            if (!shiftPressed && e.getKeyCode() == e.VK_ENTER && sendButton.isEnabled()) {
                 System.out
                         .println("-------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 e.setKeyCode(e.VK_BEGIN);
@@ -465,6 +476,7 @@ public class ChatPanel extends JPanel {
                         0, txt1.getText().length() - 1));
                 sendMessage();
                 keyCount = 0;
+                sendButton.setEnabled(true);
             }
 
             else if (shiftPressed && (e.getKeyCode() == e.VK_ENTER)) {
@@ -517,7 +529,7 @@ public class ChatPanel extends JPanel {
          */
         
         public boolean isMaxed() {
-        	return keyCount == 140;
+        	return keyCount >= 140;
         }
     }
 }
