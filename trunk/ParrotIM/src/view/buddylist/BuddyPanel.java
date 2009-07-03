@@ -147,7 +147,9 @@ public class BuddyPanel extends JPanel implements Observer {
         friendList.setLayout(new BorderLayout());
 
         // Place all friends from currentProfile into buddy list
-        buddies = model.getOrderedFriendList();
+        buddies = model.getCurrentProfile().getAllFriends();
+        buddies = UserData.sortAlphabetical(buddies);
+        buddies = UserData.sortMostOnline(buddies);
 
         // add friends to the buddy list
         boxes[0] = Box.createVerticalBox();
@@ -372,9 +374,6 @@ public class BuddyPanel extends JPanel implements Observer {
             if (selectedFriend != null) {
                 chatClient.removeFriend(selectedFriend);
 
-                for (int i = 0; i < model.getOrderedFriendList().size(); i++) {
-                }
-
                 buddies.remove(selectedFriend);
                 boxes[0].removeAll();
 
@@ -528,7 +527,9 @@ public class BuddyPanel extends JPanel implements Observer {
         /* If chat window has not been made, make it if message sent */
         if (arg == UpdatedType.BUDDY) {
             boxes[0].removeAll();
-            buddies = model.getOrderedFriendList();
+            buddies = model.getCurrentProfile().getAllFriends();
+            buddies = UserData.sortAlphabetical(buddies);
+            buddies = UserData.sortMostOnline(buddies);
 
             for (int i = 0; i < buddies.size(); i++) {
                 boxes[0].add(FriendItem(buddies.get(i)));

@@ -98,14 +98,14 @@ public class ModelToDatabaseTest {
     public void testAddRemoveFriend() throws Exception {
         UserData user = null;
 
-        assertTrue(model.getOrderedFriendList().size() == 0);
+        assertTrue(model.getCurrentProfile().getAllFriends().size() == 0);
         user = new GoogleTalkUserData(userID);
         account.addFriend(user);
-        assertTrue(model.getOrderedFriendList().size() == 1);
+        assertTrue(model.getCurrentProfile().getAllFriends().size() == 1);
         assertEquals(model.findUserByAccountName(userID), user);
 
         account.removeFriend(new GoogleTalkUserData(userID));
-        assertTrue(model.getOrderedFriendList().size() == 0);
+        assertTrue(model.getCurrentProfile().getAllFriends().size() == 0);
 
         return;
     }

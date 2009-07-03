@@ -140,7 +140,9 @@ public class BlockManager extends JFrame implements Observer {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
         this.chatClient = c;
-        this.usersProfileBuddyList = this.model.getUnblockedFriendList();
+        this.usersProfileBuddyList = this.model.getCurrentProfile().getAllFriends();
+        this.usersProfileBuddyList = UserData.cullBlocked(this.usersProfileBuddyList);
+        this.usersProfileBuddyList = UserData.sortAlphabetical(this.usersProfileBuddyList);
         // this.bannedAccountList = bannedUsersList.getBannedUserList();
         this.bannedAccountList = model.getBannedUserList();
 
@@ -416,7 +418,9 @@ public class BlockManager extends JFrame implements Observer {
         if (arg == UpdatedType.BUDDY) {
 
             // Refresh the lists after a change
-            this.usersProfileBuddyList = this.model.getUnblockedFriendList();
+            this.usersProfileBuddyList = this.model.getCurrentProfile().getAllFriends();
+            this.usersProfileBuddyList = UserData.cullBlocked(this.usersProfileBuddyList);
+            this.usersProfileBuddyList = UserData.sortAlphabetical(this.usersProfileBuddyList);
             this.bannedAccountList = model.getBannedUserList();
 
             usersBuddyListModel.removeAllElements();
