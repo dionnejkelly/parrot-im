@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.*;
 
 import view.styles.PopupWindowListener;
@@ -188,7 +191,7 @@ public class ChatPanel extends JPanel {
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/emote.png")));
         emoticons.setToolTipText("Add an Emoticon");
-        emoticons.addActionListener(new emoticonListener());
+        emoticons.addMouseListener(new emoticonListener());
         
         //Emoticon Chooser
         emoticonChooser = new JFrame("Emoticons");
@@ -313,17 +316,21 @@ public class ChatPanel extends JPanel {
      * user's emoticon preference .
      */
 
-    public class emoticonListener implements ActionListener {
+    public class emoticonListener implements MouseListener {
 
         /**
          * Listens for the uesr's action.
          * 
          * @param evt
          */
-
-        public void actionPerformed(ActionEvent evt) {
-            emoticonChooser.setVisible(true);
-        }
+		public void mouseClicked(MouseEvent m) {
+			emoticonChooser.setLocation(m.getXOnScreen() - 100, m.getYOnScreen() - 200);
+			emoticonChooser.setVisible(true);
+		}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
     }
 
     /**
