@@ -81,7 +81,7 @@ public class MessageData {
 	 * will be replaced by an image, and the second string is the file
 	 * name of the image located within the "/images/emoticons/" folder
 	 */
-    private String[][] emoticons = {{"((=|:)[ ]*-?[ ]*([)]|]))|([(][ ]*-?[ ]*(:|=))", "happy.png"},
+    private String[][] emoticons = {{"([^oO0\\<](=|:)[ ]*-?[ ]*([)]|]))|([(][ ]*-?[ ]*(:|=)[^oO0\\>])", "happy.png"},
 									{"((:|=)[ ]*-?([(]|c|C))|(([)]|])[ ]*-?[ ]*(:|=))", "sad.png"},
 									{"((:|=)-?[|])|([|]-?(:|=))", "neutral.png"},
 									{"(:[ ]*-?[ ]*D)", "joy.png"},
@@ -92,10 +92,12 @@ public class MessageData {
 									{"(8[ ]*-?[ ]*[)])", "glasses.png"},
 									{"((X|x)[ ]*-?[ ]*(P|p|b))|(q[ ]*-?[ ]*(X|x))", "dead.png"},
 									{"(;[ ]*-?[ ]*[)])|([(][ ]*-?[ ]*;)", "wink.png"},
-									{"(:[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*:)", "surprise.png"},
+									{"([^o0O(][ ]*:[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*:[ ]*[^o0O)])", "surprise.png"},
 									{"(=[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*=)", "afraid.png"},
-									{"((:|=)[ ]*-?[ ]*(P|p|b))|(q[ ]*-?[ ]*(:|=))", "tongue.png"},
-									{"<3", "heart.png"}, {"</3", "brokenheart.png"}};
+									{"((:|=)[ ]*-?[ ]*(P|p|b))|((q|d)[ ]*-?[ ]*(:|=))", "tongue.png"},
+									{"<3", "heart.png"}, {"</3", "brokenheart.png"},
+									{"((o|0|O)[ ]*:[ ]*-?[ ]*[)])", "angel.png"},
+									{"(<[ ]*(:|=)[ ]*-?[ ]*[)])|([(][ ]*-?[ ]*(:|=)[ ]*>)", "party.png"}};
     
     // Section
     // II - Constructors
