@@ -2,12 +2,15 @@
  * 
  * Programmed By:
  *     Vera Lukman
+ *     Kevin Fahy
  *     
  * Change Log:
  *     2009-June-23, VL
  *         Initial write. Click on the display picture to access file chooser.
  *     2009-June-24, KF
  *         Naming convention updates. Changed all class names.
+ *     2009-July-3, VL
+ *         Fixed avatar display. Now able to resize.
  *         
  * Known Issues:
  *     not able to resize huge picture (want to resize it to 100x100)
@@ -19,14 +22,13 @@
 
 package view.styles;
 
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
@@ -39,11 +41,8 @@ import javax.swing.filechooser.FileFilter;
  * It inherits JLabel methods and variables.
  */
 public class AvatarLabel extends JLabel{
-	/** avatar is an ImageIcon object of the user's display picture */
-	protected ImageIcon avatar;
-	
 	/** avatarlbl is this component itself */
-	protected AvatarLabel avatarlbl;
+	private AvatarLabel avatarlbl;
 	
 	/**
 	 * AvatarLabel constructor. It takes a String that describes
@@ -54,13 +53,12 @@ public class AvatarLabel extends JLabel{
 	public AvatarLabel(URL url){
 		this.setToolTipText("click to change your display picture");
 		avatarlbl = this;
-		avatar = new ImageIcon(url); // want to get this from model later
-		this.setMaximumSize(new Dimension(100,100));//want to look more into it
-		this.setIcon(avatar);
+		changeAvatar(url.toString());
+		System.out.println(this.getText());
 		this.addMouseListener(new avatarMouseListener());
 	}
 	
-	public void changeAvatarWindow(){
+	public void changeAvatarWindow() throws MalformedURLException{
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		ImageFileFilter filefilter = new ImageFileFilter();
@@ -75,7 +73,7 @@ public class AvatarLabel extends JLabel{
         //Process the results.
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            avatarlbl.changeAvatar(file.getAbsolutePath());
+            avatarlbl.changeAvatar(file.toURL().toString());
             System.out.println(file.getAbsolutePath()+ " is choosen");
         	fileChooser.setVisible(false);//DISPOSE!!!
         } else {
@@ -91,8 +89,7 @@ public class AvatarLabel extends JLabel{
 	 * the path of the display picture as its argument.
 	 */
 	private void changeAvatar(String path){
-		avatar = new ImageIcon (path);
-		this.setIcon(avatar);
+		this.setText("<html><img src=\""+ path +"\" height=\"100\" width=\"100\" ></html>");
 	}
 	
 	/**
@@ -114,7 +111,12 @@ public class AvatarLabel extends JLabel{
 		public void mouseReleased(MouseEvent e) {
 			
 			System.out.println("clicked");
-			changeAvatarWindow();
+			try {
+				changeAvatarWindow();
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	

@@ -25,6 +25,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -117,7 +118,12 @@ public class PersonalProfileTab extends JPanel {
 	private class BrowseActionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			avatar.changeAvatarWindow();
+			try {
+				avatar.changeAvatarWindow();
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		}
 		
