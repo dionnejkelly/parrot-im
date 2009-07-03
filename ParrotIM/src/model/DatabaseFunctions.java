@@ -141,7 +141,9 @@ public class DatabaseFunctions {
         // stat.executeUpdate("drop table if exists chatLog;");
         // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
-        // stat.executeUpdate("drop table if exists chatBotResponses;");
+        stat.executeUpdate("drop table if exists chatBotResponses;");
+        // stat.executeUpdate("drop table if exists chatBotInputs;");
+        // stat.executeUpdate("drop table if exists chatBotOutputs;");
         stat.executeUpdate("create table if not exists people "
                 + "(profile, serverType, serverAddress, "
                 + "accountName, password);");
@@ -152,8 +154,10 @@ public class DatabaseFunctions {
                 + "(name, password, defaultProfile);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
-        stat.executeUpdate("create table if not exists chatBotResponses "
-                + "(profile, input, output);");
+        stat.executeUpdate("create table if not exists chatBotQuestions "
+                + "(profile, question);");
+        stat.executeUpdate("create table if not exists chatBotAnswers "
+                + "(profile, question, answer);");
     }
 
     // Section
@@ -771,9 +775,21 @@ public class DatabaseFunctions {
     // Section
     // X - Chatbot Responses
 
-    public void addResponse(String profile, String question, String answer) throws SQLException
+    public void addQuestion(String profile, String question) throws SQLException
     {
-        prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
+        prep = conn.prepareStatement("insert into chatBotQuestions values (?, ?);");
+        conn.setAutoCommit(false);
+
+        prep.setString(1, profile);
+        prep.setString(2, question);
+        prep.executeUpdate();
+
+        conn.commit();
+        conn.close();
+    }
+    public void addAnswer(String profile, String question, String answer) throws SQLException
+    {
+        prep = conn.prepareStatement("insert into chatBotAnswers values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -784,13 +800,13 @@ public class DatabaseFunctions {
         conn.commit();
         conn.close();
     }
-    public String getResponse(String question) throws SQLException
+    public String getResponse(String profile, String question) throws SQLException
     {
     	Vector<String> responseList = new Vector<String>();
         int counter = 0;
         int whichResponse = 0;
-        rs = stat.executeQuery("SELECT * FROM profiles WHERE question='"
-                + question + "';");
+        rs = stat.executeQuery("SELECT * FROM chatBotAnswers WHERE profile='" + profile + "'" +
+        		" AND question='" + question + "';");
 
         // Only check resultSet once
         while (rs.next()) {
@@ -802,6 +818,16 @@ public class DatabaseFunctions {
         rs.close();
         conn.close();
         return responseList.get(whichResponse);
+    }
+    public Vector<String> getQuestionList() throws SQLException {
+        Vector<String> questionList = new Vector<String>();
+        rs = stat.executeQuery("select * from chatBotQuestions;");
+        while (rs.next()) {
+            questionList.add(rs.getString("question"));
+        }
+        rs.close();
+        conn.close();
+        return questionList;
     }
     
 

@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -48,7 +49,7 @@ import controller.MainController;
 
 public class FeaturesPanel extends JPanel{
 	private MainController controller;
-	private model modelStub = new model();
+	private model modelStub;
 	
 	private JFrame mainframe;
 	private JCheckBox chatbotCheck;
@@ -60,7 +61,8 @@ public class FeaturesPanel extends JPanel{
 	private JButton chatbotRemoveButton;
 	private JPanel chatbotOptions;
 	
-	public FeaturesPanel (MainController c, JFrame mainframe){
+	public FeaturesPanel (MainController c, JFrame mainframe) throws ClassNotFoundException, SQLException{
+		modelStub = new model();
 		this.mainframe = mainframe;
 		controller = c;
 		
@@ -168,7 +170,15 @@ public class FeaturesPanel extends JPanel{
 					ChatbotQADataType QAObject = addChatbotOptions.getQAObject();
 				
 					if (!QAObject.isEmpty()){
-						modelStub.addQA(QAObject);
+						try {
+							modelStub.addQA(QAObject);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				}
 
