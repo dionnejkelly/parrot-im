@@ -33,6 +33,8 @@
 
 package model.dataType;
 
+import java.util.ArrayList;
+
 import model.enumerations.UserStateType;
 
 /**
@@ -255,7 +257,7 @@ public abstract class UserData {
 
     public static String serverTypeToString(UserData user) {
         String server = null;
-        
+
         if (user instanceof GoogleTalkUserData) {
             server = "Google Talk";
         } else if (user instanceof JabberUserData) {
@@ -265,10 +267,90 @@ public abstract class UserData {
         } else {
             server = "(Not implemented yet)";
         }
-        
+
         return server;
     }
-    
+
+    // Sorting methods
+
+    public static ArrayList<UserData> cullBlocked(ArrayList<UserData> unsorted) {
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+
+        try {
+            for (UserData user : unsorted) {
+                if (!user.isBlocked()) {
+                    friends.add(user);
+                }
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Null unsorted getting passed in.");
+            e.printStackTrace();
+            friends.clear();
+        }
+
+        return friends;
+    }
+
+    public static ArrayList<UserData> sortAlphabetical(
+            ArrayList<UserData> unsorted) {
+        UserData candidate = null;
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+
+        try {
+            while (!unsorted.isEmpty()) {
+                for (UserData user : unsorted) {
+                    if (candidate == null) {
+                        candidate = user;
+                    } else if (user.getNickname().compareToIgnoreCase(
+                            candidate.getNickname()) < 0) {
+                        candidate = user;
+                    } else {
+                        // Do nothing, look at next user.
+                    }
+                }
+                unsorted.remove(candidate);
+                friends.add(candidate);
+                candidate = null;
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Null unsorted getting passed in.");
+            e.printStackTrace();
+            friends.clear();
+        }
+
+        return friends;
+    }
+
+    public static ArrayList<UserData> sortMostOnline(
+            ArrayList<UserData> unsorted) {
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+        UserData candidate = null;
+
+        // Sort with regard to online/busy/offline/blocked
+        try {
+            while (!unsorted.isEmpty()) {
+                for (UserData user : unsorted) {
+                    if (candidate == null) {
+                        candidate = user;
+                    } else if (user.isMoreOnline(candidate)) {
+                        candidate = user;
+                    } else {
+                        // do nothing, next iteration
+                    }
+                }
+                unsorted.remove(candidate);
+                friends.add(candidate);
+                candidate = null;
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Null unsorted getting passed in.");
+            e.printStackTrace();
+            friends.clear();
+        }
+
+        return friends;
+    }
+
     /**
      * Converts the user to a String, returning the nickname.
      * 
@@ -293,9 +375,8 @@ public abstract class UserData {
 
         if (user != null && user instanceof UserData) {
             externalUser = (UserData) user;
-            areEqual =
-                    this.accountName.equalsIgnoreCase(externalUser
-                            .getAccountName());
+            areEqual = this.accountName.equalsIgnoreCase(externalUser
+                    .getAccountName());
         }
 
         return areEqual;
@@ -305,11 +386,10 @@ public abstract class UserData {
     public int hashCode() {
         int hash = 7;
 
-        hash =
-                hash
-                        * 31
-                        + (this.accountName == null ? 0 : this.accountName
-                                .toLowerCase().hashCode());
+        hash = hash
+                * 31
+                + (this.accountName == null ? 0 : this.accountName
+                        .toLowerCase().hashCode());
 
         return hash;
     }
