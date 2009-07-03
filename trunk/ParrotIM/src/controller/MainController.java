@@ -685,6 +685,10 @@ public class MainController {
             try {
                 chatbot.get_input(message);
                 String response = chatbot.respond();
+                
+                if (response.equals("")) {
+                	response = chatbot.signon();
+                }
                 sendMessage(response, fromUserID, account);
             } catch (Exception e) {
                 System.err.println("Error with chatbot: messageReceived()");
