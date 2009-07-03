@@ -7,7 +7,6 @@ import java.util.regex.*;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.UserStateType;
 
-import org.jivesoftware.smack.XMPPException;
 
 
 public class ICQManager implements GenericConnection {
@@ -32,7 +31,7 @@ public class ICQManager implements GenericConnection {
 	}
 
 	@Override
-	public void isTyping() throws BadConnectionException, XMPPException {
+	public void isTyping() throws BadConnectionException{
 		// TODO Auto-generated method stub
 		
 	}
