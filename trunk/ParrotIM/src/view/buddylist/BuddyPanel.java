@@ -714,7 +714,6 @@ public class BuddyPanel extends JPanel implements Observer {
         public void keyPressed(KeyEvent e) {
             // Do nothing
         	if (search.getText().length() > 0 && e.getKeyCode() == e.VK_ENTER) {
-        		
         		chatClient.startConversation(buddies.get(0), true);
         	}
             return;
@@ -723,10 +722,16 @@ public class BuddyPanel extends JPanel implements Observer {
         public void keyReleased(KeyEvent e) {
             if (search.getText().length() < 1) {
                 searchEnabled = false;
-            } else { // we have text! search!
+                boxes[0].getComponent(0).setBackground(Color.WHITE);
+            } 
+            else { // we have text! search!
                 searchEnabled = true;
+                
+                refreshBuddyList();
+                boxes[0].getComponent(0).setBackground( new Color(145, 200, 200));
+   
             }
-            refreshBuddyList(); // automatically factors in the search
+//            refreshBuddyList(); // automatically factors in the search
             
             return;      
         }
