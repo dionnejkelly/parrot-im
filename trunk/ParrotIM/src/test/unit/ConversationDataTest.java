@@ -56,7 +56,7 @@ public class ConversationDataTest {
         cd3 =
                 new ConversationData(new AccountData("Rakan", "1234"),
                         new GoogleTalkUserData("Rakan", "Rick", "1234"));
-        assertEquals("Rakan", cd3.getUser().getAccountName());
+        assertEquals("Rakan", cd3.getUser().getUserID());
         assertSame("1234", cd3.getAccount().getPassword());
         assertTrue(cd3.getText().isEmpty());
         assertTrue(cd3.getMessageCount() == 0);
@@ -66,7 +66,7 @@ public class ConversationDataTest {
     public void testGetUser() {
 
         UserData expected = new GoogleTalkUserData("Rakan", "Rick", "1234");
-        assertSame(expected.getAccountName(), cd1.getUser().getAccountName());
+        assertSame(expected.getUserID(), cd1.getUser().getUserID());
         assertSame(expected.getNickname(), cd1.getUser().getNickname());
         assertSame(expected.getStatus(), cd1.getUser().getStatus());
     }
@@ -75,7 +75,7 @@ public class ConversationDataTest {
     public void testSetUser() {
         UserData expected = new GoogleTalkUserData("Meryam", "Faris", "idle");
         cd2.setUser(expected);
-        assertSame(expected.getAccountName(), cd2.getUser().getAccountName());
+        assertSame(expected.getUserID(), cd2.getUser().getUserID());
         assertSame(expected.getNickname(), cd2.getUser().getNickname());
         assertSame(expected.getStatus(), cd2.getUser().getStatus());
 

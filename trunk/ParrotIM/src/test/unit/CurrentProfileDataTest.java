@@ -92,7 +92,7 @@ public class CurrentProfileDataTest {
         UserData g = new GoogleTalkUserData("Grand", "GTA", "busy");
         a3.addFriend(g);
         cpd6 = new ProfileData(a3, "Al Pacino");
-        assertSame(g.getAccountName(), cpd6.getAccountData().get(0)
+        assertSame(g.getUserID(), cpd6.getAccountData().get(0)
                 .getAccountName());
         assertSame("Al Pacino", cpd6.getProfileName());
         assertFalse(cpd6.isChatbotEnabled());
@@ -161,8 +161,8 @@ public class CurrentProfileDataTest {
         ArrayList<UserData> result = new ArrayList<UserData>();
         result = cpd3.getAllFriends();
         for (int i = 0; i < expected.size(); i++) {
-            assertSame(expected.get(i).getAccountName(), result.get(i)
-                    .getAccountName());
+            assertSame(expected.get(i).getUserID(), result.get(i)
+                    .getUserID());
             assertSame(expected.get(i).getNickname(), result.get(i)
                     .getNickname());
             assertSame(expected.get(i).getStatus(), result.get(i).getStatus());

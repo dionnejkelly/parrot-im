@@ -218,7 +218,7 @@ public class AccountData {
      * @return true if found, false otherwise
      */
     public boolean friendExists(UserData friend) {
-        return this.findFriendByUserID(friend.getAccountName()) != null;
+        return this.findFriendByUserID(friend.getUserID()) != null;
     }
 
     /**
@@ -230,7 +230,7 @@ public class AccountData {
         UserData foundFriend = null; // Default return value
 
         for (UserData u : this.friends) {
-            if (u.getAccountName().equalsIgnoreCase(userID)) {
+            if (u.getUserID().equalsIgnoreCase(userID)) {
                 foundFriend = u;
                 break;
             }

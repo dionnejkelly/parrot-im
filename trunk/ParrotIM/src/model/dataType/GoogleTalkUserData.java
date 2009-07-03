@@ -25,6 +25,8 @@
 
 package model.dataType;
 
+import model.enumerations.ServerType;
+
 /**
  * Holds data about an external user on Google Talk.
  */
@@ -81,5 +83,9 @@ public class GoogleTalkUserData extends UserData {
      */
     public boolean isOnline() {
         return online;
+    }
+    
+    public String serverTypeToString() {
+        return ServerType.GOOGLE_TALK.toString();
     }
 }

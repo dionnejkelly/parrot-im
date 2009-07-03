@@ -146,10 +146,10 @@ public class AccountDataTest {
         expected.add(e1);
         expected.add(e2);
         Object[] array1 = expected.toArray();
-        assertSame(((GoogleTalkUserData) array1[0]).getAccountName(), e1
-                .getAccountName());
-        assertSame(((GoogleTalkUserData) array1[1]).getAccountName(), e2
-                .getAccountName());
+        assertSame(((GoogleTalkUserData) array1[0]).getUserID(), e1
+                .getUserID());
+        assertSame(((GoogleTalkUserData) array1[1]).getUserID(), e2
+                .getUserID());
     }
 
     @Test
@@ -182,7 +182,7 @@ public class AccountDataTest {
         GoogleTalkUserData expected =
                 new GoogleTalkUserData("expected", "e", "good");
         ad4.addFriend(expected);
-        assertNotNull(ad4.findFriendByUserID(expected.getAccountName()));
+        assertNotNull(ad4.findFriendByUserID(expected.getUserID()));
         ad4.addFriend(expected);
         assertNotNull(ad4.findFriendByUserID("expected"));
     }

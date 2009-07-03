@@ -1,5 +1,7 @@
 package model.dataType;
 
+import model.enumerations.ServerType;
+
 public class TwitterUserData extends UserData {
     // Section
     // I - Data Members
@@ -30,4 +32,8 @@ public class TwitterUserData extends UserData {
     // Section
     // III - Accessors and Mutators
 
+    public String serverTypeToString() {
+        return ServerType.TWITTER.toString();
+    }
+    
 }
