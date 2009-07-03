@@ -362,10 +362,15 @@ public class GoogleTalkManager implements GenericConnection {
 		
 	}
 	/**
-	 * another class that listens chat state is MessageEventNotificationListener
-	 * try this later....
+	 * use ChatSession to connect to MessageEventNotificationListener
 	 */
 	
+	/**
+	 * another class that listens chat state is MessageEventNotificationListener
+	 * try this later....this also includes offline notification
+	 */
+	
+
 	
 	/**
 	 * 
