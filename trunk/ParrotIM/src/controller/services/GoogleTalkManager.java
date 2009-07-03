@@ -24,6 +24,7 @@ import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatState;
+import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
 
 import view.options.MusicPlayer;
@@ -348,7 +349,6 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     
-    
 	@Override
 	//istyping  doesn't work yet
 	//will have nullpointer error for every new chat
@@ -361,4 +361,32 @@ public class GoogleTalkManager implements GenericConnection {
         System.out.println("hey! I'm typing");
 		
 	}
+	/**
+	 * another class that listens chat state is MessageEventNotificationListener
+	 * try this later....
+	 */
+	
+	
+	/**
+	 * 
+	 * this is for listening for chat state changed
+	 * but without implementing processMessage, it will break this class
+	 * 
+	 * 
+	 private class DefaultChatStateListener implements ChatStateListener {
+
+		@Override
+		public void stateChanged(Chat arg0, ChatState arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void processMessage(Chat arg0, Message arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+		 
+	 }
+**/
 }
