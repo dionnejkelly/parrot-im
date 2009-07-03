@@ -48,35 +48,15 @@ import model.enumerations.UserStateType;
  * hold the common data members for all protocols. Also, this class holds static
  * methods to aid the sorting of friends.
  */
-public abstract class UserData {
+public abstract class UserData extends PersonData {
 
     // Section I
     // Data Members
 
     /**
-     * The userID of the external user.
-     */
-    protected String userID;
-
-    /**
-     * The nickname of the external user.
-     */
-    protected String nickname;
-
-    /**
-     * The current status message of the user.
-     */
-    protected String status;
-
-    /**
      * The blocked status of the user.
      */
     protected boolean blocked;
-
-    /**
-     * The state of the user (e.g. Available, Away, Offline).
-     */
-    protected UserStateType state;
 
     // Section II
     // Constructors
@@ -94,11 +74,8 @@ public abstract class UserData {
      *            The current status for the user.
      */
     public UserData(String userID, String nickname, String status) {
-        this.userID = userID;
-        this.nickname = nickname;
-        this.status = status;
+        super(userID, nickname, UserStateType.OFFLINE, status);
         this.blocked = false;
-        this.state = UserStateType.OFFLINE;
     }
 
     /**
