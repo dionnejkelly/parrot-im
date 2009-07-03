@@ -411,6 +411,7 @@ public class ChatPanel extends JPanel {
         
         private boolean twitterEnabled;
         private final int keyCapacity = 140;
+        
         private int keyEvent;
         
         private int keyCount;
@@ -451,13 +452,11 @@ public class ChatPanel extends JPanel {
         public void keyReleased(KeyEvent e) {
 
             if (!shiftPressed && e.getKeyCode() == e.VK_ENTER && sendButton.isEnabled()) {
-                System.out
-                        .println("-------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println("-------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 e.setKeyCode(e.VK_BEGIN);
-                txt1.setText(txt1.getText().substring(
-                        0, txt1.getText().length() - 1));
+//                txt1.setText(txt1.getText().substring(
+//                        0, txt1.getText().length() - 1));
                 sendMessage();
-                //keyCount = 140;
                 sendButton.setEnabled(true);
             }
 
@@ -515,8 +514,6 @@ public class ChatPanel extends JPanel {
         	return txt1.getText().length() > 140;
         }
         
-        private boolean isEmpty() {
-        	return txt1.getText().length() == 0;
-        }
+
     }
 }
