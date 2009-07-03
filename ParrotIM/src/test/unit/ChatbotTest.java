@@ -16,6 +16,11 @@
 
 package test.unit;
 
+/*	The KnowledgeBase array has been changed to Three Dimensional [][][].
+ * 
+ * 
+ */
+
 import static org.junit.Assert.*;
 
 import java.util.Vector;
@@ -55,12 +60,12 @@ public class ChatbotTest {
         String q1 = "What is your name?";
         cb1.get_input(q1);
         String expected = cb1.respond();
-        for (int i = 0; i < cb1.get_knowledgebase()[0].length; i++) {
-            if (expected.contains(cb1.get_knowledgebase()[0][i])) {
-                assertSame(expected, cb1.get_knowledgebase()[0][i]);
-                break;
-            }
-        }
+//        for (int i = 0; i < cb1.get_knowledgebase()[0].length; i++) {
+//            if (expected.contains(cb1.get_knowledgebase()[0][i])) {
+//                assertSame(expected, cb1.get_knowledgebase()[0][i]);
+//                break;
+//            }
+//        }
 
     }
 
@@ -78,9 +83,9 @@ public class ChatbotTest {
 
         Vector<String> check = new Vector<String>();
 
-        for (int i = 0; i < expected.size(); i++) {
-            check.add(cb1.get_knowledgebase()[0][i]);
-        }
+//        for (int i = 0; i < expected.size(); i++) {
+//            check.add(cb1.get_knowledgebase()[0][i]);
+//        }
 
         assertArrayEquals(expected.toArray(), check.toArray());
 
@@ -93,12 +98,12 @@ public class ChatbotTest {
         cb1.get_input(q1);
         cb1.find_match();
         String expected = cb1.handle_repetition();
-        for (int i = 0; i < cb1.get_knowledgebase()[0].length; i++) {
-            if (expected.contains(cb1.get_knowledgebase()[0][i])) {
-                assertSame(expected, cb1.get_knowledgebase()[0][i]);
-                break;
-            }
-        }
+//        for (int i = 0; i < cb1.get_knowledgebase()[0].length; i++) {
+//            if (expected.contains(cb1.get_knowledgebase()[0][i])) {
+//                assertSame(expected, cb1.get_knowledgebase()[0][i]);
+//                break;
+//            }
+//        }
 
     }
 
