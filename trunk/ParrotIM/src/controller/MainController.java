@@ -20,7 +20,9 @@ package controller;
 
 import java.util.*;
 
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
+import org.jivesoftware.smackx.ChatStateManager;
 
 import controller.chatbot.Chatbot;
 import controller.services.BadConnectionException;
@@ -447,7 +449,21 @@ public class MainController {
 
         return;
     }
-
+    /**
+     * set istypying state
+     */
+    public void isTyping(){
+    	GenericConnection connection = model.getActiveConversation().getAccount().getConnection();
+    	try {
+			connection.isTyping();
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     /**
      * This method is using to send the message to friend. Explicitly sets a
      * receiver. If the receiver is unknown, then use the overloaded

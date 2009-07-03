@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jivesoftware.smack.XMPPException;
+
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.UserStateType;
 
@@ -348,5 +350,11 @@ public class TwitterManager implements GenericConnection {
 
         return hash;
     }
+
+	@Override
+	public void isTyping() throws BadConnectionException, XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
