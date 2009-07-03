@@ -43,6 +43,7 @@ public class GoogleTalkManager implements GenericConnection {
     private GenericConnection genericConnection;
 
     private ArrayList<Chat> chats;
+    Chat lastChat;
 
     public GoogleTalkManager(MainController controller) {
         this.connection = null;
@@ -236,7 +237,7 @@ public class GoogleTalkManager implements GenericConnection {
                                 }
                             });
         }
-
+        this.lastChat = ourChat;
         try {
             ourChat.sendMessage(message);
         } catch (XMPPException e) {
@@ -350,12 +351,13 @@ public class GoogleTalkManager implements GenericConnection {
     
 	@Override
 	//istyping  doesn't work yet
-	//chat object is incorrect
+	//will have nullpointer error for every new chat
+	//cuz the chat object is not created until the first msg is send
+	//and it should send to every friends instead of just the current chat
 	public void isTyping() throws BadConnectionException, XMPPException {
 		ChatStateManager state = ChatStateManager.getInstance(connection);
-        for (Chat c : this.chats) {
-        	state.setCurrentState(ChatState.active, c);
-            }
+        state.setCurrentState(ChatState.composing, lastChat);
+
         System.out.println("hey! I'm typing");
 		
 	}
