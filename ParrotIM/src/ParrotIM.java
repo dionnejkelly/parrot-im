@@ -29,7 +29,7 @@ public class ParrotIM {
         Model model = new Model();
         MainController controller = new MainController(model);
         MainWindow mainWindow = new MainWindow(controller, model);
-
+        
         //XMPPConnection.DEBUG_ENABLED = true;
         
         return;

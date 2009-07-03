@@ -224,7 +224,7 @@ public class ChatPanel extends JPanel {
                         "/images/chatwindow/pic.png")));
         pic.setToolTipText("Insert a Picture");
         pic.addActionListener(new pictureListener());
-
+        
         // Text editing toolbar
         JToolBar bar1 = new JToolBar();
         bar1.add(fontSelect);
@@ -245,6 +245,7 @@ public class ChatPanel extends JPanel {
 
         // setup and add to split pane
         JSplitPane sPane = new JSplitPane();
+        sPane.setDividerSize(5);
         sPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         sPane.setTopComponent(displayPanel);
         sPane.setBottomComponent(editingPanel);
