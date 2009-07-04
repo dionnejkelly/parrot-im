@@ -349,7 +349,7 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     
-	@Override
+//	@Override
 	//istyping  doesn't work yet
 	//will have nullpointer error for every new chat
 	//cuz the chat object is not created until the first msg is send

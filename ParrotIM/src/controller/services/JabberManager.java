@@ -335,7 +335,7 @@ public class JabberManager implements GenericConnection {
         return hash;
     }
 
-	@Override
+//	@Override
 	public void isTyping() throws BadConnectionException, XMPPException {
 		// TODO Auto-generated method stub
 		

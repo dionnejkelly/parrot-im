@@ -95,7 +95,7 @@ public class PmLabel extends JTextField {
             this.setText(this.getText());
             this.setOpaque(false);
 
-            this.setForeground(Color.BLACK);
+            this.setForeground(Color.CYAN);
             // send status to core
 
             if (this.getText().length() == 0) {
@@ -122,7 +122,7 @@ public class PmLabel extends JTextField {
          */
         public labelMouseListener(PmLabel lbl) {
             label = lbl;
-            label.setForeground(Color.BLACK);
+//            label.setForeground(Color.BLACK);
         }
 
         /**
@@ -182,7 +182,6 @@ public class PmLabel extends JTextField {
                 // test printing
                 // System.out.println("Pressed Enter!");
                 label.changePM(false);
-                label.setForeground(Color.CYAN);
             }
         }
 
