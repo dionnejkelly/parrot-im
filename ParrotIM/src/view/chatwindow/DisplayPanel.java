@@ -17,6 +17,8 @@ import model.enumerations.UserStateType;
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 
+import org.jivesoftware.smackx.packet.VCard;
+
 /**
  * The DisplayPanel contains the panel that allow users to read the messages in
  * the chat window.
@@ -39,6 +41,7 @@ public class DisplayPanel extends JPanel implements Observer {
 
     /** Sets buddies status. */
     private JLabel title;
+    private JLabel avatarLabel;
     
     private JScrollPane chatWindowScroller;
     
@@ -102,9 +105,18 @@ public class DisplayPanel extends JPanel implements Observer {
          
 
         // Upper toolBar
-        JToolBar bar1 = new JToolBar();
+        /*JToolBar bar1 = new JToolBar();
         bar1.setFloatable(false);
+        bar1.add(title);*/
+        Box bar1 = Box.createHorizontalBox();
         bar1.add(title);
+        bar1.add(Box.createGlue());
+        ImageIcon avatar = new ImageIcon();
+        avatarLabel = new JLabel(avatar);
+        bar1.add(avatarLabel);
+        
+        
+        
         // JButton fullView = new JButton("Full");
         // JButton simpleView = new JButton("Simple");
         // bar1.add(fullView);
@@ -168,6 +180,10 @@ public class DisplayPanel extends JPanel implements Observer {
         if (arg == UpdatedType.CHAT && model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
             title.setText(model.getActiveConversation().getUser().getNickname());
+            
+            VCard vcard = new VCard();
+            //vcard.load(connection,model.getActiveConversation().getUser().getUserID());
+            System.out.println();
 
             if (model.getActiveConversation().getUser().isBlocked()) {
                 title.setForeground(Color.LIGHT_GRAY.darker());
