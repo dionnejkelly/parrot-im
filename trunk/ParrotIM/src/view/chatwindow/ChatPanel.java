@@ -324,7 +324,8 @@ public class ChatPanel extends JPanel {
          * @param evt
          */
 		public void mouseClicked(MouseEvent m) {
-			emoticonChooser.setLocation(m.getXOnScreen() - 100, m.getYOnScreen() - 200);
+			
+			emoticonChooser.setLocation(m.getX(), m.getY());
 			emoticonChooser.setVisible(true);
 		}
 		public void mouseEntered(MouseEvent e) {}
