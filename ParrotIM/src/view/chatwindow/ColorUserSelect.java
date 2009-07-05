@@ -140,7 +140,6 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
 
 		public void actionPerformed(ActionEvent event) {
 			mainFrame.dispose();
-		
 		}
     }
     
@@ -158,7 +157,7 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
         
         //System.out.println("User Red color = " + newColor.getRed());
         //System.out.println("User Green color = " + newColor.getGreen());
-        System.out.println("Hex = " + getColorHex());
+        //System.out.println("Hex = " + getColorHex());
         
         hexColor = getColorHex();
         colorButton.setBackground(userColor);
