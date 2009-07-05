@@ -1,6 +1,7 @@
 package view.styles;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,6 +23,7 @@ public class CustomSplitPane extends JPanel {
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BorderLayout());
 		resizeButton = new JButton("<");
+		resizeButton.setPreferredSize(new Dimension(15,5));
 		buttonPanel.add(resizeButton, BorderLayout.WEST);
 		resizeButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -52,7 +54,7 @@ public class CustomSplitPane extends JPanel {
 		add(leftPanel, BorderLayout.WEST);
 	}
 	
-	public void setRightComponent(JPanel panel){
+	public void setRightPanel(JPanel panel){
 		rightPanel = panel;
 		buttonPanel.add(rightPanel, BorderLayout.CENTER);
 	}

@@ -14,7 +14,7 @@ public class CustomIconRenderer extends DefaultTreeCellRenderer {
 	private ArrayList<ImageIcon> avatars = new ArrayList<ImageIcon>();
 	private ArrayList<String> customUserAvatar = new ArrayList<String>();
 	
-	public CustomIconRenderer() {	}
+	public CustomIconRenderer() {}
 	
 	public void setUserAvatar(String username, ImageIcon avatar){
 		avatars.add(avatar);
