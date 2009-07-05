@@ -90,37 +90,39 @@ public class SidePanel extends JPanel implements Observer {
      * 
      */
     private void refreshTree() throws XMPPException {
-        // sets Tree Icons
-//        ImageIcon leafIcon =
-//                new ImageIcon(this.getClass().getResource(
-//                        "/images/chatwindow/personal.png"));
-    	//String buddy = model.getActiveConversation().getUser().getNickname();
-    	
-   
-//    	 ImageIcon leafIcon = c.getAvatarPicture(buddy + "@gmail.com");
-//    	 
-//        if (leafIcon != null) {
-//            DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-//            renderer.setLeafIcon(leafIcon);
-//            tree.setCellRenderer(renderer);
-//        }
-    	
-    	
+    	/** Initializations
+    	 * 		This is where the renderer is re-initialized and then added to
+    	 *  the tree. This only needs to be called once for it will affect the
+    	 *  preformance of the program and cause mysterious exceptions.
+    	 */
     	CustomIconRenderer renderer = new CustomIconRenderer();
     	tree.setCellRenderer(renderer);
     	
+    	//removes all of the old elements from the tree before refreshing the tree
         top.removeAllChildren();
+        
         for (ConversationData cd1 : model.getConversations()) {
-        	
-          ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getNickname() + "@gmail.com");
-          if (leafIcon != null) {   
-                renderer.setUserAvatar(cd1.getUser().getNickname(), 
-                		leafIcon);
-           }
+        	/** Adding the nodes to the tree
+        	 * 		This loop is for adding the nodes to the the tree.
+        	 * 	NOTE: Please to not put functions into this loop that only
+        	 * 		need to be run once. They will cause strange exceptions.
+        	 */
+            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getNickname() + "@gmail.com");
+            if (leafIcon != null) {   
+                 renderer.setUserAvatar(cd1.getUser().getNickname(), 
+                 		leafIcon);
+            }
              
             top.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));            
         }
         
+        /** Side Panel Tree Properties
+         * 		These are the properties of the tree that modify certain aspects of
+         * 	the tree after all of the nodes have been added to it. 
+         *  Note: These functions only need to be called once after all of the
+         *  nodes are added. calling these multiple times will only slow down the
+         *  refreshing of the tree and cause strange exceptions.
+         */
         tree.expandRow(1);
         tree.setRootVisible(false);
         tree.expandRow(0);
