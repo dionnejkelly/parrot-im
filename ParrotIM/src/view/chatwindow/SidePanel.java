@@ -104,26 +104,29 @@ public class SidePanel extends JPanel implements Observer {
 //            renderer.setLeafIcon(leafIcon);
 //            tree.setCellRenderer(renderer);
 //        }
-
+    	
+    	
+    	CustomIconRenderer renderer = new CustomIconRenderer();
+    	tree.setCellRenderer(renderer);
+    	
         top.removeAllChildren();
         for (ConversationData cd1 : model.getConversations()) {
-        	 ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getNickname() + "@gmail.com");
-        	 
-             if (leafIcon != null) {
-                 DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-                 renderer.setLeafIcon(leafIcon);
-                 tree.setCellRenderer(renderer);
-             }
+        	
+          ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getNickname() + "@gmail.com");
+          if (leafIcon != null) {   
+                renderer.setUserAvatar(cd1.getUser().getNickname(), 
+                		leafIcon);
+           }
              
-            top.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));
-            tree.expandRow(1);
-            tree.setRootVisible(false);
-
-            tree.expandRow(0);
-
-            // refreshes the tree
-            tree.updateUI();
+            top.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));            
         }
+        
+        tree.expandRow(1);
+        tree.setRootVisible(false);
+        tree.expandRow(0);
+        
+        // refreshes the tree
+        tree.updateUI();
     }
     
    
@@ -142,7 +145,6 @@ public class SidePanel extends JPanel implements Observer {
                 try {
 					refreshTree();
 				} catch (XMPPException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
