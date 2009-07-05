@@ -28,7 +28,6 @@ public class CustomIconRenderer extends DefaultTreeCellRenderer {
 		Object nodeObj = ((DefaultMutableTreeNode)value).getUserObject();    
 		
 		// check whatever you need to on the node user object
-		System.out.println("From rendererComponent:" +nodeObj.toString());
 		boolean matched = false;
 		for(int i = 0; i < avatars.size(); i++){
 			if(nodeObj.toString() == customUserAvatar.get(i)){
