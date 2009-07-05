@@ -16,6 +16,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 
+import org.jivesoftware.smack.XMPPException;
+
 import controller.MainController;
 
 import model.*;
@@ -84,13 +86,19 @@ public class SidePanel extends JPanel implements Observer {
 
     /**
      * Refreshes the tree.
+     * @throws XMPPException 
      * 
      */
-    private void refreshTree() {
+    private void refreshTree() throws XMPPException {
         // sets Tree Icons
-        ImageIcon leafIcon =
-                new ImageIcon(this.getClass().getResource(
-                        "/images/chatwindow/personal.png"));
+//        ImageIcon leafIcon =
+//                new ImageIcon(this.getClass().getResource(
+//                        "/images/chatwindow/personal.png"));
+    	ConversationData buddy = model.getConversations().get(0);
+    	
+    	System.out.println("Who am I Looking = " + buddy.getUser().getNickname());
+    	 ImageIcon leafIcon = c.getAvatarPicture(buddy.getUser().getNickname() + "@gmail.com");
+    	 
         if (leafIcon != null) {
             DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
             renderer.setLeafIcon(leafIcon);
@@ -109,6 +117,8 @@ public class SidePanel extends JPanel implements Observer {
             tree.updateUI();
         }
     }
+    
+   
 
     /**
      * Update according to the UpdatedType.
@@ -121,7 +131,12 @@ public class SidePanel extends JPanel implements Observer {
         if (o == UpdatedType.CHAT) {
             // Temporary fix for early update bug
             if (tree != null) {
-                refreshTree();
+                try {
+					refreshTree();
+				} catch (XMPPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         }
         return;

@@ -28,6 +28,8 @@ package controller.services;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import org.jivesoftware.smack.XMPPException;
 
 import model.dataType.tempData.FriendTempData;
@@ -60,6 +62,8 @@ public interface GenericConnection {
     public void sendMessage(String toUserID, String message) throws BadConnectionException;
     
     public void isTyping() throws BadConnectionException, XMPPException;
+    
+    public ImageIcon getAvatarPicture(String userID) throws XMPPException;
     
     //@Override
     public int hashCode();

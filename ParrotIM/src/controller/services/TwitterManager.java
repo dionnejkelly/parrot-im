@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import org.jivesoftware.smack.XMPPException;
 
 import model.dataType.tempData.FriendTempData;
@@ -355,6 +357,11 @@ public class TwitterManager implements GenericConnection {
 	public void isTyping() throws BadConnectionException, XMPPException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

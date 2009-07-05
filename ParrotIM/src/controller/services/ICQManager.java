@@ -4,6 +4,10 @@ package controller.services;
 import java.util.*;
 import java.util.regex.*;
 
+import javax.swing.ImageIcon;
+
+import org.jivesoftware.smack.XMPPException;
+
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.UserStateType;
 
@@ -74,6 +78,11 @@ public class ICQManager implements GenericConnection {
 			throws BadConnectionException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

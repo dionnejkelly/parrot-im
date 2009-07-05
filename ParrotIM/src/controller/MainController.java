@@ -20,6 +20,8 @@ package controller;
 
 import java.util.*;
 
+import javax.swing.ImageIcon;
+
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatStateManager;
@@ -94,6 +96,24 @@ public class MainController {
         model.getCurrentProfile().setStatus(status);
 
         return;
+    }
+    
+    public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+    	 // TODO create an account selection GUI
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+       
+            // connection should be found from account!!
+            account = model.getCurrentProfile().getAccountData().get(0);
+            connection = account.getConnection();
+            
+            ImageIcon avatarPicture = connection.getAvatarPicture(userID);
+
+            return avatarPicture;
+            // TODO make a more accurate Model.addFriend
+  
+      
     }
 
     /**

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.UserStateType;
@@ -26,6 +28,7 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
+import org.jivesoftware.smackx.packet.VCard;
 
 import view.options.MusicPlayer;
 
@@ -44,7 +47,10 @@ public class GoogleTalkManager implements GenericConnection {
     private GenericConnection genericConnection;
 
     private ArrayList<Chat> chats;
-    Chat lastChat;
+    
+    private Chat lastChat;
+    
+    private VCard vcard;
 
     public GoogleTalkManager(MainController controller) {
         this.connection = null;
@@ -52,6 +58,19 @@ public class GoogleTalkManager implements GenericConnection {
         this.genericConnection = this;
         this.chats = new ArrayList<Chat>();
     }
+    
+    public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+		vcard = new VCard();
+
+		vcard.load(connection,userID); // load someone's VCard
+
+		 
+		byte[] avatarBytes = vcard.getAvatar();
+		ImageIcon icon = new ImageIcon(avatarBytes);
+		
+		return icon;
+
+	}
 
     public void addFriend(String userID) throws BadConnectionException {
         Roster roster = null;

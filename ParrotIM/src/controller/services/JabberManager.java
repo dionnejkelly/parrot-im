@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
+import javax.swing.ImageIcon;
 
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.UserStateType;
@@ -339,5 +340,10 @@ public class JabberManager implements GenericConnection {
 	public void isTyping() throws BadConnectionException, XMPPException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
