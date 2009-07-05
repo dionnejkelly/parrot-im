@@ -9,22 +9,32 @@ public class model {
 	
 	
 	public model() throws ClassNotFoundException, SQLException{
+		QAs.clear();
 		Vector<String> questionList = new Vector<String>();
+		Vector<String> answersList = new Vector<String>();
+		Vector<String> doneQuestionsList = new Vector<String>();
+		Vector<String> tempQuestionsList = new Vector<String>();
+		Vector<String> tempAnswersList = new Vector<String>();
 		DatabaseFunctions db = new DatabaseFunctions();
 		questionList = db.getQuestionList();
+		
 		for(int i=0; i<questionList.size(); i++)
 		{
-			QAs.add(new ChatbotQADataType(questionList.get(i), "bleh"));
 			
+			db = new DatabaseFunctions();
+			tempAnswersList = db.getAnswersList(questionList.get(i));
+			db = new DatabaseFunctions();
+			tempQuestionsList = db.getAllAfterQuestions(questionList.get(i));
+			if (!doneQuestionsList.containsAll(tempQuestionsList))
+			{
+				QAs.add(new ChatbotQADataType(tempQuestionsList, tempAnswersList));
+				doneQuestionsList.addAll(tempQuestionsList);
+			}
 		}
 		QAs.add(new ChatbotQADataType("Am I dumb?","Yes, you are."));
-		QAs.add(new ChatbotQADataType("Hello?","Yes?"));
-		QAs.add(new ChatbotQADataType("Where is the world?","Somewhere~~ Out there~~~"));
 	}
 	
 	public void addQA(ChatbotQADataType newQA) throws ClassNotFoundException, SQLException{
-		DatabaseFunctions db = new DatabaseFunctions();
-		db.addQuestion("kevin", newQA.getQuestions().get(0));
 		QAs.add(newQA);
 	}
 	
