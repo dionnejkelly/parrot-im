@@ -94,19 +94,27 @@ public class SidePanel extends JPanel implements Observer {
 //        ImageIcon leafIcon =
 //                new ImageIcon(this.getClass().getResource(
 //                        "/images/chatwindow/personal.png"));
-    	ConversationData buddy = model.getConversations().get(0);
+    	//String buddy = model.getActiveConversation().getUser().getNickname();
     	
-    	System.out.println("Who am I Looking = " + buddy.getUser().getNickname());
-    	 ImageIcon leafIcon = c.getAvatarPicture(buddy.getUser().getNickname() + "@gmail.com");
-    	 
-        if (leafIcon != null) {
-            DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-            renderer.setLeafIcon(leafIcon);
-            tree.setCellRenderer(renderer);
-        }
+   
+//    	 ImageIcon leafIcon = c.getAvatarPicture(buddy + "@gmail.com");
+//    	 
+//        if (leafIcon != null) {
+//            DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+//            renderer.setLeafIcon(leafIcon);
+//            tree.setCellRenderer(renderer);
+//        }
 
         top.removeAllChildren();
         for (ConversationData cd1 : model.getConversations()) {
+        	 ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getNickname() + "@gmail.com");
+        	 
+             if (leafIcon != null) {
+                 DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+                 renderer.setLeafIcon(leafIcon);
+                 tree.setCellRenderer(renderer);
+             }
+             
             top.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));
             tree.expandRow(1);
             tree.setRootVisible(false);
