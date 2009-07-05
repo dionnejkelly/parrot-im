@@ -66,7 +66,16 @@ public class GoogleTalkManager implements GenericConnection {
 
 		 
 		byte[] avatarBytes = vcard.getAvatar();
-		ImageIcon icon = new ImageIcon(avatarBytes);
+		
+		ImageIcon icon;
+		
+		if (avatarBytes == null) {
+			icon = new ImageIcon(this.getClass().getResource("/images/chatwindow/personal.png"));
+		}
+		else {
+		   icon = new ImageIcon(avatarBytes);
+		}
+		
 		
 		return icon;
 
