@@ -141,9 +141,8 @@ public class DatabaseFunctions {
         // stat.executeUpdate("drop table if exists chatLog;");
         // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
-         stat.executeUpdate("drop table if exists chatBotResponses;");
-         stat.executeUpdate("drop table if exists chatBotQuestions;");
-         stat.executeUpdate("drop table if exists chatBotAnswers;");
+        // stat.executeUpdate("drop table if exists chatBotQuestions;");
+        // stat.executeUpdate("drop table if exists chatBotAnswers;");
        stat.executeUpdate("create table if not exists people "
                 + "(profile, serverType, serverAddress, "
                 + "accountName, password);");
