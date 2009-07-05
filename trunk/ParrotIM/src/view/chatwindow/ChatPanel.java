@@ -52,6 +52,8 @@ public class ChatPanel extends JPanel {
     /** Allows users to send the message. */
     
     private JButton sendButton;
+    
+    private JButton emoticons;
 
     /** Allows users to select the color from JColorChooser. */
 
@@ -187,7 +189,7 @@ public class ChatPanel extends JPanel {
  
         
         //emoticon button
-        JButton emoticons =
+        emoticons =
                 new JButton(new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/emote.png")));
         emoticons.setToolTipText("Add an Emoticon");
@@ -324,8 +326,9 @@ public class ChatPanel extends JPanel {
          * @param evt
          */
 		public void mouseClicked(MouseEvent m) {
+			emoticonChooser.setLocation(emoticons.getLocation());
+			System.out.println(m.getX() + " " + m.getY());
 			
-			emoticonChooser.setLocation(m.getX(), m.getY());
 			emoticonChooser.setVisible(true);
 		}
 		public void mouseEntered(MouseEvent e) {}
