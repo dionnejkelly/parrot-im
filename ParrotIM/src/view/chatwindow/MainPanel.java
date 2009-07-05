@@ -19,6 +19,7 @@ import javax.swing.*;
 
 import view.mainwindow.AboutFrame;
 import view.mainwindow.HelpPanel;
+import view.styles.CustomSplitPane;
 
 import controller.MainController;
 
@@ -82,18 +83,18 @@ public class MainPanel extends JPanel implements Observer {
         helpItem2.addActionListener(new aboutListener());
 
         // Horizontal SplitPane Properties
-        JSplitPane sPane = new JSplitPane();
+        CustomSplitPane splitPane = new CustomSplitPane();
         
         chat = new ChatPanel(c, model, chatFrame);
         side = new SidePanel(c, model);
         side.setMinimumSize(new Dimension(500, 300));
-        sPane.setRightComponent(chat);
-        sPane.setLeftComponent(side);
-        sPane.setOneTouchExpandable(true);
+        
+        splitPane.setRightPanel(chat);
+        splitPane.setLeftPanel(side);
 
         // add to panel
         add(menuBar, BorderLayout.NORTH);
-        add(sPane, BorderLayout.CENTER);
+        add(splitPane, BorderLayout.CENTER);
     }
 
     /**
