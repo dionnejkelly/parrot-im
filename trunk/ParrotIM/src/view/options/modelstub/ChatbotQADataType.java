@@ -1,6 +1,9 @@
 package view.options.modelstub;
 
+import java.sql.SQLException;
 import java.util.Vector;
+
+import model.DatabaseFunctions;
 
 public class ChatbotQADataType {
 	private Vector<String> questions = new Vector<String>();
@@ -8,13 +11,20 @@ public class ChatbotQADataType {
 	
 	public ChatbotQADataType(){}
 	
-	public ChatbotQADataType(String question){
+	public ChatbotQADataType(String question) throws SQLException, ClassNotFoundException{
+		DatabaseFunctions db = new DatabaseFunctions();
+		db.addQuestion("kevin", question);
 		questions.add(question);
 	}
 	
-	public ChatbotQADataType(String question, String answer){
+	public ChatbotQADataType(String question, String answer) throws SQLException, ClassNotFoundException{
 		questions.add(question);
 		answers.add(answer);
+		
+		//DatabaseFunctions db = new DatabaseFunctions();
+		//db.addQuestion("kevin", question);
+		//db = new DatabaseFunctions();
+		//db.addAnswer("kevin", question, answer);
 	}
 	
 	public ChatbotQADataType(Vector<String> questions, Vector<String> answers){
@@ -22,16 +32,38 @@ public class ChatbotQADataType {
 		this.answers = answers;
 	}
 	
-	public void addQuestion(String question){
+	public void addQuestion(String question) throws SQLException, ClassNotFoundException{
+		DatabaseFunctions db = new DatabaseFunctions();
+		for(int i=0; i<answers.size(); i++)
+		{
+			db = new DatabaseFunctions();
+			db.addAnswer("kevin", question, answers.get(i));
+		}
+		db = new DatabaseFunctions();
+		db.addQuestion("kevin", question);
+		db = new DatabaseFunctions();
+		if (questions.size() != 0)
+		{
+		db.addAfter(questions.lastElement(), question);
+		}
 		questions.add(question);
+		
 	}
 	
 	public void removeQuestion (int index){
 		questions.remove(index);
 	}
 	
-	public void addAnswer(String answer){
+	public void addAnswer(String answer) throws ClassNotFoundException, SQLException{
+		DatabaseFunctions db = new DatabaseFunctions();
+		for(int i=0; i<questions.size(); i++)
+		{
+			db = new DatabaseFunctions();
+			db.addAnswer("kevin", questions.get(i), answer);
+		}
 		answers.add(answer);
+		
+		
 	}
 	
 	public void removeAnswer (int index){

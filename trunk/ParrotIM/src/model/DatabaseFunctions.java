@@ -141,10 +141,10 @@ public class DatabaseFunctions {
         // stat.executeUpdate("drop table if exists chatLog;");
         // stat.executeUpdate("drop table if exists profiles;");
         // stat.executeUpdate("drop table if exists friendList;");
-        stat.executeUpdate("drop table if exists chatBotResponses;");
-        // stat.executeUpdate("drop table if exists chatBotInputs;");
-        // stat.executeUpdate("drop table if exists chatBotOutputs;");
-        stat.executeUpdate("create table if not exists people "
+         stat.executeUpdate("drop table if exists chatBotResponses;");
+         stat.executeUpdate("drop table if exists chatBotQuestions;");
+         stat.executeUpdate("drop table if exists chatBotAnswers;");
+       stat.executeUpdate("create table if not exists people "
                 + "(profile, serverType, serverAddress, "
                 + "accountName, password);");
         stat.executeUpdate("create table if not exists chatLog "
@@ -155,7 +155,7 @@ public class DatabaseFunctions {
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
         stat.executeUpdate("create table if not exists chatBotQuestions "
-                + "(profile, question);");
+                + "(profile, question, afterQuestion);");
         stat.executeUpdate("create table if not exists chatBotAnswers "
                 + "(profile, question, answer);");
     }
@@ -777,11 +777,12 @@ public class DatabaseFunctions {
 
     public void addQuestion(String profile, String question) throws SQLException
     {
-        prep = conn.prepareStatement("insert into chatBotQuestions values (?, ?);");
+        prep = conn.prepareStatement("insert into chatBotQuestions values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
         prep.setString(2, question);
+        prep.setString(3, null);
         prep.executeUpdate();
 
         conn.commit();
@@ -811,7 +812,7 @@ public class DatabaseFunctions {
         // Only check resultSet once
         while (rs.next()) {
             counter++;
-            responseList.add(rs.getString("output"));
+            responseList.add(rs.getString("answer"));
             
         }
         whichResponse = new Random().nextInt(counter);
@@ -829,6 +830,49 @@ public class DatabaseFunctions {
         conn.close();
         return questionList;
     }
+    public Vector<String> getAnswersList() throws SQLException {
+        Vector<String> answersList = new Vector<String>();
+        rs = stat.executeQuery("select * from chatBotAnswers;");
+        while (rs.next()) {
+            answersList.add(rs.getString("answer"));
+        }
+        rs.close();
+        conn.close();
+        return answersList;
+    }
+    public Vector<String> getAnswersList(String question) throws SQLException {
+        Vector<String> answersList = new Vector<String>();
+        rs = stat.executeQuery("select * from chatBotAnswers " +
+        		"where question='" + question + "';");
+        while (rs.next()) {
+            answersList.add(rs.getString("answer"));
+        }
+        rs.close();
+        conn.close();
+        return answersList;
+    }
+	// db.addAfter(questions.lastElement(), question);
+	public void addAfter(String beforeQuestion, String afterQuestion) throws SQLException {
+		stat.executeUpdate("update chatBotQuestions set afterQuestion = '" + 
+				afterQuestion + "' where question = '" + beforeQuestion + "';");
+		
+	}
+	public Vector<String> getAllAfterQuestions(String question) throws SQLException {
+        Vector<String> questionsList = new Vector<String>();
+        questionsList.add(question);
+        stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatBotQuestions " +
+        		"where question='" + question + "';");
+        rs.next();
+        while(rs.getString("afterQuestion") != null)
+        {
+        	questionsList.add(rs.getString("afterQuestion"));
+            rs = stat.executeQuery("select * from chatBotQuestions " +
+            		"where question='" + rs.getString("afterQuestion") + "';");
+        }
+		return questionsList;
+	}
+	
     
 
 }

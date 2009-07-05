@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -236,11 +237,27 @@ public class ChatbotQA extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if (field.getText().length()!=0)
 				if (mode == 'Q'){
-					QAObject.addQuestion(field.getText());
+					try {
+						QAObject.addQuestion(field.getText());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					QList.setListData(QAObject.getQuestions());
 					QList.updateUI();
 				} else if (mode == 'A'){
-					QAObject.addAnswer(field.getText());
+					try {
+						QAObject.addAnswer(field.getText());
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					AList.setListData(QAObject.getAnswers());
 					AList.updateUI();
 				}
