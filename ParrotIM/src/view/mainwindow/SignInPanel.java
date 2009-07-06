@@ -75,6 +75,7 @@ import controller.services.BadConnectionException;
 
 import view.profileManager.ProfileManager;
 import view.styles.LinkLabel;
+import view.styles.PopupWindowListener;
 
 import view.buddylist.BuddyList;
 
@@ -294,7 +295,9 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             try {
-                new ProfileManager(model, core, mainFrame);
+                ManageAccountFrame manageAccount = 
+                	new ManageAccountFrame(model, core, account_select.getSelectedItem().toString());
+                manageAccount.addWindowListener(new PopupWindowListener(mainFrame, manageAccount));
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -319,7 +322,8 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             //TODO: set this
-        	System.out.println("Create Profile is clicked");
+        	NewProfileFrame profile = new NewProfileFrame(model);
+        	profile.addWindowListener(new PopupWindowListener(mainFrame, profile));
         }
 
 		public void mouseEntered(MouseEvent e) {}
