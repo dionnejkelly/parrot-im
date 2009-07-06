@@ -62,7 +62,14 @@ public interface GenericConnection {
     
     public void sendMessage(String toUserID, String message) throws BadConnectionException;
     
-    public void isTyping() throws BadConnectionException, XMPPException;
+    /**
+     * 
+     * changing typing state
+     * @param state represent different typing state
+     * @throws BadConnectionException
+     * @throws XMPPException
+     */
+    public void setTypingState(int state) throws BadConnectionException, XMPPException;
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException;
     

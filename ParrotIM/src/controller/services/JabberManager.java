@@ -346,13 +346,15 @@ public class JabberManager implements GenericConnection {
     }
 
 //	@Override
-	public void isTyping() throws BadConnectionException, XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public ImageIcon getAvatarPicture(String userID) throws XMPPException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+@Override
+public void setTypingState(int state) throws BadConnectionException, XMPPException {
+	// TODO Auto-generated method stub
+	
+}
 }

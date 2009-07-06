@@ -388,17 +388,23 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     
-//	@Override
-	//istyping  doesn't work yet
-	//will have nullpointer error for every new chat
-	//cuz the chat object is not created until the first msg is send
-	//and it should send to every friends instead of just the current chat
-	public void isTyping() throws BadConnectionException, XMPPException {
-		ChatStateManager state = ChatStateManager.getInstance(connection);
-        state.setCurrentState(ChatState.composing, lastChat);
-
-        System.out.println("hey! I'm typing");
-		
+    /**
+     * 
+     * set typing state
+     * @param state int that represents different state
+     * 1 = active
+     * 2 = composing
+     * 3 = gone
+     * 4 = inactive
+     * 5 = paused
+     */
+	public void setTypingState(int state) throws BadConnectionException, XMPPException {
+		ChatStateManager curState = ChatStateManager.getInstance(connection);
+		if (state == 1){
+			curState.setCurrentState(ChatState.active, lastChat);
+		}else if(state == 2){
+	        curState.setCurrentState(ChatState.composing, lastChat);
+		}
 	}
 	/**
 	 * use ChatSession to connect to MessageEventNotificationListener
