@@ -33,19 +33,15 @@ public class CustomIconRenderer extends DefaultTreeCellRenderer {
 		for(int i = 0; i < avatars.size(); i++){
 			if(nodeObj.toString() == customUserAvatar.get(i)){
 				Image img = avatars.get(i).getImage(); 
-				Image newimg = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);   
-				ImageIcon newIcon = new ImageIcon(newimg);  
-				
+				img = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);   
+				ImageIcon newIcon = new ImageIcon(img);  
+
 				setIcon(newIcon); 
 				matched = true;
 			}
 		}
 		if(matched == false){
-			Image img = defaultIcon.getImage(); 
-			Image newimg = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);   
-			ImageIcon newIcon = new ImageIcon(newimg);  
-			
-			setIcon(newIcon);
+			setIcon(defaultIcon);
 		}
 		
 		return this;    
