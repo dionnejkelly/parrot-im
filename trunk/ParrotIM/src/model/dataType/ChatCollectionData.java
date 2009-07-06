@@ -120,6 +120,14 @@ public class ChatCollectionData {
 
         return;
     }
+    
+    public void removeAllConversations() {
+        this.conversations.clear();
+        this.hiddenConversations.clear();
+        this.activeConversation = null;
+        
+        return;
+    }
 
     // Information Methods
     public ArrayList<ConversationData> getAllConversations() {

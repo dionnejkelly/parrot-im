@@ -246,7 +246,7 @@ public class Model extends Observable {
 
         return conversation;
     }
-    
+
     public ConversationData findConversation(UserData user) {
         ConversationData conversation = null;
 
@@ -302,7 +302,7 @@ public class Model extends Observable {
      */
     public ConversationData getActiveConversation() {
         return this.chatCollection.getActiveConversation();
-    }    
+    }
 
     /**
      * Handles the receiving message.
@@ -330,7 +330,7 @@ public class Model extends Observable {
 
         user = this.findUserByAccountName(fromUser);
         modifiedConversation = this.findConversation(account, user);
-        
+
         if (modifiedConversation != null) {
             // Case 1: We found a matching conversation
             modifiedConversation.addMessage(message);
@@ -390,15 +390,15 @@ public class Model extends Observable {
 
         conversation = this.findConversation(account, user);
         if (conversation == null) {
-            conversation = new ConversationData(account, user);            
+            conversation = new ConversationData(account, user);
         }
         this.chatCollection.addConversation(conversation);
-        
+
         this.chatCollection.setActiveConversation(conversation);
 
         setChanged();
         notifyObservers(UpdatedType.CHAT);
-        
+
         return conversation;
     }
 
@@ -416,8 +416,15 @@ public class Model extends Observable {
 
         setChanged();
         notifyObservers(UpdatedType.CHAT);
-        
+
         return;
+    }
+
+    public void removeAllConversations() {
+        this.chatCollection.removeAllConversations();
+
+        setChanged();
+        notifyObservers(UpdatedType.CHAT);
     }
 
     /*

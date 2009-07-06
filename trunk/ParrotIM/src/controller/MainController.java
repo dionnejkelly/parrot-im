@@ -269,6 +269,7 @@ public class MainController {
             }
         }
         this.model.clearCurrentProfile();
+        this.model.removeAllConversations();
 
         return;
     }
