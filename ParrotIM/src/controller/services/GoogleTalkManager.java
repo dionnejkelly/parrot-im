@@ -420,12 +420,10 @@ public class GoogleTalkManager implements GenericConnection {
 	 * */
 	 private class DefaultChatStateListener implements ChatStateListener {
 
-		@Override
 		public void stateChanged(Chat arg0, ChatState arg1) {
 			System.out.println(arg0.getParticipant()+ " is "+arg1.name() );
 		}
 
-		@Override
 		public void processMessage(Chat arg0, Message arg1) {
 			// Do nothing
 			
