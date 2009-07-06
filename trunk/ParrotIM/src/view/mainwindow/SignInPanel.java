@@ -73,7 +73,6 @@ import model.enumerations.UpdatedType;
 import controller.MainController;
 import controller.services.BadConnectionException;
 
-import view.profileManager.ProfileManager;
 import view.styles.LinkLabel;
 import view.styles.PopupWindowListener;
 
@@ -322,7 +321,7 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             //TODO: set this
-        	NewProfileFrame profile = new NewProfileFrame(model);
+        	NewProfileFrame profile = new NewProfileFrame(model, core, mainFrame);
         	profile.addWindowListener(new PopupWindowListener(mainFrame, profile));
         }
 
@@ -340,7 +339,9 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             //TODO: set this
-        	System.out.println("Remove Profile is clicked");
+        	String profileName = account_select.getSelectedItem().toString();
+        	//check if this profile is password protected
+        	model.removeProfile(profileName);
         }
 
 		public void mouseEntered(MouseEvent e) {}
