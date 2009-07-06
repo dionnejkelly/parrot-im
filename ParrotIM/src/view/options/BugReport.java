@@ -93,7 +93,7 @@ public class BugReport
 		MimeMessage authenticateMessage = new MimeMessage(authenticateSession);
 		authenticateMessage.setSender(new InternetAddress(userEmailAddress));
 		authenticateMessage.setSubject(title);
-		authenticateMessage.setContent(bodyMessage,"text/plan");
+		authenticateMessage.setContent(bodyMessage,"text/plain");
 		
 		authenticateMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
  
