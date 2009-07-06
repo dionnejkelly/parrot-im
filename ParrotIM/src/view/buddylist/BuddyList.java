@@ -18,6 +18,7 @@ import javax.swing.*;
 import view.mainwindow.HelpPanel;
 import view.mainwindow.MainWindow;
 import view.mainwindow.AboutFrame;
+import view.options.BugReportFrame;
 import view.options.MusicPlayer;
 import view.options.OptionFrame;
 
@@ -210,8 +211,8 @@ public class BuddyList extends JFrame {
         * 
         */
         public void actionPerformed(ActionEvent e) {
-            new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
-
+            //new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
+        	new BugReportFrame(model);
             return;
         }
     }

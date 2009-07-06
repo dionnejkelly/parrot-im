@@ -10,5 +10,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/smack_3_1_0/smackx-jingle.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jtwitter.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jortho.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
