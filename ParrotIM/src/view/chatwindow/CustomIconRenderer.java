@@ -1,6 +1,7 @@
 package view.chatwindow;
 
 import java.awt.Component;
+import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -31,12 +32,20 @@ public class CustomIconRenderer extends DefaultTreeCellRenderer {
 		boolean matched = false;
 		for(int i = 0; i < avatars.size(); i++){
 			if(nodeObj.toString() == customUserAvatar.get(i)){
-				setIcon(avatars.get(i)); 
+				Image img = avatars.get(i).getImage(); 
+				Image newimg = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);   
+				ImageIcon newIcon = new ImageIcon(newimg);  
+				
+				setIcon(newIcon); 
 				matched = true;
 			}
 		}
 		if(matched == false){
-			setIcon(defaultIcon); 
+			Image img = defaultIcon.getImage(); 
+			Image newimg = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);   
+			ImageIcon newIcon = new ImageIcon(newimg);  
+			
+			setIcon(newIcon);
 		}
 		
 		return this;    
