@@ -22,6 +22,7 @@ import view.options.MusicPlayer;
 import view.options.OptionFrame;
 
 import view.chatLog.ChatLogFrame;
+import view.chatwindow.ChatWindow;
 
 import controller.MainController;
 
@@ -45,6 +46,9 @@ public class BuddyList extends JFrame {
      * conversations.
      */
     private MainController controller;
+    
+    private ChatWindow chat;
+    
     /**
      * buddy window frame
      */
@@ -64,6 +68,9 @@ public class BuddyList extends JFrame {
         this.model = model;
         this.controller = c;
 
+        // Create chat window
+        this.chat = new ChatWindow(c, model);
+        
         this.setMinimumSize(new Dimension(300, 600));
 
         // Attach the top text menu
@@ -321,6 +328,8 @@ public class BuddyList extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             controller.disconnect();
+            model.deleteObserver(chat);
+            chat.dispose();
             new MainWindow(controller, model);
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();

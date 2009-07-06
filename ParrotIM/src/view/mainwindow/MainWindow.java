@@ -72,8 +72,6 @@ import model.enumerations.UpdatedType;
  */
 public class MainWindow extends JFrame implements Observer {
 
-    private ChatWindow chat;
-    
     /**
      * Sets the title of the window, size, and default close operation.
      * 
@@ -94,9 +92,6 @@ public class MainWindow extends JFrame implements Observer {
         // call SignIn Panel
         getContentPane().add(new SignInPanel(this, chatClient, model));
         
-        // Create chat window
-        this.chat = new ChatWindow(chatClient, model);
-
         pack();
         setVisible(true);
 
