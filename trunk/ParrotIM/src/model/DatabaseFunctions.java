@@ -143,7 +143,7 @@ public class DatabaseFunctions {
         // stat.executeUpdate("drop table if exists friendList;");
         // stat.executeUpdate("drop table if exists chatBotQuestions;");
         // stat.executeUpdate("drop table if exists chatBotAnswers;");
-       stat.executeUpdate("create table if not exists people "
+        stat.executeUpdate("create table if not exists people "
                 + "(profile, serverType, serverAddress, "
                 + "accountName, password);");
         stat.executeUpdate("create table if not exists chatLog "
@@ -870,6 +870,32 @@ public class DatabaseFunctions {
             		"where question='" + rs.getString("afterQuestion") + "';");
         }
 		return questionsList;
+	}
+	public void removeChatQuestion(String question) throws SQLException {
+        rs = stat.executeQuery("select * from chatBotQuestions " +
+        		"where question='" + question + "';");
+        rs.next();
+        String questionAfter = rs.getString("afterQuestion");
+        System.out.println("This is the question after: " + questionAfter);
+        rs = stat.executeQuery("select * from chatBotQuestions " +
+        		"where afterQuestion='" + question + "';");
+        rs.next();
+        String beforeQuestion = rs.getString("question");
+        rs.close();
+        stat = conn.createStatement();
+        if (questionAfter != null){
+            System.out.println("bleh meh wuhh?");
+        	stat.executeUpdate("update chatBotQuestions set afterQuestion = '" + 
+				questionAfter + "' where question = '" + beforeQuestion + "';");
+        }
+        else {
+        	stat.executeUpdate("update chatBotQuestions set afterQuestion = '" + 
+    				null + "' where question = '" + beforeQuestion + "';");
+        }
+		stat = conn.createStatement();
+		stat.executeUpdate("delete from chatBotQuestions where question='" + question + "';");
+		stat = conn.createStatement();
+		stat.executeUpdate("delete from chatBotAnswers where question='" + question + "';");
 	}
 	
     
