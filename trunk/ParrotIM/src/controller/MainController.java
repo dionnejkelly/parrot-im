@@ -165,6 +165,7 @@ public class MainController {
             throws BadConnectionException {
         AccountData account = null; // Default return value
         GenericConnection connection = null;
+        MainController controller = this;
         int port = 5223;
 
         // Create an AccountData from entered information
@@ -173,16 +174,16 @@ public class MainController {
         // Determine which type of connection the account requires, and add it
         switch (server) {
         case GOOGLE_TALK:
-            connection = new GoogleTalkManager(this);
+            connection = new GoogleTalkManager(controller);
             break;
 
         case JABBER:
             accountName += "@" + serverAddress;
-            connection = new JabberManager(this);
+            connection = new JabberManager(controller);
             break;
 
         case TWITTER:
-            connection = new TwitterManager();
+            connection = new TwitterManager(controller);
             break;
 
         default:
@@ -592,7 +593,7 @@ public class MainController {
 
         try {
             status = connection.retrieveStatus(userID);
-            
+
             userToUpdate.setStatus(status);
             if (connection instanceof GoogleTalkManager) {
                 userToUpdate.setState(((GoogleTalkManager) connection)
@@ -608,7 +609,6 @@ public class MainController {
         } catch (BadConnectionException e) {
             status = "(loading...)";
         }
-
 
         model.forceNotify(UpdatedType.BUDDY);
 
@@ -737,6 +737,22 @@ public class MainController {
                 e.printStackTrace();
             }
         }
+
+        return;
+    }
+
+    public void refreshFriends(GenericConnection connection) {
+        AccountData account = null;
+
+        account = model.findAccountByConnection(connection);
+
+        if (account != null) {
+            for (UserData u : account.getFriends()) {
+                this.updateStateAndStatus(u, connection);
+            }
+        }
+
+        model.forceNotify(UpdatedType.BUDDY);
 
         return;
     }

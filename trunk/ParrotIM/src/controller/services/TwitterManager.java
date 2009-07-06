@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 
 import org.jivesoftware.smack.XMPPException;
 
+import controller.MainController;
+
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.UserStateType;
 
@@ -25,27 +27,27 @@ public class TwitterManager implements GenericConnection {
     /**
      * Connection to twitter.
      */
-
     private Twitter twitter;
 
+    private GenericConnection genericConnection;
+    
+    private MainController controller;
+
     /**
-     * Attempts to log a user into the server based on the given account
-     * information. If the current profile already exists, this account
-     * information is added to it.
+     * Instantiates a new TwitterManager that should be associated with one
+     * TwitterAccount. Provides all the methods to communicate with the Twitter
+     * servers. Also generates a polling method that will search the server for
+     * updates on a timer, and then report any changes back to the controller.
      * 
-     * @param userID
-     * @param password
+     * @param controller
+     *            The MainController object that handles the main program flow.
      */
-
-    public TwitterManager(String userID, String password) {
-
-        // Make a Twitter object
-        twitter = new Twitter(userID, password);
-
-    }
-
-    public TwitterManager() {
+    public TwitterManager(MainController controller) {
         this.twitter = null;
+        this.genericConnection = this;
+        this.controller = controller;
+        PollingThread poller = new PollingThread();
+        poller.start();
     }
 
     /**
@@ -89,11 +91,19 @@ public class TwitterManager implements GenericConnection {
         return;
     }
 
+    /**
+     * Attempts to log a user into the server based on the given account
+     * information. If the current profile already exists, this account
+     * information is added to it.
+     * 
+     * @param userID
+     * @param password
+     */
     public void login(String userID, String password, String server, int port)
             throws BadConnectionException {
-               
+
         // server and port unneeded for twitter
-                
+
         try {
             twitter = new Twitter(userID, password);
         } catch (Exception e) {
@@ -167,7 +177,7 @@ public class TwitterManager implements GenericConnection {
      */
     public String retrieveStatus(String userID) throws BadConnectionException {
         String status = "";
-        
+
         try {
             status = twitter.getStatus(userID).getText();
         } catch (Exception e) {
@@ -175,7 +185,7 @@ public class TwitterManager implements GenericConnection {
             e.printStackTrace();
             throw new BadConnectionException();
         }
-        
+
         return status;
     }
 
@@ -196,12 +206,13 @@ public class TwitterManager implements GenericConnection {
         }
 
     }
-    
-    public int getMinutesSinceStatusChange(String userID) throws BadConnectionException {
+
+    public int getMinutesSinceStatusChange(String userID)
+            throws BadConnectionException {
         long minutesAgo = 16384;
         Date createdAt = null;
         Date now = null;
-        
+
         // Get the times in milliseconds.
         try {
             createdAt = twitter.getStatus(userID).getCreatedAt();
@@ -211,18 +222,34 @@ public class TwitterManager implements GenericConnection {
             throw new BadConnectionException();
         }
         now = new Date();
-        
+
         // Computes the difference in milliseconds
         minutesAgo = (now.getTime() - createdAt.getTime());
-        
+
         // Transfer from milliseconds to minutes
         minutesAgo = minutesAgo / 60000;
-               
+
         return (int) minutesAgo;
+    }
+
+    // Section
+    // Polling methods
+    
+    public class PollingThread extends Thread {
+        public void run() {
+            while (true) {
+                controller.refreshFriends(genericConnection);
+                try {
+                    sleep(30000); // Delay for 30 seconds
+                } catch (InterruptedException e) {
+                    System.err.println("Threading error");
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     
     
-
     /**
      * This method is used to check if the user is following.
      * 
@@ -345,32 +372,6 @@ public class TwitterManager implements GenericConnection {
         return twitter.getUserTimeline(userID);
 
     }
-    
-    
-
-    public static void main(String[] args) {
-
-        TwitterManager twitt = new TwitterManager("cmpt275testing", "abcdefghi");
-
-        // twitt.updateTwitterStatus("testing Parrot");
-        //		
-        // System.out.println("My status = " + twitt.getTwitterStatus());
-
-        // twitt.sendMessage("jfox2",
-        // "Hi Jordan, this is a testing and I hope you are having fun with creating a new framework for Twitter.");
-
-        for (int i = 0; i < twitt.getFriendsStatus("Fahelium").size(); i++) {
-            // System.out.println("Message = " +
-            // twitt.receiveMessage().get(i).getText());
-            System.out.println("Friends = "
-                    + twitt.getFriendsStatus("Fahelium").get(i).getText());
-
-        }
-
-        // System.out.println("Friends = " +
-        // twitt.getFriendsLatestStatus("Fahelium"));
-
-    }
 
     @Override
     public int hashCode() {
@@ -382,15 +383,15 @@ public class TwitterManager implements GenericConnection {
         return hash;
     }
 
-//	@Override
-	public void isTyping() throws BadConnectionException, XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    // @Override
+    public void isTyping() throws BadConnectionException, XMPPException {
+        // TODO Auto-generated method stub
 
-	public ImageIcon getAvatarPicture(String userID) throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
+
+    public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
