@@ -6,12 +6,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -44,6 +48,13 @@ public class BugReportFrame extends JFrame{
 	private JLabel questionLabel;
 	private JLabel subjectLabel;
 	private JLabel messageLabel;
+	private JLabel frequencyLabel;
+	private JLabel severityLabel;
+	
+	private JCheckBox criticalImpact;
+	private JCheckBox majorImpact;
+	private JCheckBox minorImpact;
+	private JCheckBox noImpact;
 	
 	private JTextField questionText;
 	private JTextField subjectText;
@@ -63,7 +74,7 @@ public class BugReportFrame extends JFrame{
 		this.setTitle("Bug Report");
 		
 		setPanels();
-		this.setPreferredSize(new Dimension(380,480));
+		this.setPreferredSize(new Dimension(380,550));
 		setResizable(false);
 		setLocationRelativeTo(null);
 
@@ -80,14 +91,22 @@ public class BugReportFrame extends JFrame{
 		
 		questionLabel = new JLabel("To: " );
 		subjectLabel = new JLabel("Title: " );
-		messageLabel = new JLabel("Message: " );
+		messageLabel = new JLabel("Description: " );
+		frequencyLabel = new JLabel("Frequency: ");
+		severityLabel = new JLabel("Severity: ");
+		
+		JLabel messageHelpLabel = new JLabel("Enter a detailed description of the problem. Please be specific.");
+		messageHelpLabel.setForeground(Color.GRAY.darker());
 	
 		questionText = new JTextField(30);
 		questionText.setText(messageTo);
 		questionText.setEditable(false);
 		subjectText = new JTextField(29);
+		subjectText.setToolTipText("Enter a one line summary of your report.");
 		messageText = new JTextArea(10,20);
 		messageText.addKeyListener(new TextBoxListener());
+		messageText.setToolTipText("Enter a detailed description of the problem. Please be specific.");
+		
 		JScrollPane QListScroll = new JScrollPane (messageText);
 		QListScroll.setPreferredSize(new Dimension(350, 280));
 		
@@ -96,6 +115,33 @@ public class BugReportFrame extends JFrame{
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new cancelActionListener());
 		sendButton.setEnabled(false);
+		
+		
+		String[] listFrequency = {"Always", "Often", "Occasionally", "Rarely"};
+		JComboBox frequency = new JComboBox(listFrequency);
+		
+		criticalImpact = new JCheckBox("Critical");
+		majorImpact = new JCheckBox("Major");
+		minorImpact = new JCheckBox("Minor");
+		noImpact = new JCheckBox("No Impact");
+		
+		StyleListener listener = new StyleListener();
+		
+		criticalImpact.addItemListener(listener);
+		majorImpact.addItemListener(listener);
+		minorImpact.addItemListener(listener);
+		noImpact.addItemListener(listener);
+		
+		
+		JPanel frequencyPanel = new JPanel();
+		frequencyPanel.add(frequency);
+		
+		JPanel severityPanel = new JPanel();
+		
+		severityPanel.add(criticalImpact);
+		severityPanel.add(majorImpact);
+		severityPanel.add(minorImpact);
+		severityPanel.add(noImpact);
 		
 		JPanel QButtonsPanel = new JPanel();
 		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -110,11 +156,26 @@ public class BugReportFrame extends JFrame{
 		mainPanel.add(questionText, BorderLayout.AFTER_LINE_ENDS);
 		mainPanel.add(subjectLabel,  BorderLayout.CENTER);
 		mainPanel.add(subjectText);
-		mainPanel.add(messageLabel);
+		mainPanel.add(messageLabel, BorderLayout.WEST);
+		mainPanel.add(messageHelpLabel);
 		mainPanel.add(QListScroll);
+		mainPanel.add(frequencyLabel);
+		mainPanel.add(frequencyPanel);
+		mainPanel.add(severityLabel, frequencyPanel.getLayout());
+		mainPanel.add(severityPanel);
 		mainPanel.add(QButtonsPanel, BorderLayout.SOUTH);
 		mainPanel.setBackground(Color.yellow);
 
+	}
+	
+	private class StyleListener implements ItemListener {
+
+		public void itemStateChanged(ItemEvent event) {
+			
+			
+			
+		}
+		
 	}
 		
 	private class cancelActionListener implements ActionListener{
