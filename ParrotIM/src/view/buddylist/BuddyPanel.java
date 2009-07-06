@@ -535,6 +535,9 @@ public class BuddyPanel extends JPanel implements Observer {
         	if(user.getState() == UserStateType.ONLINE){
         		friendItem.add(new JLabel(new ImageIcon(this.getClass().getResource(
             		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png"))), BorderLayout.WEST);
+        	}else if(user.getState() == UserStateType.AWAY || user.getState() == UserStateType.BUSY){
+        		friendItem.add(new JLabel(new ImageIcon(this.getClass().getResource(
+        		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Busy.png"))), BorderLayout.WEST);
         	}else{
         		friendItem.add(new JLabel(new ImageIcon(this.getClass().getResource(
             		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Away.png"))), BorderLayout.WEST);
