@@ -6,6 +6,8 @@ public class TwitterUserData extends UserData {
     // Section
     // I - Data Members
 
+    private int minutesSinceUpdate;
+    
     // Section
     // II - Constructors
 
@@ -18,6 +20,7 @@ public class TwitterUserData extends UserData {
      */
     public TwitterUserData(String userID, String status) {
         super(userID, userID, status);
+        this.minutesSinceUpdate = 16384;
     }
 
     /**
@@ -27,11 +30,20 @@ public class TwitterUserData extends UserData {
      */
     public TwitterUserData(String userID) {
         super(userID);
+        this.minutesSinceUpdate = 16384;
     }
 
     // Section
     // III - Accessors and Mutators
 
+    public void setMinutesSinceUpdate(int minutesSinceUpdate) {
+        this.minutesSinceUpdate = minutesSinceUpdate;
+    }
+
+    public int getMinutesSinceUpdate() {
+        return minutesSinceUpdate;
+    }
+    
     public String serverTypeToString() {
         return ServerType.TWITTER.toString();
     }

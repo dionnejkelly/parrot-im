@@ -2,6 +2,7 @@ package controller.services;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -195,6 +196,32 @@ public class TwitterManager implements GenericConnection {
         }
 
     }
+    
+    public int getMinutesSinceStatusChange(String userID) throws BadConnectionException {
+        long minutesAgo = 16384;
+        Date createdAt = null;
+        Date now = null;
+        
+        // Get the times in milliseconds.
+        try {
+            createdAt = twitter.getStatus(userID).getCreatedAt();
+        } catch (Exception e) {
+            System.err.println("No user to get minutes of.");
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+        now = new Date();
+        
+        // Computes the difference in milliseconds
+        minutesAgo = (now.getTime() - createdAt.getTime());
+        
+        // Transfer from milliseconds to minutes
+        minutesAgo = minutesAgo / 60000;
+               
+        return (int) minutesAgo;
+    }
+    
+    
 
     /**
      * This method is used to check if the user is following.
@@ -318,6 +345,8 @@ public class TwitterManager implements GenericConnection {
         return twitter.getUserTimeline(userID);
 
     }
+    
+    
 
     public static void main(String[] args) {
 

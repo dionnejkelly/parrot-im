@@ -97,23 +97,21 @@ public class MainController {
 
         return;
     }
-    
+
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
-    	 // TODO create an account selection GUI
+        // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
 
-       
-            // connection should be found from account!!
-            account = model.getCurrentProfile().getAccountData().get(0);
-            connection = account.getConnection();
-            
-            ImageIcon avatarPicture = connection.getAvatarPicture(userID);
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
 
-            return avatarPicture;
-            // TODO make a more accurate Model.addFriend
-  
-      
+        ImageIcon avatarPicture = connection.getAvatarPicture(userID);
+
+        return avatarPicture;
+        // TODO make a more accurate Model.addFriend
+
     }
 
     /**
@@ -232,8 +230,8 @@ public class MainController {
 
         accounts = model.getAccountsForProfile(profile);
         for (AccountTempData a : accounts) {
-            createdAccount =
-                    login(a.getServer(), a.getUserID(), a.getPassword());
+            createdAccount = login(a.getServer(), a.getUserID(), a
+                    .getPassword());
             model.addAccountToCurrentProfile(createdAccount);
         }
 
@@ -409,15 +407,14 @@ public class MainController {
 
             if (account.getServer() == ServerType.GOOGLE_TALK) {
                 user = new GoogleTalkUserData(userID, nickname, f.getStatus());
-                user.setState(f.getState());
             } else if (account.getServer() == ServerType.JABBER) {
                 user = new JabberUserData(userID, nickname, f.getStatus());
-                user.setState(f.getState());
             } else if (account.getServer() == ServerType.TWITTER) {
                 user = new TwitterUserData(userID, f.getStatus());
             } else { // some other user
                 // TODO implement me!
             }
+            this.updateStateAndStatus(user, connection);
 
             /* Search the savedFriends to find if was saved locally */
             for (FriendTempData databaseFriend : savedFriends) {
@@ -469,21 +466,24 @@ public class MainController {
 
         return;
     }
+
     /**
      * set istypying state
      */
-    public void isTyping(){
-    	GenericConnection connection = model.getActiveConversation().getAccount().getConnection();
-    	try {
-			connection.isTyping();
-		} catch (BadConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public void isTyping() {
+        GenericConnection connection = model.getActiveConversation()
+                .getAccount().getConnection();
+        try {
+            connection.isTyping();
+        } catch (BadConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (XMPPException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
+
     /**
      * This method is using to send the message to friend. Explicitly sets a
      * receiver. If the receiver is unknown, then use the overloaded
@@ -515,16 +515,15 @@ public class MainController {
 
         if (conversation == null) {
             model.startConversation(account, toUser);
-            conversation = model.findConversation(account,toUser);
+            conversation = model.findConversation(account, toUser);
         }
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getUserID();
 
-        messageObject =
-                new MessageData(fromUser, messageString, font, size, bold,
-                        italics, underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -556,9 +555,8 @@ public class MainController {
         fromUser = conversation.getAccount().getAccountName();
         to = conversation.getUser().getUserID();
 
-        messageObject =
-                new MessageData(fromUser, messageString, font, size, bold,
-                        italics, underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -594,14 +592,23 @@ public class MainController {
 
         try {
             status = connection.retrieveStatus(userID);
+            
+            userToUpdate.setStatus(status);
+            if (connection instanceof GoogleTalkManager) {
+                userToUpdate.setState(((GoogleTalkManager) connection)
+                        .retrieveState(userID));
+            } else if (connection instanceof JabberManager) {
+                userToUpdate.setState(((JabberManager) connection)
+                        .retrieveState(userID));
+            } else if (connection instanceof TwitterManager) {
+                ((TwitterUserData) userToUpdate)
+                        .setMinutesSinceUpdate(((TwitterManager) connection)
+                                .getMinutesSinceStatusChange(userID));
+            }
         } catch (BadConnectionException e) {
             status = "(loading...)";
         }
-        userToUpdate.setStatus(status);
-        if (connection instanceof GoogleTalkManager) {
-            userToUpdate.setState(((GoogleTalkManager) connection)
-                    .retrieveState(userID));
-        }
+
 
         model.forceNotify(UpdatedType.BUDDY);
 
@@ -709,9 +716,8 @@ public class MainController {
         MessageData messageData = null;
         AccountData account = null;
 
-        messageData =
-                new MessageData(fromUserID, message, "font", "4", false, false,
-                        false, "#000000");
+        messageData = new MessageData(fromUserID, message, "font", "4", false,
+                false, false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
         model.receiveMessage(account, messageData);
@@ -721,9 +727,9 @@ public class MainController {
             try {
                 chatbot.get_input(message);
                 String response = chatbot.respond();
-                
+
                 if (response.equals("")) {
-                	response = chatbot.signon();
+                    response = chatbot.signon();
                 }
                 sendMessage(response, fromUserID, account);
             } catch (Exception e) {
