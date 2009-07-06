@@ -33,6 +33,7 @@ import javax.swing.ImageIcon;
 import org.jivesoftware.smack.XMPPException;
 
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
 /**
@@ -64,6 +65,8 @@ public interface GenericConnection {
     public void isTyping() throws BadConnectionException, XMPPException;
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException;
+    
+    public ServerType getServerType();
     
     //@Override
     public int hashCode();

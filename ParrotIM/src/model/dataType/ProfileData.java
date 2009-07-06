@@ -221,7 +221,7 @@ public class ProfileData {
         boolean foundAccount = false;
 
         for (AccountData a : this.accountData) {
-            if (a.getAccountName().equalsIgnoreCase(userID)) {
+            if (a.getUserID().equalsIgnoreCase(userID)) {
                 foundAccount = true;
                 break;
             }
@@ -238,7 +238,7 @@ public class ProfileData {
      * @param account
      */
     public void addAccount(AccountData account) {
-        if (!this.accountExists(account.getAccountName())) {
+        if (!this.accountExists(account.getUserID())) {
             this.accountData.add(account);
         } else {
             // TODO throw a DuplicateAccountException, or something

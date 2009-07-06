@@ -487,7 +487,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         friendItem.setName(user.getNickname());
 
-        server = user.serverTypeToString();
+        server = user.getServer().toString();
 
         // end it
         friendItem.setToolTipText("Right click to see options for this item");
@@ -497,13 +497,13 @@ public class BuddyPanel extends JPanel implements Observer {
         // Colour our world! Sets colours for our friends.
         // Note: Separating the name and the status colours would be great.
         if (user.isBlocked()) {
-            friendName = new JLabel("* Blocked: " + user.getUserID() + " *");
+            friendName = new JLabel("  Blocked: " + user.getUserID() + " *");
             friendName.setForeground(Color.LIGHT_GRAY.darker());
         } else if (user instanceof TwitterUserData) {
             minutesSinceUpdate = ((TwitterUserData) user)
                     .getMinutesSinceUpdate();
             
-            friendName = new JLabel(" * " + user.getNickname() + " - "
+            friendName = new JLabel("  " + user.getNickname() + " - "
                     + user.getStatus() + " (Changed: " + minutesSinceUpdate
                     + " minutes ago)");
             if (minutesSinceUpdate < 60) {
@@ -514,19 +514,19 @@ public class BuddyPanel extends JPanel implements Observer {
                 friendName.setForeground(Color.RED.darker());
             }
         } else if (user.getState() == UserStateType.ONLINE) {
-            friendName = new JLabel(" * " + user.getNickname() + " - "
+            friendName = new JLabel("  " + user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.GREEN.darker());
         } else if (user.getState() == UserStateType.BUSY) {
-            friendName = new JLabel(" * " + user.getNickname() + " - "
+            friendName = new JLabel("  " + user.getNickname() + " - "
                     + user.getStatus() + " (Busy)");
             friendName.setForeground(Color.ORANGE.darker());
         } else if (user.getState() == UserStateType.AWAY) {
-            friendName = new JLabel(" * " + user.getNickname() + " - "
+            friendName = new JLabel("  " + user.getNickname() + " - "
                     + user.getStatus() + " (Away)");
             friendName.setForeground(Color.ORANGE.darker());
         } else {
-            friendName = new JLabel(" * " + user.getNickname() + " - "
+            friendName = new JLabel("  " + user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.RED.darker());
         }

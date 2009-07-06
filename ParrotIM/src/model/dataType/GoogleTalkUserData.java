@@ -26,22 +26,27 @@
 package model.dataType;
 
 import model.enumerations.ServerType;
+import model.enumerations.UserStateType;
 
 /**
  * Holds data about an external user on Google Talk.
  */
-public class GoogleTalkUserData extends UserData {
+public class GoogleTalkUserData extends UserData implements GoogleTalkPerson {
 
     // Section
     // I - Data Members
 
-    /**
-     * Indicates whether the user is online or not.
-     */
-    private boolean online;
-
     // Section
     // II - Constructors
+
+    /**
+     * Creates a new user with only a userID.
+     * 
+     * @param accountName
+     */
+    public GoogleTalkUserData(String userID) {
+        super(userID);
+    }
 
     /**
      * Creates a new user with a userID, nickname, and status.
@@ -50,42 +55,15 @@ public class GoogleTalkUserData extends UserData {
      * @param nickname
      * @param status
      */
-    public GoogleTalkUserData(String accountName, String nickname, String status) {
-        super(accountName, nickname, status);
-    }
-
-    /**
-     * Creates a new user with only a userID.
-     * 
-     * @param accountName
-     */
-    public GoogleTalkUserData(String accountName) {
-        super(accountName);
+    public GoogleTalkUserData(String userID, String nickname, String status,
+            UserStateType state, boolean blocked) {
+        super(userID, nickname, status, state, blocked);
     }
 
     // Section
     // III - Accessors and Mutators
 
-    /**
-     * Sets the online status of the user.
-     * 
-     * @param online
-     */
-    public void setOnline(boolean online) {
-        this.online = online;
-        return;
-    }
-
-    /**
-     * Gets whether the user is online or not.
-     * 
-     * @return True if online; false otherwise.
-     */
-    public boolean isOnline() {
-        return online;
-    }
-    
-    public String serverTypeToString() {
-        return ServerType.GOOGLE_TALK.toString();
+    public ServerType getServer() {
+        return ServerType.GOOGLE_TALK;
     }
 }

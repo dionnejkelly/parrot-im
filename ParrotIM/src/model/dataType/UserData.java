@@ -48,58 +48,18 @@ import model.enumerations.UserStateType;
  * hold the common data members for all protocols. Also, this class holds static
  * methods to aid the sorting of friends.
  */
-public abstract class UserData {
+public abstract class UserData extends PersonData {
 
     // Section I
     // Data Members
-
-    /**
-     * The userID of the external user.
-     */
-    protected String userID;
-
-    /**
-     * The nickname of the external user.
-     */
-    protected String nickname;
-
-    /**
-     * The current status message of the user.
-     */
-    protected String status;
 
     /**
      * The blocked status of the user.
      */
     protected boolean blocked;
 
-    /**
-     * The state of the user (e.g. Available, Away, Offline).
-     */
-    protected UserStateType state;
-
     // Section II
     // Constructors
-
-    /**
-     * Creates a new user with their userID, nickname, and status.
-     * 
-     * @param userID
-     *            A string representing the username. This is the name used to
-     *            communicate to the server.
-     * @param nickname
-     *            A name that will be displayed in place of the userID, usually
-     *            a more readable version of the userID.
-     * @param status
-     *            The current status for the user.
-     */
-    public UserData(String userID, String nickname, String status) {
-        this.userID = userID;
-        this.nickname = nickname;
-        this.status = status;
-        this.blocked = false;
-        this.state = UserStateType.OFFLINE;
-    }
 
     /**
      * Creates a new user with only a userID defined.
@@ -109,80 +69,18 @@ public abstract class UserData {
      *            communicate to the server.
      */
     public UserData(String userID) {
-        this.userID = userID;
-        this.nickname = this.userID;
-        this.status = "";
+        super(userID);
         this.blocked = false;
-        this.state = UserStateType.OFFLINE;
+    }
+
+    public UserData(String userID, String nickname, String status,
+            UserStateType state, boolean blocked) {
+        super(userID, nickname, status, state);
+        this.blocked = blocked;
     }
 
     // Section III
     // Accessors and Mutators
-
-    /**
-     * Sets the userID.
-     * 
-     * @param userID
-     *            A string representing the username. This is the name used to
-     *            communicate to the server.
-     */
-    public void setUserID(String userID) {
-        this.userID = userID;
-
-        return;
-    }
-
-    /**
-     * Gets the userID.
-     * 
-     * @return The userID of the user.
-     */
-    public String getUserID() {
-        return userID;
-    }
-
-    /**
-     * Changes the nickname.
-     * 
-     * @param nickname
-     *            A name that will be displayed in place of the userID, usually
-     *            a more readable version of the userID.
-     */
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-
-        return;
-    }
-
-    /**
-     * Gets the nickname.
-     * 
-     * @return A String of the nickname for the user.
-     */
-    public String getNickname() {
-        return nickname;
-    }
-
-    /**
-     * Changes the user's status.
-     * 
-     * @param status
-     *            The current status for the user.
-     */
-    public void setStatus(String status) {
-        this.status = status;
-
-        return;
-    }
-
-    /**
-     * Retrieves the user's status.
-     * 
-     * @return A String of the user's status.
-     */
-    public String getStatus() {
-        return status;
-    }
 
     /**
      * Changes the blocked property of the user.
@@ -206,83 +104,8 @@ public abstract class UserData {
         return this.blocked;
     }
 
-    /**
-     * Sets the state of the user.
-     * 
-     * @param state
-     *            This is similar to the status, but shows a state, such as
-     *            online, away, or busy, that a user is in. A user can be both
-     *            busy (state) and have a "Working on STAT" message (status)
-     *            displayed. Requires a UserStateType enum to be passed in; that
-     *            is, the types of states are limited.
-     */
-    public void setState(UserStateType state) {
-        this.state = state;
-    }
-
-    /**
-     * Gets the user's state.
-     * 
-     * @return The state of the user as a UserStateType enum.
-     */
-    public UserStateType getState() {
-        return this.state;
-    }
-
     // Section IV
     // Utility Methods
-
-    /**
-     * Returns the type of the UserData object in String format (e.g. Google
-     * Talk, Twitter).
-     * 
-     * @return The string of the server type for this object.
-     */
-    public abstract String serverTypeToString();
-
-    /**
-     * Converts the user to a String, returning the nickname.
-     * 
-     * @return The string representation for a user. We have chosen the nickname
-     *         to be returned by default.
-     */
-    @Override
-    public String toString() {
-        return nickname;
-    }
-
-    /**
-     * Checks two UserData objects and determines if they are equal based on
-     * only their userID.
-     * 
-     * @param user
-     *            The other user to compare to.
-     * @return true if they have the same userID, false otherwise.
-     */
-    @Override
-    public boolean equals(Object user) {
-        boolean areEqual = false;
-        UserData externalUser = null;
-
-        if (user != null && user instanceof UserData) {
-            externalUser = (UserData) user;
-            areEqual = this.userID.equalsIgnoreCase(externalUser.getUserID());
-        }
-
-        return areEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-
-        hash = hash
-                * 31
-                + (this.userID == null ? 0 : this.userID.toLowerCase()
-                        .hashCode());
-
-        return hash;
-    }
 
     // Section V
     // Sort Methods
@@ -303,9 +126,9 @@ public abstract class UserData {
 
         if (this.blocked) {
             ownPriority = 1;
-        } else if (this.state == UserStateType.ONLINE) {
+        } else if (this.getState() == UserStateType.ONLINE) {
             ownPriority = 4;
-        } else if (this.state == UserStateType.OFFLINE) {
+        } else if (this.getState() == UserStateType.OFFLINE) {
             ownPriority = 2;
         } else {
             ownPriority = 3;
@@ -462,5 +285,5 @@ public abstract class UserData {
 
         return friends;
     }
-    
+
 }

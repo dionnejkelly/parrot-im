@@ -25,12 +25,11 @@
  *         a field to hold a GenericConnection. It uses a getter to modify
  *         its information, and this class isn't designed to specifically
  *         change connection information; that's the job of the controller.
+ *     2009-July-6, KF
+ *         Changed implementation to inherit from PersonData.
  *         
  * Known Issues:
- *     1. Bad implementation of adding ownUserData. Could use inheritance,
- *        or store enough information that no other UserData object
- *        is required.
- *     2. An exception should be thrown upon adding a duplicate friend.
+ *     1. An exception should be thrown upon adding a duplicate friend.
  *     
  * Copyright (C) 2009  Pirate Captains
  * 
@@ -43,131 +42,87 @@ package model.dataType;
 import java.util.ArrayList;
 
 import controller.services.GenericConnection;
-import controller.services.GoogleTalkManager;
-import controller.services.JabberManager;
-import controller.services.TwitterManager;
 
 import model.enumerations.ServerType;
+import model.enumerations.UserStateType;
 
 /**
  * Holds username, password, and account type. Info is used in user profiles and
  * guest accounts for log-in purposes.
  */
-public class AccountData {
+public abstract class AccountData extends PersonData {
 
     /**
-     * The accountName, or more specifically, the userID for the account.
-     */
-    private String accountName;
-
-    /**
-     * The password for the account. Non-encrypted!
+     * The password that links to the userID to authenticate the account.
      */
     private String password;
 
     /**
-     * A friend list of this account.
-     */
-    private ArrayList<UserData> friends;
-
-    /**
-     * A boolean to indicate whether the account is connected or not.
-     */
-    private boolean connected;
-
-    /**
-     * Holds the object that allows for connection to the server.
-     */
-    private GenericConnection connection;
-
-    /**
-     * Constructs for the basic required information: server, userID, and
-     * password.
+     * Base constructor. Provides a userID and a password for logging in, but
+     * does not assign any other values.
      * 
-     * @param server
-     * @param accountName
+     * @param userID
+     *            The screen name or username of the user to log in.
      * @param password
+     *            The password paired with the user ID for authentication.
      */
-    public AccountData(String accountName, String password) {
-        this.accountName = accountName;
-        this.password = password;
-        this.friends = new ArrayList<UserData>();
-        this.connected = false;
-        this.connection = null;
+    public AccountData(String userID, String password) {
+        super(userID);
+        this.setPassword(password);
     }
 
     /**
-     * Constructs for the basic required information: server, userID, and
-     * password.
+     * Full constructor. Provides the userID and password , and also gives the
+     * status and nickname of the account.
      * 
-     * @param server
-     * @param accountName
+     * @param userID
+     *            The screen name or username of the user to log in.
+     * @param nickname
+     *            A nickname for the account.
+     * @param status
+     *            The custom status message of the account.
      * @param password
+     *            The password paired with the userID for authentication.
      */
-    public AccountData(String accountName, String password,
-            GenericConnection connection) {
-        this.accountName = accountName;
-        this.password = password;
-        this.friends = new ArrayList<UserData>();
-        this.connected = false;
-        this.connection = connection;
+    public AccountData(String userID, String nickname, String status,
+            UserStateType state, String password) {
+        super(userID, nickname, status, state);
+        this.setPassword(password);
     }
 
     /**
-     * Returns the server type as a ServerType enumeration.
-     * 
-     * @return The ServerType of the account.
-     */
-    public ServerType getServer() {
-        ServerType serverToReturn = null;
-        if (this.connection instanceof GoogleTalkManager) {
-            serverToReturn = ServerType.GOOGLE_TALK;
-        } else if (this.connection instanceof JabberManager) {
-            serverToReturn = ServerType.JABBER;
-        } else if (this.connection instanceof TwitterManager) {
-            serverToReturn = ServerType.TWITTER;
-        }
-        return serverToReturn;
-    }
-
-    /**
-     * Changes the userID of the account.
-     * 
-     * @param accountName
-     */
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-        return;
-    }
-
-    /**
-     * Gets the userID.
-     * 
-     * @return The userID as a String.
-     */
-    public String getAccountName() {
-        return accountName;
-    }
-
-    /**
-     * Changes the password.
+     * Changes the password. Does not allow a null password; if null, the
+     * password will be set to the empty String.
      * 
      * @param password
+     *            A password as a String.
      */
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password != null ? password : "";
+
         return;
     }
 
     /**
-     * Gets the password.
+     * Gets the password. Cannot be null.
      * 
      * @return The password, not encrypted, for the account. Can be an empty
      *         string.
      * 
      */
     public String getPassword() {
-        return password;
+        return this.password;
+    }
+
+    public abstract GenericConnection getConnection();
+    
+    /**
+     * Returns the server type as a ServerType enumeration.
+     * 
+     * @return The ServerType of the account.
+     */
+    public ServerType getServer() {
+        return this.getConnection().getServerType();
     }
 
     /**
@@ -178,16 +133,7 @@ public class AccountData {
      * @return true if successful, false otherwise. May return false due to a
      *         duplciate friend.
      */
-    public boolean addFriend(UserData friend) {
-        boolean notDuplicate = false;
-
-        if (!friendExists(friend)) {
-            this.friends.add(friend);
-            notDuplicate = true;
-        }
-
-        return notDuplicate;
-    }
+    public abstract boolean addFriend(UserData friend);
 
     /**
      * Removes a friend from the account. Searches by UserData.
@@ -197,18 +143,14 @@ public class AccountData {
      * 
      * @return true if removed, false otherwise
      */
-    public boolean removeFriend(UserData exFriend) {
-        return this.friends.remove(exFriend);
-    }
+    public abstract boolean removeFriend(UserData exFriend);
 
     /**
      * Gets a list of all friends in UserData format.
      * 
      * @return An ArrayList of all friends in UserData objects.
      */
-    public ArrayList<UserData> getFriends() {
-        return this.friends;
-    }
+    public abstract ArrayList<UserData> getFriends();
 
     /**
      * Checks whether a friend is in the list or not.
@@ -229,53 +171,14 @@ public class AccountData {
     public UserData findFriendByUserID(String userID) {
         UserData foundFriend = null; // Default return value
 
-        for (UserData u : this.friends) {
-            if (u.getUserID().equalsIgnoreCase(userID)) {
+        for (UserData u : this.getFriends()) {
+            if (u.isDuplicate(userID)) {
                 foundFriend = u;
                 break;
             }
         }
 
         return foundFriend;
-    }
-
-    /**
-     * Sets the connected field.
-     * 
-     * @param connected
-     */
-    public void setConnected(boolean connected) {
-        this.connected = connected;
-        return;
-    }
-
-    /**
-     * Returns whether it is connected or not.
-     * 
-     * @return true if connected, false otherwise.
-     */
-    public boolean isConnected() {
-        return connected;
-    }
-
-    /**
-     * Changes the connection object.
-     * 
-     * @param connection
-     */
-    public void setConnection(GenericConnection connection) {
-        this.connection = connection;
-
-        return;
-    }
-
-    /**
-     * Sets the connection object that communicates with the server.
-     * 
-     * @return The connection object for this account.
-     */
-    public GenericConnection getConnection() {
-        return connection;
     }
 
     /**
@@ -292,9 +195,10 @@ public class AccountData {
 
         if (account != null && account instanceof AccountData) {
             externalAccount = (AccountData) account;
-            areEqual = this.accountName.equalsIgnoreCase(externalAccount
-                    .getAccountName())
-                    && (this.getServer() == externalAccount.getServer());
+            areEqual =
+                    super.equals(account)
+                            && this.getConnection().equals(
+                                    externalAccount.getConnection());
         }
 
         return areEqual;
@@ -302,9 +206,9 @@ public class AccountData {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = hash * 31 + this.accountName.toLowerCase().hashCode();
-        hash = hash * 31 + this.connection.hashCode();
+        int hash = super.hashCode();
+
+        hash = hash * 31 + this.getConnection().hashCode();
 
         return hash;
     }
