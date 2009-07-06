@@ -475,13 +475,14 @@ public class MainController {
     }
 
     /**
-     * set istypying state
+     * changing typing state
+     * @param state numbers that represent different state, it depends on the service
      */
-    public void isTyping() {
+    public void setTypingState(int state) {
         GenericConnection connection =
                 model.getActiveConversation().getAccount().getConnection();
         try {
-            connection.isTyping();
+            connection.setTypingState(state);
         } catch (BadConnectionException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
