@@ -71,7 +71,6 @@ public class ManageAccountFrame extends JFrame{
 		setLocation(100, 100);
 		setPreferredSize(new Dimension(520,300));
 		setResizable(false);
-		setIconImage(new ImageIcon("imagesimages/mainwindow/logo.png").getImage());
 		JPanel accountPanel = new ManageAccount(model, controller, profilename);
 		accountPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		getContentPane().add(accountPanel);
