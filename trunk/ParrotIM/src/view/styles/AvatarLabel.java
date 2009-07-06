@@ -54,7 +54,6 @@ public class AvatarLabel extends JLabel{
 		this.setToolTipText("click to change your display picture");
 		avatarlbl = this;
 		changeAvatar(url.toString());
-		System.out.println(this.getText());
 		this.addMouseListener(new avatarMouseListener());
 	}
 	

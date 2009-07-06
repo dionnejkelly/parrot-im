@@ -62,7 +62,6 @@ public class ManageAccount extends JPanel implements Observer
 	
 	private Model model;
 	private MainController controller;
-	private Vector<String> accountArray;
 	private JList accList;
 	private JTextField UNField;
 	private JPasswordField pwdField;
@@ -72,9 +71,9 @@ public class ManageAccount extends JPanel implements Observer
 	protected JTextField jabberServer;
 	protected JButton removeButton;
 	
-	protected ManageAccount (Model model, MainController controller, String name) throws ClassNotFoundException, SQLException {
+	public ManageAccount (Model model, MainController controller, String profilename) throws ClassNotFoundException, SQLException {
 
-		this.profileName = name;
+		this.profileName = profilename;
 		this.model = model;
 		this.controller = controller;
 
@@ -93,8 +92,7 @@ public class ManageAccount extends JPanel implements Observer
 		leftPanel.setLayout(new BorderLayout());
 
 		//saved account list
-		accountArray = model.getAccountList();
-		accList = new JList(accountArray);
+		accList = new JList(model.getProfilesUserList(profileName));
 		accList.addListSelectionListener(new accListSelectionListener());
 		System.out.println(model.getAccountList().size());
 		accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -185,36 +183,9 @@ public class ManageAccount extends JPanel implements Observer
 		setupPanel.add(passwordPanel);
 
 
-		//*CENTRE PART : remember password + auto sign in
-		//other Checkboxes setup Panel
-		JPanel otherCheckPanel = new JPanel ();
-		otherCheckPanel.setLayout(new GridLayout (2,1));
-		JCheckBox rememberPWDCheck = new JCheckBox();
-		JCheckBox autoSignCheck = new JCheckBox();
-		otherCheckPanel.add(rememberPWDCheck);
-		otherCheckPanel.add(autoSignCheck);
-
-		//other Labels setup Panel
-		GridLayout otherLabelLayout = new GridLayout (2,1);
-		JPanel otherLabelPanel = new JPanel ();
-		otherLabelPanel.setLayout(otherLabelLayout);
-		otherLabelLayout.setVgap(7);
-		JLabel rememberPWDLabel = new JLabel("Remember password");
-		JLabel autoSignLabel = new JLabel("Auto Sign-in");
-		otherLabelPanel.add(rememberPWDLabel);
-		otherLabelPanel.add(autoSignLabel);
-
-		//other setups Panel
-		JPanel otherSetupPanel = new JPanel();
-		otherSetupPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 50, 0));
-		otherSetupPanel.setLayout (new FlowLayout());
-		otherSetupPanel.add(otherCheckPanel);
-		otherSetupPanel.add(otherLabelPanel);
-
 		//adding to rightPanel
 		rightPanel.setPreferredSize(new Dimension(280, 400));
 		rightPanel.add(setupPanel, BorderLayout.NORTH);
-		rightPanel.add(otherSetupPanel, BorderLayout.SOUTH);
 
 		//add to account manager pop up main panel
 		add(rightPanel,BorderLayout.EAST);
@@ -234,16 +205,12 @@ public class ManageAccount extends JPanel implements Observer
 			}
 			else {
 				//insert new
-			//	model.addAccountToCurrentProfile
-			//		(new AccountData((ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword())));
-			        controller.addAccount(model.getCurrentProfile().getProfileName(), (ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword()));
-			        accountArray.add(UNField.getText());
-		
+				controller.addAccount(profileName, (ServerType)server.getSelectedItem(), UNField.getText(), password(pwdField.getPassword()));
+				accList.setListData(model.getProfilesUserList(profileName));
 		                 
-			        accList.updateUI();
+			    accList.updateUI();
 				UNField.setText("");
 				pwdField.setText("");
-        		//TODO: update the JComboBox in siginPanel too!
 			}
 		}
 	}
@@ -287,10 +254,11 @@ public class ManageAccount extends JPanel implements Observer
 	private class removeActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent evt) {
         	int selected = accList.getSelectedIndex();
-			if (selected>=0 && selected < accountArray.size()){
+			if (selected>=0){
 				model.removeAccount(profileName, accList.getSelectedValue().toString());
-				accountArray.remove(selected);
+				accList.setListData(model.getProfilesUserList(profileName));
 				accList.updateUI();
+				removeButton.setEnabled(false);
 			}
         }
 	}
