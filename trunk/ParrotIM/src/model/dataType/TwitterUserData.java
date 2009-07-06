@@ -1,8 +1,10 @@
 package model.dataType;
 
 import model.enumerations.ServerType;
+import model.enumerations.UserStateType;
 
-public class TwitterUserData extends UserData {
+public class TwitterUserData extends UserData implements TwitterPerson {
+    
     // Section
     // I - Data Members
 
@@ -12,6 +14,16 @@ public class TwitterUserData extends UserData {
     // II - Constructors
 
     /**
+     * Creates a new user with only a userID.
+     * 
+     * @param userID
+     */
+    public TwitterUserData(String userID) {
+        super(userID);
+        this.minutesSinceUpdate = 16384;
+    }
+    
+    /**
      * Creates a new user with a userID, nickname, and status.
      * 
      * @param userID
@@ -19,17 +31,7 @@ public class TwitterUserData extends UserData {
      * @param status
      */
     public TwitterUserData(String userID, String status) {
-        super(userID, userID, status);
-        this.minutesSinceUpdate = 16384;
-    }
-
-    /**
-     * Creates a new user with only a userID.
-     * 
-     * @param userID
-     */
-    public TwitterUserData(String userID) {
-        super(userID);
+        super(userID, userID, status, UserStateType.OFFLINE, false);
         this.minutesSinceUpdate = 16384;
     }
 
@@ -44,8 +46,8 @@ public class TwitterUserData extends UserData {
         return minutesSinceUpdate;
     }
     
-    public String serverTypeToString() {
-        return ServerType.TWITTER.toString();
+    public ServerType getServer() {
+        return ServerType.TWITTER;
     }
     
 }

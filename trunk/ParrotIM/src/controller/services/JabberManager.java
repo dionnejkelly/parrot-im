@@ -7,6 +7,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
 
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;
@@ -241,6 +242,14 @@ public class JabberManager implements GenericConnection {
 
         return;
     }
+    
+    public ServerType getServerType() {
+        return ServerType.JABBER;
+    }
+    
+    
+    // Section
+    // Listeners
 
     private class MessagePacketFilter implements PacketFilter {
         public boolean accept(Packet packet) {

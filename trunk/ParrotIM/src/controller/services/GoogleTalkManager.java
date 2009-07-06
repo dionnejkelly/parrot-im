@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;
@@ -280,6 +281,13 @@ public class GoogleTalkManager implements GenericConnection {
         return;
     }
 
+    public ServerType getServerType() {
+        return ServerType.GOOGLE_TALK;
+    }
+    
+    // Section
+    // Listeners
+    
     private class MessagePacketFilter implements PacketFilter {
         public boolean accept(Packet packet) {
             // TODO Is this the source of the name is null bug? check

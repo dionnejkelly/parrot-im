@@ -321,7 +321,7 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             db.addChat(currentProfile.getProfileName(), fromUser, account
-                    .getAccountName(), message.getMessage());
+                    .getUserID(), message.getMessage());
         } catch (Exception e) {
             System.err.println("Database error. Chat not saved "
                     + "in the chat log.");
@@ -602,33 +602,7 @@ public class Model extends Observable {
     public boolean currentProfileExists() {
         return (currentProfile != null);
     }
-
-    /**
-     * Connect the account.
-     * 
-     * @param accountData
-     */
-
-    public void connectAccount(AccountData accountData) {
-        accountData.setConnected(true);
-        setChanged();
-        notifyObservers();
-        return;
-    }
-
-    /**
-     * Disconnects the account.
-     * 
-     * @param accountData
-     */
-
-    public void disconnectAccount(AccountData accountData) {
-        accountData.setConnected(false);
-        setChanged();
-        notifyObservers();
-        return;
-    }
-
+    
     /**
      * Force to update.
      * 
@@ -714,10 +688,10 @@ public class Model extends Observable {
         // Database manipulation
         try {
             db = new DatabaseFunctions();
-            if (!db.checkFriendExists(account.getAccountName(), accountName)) {
+            if (!db.checkFriendExists(account.getUserID(), accountName)) {
                 friend = new FriendTempData(accountName, false);
                 db = new DatabaseFunctions();
-                db.addFriend(account.getAccountName(), friend);
+                db.addFriend(account.getUserID(), friend);
             }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
@@ -752,11 +726,11 @@ public class Model extends Observable {
         // Database manipulation
         try {
             db = new DatabaseFunctions();
-            if (!db.checkFriendExists(account.getAccountName(), userToAdd
+            if (!db.checkFriendExists(account.getUserID(), userToAdd
                     .getUserID())) {
                 friend = new FriendTempData(userToAdd.getUserID(), false);
                 db = new DatabaseFunctions();
-                db.addFriend(account.getAccountName(), friend);
+                db.addFriend(account.getUserID(), friend);
             }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
@@ -797,10 +771,10 @@ public class Model extends Observable {
             friendName = exFriend.getUserID();
             if (friendName != null
                     && account != null
-                    && db.checkFriendExists(account.getAccountName(),
+                    && db.checkFriendExists(account.getUserID(),
                             friendName)) {
                 db = new DatabaseFunctions();
-                db.removeFriend(account.getAccountName(), friendName);
+                db.removeFriend(account.getUserID(), friendName);
             }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
@@ -855,7 +829,7 @@ public class Model extends Observable {
         AccountData foundAccount = null; // Default return value
 
         for (AccountData account : currentProfile.getAccountData()) {
-            if (account.getAccountName().equalsIgnoreCase(userID)) {
+            if (account.getUserID().equalsIgnoreCase(userID)) {
                 foundAccount = account;
                 break;
             }
@@ -1081,7 +1055,7 @@ public class Model extends Observable {
 
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                messages.addAll(db.getMessageFromDate(account.getAccountName(),
+                messages.addAll(db.getMessageFromDate(account.getUserID(),
                         buddyname, date, ""));
             }
         } catch (SQLException e) {

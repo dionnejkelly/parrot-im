@@ -36,9 +36,12 @@ import controller.services.TwitterManager;
 import model.Model;
 import model.dataType.AccountData;
 import model.dataType.ConversationData;
+import model.dataType.GoogleTalkAccountData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
+import model.dataType.TwitterAccountData;
 import model.dataType.TwitterUserData;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
@@ -160,30 +163,35 @@ public class MainController {
      * @param password
      * @throws XMPPException
      */
-    public AccountData login(ServerType server, String accountName,
-            String password, String serverAddress)
-            throws BadConnectionException {
+    public AccountData login(ServerType server, String userID, String password,
+            String serverAddress) throws BadConnectionException {
         AccountData account = null; // Default return value
         GenericConnection connection = null;
         MainController controller = this;
         int port = 5223;
 
-        // Create an AccountData from entered information
-        account = new AccountData(accountName, password);
-
         // Determine which type of connection the account requires, and add it
         switch (server) {
         case GOOGLE_TALK:
             connection = new GoogleTalkManager(controller);
+            account =
+                    new GoogleTalkAccountData(userID, password,
+                            (GoogleTalkManager) connection);
             break;
 
         case JABBER:
-            accountName += "@" + serverAddress;
+            userID += "@" + serverAddress;
             connection = new JabberManager(controller);
+            account =
+                    new JabberAccountData(userID, password,
+                            (JabberManager) connection);
             break;
 
         case TWITTER:
             connection = new TwitterManager(controller);
+            account =
+                new TwitterAccountData(userID, password,
+                        (TwitterManager) connection);
             break;
 
         default:
@@ -196,13 +204,7 @@ public class MainController {
             throw new BadConnectionException(); // ... until we implement
         }
 
-        connection.login(accountName, password, serverAddress, port);
-        account.setConnection(connection);
-
-        // If connected...
-        // TODO connect this with GUI sign-in animation?
-        // It not, we can just use account.setConnected() instead of model
-        model.connectAccount(account);
+        connection.login(userID, password, serverAddress, port);
 
         // Set up friends' user data
         this.populateBuddyList(account);
@@ -231,8 +233,8 @@ public class MainController {
 
         accounts = model.getAccountsForProfile(profile);
         for (AccountTempData a : accounts) {
-            createdAccount = login(a.getServer(), a.getUserID(), a
-                    .getPassword());
+            createdAccount =
+                    login(a.getServer(), a.getUserID(), a.getPassword());
             model.addAccountToCurrentProfile(createdAccount);
         }
 
@@ -390,7 +392,7 @@ public class MainController {
 
         // Get friends from the database to cross reference against
         // those found in Roster.
-        savedFriends = model.getSavedFriends(account.getAccountName());
+        savedFriends = model.getSavedFriends(account.getUserID());
 
         connection = account.getConnection();
 
@@ -408,11 +410,14 @@ public class MainController {
             }
 
             if (account.getServer() == ServerType.GOOGLE_TALK) {
-                user = new GoogleTalkUserData(userID, nickname, f.getStatus());
+                user = new GoogleTalkUserData(userID);
+                user.setNickname(f.getNickname());
             } else if (account.getServer() == ServerType.JABBER) {
-                user = new JabberUserData(userID, nickname, f.getStatus());
+                user = new JabberUserData(userID);
+                user.setNickname(f.getNickname());
             } else if (account.getServer() == ServerType.TWITTER) {
-                user = new TwitterUserData(userID, f.getStatus());
+                user = new TwitterUserData(userID);
+                user.setNickname(f.getNickname());
             } else { // some other user
                 // TODO implement me!
             }
@@ -473,8 +478,8 @@ public class MainController {
      * set istypying state
      */
     public void isTyping() {
-        GenericConnection connection = model.getActiveConversation()
-                .getAccount().getConnection();
+        GenericConnection connection =
+                model.getActiveConversation().getAccount().getConnection();
         try {
             connection.isTyping();
         } catch (BadConnectionException e) {
@@ -521,11 +526,12 @@ public class MainController {
         }
         connection = conversation.getAccount().getConnection();
 
-        fromUser = conversation.getAccount().getAccountName();
+        fromUser = conversation.getAccount().getUserID();
         to = conversation.getUser().getUserID();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(fromUser, messageString, font, size, bold,
+                        italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -554,11 +560,12 @@ public class MainController {
         conversation = model.getActiveConversation();
         connection = conversation.getAccount().getConnection();
 
-        fromUser = conversation.getAccount().getAccountName();
+        fromUser = conversation.getAccount().getUserID();
         to = conversation.getUser().getUserID();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(fromUser, messageString, font, size, bold,
+                        italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -717,8 +724,9 @@ public class MainController {
         MessageData messageData = null;
         AccountData account = null;
 
-        messageData = new MessageData(fromUserID, message, "font", "4", false,
-                false, false, "#000000");
+        messageData =
+                new MessageData(fromUserID, message, "font", "4", false, false,
+                        false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
         model.receiveMessage(account, messageData);

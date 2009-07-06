@@ -22,43 +22,43 @@
 package model.dataType;
 
 import model.enumerations.ServerType;
+import model.enumerations.UserStateType;
 
 /**
  * Represents a friend from the Jabber protocol.
  */
-public class JabberUserData extends UserData {
+public class JabberUserData extends UserData implements JabberPerson {
 
     // Section
     // I - Data Members
 
-    
     // Section
     // II - Constructors
-    
+
     /**
      * Creates a new friend from an account name.
      * 
      * @param accountName
      *            The email address of the friend.
      */
-    public JabberUserData(String accountName) {
-        super(accountName);
+    public JabberUserData(String userID) {
+        super(userID);
     }
 
     /**
-     * Creates a new Jabber user with a userID, nickname, and
-     * status.
+     * Creates a new Jabber user with a userID, nickname, and status.
      * 
      * @param accountName
      * @param nickname
      * @param status
      */
-    public JabberUserData(String accountName, String nickname, String status) {
-        super(accountName, nickname, status);
+    public JabberUserData(String userID, String nickname, String status,
+            UserStateType state, boolean blocked) {
+        super(userID, nickname, status, state, blocked);
     }
-    
-    public String serverTypeToString() {
-        return ServerType.JABBER.toString();
+
+    public ServerType getServer() {
+        return ServerType.JABBER;
     }
-    
+
 }

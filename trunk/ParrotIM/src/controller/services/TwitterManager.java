@@ -12,6 +12,7 @@ import org.jivesoftware.smack.XMPPException;
 import controller.MainController;
 
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
 import winterwell.jtwitter.Twitter;
@@ -232,6 +233,10 @@ public class TwitterManager implements GenericConnection {
         return (int) minutesAgo;
     }
 
+    public ServerType getServerType() {
+        return ServerType.TWITTER;
+    }
+    
     // Section
     // Polling methods
     
