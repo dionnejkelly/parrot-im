@@ -38,13 +38,13 @@ public class OptionFrame extends JFrame {
 	private JTextArea personalMessage;
 	private MainController controller;
 	
-	public OptionFrame(MainController c, Model model) throws ClassNotFoundException, SQLException{
+	public OptionFrame(MainController c, Model model, String profileName) throws ClassNotFoundException, SQLException{
 		this.setTitle("User Preferences");
 		this.addWindowListener(new OptionWindowListener());
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		controller = c;
-		OptionPanel mainPanel =  new OptionPanel(c, model, this);
+		OptionPanel mainPanel =  new OptionPanel(c, model, this, profileName);
 		personalMessage = mainPanel.personalMessage;
         getContentPane().add(mainPanel);
         setPreferredSize(new Dimension(500,300));

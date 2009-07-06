@@ -255,7 +255,7 @@ public class BuddyList extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-				new OptionFrame(controller, model);
+				new OptionFrame(controller, model, model.getCurrentProfile().getProfileName());
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
 			} catch (SQLException e1) {
