@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SuggestionTest {
-	private Suggestion s1;
+	//private Suggestion s1;
 	@Before
 	public void setUp() throws Exception {
 	}

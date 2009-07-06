@@ -109,6 +109,8 @@ public class SidePanel extends JPanel implements Observer {
         	 * 	NOTE: Please to not put functions into this loop that only
         	 * 		need to be run once. They will cause strange exceptions.
         	 */
+        	
+        	System.out.println("Avatar Picture = " + cd1.getUser().getNickname());
             ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getNickname() + "@gmail.com");
             if (leafIcon != null) {   
                  renderer.setUserAvatar(cd1.getUser().getNickname(), 
