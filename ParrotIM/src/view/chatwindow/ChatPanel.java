@@ -11,12 +11,16 @@ package view.chatwindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import view.styles.PopupWindowListener;
 
@@ -126,7 +130,8 @@ public class ChatPanel extends JPanel {
 //        txt1.setWrapStyleWord(true);
 //        txt1.setToolTipText("Enter text and HTML tags here");
         txt1.addKeyListener(new TextBoxListener());
-
+        txt1.getDocument().addDocumentListener(new TextAreaDocListener());
+        txt1.addFocusListener(new TextAreaFocusListener());
         JScrollPane chatInputWindowScroller = new JScrollPane(txt1);
         chatInputWindowScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
@@ -258,6 +263,7 @@ public class ChatPanel extends JPanel {
 
         // add to chat panel
         add(sPane, BorderLayout.CENTER);
+        txt1.requestFocus();
     }
 
     // Getters
@@ -472,12 +478,8 @@ public class ChatPanel extends JPanel {
                 shiftPressed = false;
                 controlPressed = false;
 
-                c.isTyping();
             }
             
-            keyCount = txt1.getText().length();
-            
-            System.out.println("Key count = " + keyCount);
             
         	if (isMaxed()) {
         		System.out.println("Maxed out");
@@ -516,5 +518,46 @@ public class ChatPanel extends JPanel {
         }
         
 
+    }
+    /**
+     * 
+     * Check content of the textarea
+     *
+     */
+    private class TextAreaDocListener implements DocumentListener{
+    	private int keyCount = 0;
+		@Override
+		public void changedUpdate(DocumentEvent arg0) {
+			// TODO Auto-generated method stub
+			c.setTypingState(1);
+		}
+
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			keyCount = keyCount + e.getLength();
+			System.out.println("Key count = " + keyCount);
+			
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			keyCount = keyCount - e.getLength();
+			System.out.println("Key count = " + keyCount);
+		}
+    	
+    }
+    private class TextAreaFocusListener implements FocusListener{
+
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			c.setTypingState(1);
+		}
+
+		@Override
+		public void focusLost(FocusEvent arg0) {
+			c.setTypingState(2);
+			
+		}
+    	
     }
 }
