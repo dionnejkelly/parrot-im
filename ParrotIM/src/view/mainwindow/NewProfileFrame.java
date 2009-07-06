@@ -26,6 +26,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -39,6 +40,10 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.MainController;
+
+import view.styles.PopupWindowListener;
+
 import model.Model;
 
 public class NewProfileFrame extends JFrame{
@@ -49,10 +54,14 @@ public class NewProfileFrame extends JFrame{
 	private JPanel passwordOption;
 	private JPasswordField passwordField;
 	private JTextField profileName;
+	private MainController core;
+	private JFrame mainFrame;
 	
-	public NewProfileFrame (Model model){
+	public NewProfileFrame (Model model, MainController core, JFrame mainFrame){
 		popupFrame = this;
 		this.model = model;
+		this.core = core;
+		this.mainFrame = mainFrame;
 		
 		/*PROFILE*/
 		profileName = new JTextField();
@@ -129,8 +138,22 @@ public class NewProfileFrame extends JFrame{
 	private class nextButtonActionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			model.addProfile(profileName.getText(), password(passwordField.getPassword()), defaultCheck.isSelected());
-			popupFrame.dispose();
+			
+				if (profileName.getText().length() > 0){
+				model.addProfile(profileName.getText(), password(passwordField.getPassword()), defaultCheck.isSelected());
+				try {
+					ManageAccountFrame manageAccount =
+						new ManageAccountFrame(model, core, profileName.getText());
+		            manageAccount.addWindowListener(new PopupWindowListener(mainFrame, manageAccount));
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				popupFrame.dispose();
+			}
 		}
 		
 	}
