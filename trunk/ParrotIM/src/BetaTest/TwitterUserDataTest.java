@@ -3,6 +3,7 @@ package BetaTest;
 import static org.junit.Assert.*;
 
 import model.dataType.TwitterUserData;
+import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
 import org.junit.After;
@@ -27,7 +28,7 @@ public class TwitterUserDataTest {
 
 	@Test
 	public void testServerTypeToString() {
-		assertSame("Twitter",tu3.serverTypeToString());
+		assertSame(ServerType.TWITTER,tu3.getServer());
 	}
 
 	@Test
