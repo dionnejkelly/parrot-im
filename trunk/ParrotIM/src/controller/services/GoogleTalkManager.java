@@ -61,23 +61,33 @@ public class GoogleTalkManager implements GenericConnection {
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
 		vcard = new VCard();
-
-		vcard.load(connection,userID); // load someone's VCard
-
-		 
-		byte[] avatarBytes = vcard.getAvatar();
-		
 		ImageIcon icon;
 		
-		if (avatarBytes == null) {
+		try {
+			vcard.load(connection,userID); // load someone's VCard
+
+			 
+			byte[] avatarBytes = vcard.getAvatar();
+			
+			
+			
+			if (avatarBytes == null) {
+				icon = new ImageIcon(this.getClass().getResource("/images/chatwindow/personal.png"));
+			}
+			else {
+			   icon = new ImageIcon(avatarBytes);
+			}
+			
+			
+		}
+		
+		catch (XMPPException e) {
 			icon = new ImageIcon(this.getClass().getResource("/images/chatwindow/personal.png"));
 		}
-		else {
-		   icon = new ImageIcon(avatarBytes);
-		}
-		
 		
 		return icon;
+		
+		
 
 	}
 
