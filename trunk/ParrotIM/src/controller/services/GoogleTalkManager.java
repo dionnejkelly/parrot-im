@@ -267,14 +267,7 @@ public class GoogleTalkManager implements GenericConnection {
         if (ourChat == null) {
             ourChat =
                     connection.getChatManager().createChat(
-                            toUserID, new MessageListener() {
-                                public void processMessage(
-                                        Chat chat, Message message) {
-                                    // Do nothing
-
-                                    return;
-                                }
-                            });
+                            toUserID, new DefaultChatStateListener());
         }
         this.lastChat = ourChat;
         try {
@@ -416,20 +409,20 @@ public class GoogleTalkManager implements GenericConnection {
 	 * but without implementing processMessage, it will break this class
 	 * 
 	 * 
+	 * */
 	 private class DefaultChatStateListener implements ChatStateListener {
 
 		@Override
 		public void stateChanged(Chat arg0, ChatState arg1) {
-			// TODO Auto-generated method stub
-			
+			System.out.println(arg0.getParticipant()+ " is "+arg1.name() );
 		}
 
 		@Override
 		public void processMessage(Chat arg0, Message arg1) {
-			// TODO Auto-generated method stub
+			// Do nothing
 			
 		}
 		 
 	 }
-**/
+
 }
