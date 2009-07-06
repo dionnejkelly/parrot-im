@@ -31,7 +31,6 @@ public class model {
 				doneQuestionsList.addAll(tempQuestionsList);
 			}
 		}
-		QAs.add(new ChatbotQADataType("Am I dumb?","Yes, you are."));
 	}
 	
 	public void addQA(ChatbotQADataType newQA) throws ClassNotFoundException, SQLException{

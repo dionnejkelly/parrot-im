@@ -50,7 +50,10 @@ public class ChatbotQADataType {
 		
 	}
 	
-	public void removeQuestion (int index){
+	public void removeQuestion (int index) throws SQLException, ClassNotFoundException{
+		DatabaseFunctions db = new DatabaseFunctions();
+		db.removeChatQuestion(questions.get(index));
+		
 		questions.remove(index);
 	}
 	

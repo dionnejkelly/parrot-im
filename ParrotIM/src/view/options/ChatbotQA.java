@@ -173,7 +173,15 @@ public class ChatbotQA extends JFrame{
 		
 		public void actionPerformed(ActionEvent e) {
 			if (mode == 'Q'){
-				QAObject.removeQuestion(QList.getSelectedIndex());
+				try {
+					QAObject.removeQuestion(QList.getSelectedIndex());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				QList.setListData(QAObject.getQuestions());
 				QList.updateUI();
 			} else if (mode == 'A'){
