@@ -58,6 +58,7 @@ import model.enumerations.UpdatedType;
 
 public class ManageAccount extends JPanel implements Observer
 {
+	private String profileName;
 	
 	private Model model;
 	private MainController controller;
@@ -71,8 +72,9 @@ public class ManageAccount extends JPanel implements Observer
 	protected JTextField jabberServer;
 	protected JButton removeButton;
 	
-	protected ManageAccount (Model model, MainController controller) throws ClassNotFoundException, SQLException {
+	protected ManageAccount (Model model, MainController controller, String name) throws ClassNotFoundException, SQLException {
 
+		this.profileName = name;
 		this.model = model;
 		this.controller = controller;
 
@@ -286,7 +288,7 @@ public class ManageAccount extends JPanel implements Observer
 		public void actionPerformed(ActionEvent evt) {
         	int selected = accList.getSelectedIndex();
 			if (selected>=0 && selected < accountArray.size()){
-				model.removeAccount(model.getCurrentProfile().getProfileName(), accList.getSelectedValue().toString());
+				model.removeAccount(profileName, accList.getSelectedValue().toString());
 				accountArray.remove(selected);
 				accList.updateUI();
 			}

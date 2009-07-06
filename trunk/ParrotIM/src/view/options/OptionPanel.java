@@ -36,7 +36,8 @@ import controller.MainController;
 public class OptionPanel extends JPanel{
 	protected JTextArea personalMessage;
 	
-	public OptionPanel(MainController c, Model model, JFrame mainframe) throws ClassNotFoundException, SQLException{
+	public OptionPanel(MainController c, Model model, JFrame mainframe, String profileName) 
+									throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
 		//tabbed options
@@ -44,7 +45,7 @@ public class OptionPanel extends JPanel{
 		PersonalProfileTab personalProfile = new PersonalProfileTab();
 		personalMessage = personalProfile.personalMessage;
 		tabbedOptions.addTab("Personal Profile", personalProfile);
-		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c));
+		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c, profileName));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, mainframe));
 		//setting layout
 		this.add(tabbedOptions);
