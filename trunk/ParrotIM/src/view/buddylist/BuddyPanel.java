@@ -45,6 +45,7 @@ import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.TwitterUserData;
 import model.dataType.UserData;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
@@ -120,9 +121,9 @@ public class BuddyPanel extends JPanel implements Observer {
      * list of buddies
      */
     private ArrayList<UserData> buddies;
-    
+
     private JTextField search;
-    
+
     private boolean searchEnabled;
 
     /**
@@ -210,24 +211,20 @@ public class BuddyPanel extends JPanel implements Observer {
         options.setFloatable(false);
 
         this.search = new JTextField();
-        JButton addF =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/images/buddylist/add_user.png")));
+        JButton addF = new JButton(new ImageIcon(this.getClass().getResource(
+                "/images/buddylist/add_user.png")));
         addF.setToolTipText("Add a friend");
 
-        JButton removeF =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/images/buddylist/delete_user.png")));
+        JButton removeF = new JButton(new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/delete_user.png")));
         removeF.setToolTipText("Remove a friend");
 
-        JButton blockF =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/images/buddylist/button_cancel.png")));
+        JButton blockF = new JButton(new ImageIcon(this.getClass().getResource(
+                "/images/buddylist/button_cancel.png")));
         blockF.setToolTipText("Block a friend");
 
-        JButton searchButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/images/buddylist/document_preview.png")));
+        JButton searchButton = new JButton(new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching");
 
         // add components
@@ -262,17 +259,14 @@ public class BuddyPanel extends JPanel implements Observer {
 
         public void mousePressed(MouseEvent event) {
 
-
             if (search.getText().length() > 0) {
-            	chatClient.startConversation(buddies.get(0), true);
+                chatClient.startConversation(buddies.get(0), true);
             }
-            
+
             else {
-                String resultMessage =
-                    "Sorry for the inconvenience but please provide an appropiate parameter in the search field. Thank you for your co-operation.";
-            JOptionPane.showMessageDialog(null, resultMessage);
+                String resultMessage = "Sorry for the inconvenience but please provide an appropiate parameter in the search field. Thank you for your co-operation.";
+                JOptionPane.showMessageDialog(null, resultMessage);
             }
-            
 
         }
     }
@@ -419,20 +413,19 @@ public class BuddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
             String userFriendID;
-            String result =
-                    "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
+            String result = "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
 
             // not able to cancel it for now
 
-            userFriendID =
-                    JOptionPane.showInputDialog("Enter an email address: ");
+            userFriendID = JOptionPane
+                    .showInputDialog("Enter an email address: ");
 
             if ((userFriendID != null && !userFriendID.equals(""))
                     && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
-                MusicPlayer addMusic = new MusicPlayer("src/audio/buddy/addFriend.wav");
+                MusicPlayer addMusic = new MusicPlayer(
+                        "src/audio/buddy/addFriend.wav");
                 JOptionPane.showMessageDialog(null, result);
-                
 
                 // buddies.add(new GoogleTalkUserData(userFriendID));
 
@@ -448,15 +441,13 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             else if (userFriendID == null || userFriendID.equals("")) {
-                String redundancy =
-                        "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
+                String redundancy = "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
                 JOptionPane.showMessageDialog(null, redundancy);
 
             }
 
             else {
-                String redundancy =
-                        "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
+                String redundancy = "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
                 JOptionPane.showMessageDialog(null, redundancy);
 
             }
@@ -490,6 +481,7 @@ public class BuddyPanel extends JPanel implements Observer {
     public JPanel FriendItem(UserData user) {
         JPanel friendItem = new JPanel();
         String server = null;
+        int minutesSinceUpdate = 16384;
         friendItem.setLayout(new BorderLayout());
         friendItem.setBackground(Color.WHITE);
 
@@ -505,28 +497,36 @@ public class BuddyPanel extends JPanel implements Observer {
         // Colour our world! Sets colours for our friends.
         // Note: Separating the name and the status colours would be great.
         if (user.isBlocked()) {
-            friendName =
-                    new JLabel("* Blocked: " + user.getUserID() + " *");
+            friendName = new JLabel("* Blocked: " + user.getUserID() + " *");
             friendName.setForeground(Color.LIGHT_GRAY.darker());
+        } else if (user instanceof TwitterUserData) {
+            minutesSinceUpdate = ((TwitterUserData) user)
+                    .getMinutesSinceUpdate();
+            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+                    + user.getStatus() + " (Changed: " + minutesSinceUpdate
+                    + " minutes ago)");
+            if (minutesSinceUpdate < 60) {
+                friendName.setForeground(Color.GREEN.darker());
+            } else if (minutesSinceUpdate < 300) {
+                friendName.setForeground(Color.ORANGE.darker());
+            } else {
+                friendName.setForeground(Color.RED.darker());
+            }
         } else if (user.getState() == UserStateType.ONLINE) {
-            friendName =
-                    new JLabel(server + " * " + user.getNickname() + " - "
-                            + user.getStatus() + " (" + user.getState() + ")");
+            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+                    + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.GREEN.darker());
         } else if (user.getState() == UserStateType.BUSY) {
-            friendName =
-                    new JLabel(server + " * " + user.getNickname() + " - "
-                            + user.getStatus() + " (Busy)");
+            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+                    + user.getStatus() + " (Busy)");
             friendName.setForeground(Color.ORANGE.darker());
         } else if (user.getState() == UserStateType.AWAY) {
-            friendName =
-                    new JLabel(server + " * " + user.getNickname() + " - "
-                            + user.getStatus() + " (Away)");
+            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+                    + user.getStatus() + " (Away)");
             friendName.setForeground(Color.ORANGE.darker());
         } else {
-            friendName =
-                    new JLabel(server + " * " + user.getNickname() + " - "
-                            + user.getStatus() + " (" + user.getState() + ")");
+            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+                    + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.RED.darker());
         }
 
@@ -545,13 +545,13 @@ public class BuddyPanel extends JPanel implements Observer {
             this.refreshBuddyList();
         }
     }
-    
+
     public void refreshBuddyList() {
         boxes[0].removeAll();
         buddies = model.getCurrentProfile().getAllFriends();
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
-        
+
         // Now check to see if there is a search going on
         if (this.searchEnabled) {
             this.searchBuddies();
@@ -565,7 +565,7 @@ public class BuddyPanel extends JPanel implements Observer {
             boxes[0].getComponent(i).addMouseListener(new SelectListener());
         }
         friendList.updateUI();
-        
+
         return;
     }
 
@@ -625,8 +625,9 @@ public class BuddyPanel extends JPanel implements Observer {
                     }
                 }
             }
-            
-            MusicPlayer highlightMusic = new MusicPlayer("src/audio/buddy/buddyHighlightedSound.wav"); 
+
+            MusicPlayer highlightMusic = new MusicPlayer(
+                    "src/audio/buddy/buddyHighlightedSound.wav");
         }
 
         /**
@@ -708,14 +709,14 @@ public class BuddyPanel extends JPanel implements Observer {
 
         }
     }
-    
+
     class SearchKeyListener implements KeyListener {
 
         public void keyPressed(KeyEvent e) {
             // Do nothing
-        	if (search.getText().length() > 0 && e.getKeyCode() == e.VK_ENTER) {
-        		chatClient.startConversation(buddies.get(0), true);
-        	}
+            if (search.getText().length() > 0 && e.getKeyCode() == e.VK_ENTER) {
+                chatClient.startConversation(buddies.get(0), true);
+            }
             return;
         }
 
@@ -723,29 +724,29 @@ public class BuddyPanel extends JPanel implements Observer {
             if (search.getText().length() < 1) {
                 searchEnabled = false;
                 boxes[0].getComponent(0).setBackground(Color.WHITE);
-            } 
-            else { // we have text! search!
+            } else { // we have text! search!
                 searchEnabled = true;
-                
+
                 refreshBuddyList();
-                boxes[0].getComponent(0).setBackground( new Color(145, 200, 200));
-   
+                boxes[0].getComponent(0)
+                        .setBackground(new Color(145, 200, 200));
+
             }
-//            refreshBuddyList(); // automatically factors in the search
-            
-            return;      
+            // refreshBuddyList(); // automatically factors in the search
+
+            return;
         }
 
         public void keyTyped(KeyEvent e) {
             // Do nothing
-        	
+
             return;
         }
     }
-    
+
     private void searchBuddies() {
         buddies = UserData.sortByStringMatch(buddies, search.getText());
-        
+
         return;
     }
 }
