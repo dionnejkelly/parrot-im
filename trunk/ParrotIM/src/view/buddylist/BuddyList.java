@@ -224,10 +224,8 @@ public class BuddyList extends JFrame {
                 try {
                     new ChatLogFrame(model);
                 } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 } catch (ClassNotFoundException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
@@ -251,10 +249,8 @@ public class BuddyList extends JFrame {
             try {
 				new OptionFrame(controller, model);
 			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 

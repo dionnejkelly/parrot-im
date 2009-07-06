@@ -502,7 +502,8 @@ public class BuddyPanel extends JPanel implements Observer {
         } else if (user instanceof TwitterUserData) {
             minutesSinceUpdate = ((TwitterUserData) user)
                     .getMinutesSinceUpdate();
-            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+            
+            friendName = new JLabel(" * " + user.getNickname() + " - "
                     + user.getStatus() + " (Changed: " + minutesSinceUpdate
                     + " minutes ago)");
             if (minutesSinceUpdate < 60) {
@@ -513,24 +514,35 @@ public class BuddyPanel extends JPanel implements Observer {
                 friendName.setForeground(Color.RED.darker());
             }
         } else if (user.getState() == UserStateType.ONLINE) {
-            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+            friendName = new JLabel(" * " + user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.GREEN.darker());
         } else if (user.getState() == UserStateType.BUSY) {
-            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+            friendName = new JLabel(" * " + user.getNickname() + " - "
                     + user.getStatus() + " (Busy)");
             friendName.setForeground(Color.ORANGE.darker());
         } else if (user.getState() == UserStateType.AWAY) {
-            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+            friendName = new JLabel(" * " + user.getNickname() + " - "
                     + user.getStatus() + " (Away)");
             friendName.setForeground(Color.ORANGE.darker());
         } else {
-            friendName = new JLabel(server + " * " + user.getNickname() + " - "
+            friendName = new JLabel(" * " + user.getNickname() + " - "
                     + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.RED.darker());
         }
 
-        friendItem.add(friendName, BorderLayout.WEST);
+        if(server == "Google Talk"){
+        	if(user.getState() == UserStateType.ONLINE){
+        		friendItem.add(new JLabel(new ImageIcon(this.getClass().getResource(
+            		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png"))), BorderLayout.WEST);
+        	}else{
+        		friendItem.add(new JLabel(new ImageIcon(this.getClass().getResource(
+            		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Away.png"))), BorderLayout.WEST);
+        	}
+        }else{
+        	friendName.setText(server + friendName.getText());
+        }
+        friendItem.add(friendName, BorderLayout.CENTER);
         // friendItem.add(friendStatus,BorderLayout.CENTER);
 
         return friendItem;
