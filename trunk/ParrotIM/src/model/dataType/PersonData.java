@@ -68,7 +68,7 @@ public abstract class PersonData {
      *            The screen name or username used for log-in.
      */
     public PersonData(String userID) {
-        if (userID == null || userID.isEmpty()) {
+        if (userID == null || userID.length()==0) {
             throw new IllegalArgumentException();
         }
 
@@ -96,7 +96,7 @@ public abstract class PersonData {
      */
     public PersonData(String userID, String nickname, String status,
             UserStateType state) {
-        if (userID == null || userID.isEmpty()) {
+        if (userID == null || userID.length()==0) {
             throw new IllegalArgumentException();
         }
 
@@ -196,7 +196,7 @@ public abstract class PersonData {
     }
 
     public boolean hasEmptyStatus() {
-        return this.status == null || this.status.isEmpty();
+        return this.status == null || this.status.length()==0;
     }
 
     public boolean isDuplicate(PersonData person) {
