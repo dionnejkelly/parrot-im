@@ -526,20 +526,17 @@ public class ChatPanel extends JPanel {
      */
     private class TextAreaDocListener implements DocumentListener{
     	private int keyCount = 0;
-		@Override
 		public void changedUpdate(DocumentEvent arg0) {
 			// TODO Auto-generated method stub
 			c.setTypingState(1);
 		}
 
-		@Override
 		public void insertUpdate(DocumentEvent e) {
 			keyCount = keyCount + e.getLength();
 			System.out.println("Key count = " + keyCount);
 			
 		}
 
-		@Override
 		public void removeUpdate(DocumentEvent e) {
 			keyCount = keyCount - e.getLength();
 			System.out.println("Key count = " + keyCount);
@@ -548,12 +545,10 @@ public class ChatPanel extends JPanel {
     }
     private class TextAreaFocusListener implements FocusListener{
 
-		@Override
 		public void focusGained(FocusEvent arg0) {
 			c.setTypingState(1);
 		}
 
-		@Override
 		public void focusLost(FocusEvent arg0) {
 			c.setTypingState(2);
 			
