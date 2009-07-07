@@ -11,6 +11,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import model.Model;
 
@@ -74,7 +76,7 @@ public class BugReportFrame extends JFrame{
 		this.setTitle("Bug Report");
 		
 		setPanels();
-		this.setPreferredSize(new Dimension(380,550));
+		this.setPreferredSize(new Dimension(400,500));
 		setResizable(false);
 		setLocationRelativeTo(null);
 
@@ -89,18 +91,28 @@ public class BugReportFrame extends JFrame{
 	
 	private void setPanels(){
 		
-		questionLabel = new JLabel("To: " );
-		subjectLabel = new JLabel("Title: " );
-		messageLabel = new JLabel("Description: " );
+		Dimension preferredDimension = new Dimension (400,20);
+		Border preferredBorder = BorderFactory.createEmptyBorder(0,20,0,20);
+		questionLabel = new JLabel("<html>To: <FONT COLOR=GRAY>" + messageTo +"</FONT></html>", JLabel.LEFT);
+		questionLabel.setPreferredSize(new Dimension(400,40));
+		questionLabel.setBorder(BorderFactory.createEmptyBorder(15,20,0,20));
+		subjectLabel = new JLabel("Title: " , JLabel.LEFT);
+		subjectLabel.setPreferredSize(preferredDimension);
+		subjectLabel.setBorder(preferredBorder);
+		messageLabel = new JLabel("Problem Description: (please be specific)" );
+		messageLabel.setPreferredSize(preferredDimension);
+		messageLabel.setBorder(preferredBorder);
 		frequencyLabel = new JLabel("Frequency: ");
 		severityLabel = new JLabel("Severity: ");
 		
-		JLabel messageHelpLabel = new JLabel("Enter a detailed description of the problem. Please be specific.");
-		messageHelpLabel.setForeground(Color.GRAY.darker());
+//		JLabel messageHelpLabel = new JLabel("Enter a detailed description of the problem. Please be specific.");
+//		messageHelpLabel.setForeground(Color.GRAY.darker());
 	
-		questionText = new JTextField(30);
-		questionText.setText(messageTo);
-		questionText.setEditable(false);
+//		questionText = new JTextField(28);
+//		questionText.setOpaque(true);
+//		questionText.setText(messageTo);
+//		questionText.setForeground(Color.GRAY);
+//		questionText.setEditable(false);
 		subjectText = new JTextField(29);
 		subjectText.setToolTipText("Enter a one line summary of your report.");
 		messageText = new JTextArea(10,20);
@@ -108,7 +120,7 @@ public class BugReportFrame extends JFrame{
 		messageText.setToolTipText("Enter a detailed description of the problem. Please be specific.");
 		
 		JScrollPane QListScroll = new JScrollPane (messageText);
-		QListScroll.setPreferredSize(new Dimension(350, 280));
+		QListScroll.setPreferredSize(new Dimension(362, 180));
 		
 		sendButton = new JButton ("Send");
 		sendButton.addActionListener(new sendActionListener());
@@ -119,6 +131,7 @@ public class BugReportFrame extends JFrame{
 		
 		String[] listFrequency = {"Always", "Often", "Occasionally", "Rarely"};
 		JComboBox frequency = new JComboBox(listFrequency);
+		frequency.setPreferredSize(new Dimension(265, 25));
 		
 		criticalImpact = new JCheckBox("Critical");
 		majorImpact = new JCheckBox("Major");
@@ -152,19 +165,19 @@ public class BugReportFrame extends JFrame{
 		
 		/*WRAP UP*/
 		mainPanel = new JPanel();
-		mainPanel.add(questionLabel, BorderLayout.NORTH);
-		mainPanel.add(questionText, BorderLayout.AFTER_LINE_ENDS);
-		mainPanel.add(subjectLabel,  BorderLayout.CENTER);
+		mainPanel.add(questionLabel);
+//		mainPanel.add(questionText, BorderLayout.AFTER_LINE_ENDS);
+		mainPanel.add(subjectLabel);
 		mainPanel.add(subjectText);
-		mainPanel.add(messageLabel, BorderLayout.WEST);
-		mainPanel.add(messageHelpLabel);
+		mainPanel.add(messageLabel);
+//		mainPanel.add(messageHelpLabel);
 		mainPanel.add(QListScroll);
 		mainPanel.add(frequencyLabel);
 		mainPanel.add(frequencyPanel);
 		mainPanel.add(severityLabel, frequencyPanel.getLayout());
 		mainPanel.add(severityPanel);
-		mainPanel.add(QButtonsPanel, BorderLayout.SOUTH);
-		mainPanel.setBackground(Color.yellow);
+		mainPanel.add(QButtonsPanel);
+//		mainPanel.setBackground(Color.yellow);
 
 	}
 	
