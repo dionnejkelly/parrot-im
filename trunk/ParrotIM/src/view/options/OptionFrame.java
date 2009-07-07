@@ -30,6 +30,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+import view.buddylist.AccountInfo;
+import view.styles.StatusCombo;
+
 import model.Model;
 
 import controller.MainController;
@@ -37,14 +40,17 @@ import controller.MainController;
 public class OptionFrame extends JFrame {
 	private JTextArea personalMessage;
 	private MainController controller;
+	private AccountInfo accountInfo;
 	
-	public OptionFrame(MainController c, Model model, String profileName) throws ClassNotFoundException, SQLException{
+	public OptionFrame(MainController c, Model model, String profileName, AccountInfo accInfo) 
+										throws ClassNotFoundException, SQLException{
 		this.setTitle("User Preferences");
 		this.addWindowListener(new OptionWindowListener());
+		this.accountInfo = accInfo;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		controller = c;
-		OptionPanel mainPanel =  new OptionPanel(c, model, this, profileName);
+		OptionPanel mainPanel =  new OptionPanel(c, model, this, profileName, accountInfo);
 		personalMessage = mainPanel.personalMessage;
         getContentPane().add(mainPanel);
         setPreferredSize(new Dimension(500,300));
@@ -62,6 +68,7 @@ public class OptionFrame extends JFrame {
 
 		public void windowClosed(WindowEvent e) {
 			controller.setStatus(personalMessage.getText());
+			accountInfo.statusMessage.setText(personalMessage.getText());
 		}
 
 		public void windowClosing(WindowEvent e) {}

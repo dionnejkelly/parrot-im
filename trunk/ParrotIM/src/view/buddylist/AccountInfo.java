@@ -96,7 +96,7 @@ public class AccountInfo extends JPanel
 	/**
 	 * user status message
 	 */
-	protected PmLabel statusMessage;
+	public PmLabel statusMessage;
 	/**
 	 * text area
 	 */
@@ -105,6 +105,8 @@ public class AccountInfo extends JPanel
 	 * text
 	 */
 	protected String text;
+	
+	public StatusCombo presence;
 	
 	/**
 	 * variable model for extracting buddy list, each buddy's information and , conversation 
@@ -152,7 +154,7 @@ public class AccountInfo extends JPanel
 		info.setBackground(Color.DARK_GRAY);
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(13,15,13,5));
-		StatusCombo presence = new StatusCombo(chatClient);
+		presence = new StatusCombo(chatClient);
 		
 		info.add(textInfo, BorderLayout.NORTH);
 		info.add(presence, BorderLayout.WEST);
