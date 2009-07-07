@@ -18,10 +18,11 @@
  *     2009-June-25
  *         Fixed chat log bug. Changed TextEditor to JList (might want to reconsider
  *         about this)
+ *     2009-July-6
+ *         Search bar added.
  *         
  * Known Issues:
- *     1. Missing search bar.
- *     2. The scrolling of the text is not very satisfying. Might want to improve it.
+ *     1. The scrolling of the text is not very satisfying. Might want to improve it.
  *     		(revert back to TextEditor? But it's more efficient now)
  * 
  * Copyright (C) 2009  Pirate Captains
@@ -31,14 +32,22 @@
 
 package view.chatLog;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -53,7 +62,7 @@ import model.dataType.tempData.ChatLogMessageTempData;
  * 
  * This class inherits JSplitPane methods and variables.
  */
-public class ChatLogPanel extends JSplitPane {
+public class ChatLogPanel extends JPanel {
 	
 	/** 
 	 * profile describes the name of the currently used profile. 
@@ -112,6 +121,7 @@ public class ChatLogPanel extends JSplitPane {
      */
     private String[] stub = new String[]{"<html><i>no data is displayed</i></html>"};
 
+    private JTextField searchField ;
     /** 
      * The constructor of ChatLogPanel. It takes model and currently used profile name as arguments.
      * It sets up the panel, including the nested splitPane. 
@@ -126,19 +136,14 @@ public class ChatLogPanel extends JSplitPane {
         this.profile = profile;
 
         // settings
-        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
+        /*CHATLOG SPLIT PANE*/
+        
         /* set left JSplitPane component */
         BuddyPanel buddyList = new BuddyPanel(model, profile);
         buddies = buddyList.buddyList;
         buddies.addListSelectionListener(new buddyListener());
-        this.setLeftComponent(buddyList);
-
-        /* set right JSplitPane component */
-        logPane = new JSplitPane();
-        logPane.setBorder(null);
-        logPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        logPane.setDividerLocation(140);
 
         // bottom right component shows the chat logs
         text = new JList (stub);
@@ -149,7 +154,6 @@ public class ChatLogPanel extends JSplitPane {
 //        chatlog
 //                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
-        logPane.setBottomComponent(chatlog);
 
         // top right component shows the list of dates
         dateList = new JList(stub);
@@ -160,10 +164,36 @@ public class ChatLogPanel extends JSplitPane {
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
 //        datesScroll
 //                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        /* set right JSplitPane component */
+        logPane = new JSplitPane();
+        logPane.setBorder(null);
+        logPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        logPane.setDividerLocation(140);
         logPane.setTopComponent(datesScroll);
+        logPane.setBottomComponent(chatlog);
 
-        this.setRightComponent(logPane);
-        this.setDividerLocation(200);
+        JSplitPane chatlogPane = new JSplitPane();
+        chatlogPane.setBorder(BorderFactory.createEmptyBorder());
+        chatlogPane.setLeftComponent(buddyList);
+        chatlogPane.setRightComponent(logPane);
+        chatlogPane.setDividerLocation(200);
+
+        /*SEARCH BAR*/
+        searchField = new JTextField();
+        JButton searchButton = new JButton(new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/document_preview.png")));
+        searchButton.setToolTipText("Start searching");
+        searchButton.addMouseListener(new searchListener());
+        JPanel searchBarPanel = new JPanel();
+        searchBarPanel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
+        searchBarPanel.setLayout(new BorderLayout());
+        searchBarPanel.add(searchField, BorderLayout.CENTER);
+        searchBarPanel.add(searchButton, BorderLayout.EAST);
+        
+        /*SETTING THIS SPLITPANE*/
+        this.setLayout(new BorderLayout());
+        this.add(searchBarPanel, BorderLayout.SOUTH);
+        this.add(chatlogPane, BorderLayout.CENTER);
     }
 
     /**
@@ -234,6 +264,28 @@ public class ChatLogPanel extends JSplitPane {
             
             text.setListData(messages);
             text.updateUI();
+
+        }
+    }
+    
+    private class searchListener extends MouseAdapter {
+
+        /**
+         * Listens for the uesr's event.
+         * 
+         * @param e
+         */
+
+        public void mousePressed(MouseEvent event) {
+
+            if (searchField.getText().length() > 0) {
+                System.out.println("Searching for "+searchField.getText());
+            }
+
+            else {
+            	String resultMessage = "Please provide a key word in the search field.";
+                JOptionPane.showMessageDialog(null, resultMessage);
+            }
 
         }
     }
