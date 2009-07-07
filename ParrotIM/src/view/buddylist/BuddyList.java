@@ -55,6 +55,7 @@ public class BuddyList extends JFrame {
      */
     protected JFrame buddywindow;
 
+    private AccountInfo accountInfo;
     /**
      * BuddyList display friend contact list, status, information and
      * conversation.
@@ -85,7 +86,7 @@ public class BuddyList extends JFrame {
 
         // INSIDE PANEL
         JPanel mainListPanel = new BuddyPanel(c, model, this);
-        JPanel accountInfo = new AccountInfo(c, model);
+        accountInfo = new AccountInfo(c, model);
 
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);
@@ -255,7 +256,7 @@ public class BuddyList extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-				new OptionFrame(controller, model, model.getCurrentProfile().getProfileName());
+				new OptionFrame(controller, model, model.getCurrentProfile().getProfileName(), accountInfo);
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
 			} catch (SQLException e1) {

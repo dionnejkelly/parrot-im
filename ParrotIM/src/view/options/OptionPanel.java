@@ -29,6 +29,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
+import view.buddylist.AccountInfo;
+import view.styles.StatusCombo;
+
 import model.Model;
 
 import controller.MainController;
@@ -36,13 +39,13 @@ import controller.MainController;
 public class OptionPanel extends JPanel{
 	protected JTextArea personalMessage;
 	
-	public OptionPanel(MainController c, Model model, JFrame mainframe, String profileName) 
+	public OptionPanel(MainController c, Model model, JFrame mainframe, String profileName, AccountInfo accInfo) 
 									throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
 		//tabbed options
 		JTabbedPane tabbedOptions = new JTabbedPane(JTabbedPane.TOP);
-		PersonalProfileTab personalProfile = new PersonalProfileTab();
+		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
 		personalMessage = personalProfile.personalMessage;
 		tabbedOptions.addTab("Personal Profile", personalProfile);
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c, profileName));

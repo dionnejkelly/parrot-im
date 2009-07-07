@@ -25,6 +25,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 
 import javax.swing.BorderFactory;
@@ -39,7 +41,11 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
+import controller.MainController;
+
+import view.buddylist.AccountInfo;
 import view.styles.AvatarLabel;
+import view.styles.StatusCombo;
 
 import model.enumerations.StatusType;
 
@@ -49,10 +55,13 @@ public class PersonalProfileTab extends JPanel {
 	
 	//right components
 	protected JTextArea personalMessage;
-	protected JComboBox status;
 	
-	public PersonalProfileTab(){
+	private StatusCombo BuddyListStatus;
+	private StatusCombo status;
+	
+	public PersonalProfileTab(MainController core, AccountInfo accInfo){
 		super(false);
+		this.BuddyListStatus = accInfo.presence;
         
 		/*LEFT COMPONENTS*/
 		//avatar
@@ -78,6 +87,7 @@ public class PersonalProfileTab extends JPanel {
 		/*RIGHT COMPONENTS*/
         //personal message
         personalMessage = new JTextArea();
+        personalMessage.setText(accInfo.statusMessage.getText());
         personalMessage.setLineWrap(true);
         JScrollPane pmScroll = new JScrollPane(personalMessage);
         pmScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -88,8 +98,10 @@ public class PersonalProfileTab extends JPanel {
 		pmPanel.add (pmScroll, BorderLayout.CENTER);
         
         //status
-        status = new JComboBox(StatusType.getStatusList());
+        status = new StatusCombo(core);
         status.setMaximumSize(new Dimension(200, 30));
+        status.setSelectedIndex(BuddyListStatus.getSelectedIndex());
+        status.addItemListener(new statusItemListener());
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
@@ -124,7 +136,14 @@ public class PersonalProfileTab extends JPanel {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+		}
+		
+	}
+	private class statusItemListener implements ItemListener{
+
+		public void itemStateChanged(ItemEvent e) {
+			BuddyListStatus.setSelectedIndex(status.getSelectedIndex());
+			BuddyListStatus.updateUI();
 		}
 		
 	}
