@@ -1,11 +1,13 @@
 package controller.services;
 
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -397,6 +399,11 @@ public class TwitterManager implements GenericConnection {
 
 	public void setTypingState(int state) throws BadConnectionException,
 			XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setAvatarPicture(File file) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}

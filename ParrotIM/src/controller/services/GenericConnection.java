@@ -26,9 +26,11 @@
 
 package controller.services;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -72,7 +74,8 @@ public interface GenericConnection {
     public void setTypingState(int state) throws BadConnectionException, XMPPException;
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException;
-    
+   
+    public void setAvatarPicture(File file) throws XMPPException;
     public ServerType getServerType();
     
     //@Override

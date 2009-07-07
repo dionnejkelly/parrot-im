@@ -9,6 +9,7 @@ import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import model.dataType.tempData.FriendTempData;
@@ -412,6 +413,11 @@ public class JabberManager implements GenericConnection {
 	}
 
 public void setTypingState(int state) throws BadConnectionException, XMPPException {
+	// TODO Auto-generated method stub
+	
+}
+
+public void setAvatarPicture(File file) throws XMPPException {
 	// TODO Auto-generated method stub
 	
 }
