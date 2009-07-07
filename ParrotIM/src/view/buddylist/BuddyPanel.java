@@ -739,6 +739,7 @@ public class BuddyPanel extends JPanel implements Observer {
             if (search.getText().length() < 1) {
                 searchEnabled = false;
                 boxes[0].getComponent(0).setBackground(Color.WHITE);
+                refreshBuddyList();
             } else { // we have text! search!
                 searchEnabled = true;
 
@@ -747,7 +748,7 @@ public class BuddyPanel extends JPanel implements Observer {
                         .setBackground(new Color(145, 200, 200));
 
             }
-            // refreshBuddyList(); // automatically factors in the search
+            //refreshBuddyList(); // automatically factors in the search
 
             return;
         }
