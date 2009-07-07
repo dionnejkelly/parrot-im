@@ -111,7 +111,7 @@ public class NewProfileFrame extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setTitle("New Profile");
 		this.setResizable(false);
-		this.setPreferredSize(new Dimension(400,200));
+		this.setPreferredSize(new Dimension(400,250));
 		this.getContentPane().add(mainPanel);
 		
 		this.pack();
