@@ -264,7 +264,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             else {
-                String resultMessage = "Sorry for the inconvenience but please provide an appropiate parameter in the search field. Thank you for your co-operation.";
+                String resultMessage = "Please provide a key word in the search field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
 
