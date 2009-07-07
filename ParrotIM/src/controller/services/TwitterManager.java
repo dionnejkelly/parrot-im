@@ -404,7 +404,7 @@ public class TwitterManager implements GenericConnection {
 		
 	}
 
-	public void setAvatarPicture(byte[] dataArray) throws XMPPException {
+	public void setAvatarPicture(URL url) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}
