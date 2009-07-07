@@ -54,6 +54,8 @@ public class AvatarLabel extends JLabel{
 	 * the path of the display picture as its argument.
 	 * 
 	 * @param url
+	 * @param mainControl
+	 * @param changeable
 	 */
 	public AvatarLabel(MainController mainControl,URL url){
 		this.setToolTipText("Click to change your display picture");
@@ -68,7 +70,6 @@ public class AvatarLabel extends JLabel{
 		this.chatClient = null;
 		avatarlbl = this;
 		changeAvatar(url.toString());
-		this.addMouseListener(new avatarMouseListener());
 	}
 	
 	public void changeAvatarWindow() throws MalformedURLException{
@@ -87,7 +88,9 @@ public class AvatarLabel extends JLabel{
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             avatarlbl.changeAvatar(file.toURL().toString());
-            System.out.println(file.getAbsolutePath()+ " is choosen");
+            if (file != null)
+            	System.out.println(file.getAbsolutePath()+ " is choosen");
+            
             try {
             	System.out.println("Setting avatar...");
 				chatClient.setAvatarPicture(file);
