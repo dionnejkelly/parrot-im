@@ -70,7 +70,7 @@ public class GoogleTalkManager implements GenericConnection {
         this.chats = new ArrayList<Chat>();
     }
     
-    public void setAvatarPicture(byte[] dataArray) throws XMPPException {
+    public void setAvatarPicture(URL url) throws XMPPException {
 		vcard = new VCard();
 
 		vcard.load(connection); 
@@ -81,9 +81,9 @@ public class GoogleTalkManager implements GenericConnection {
 			//String str = stream.toString();
 		    //byte[] dataArray= str.getBytes();
 			
-			vcard.setAvatar(dataArray);
+			vcard.setAvatar(url);
 			
-			//vcard.save(connection);
+			vcard.save(connection);
 		//} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 		//	e.printStackTrace();

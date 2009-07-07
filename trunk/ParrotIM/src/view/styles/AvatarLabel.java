@@ -96,12 +96,13 @@ public class AvatarLabel extends JLabel{
 //            Image image = getToolkit().getImage(fileChooser.getSelectedFile().getName());
 //            JOptionPane.showMessageDialog(null, image);
             try {
-            	File testFile = new File("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
-				BufferedImage img = ImageIO.read(testFile);
-				ByteArrayOutputStream bas = new ByteArrayOutputStream();
-				ImageIO.write(img, "pnm", bas);
-				byte[] data = bas.toByteArray();
-				chatClient.setAvatarPicture(data);
+            	//File testFile = new File("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
+				//BufferedImage img = ImageIO.read(testFile);
+				//ByteArrayOutputStream bas = new ByteArrayOutputStream();
+				//ImageIO.write(img, "pnm", bas);
+				//byte[] data = bas.toByteArray();
+				chatClient.setAvatarPicture(file.toURI().toURL());
+				System.out.println("Succesfully uploaded the avatar picture.");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
