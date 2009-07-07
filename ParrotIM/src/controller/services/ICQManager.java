@@ -88,4 +88,10 @@ public class ICQManager implements GenericConnection {
         return ServerType.ICQ;
     }
 
+	public void setTypingState(int state) throws BadConnectionException,
+			XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
