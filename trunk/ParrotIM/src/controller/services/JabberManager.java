@@ -1,10 +1,15 @@
 package controller.services;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
@@ -25,6 +30,7 @@ import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
+import org.jivesoftware.smackx.packet.VCard;
 
 import controller.MainController;
 
@@ -163,6 +169,59 @@ public class JabberManager implements GenericConnection {
         }
 
         return userStatus;
+    }
+    
+    public void setAvatarPicture(String filepath) throws IOException, XMPPException {
+    	VCard vcard = new VCard();
+
+		
+		vcard.setJabberId("userName");
+
+		File file = new File(filepath);
+		
+		byte[] avatarBytes = getBytesFromFile(file);
+		
+		ImageIcon icon = new ImageIcon(avatarBytes);
+		JOptionPane.showMessageDialog(null, icon);
+		
+		vcard.setAvatar(avatarBytes);
+		vcard.save(connection);
+    }
+    
+ // Returns the contents of the file in a byte array.
+    public byte[] getBytesFromFile(File file) throws IOException {
+        InputStream is = new FileInputStream(file);
+    
+        // Get the size of the file
+        long length = file.length();
+    
+        // You cannot create an array using a long type.
+        // It needs to be an int type.
+        // Before converting to an int type, check
+        // to ensure that file is not larger than Integer.MAX_VALUE.
+        if (length > Integer.MAX_VALUE) {
+            // File is too large
+        }
+    
+        // Create the byte array to hold the data
+        byte[] bytes = new byte[(int)length];
+    
+        // Read in the bytes
+        int offset = 0;
+        int numRead = 0;
+        while (offset < bytes.length
+               && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+            offset += numRead;
+        }
+    
+        // Ensure all the bytes have been read in
+        if (offset < bytes.length) {
+            throw new IOException("Could not completely read file "+file.getName());
+        }
+    
+        // Close the input stream and return bytes
+        is.close();
+        return bytes;
     }
 
     public UserStateType retrieveState(String userID) {
