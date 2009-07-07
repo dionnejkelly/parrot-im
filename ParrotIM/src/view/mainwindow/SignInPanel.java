@@ -360,9 +360,13 @@ public class SignInPanel extends JPanel implements Observer {
     		String profileName = account_select.getSelectedItem().toString();
 
             // not able to cancel it for now
-
-            String userFriendID = JOptionPane
-                    .showInputDialog("Enter a password.");
+    		String prompt ="Enter password to ";
+    		if (manage)
+    			prompt += prompt + "manage ";
+    		else
+    			prompt += prompt + "remove ";
+    		
+            String userFriendID = JOptionPane.showInputDialog(prompt + profileName);
 
             if ((userFriendID != null && !userFriendID.equals(""))) {
                
