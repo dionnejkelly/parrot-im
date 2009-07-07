@@ -68,6 +68,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 import model.Model;
 import model.enumerations.UpdatedType;
@@ -360,14 +361,17 @@ public class SignInPanel extends JPanel implements Observer {
     		String profileName = account_select.getSelectedItem().toString();
 
             // not able to cancel it for now
-    		String prompt ="Enter password to ";
+    		String prompt = "";
     		if (manage)
-    			prompt += prompt + "manage ";
+    			prompt += "Enter password to " + "manage ";
     		else
-    			prompt += prompt + "remove ";
+    			prompt += "Enter password to " + "remove ";
     		
-            String userFriendID = JOptionPane.showInputDialog(prompt + profileName);
-
+    		JPasswordField passwordField = new JPasswordField();
+    		
+    
+            //String userFriendID = JOptionPane.showInputDialog(prompt + profileName);
+            String userFriendID = JOptionPane.showInputDialog(passwordField, prompt + profileName);
             if ((userFriendID != null && !userFriendID.equals(""))) {
                
             	//if password is correct {
