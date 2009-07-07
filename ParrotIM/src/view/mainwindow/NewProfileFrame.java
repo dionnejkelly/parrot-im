@@ -102,7 +102,7 @@ public class NewProfileFrame extends JFrame{
 		/*LAYOUT*/
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
-		mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		mainPanel.add(profilePanel, BorderLayout.NORTH);
 		mainPanel.add(optionPanel, BorderLayout.CENTER);
 		mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
@@ -111,7 +111,7 @@ public class NewProfileFrame extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setTitle("New Profile");
 		this.setResizable(false);
-		this.setPreferredSize(new Dimension(400,220));
+		this.setPreferredSize(new Dimension(420,220));
 		this.getContentPane().add(mainPanel);
 		
 		this.pack();
