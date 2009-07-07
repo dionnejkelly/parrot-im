@@ -67,7 +67,7 @@ public class ManageAccountFrame extends JFrame{
 
 		setLocationRelativeTo(null);
 		
-		setTitle(profilename + " Account Manager");
+		setTitle(profilename + "\'s Account Manager");
 		setLocationRelativeTo(null);
 		setPreferredSize(new Dimension(520,300));
 		setResizable(false);
