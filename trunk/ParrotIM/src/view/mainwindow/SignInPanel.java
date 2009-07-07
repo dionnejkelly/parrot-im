@@ -65,6 +65,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.Model;
@@ -130,6 +132,8 @@ public class SignInPanel extends JPanel implements Observer {
      * includes a separator and help LinkLabel.
      */
     protected MiscPanel misc;
+    
+    private boolean correctPassword;
 
     /**
      * SignInPanel constructor.It takes a Model, MainController, and MainWindow
@@ -293,17 +297,7 @@ public class SignInPanel extends JPanel implements Observer {
          * @param evt
          */
         public void mouseClicked(MouseEvent evt) {
-            try {
-                ManageAccountFrame manageAccount = 
-                	new ManageAccountFrame(model, core, account_select.getSelectedItem().toString());
-                manageAccount.addWindowListener(new PopupWindowListener(mainFrame, manageAccount));
-            } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            new askForPassword(true);
         }
 
 		public void mouseEntered(MouseEvent e) {}
@@ -339,9 +333,7 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             //TODO: set this
-        	String profileName = account_select.getSelectedItem().toString();
-        	//check if this profile is password protected
-        	model.removeProfile(profileName);
+        	new askForPassword(false);
         }
 
 		public void mouseEntered(MouseEvent e) {}
@@ -360,4 +352,41 @@ public class SignInPanel extends JPanel implements Observer {
 		public void mouseReleased(MouseEvent e) {}
     	
     }
+    
+    private class askForPassword extends JDialog{
+    	//if used for managing accounts, manage = true
+    	//if used for deleting profile, manage = false
+    	public askForPassword(boolean manage){
+    		String profileName = account_select.getSelectedItem().toString();
+
+            // not able to cancel it for now
+
+            String userFriendID = JOptionPane
+                    .showInputDialog("Enter a password.");
+
+            if ((userFriendID != null && !userFriendID.equals(""))) {
+               
+            	//if password is correct {
+            		if (manage){
+						try {
+							ManageAccountFrame manageAccount = 
+								new ManageAccountFrame(model, core, account_select.getSelectedItem().toString());
+							manageAccount.addWindowListener(new PopupWindowListener(mainFrame, manageAccount));
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+            		} else { //delete
+                    	model.removeProfile(profileName);
+            		}
+            	//}
+            	//else{
+//                	JOptionPane.showMessageDialog(null, "Incorrect password for "+ profileName);
+                //
+    	}
+    }
+   }  	
 }
