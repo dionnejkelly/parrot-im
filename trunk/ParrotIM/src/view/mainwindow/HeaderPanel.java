@@ -62,13 +62,13 @@ public class HeaderPanel extends JPanel{
 		setBorder(BorderFactory.createEmptyBorder(50,50,0,50));
 		
 		//logo-avatar
-//		JLabel avatarDisplay = new JLabel ();
-		JLabel avatarDisplay = new AvatarLabel(getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+		JLabel avatarDisplay = new JLabel ();
+		//JLabel avatarDisplay = new AvatarLabel(getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-//		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
 	
 		//TODO: set auto scaling + border later
-//		avatarDisplay.setIcon(avatar);
+		avatarDisplay.setIcon(avatar);
 		
 		status = new JLabel("Not signed in", SwingConstants.CENTER);
 		status.setBorder(BorderFactory.createEmptyBorder(7,0,8,0));

@@ -19,6 +19,7 @@
 package controller;
 
 import java.io.File;
+import java.net.URL;
 import java.util.*;
 
 import javax.swing.ImageIcon;
@@ -119,7 +120,7 @@ public class MainController {
 
     }
     
-    public void setAvatarPicture(File file) throws XMPPException {
+    public void setAvatarPicture(byte[] dataArray) throws XMPPException {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
@@ -128,7 +129,8 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
-        connection.setAvatarPicture(file);
+        System.out.println("Which connection = " + connection.getServerType().getServerList().get(0));
+        connection.setAvatarPicture(dataArray);
 
   
         // TODO make a more accurate Model.addFriend

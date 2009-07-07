@@ -122,6 +122,7 @@ public class AccountInfo extends JPanel
 	public AccountInfo(MainController c, Model model) 
 	{
 	    this.model = model;
+	    this.chatClient = c;
 	    setBackground(Color.DARK_GRAY);
 		setPreferredSize(new Dimension(300,110));
 		setBorder(BorderFactory.createEmptyBorder(5,15,5,5));
@@ -138,7 +139,7 @@ public class AccountInfo extends JPanel
 		textInfo.setLayout(infoLayout);
 		textInfo.setBackground(Color.DARK_GRAY);
 			
-		chatClient = c;
+		
 		JLabel name = new JLabel(model.getCurrentProfile().getProfileName());
 		name.setForeground(Color.WHITE);
 		

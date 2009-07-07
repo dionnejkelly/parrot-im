@@ -1,8 +1,12 @@
 package controller.services;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -66,19 +70,26 @@ public class GoogleTalkManager implements GenericConnection {
         this.chats = new ArrayList<Chat>();
     }
     
-    public void setAvatarPicture(File file) throws XMPPException {
+    public void setAvatarPicture(byte[] dataArray) throws XMPPException {
 		vcard = new VCard();
 
 		vcard.load(connection); 
 		
-	  
-		try {
-			vcard.setAvatar(file.toURI().toURL());
-		} catch (MalformedURLException e) {
+		//InputStream stream;
+		//try {
+			//stream = new FileInputStream(file);
+			//String str = stream.toString();
+		    //byte[] dataArray= str.getBytes();
+			
+			vcard.setAvatar(dataArray);
+			
+			//vcard.save(connection);
+		//} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		vcard.save(connection);
+		//	e.printStackTrace();
+		//}
+	    
+	    
 		
 		
 

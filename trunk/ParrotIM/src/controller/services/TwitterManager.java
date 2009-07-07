@@ -2,6 +2,7 @@ package controller.services;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -403,7 +404,7 @@ public class TwitterManager implements GenericConnection {
 		
 	}
 
-	public void setAvatarPicture(File file) throws XMPPException {
+	public void setAvatarPicture(byte[] dataArray) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}

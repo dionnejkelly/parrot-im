@@ -22,15 +22,21 @@
 
 package view.styles;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import javax.swing.filechooser.FileFilter;
 
@@ -65,12 +71,6 @@ public class AvatarLabel extends JLabel{
 		this.addMouseListener(new avatarMouseListener());
 	}
 	
-	public AvatarLabel(URL url){
-		this.setToolTipText("Click to change your display picture");
-		this.chatClient = null;
-		avatarlbl = this;
-		changeAvatar(url.toString());
-	}
 	
 	public void changeAvatarWindow() throws MalformedURLException{
 		JFileChooser fileChooser = new JFileChooser();
@@ -91,13 +91,27 @@ public class AvatarLabel extends JLabel{
             if (file != null)
             	System.out.println(file.getAbsolutePath()+ " is choosen");
             
+           
+            System.out.println("Setting avatar...");
+//            Image image = getToolkit().getImage(fileChooser.getSelectedFile().getName());
+//            JOptionPane.showMessageDialog(null, image);
             try {
-            	System.out.println("Setting avatar...");
-				chatClient.setAvatarPicture(file);
+            	File testFile = new File("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
+				BufferedImage img = ImageIO.read(testFile);
+				ByteArrayOutputStream bas = new ByteArrayOutputStream();
+				ImageIO.write(img, "pnm", bas);
+				byte[] data = bas.toByteArray();
+				chatClient.setAvatarPicture(data);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} catch (XMPPException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			
+			
         	fileChooser.setVisible(false);//DISPOSE!!!
         	
         	

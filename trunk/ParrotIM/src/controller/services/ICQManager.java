@@ -2,6 +2,7 @@ package controller.services;
 
 //import com.aol.acc.*;
 import java.io.File;
+import java.net.URL;
 import java.util.*;
 import java.util.regex.*;
 
@@ -96,7 +97,7 @@ public class ICQManager implements GenericConnection {
 		
 	}
 
-	public void setAvatarPicture(File file) throws XMPPException {
+	public void setAvatarPicture(byte[] dataArray) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}
