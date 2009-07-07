@@ -1,10 +1,14 @@
 package controller.services;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import model.dataType.tempData.FriendTempData;
@@ -30,6 +34,8 @@ import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
 import org.jivesoftware.smackx.packet.VCard;
+
+import com.sun.image.codec.jpeg.ImageFormatException;
 
 import view.options.MusicPlayer;
 
@@ -59,6 +65,24 @@ public class GoogleTalkManager implements GenericConnection {
         this.genericConnection = this;
         this.chats = new ArrayList<Chat>();
     }
+    
+    public void setAvatarPicture(File file) throws XMPPException {
+		vcard = new VCard();
+
+		vcard.load(connection); 
+		
+	  
+		try {
+			vcard.setAvatar(file.toURI().toURL());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		vcard.save(connection);
+		
+		
+
+	}
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
 		vcard = new VCard();

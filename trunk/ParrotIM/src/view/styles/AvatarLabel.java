@@ -34,6 +34,10 @@ import javax.swing.JLabel;
 
 import javax.swing.filechooser.FileFilter;
 
+import org.jivesoftware.smack.XMPPException;
+
+import controller.MainController;
+
 
 /**
  * This object sets the style of the avatar image display on buddylist window.
@@ -44,14 +48,24 @@ public class AvatarLabel extends JLabel{
 	/** avatarlbl is this component itself */
 	private AvatarLabel avatarlbl;
 	
+	private MainController chatClient;
 	/**
 	 * AvatarLabel constructor. It takes a String that describes
 	 * the path of the display picture as its argument.
 	 * 
 	 * @param url
 	 */
+	public AvatarLabel(MainController mainControl,URL url){
+		this.setToolTipText("Click to change your display picture");
+		this.chatClient = mainControl;
+		avatarlbl = this;
+		changeAvatar(url.toString());
+		this.addMouseListener(new avatarMouseListener());
+	}
+	
 	public AvatarLabel(URL url){
-		this.setToolTipText("click to change your display picture");
+		this.setToolTipText("Click to change your display picture");
+		this.chatClient = null;
 		avatarlbl = this;
 		changeAvatar(url.toString());
 		this.addMouseListener(new avatarMouseListener());
@@ -74,7 +88,16 @@ public class AvatarLabel extends JLabel{
             File file = fileChooser.getSelectedFile();
             avatarlbl.changeAvatar(file.toURL().toString());
             System.out.println(file.getAbsolutePath()+ " is choosen");
+            try {
+            	System.out.println("Setting avatar...");
+				chatClient.setAvatarPicture(file);
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	fileChooser.setVisible(false);//DISPOSE!!!
+        	
+        	
         } else {
         	System.out.println("Attachment cancelled by user.");
         	fileChooser.setVisible(false);//DISPOSE!!!

@@ -1,10 +1,12 @@
 package controller.services;
 
 //import com.aol.acc.*;
+import java.io.File;
 import java.util.*;
 import java.util.regex.*;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -90,6 +92,11 @@ public class ICQManager implements GenericConnection {
 
 	public void setTypingState(int state) throws BadConnectionException,
 			XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setAvatarPicture(File file) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}

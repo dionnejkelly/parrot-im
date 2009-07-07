@@ -18,9 +18,11 @@
 
 package controller;
 
+import java.io.File;
 import java.util.*;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
@@ -113,6 +115,22 @@ public class MainController {
         ImageIcon avatarPicture = connection.getAvatarPicture(userID);
 
         return avatarPicture;
+        // TODO make a more accurate Model.addFriend
+
+    }
+    
+    public void setAvatarPicture(File file) throws XMPPException {
+        // TODO create an account selection GUI
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+
+        connection.setAvatarPicture(file);
+
+  
         // TODO make a more accurate Model.addFriend
 
     }
