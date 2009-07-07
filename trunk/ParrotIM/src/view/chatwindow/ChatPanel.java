@@ -493,7 +493,6 @@ public class ChatPanel extends JPanel {
         		
         	}
         	
-        	displayPanel.updateChar(keyCapacity - keyCount);
         }
 
         /**
@@ -527,30 +526,35 @@ public class ChatPanel extends JPanel {
     private class TextAreaDocListener implements DocumentListener{
     	private int keyCount = 0;
 		public void changedUpdate(DocumentEvent arg0) {
-			// TODO Auto-generated method stub
-			c.setTypingState(1);
+			//send isTyping signal
+			System.out.println("hey, I am typing");
+			c.setTypingState(2);
+			
 		}
 
 		public void insertUpdate(DocumentEvent e) {
 			keyCount = keyCount + e.getLength();
 			System.out.println("Key count = " + keyCount);
-			
+			displayPanel.updateChar(140 - keyCount);
 		}
 
 		public void removeUpdate(DocumentEvent e) {
 			keyCount = keyCount - e.getLength();
 			System.out.println("Key count = " + keyCount);
+			displayPanel.updateChar(140 - keyCount);
 		}
-    	
+		
     }
     private class TextAreaFocusListener implements FocusListener{
 
 		public void focusGained(FocusEvent arg0) {
+			//send active signal
 			c.setTypingState(1);
 		}
 
 		public void focusLost(FocusEvent arg0) {
-			c.setTypingState(2);
+			//send inactive signal
+			c.setTypingState(4);
 			
 		}
     	

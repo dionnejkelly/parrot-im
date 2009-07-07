@@ -400,28 +400,24 @@ public class GoogleTalkManager implements GenericConnection {
      */
 	public void setTypingState(int state) throws BadConnectionException, XMPPException {
 		ChatStateManager curState = ChatStateManager.getInstance(connection);
+		
 		if (state == 1){
 			curState.setCurrentState(ChatState.active, lastChat);
 		}else if(state == 2){
 	        curState.setCurrentState(ChatState.composing, lastChat);
+	        System.out.println("I am typing");
+		}else if(state == 3){
+	        curState.setCurrentState(ChatState.gone, lastChat);
+		}else if(state == 4){
+	        curState.setCurrentState(ChatState.inactive, lastChat);
+		}else if(state == 5){
+	        curState.setCurrentState(ChatState.paused, lastChat);
 		}
 	}
-	/**
-	 * use ChatSession to connect to MessageEventNotificationListener
-	 */
-	
-	/**
-	 * another class that listens chat state is MessageEventNotificationListener
-	 * try this later....this also includes offline notification
-	 */
-	
 
-	
 	/**
 	 * 
-	 * this is for listening for chat state changed
-	 * but without implementing processMessage, it will break this class
-	 * 
+	 * listening for chat state change from server
 	 * 
 	 * */
 	 private class DefaultChatStateListener implements ChatStateListener {

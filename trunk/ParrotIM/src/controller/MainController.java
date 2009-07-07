@@ -481,15 +481,16 @@ public class MainController {
     public void setTypingState(int state) {
         GenericConnection connection =
                 model.getActiveConversation().getAccount().getConnection();
-        try {
-            connection.setTypingState(state);
-        } catch (BadConnectionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (XMPPException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            try {
+            	
+				connection.setTypingState(state);
+			} catch (BadConnectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
 
     /**
