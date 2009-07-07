@@ -13,14 +13,15 @@ import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -45,7 +46,8 @@ public class BugReportFrame extends JFrame{
 	private JButton sendButton;
 	private JButton cancelButton;
 	
-	
+	private String frequencyReport = "Frequency: ";
+	private String severityReport = "Severity: ";
 	
 	private JLabel questionLabel;
 	private JLabel subjectLabel;
@@ -53,14 +55,14 @@ public class BugReportFrame extends JFrame{
 	private JLabel frequencyLabel;
 	private JLabel severityLabel;
 	
-	private JCheckBox criticalImpact;
-	private JCheckBox majorImpact;
-	private JCheckBox minorImpact;
-	private JCheckBox noImpact;
+	private JRadioButton criticalImpact;
+	private JRadioButton majorImpact;
+	private JRadioButton minorImpact;
+	private JRadioButton noImpact;
 	
-	private JTextField questionText;
 	private JTextField subjectText;
 	private JTextArea messageText;
+	private JComboBox frequency;
 	
 	
 	
@@ -104,15 +106,7 @@ public class BugReportFrame extends JFrame{
 		messageLabel.setBorder(preferredBorder);
 		frequencyLabel = new JLabel("Frequency: ");
 		severityLabel = new JLabel("Severity: ");
-		
-//		JLabel messageHelpLabel = new JLabel("Enter a detailed description of the problem. Please be specific.");
-//		messageHelpLabel.setForeground(Color.GRAY.darker());
-	
-//		questionText = new JTextField(28);
-//		questionText.setOpaque(true);
-//		questionText.setText(messageTo);
-//		questionText.setForeground(Color.GRAY);
-//		questionText.setEditable(false);
+
 		subjectText = new JTextField(29);
 		subjectText.setToolTipText("Enter a one line summary of your report.");
 		messageText = new JTextArea(10,20);
@@ -130,27 +124,43 @@ public class BugReportFrame extends JFrame{
 		
 		
 		String[] listFrequency = {"Always", "Often", "Occasionally", "Rarely"};
-		JComboBox frequency = new JComboBox(listFrequency);
+		frequency = new JComboBox(listFrequency);
 		frequency.setPreferredSize(new Dimension(265, 25));
+		frequency.addActionListener(new StyleListener());
 		
-		criticalImpact = new JCheckBox("Critical");
-		majorImpact = new JCheckBox("Major");
-		minorImpact = new JCheckBox("Minor");
-		noImpact = new JCheckBox("No Impact");
+		criticalImpact = new JRadioButton("Critical");
+		majorImpact = new JRadioButton("Major");
+		minorImpact = new JRadioButton("Minor");
+		noImpact = new JRadioButton("No Impact");
+		
+		criticalImpact.setActionCommand("Critical");
+		majorImpact.setActionCommand("Major");
+		minorImpact.setActionCommand("Minor");
+		noImpact.setActionCommand("No Impact");
+
 		
 		StyleListener listener = new StyleListener();
 		
-		criticalImpact.addItemListener(listener);
-		majorImpact.addItemListener(listener);
-		minorImpact.addItemListener(listener);
-		noImpact.addItemListener(listener);
+		criticalImpact.addActionListener(listener);
+		majorImpact.addActionListener(listener);
+		minorImpact.addActionListener(listener);
+		noImpact.addActionListener(listener);
 		
 		
 		JPanel frequencyPanel = new JPanel();
 		frequencyPanel.add(frequency);
 		
+		 //Group the radio buttons.
+	    ButtonGroup group = new ButtonGroup();
+	    group.add(criticalImpact);
+	    group.add(majorImpact);
+	    group.add(minorImpact);
+	    group.add(noImpact);
+
+	    
+	    
 		JPanel severityPanel = new JPanel();
-		
+	
 		severityPanel.add(criticalImpact);
 		severityPanel.add(majorImpact);
 		severityPanel.add(minorImpact);
@@ -181,11 +191,17 @@ public class BugReportFrame extends JFrame{
 
 	}
 	
-	private class StyleListener implements ItemListener {
+	
+	
+	
+	private class StyleListener implements ActionListener {
 
-		public void itemStateChanged(ItemEvent event) {
+		
+
+		public void actionPerformed(ActionEvent event) {
 			
-			
+			frequencyReport = severityReport + frequency.getSelectedItem().toString();
+			severityReport = severityReport + event.getActionCommand();
 			
 		}
 		
@@ -231,7 +247,7 @@ public class BugReportFrame extends JFrame{
 			System.out.println("From: " + model.getAccountList().get(0));
 			BugReport sendAemail = new BugReport(model.getAccountList().get(0), model.getPassword(model.getAccountList().get(0)));
 			try {
-				sendAemail.sendReport(subjectText.getText(), messageText.getText(), messageTo);
+				sendAemail.sendReport(frequencyReport + "\n" + severityReport + "\n" + subjectText.getText(), messageText.getText(), messageTo);
 				String resultMessage =
                     "Your bug report has been succesfully delivered. Thank you for your co-operation.";
 				JOptionPane.showMessageDialog(null, resultMessage);
