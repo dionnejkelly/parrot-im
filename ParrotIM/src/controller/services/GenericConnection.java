@@ -27,6 +27,8 @@
 package controller.services;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -75,7 +77,7 @@ public interface GenericConnection {
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException;
    
-    public void setAvatarPicture(File file) throws XMPPException;
+    public void setAvatarPicture(byte[] dataArray) throws XMPPException;
     public ServerType getServerType();
     
     //@Override

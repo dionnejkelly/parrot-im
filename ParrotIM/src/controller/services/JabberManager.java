@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -417,7 +418,7 @@ public void setTypingState(int state) throws BadConnectionException, XMPPExcepti
 	
 }
 
-public void setAvatarPicture(File file) throws XMPPException {
+public void setAvatarPicture(byte[] dataArray) throws XMPPException {
 	// TODO Auto-generated method stub
 	
 }
