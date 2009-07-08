@@ -219,7 +219,7 @@ public class DisplayPanel extends JPanel implements Observer {
     		isTyping.setForeground(Color.RED.darker());
     	
         }
-        
+           
         return;
     }
 
