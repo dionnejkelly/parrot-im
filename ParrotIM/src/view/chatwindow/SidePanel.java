@@ -136,7 +136,7 @@ public class SidePanel extends JPanel implements Observer {
 
             ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
             if (leafIcon != null) {
-                renderer.setUserAvatar(cd1.getUser().getUserID(), leafIcon);
+                renderer.setUserAvatar(userWrapper.toString(), leafIcon);
             }
         }
 
