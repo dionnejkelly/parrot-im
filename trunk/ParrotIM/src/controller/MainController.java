@@ -507,10 +507,9 @@ public class MainController {
      * @param state numbers that represent different state, it depends on the service
      */
     public void setTypingState(int state) {
-        GenericConnection connection =
-                model.getActiveConversation().getAccount().getConnection();
+        
             try {
-            	
+            	GenericConnection connection = model.getActiveConversation().getAccount().getConnection();
 				connection.setTypingState(state);
 			} catch (BadConnectionException e) {
 				// TODO Auto-generated catch block
@@ -521,8 +520,14 @@ public class MainController {
 			}
 			
 			catch (IllegalArgumentException e) {
-				System.out.println("Chat is set to null so Do nothing...");
+				System.out.println("Chat is set to null so do nothing...");
 			}
+			
+			catch (NullPointerException e) {
+				System.out.println("Chat is set to null so do nothing...");
+			}
+			
+			
     }
 
     /**
