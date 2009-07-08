@@ -77,7 +77,11 @@ public interface GenericConnection {
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException;
    
-    public void setAvatarPicture(byte[] byeArray) throws XMPPException;
+    public void setAvatarPicture(byte[] bytes) throws XMPPException;
+    
+    public void setAvatarPicture(File file) throws XMPPException;
+	
+	public void setAvatarPicture(URL url) throws XMPPException;
     public ServerType getServerType();
     
     //@Override

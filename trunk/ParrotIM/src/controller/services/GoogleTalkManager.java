@@ -1,6 +1,10 @@
 package controller.services;
 
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,32 +74,116 @@ public class GoogleTalkManager implements GenericConnection {
         this.controller = controller;
         this.genericConnection = this;
         this.chats = new ArrayList<Chat>();
+        this.vcard = new VCard();
     }
     
-    public void setAvatarPicture(byte[] byteArray) throws XMPPException {
-		vcard = new VCard();
+    /**
+     * Set the avatar for the VCard by specifying the url to the image.
+     *
+     * @param avatarURL the url to the image(png,jpeg,gif,bmp)
+     * @throws XMPPException 
+     */
+    public void setAvatarPicture(URL avatarURL) throws XMPPException {
+        byte[] bytes = new byte[0];
+        try {
+            bytes = getBytes(avatarURL);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		vcard.load(connection); 
-		
-		//InputStream stream;
-		//try {
-			//stream = new FileInputStream(file);
-			//String str = stream.toString();
-		    //byte[] dataArray= str.getBytes();
-			
-			vcard.setAvatar(byteArray);
-			
-			//vcard.save(connection);
+        setAvatarPicture(bytes);
+    }
+
+    /**
+     * Specify the bytes for the avatar to use.
+     *
+     * @param bytes the bytes of the avatar.
+     * @throws XMPPException 
+     */
+    public void setAvatarPicture(File file) throws XMPPException {
+    	vcard = new VCard();
+        vcard.load(connection);
+
+        // Otherwise, add to mappings.
+    	byte[] bytes;
+		try {
+			bytes = getFileBytes(file);
+			String encodedImage = StringUtils.encodeBase64(bytes);
+			vcard.setAvatar(bytes, encodedImage);
+			vcard.setEncodedImage(encodedImage);
+	        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>" + encodedImage + "</BINVAL>", true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("---------------------------Done and done!!!");
+        
+    }
+
+    /**
+     * Specify the bytes for the avatar to use.
+     *
+     * @param bytes the bytes of the avatar.
+     * @throws XMPPException 
+     */
+    public void setAvatarPicture(byte[] bytes) throws XMPPException {
+        
+
+        vcard = new VCard();
+        vcard.load(connection);
+    	
 	
-	    
+		
+		String encodedImage = StringUtils.encodeBase64(bytes);
 	    
 		
+	    vcard.setField("Avatar", "<TYPE>image/jpg</TYPE><BINVAL>" + encodedImage + "</BINVAL>", true);
 		
+        
+    }
+    
+  
 
-	}
+    
+    /**
+     * Common code for getting the bytes of a url.
+     *
+     * @param url the url to read.
+     */
+    public byte[] getBytes(URL url) throws IOException {
+        final String path = url.getPath();
+        final File file = new File(path);
+        if (file.exists()) {
+            return getFileBytes(file);
+        }
+
+        return null;
+    }
+
+    
+    private byte[] getFileBytes(File file) throws IOException {
+        BufferedInputStream bis = null;
+        try {
+            bis = new BufferedInputStream(new FileInputStream(file));
+            int bytes = (int) file.length();
+            byte[] buffer = new byte[bytes];
+            int readBytes = bis.read(buffer);
+            if (readBytes != buffer.length) {
+                throw new IOException("Entire file not read");
+            }
+            return buffer;
+        }
+        finally {
+            if (bis != null) {
+                bis.close();
+            }
+        }
+    }
+
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
-		vcard = new VCard();
+//		vcard = new VCard();
 		ImageIcon icon;
 		
 		try {
@@ -553,6 +641,10 @@ public class GoogleTalkManager implements GenericConnection {
 		}
 		 
 	 }
+
+
+	
+	
 	 
 //	 public boolean isTyping() {
 //		 return isTyping;

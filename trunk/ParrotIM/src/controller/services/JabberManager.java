@@ -423,6 +423,16 @@ public void setAvatarPicture(byte[] byeArray) throws XMPPException {
 	
 }
 
+public void setAvatarPicture(File file) throws XMPPException {
+	// TODO Auto-generated method stub
+	
+}
+
+public void setAvatarPicture(URL url) throws XMPPException {
+	// TODO Auto-generated method stub
+	
+}
+
 //public boolean isTyping() {
 //	// TODO Auto-generated method stub
 //	return false;
