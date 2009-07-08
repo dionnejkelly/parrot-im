@@ -111,7 +111,7 @@ public class SidePanel extends JPanel implements Observer {
         	 */
         	
         	System.out.println("Avatar Picture = " + cd1.getUser().getNickname());
-            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getNickname() + "@gmail.com");
+            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
             if (leafIcon != null) {   
                  renderer.setUserAvatar(cd1.getUser().getNickname(), 
                  		leafIcon);
