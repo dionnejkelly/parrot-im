@@ -114,7 +114,7 @@ public class SidePanel extends JPanel implements Observer {
         for (ConversationData cd1 : model.getConversations()) {
             /*
              * Adding the nodes to the tree This loop is for adding the nodes to
-             * the the tree. And anyother actions that need to be preformed once
+             * the the tree. And another actions that need to be preformed once
              * for each node in the tree. NOTE: Please to not put functions into
              * this loop that only need to be run once. They will cause strange
              * exceptions.
@@ -163,7 +163,7 @@ public class SidePanel extends JPanel implements Observer {
      */
 
     public void update(Observable t, Object o) {
-        if (o == UpdatedType.CHAT) {
+        if (o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL) {
             // Temporary fix for early update bug
             if (tree != null) {
                 try {
