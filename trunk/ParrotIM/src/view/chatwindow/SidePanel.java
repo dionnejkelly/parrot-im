@@ -22,6 +22,7 @@ import controller.MainController;
 
 import model.*;
 import model.dataType.ConversationData;
+import model.dataType.UserData;
 import model.enumerations.UpdatedType;
 
 import java.util.*;
@@ -135,7 +136,7 @@ public class SidePanel extends JPanel implements Observer {
 
             ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
             if (leafIcon != null) {
-                renderer.setUserAvatar(cd1.getUser().getNickname(), leafIcon);
+                renderer.setUserAvatar(cd1.getUser().getUserID(), leafIcon);
             }
         }
 
@@ -192,6 +193,7 @@ public class SidePanel extends JPanel implements Observer {
             // int selRow = tree.getRowForLocation(event.getX(), event.getY());
             TreePath selPath =
                     tree.getPathForLocation(event.getX(), event.getY());
+            UserData user = null;
 
             // System.out.println("in sidePanel" +
             // selPath.getLastPathComponent().toString());
@@ -201,6 +203,10 @@ public class SidePanel extends JPanel implements Observer {
                     && selPath.getLastPathComponent() instanceof DefaultMutableTreeNode) {
                 c.changeConversation(((UserDataWrapper) ((DefaultMutableTreeNode) selPath
                         .getLastPathComponent()).getUserObject()).getConversation());
+                
+                // For William
+                user = ((UserDataWrapper) ((DefaultMutableTreeNode) selPath
+                        .getLastPathComponent()).getUserObject()).getConversation().getUser();
             }
 
             return;
