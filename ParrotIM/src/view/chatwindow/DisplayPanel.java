@@ -184,7 +184,8 @@ public class DisplayPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         // TODO: May want to update this to update line-per-line
     	
-        if (arg == UpdatedType.CHAT && model.getActiveConversation() != null) {
+        if ((arg == UpdatedType.CHAT || arg == UpdatedType.CHATNOTSIDEPANEL) 
+        		&& model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
             title.setText(model.getActiveConversation().getUser().getNickname());
             
