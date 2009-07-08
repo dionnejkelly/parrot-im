@@ -53,7 +53,7 @@ public class DisplayPanel extends JPanel implements Observer {
     
     private MainController chatClient;
     
-    private JLabel isTyping;
+    private JLabel chatState;
 
     /**
      * This is the constructor of the DisplayPanel.
@@ -131,9 +131,9 @@ public class DisplayPanel extends JPanel implements Observer {
         bar2 = new JToolBar();
         bar2.setFloatable(false);
         
-        isTyping = new JLabel();
+        chatState = new JLabel();
         
-        bar1.add(isTyping);
+        bar1.add(chatState);
 //        JLabel isTyping = new JLabel("140");
         twitterLimit = new JLabel("140");
         twitterLimit.setForeground(Color.GRAY.darker());
@@ -209,16 +209,11 @@ public class DisplayPanel extends JPanel implements Observer {
 
         }
         
-        if (arg == UpdatedType.ISTYPING) {//TODO
-        	isTyping.setText("is typing");
-    		isTyping.setForeground(Color.BLUE.darker());
+        else if (arg == UpdatedType.CHAT_STATE) {//TODO
+        	chatState.setText("is typing");
+        	chatState.setForeground(Color.BLUE.darker());
     	}
     	
-        else if (arg == UpdatedType.ISNOTTYPING) {
-    		isTyping.setText(null);
-//    		isTyping.setForeground(Color.RED.darker());
-    	
-        }
            
         return;
     }
