@@ -37,6 +37,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -54,6 +55,7 @@ import javax.swing.event.ListSelectionListener;
 
 import view.styles.TextListCellRenderer;
 
+import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.tempData.ChatLogMessageTempData;
 
@@ -122,6 +124,8 @@ public class ChatLogPanel extends JPanel {
     private String[] stub = new String[]{"<html><i>no data is displayed</i></html>"};
 
     private JTextField searchField ;
+    // Added the database
+    private DatabaseFunctions db;
     /** 
      * The constructor of ChatLogPanel. It takes model and currently used profile name as arguments.
      * It sets up the panel, including the nested splitPane. 
@@ -133,7 +137,9 @@ public class ChatLogPanel extends JPanel {
     public ChatLogPanel(Model model, String profile) throws ClassNotFoundException, SQLException {
         // model stub
         this.model = model;
-        this.profile = profile;
+        this.profile = model.getCurrentProfile().getProfileName();
+         db = new DatabaseFunctions();
+        
 
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -158,7 +164,7 @@ public class ChatLogPanel extends JPanel {
         // top right component shows the list of dates
         dateList = new JList(stub);
         dateList.setEnabled(false);
-        dateList.addListSelectionListener(new datesListener());
+        dateList.addListSelectionListener(new datesListener());//
         dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         datesScroll = new JScrollPane(dateList);
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
@@ -183,6 +189,7 @@ public class ChatLogPanel extends JPanel {
         JButton searchButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching");
+        //
         searchButton.addMouseListener(new searchListener());
         JPanel searchBarPanel = new JPanel();
         searchBarPanel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
@@ -232,7 +239,7 @@ public class ChatLogPanel extends JPanel {
      * This class inherits ListSelectionListener methods and variables.
      */
     private class datesListener implements ListSelectionListener {
-
+//
     	/**
          * If user selected a date of the dateList JList changed,
          * text will show the logged message of the date. 
@@ -275,12 +282,42 @@ public class ChatLogPanel extends JPanel {
          * 
          * @param e
          */
-
+//
         public void mousePressed(MouseEvent event) {
 
             if (searchField.getText().length() > 0) {
-                System.out.println("Searching for "+searchField.getText());
+            	Vector<String> users = null;
+               try {
+            	   System.out.println("hi");
+				 users = db.getChatNameList(profile, searchField.getText());
+				 System.out.println("Appear");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(users.size());
+			for(int i=0;i<users.size();i++){
+				Vector<String> dates = null;
+               try {
+            	   System.out.println("Hi again");
+				 dates = db.getChatDatesFromName(profile, users.get(i), searchField.getText());
+				 System.out.println("Appear again");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				for(int j=0;j<dates.size();j++){
+					try {
+						System.out.println("Hi third");
+						ArrayList<ChatLogMessageTempData> message = db.getMessageFromDate(profile, users.get(i), dates.get(j), searchField.getText());
+						System.out.println("Finished");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
             }
+			}
+		}
 
             else {
             	String resultMessage = "Please provide a key word in the search field.";
