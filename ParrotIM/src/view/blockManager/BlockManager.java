@@ -415,7 +415,7 @@ public class BlockManager extends JFrame implements Observer {
     }
 
     public void update(Observable o, Object arg) {
-        if (arg == UpdatedType.BUDDY) {
+        if (arg == UpdatedType.BUDDY_BLOCK_MANAGER) {
 
             // Refresh the lists after a change
             this.usersProfileBuddyList = this.model.getCurrentProfile().getAllFriends();

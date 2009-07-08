@@ -900,6 +900,8 @@ public class Model extends Observable {
 
         super.setChanged();
         super.notifyObservers(UpdatedType.BUDDY);
+        super.setChanged();
+        super.notifyObservers(UpdatedType.BUDDY_BLOCK_MANAGER);
 
         return;
     }
@@ -925,6 +927,8 @@ public class Model extends Observable {
             e.printStackTrace();
         }
 
+        super.setChanged();
+        super.notifyObservers(UpdatedType.BUDDY_BLOCK_MANAGER);
         super.setChanged();
         super.notifyObservers(UpdatedType.BUDDY);
 
