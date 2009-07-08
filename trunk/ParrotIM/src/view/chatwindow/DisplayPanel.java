@@ -131,7 +131,7 @@ public class DisplayPanel extends JPanel implements Observer {
         bar2 = new JToolBar();
         bar2.setFloatable(false);
         
-        isTyping = new JLabel("Ready...");
+        isTyping = new JLabel();
         
         bar1.add(isTyping);
 //        JLabel isTyping = new JLabel("140");
@@ -209,14 +209,14 @@ public class DisplayPanel extends JPanel implements Observer {
 
         }
         
-        if (arg == UpdatedType.ISTYPING) {
+        if (arg == UpdatedType.ISTYPING) {//TODO
         	isTyping.setText("is typing");
     		isTyping.setForeground(Color.BLUE.darker());
     	}
     	
         else if (arg == UpdatedType.ISNOTTYPING) {
-    		isTyping.setText("has left the conversation");
-    		isTyping.setForeground(Color.RED.darker());
+    		isTyping.setText(null);
+//    		isTyping.setForeground(Color.RED.darker());
     	
         }
            
