@@ -586,7 +586,8 @@ public class GoogleTalkManager implements GenericConnection {
     
     /**
      * 
-     * set typing state
+     * set typing state so the currently chat can get the change
+     * assuming that the currently chat user uses googletalk
      * @param state int that represents different state
      * 1 = active
      * 2 = composing
@@ -594,8 +595,11 @@ public class GoogleTalkManager implements GenericConnection {
      * 4 = inactive
      * 5 = paused
      */
-	public void setTypingState(int state) throws BadConnectionException, XMPPException {
+	public void setTypingState(int state, String userID) throws BadConnectionException, XMPPException {
 		ChatStateManager curState = ChatStateManager.getInstance(connection);
+		if (lastChat==null){
+			lastChat = connection.getChatManager().createChat(userID, new DefaultChatStateListener());
+		}
 		
 		if (state == 1){
 			curState.setCurrentState(ChatState.active, lastChat);
@@ -608,12 +612,15 @@ public class GoogleTalkManager implements GenericConnection {
 	        curState.setCurrentState(ChatState.inactive, lastChat);
 		}else if(state == 5){
 	        curState.setCurrentState(ChatState.paused, lastChat);
+		}else{
+			
 		}
 	}
 
 	/**
 	 * 
 	 * listening for chat state change from server
+	 * and change that state in model
 	 * 
 	 * */
 	 private class DefaultChatStateListener implements ChatStateListener {
@@ -621,18 +628,7 @@ public class GoogleTalkManager implements GenericConnection {
 		public void stateChanged(Chat user, ChatState event) {
 			System.out.println("Getting called here...");
 			System.out.println(user.getParticipant()+ " is "+event.name() );
-			
-			if (event.name().equals("composing")) {
-				//isTyping = true;\
-				controller.isTyping(true);
-				
-				
-			}
-			
-			else {
-				//isTyping = false;
-				controller.isTyping(false);
-			}
+
 		}
 
 		public void processMessage(Chat arg0, Message arg1) {

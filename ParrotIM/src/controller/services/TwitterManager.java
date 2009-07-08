@@ -398,7 +398,7 @@ public class TwitterManager implements GenericConnection {
         return null;
     }
 
-	public void setTypingState(int state) throws BadConnectionException,
+	public void setTypingState(int state, String UserID) throws BadConnectionException,
 			XMPPException {
 		// TODO Auto-generated method stub
 		
