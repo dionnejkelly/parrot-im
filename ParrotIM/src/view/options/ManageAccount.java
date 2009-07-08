@@ -253,6 +253,8 @@ public class ManageAccount extends JPanel implements Observer
 	private class serverListener implements ItemListener{
 
 		public void itemStateChanged(ItemEvent e) {
+			UNField.setText(null);
+			pwdField.setText(null);
 			if (server.getSelectedIndex()==0){
 				serverPanel.setVisible(true);
 			}else{
@@ -290,12 +292,14 @@ public class ManageAccount extends JPanel implements Observer
 
 		public void keyTyped(KeyEvent e) {
 			if (UNField.getText().length() > 0 && pwdField.getPassword().length > 0){
-				if (server.getSelectedIndex() == 0 && jabberServer.getText().length() > 0)
+				if (server.getSelectedIndex() > 0)
 					addButton.setEnabled(true);
-				else if (server.getSelectedIndex() > 0)
-					addButton.setEnabled(true);
-				else 
-					addButton.setEnabled(false);
+				else{
+					if ( jabberServer.getText().length() > 0 )
+						addButton.setEnabled(true);
+					else
+						addButton.setEnabled(false);
+				}
 			} else
 				addButton.setEnabled(false);
 		}
