@@ -138,6 +138,8 @@ public class SidePanel extends JPanel implements Observer {
             if (leafIcon != null) {
                 renderer.setUserAvatar(userWrapper.toString(), leafIcon);
             }
+            
+            System.out.println(userWrapper.toString() + " added to the sidepanel");
         }
 
         /*
