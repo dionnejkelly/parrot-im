@@ -637,13 +637,8 @@ public class MainController {
      * @param accountName
      */
 
-    public void changeConversation(String accountName) {
-        UserData user = null;
-        ConversationData conversation = null;
-
-        user = model.findUserByAccountName(accountName);
-        if (user != null) {
-            conversation = model.findConversation(user);
+    public void changeConversation(ConversationData conversation) {
+        if (conversation != null) {
             model.setActiveConversation(conversation);
         }
 

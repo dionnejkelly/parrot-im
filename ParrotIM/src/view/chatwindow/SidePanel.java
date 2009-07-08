@@ -58,6 +58,8 @@ public class SidePanel extends JPanel implements Observer {
     /** The default top node. */
     private DefaultMutableTreeNode top;
 
+    private ArrayList<UserDataWrapper> users;
+
     /**
      * This is the constructor of the SidePanel.
      * 
@@ -69,6 +71,7 @@ public class SidePanel extends JPanel implements Observer {
         this.model = model;
         this.c = c;
         this.model.addObserver(this);
+        this.users = new ArrayList<UserDataWrapper>();
 
         // Panel Properties
         setLayout(new BorderLayout());
@@ -86,56 +89,70 @@ public class SidePanel extends JPanel implements Observer {
 
     /**
      * Refreshes the tree.
-     * @throws XMPPException 
+     * 
+     * @throws XMPPException
      * 
      */
     private void refreshTree() throws XMPPException {
-    	/** Initializations
-    	 * 		This is where the renderer is re-initialized and then added to
-    	 *  the tree. This only needs to be called once for it will affect the
-    	 *  preformance of the program and cause mysterious exceptions.
-    	 */
-    	CustomIconRenderer renderer = new CustomIconRenderer();
-    	tree.setCellRenderer(renderer);
-    	
-    	//removes all of the old elements from the tree before refreshing the tree
+        /*
+         * Initializations This is where the renderer is re-initialized and then
+         * added to the tree. This only needs to be called once for it will
+         * affect the preformance of the program and cause mysterious
+         * exceptions.
+         */
+        UserDataWrapper userWrapper = null;
+        ;
+
+        CustomIconRenderer renderer = new CustomIconRenderer();
+        tree.setCellRenderer(renderer);
+
+        // removes all of the old elements from the tree before refreshing the
+        // tree
         top.removeAllChildren();
-        
+
         for (ConversationData cd1 : model.getConversations()) {
-        	/** Adding the nodes to the tree
-        	 * 		This loop is for adding the nodes to the the tree.
-        	 *  And anyother actions that need to be preformed once for
-        	 *  each node in the tree.
-        	 * 	NOTE: Please to not put functions into this loop that only
-        	 * 		need to be run once. They will cause strange exceptions.
-        	 */
-        	
-        	System.out.println("Avatar Picture = " + cd1.getUser().getNickname());
-            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
-            if (leafIcon != null) {   
-                 renderer.setUserAvatar(cd1.getUser().getNickname(), 
-                 		leafIcon);
+            /*
+             * Adding the nodes to the tree This loop is for adding the nodes to
+             * the the tree. And anyother actions that need to be preformed once
+             * for each node in the tree. NOTE: Please to not put functions into
+             * this loop that only need to be run once. They will cause strange
+             * exceptions.
+             */
+
+            userWrapper = null;
+            for (UserDataWrapper u : this.users) {
+                if (u.getConversation() == cd1) {
+                    userWrapper = u;
+                    break;
+                }
             }
-             
-            top.add(new DefaultMutableTreeNode(cd1.getUser().getNickname()));            
+
+            if (userWrapper == null) {
+                userWrapper = new UserDataWrapper(cd1, this.model);
+                this.users.add(userWrapper);
+            }
+            top.add(new DefaultMutableTreeNode(userWrapper));
+
+            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
+            if (leafIcon != null) {
+                renderer.setUserAvatar(cd1.getUser().getNickname(), leafIcon);
+            }
         }
-        
-        /** Side Panel Tree Properties
-         * 		These are the properties of the tree that modify certain aspects of
-         * 	the tree after all of the nodes have been added to it. 
-         *  Note: These functions only need to be called once after all of the
-         *  nodes are added. calling these multiple times will only slow down the
-         *  refreshing of the tree and cause strange exceptions.
+
+        /*
+         * Side Panel Tree Properties These are the properties of the tree that
+         * modify certain aspects of the tree after all of the nodes have been
+         * added to it. Note: These functions only need to be called once after
+         * all of the nodes are added. calling these multiple times will only
+         * slow down the refreshing of the tree and cause strange exceptions.
          */
         tree.expandRow(1);
         tree.setRootVisible(false);
         tree.expandRow(0);
-        
+
         // refreshes the tree
         tree.updateUI();
     }
-    
-   
 
     /**
      * Update according to the UpdatedType.
@@ -149,10 +166,10 @@ public class SidePanel extends JPanel implements Observer {
             // Temporary fix for early update bug
             if (tree != null) {
                 try {
-					refreshTree();
-				} catch (XMPPException e) {
-					e.printStackTrace();
-				}
+                    refreshTree();
+                } catch (XMPPException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return;
@@ -180,10 +197,12 @@ public class SidePanel extends JPanel implements Observer {
             // selPath.getLastPathComponent().toString());
 
             // Temporary code to try and fix null bug
-            if (selPath != null) {
-                c.changeConversation(selPath.getLastPathComponent().toString());
+            if (selPath != null
+                    && selPath.getLastPathComponent() instanceof DefaultMutableTreeNode) {
+                c.changeConversation(((UserDataWrapper) ((DefaultMutableTreeNode) selPath
+                        .getLastPathComponent()).getUserObject()).getConversation());
             }
-            
+
             return;
         }
 
