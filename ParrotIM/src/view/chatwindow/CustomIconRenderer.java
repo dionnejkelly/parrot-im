@@ -20,8 +20,6 @@ public class CustomIconRenderer extends DefaultTreeCellRenderer {
 	public void setUserAvatar(String username, ImageIcon avatar){
 		avatars.add(avatar);
 		customUserAvatar.add(username);
-		
-		System.out.println("SetUserAvatar called");
 	}
 	
 	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, 

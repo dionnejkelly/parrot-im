@@ -398,7 +398,7 @@ public class Model extends Observable {
         this.chatCollection.setActiveConversation(conversation);
 
         setChanged();
-        notifyObservers(UpdatedType.CHAT);
+        notifyObservers(UpdatedType.CHATNOTSIDEPANEL);
 
         return conversation;
     }
