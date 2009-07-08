@@ -123,9 +123,17 @@ public class MainController {
 
     }
     
-    public boolean isTyping(boolean flag) {
-    	//return model.setChatState(friend, state);  
-    	return false;
+    public void setChateState(int state) {
+    	try {
+			model.getActiveConversation().getAccount().getConnection()
+			.setTypingState(state,model.getActiveConversation().getUser().getUserID());
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     
@@ -528,7 +536,8 @@ public class MainController {
         
             try {
             	GenericConnection connection = model.getActiveConversation().getAccount().getConnection();
-				connection.setTypingState(state);
+				connection.setTypingState(state, model.getActiveConversation().getUser()
+						.getUserID());
 			} catch (BadConnectionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -645,6 +654,13 @@ public class MainController {
 
         return;
     }
+    
+    
+    /**
+     * 
+     * @param userToUpdate
+     * @param connection
+     */
 
     public void updateStateAndStatus(UserData userToUpdate,
             GenericConnection connection) {

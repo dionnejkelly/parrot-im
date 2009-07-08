@@ -503,7 +503,7 @@ public class JabberManager implements GenericConnection {
      * 4 = inactive
      * 5 = paused
      */
-        public void setTypingState(int state) throws BadConnectionException, XMPPException {
+        public void setTypingState(int state, String UserID) throws BadConnectionException, XMPPException {
                 ChatStateManager curState = ChatStateManager.getInstance(connection);
                 
                 if (state == 1){

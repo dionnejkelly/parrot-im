@@ -73,7 +73,7 @@ public interface GenericConnection {
      * @throws BadConnectionException
      * @throws XMPPException
      */
-    public void setTypingState(int state) throws BadConnectionException, XMPPException;
+    public void setTypingState(int state, String userID) throws BadConnectionException, XMPPException;
     
     public ImageIcon getAvatarPicture(String userID) throws XMPPException;
    
