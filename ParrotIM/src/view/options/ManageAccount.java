@@ -29,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
@@ -66,6 +68,7 @@ public class ManageAccount extends JPanel implements Observer
 	private JTextField UNField;
 	private JPasswordField pwdField;
 	private JComboBox server;
+	private JButton addButton;
 	
 	protected JPanel serverPanel;
 	protected JTextField jabberServer;
@@ -103,7 +106,8 @@ public class ManageAccount extends JPanel implements Observer
 
 
 		//add button
-		JButton addButton = new JButton("Add");
+		addButton = new JButton("Add");
+		addButton.setEnabled(false);
 		addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	try {
@@ -135,6 +139,9 @@ public class ManageAccount extends JPanel implements Observer
 	}
 
 	private void rightPanelMAN() {
+		
+        ProfileKeyListener keyListener = new ProfileKeyListener();
+        
 		//setting right panel
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
@@ -145,6 +152,7 @@ public class ManageAccount extends JPanel implements Observer
         //server name for jabber
         //textfield
         jabberServer = new JTextField();
+        jabberServer.addKeyListener(keyListener);
         jabberServer.setPreferredSize(new Dimension(200, 20));
         jabberServer.setToolTipText("specify jabber server");
         JPanel jabberServerPanel = new JPanel();
@@ -164,12 +172,14 @@ public class ManageAccount extends JPanel implements Observer
         // set username
         JPanel usernamePanel = new JPanel();
         UNField = new JTextField();
+        UNField.addKeyListener(keyListener);
         UNField.setPreferredSize(new Dimension(180, 20));
         usernamePanel.add(new JLabel("Username:     "));
         usernamePanel.add(UNField);
         // set password
         JPanel passwordPanel = new JPanel();
         pwdField = new JPasswordField();
+        pwdField.addKeyListener(keyListener);
         pwdField.setPreferredSize(new Dimension(180, 20));
         passwordPanel.add(new JLabel ("Password:      "));
         passwordPanel.add(pwdField);
@@ -269,6 +279,25 @@ public class ManageAccount extends JPanel implements Observer
 			if (accList.getSelectedIndex()>-1){
 				removeButton.setEnabled(true);
 			}
+		}
+	}
+	
+	private class ProfileKeyListener implements KeyListener{
+
+		public void keyPressed(KeyEvent e) {}
+
+		public void keyReleased(KeyEvent e) {}
+
+		public void keyTyped(KeyEvent e) {
+			if (UNField.getText().length() > 0 && pwdField.getPassword().length > 0){
+				if (server.getSelectedIndex() == 0 && jabberServer.getText().length() > 0)
+					addButton.setEnabled(true);
+				else if (server.getSelectedIndex() > 0)
+					addButton.setEnabled(true);
+				else 
+					addButton.setEnabled(false);
+			} else
+				addButton.setEnabled(false);
 		}
 		
 	}
