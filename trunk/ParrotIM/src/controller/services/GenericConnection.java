@@ -82,4 +82,6 @@ public interface GenericConnection {
     
     //@Override
     public int hashCode();
+    
+   
 }

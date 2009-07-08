@@ -73,6 +73,9 @@ public class MainController {
      * 
      * @param model
      */
+    
+    //private boolean isTyping;
+    
     public MainController(Model model) {
         this.model = model;
         this.chatbot = new Chatbot();
@@ -119,6 +122,11 @@ public class MainController {
         // TODO make a more accurate Model.addFriend
 
     }
+    
+    public boolean isTyping(boolean flag) {
+    	return model.isTyping(flag);   
+    }
+    
     
     public void setAvatarPicture(byte[] byeArray) throws XMPPException {
         // TODO create an account selection GUI

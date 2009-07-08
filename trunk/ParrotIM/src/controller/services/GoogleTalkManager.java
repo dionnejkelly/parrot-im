@@ -62,6 +62,8 @@ public class GoogleTalkManager implements GenericConnection {
     private Roster roster;
     
     protected List subscribedUsers = new ArrayList();
+    
+    private boolean isTyping;
 
     public GoogleTalkManager(MainController controller) {
         this.connection = null;
@@ -369,10 +371,9 @@ public class GoogleTalkManager implements GenericConnection {
         }
 
         if (ourChat == null) {
-            ourChat =
-                    connection.getChatManager().createChat(
-                            toUserID, new DefaultChatStateListener());
+            ourChat = connection.getChatManager().createChat(toUserID, new DefaultChatStateListener());
         }
+        
         this.lastChat = ourChat;
         try {
             ourChat.sendMessage(message);
@@ -512,7 +513,7 @@ public class GoogleTalkManager implements GenericConnection {
 			curState.setCurrentState(ChatState.active, lastChat);
 		}else if(state == 2){
 	        curState.setCurrentState(ChatState.composing, lastChat);
-	        System.out.println("I am typing");
+	        
 		}else if(state == 3){
 	        curState.setCurrentState(ChatState.gone, lastChat);
 		}else if(state == 4){
@@ -529,8 +530,21 @@ public class GoogleTalkManager implements GenericConnection {
 	 * */
 	 private class DefaultChatStateListener implements ChatStateListener {
 
-		public void stateChanged(Chat arg0, ChatState arg1) {
-			System.out.println(arg0.getParticipant()+ " is "+arg1.name() );
+		public void stateChanged(Chat user, ChatState event) {
+			System.out.println("Getting called here...");
+			System.out.println(user.getParticipant()+ " is "+event.name() );
+			
+			if (event.name().equals("composing")) {
+				//isTyping = true;\
+				controller.isTyping(true);
+				
+				
+			}
+			
+			else {
+				//isTyping = false;
+				controller.isTyping(false);
+			}
 		}
 
 		public void processMessage(Chat arg0, Message arg1) {
@@ -539,5 +553,9 @@ public class GoogleTalkManager implements GenericConnection {
 		}
 		 
 	 }
+	 
+//	 public boolean isTyping() {
+//		 return isTyping;
+//	 }
 
 }

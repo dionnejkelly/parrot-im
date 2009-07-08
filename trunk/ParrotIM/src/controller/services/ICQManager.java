@@ -37,10 +37,11 @@ public class ICQManager implements GenericConnection {
     }
 
     // @Override
-    public void isTyping() throws BadConnectionException {
-        // TODO Auto-generated method stub
-
-    }
+//    public boolean isTyping() {
+//		return false;
+//        // TODO Auto-generated method stub
+//
+//    }
 
     // @Override
     public void login(String userID, String password, String server, int port)

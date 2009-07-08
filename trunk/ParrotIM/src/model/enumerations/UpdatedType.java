@@ -27,5 +27,5 @@ public enum UpdatedType {
     
     // Section
     // I - Enumerated Types
-    ALL, CHAT, BUDDY, MAIN, OPTIONS, PROFILE, CHAT_AND_BUDDY;
+    ALL, CHAT, BUDDY, MAIN, OPTIONS, PROFILE, CHAT_AND_BUDDY, ISTYPING, ISNOTTYPING;
 }

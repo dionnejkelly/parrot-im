@@ -19,6 +19,8 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import org.jivesoftware.smackx.packet.VCard;
 
+import controller.MainController;
+
 /**
  * The DisplayPanel contains the panel that allow users to read the messages in
  * the chat window.
@@ -47,9 +49,11 @@ public class DisplayPanel extends JPanel implements Observer {
     
     private JToolBar bar2;
     
-    private JLabel isTyping;
+    private JLabel twitterLimit;
     
-    // private String previousText;
+    private MainController chatClient;
+    
+    private JLabel isTyping;
 
     /**
      * This is the constructor of the DisplayPanel.
@@ -57,12 +61,12 @@ public class DisplayPanel extends JPanel implements Observer {
      * @param model
      */
 
-    public DisplayPanel(Model model) {
+    public DisplayPanel(MainController c, Model model) {
         setLayout(new BorderLayout());
 
         this.model = model;
         this.model.addObserver(this);
-
+        this.chatClient = c;
         // textPane's Properties
         txtPane = new JEditorPane();
         txtPane.setPreferredSize(new Dimension(250, 300));
@@ -126,12 +130,14 @@ public class DisplayPanel extends JPanel implements Observer {
         //JToolBar bar2 = new JToolBar();
         bar2 = new JToolBar();
         bar2.setFloatable(false);
-//        JLabel isTyping = new JLabel("Ready...");
-//        bar2.add(isTyping);
+        
+        isTyping = new JLabel("Ready...");
+        
+        bar1.add(isTyping);
 //        JLabel isTyping = new JLabel("140");
-        isTyping = new JLabel("140");
-        isTyping.setForeground(Color.GRAY.darker());
-        bar2.add(isTyping);
+        twitterLimit = new JLabel("140");
+        twitterLimit.setForeground(Color.GRAY.darker());
+        bar2.add(twitterLimit);
 
         // add to panel
         add(bar1, BorderLayout.NORTH);
@@ -139,19 +145,20 @@ public class DisplayPanel extends JPanel implements Observer {
         add(chatWindowScroller, BorderLayout.CENTER);
     }
     
+    
     public void updateChar(int count) {
-    	isTyping.setText("" + count);
+    	twitterLimit.setText("" + count);
     	
     	if (20 <= count && count <= 140) {
-    		isTyping.setForeground(Color.GRAY.darker());
+    		twitterLimit.setForeground(Color.GRAY.darker());
     	}
     	
     	else if (10 <= count && count <= 19) {
-    		isTyping.setForeground(Color.ORANGE.darker());
+    		twitterLimit.setForeground(Color.ORANGE.darker());
     	}
     	
     	else {
-    		isTyping.setForeground(Color.RED.darker());
+    		twitterLimit.setForeground(Color.RED.darker());
     	}
     	
     	
@@ -201,6 +208,18 @@ public class DisplayPanel extends JPanel implements Observer {
             }
 
         }
+        
+        if (arg == UpdatedType.ISTYPING) {
+        	isTyping.setText("is typing");
+    		isTyping.setForeground(Color.BLUE.darker());
+    	}
+    	
+        else if (arg == UpdatedType.ISNOTTYPING) {
+    		isTyping.setText("has left the conversation");
+    		isTyping.setForeground(Color.RED.darker());
+    	
+        }
+        
         return;
     }
 
