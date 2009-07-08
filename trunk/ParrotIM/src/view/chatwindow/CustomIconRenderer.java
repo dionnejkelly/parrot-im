@@ -27,21 +27,15 @@ public class CustomIconRenderer extends DefaultTreeCellRenderer {
 		super.getTreeCellRendererComponent(tree, value, sel,           
 				expanded, leaf, row, hasFocus);         
 		Object nodeObj = ((DefaultMutableTreeNode)value).getUserObject();    
-		
-		// check whatever you need to on the node user object
-		boolean matched = false;
-		for(int i = 0; i < avatars.size(); i++){
-			if(nodeObj.toString() == customUserAvatar.get(i)){
-				Image img = avatars.get(i).getImage(); 
-				img = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);   
-				ImageIcon newIcon = new ImageIcon(img);  
 
-				setIcon(newIcon); 
-				matched = true;
+		for(int i = 0; i < avatars.size(); i++){
+			if(nodeObj.toString().equals(customUserAvatar.get(i))){
+				Image img = avatars.get(i).getImage();
+				img = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);
+				ImageIcon newIcon = new ImageIcon(img);
+				
+				setIcon(newIcon);
 			}
-		}
-		if(matched == false){
-			setIcon(defaultIcon);
 		}
 		
 		return this;    
