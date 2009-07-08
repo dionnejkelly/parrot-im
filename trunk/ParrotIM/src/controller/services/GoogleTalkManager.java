@@ -1,19 +1,15 @@
 package controller.services;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
 
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
@@ -21,7 +17,6 @@ import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
@@ -29,6 +24,7 @@ import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.PacketFilter;
+import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
@@ -62,6 +58,10 @@ public class GoogleTalkManager implements GenericConnection {
     private Chat lastChat;
     
     private VCard vcard;
+    
+    private Roster roster;
+    
+    protected List subscribedUsers = new ArrayList();
 
     public GoogleTalkManager(MainController controller) {
         this.connection = null;
@@ -70,7 +70,7 @@ public class GoogleTalkManager implements GenericConnection {
         this.chats = new ArrayList<Chat>();
     }
     
-    public void setAvatarPicture(URL url) throws XMPPException {
+    public void setAvatarPicture(byte[] byteArray) throws XMPPException {
 		vcard = new VCard();
 
 		vcard.load(connection); 
@@ -81,13 +81,10 @@ public class GoogleTalkManager implements GenericConnection {
 			//String str = stream.toString();
 		    //byte[] dataArray= str.getBytes();
 			
-			vcard.setAvatar(url);
+			vcard.setAvatar(byteArray);
 			
-			vcard.save(connection);
-		//} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
+			//vcard.save(connection);
+	
 	    
 	    
 		
@@ -113,6 +110,8 @@ public class GoogleTalkManager implements GenericConnection {
 			else {
 			   icon = new ImageIcon(avatarBytes);
 			}
+			
+			
 			
 			
 		}
@@ -177,7 +176,76 @@ public class GoogleTalkManager implements GenericConnection {
                 new MessagePacketListener(), new MessagePacketFilter());
         connection.getRoster().addRosterListener(new BuddyListener());
 
+        roster = connection.getRoster();
+        roster.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
+        addSubscriptionListener();
         return;
+    }
+    
+    /**
+     * By adding this methode (right now added to the contructor) we do have
+     * auto subscription. All subscribe packets get automatically answered by a
+     * subscribed packet.
+     */
+    private void addSubscriptionListener() {
+        PacketFilter filter = new org.jivesoftware.smack.filter.PacketTypeFilter(Presence.class);
+        connection.createPacketCollector(filter);
+        PacketListener myListener = new PacketListener() {
+            public void processPacket(Packet packet) {
+                Presence presence = (Presence) packet;
+                
+                if (presence.getType() == Presence.Type.subscribe) {
+                    Presence response = new Presence(Presence.Type.subscribe);
+                    response.setTo(presence.getFrom());
+                    
+                    System.out.println("Who am I subscribing to: "+presence.getFrom());
+                    
+                    
+                    
+                    connection.sendPacket(response);
+                    //ask also for subscription
+                    if (!subscribedUsers.contains(presence.getFrom())) {
+                        response = null;
+                        response = new Presence(Presence.Type.subscribe);
+                        response.setTo(presence.getFrom());
+                        connection.sendPacket(response);
+                        //update the roster with the new user
+                        org.jivesoftware.smack.packet.RosterPacket rosterPacket = new org.jivesoftware.smack.packet.RosterPacket();
+                        rosterPacket.setType(IQ.Type.SET);
+                        org.jivesoftware.smack.packet.RosterPacket.Item item = new org.jivesoftware.smack.packet.RosterPacket.Item(presence
+                                .getFrom(), parseName(presence.getFrom()));
+                        //item.addGroupName(OLATBUDDIES);
+                        item.setItemType(org.jivesoftware.smack.packet.RosterPacket.ItemType.both);
+                       
+                        rosterPacket.addRosterItem(item);
+                        connection.sendPacket(rosterPacket);
+                        
+                        System.out.println("Updated the roster");
+                        subscribedUsers.add(presence.getFrom());
+                        
+                    }
+                }
+                
+            }
+        };
+        connection.addPacketListener(myListener, filter);
+    }
+    
+    /**
+     * @param xmppAddress
+     *            jabber jid like cmpt275testing@jabber.sfu.ca
+     * @return returns just the name "cmpt275testing" without the rest
+     */
+    protected String parseName(String xmppAddress) {
+        if (xmppAddress == null) {
+            return null;
+        }
+        int atIndex = xmppAddress.indexOf("@");
+        if (atIndex <= 0) {
+            return "";
+        } else {
+            return xmppAddress.substring(0, atIndex);
+        }
     }
 
     public boolean removeFriend(String userID)
@@ -347,6 +415,10 @@ public class GoogleTalkManager implements GenericConnection {
         public void entriesAdded(Collection<String> addresses) {
             // Fix me!
             System.out.println(addresses + " from entriesAdded");
+            
+            String subscriptionRequest = addresses + " wants to add you as a friend. Add as a friend?";
+            JOptionPane.showMessageDialog(null, subscriptionRequest);
+            
             return;
         }
 

@@ -97,7 +97,7 @@ public class ICQManager implements GenericConnection {
 		
 	}
 
-	public void setAvatarPicture(URL url) throws XMPPException {
+	public void setAvatarPicture(byte[] byeArray) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}

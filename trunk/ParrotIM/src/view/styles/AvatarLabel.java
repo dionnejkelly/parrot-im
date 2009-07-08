@@ -28,12 +28,16 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,6 +45,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.util.Base64;
+import org.jivesoftware.smack.util.StringUtils;
 
 import controller.MainController;
 
@@ -95,21 +101,34 @@ public class AvatarLabel extends JLabel{
             System.out.println("Setting avatar...");
 //            Image image = getToolkit().getImage(fileChooser.getSelectedFile().getName());
 //            JOptionPane.showMessageDialog(null, image);
-            try {
-            	//File testFile = new File("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
-				//BufferedImage img = ImageIO.read(testFile);
-				//ByteArrayOutputStream bas = new ByteArrayOutputStream();
-				//ImageIO.write(img, "pnm", bas);
-				//byte[] data = bas.toByteArray();
-				chatClient.setAvatarPicture(file.toURI().toURL());
+            //try {
+            	File testFile = new File("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
+//				BufferedImage img = ImageIO.read(testFile);
+//				ByteArrayOutputStream bas = new ByteArrayOutputStream();
+//				ImageIO.write(img, "pnm", bas);
+//				byte[] data = bas.toByteArray();
+            	//ImageIcon imageIcon = new ImageIcon("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
+            	//String imageData = imageIcon.getImage().toString();
+            	//JOptionPane.showMessageDialog(null, imageIcon);
+            	//String imageData = file.toURL().toString();
+          
+    
+				try {
+					
+					InputStream stream = new FileInputStream(testFile);
+			    	String str = stream.toString();
+			    	byte[] test = StringUtils.decodeBase64(str);
+
+					chatClient.setAvatarPicture(test);
+					
+				} catch (XMPPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("Succesfully uploaded the avatar picture.");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
 			
 			
@@ -124,6 +143,9 @@ public class AvatarLabel extends JLabel{
         //Reset the file chooser for the next time it's shown.
         fileChooser.setSelectedFile(null);
 	}
+	
+	
+
 	/**
 	 * Sets the AvatarLabel to a new image. It takes a String that describes
 	 * the path of the display picture as its argument.
