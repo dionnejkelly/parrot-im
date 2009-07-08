@@ -67,7 +67,7 @@ public class GoogleTalkManager implements GenericConnection {
     
     protected List subscribedUsers = new ArrayList();
     
-    private boolean isTyping;
+    //private boolean isTyping;
 
     public GoogleTalkManager(MainController controller) {
         this.connection = null;
