@@ -122,7 +122,7 @@ public class AvatarLabel extends JLabel{
 			    	//ImageIcon icon = new ImageIcon(test);
 			    	//JOptionPane.showMessageDialog(null, icon);
 					chatClient.setAvatarPicture(file);
-					ImageIcon icon = chatClient.getAvatarPicture("cmpt275testing@gmail.com");
+					ImageIcon icon = chatClient.getAvatarPicture("parrotim.test@gmail.com");
 					JOptionPane.showMessageDialog(null, icon);
 					
 				} catch (XMPPException e) {

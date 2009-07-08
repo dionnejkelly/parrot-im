@@ -118,6 +118,7 @@ public class GoogleTalkManager implements GenericConnection {
 			e.printStackTrace();
 		}
 		System.out.println("---------------------------Done and done!!!");
+		vcard.save(connection);
         
     }
 
@@ -573,7 +574,6 @@ public class GoogleTalkManager implements GenericConnection {
         }
     }
 
-    @Override
     public int hashCode() {
         int hash = 7; 
             

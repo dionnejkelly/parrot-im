@@ -1,5 +1,6 @@
 package controller.services;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,6 +33,8 @@ import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
+import org.jivesoftware.smackx.ChatState;
+import org.jivesoftware.smackx.ChatStateManager;
 import org.jivesoftware.smackx.packet.VCard;
 
 import controller.MainController;
@@ -49,8 +52,12 @@ public class JabberManager implements GenericConnection {
     private ArrayList<Chat> chats;
 
     private String server;
+    
+    private Chat lastChat;
 
     private String domain;
+    
+    private VCard vcard;
 
     public JabberManager(MainController controller) {
         this.connection = null;
@@ -91,11 +98,12 @@ public class JabberManager implements GenericConnection {
         this.domain = StringUtils.parseServer(userID); // will this work?
         this.server = server;
         userID = StringUtils.parseName(userID); // to make it work with sfu...
-                                                // check for others
+        // check for others
         // port currently not assigned
 
-        config = new ConnectionConfiguration(this.server, DEFAULT_PORT,
-                this.domain);
+        config =
+                new ConnectionConfiguration(this.server, DEFAULT_PORT,
+                        this.domain);
         config.setSocketFactory(SSLSocketFactory.getDefault());
 
         connection = new XMPPConnection(config);
@@ -157,8 +165,8 @@ public class JabberManager implements GenericConnection {
         String userStatus = ""; // default return value
 
         try {
-            userStatus = this.connection.getRoster().getPresence(userID)
-                    .getStatus();
+            userStatus =
+                    this.connection.getRoster().getPresence(userID).getStatus();
         } catch (NullPointerException e) {
             System.err.println("Invalid connection or "
                     + "user in retrieveStatus()");
@@ -172,58 +180,134 @@ public class JabberManager implements GenericConnection {
 
         return userStatus;
     }
-    
-    public void setAvatarPicture(String filepath) throws IOException, XMPPException {
-    	VCard vcard = new VCard();
 
-		
-		vcard.setJabberId("userName");
+    /**
+     * Set the avatar for the VCard by specifying the url to the image.
+     * 
+     * @param avatarURL
+     *            the url to the image(png,jpeg,gif,bmp)
+     * @throws XMPPException
+     */
+    public void setAvatarPicture(URL avatarURL) throws XMPPException {
+        byte[] bytes = new byte[0];
+        try {
+            bytes = getBytes(avatarURL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		File file = new File(filepath);
-		
-		byte[] avatarBytes = getBytesFromFile(file);
-		
-		ImageIcon icon = new ImageIcon(avatarBytes);
-		JOptionPane.showMessageDialog(null, icon);
-		
-		vcard.setAvatar(avatarBytes);
-		vcard.save(connection);
+        setAvatarPicture(bytes);
     }
-    
- // Returns the contents of the file in a byte array.
-    public byte[] getBytesFromFile(File file) throws IOException {
-        InputStream is = new FileInputStream(file);
-    
-        // Get the size of the file
-        long length = file.length();
-    
-        // You cannot create an array using a long type.
-        // It needs to be an int type.
-        // Before converting to an int type, check
-        // to ensure that file is not larger than Integer.MAX_VALUE.
-        if (length > Integer.MAX_VALUE) {
-            // File is too large
+
+    /**
+     * Specify the bytes for the avatar to use.
+     * 
+     * @param bytes
+     *            the bytes of the avatar.
+     * @throws XMPPException
+     */
+    public void setAvatarPicture(File file) throws XMPPException {
+        vcard = new VCard();
+        vcard.load(connection);
+
+        // Otherwise, add to mappings.
+        byte[] bytes;
+        try {
+            bytes = getFileBytes(file);
+            String encodedImage = StringUtils.encodeBase64(bytes);
+            vcard.setAvatar(bytes, encodedImage);
+            vcard.setEncodedImage(encodedImage);
+            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+                    + encodedImage + "</BINVAL>", true);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-    
-        // Create the byte array to hold the data
-        byte[] bytes = new byte[(int)length];
-    
-        // Read in the bytes
-        int offset = 0;
-        int numRead = 0;
-        while (offset < bytes.length
-               && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
-            offset += numRead;
+        System.out.println("---------------------------Done and done!!!");
+
+        vcard.save(connection);
+    }
+
+    /**
+     * Specify the bytes for the avatar to use.
+     * 
+     * @param bytes
+     *            the bytes of the avatar.
+     * @throws XMPPException
+     */
+    public void setAvatarPicture(byte[] bytes) throws XMPPException {
+
+        vcard = new VCard();
+        vcard.load(connection);
+
+        String encodedImage = StringUtils.encodeBase64(bytes);
+
+        vcard.setField("Avatar", "<TYPE>image/jpg</TYPE><BINVAL>"
+                + encodedImage + "</BINVAL>", true);
+
+    }
+
+    /**
+     * Common code for getting the bytes of a url.
+     * 
+     * @param url
+     *            the url to read.
+     */
+    public byte[] getBytes(URL url) throws IOException {
+        final String path = url.getPath();
+        final File file = new File(path);
+        if (file.exists()) {
+            return getFileBytes(file);
         }
-    
-        // Ensure all the bytes have been read in
-        if (offset < bytes.length) {
-            throw new IOException("Could not completely read file "+file.getName());
+
+        return null;
+    }
+
+    private byte[] getFileBytes(File file) throws IOException {
+        BufferedInputStream bis = null;
+        try {
+            bis = new BufferedInputStream(new FileInputStream(file));
+            int bytes = (int) file.length();
+            byte[] buffer = new byte[bytes];
+            int readBytes = bis.read(buffer);
+            if (readBytes != buffer.length) {
+                throw new IOException("Entire file not read");
+            }
+            return buffer;
+        } finally {
+            if (bis != null) {
+                bis.close();
+            }
         }
-    
-        // Close the input stream and return bytes
-        is.close();
-        return bytes;
+    }
+
+    public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+        // vcard = new VCard();
+        ImageIcon icon;
+
+        try {
+            vcard.load(connection, userID); // load someone's VCard
+
+            byte[] avatarBytes = vcard.getAvatar();
+
+            if (avatarBytes == null) {
+                icon =
+                        new ImageIcon(this.getClass().getResource(
+                                "/images/chatwindow/personal.png"));
+            } else {
+                icon = new ImageIcon(avatarBytes);
+            }
+
+        }
+
+        catch (XMPPException e) {
+            icon =
+                    new ImageIcon(this.getClass().getResource(
+                            "/images/chatwindow/personal.png"));
+        }
+
+        return icon;
+
     }
 
     public UserStateType retrieveState(String userID) {
@@ -264,8 +348,10 @@ public class JabberManager implements GenericConnection {
 
         for (RosterEntry r : roster.getEntries()) {
             userID = r.getUser();
-            friendToAdd = new FriendTempData(userID, r.getName(), this
-                    .retrieveStatus(userID), this.retrieveState(userID), false);
+            friendToAdd =
+                    new FriendTempData(userID, r.getName(), this
+                            .retrieveStatus(userID),
+                            this.retrieveState(userID), false);
             friends.add(friendToAdd);
         }
 
@@ -284,14 +370,16 @@ public class JabberManager implements GenericConnection {
         }
 
         if (ourChat == null) {
-            ourChat = connection.getChatManager().createChat(toUserID,
-                    new MessageListener() {
-                        public void processMessage(Chat chat, Message message) {
-                            // Do nothing
+            ourChat =
+                    connection.getChatManager().createChat(toUserID,
+                            new MessageListener() {
+                                public void processMessage(Chat chat,
+                                        Message message) {
+                                    // Do nothing
 
-                            return;
-                        }
-                    });
+                                    return;
+                                }
+                            });
         }
 
         try {
@@ -303,12 +391,11 @@ public class JabberManager implements GenericConnection {
 
         return;
     }
-    
+
     public ServerType getServerType() {
         return ServerType.JABBER;
     }
-    
-    
+
     // Section
     // Listeners
 
@@ -366,8 +453,8 @@ public class JabberManager implements GenericConnection {
          * @param presence
          */
         public void presenceChanged(Presence presence) {
-            String bareAddress = StringUtils.parseBareAddress(presence
-                    .getFrom());
+            String bareAddress =
+                    StringUtils.parseBareAddress(presence.getFrom());
             controller.friendUpdated(genericConnection, bareAddress);
             return;
         }
@@ -384,8 +471,8 @@ public class JabberManager implements GenericConnection {
         public void processPacket(Packet packet) {
             Message message = (Message) packet;
             String fromUserID = StringUtils.parseBareAddress(message.getFrom());
-            String toUserID = StringUtils
-                    .parseBareAddress(connection.getUser());
+            String toUserID =
+                    StringUtils.parseBareAddress(connection.getUser());
 
             if (message.getBody() != null) {
                 controller.messageReceived(fromUserID, toUserID, message
@@ -406,35 +493,34 @@ public class JabberManager implements GenericConnection {
         return hash;
     }
 
-//	@Override
+    /**
+     * 
+     * set typing state
+     * @param state int that represents different state
+     * 1 = active
+     * 2 = composing
+     * 3 = gone
+     * 4 = inactive
+     * 5 = paused
+     */
+        public void setTypingState(int state) throws BadConnectionException, XMPPException {
+                ChatStateManager curState = ChatStateManager.getInstance(connection);
+                
+                if (state == 1){
+                        curState.setCurrentState(ChatState.active, lastChat);
+                }else if(state == 2){
+                curState.setCurrentState(ChatState.composing, lastChat);
+                
+                }else if(state == 3){
+                curState.setCurrentState(ChatState.gone, lastChat);
+                }else if(state == 4){
+                curState.setCurrentState(ChatState.inactive, lastChat);
+                }else if(state == 5){
+                curState.setCurrentState(ChatState.paused, lastChat);
+                }
+        }
 
-	public ImageIcon getAvatarPicture(String userID) throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-public void setTypingState(int state) throws BadConnectionException, XMPPException {
-	// TODO Auto-generated method stub
-	
+
 }
 
-public void setAvatarPicture(byte[] byeArray) throws XMPPException {
-	// TODO Auto-generated method stub
-	
-}
-
-public void setAvatarPicture(File file) throws XMPPException {
-	// TODO Auto-generated method stub
-	
-}
-
-public void setAvatarPicture(URL url) throws XMPPException {
-	// TODO Auto-generated method stub
-	
-}
-
-//public boolean isTyping() {
-//	// TODO Auto-generated method stub
-//	return false;
-//}
-}
