@@ -409,4 +409,9 @@ public class TwitterManager implements GenericConnection {
 		
 	}
 
+//	public boolean isTyping() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+
 }

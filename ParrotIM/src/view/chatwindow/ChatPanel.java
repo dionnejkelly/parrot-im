@@ -101,7 +101,7 @@ public class ChatPanel extends JPanel {
         italics = false;
         underlined = false;
 
-        displayPanel = new DisplayPanel(model);
+        displayPanel = new DisplayPanel(c, model);
 
         // Editing Panel
         JPanel editingPanel = new JPanel();

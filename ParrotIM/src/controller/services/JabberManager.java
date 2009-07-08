@@ -422,4 +422,9 @@ public void setAvatarPicture(byte[] byeArray) throws XMPPException {
 	// TODO Auto-generated method stub
 	
 }
+
+//public boolean isTyping() {
+//	// TODO Auto-generated method stub
+//	return false;
+//}
 }

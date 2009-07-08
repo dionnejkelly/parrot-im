@@ -929,6 +929,26 @@ public class Model extends Observable {
 
         return;
     }
+    /**
+     * Sets if a user is typing and updates the view.
+     * 
+     * @param friend
+     *            UserData representation of the friend to unblock.
+     */
+    
+    public boolean isTyping(boolean flag) {
+    	if (flag == true) {
+    		super.setChanged();
+        	super.notifyObservers(UpdatedType.ISTYPING);
+    	}
+    	
+    	else {
+    		super.setChanged();
+        	super.notifyObservers(UpdatedType.ISNOTTYPING);
+    	}
+    	
+    	return flag;
+    }
 
     /**
      * Returns the banned user list.
