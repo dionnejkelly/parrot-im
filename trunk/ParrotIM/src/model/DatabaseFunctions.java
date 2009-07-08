@@ -115,6 +115,7 @@ public class DatabaseFunctions {
      */
     public ResultSet rs;
     public ResultSet r2;
+    public ResultSet r3;
 
     // Section
     // III - Constructors
@@ -253,14 +254,16 @@ public class DatabaseFunctions {
     public Vector<String> getChatNameList(String profile, String searched) throws SQLException {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
-        r2 = stat.executeQuery("select * from people where profile='"
-                + profile + "';");
-        while (r2.next()) {
-                profilesAccountList.add(r2.getString("accountName"));
+        System.out.println(profile+searched);
+        stat = conn.createStatement();
+        r3 = DriverManager.getConnection("jdbc:sqlite:"
+                + DatabaseFunctions.getDatabaseName()).createStatement().executeQuery("select * from people where profile='"+ profile + "';");
+        while (r3.next()) {
+                profilesAccountList.add(r3.getString("accountName"));
         }
         rs = stat.executeQuery("select * from chatLog where profile='"
                 + profile + "' AND (message LIKE '%" + searched + "%'" +
-                		" || fromUser LIKE '%" + searched + "%' ||" +
+                		" OR fromUser LIKE '%" + searched + "%' OR" +
                 				" toUser LIKE '%" + searched + "%');");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
@@ -289,12 +292,8 @@ public class DatabaseFunctions {
     public Vector<String> getChatDatesFromName(String profile, String buddyname, String searched)
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
-
-        rs = stat.executeQuery("select * from chatLog where profile = '"
-                + profile + "' AND (toUser='" + buddyname + "' OR fromUser='"
-                + buddyname + "') AND (message LIKE '%" + searched + "%'" +
-                		" || fromUser LIKE '%" + searched + "%' ||" +
-                				" toUser LIKE '%" + searched + "%')order by timestamp;");
+        stat = conn.createStatement();
+        rs = stat.executeQuery("select * from chatLog where profile = '"+ profile + "' AND (toUser='" + buddyname + "' OR fromUser='" + buddyname + "') AND (message LIKE '%" + searched + "%' OR fromUser LIKE '%" + searched + "%' OR toUser LIKE '%" + searched + "%') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -324,10 +323,10 @@ public class DatabaseFunctions {
         ChatLogMessageTempData message = null;
 
         rs = stat.executeQuery("select * from chatLog where (toUser='"
-                + buddyname + "' AND fromUser='" + username + "') || (toUser='"
+                + buddyname + "' AND fromUser='" + username + "') OR (toUser='"
                 + username + "' AND fromUser='" + buddyname + "') AND date='"
                 + date + "'AND (message LIKE '%" + searched + "%'" +
-                		" || fromUser LIKE '%" + searched + "%' ||" +
+                		" OR fromUser LIKE '%" + searched + "%' OR" +
                 				" toUser LIKE '%" + searched + "%')" +
                 						" order by timestamp;");
 
