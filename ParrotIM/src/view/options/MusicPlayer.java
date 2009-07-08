@@ -82,7 +82,7 @@ public class MusicPlayer {
 	    
 		  catch (Exception e) {
 			  e.printStackTrace();
-			  System.exit(0);
+			  //System.exit(0);
 		  }
 	  	}
 	}

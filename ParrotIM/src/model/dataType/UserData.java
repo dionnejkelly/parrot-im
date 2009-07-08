@@ -251,7 +251,8 @@ public abstract class UserData extends PersonData {
 
         return friends;
     }
-
+    
+    
     public static ArrayList<UserData> sortByStringMatch(
             ArrayList<UserData> unsorted, String match) {
 

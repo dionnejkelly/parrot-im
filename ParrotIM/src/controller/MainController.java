@@ -124,7 +124,8 @@ public class MainController {
     }
     
     public boolean isTyping(boolean flag) {
-    	return model.isTyping(flag);   
+    	//return model.setChatState(friend, state);  
+    	return false;
     }
     
     

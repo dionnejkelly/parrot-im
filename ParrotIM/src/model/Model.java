@@ -937,18 +937,10 @@ public class Model extends Observable {
      *            UserData representation of the friend to unblock.
      */
     
-    public boolean isTyping(boolean flag) {
-    	if (flag == true) {
-    		super.setChanged();
-        	super.notifyObservers(UpdatedType.ISTYPING);
-    	}
-    	
-    	else {
-    		super.setChanged();
-        	super.notifyObservers(UpdatedType.ISNOTTYPING);
-    	}
-    	
-    	return flag;
+    public void setChatState(UserData friend, String state) {
+    	friend.setChatState(state);
+    	super.setChanged();
+    	super.notifyObservers(UpdatedType.CHAT_STATE);
     }
 
     /**

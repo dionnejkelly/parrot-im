@@ -477,6 +477,7 @@ public class ChatPanel extends JPanel {
             else {
                 shiftPressed = false;
                 controlPressed = false;
+                c.setTypingState(2);
 
             }
             
@@ -528,7 +529,6 @@ public class ChatPanel extends JPanel {
 		public void changedUpdate(DocumentEvent arg0) {
 			//send isTyping signal
 			System.out.println("hey, I am typing");
-			c.setTypingState(2);
 			
 		}
 
@@ -549,12 +549,14 @@ public class ChatPanel extends JPanel {
 
 		public void focusGained(FocusEvent arg0) {
 			//send active signal
+			//c.setTypingState(5);
 			c.setTypingState(1);
 		}
 
 		public void focusLost(FocusEvent arg0) {
 			//send inactive signal
-			c.setTypingState(4);
+			//c.setTypingState(5);
+			c.setTypingState(5);
 			
 		}
     	
