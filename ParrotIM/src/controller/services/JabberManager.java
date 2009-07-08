@@ -418,7 +418,7 @@ public void setTypingState(int state) throws BadConnectionException, XMPPExcepti
 	
 }
 
-public void setAvatarPicture(URL url) throws XMPPException {
+public void setAvatarPicture(byte[] byeArray) throws XMPPException {
 	// TODO Auto-generated method stub
 	
 }

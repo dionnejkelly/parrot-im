@@ -120,7 +120,7 @@ public class MainController {
 
     }
     
-    public void setAvatarPicture(URL url) throws XMPPException {
+    public void setAvatarPicture(byte[] byeArray) throws XMPPException {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
@@ -130,7 +130,7 @@ public class MainController {
         connection = account.getConnection();
 
         System.out.println("Which connection = " + connection.getServerType().getServerList().get(0));
-        connection.setAvatarPicture(url);
+        connection.setAvatarPicture(byeArray);
 
   
         // TODO make a more accurate Model.addFriend
