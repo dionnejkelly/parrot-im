@@ -62,7 +62,7 @@ import model.Model;
 
 public class ManageAccountFrame extends JFrame{
 	
-	protected ManageAccountFrame (Model model,  MainController controller, String profilename) 
+	public ManageAccountFrame (Model model,  MainController controller, String profilename) 
 											throws ClassNotFoundException, SQLException {
 
 		setLocationRelativeTo(null);
