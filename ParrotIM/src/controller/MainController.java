@@ -519,6 +519,10 @@ public class MainController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			catch (IllegalArgumentException e) {
+				System.out.println("Chat is set to null so Do nothing...");
+			}
     }
 
     /**

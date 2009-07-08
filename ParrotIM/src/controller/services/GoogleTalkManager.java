@@ -476,7 +476,7 @@ public class GoogleTalkManager implements GenericConnection {
             if (message.getBody() != null) {
                 controller.messageReceived(fromUserID, toUserID, message
                         .getBody());
-                
+                lastChat = connection.getChatManager().createChat(toUserID, new DefaultChatStateListener());
                 MusicPlayer receiveMusic = new MusicPlayer("src/audio/message/receiveMessage.wav");
             }
             
