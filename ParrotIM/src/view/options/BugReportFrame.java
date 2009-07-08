@@ -32,7 +32,7 @@ import model.Model;
 
 public class BugReportFrame extends JFrame{
 
-	private final String messageTo = "parrotim.test@gmail.com";
+	private final String messageTo = "parrot-im@googlegroups.com";
 	
 	/**
      * variable model for extracting buddy list, each buddy's information and ,
@@ -200,7 +200,7 @@ public class BugReportFrame extends JFrame{
 
 		public void actionPerformed(ActionEvent event) {
 			
-			frequencyReport = severityReport + frequency.getSelectedItem().toString();
+			frequencyReport = frequencyReport + frequency.getSelectedItem().toString();
 			severityReport = severityReport + event.getActionCommand();
 			
 		}
@@ -247,7 +247,7 @@ public class BugReportFrame extends JFrame{
 			System.out.println("From: " + model.getAccountList().get(0));
 			BugReport sendAemail = new BugReport(model.getAccountList().get(0), model.getPassword(model.getAccountList().get(0)));
 			try {
-				sendAemail.sendReport(frequencyReport + "\n" + severityReport + "\n" + subjectText.getText(), messageText.getText(), messageTo);
+				sendAemail.sendReport(subjectText.getText(), frequencyReport + "\n" + severityReport + "\n" + "Message:\n" + messageText.getText(), messageTo);
 				String resultMessage =
                     "Your bug report has been succesfully delivered. Thank you for your co-operation.";
 				JOptionPane.showMessageDialog(null, resultMessage);

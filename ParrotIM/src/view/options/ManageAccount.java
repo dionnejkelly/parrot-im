@@ -288,9 +288,7 @@ public class ManageAccount extends JPanel implements Observer
 
 		public void keyPressed(KeyEvent e) {}
 
-		public void keyReleased(KeyEvent e) {}
-
-		public void keyTyped(KeyEvent e) {
+		public void keyReleased(KeyEvent e) {
 			if (UNField.getText().length() > 0 && pwdField.getPassword().length > 0){
 				if (server.getSelectedIndex() > 0)
 					addButton.setEnabled(true);
@@ -302,6 +300,22 @@ public class ManageAccount extends JPanel implements Observer
 				}
 			} else
 				addButton.setEnabled(false);
+			
+			
+		}
+
+		public void keyTyped(KeyEvent e) {
+//			if (UNField.getText().length() > 0 && pwdField.getPassword().length > 0){
+//				if (server.getSelectedIndex() > 0)
+//					addButton.setEnabled(true);
+//				else{
+//					if ( jabberServer.getText().length() > 0 )
+//						addButton.setEnabled(true);
+//					else
+//						addButton.setEnabled(false);
+//				}
+//			} else
+//				addButton.setEnabled(false);
 		}
 		
 	}
