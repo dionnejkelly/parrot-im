@@ -12,5 +12,10 @@
 	<classpathentry exported="true" kind="lib" path="lib/jortho.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jclaim.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-0.9.3-patched.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsocks.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/msnm.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/oscar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
