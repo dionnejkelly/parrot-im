@@ -376,7 +376,7 @@ public class Model extends Observable {
         }
 
         setChanged();
-        notifyObservers(UpdatedType.CHAT);
+        notifyObservers(UpdatedType.CHATNOTSIDEPANEL);
         return;
     }
 
