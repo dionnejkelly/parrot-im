@@ -46,11 +46,6 @@ import model.enumerations.UserStateType;
 public class ProfileData {
 
     // Section:
-    // I - Constants
-
-    private final static String EMPTY_NAME = "<empty>";
-
-    // Section:
     // II - Data Members
 
     /**
@@ -63,31 +58,22 @@ public class ProfileData {
      */
     private String profileName;
 
-    private String status;
+    private boolean chatWindowHistoryEnabled;
 
-    private UserStateType state;
+    private boolean profilePasswordEnabled;
 
+    private String profilePassword;
+
+    private boolean autoSignInEnabled;
+
+    
     /**
      * Determines whether chatbot is on or not. Defaults to off.
      */
-    // Phase out!
     private boolean chatbotEnabled;
-    
-    private ProfileOptionsData profileOptions;
 
     // Section:
     // III - Constructors
-
-    /**
-     * Creates a new profile with no valid accounts or information. The name is
-     * set to a default "empty" name.
-     */
-    public ProfileData() {
-        this.accountData = new ArrayList<AccountData>();
-        this.profileName = EMPTY_NAME;
-        this.chatbotEnabled = false;
-        this.profileOptions = new ProfileOptionsData();
-    }
 
     /**
      * Creates a new profile with no valid accounts or information. The name is
@@ -97,38 +83,8 @@ public class ProfileData {
         this.accountData = new ArrayList<AccountData>();
         this.profileName = profileName;
         this.chatbotEnabled = false;
-        this.profileOptions = new ProfileOptionsData();
     }
-
-    /**
-     * Creates a new profile with all valid accounts and a name. The accounts
-     * are passed in as an ArrayList. This list is not checked for validity.
-     * 
-     * @param accountData
-     * @param profileName
-     */
-    public ProfileData(
-            ArrayList<AccountData> accountData, String profileName) {
-        this.accountData = accountData;
-        this.profileName = profileName;
-        this.chatbotEnabled = false;
-        this.profileOptions = new ProfileOptionsData();
-    }
-
-    /**
-     * Creates a new profile with only one account, and a name.
-     * 
-     * @param account
-     * @param profileName
-     */
-    public ProfileData(AccountData account, String profileName) {
-        this.accountData = new ArrayList<AccountData>();
-        this.accountData.add(account);
-        this.profileName = profileName;
-        this.chatbotEnabled = false;
-        this.profileOptions = new ProfileOptionsData();
-    }
-
+    
     // Section:
     // IV - Accessors and Mutators
 
@@ -173,19 +129,28 @@ public class ProfileData {
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        for (AccountData a : this.accountData) {
+            a.setStatus(status);
+        }
+        
+        return;
     }
 
     public String getStatus() {
-        return status;
+        // Temporary, need to incorporate all accounts
+        return this.accountData.get(0).getStatus();
     }
 
     public void setState(UserStateType state) {
-        this.state = state;
+        for (AccountData a : this.accountData) {
+            a.setState(state);
+        }
+        
+        return;
     }
 
     public UserStateType getState() {
-        return state;
+        return this.accountData.get(0).getState();
     }
 
     /**

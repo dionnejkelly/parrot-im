@@ -345,7 +345,7 @@ public class MainController {
             // connection should be found from account!!
             account = model.getCurrentProfile().getAccountData().get(0);
             connection = account.getConnection();
-            connection.addFriend(userID);
+            connection.addFriend(userID);            
 
             // TODO make a more accurate Model.addFriend
             model.addFriend(account.getServer(), userID);
