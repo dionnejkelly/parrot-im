@@ -13,7 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class CustomListPane extends JPanel{
-	Box boxes[] = new Box[1];
+	private Box boxes[] = new Box[1];
+	private ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
+				"/images/chatwindow/personal.png"));
 	
 	public CustomListPane() {
 		setBackground(Color.WHITE);
@@ -25,17 +27,18 @@ public class CustomListPane extends JPanel{
 		add(boxes[0], BorderLayout.NORTH);
 	}
 	
-	private JPanel friendPanel(String nickname){
+	private JPanel friendPanel(String nickname, ImageIcon img){
 		JPanel friendPanel = new JPanel();
 		friendPanel.setLayout(new BorderLayout());
 		friendPanel.setBackground(Color.WHITE);
 		
-		friendPanel.add(new JLabel(nickname), BorderLayout.WEST);
+		friendPanel.add(new JLabel(img), BorderLayout.WEST);
+		friendPanel.add(new JLabel(nickname), BorderLayout.CENTER);
 		return friendPanel;
 	}
 	
 	public void addElement(String nickname){
-		boxes[0].add(friendPanel(nickname));
+		boxes[0].add(friendPanel(nickname, defaultIcon));
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
 	}
