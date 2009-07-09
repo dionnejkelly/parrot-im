@@ -18,6 +18,7 @@
 
 package model.dataType;
 
+import model.enumerations.TypingStateType;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
@@ -58,7 +59,7 @@ public abstract class PersonData {
      * The state of the user (e.g. Available, Away, Offline).
      */
     private UserStateType state;
-    private String chatstate;
+    private TypingStateType chatstate;
     /**
      * Base constructor. The userID is required since it is needed to log-in and
      * authenticate users. The nickname defaults to equal the userID. It is
@@ -203,9 +204,9 @@ public abstract class PersonData {
      * @return a string of the state have different state depends on the service 
      */
     public String getChatState(){
-    	return chatstate;
+    	return chatstate.toString();
     }
-    public void setChatState(String state){
+    public void setChatState(TypingStateType state){
     	this.chatstate=state;
     }
 

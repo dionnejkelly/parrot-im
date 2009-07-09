@@ -211,8 +211,11 @@ public class DisplayPanel extends JPanel implements Observer {
         }
         
         else if (arg == UpdatedType.CHAT_STATE) {//TODO
-        	chatState.setText("is typing");
-        	chatState.setForeground(Color.BLUE.darker());
+        	if(!model.getActiveConversation().getUser().getChatState()
+        			.equals(chatState.getText())){
+        		chatState.setText(model.getActiveConversation()
+        				.getUser().getChatState());
+        	}
     	}
     	
            

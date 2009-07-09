@@ -17,10 +17,12 @@ import javax.swing.JOptionPane;
 
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
+import model.enumerations.TypingStateType;
 import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
@@ -467,15 +469,14 @@ public class GoogleTalkManager implements GenericConnection {
         if (ourChat == null) {
             ourChat = connection.getChatManager().createChat(toUserID, new DefaultChatStateListener());
         }
-        
-        this.lastChat = ourChat;
+        lastChat = ourChat;
         try {
             ourChat.sendMessage(message);
         } catch (XMPPException e) {
             System.err.println("Error in sending message.");
             throw new BadConnectionException();
         }
-
+        
         return;
     }
 
@@ -603,7 +604,12 @@ public class GoogleTalkManager implements GenericConnection {
 	public void setTypingState(int state, String userID) throws BadConnectionException, XMPPException {
 		ChatStateManager curState = ChatStateManager.getInstance(connection);
 		if (lastChat==null){
-			lastChat = connection.getChatManager().createChat(userID, new DefaultChatStateListener());
+			lastChat = connection.getChatManager().createChat(userID, new MessageListener(){
+				public void processMessage(Chat arg0, Message arg1) {
+					// Do nothing
+					
+				}
+			});
 		}
 		
 		if (state == 1){
@@ -633,7 +639,21 @@ public class GoogleTalkManager implements GenericConnection {
 		public void stateChanged(Chat user, ChatState event) {
 			System.out.println("Getting called here...");
 			System.out.println(user.getParticipant()+ " is "+event.name() );
-
+			
+			String state = event.name();
+			TypingStateType typingState = null;
+			if (state.equals("active")){
+				typingState = TypingStateType.ACTIVE;
+			}else if(state.equals("composing")){
+				typingState = TypingStateType.TYPING;
+			}else if(state.equals("paused")){
+				typingState = TypingStateType.PAUSED;
+			}else if(state.equals("inactive")){
+				typingState = TypingStateType.INACTIVE;
+			}else if(state.equals("gone")){
+				typingState = TypingStateType.GONE;
+			}
+			controller.typingStateUpdated(genericConnection,typingState, user.getParticipant().toString());
 		}
 
 		public void processMessage(Chat arg0, Message arg1) {
