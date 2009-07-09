@@ -166,7 +166,8 @@ public class SidePanel extends JPanel implements Observer {
      */
 
     public void update(Observable t, Object o) {
-        if (o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL) {
+        if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
+        		||o == UpdatedType.CHAT_STATE) {
             // Temporary fix for early update bug
             if (tree != null) {
                 try {
@@ -175,8 +176,6 @@ public class SidePanel extends JPanel implements Observer {
                     e.printStackTrace();
                 }
             }
-        }else if (o == UpdatedType.CHAT_STATE){
-        	
         }
         return;
     }
