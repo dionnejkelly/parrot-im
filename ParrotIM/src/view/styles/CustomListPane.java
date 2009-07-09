@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -27,17 +28,20 @@ public class CustomListPane extends JPanel{
 		add(boxes[0], BorderLayout.NORTH);
 	}
 	
-	private JPanel friendPanel(String nickname, ImageIcon img){
+	private JPanel friendPanel(String nickname, ImageIcon icon){
 		JPanel friendPanel = new JPanel();
 		friendPanel.setLayout(new BorderLayout());
 		friendPanel.setBackground(Color.WHITE);
 		
-		if(img == null){
-			img = defaultIcon;
+		if(icon == null){
+			icon = defaultIcon;
 		}
+		Image img = icon.getImage();
+		img = img.getScaledInstance(32, 32,  java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon = new ImageIcon(img);
 		
-		friendPanel.add(new JLabel(img), BorderLayout.WEST);
-		friendPanel.add(new JLabel(nickname), BorderLayout.CENTER);
+		friendPanel.add(new JLabel(newIcon), BorderLayout.WEST);
+		friendPanel.add(new JLabel(" " + nickname), BorderLayout.CENTER);
 		return friendPanel;
 	}
 	
@@ -49,10 +53,6 @@ public class CustomListPane extends JPanel{
 	
 	public Component getElement(int i){
 		return boxes[0].getComponent(i);
-	}
-	
-	public void getElement(String nickname){
-		
 	}
 	
 	public void removeAllElements(){
