@@ -30,25 +30,17 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import javax.swing.filechooser.FileFilter;
 
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.util.Base64;
-import org.jivesoftware.smack.util.StringUtils;
 
 import com.sun.image.codec.jpeg.ImageFormatException;
 import com.sun.image.codec.jpeg.JPEGCodec;
@@ -63,6 +55,9 @@ import controller.MainController;
  * It inherits JLabel methods and variables.
  */
 public class AvatarLabel extends JLabel{
+	private AvatarLabel avatarToSynch;
+	private boolean synch;
+	
 	/** avatarlbl is this component itself */
 	private static AvatarLabel avatarlbl;
 	
@@ -73,9 +68,28 @@ public class AvatarLabel extends JLabel{
 	 * 
 	 * @param url
 	 * @param mainControl
-	 * @param changeable
 	 */
 	public AvatarLabel(MainController mainControl,URL url){
+		synch = false;
+		setLabel (mainControl,url);
+	}
+	/**
+	 * AvatarLabel constructor. It takes a String that describes
+	 * the path of the display picture as its argument.
+	 * USE THIS CONSTRUCTOR IF: you want to synchronize to other avatarLabel
+	 * 
+	 * @param url
+	 * @param mainControl
+	 * @param ava
+	 */
+	public AvatarLabel(MainController mainControl,URL url, AvatarLabel ava){
+		avatarToSynch = ava;
+		synch = true;
+		setLabel (mainControl,url);
+	}
+	
+	
+	private void setLabel (MainController mainControl,URL url){
 		this.setToolTipText("Click to change your display picture");
 		this.chatClient = mainControl;
 		avatarlbl = this;
@@ -83,7 +97,10 @@ public class AvatarLabel extends JLabel{
 		this.addMouseListener(new avatarMouseListener());
 	}
 	
-	
+	/**
+	 * use this if you don't need to synch with anything
+	 * @throws MalformedURLException
+	 */
 	public void changeAvatarWindow() throws MalformedURLException{
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setAcceptAllFileFilterUsed(false);
@@ -99,7 +116,16 @@ public class AvatarLabel extends JLabel{
         //Process the results.
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            avatarlbl.changeAvatar(file.toURL().toString());
+            String avatarPath = file.toURL().toString();
+            avatarlbl.changeAvatar(avatarPath);
+            
+            //synch
+            if (synch){
+            	System.out.println("synching");
+            	avatarToSynch.changeAvatar(avatarPath);
+            } else {
+            	System.out.println("not synching");
+            }
 
 			try {
 				ImageIcon imageIcon = new ImageIcon(file.toURL());
@@ -121,8 +147,6 @@ public class AvatarLabel extends JLabel{
 			}  
 			System.out.println("Succesfully uploaded the avatar picture.");
 
-			
-			
         	fileChooser.setVisible(false);//DISPOSE!!!
         	
         	
@@ -135,7 +159,6 @@ public class AvatarLabel extends JLabel{
         //Reset the file chooser for the next time it's shown.
         fileChooser.setSelectedFile(null);
 	}
-	
 	private String getAvatarEnconded() {
         return "/9j/4AAQSkZJRgABAQEASABIAAD/4QAWRXhpZgAATU0AKgAAAAgAAAAAAAD/2wBDAAUDBAQEAwUE\n" +
                 "BAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/\n" +
@@ -194,8 +217,8 @@ public class AvatarLabel extends JLabel{
 	 * Sets the AvatarLabel to a new image. It takes a String that describes
 	 * the path of the display picture as its argument.
 	 */
-	private void changeAvatar(String path){
-		this.setText("<html><img src=\""+ path +"\" height=\"100\" width=\"100\" ></html>");
+	public void changeAvatar(String avatarPath){
+		this.setText("<html><img src=\""+ avatarPath +"\" height=\"100\" width=\"100\" ></html>");
 	}
 	
 	public byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {

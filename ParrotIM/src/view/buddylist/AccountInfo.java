@@ -84,10 +84,13 @@ public class AccountInfo extends JPanel
 	// Selection
     // I - non-static member
 	/**
-	 * avatarDisplay is for display user picture.
-	 * displayName display users name.
+	 * avatarDisplay is for displaying user picture.
 	 */
-	JLabel avatarDisplay, displayName;
+	public AvatarLabel avatarDisplay;
+	/**
+	 * displayName displays user's name.
+	 */
+	JLabel displayName;
 	/**
 	 * variable to handles all inputs from user interaction
 	 */
@@ -129,7 +132,7 @@ public class AccountInfo extends JPanel
 		setLayout(new BorderLayout());
 		
 		//user diplay picture
-		AvatarLabel avatarDisplay = new AvatarLabel(chatClient,getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+		avatarDisplay = new AvatarLabel(chatClient,getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
 		
 		//name, status message (personal message) and status
 		JPanel textInfo = new JPanel();

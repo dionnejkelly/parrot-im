@@ -34,7 +34,6 @@ import java.net.MalformedURLException;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -50,8 +49,6 @@ import view.styles.AvatarLabel;
 import view.styles.PmLabel;
 import view.styles.StatusCombo;
 
-import model.enumerations.StatusType;
-
 public class PersonalProfileTab extends JPanel {
 	//left components
 	protected AvatarLabel avatar;
@@ -59,6 +56,7 @@ public class PersonalProfileTab extends JPanel {
 	//right components
 	protected JTextArea personalMessage;
 	
+//	private AvatarLabel BuddyListAvatar;
 	private PmLabel BuddyListPM;
 	private StatusCombo BuddyListStatus;
 	private StatusCombo status;
@@ -70,7 +68,7 @@ public class PersonalProfileTab extends JPanel {
         
 		/*LEFT COMPONENTS*/
 		//avatar
-		avatar = new AvatarLabel(core, getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+		avatar = new AvatarLabel(core, getClass().getClassLoader().getResource("images/buddylist/logoBox.png"), accInfo.avatarDisplay);
 		//browse button
 		JButton browseButton = new JButton("browse");
 		browseButton.addActionListener(new BrowseActionListener());
@@ -138,6 +136,7 @@ public class PersonalProfileTab extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				avatar.changeAvatarWindow();
+//				avatar.synchAvatar(BuddyListAvatar);
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
