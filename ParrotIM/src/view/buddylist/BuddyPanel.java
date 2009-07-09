@@ -419,8 +419,14 @@ public class BuddyPanel extends JPanel implements Observer {
 
             userFriendID = JOptionPane
                     .showInputDialog("Enter an email address: ");
-
-            if ((userFriendID != null && !userFriendID.equals(""))
+            
+            if (userFriendID.equals(chatClient.getAccount())) {
+            	String redundancy = "Argh, you cannot add yourself! Please provide a different email address.";
+                JOptionPane.showMessageDialog(null, redundancy);
+            	
+            }
+            
+            else if ((userFriendID != null && !userFriendID.equals(""))
                     && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
                 MusicPlayer addMusic = new MusicPlayer(
