@@ -60,8 +60,6 @@ public class ProfileData {
 
     private boolean chatWindowHistoryEnabled;
 
-    private boolean profilePasswordEnabled;
-
     private String profilePassword;
 
     private boolean autoSignInEnabled;
@@ -83,6 +81,9 @@ public class ProfileData {
         this.accountData = new ArrayList<AccountData>();
         this.profileName = profileName;
         this.chatbotEnabled = false;
+        this.chatWindowHistoryEnabled = true;
+        this.profilePassword = "";
+        this.autoSignInEnabled = false;
     }
     
     // Section:
@@ -174,6 +175,39 @@ public class ProfileData {
         return chatbotEnabled;
     }
 
+    public boolean isChatWindowHistoryEnabled() {
+        return chatWindowHistoryEnabled;
+    }
+
+    public void setChatWindowHistoryEnabled(boolean chatWindowHistoryEnabled) {
+        this.chatWindowHistoryEnabled = chatWindowHistoryEnabled;
+    }
+
+    public boolean isProfilePasswordEnabled() {
+        return this.profilePassword.length() == 0;
+    }
+
+    public void setProfilePasswordEnabled(boolean profilePasswordEnabled) {
+        this.profilePassword = "";
+    }
+
+    public String getProfilePassword() {
+        return profilePassword;
+    }
+
+    public void setProfilePassword(String profilePassword) {
+        this.profilePassword = profilePassword != null ? profilePassword : "";
+    }
+
+    public boolean isAutoSignInEnabled() {
+        return autoSignInEnabled;
+    }
+
+    public void setAutoSignInEnabled(boolean autoSignInEnabled) {
+        this.autoSignInEnabled = autoSignInEnabled;
+    }
+
+    
     // Section
     // V - Account Manipulation Methods
 
