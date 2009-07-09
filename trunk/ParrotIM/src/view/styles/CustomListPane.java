@@ -32,13 +32,17 @@ public class CustomListPane extends JPanel{
 		friendPanel.setLayout(new BorderLayout());
 		friendPanel.setBackground(Color.WHITE);
 		
+		if(img == null){
+			img = defaultIcon;
+		}
+		
 		friendPanel.add(new JLabel(img), BorderLayout.WEST);
 		friendPanel.add(new JLabel(nickname), BorderLayout.CENTER);
 		return friendPanel;
 	}
 	
-	public void addElement(String nickname){
-		boxes[0].add(friendPanel(nickname, defaultIcon));
+	public void addElement(String nickname, ImageIcon img){
+		boxes[0].add(friendPanel(nickname, img));
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
 	}
