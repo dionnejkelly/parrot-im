@@ -59,7 +59,7 @@ public abstract class PersonData {
      * The state of the user (e.g. Available, Away, Offline).
      */
     private UserStateType state;
-    private TypingStateType chatstate;
+    private TypingStateType typingState;
     /**
      * Base constructor. The userID is required since it is needed to log-in and
      * authenticate users. The nickname defaults to equal the userID. It is
@@ -203,11 +203,11 @@ public abstract class PersonData {
      * get Chat State like is typing, active and pause
      * @return a string of the state have different state depends on the service 
      */
-    public String getChatState(){
-    	return chatstate.toString();
+    public String getTypingState(){
+    	return typingState.toString();
     }
-    public void setChatState(TypingStateType state){
-    	this.chatstate=state;
+    public void setTypingState(TypingStateType state){
+    	this.typingState=state;
     }
 
     public boolean isDuplicate(PersonData person) {

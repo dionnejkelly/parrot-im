@@ -211,10 +211,10 @@ public class DisplayPanel extends JPanel implements Observer {
         }
         
         else if (arg == UpdatedType.CHAT_STATE) {//TODO
-        	if(!model.getActiveConversation().getUser().getChatState()
+        	if(!model.getActiveConversation().getUser().getTypingState()
         			.equals(chatState.getText())){
         		chatState.setText(model.getActiveConversation()
-        				.getUser().getChatState());
+        				.getUser().getTypingState());
         	}
     	}
     	

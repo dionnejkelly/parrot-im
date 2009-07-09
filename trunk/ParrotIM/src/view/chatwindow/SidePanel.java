@@ -103,7 +103,6 @@ public class SidePanel extends JPanel implements Observer {
          */
         UserDataWrapper userWrapper = null;
         ;
-
         CustomIconRenderer renderer = new CustomIconRenderer();
         tree.setCellRenderer(renderer);
 
@@ -122,11 +121,13 @@ public class SidePanel extends JPanel implements Observer {
 
             userWrapper = null;
             for (UserDataWrapper u : this.users) {
+            	u.getConversation().getUser().getTypingState();
                 if (u.getConversation() == cd1) {
                     userWrapper = u;
                     break;
                 }
             }
+
 
             if (userWrapper == null) {
                 userWrapper = new UserDataWrapper(cd1, this.model);
@@ -174,6 +175,8 @@ public class SidePanel extends JPanel implements Observer {
                     e.printStackTrace();
                 }
             }
+        }else if (o == UpdatedType.CHAT_STATE){
+        	
         }
         return;
     }
