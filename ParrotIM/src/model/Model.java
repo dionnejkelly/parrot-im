@@ -553,7 +553,8 @@ public class Model extends Observable {
      */
 
     public void createCurrentProfile(AccountData account, String profileName) {
-        currentProfile = new ProfileData(account, profileName);
+        currentProfile = new ProfileData(profileName);
+        currentProfile.addAccount(account);
         return;
     }
 
