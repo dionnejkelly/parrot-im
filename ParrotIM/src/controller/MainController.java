@@ -833,4 +833,15 @@ public class MainController {
 
         return;
     }
+    
+    public String getAccount() {
+    	AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0) ;
+        
+    	return account.getNickname();
+    }
+
 }

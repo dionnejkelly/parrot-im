@@ -299,8 +299,19 @@ public class SignInPanel extends JPanel implements Observer {
          * @param evt
          */
         public void mouseClicked(MouseEvent evt) {
-//            new askForPassword(true);
-        	new PasswordPrompt(account_select.getSelectedItem().toString(), model, core, mainFrame);
+        	//if there is password
+        		new PasswordPrompt(account_select.getSelectedItem().toString(), model, core, mainFrame);
+        	//else{
+//        		try {
+//					ManageAccountFrame manageAccount = new ManageAccountFrame(model, core, account_select.getSelectedItem().toString());
+//					manageAccount.addWindowListener(new PopupWindowListener(mainFrame, manageAccount));
+//				} catch (ClassNotFoundException e1) {
+//					e1.printStackTrace();
+//				} catch (SQLException e1) {
+//					e1.printStackTrace();
+//				}
+//        	}
+        		
         }
 
 		public void mouseEntered(MouseEvent e) {}
@@ -336,8 +347,12 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             //TODO: set this
-//        	new askForPassword(false);
-        	new PasswordPrompt(account_select.getSelectedItem().toString(), model, mainFrame);
+        	//if (there is password)
+        		new PasswordPrompt(account_select.getSelectedItem().toString(), model, mainFrame);
+        	//else {
+        		//use JDialog?
+        		//model.removeProfile(account_select.getSelectedItem().toString());
+        	//}
         }
 
 		public void mouseEntered(MouseEvent e) {}
