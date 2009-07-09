@@ -78,7 +78,7 @@ public abstract class PersonData {
         this.nickname = userID;
         this.status = "";
         this.state = UserStateType.OFFLINE;
-
+        this.typingState = TypingStateType.ACTIVE;
         COUNT++;
     }
 

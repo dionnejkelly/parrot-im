@@ -273,7 +273,6 @@ public class GoogleTalkManager implements GenericConnection {
         connection.addPacketListener(
                 new MessagePacketListener(), new MessagePacketFilter());
         connection.getRoster().addRosterListener(new BuddyListener());
-
         roster = connection.getRoster();
         roster.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
         addSubscriptionListener();
@@ -603,14 +602,9 @@ public class GoogleTalkManager implements GenericConnection {
      */
 	public void setTypingState(int state, String userID) throws BadConnectionException, XMPPException {
 		ChatStateManager curState = ChatStateManager.getInstance(connection);
-		if (lastChat==null){
-			lastChat = connection.getChatManager().createChat(userID, new MessageListener(){
-				public void processMessage(Chat arg0, Message arg1) {
-					// Do nothing
-					
-				}
-			});
-		}
+//		if (lastChat==null){
+			lastChat = connection.getChatManager().createChat(userID, new DefaultChatStateListener());
+//		}
 		
 		if (state == 1){
 			curState.setCurrentState(ChatState.active, lastChat);
