@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,7 +51,7 @@ public class PasswordPrompt extends JFrame{
 		this.core = core;
 		this.profileName = profileName;
 		this.mainFrame = mainFrame;
-		
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 		constructFrame();
 	}
 	/**
@@ -76,9 +77,9 @@ public class PasswordPrompt extends JFrame{
 		
 		String prompt="";
 		if (manage)
-			prompt = "Enter password to manage " + profileName + "\'s profile";
+			prompt = "Enter password to manage " + profileName + "\'s profile:";
 		else
-			prompt = "Enter password to delete " + profileName + "\'s profile";
+			prompt = "Enter password to delete " + profileName + "\'s profile:";
 		
 		//password prompt
 		passwordPrompt = new JPasswordField();
@@ -118,13 +119,15 @@ public class PasswordPrompt extends JFrame{
 	private class passwordKeyListener implements KeyListener{
 
 		public void keyPressed(KeyEvent e) {}
-		public void keyReleased(KeyEvent e) {}
-
-		public void keyTyped(KeyEvent e) {
+		public void keyReleased(KeyEvent e) {
 			if (passwordPrompt.getPassword().length > 0)
 				OKbutton.setEnabled(true);
 			else
 				OKbutton.setEnabled(false);
+		}
+
+		public void keyTyped(KeyEvent e) {
+			
 		}
 	}
 	private class cancelActionListener implements ActionListener{

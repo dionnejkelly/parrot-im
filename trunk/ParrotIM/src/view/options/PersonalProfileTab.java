@@ -156,15 +156,15 @@ public class PersonalProfileTab extends JPanel {
 	
 	private class pmKeyListener implements KeyListener{
 
-		@Override
+		//@Override
 		public void keyPressed(KeyEvent arg0) {}
 
-		@Override
+		//@Override
 		public void keyReleased(KeyEvent arg0) {
 			BuddyListPM.setText(personalMessage.getText());
 		}
 
-		@Override
+		//@Override
 		public void keyTyped(KeyEvent arg0) {}
 
 		
