@@ -22,7 +22,9 @@
 
 package view.styles;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -47,6 +49,10 @@ import javax.swing.filechooser.FileFilter;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.Base64;
 import org.jivesoftware.smack.util.StringUtils;
+
+import com.sun.image.codec.jpeg.ImageFormatException;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import controller.MainController;
 
@@ -94,52 +100,37 @@ public class AvatarLabel extends JLabel{
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             avatarlbl.changeAvatar(file.toURL().toString());
-            if (file != null)
-            	System.out.println(file.getAbsolutePath()+ " is choosen");
-            
-           
-            System.out.println("Setting avatar...");
-//            Image image = getToolkit().getImage(fileChooser.getSelectedFile().getName());
-//            JOptionPane.showMessageDialog(null, image);
-            //try {
-            	File testFile = new File("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
-//				BufferedImage img = ImageIO.read(testFile);
-//				ByteArrayOutputStream bas = new ByteArrayOutputStream();
-//				ImageIO.write(img, "pnm", bas);
-//				byte[] data = bas.toByteArray();
-            	//ImageIcon imageIcon = new ImageIcon("C:\\Documents and Settings\\HP_Administrator\\My Documents\\My Pictures\\Plane.jpg");
-            	//String imageData = imageIcon.getImage().toString();
-            	//JOptionPane.showMessageDialog(null, imageIcon);
-            	//String imageData = file.toURL().toString();
-          
-    
-				try {
+
+			try {
+				ImageIcon imageIcon = new ImageIcon(file.toURL());
 					
-//					InputStream stream = new FileInputStream(testFile);
-//			    	String str = stream.toString();
-//			    	byte[] test = StringUtils.decodeBase64(getAvatarEnconded());
-			    	
-			    	//ImageIcon icon = new ImageIcon(test);
-			    	//JOptionPane.showMessageDialog(null, icon);
-					chatClient.setAvatarPicture(file);
-					ImageIcon icon = chatClient.getAvatarPicture("parrotim.test@gmail.com");
-					JOptionPane.showMessageDialog(null, icon);
+	            byte[] byteArray = toByte(imageIcon);
 					
-				} catch (XMPPException e) {
+				chatClient.setAvatarPicture(byteArray);
+
+					
+			} catch (XMPPException e) {
+					
+				e.printStackTrace();
+			} catch (ImageFormatException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.out.println("Succesfully uploaded the avatar picture.");
+				e.printStackTrace();
+			} catch (IOException e) {
+					// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+			System.out.println("Succesfully uploaded the avatar picture.");
 
 			
 			
         	fileChooser.setVisible(false);//DISPOSE!!!
         	
         	
-        } else {
-        	System.out.println("Attachment cancelled by user.");
-        	fileChooser.setVisible(false);//DISPOSE!!!
-        }
+       } 
+       else {
+           System.out.println("Attachment cancelled by user.");
+           fileChooser.setVisible(false);//DISPOSE!!!
+       }
 
         //Reset the file chooser for the next time it's shown.
         fileChooser.setSelectedFile(null);
@@ -206,6 +197,35 @@ public class AvatarLabel extends JLabel{
 	private void changeAvatar(String path){
 		this.setText("<html><img src=\""+ path +"\" height=\"100\" width=\"100\" ></html>");
 	}
+	
+	public byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {
+    	// iconData is the original array of bytes
+
+    	Image img = i.getImage();
+
+    	Image imageResize = img.getScaledInstance(100, 100, 0);
+
+    	ImageIcon imageIconResize = new ImageIcon (imageResize);
+
+    	int resizeWidth = imageIconResize.getIconWidth();
+    	int resizeHeight = imageIconResize.getIconHeight();
+
+    	Panel p = new Panel();
+    	BufferedImage bi = new BufferedImage(resizeWidth, resizeHeight,BufferedImage.TYPE_INT_RGB);
+
+    	Graphics2D big = bi.createGraphics();
+    	big.drawImage(imageIconResize.getImage(), 0, 0, p);
+
+    	ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+    	JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+    	encoder.encode(bi);
+    	byte[] byteArray = os.toByteArray();
+    	
+    	return byteArray;
+    	
+    
+    }
 	
 	/**
      * Sets the behaviour with regard of mouse input and position.

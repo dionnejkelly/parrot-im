@@ -135,12 +135,17 @@ public class GoogleTalkManager implements GenericConnection {
         vcard.load(connection);
     	
 	
-		
-		String encodedImage = StringUtils.encodeBase64(bytes);
-	    
-		
-	    vcard.setField("Avatar", "<TYPE>image/jpg</TYPE><BINVAL>" + encodedImage + "</BINVAL>", true);
-		
+        try {
+			
+			String encodedImage = StringUtils.encodeBase64(bytes);
+			vcard.setAvatar(bytes, encodedImage);
+			vcard.setEncodedImage(encodedImage);
+	        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>" + encodedImage + "</BINVAL>", true);
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    vcard.save(connection);
         
     }
     
