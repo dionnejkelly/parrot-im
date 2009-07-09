@@ -145,15 +145,16 @@ public class SidePanel extends JPanel implements Observer {
             top.add(new DefaultMutableTreeNode(userWrapper));
 
             ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
-            if (leafIcon != null) {
-                renderer.setUserAvatar(userWrapper.toString(), leafIcon);
-            }
+            //if (leafIcon != null) {
+            //    renderer.setUserAvatar(userWrapper.toString(), leafIcon);
+            //}
             
-            listPane.addElement(userWrapper.toString());
-            listPane.updateUI();
+            listPane.addElement(userWrapper.toString(), leafIcon);
             
             System.out.println(userWrapper.toString() + " added to the sidepanel");
         }
+        
+        listPane.updateUI();
 
         /*
          * Side Panel Tree Properties These are the properties of the tree that
@@ -162,12 +163,12 @@ public class SidePanel extends JPanel implements Observer {
          * all of the nodes are added. calling these multiple times will only
          * slow down the refreshing of the tree and cause strange exceptions.
          */
-        tree.expandRow(1);
-        tree.setRootVisible(false);
-        tree.expandRow(0);
+        //tree.expandRow(1);
+        //tree.setRootVisible(false);
+        //tree.expandRow(0);
 
         // refreshes the tree
-        tree.updateUI();
+        //tree.updateUI();
     }
 
     /**
