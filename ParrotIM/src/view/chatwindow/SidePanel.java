@@ -112,13 +112,6 @@ public class SidePanel extends JPanel implements Observer {
          * exceptions.
          */
         UserDataWrapper userWrapper = null;
-        
-        //CustomIconRenderer renderer = new CustomIconRenderer();
-        //tree.setCellRenderer(renderer);
-
-        // removes all of the old elements from the tree before refreshing the
-        // tree
-        top.removeAllChildren();
 
         for (ConversationData cd1 : model.getConversations()) {
             /*
@@ -142,13 +135,7 @@ public class SidePanel extends JPanel implements Observer {
                 this.users.add(userWrapper);
             }
             
-            top.add(new DefaultMutableTreeNode(userWrapper));
-
             ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
-            //if (leafIcon != null) {
-            //    renderer.setUserAvatar(userWrapper.toString(), leafIcon);
-            //}
-            
             if(!listPane.nicknameListContains(userWrapper.toString())){
             	listPane.addElement(userWrapper.toString(), leafIcon, userWrapper, new SelectListener());
             }
@@ -156,21 +143,8 @@ public class SidePanel extends JPanel implements Observer {
             System.out.println(userWrapper.toString() + " added to the sidepanel");
         }
         
+        //refreshes the list on the screen with the new data
         listPane.updateUI();
-
-        /*
-         * Side Panel Tree Properties These are the properties of the tree that
-         * modify certain aspects of the tree after all of the nodes have been
-         * added to it. Note: These functions only need to be called once after
-         * all of the nodes are added. calling these multiple times will only
-         * slow down the refreshing of the tree and cause strange exceptions.
-         */
-        //tree.expandRow(1);
-        //tree.setRootVisible(false);
-        //tree.expandRow(0);
-
-        // refreshes the tree
-        //tree.updateUI();
     }
 
     /**
@@ -209,25 +183,8 @@ public class SidePanel extends JPanel implements Observer {
          */
 
         public void mousePressed(MouseEvent event) {
-        	/*
-            TreePath selPath =
-                    tree.getPathForLocation(event.getX(), event.getY());
-            UserData user = null;
-
-            // Temporary code to try and fix null bug
-            if (selPath != null
-                    && selPath.getLastPathComponent() instanceof DefaultMutableTreeNode) {
-            	c.setTypingState(1); //set to the default typing state before switching
-            	c.changeConversation(((UserDataWrapper) ((DefaultMutableTreeNode) selPath
-                        .getLastPathComponent()).getUserObject()).getConversation());
-            }
-            */
-            
-        	System.out.println("Box: " + listPane.getClickedIndex() + "Clicked");
         	c.setTypingState(1); //set to the default typing state before switching
             c.changeConversation(listPane.getUserWrapper(listPane.getClickedIndex()).getConversation());
-            
-            //listPane.getComponent(listPane.getClickedIndex()).setBackground(Color.GREEN);
             
             return;
         }
