@@ -27,6 +27,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.net.MalformedURLException;
 
 import javax.swing.BorderFactory;
@@ -45,6 +47,7 @@ import controller.MainController;
 
 import view.buddylist.AccountInfo;
 import view.styles.AvatarLabel;
+import view.styles.PmLabel;
 import view.styles.StatusCombo;
 
 import model.enumerations.StatusType;
@@ -56,12 +59,14 @@ public class PersonalProfileTab extends JPanel {
 	//right components
 	protected JTextArea personalMessage;
 	
+	private PmLabel BuddyListPM;
 	private StatusCombo BuddyListStatus;
 	private StatusCombo status;
 	
 	public PersonalProfileTab(MainController core, AccountInfo accInfo){
 		super(false);
 		this.BuddyListStatus = accInfo.presence;
+        this.BuddyListPM = accInfo.statusMessage;
         
 		/*LEFT COMPONENTS*/
 		//avatar
@@ -89,6 +94,7 @@ public class PersonalProfileTab extends JPanel {
         personalMessage = new JTextArea();
         personalMessage.setText(accInfo.statusMessage.getText());
         personalMessage.setLineWrap(true);
+        personalMessage.addKeyListener(new pmKeyListener());
         JScrollPane pmScroll = new JScrollPane(personalMessage);
         pmScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         pmScroll.setPreferredSize(new Dimension(pmScroll.getWidth(), 150));
@@ -145,6 +151,22 @@ public class PersonalProfileTab extends JPanel {
 			BuddyListStatus.setSelectedIndex(status.getSelectedIndex());
 			BuddyListStatus.updateUI();
 		}
+		
+	}
+	
+	private class pmKeyListener implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			BuddyListPM.setText(personalMessage.getText());
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {}
+
 		
 	}
 }

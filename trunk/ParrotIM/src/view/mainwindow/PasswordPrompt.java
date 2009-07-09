@@ -83,7 +83,7 @@ public class PasswordPrompt extends JFrame{
 		//password prompt
 		passwordPrompt = new JPasswordField();
 		passwordPrompt.addKeyListener(new passwordKeyListener());
-		passwordPrompt.setPreferredSize(new Dimension(360, 20));
+		passwordPrompt.setPreferredSize(new Dimension(355, 20));
 		JPanel passwordPanel = new JPanel();
 		passwordPanel.add(passwordPrompt);
 	
@@ -140,7 +140,6 @@ public class PasswordPrompt extends JFrame{
 				if (manage){
 					try {
 						ManageAccountFrame manageAccount = new ManageAccountFrame(model, core, profileName);
-						popup.dispose();
 						manageAccount.addWindowListener(new PopupWindowListener(mainFrame, manageAccount));
 					} catch (ClassNotFoundException e1) {
 						e1.printStackTrace();
