@@ -18,6 +18,8 @@ import javax.swing.tree.TreePath;
 
 import org.jivesoftware.smack.XMPPException;
 
+import view.styles.CustomListPane;
+
 import controller.MainController;
 
 import model.*;
@@ -50,6 +52,10 @@ public class SidePanel extends JPanel implements Observer {
 
     private JTree tree;
 
+    /** The List Pane that stores the users you are currently talking to*/
+    
+    private CustomListPane listPane;
+    
     /**
      * Maintains the Parrot IM XMPP Protocol.
      */
@@ -80,12 +86,15 @@ public class SidePanel extends JPanel implements Observer {
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
+        // List preferences
+        listPane = new CustomListPane();
+        
         // Tree preferences
         top = new DefaultMutableTreeNode("Root");
         tree = new JTree(top);
         tree.addMouseListener(new SelectListener());
 
-        this.add(tree, BorderLayout.CENTER);
+        this.add(listPane, BorderLayout.CENTER);
     }
 
     /**
@@ -128,17 +137,20 @@ public class SidePanel extends JPanel implements Observer {
                 }
             }
 
-
             if (userWrapper == null) {
                 userWrapper = new UserDataWrapper(cd1, this.model);
                 this.users.add(userWrapper);
             }
+            
             top.add(new DefaultMutableTreeNode(userWrapper));
 
             ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
             if (leafIcon != null) {
                 renderer.setUserAvatar(userWrapper.toString(), leafIcon);
             }
+            
+            listPane.addElement(userWrapper.toString());
+            listPane.updateUI();
             
             System.out.println(userWrapper.toString() + " added to the sidepanel");
         }
