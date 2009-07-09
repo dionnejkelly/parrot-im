@@ -59,7 +59,7 @@ public class AvatarLabel extends JLabel{
 	private boolean synch;
 	
 	/** avatarlbl is this component itself */
-	private static AvatarLabel avatarlbl;
+//	private static AvatarLabel avatarlbl;
 	
 	private MainController chatClient;
 	/**
@@ -92,7 +92,7 @@ public class AvatarLabel extends JLabel{
 	private void setLabel (MainController mainControl,URL url){
 		this.setToolTipText("Click to change your display picture");
 		this.chatClient = mainControl;
-		avatarlbl = this;
+//		avatarlbl = this;
 		changeAvatar(url.toString());
 		this.addMouseListener(new avatarMouseListener());
 	}
@@ -111,13 +111,13 @@ public class AvatarLabel extends JLabel{
 		fileChooser.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		
 		//Show it.
-        int returnVal = fileChooser.showOpenDialog(avatarlbl);
+        int returnVal = fileChooser.showOpenDialog(this);
 
         //Process the results.
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             String avatarPath = file.toURL().toString();
-            avatarlbl.changeAvatar(avatarPath);
+            this.changeAvatar(avatarPath);
             
             //synch
             if (synch){
@@ -293,7 +293,8 @@ public class AvatarLabel extends JLabel{
 			if (f.isDirectory()) return true; //if directory, return true
 			
 			//now search of image files
-			String[] extentionList = new String[]{"jpg", "gif", "png"};
+			String[] extentionList = new String[]{"jpg", "gif", "png", "bmp"};
+
 			String name = f.getName();
 			String extention = name.substring(name.indexOf(".")+1, name.length());
 			
