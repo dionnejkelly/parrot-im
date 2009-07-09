@@ -549,17 +549,17 @@ public class MainController {
     public void setTypingState(int state) {
         
             try {
-            	GenericConnection connection = model.getActiveConversation().getAccount().getConnection();
-				connection.setTypingState(state, model.getActiveConversation().getUser()
-						.getUserID());
+            	if (model.getActiveConversation()!=null){
+            		GenericConnection connection = model.getActiveConversation().getAccount().getConnection();
+    				connection.setTypingState(state, model.getActiveConversation().getUser()
+    						.getUserID());
+            	}
+            	
 			} catch (BadConnectionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (XMPPException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NullPointerException e){
-				// known issue
 				e.printStackTrace();
 			}
 			
