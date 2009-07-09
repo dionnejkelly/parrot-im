@@ -299,7 +299,7 @@ public class AvatarLabel extends JLabel{
 			String extention = name.substring(name.indexOf(".")+1, name.length());
 			
 			for(int pos=0; pos < extentionList.length; pos++){
-				if (extention.compareToIgnoreCase(extentionList[pos])==0){
+				if (extention.compareToIgnoreCase(extentionList[pos])==0 && f.length() <= 524288){
 					return true;
 				}
 			}
@@ -309,7 +309,7 @@ public class AvatarLabel extends JLabel{
 		@Override
 		/** Describes what file types the system will accept. */
 		public String getDescription() {
-			return "choose image file only";
+			return "choose image file less than 512 kb";
 		}
 		
 	}
