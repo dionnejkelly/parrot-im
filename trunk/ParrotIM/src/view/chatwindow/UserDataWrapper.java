@@ -35,7 +35,13 @@ public class UserDataWrapper implements Observer {
                             + ") ";
         }
         message += this.conversation.getUser().getNickname();
-
+        String typingState = this.conversation.getUser().getTypingState();
+//        if (this.conversation!=model.getActiveConversation()){
+	        if(!typingState.equals("")){
+	        	message += "\n ("+typingState+")";
+	        }
+	        message += "\n "+this.conversation.getUser().getTypingState();
+//        }
         return message;
     }
 
