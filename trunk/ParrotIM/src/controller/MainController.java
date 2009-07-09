@@ -50,6 +50,7 @@ import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
+import model.enumerations.TypingStateType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
@@ -74,8 +75,7 @@ public class MainController {
      * @param model
      */
     
-    //private boolean isTyping;
-    
+
     public MainController(Model model) {
         this.model = model;
         this.chatbot = new Chatbot();
@@ -133,19 +133,7 @@ public class MainController {
     	return account.getNickname();
     }
     
-    public void setChateState(int state) {
-    	try {
-			model.getActiveConversation().getAccount().getConnection()
-			.setTypingState(state,model.getActiveConversation().getUser().getUserID());
-		} catch (BadConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-    
+   
     
     public void setAvatarPicture(byte[] byeArray) throws XMPPException {
         // TODO create an account selection GUI
@@ -555,7 +543,7 @@ public class MainController {
     }
 
     /**
-     * changing typing state
+     * changing typing state and send it to friends
      * @param state numbers that represent different state, it depends on the service
      */
     public void setTypingState(int state) {
@@ -572,15 +560,29 @@ public class MainController {
 				e.printStackTrace();
 			}
 			
-			catch (IllegalArgumentException e) {
-				System.out.println("Chat is set to null so do nothing...");
-			}
-			
-			catch (NullPointerException e) {
-				System.out.println("Chat is set to null so do nothing...");
-			}
+			return;
 			
 			
+    }
+    
+    /**
+     * update typingState in model
+     * 
+     * @param connection
+     * @param typingState changing to this state
+     * @param fromUserID
+     */
+    public void typingStateUpdated(GenericConnection connection, 
+    		TypingStateType typingState, String fromUserID){
+    	AccountData account = null;
+        UserData userToUpdate = null;
+        account = model.findAccountByConnection(connection);
+        if (account!=null){
+        	userToUpdate = model.findUserByAccountName(fromUserID);
+        }
+        model.setTypingState(userToUpdate, typingState);
+
+        return;
     }
 
     /**

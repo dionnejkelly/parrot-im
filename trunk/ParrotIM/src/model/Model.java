@@ -64,6 +64,7 @@ import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.TypingStateType;
 import model.enumerations.PopupEnableWindowType;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
@@ -331,18 +332,14 @@ public class Model extends Observable {
         user = this.findUserByAccountName(fromUser);
         modifiedConversation = this.findConversation(account, user);
 
-        if (modifiedConversation != null) {
-            // Case 1: We found a matching conversation
-            modifiedConversation.addMessage(message);
-            this.chatCollection.addConversation(modifiedConversation);
-        } else {
-            // Case 2: No match found; create conversation and add it to the
+        if (modifiedConversation == null) {
+            // No match found; create conversation and add it to the
             // list
-            modifiedConversation = new ConversationData(account, user);
-            modifiedConversation.addMessage(message);
-            this.chatCollection.addConversation(modifiedConversation);
+        	modifiedConversation = new ConversationData(account, user);
+            
         }
-
+        modifiedConversation.addMessage(message);
+        this.chatCollection.addConversation(modifiedConversation);
         setChanged();
         notifyObservers(UpdatedType.CHAT);
         //notifyObservers(UpdatedType.RECEIVECHAT);
@@ -942,8 +939,14 @@ public class Model extends Observable {
      *            UserData representation of the friend to unblock.
      */
     
-    public void setChatState(UserData friend, String state) {
+    public void setTypingState(UserData friend, TypingStateType state) {
     	friend.setChatState(state);
+    	for (ConversationData cd1 : this.getConversations()){
+    		if(cd1.getUser().getUserID().equals(friend.getUserID())){
+    			break;
+    		}
+    	}
+
     	super.setChanged();
     	super.notifyObservers(UpdatedType.CHAT_STATE);
     }

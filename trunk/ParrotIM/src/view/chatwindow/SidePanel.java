@@ -203,12 +203,11 @@ public class SidePanel extends JPanel implements Observer {
             // Temporary code to try and fix null bug
             if (selPath != null
                     && selPath.getLastPathComponent() instanceof DefaultMutableTreeNode) {
-                c.changeConversation(((UserDataWrapper) ((DefaultMutableTreeNode) selPath
+            	c.setTypingState(1); //set to the default typing state before switching
+            	c.changeConversation(((UserDataWrapper) ((DefaultMutableTreeNode) selPath
                         .getLastPathComponent()).getUserObject()).getConversation());
                 
-                // For William
-                user = ((UserDataWrapper) ((DefaultMutableTreeNode) selPath
-                        .getLastPathComponent()).getUserObject()).getConversation().getUser();
+
             }
 
             return;
