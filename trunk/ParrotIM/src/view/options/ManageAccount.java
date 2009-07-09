@@ -76,6 +76,7 @@ public class ManageAccount extends JPanel implements Observer
 	
 	public ManageAccount (Model model, MainController controller, String profilename) throws ClassNotFoundException, SQLException {
 
+		this.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		this.profileName = profilename;
 		this.model = model;
 		this.controller = controller;
