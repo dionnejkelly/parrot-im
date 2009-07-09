@@ -64,7 +64,7 @@ import controller.MainController;
  */
 public class AvatarLabel extends JLabel{
 	/** avatarlbl is this component itself */
-	private AvatarLabel avatarlbl;
+	private static AvatarLabel avatarlbl;
 	
 	private MainController chatClient;
 	/**

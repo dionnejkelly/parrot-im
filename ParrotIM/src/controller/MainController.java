@@ -123,6 +123,16 @@ public class MainController {
 
     }
     
+    public String getAccount() {
+    	AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        
+    	return account.getNickname();
+    }
+    
     public void setChateState(int state) {
     	try {
 			model.getActiveConversation().getAccount().getConnection()
@@ -171,6 +181,22 @@ public class MainController {
 
     }
 
+    public void setAvatarPicture(URL url) throws XMPPException {
+        // TODO create an account selection GUI
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+
+        System.out.println("Which connection = " + connection.getServerType().getServerList().get(0));
+        connection.setAvatarPicture(url);
+
+  
+        // TODO make a more accurate Model.addFriend
+
+    }
     /**
      * This method actually set presence of the user.
      * 
@@ -834,14 +860,6 @@ public class MainController {
         return;
     }
     
-    public String getAccount() {
-    	AccountData account = null; // Should be passed in!!
-        GenericConnection connection = null;
-
-        // connection should be found from account!!
-        account = model.getCurrentProfile().getAccountData().get(0) ;
-        
-    	return account.getNickname();
-    }
+ 
 
 }
