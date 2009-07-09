@@ -940,7 +940,7 @@ public class Model extends Observable {
      */
     
     public void setTypingState(UserData friend, TypingStateType state) {
-    	friend.setChatState(state);
+    	friend.setTypingState(state);
     	for (ConversationData cd1 : this.getConversations()){
     		if(cd1.getUser().getUserID().equals(friend.getUserID())){
     			break;
