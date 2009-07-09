@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -74,6 +75,7 @@ public class FriendProfileFrame extends JFrame{
 		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 	}
 	
 
