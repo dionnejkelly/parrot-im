@@ -62,6 +62,18 @@ public class AvatarLabel extends JLabel{
 //	private static AvatarLabel avatarlbl;
 	
 	private MainController chatClient;
+	
+	/**
+	 * AvatarLabel constructor. It takes a String that describes
+	 * the path of the display picture as its argument.
+	 * 
+	 * @param url
+	 * @param mainControl
+	 */
+	public AvatarLabel(URL url){
+		changeAvatar(url.toString());
+	}
+	
 	/**
 	 * AvatarLabel constructor. It takes a String that describes
 	 * the path of the display picture as its argument.
@@ -92,7 +104,6 @@ public class AvatarLabel extends JLabel{
 	private void setLabel (MainController mainControl,URL url){
 		this.setToolTipText("Click to change your display picture");
 		this.chatClient = mainControl;
-//		avatarlbl = this;
 		changeAvatar(url.toString());
 		this.addMouseListener(new avatarMouseListener());
 	}
