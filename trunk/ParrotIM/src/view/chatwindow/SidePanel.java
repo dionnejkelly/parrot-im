@@ -111,9 +111,9 @@ public class SidePanel extends JPanel implements Observer {
          * exceptions.
          */
         UserDataWrapper userWrapper = null;
-        ;
-        CustomIconRenderer renderer = new CustomIconRenderer();
-        tree.setCellRenderer(renderer);
+        
+        //CustomIconRenderer renderer = new CustomIconRenderer();
+        //tree.setCellRenderer(renderer);
 
         // removes all of the old elements from the tree before refreshing the
         // tree
@@ -136,7 +136,6 @@ public class SidePanel extends JPanel implements Observer {
                     break;
                 }
             }
-
             if (userWrapper == null) {
                 userWrapper = new UserDataWrapper(cd1, this.model);
                 this.users.add(userWrapper);
@@ -149,7 +148,9 @@ public class SidePanel extends JPanel implements Observer {
             //    renderer.setUserAvatar(userWrapper.toString(), leafIcon);
             //}
             
-            listPane.addElement(userWrapper.toString(), leafIcon);
+            if(!listPane.nicknameListContains(userWrapper.toString())){
+            	listPane.addElement(userWrapper.toString(), leafIcon, userWrapper);
+            }
             
             System.out.println(userWrapper.toString() + " added to the sidepanel");
         }
@@ -207,13 +208,9 @@ public class SidePanel extends JPanel implements Observer {
          */
 
         public void mousePressed(MouseEvent event) {
-            // int selRow = tree.getRowForLocation(event.getX(), event.getY());
             TreePath selPath =
                     tree.getPathForLocation(event.getX(), event.getY());
             UserData user = null;
-
-            // System.out.println("in sidePanel" +
-            // selPath.getLastPathComponent().toString());
 
             // Temporary code to try and fix null bug
             if (selPath != null
@@ -221,47 +218,19 @@ public class SidePanel extends JPanel implements Observer {
             	c.setTypingState(1); //set to the default typing state before switching
             	c.changeConversation(((UserDataWrapper) ((DefaultMutableTreeNode) selPath
                         .getLastPathComponent()).getUserObject()).getConversation());
-                
-
             }
-
+            
+            
+            
             return;
         }
 
         /**
-         * Check for user's action
-         * 
-         * @param event
+         * Unimplemented MouseListener Methods
          */
-
-        public void mouseEntered(MouseEvent event) {
-        }
-
-        /**
-         * Check for user's action
-         * 
-         * @param event
-         */
-
-        public void mouseExited(MouseEvent event) {
-        }
-
-        /**
-         * Check for user's action
-         * 
-         * @param event
-         */
-
-        public void mouseClicked(MouseEvent event) {
-        }
-
-        /**
-         * Check for user's action
-         * 
-         * @param event
-         */
-
-        public void mouseReleased(MouseEvent event) {
-        }
+        public void mouseEntered(MouseEvent event) {}
+        public void mouseExited(MouseEvent event) {}
+        public void mouseClicked(MouseEvent event) {}
+        public void mouseReleased(MouseEvent event) {}
     }
 }

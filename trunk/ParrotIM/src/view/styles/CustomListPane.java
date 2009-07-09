@@ -7,16 +7,22 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import view.chatwindow.UserDataWrapper;
+
 public class CustomListPane extends JPanel{
+	private ArrayList<String> nicknames = new ArrayList<String>();
+	private ArrayList<UserDataWrapper> userWrappers = new ArrayList<UserDataWrapper>();
 	private Box boxes[] = new Box[1];
 	private ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
 				"/images/chatwindow/personal.png"));
+	public int lastSelected = 0; 
 	
 	public CustomListPane() {
 		setBackground(Color.WHITE);
@@ -45,10 +51,36 @@ public class CustomListPane extends JPanel{
 		return friendPanel;
 	}
 	
-	public void addElement(String nickname, ImageIcon img){
+	public boolean nicknameListContains(String name){
+		return nicknames.contains(name);
+	}
+	
+	public ArrayList<String> getNicknameList(){
+		return nicknames;
+	}
+	
+	public UserDataWrapper getUserWrapper(int i){
+		return userWrappers.get(i);
+	}
+	
+	public void addElement(String nickname, ImageIcon img, UserDataWrapper userWrapper){
+		nicknames.add(nickname);
+		userWrappers.add(userWrapper);
+		
 		boxes[0].add(friendPanel(nickname, img));
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
+	}
+	
+	public void addElement(String nickname, ImageIcon img){
+		nicknames.add(nickname);
+		boxes[0].add(friendPanel(nickname, img));
+		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
+				.addMouseListener(new SelectListener());
+	}
+	
+	public void addUserWrapperData(UserDataWrapper userWrapper){
+		userWrappers.add(userWrapper);
 	}
 	
 	public Component getElement(int i){
@@ -56,17 +88,17 @@ public class CustomListPane extends JPanel{
 	}
 	
 	public void removeAllElements(){
+		nicknames = new ArrayList();
 		boxes[0].removeAll();
 	}
 	
     private class SelectListener implements MouseListener {
-    	int lastSelected = 0;
     	
         /**
          * highlights clicked element
          */
         public void mouseClicked(MouseEvent event) {
-           
+        	
         }
 
         /**
