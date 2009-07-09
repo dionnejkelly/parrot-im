@@ -556,7 +556,12 @@ public class ChatPanel extends JPanel {
 		public void focusLost(FocusEvent arg0) {
 			//send inactive signal
 			//c.setTypingState(5);
-			c.setTypingState(5);
+			if (txt1.getText().length()>0){
+				c.setTypingState(5);
+			}else if(txt1.getText().length()==0){
+				c.setTypingState(4);
+			}
+			
 			
 		}
     	

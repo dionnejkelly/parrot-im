@@ -558,6 +558,9 @@ public class MainController {
 			} catch (XMPPException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (NullPointerException e){
+				// known issue
+				e.printStackTrace();
 			}
 			
 			return;
