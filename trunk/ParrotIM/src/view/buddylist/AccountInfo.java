@@ -159,9 +159,12 @@ public class AccountInfo extends JPanel
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(13,15,13,5));
 		presence = new StatusCombo(chatClient);
+		JPanel presencePanel = new JPanel();
+		presencePanel.setBackground(Color.DARK_GRAY);
+		presencePanel.add(presence);
 		
 		info.add(textInfo, BorderLayout.NORTH);
-		info.add(presence, BorderLayout.WEST);
+		info.add(presencePanel, BorderLayout.WEST);
 		
 		add(avatarDisplay, BorderLayout.WEST);
 		add(info, BorderLayout.CENTER);
