@@ -88,11 +88,12 @@ public class SidePanel extends JPanel implements Observer {
 
         // List preferences
         listPane = new CustomListPane();
+        //listPane.addMouseListener(new SelectListener());
         
         // Tree preferences
         top = new DefaultMutableTreeNode("Root");
         tree = new JTree(top);
-        tree.addMouseListener(new SelectListener());
+        //tree.addMouseListener(new SelectListener());
 
         this.add(listPane, BorderLayout.CENTER);
     }
@@ -149,7 +150,7 @@ public class SidePanel extends JPanel implements Observer {
             //}
             
             if(!listPane.nicknameListContains(userWrapper.toString())){
-            	listPane.addElement(userWrapper.toString(), leafIcon, userWrapper);
+            	listPane.addElement(userWrapper.toString(), leafIcon, userWrapper, new SelectListener());
             }
             
             System.out.println(userWrapper.toString() + " added to the sidepanel");
@@ -208,6 +209,7 @@ public class SidePanel extends JPanel implements Observer {
          */
 
         public void mousePressed(MouseEvent event) {
+        	/*
             TreePath selPath =
                     tree.getPathForLocation(event.getX(), event.getY());
             UserData user = null;
@@ -219,8 +221,13 @@ public class SidePanel extends JPanel implements Observer {
             	c.changeConversation(((UserDataWrapper) ((DefaultMutableTreeNode) selPath
                         .getLastPathComponent()).getUserObject()).getConversation());
             }
+            */
             
+        	System.out.println("Box: " + listPane.getClickedIndex() + "Clicked");
+        	c.setTypingState(1); //set to the default typing state before switching
+            c.changeConversation(listPane.getUserWrapper(listPane.getClickedIndex()).getConversation());
             
+            //listPane.getComponent(listPane.getClickedIndex()).setBackground(Color.GREEN);
             
             return;
         }

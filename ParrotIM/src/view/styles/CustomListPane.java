@@ -22,7 +22,7 @@ public class CustomListPane extends JPanel{
 	private Box boxes[] = new Box[1];
 	private ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
 				"/images/chatwindow/personal.png"));
-	public int lastSelected = 0; 
+	private int lastSelected = 0; 
 	
 	public CustomListPane() {
 		setBackground(Color.WHITE);
@@ -63,11 +63,14 @@ public class CustomListPane extends JPanel{
 		return userWrappers.get(i);
 	}
 	
-	public void addElement(String nickname, ImageIcon img, UserDataWrapper userWrapper){
+	public void addElement(String nickname, ImageIcon img, UserDataWrapper userWrapper, 
+			MouseListener externalListener){
 		nicknames.add(nickname);
 		userWrappers.add(userWrapper);
 		
 		boxes[0].add(friendPanel(nickname, img));
+		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
+		.addMouseListener(externalListener);
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
 	}
@@ -90,6 +93,10 @@ public class CustomListPane extends JPanel{
 	public void removeAllElements(){
 		nicknames = new ArrayList();
 		boxes[0].removeAll();
+	}
+	
+	public int getClickedIndex(){
+		return lastSelected;
 	}
 	
     private class SelectListener implements MouseListener {
