@@ -68,7 +68,7 @@ public class PasswordPrompt extends JFrame{
 		this.model = model;
 		this.profileName = profileName;	
 		this.mainFrame = mainFrame;
-
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 		constructFrame();
 	}
 	
