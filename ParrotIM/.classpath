@@ -18,5 +18,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/msnm.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/oscar.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/JOscarLib_0.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-common.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-protocol.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
