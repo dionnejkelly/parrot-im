@@ -56,8 +56,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -384,9 +382,15 @@ public class SignInPanel extends JPanel implements Observer {
     	
     }
 	private class AccountSelectItemListener implements ActionListener{
-
+		private int lastSelectedIndex;
+		public AccountSelectItemListener(){
+			lastSelectedIndex = account_select.getSelectedIndex();
+		}
+		
 		public void actionPerformed(ActionEvent e) {
-			if (account_select.getSelectedIndex()>0){
+			int selectedIndex = account_select.getSelectedIndex();
+			if (selectedIndex>0 && lastSelectedIndex != selectedIndex){
+				lastSelectedIndex = selectedIndex;
 				System.out.println("Checking...");
 				new SimplifiedPasswordPrompt(account_select.getSelectedItem().toString());
 			} else {
@@ -400,7 +404,6 @@ public class SignInPanel extends JPanel implements Observer {
 	
 	private class SimplifiedPasswordPrompt extends JFrame{
 		private JFrame passwordFrame;
-	
 		private JPasswordField passwordPrompt;
 		private JButton OKbutton;
 		
