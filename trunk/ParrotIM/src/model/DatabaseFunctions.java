@@ -277,7 +277,7 @@ public class DatabaseFunctions {
         }
         rs.close();
         conn.close();
-        for (int i=0; i<accountList.size(); i++)
+        for(int i=0; i<accountList.size(); i++)
         {
         	System.out.println(accountList.get(i));
         }
@@ -919,10 +919,10 @@ public class DatabaseFunctions {
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
                         + "where question='" + question + "';");
-        rs.next();
-        while (rs.getString("afterQuestion") != null) {
+        while (rs.getString("afterQuestion") != null && !rs.getString("afterQuestion").equals("null")) {
             questionsList.add(rs.getString("afterQuestion"));
             rs.close();
+            stat = conn.createStatement();
             rs =
                     stat.executeQuery("select * from chatBotQuestions "
                             + "where question='"
@@ -945,11 +945,13 @@ public class DatabaseFunctions {
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
                         + "where afterQuestion='" + question + "';");
-        rs.next();
+        System.out.println("this is the quest" + rs.getString("question"));
+        if (rs.wasNull()) { System.out.println("this was null"); }
         String beforeQuestion = rs.getString("question");
+        System.out.println("BEFORE QUESTION BEFORE QUESTION BEFORE QUESTION: " + beforeQuestion);
         rs.close();
         stat = conn.createStatement();
-        if (questionAfter != null) {
+        if (!questionAfter.equals("null")) {
             System.out.println("bleh meh wuhh?");
             stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
                     + questionAfter + "' where question = '" + beforeQuestion
@@ -969,6 +971,28 @@ public class DatabaseFunctions {
         rs.close();
 
         return;
+    }
+    public void printQADbContents() throws SQLException
+    {
+        //stat.executeUpdate("create table if not exists chatBotQuestions "
+        //        + "(profile, question, afterQuestion);");
+        //stat.executeUpdate("create table if not exists chatBotAnswers "
+        //        + "(profile, question, answer);");
+        r2 = stat.executeQuery("select * from chatBotQuestions;");
+        while (r2.next())
+        {
+            System.out.println("Profile: " + r2.getString("profile") + "Question: "
+                    + r2.getString("question")  + "afterQuestion: " + r2.getString("afterQuestion"));
+           
+        }
+        System.out.println("");
+        r2 = stat.executeQuery("select * from chatBotAnswers;");
+        while (r2.next())
+        {
+            System.out.println("Profile: " + r2.getString("profile") + "Question: "
+                    + r2.getString("question")  + "Answer: " + r2.getString("answer"));
+           
+        }
     }
 
 }
