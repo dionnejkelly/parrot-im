@@ -9,10 +9,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import view.chatwindow.UserDataWrapper;
 
@@ -27,6 +30,7 @@ public class CustomListPane extends JPanel{
 	public CustomListPane() {
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
+		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
 		setPreferredSize(new Dimension(200, 200));
 		
 		boxes[0] = Box.createVerticalBox();
@@ -97,6 +101,14 @@ public class CustomListPane extends JPanel{
 	
 	public int getClickedIndex(){
 		return lastSelected;
+	}
+	
+	public JScrollPane getWithScroller(){
+		JScrollPane scroller = new JScrollPane(this);
+
+		scroller.setHorizontalScrollBarPolicy(
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		return scroller;
 	}
 	
     private class SelectListener implements MouseListener {

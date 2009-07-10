@@ -74,12 +74,11 @@ public class SidePanel extends JPanel implements Observer {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(150, 500));
         setBackground(Color.WHITE);
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         // List preferences
         listPane = new CustomListPane();
 
-        this.add(listPane, BorderLayout.CENTER);
+        this.add(listPane.getWithScroller(), BorderLayout.CENTER);
     }
 
     /**
@@ -150,7 +149,6 @@ public class SidePanel extends JPanel implements Observer {
          * 
          * @param event
          */
-
         public void mousePressed(MouseEvent event) {
         	c.setTypingState(1); //set to the default typing state before switching
             c.changeConversation(listPane.getUserWrapper(listPane.getClickedIndex()).getConversation());
