@@ -1,6 +1,8 @@
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import net.kano.joscar.net.ClientConn;
 import net.kano.joscar.net.ClientConnEvent;
 import net.kano.joscar.net.ClientConnListener;
@@ -51,6 +53,7 @@ public class icqConnection {
         connectionProperties.setLoginHost(System.getProperty("OSCAR_HOST", server));
         connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", port));
         connection = session.openConnection(connectionProperties);
+        getBuddyList();
         connection.connect();
 	}
 	private void getBuddyList(){
@@ -69,58 +72,7 @@ public class icqConnection {
 				for (Service service : arg1) {
                     if (service instanceof SsiService) {
                         ((SsiService) service).getBuddyList()
-                        .addRetroactiveLayoutListener(new BuddyListLayoutListener(){
-
-							@Override
-							public void buddiesReordered(BuddyList arg0,
-									Group arg1, List<? extends Buddy> arg2,
-									List<? extends Buddy> arg3) {
-								arg1.getName();
-								
-							}
-
-							@Override
-							public void buddyAdded(BuddyList arg0, Group arg1,
-									List<? extends Buddy> arg2,
-									List<? extends Buddy> arg3, Buddy arg4) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void buddyRemoved(BuddyList arg0,
-									Group arg1, List<? extends Buddy> arg2,
-									List<? extends Buddy> arg3, Buddy arg4) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void groupAdded(BuddyList arg0,
-									List<? extends Group> arg1,
-									List<? extends Group> arg2, Group arg3,
-									List<? extends Buddy> arg4) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void groupRemoved(BuddyList arg0,
-									List<? extends Group> arg1,
-									List<? extends Group> arg2, Group arg3) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void groupsReordered(BuddyList arg0,
-									List<? extends Group> arg1,
-									List<? extends Group> arg2) {
-								// TODO Auto-generated method stub
-								
-							}
-                        	
-                        });
+                        .addRetroactiveLayoutListener(new BuddyListFunctionListener());
 				
                     }
 				}
@@ -128,6 +80,58 @@ public class icqConnection {
 		});
 		
 	}
-		
+	
+	private class BuddyListFunctionListener implements BuddyListLayoutListener{
 
+		@Override
+		public void buddiesReordered(BuddyList bList, Group group,
+				List<? extends Buddy> oldList, List<? extends Buddy> newList) {
+			// TODO Auto-generated method stub
+			System.out.println(group.getName());
+		}
+
+		@Override
+		public void buddyAdded(BuddyList bList, Group group,
+				List<? extends Buddy> oldList, List<? extends Buddy> newList,
+				Buddy buddy) {
+			String subscriptionRequest =
+                buddy.getScreenname()
+                        + " wants to add you as a friend. Add as a friend?";
+			JOptionPane.showMessageDialog(null, subscriptionRequest);
+		}
+
+		@Override
+		public void buddyRemoved(BuddyList arg0, Group arg1,
+				List<? extends Buddy> arg2, List<? extends Buddy> arg3,
+				Buddy arg4) {
+			// TODO Auto-generated method stub
+			System.out.println(arg4.getScreenname() + " from entriesUpdated");
+			
+		}
+
+		@Override
+		public void groupAdded(BuddyList arg0, List<? extends Group> arg1,
+				List<? extends Group> arg2, Group arg3,
+				List<? extends Buddy> arg4) {
+			System.out.println(arg3.toString()+"\n"+arg4.toString()+"\n"+arg2.toString());
+			
+		}
+
+		@Override
+		public void groupRemoved(BuddyList arg0, List<? extends Group> arg1,
+				List<? extends Group> arg2, Group arg3) {
+			// TODO Auto-generated method stub
+			System.out.println(arg3.toString());
+		}
+
+		@Override
+		public void groupsReordered(BuddyList arg0, List<? extends Group> arg1,
+				List<? extends Group> arg2) {
+			// TODO Auto-generated method stub
+			System.out.println(arg1.toString());
+		}
+		private void update(){
+			
+		}
+	}
 }
