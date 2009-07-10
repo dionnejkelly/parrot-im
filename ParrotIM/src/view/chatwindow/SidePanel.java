@@ -82,12 +82,12 @@ public class SidePanel extends JPanel implements Observer {
     }
 
     /**
-     * Refreshes the tree.
+     * Adds new conversations to the list when the list is refreshed
      * 
      * @throws XMPPException
      * 
      */
-    private void refreshList() throws XMPPException {
+    private void addNewConversationsToList() throws XMPPException {
         UserDataWrapper userWrapper = null;
 
         int loopIterationNumber = 0;
@@ -117,7 +117,7 @@ public class SidePanel extends JPanel implements Observer {
         //refreshes the list on the screen with the new data
         listPane.updateUI();
     }
-
+    
     /**
      * Update according to the UpdatedType.
      * 
@@ -129,7 +129,7 @@ public class SidePanel extends JPanel implements Observer {
         if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
         		||o == UpdatedType.CHAT_STATE) {
         	try {
-                refreshList();
+        		addNewConversationsToList();
             } catch (XMPPException e) {
                 e.printStackTrace();
             }
