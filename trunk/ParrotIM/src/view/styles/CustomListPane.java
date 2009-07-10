@@ -105,7 +105,8 @@ public class CustomListPane extends JPanel{
          * highlights clicked element
          */
         public void mouseClicked(MouseEvent event) {
-        	
+        	boxes[0].getComponent(lastSelected).setBackground(
+        			new Color(145, 200, 200));
         }
 
         /**
