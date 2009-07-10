@@ -23,6 +23,7 @@ public class CustomSplitPane extends JPanel {
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BorderLayout());
 		resizeButton = new JButton("<");
+		resizeButton.setToolTipText("Click to hide Side Panel");
 		resizeButton.setPreferredSize(new Dimension(15,5));
 		buttonPanel.add(resizeButton, BorderLayout.WEST);
 		resizeButton.addActionListener(new ActionListener(){
@@ -61,12 +62,14 @@ public class CustomSplitPane extends JPanel {
 	
 	private void minimizeLeft(){
 		isMax = false;
+		resizeButton.setToolTipText("Click to show Side Panel");
 		resizeButton.setText(">");
 		remove(leftPanel);
 	}
 	
 	private void maximizeLeft(){
 		isMax = true;
+		resizeButton.setToolTipText("Click to hide Side Panel");
 		resizeButton.setText("<");
 		add(leftPanel, BorderLayout.WEST);
 	}
