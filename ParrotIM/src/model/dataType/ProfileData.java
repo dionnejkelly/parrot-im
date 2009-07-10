@@ -64,6 +64,11 @@ public class ProfileData {
 
     private boolean autoSignInEnabled;
 
+    private boolean guestAccount;
+    
+    private boolean chatLogEnabled;
+    
+    private boolean soundsEnabled;
     
     /**
      * Determines whether chatbot is on or not. Defaults to off.
@@ -210,6 +215,30 @@ public class ProfileData {
     
     // Section
     // V - Account Manipulation Methods
+
+    public boolean isGuestAccount() {
+        return guestAccount;
+    }
+
+    public void setGuestAccount(boolean guestAccount) {
+        this.guestAccount = guestAccount;
+    }
+
+    public boolean isChatLogEnabled() {
+        return chatLogEnabled;
+    }
+
+    public void setChatLogEnabled(boolean chatLogEnabled) {
+        this.chatLogEnabled = chatLogEnabled;
+    }
+
+    public boolean isSoundsEnabled() {
+        return soundsEnabled;
+    }
+
+    public void setSoundsEnabled(boolean soundsEnabled) {
+        this.soundsEnabled = soundsEnabled;
+    }
 
     /**
      * Checks whether the profile already holds an account with the same userID.

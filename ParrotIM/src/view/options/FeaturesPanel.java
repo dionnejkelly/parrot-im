@@ -41,192 +41,251 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import model.Model;
+
 import view.options.modelstub.ChatbotQADataType;
 import view.options.modelstub.model;
 import view.styles.PopupWindowListener;
 
 import controller.MainController;
 
-public class FeaturesPanel extends JPanel{
-	private MainController controller;
-	private model modelStub;
-	
-	private JFrame mainframe;
-	private JCheckBox chatbotCheck;
-	private JCheckBox soundCheck;
-	private JCheckBox chatLogCheck;
-	private JList chatbotList;
-	private JButton chatbotAddButton;
-	private JButton chatbotEditButton;
-	private JButton chatbotRemoveButton;
-	private JPanel chatbotOptions;
-	
-	public FeaturesPanel (MainController c, JFrame mainframe) throws ClassNotFoundException, SQLException{
-		modelStub = new model();
-		this.mainframe = mainframe;
-		controller = c;
-		
-		/*CHATBOT*/
-		chatbotCheck = new JCheckBox("Enable ChatBot");
-		chatbotCheck.addChangeListener(new chatbotListener());
-		
-		//chatbot list
-		chatbotList = new JList(modelStub.getQAList());
-		chatbotList.addListSelectionListener(new chatbotListSelectionListener());
-		JScrollPane chatbotListScroll = new JScrollPane(chatbotList);
-		chatbotListScroll.setPreferredSize(new Dimension(400, 80));
-		
-		//chatbot buttons
-		chatbotAddButton = new JButton("Add");
-		chatbotAddButton.addActionListener(new chatbotManageButtonActionListener('A'));
-		chatbotEditButton = new JButton ("Edit");
-		chatbotEditButton.addActionListener(new chatbotManageButtonActionListener('E'));
-		chatbotRemoveButton = new JButton ("Remove");
-		chatbotRemoveButton.addActionListener(new chatbotRemoveButtonActionListener());
-		setEnabledChatbotButtons(false);
+public class FeaturesPanel extends JPanel {
+    private MainController controller;
+    private model modelStub;
 
-		JPanel chatbotButtonsPanel = new JPanel();
-		chatbotButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
-		chatbotButtonsPanel.setLayout(new BoxLayout (chatbotButtonsPanel, BoxLayout.X_AXIS));
-		chatbotButtonsPanel.add(chatbotAddButton);
-		chatbotButtonsPanel.add(chatbotEditButton);
-		chatbotButtonsPanel.add(chatbotRemoveButton);
-		
-		chatbotOptions = new JPanel();
-		chatbotOptions.setAlignmentX(LEFT_ALIGNMENT);
-		chatbotOptions.add(chatbotListScroll);
-		chatbotOptions.add(chatbotButtonsPanel);
-		chatbotOptions.setVisible(false);
-		
-		JPanel chatbotPanel = new JPanel();
-		chatbotPanel.setAlignmentX(LEFT_ALIGNMENT);
-		chatbotPanel.setLayout(new BoxLayout(chatbotPanel, BoxLayout.Y_AXIS));
-		chatbotPanel.add(chatbotCheck);
-		chatbotPanel.add(chatbotOptions);
-		
-		/*SOUND NOTIFICATION*/
-		soundCheck = new JCheckBox("Enable Sound Notification");
-		soundCheck.addChangeListener(new soundListener());
-		
-		/*CHATLOG*/
-		chatLogCheck = new JCheckBox("Enable Chat Log");
-		chatLogCheck.addChangeListener(new chatLogListener());
-		
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		this.add(chatbotPanel);
-		this.add(soundCheck);
-		this.add(chatLogCheck);//just a test
-	}
-	private void setEnabledChatbotButtons(boolean b){
-		chatbotEditButton.setEnabled(b);
-		chatbotRemoveButton.setEnabled(b);
-	}
-	private class chatbotListener implements ChangeListener{
+    private JFrame mainframe;
 
-		public void stateChanged(ChangeEvent e) {
-			controller.toggleChatbot();
-			if (chatbotCheck.isSelected())
-				chatbotOptions.setVisible(true);
-			else
-				chatbotOptions.setVisible(false);
-		}
-	}
-	private class chatbotListSelectionListener implements ListSelectionListener{
+    private JCheckBox chatbotCheck;
+    private JCheckBox soundCheck;
+    private JCheckBox chatLogCheck;
+    private JCheckBox chatWindowHistoryCheck;
 
-		public void valueChanged(ListSelectionEvent e) {
-			if (chatbotList.getSelectedIndex() > -1){
-				setEnabledChatbotButtons(true);
-			} else {
-				setEnabledChatbotButtons(false);
-			}
-		}
-		
-	}
-	private class chatbotManageButtonActionListener implements ActionListener{
-		ChatbotQA addChatbotOptions;
-		char mode; 
-		
-		public chatbotManageButtonActionListener(char mode){
-			this.mode = mode;
-		}
-		public void actionPerformed(ActionEvent e) {
-			if (mode == 'A'){ //add
-				addChatbotOptions = new ChatbotQA(new ChatbotQADataType(), true);
-			} else if (mode == 'E')	{ //edit
-				addChatbotOptions = new ChatbotQA(modelStub.getQAObject(chatbotList.getSelectedIndex()), false);
-			}
-			addChatbotOptions.addWindowListener(new PopupWindowListener(mainframe ,addChatbotOptions));
-			addChatbotOptions.addWindowListener(new chatbotPopupWindowListener());
-		}
-		
-		private class chatbotPopupWindowListener implements WindowListener{
+    private JList chatbotList;
+    private JButton chatbotAddButton;
+    private JButton chatbotEditButton;
+    private JButton chatbotRemoveButton;
+    private JPanel chatbotOptions;
 
-			public void windowActivated(WindowEvent e) {}
-			public void windowClosed(WindowEvent e) {}
-			
-			public void windowClosing(WindowEvent e) {
-				if (mode == 'A'){
-					ChatbotQADataType QAObject = addChatbotOptions.getQAObject();
-				
-					if (!QAObject.isEmpty()){
-						try {
-							modelStub.addQA(QAObject);
-						} catch (ClassNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				}
+    private Model model;
 
-				chatbotList.setListData(modelStub.getQAList());
-				chatbotList.updateUI();
-			}
-			
-			public void windowDeactivated(WindowEvent e) {}
-			public void windowDeiconified(WindowEvent e) {}
-			public void windowIconified(WindowEvent e) {}
-			public void windowOpened(WindowEvent e) {}
-			
-		}
-	}
-	private class chatbotRemoveButtonActionListener implements ActionListener{
+    public FeaturesPanel(MainController c, JFrame mainframe, Model model)
+            throws ClassNotFoundException, SQLException {
+        this.model = model;
+        modelStub = new model();
+        this.mainframe = mainframe;
+        controller = c;
 
-		public void actionPerformed(ActionEvent e) {
-			int selected = chatbotList.getSelectedIndex();
-			if (selected > -1){
-				modelStub.removeQA(selected);
-				chatbotList.setListData(modelStub.getQAList());
-				chatbotList.updateUI();
-			}
-			if (modelStub.getQASize() == 0) {
-				setEnabledChatbotButtons(false);
-			}
-		}
-	}
-	private class soundListener implements ChangeListener{
-		//TODO: PLEASE SET THIS
-		public void stateChanged(ChangeEvent e) {
-			if (soundCheck.isSelected()){
-				System.out.println("Enables sound");
-			} else {
-				System.out.println("Disables sound");
-			}
-		}
-	}
-	private class chatLogListener implements ChangeListener{
-		//TODO: PLEASE SET THIS
-		public void stateChanged(ChangeEvent e) {
-			if (soundCheck.isSelected()){
-				System.out.println("Enables Chat Log");
-			} else {
-				System.out.println("Disables Chat Log");
-			}
-			
-		}
-	}
-	
+        /* CHATBOT */
+        chatbotCheck = new JCheckBox("Enable ChatBot");
+        chatbotCheck.addChangeListener(new chatbotListener());
+
+        // chatbot list
+        chatbotList = new JList(modelStub.getQAList());
+        chatbotList
+                .addListSelectionListener(new chatbotListSelectionListener());
+        JScrollPane chatbotListScroll = new JScrollPane(chatbotList);
+        chatbotListScroll.setPreferredSize(new Dimension(400, 80));
+
+        // chatbot buttons
+        chatbotAddButton = new JButton("Add");
+        chatbotAddButton
+                .addActionListener(new chatbotManageButtonActionListener('A'));
+        chatbotEditButton = new JButton("Edit");
+        chatbotEditButton
+                .addActionListener(new chatbotManageButtonActionListener('E'));
+        chatbotRemoveButton = new JButton("Remove");
+        chatbotRemoveButton
+                .addActionListener(new chatbotRemoveButtonActionListener());
+        setEnabledChatbotButtons(false);
+
+        JPanel chatbotButtonsPanel = new JPanel();
+        chatbotButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
+        chatbotButtonsPanel.setLayout(new BoxLayout(chatbotButtonsPanel,
+                BoxLayout.X_AXIS));
+        chatbotButtonsPanel.add(chatbotAddButton);
+        chatbotButtonsPanel.add(chatbotEditButton);
+        chatbotButtonsPanel.add(chatbotRemoveButton);
+
+        chatbotOptions = new JPanel();
+        chatbotOptions.setAlignmentX(LEFT_ALIGNMENT);
+        chatbotOptions.add(chatbotListScroll);
+        chatbotOptions.add(chatbotButtonsPanel);
+        chatbotOptions.setVisible(false);
+
+        JPanel chatbotPanel = new JPanel();
+        chatbotPanel.setAlignmentX(LEFT_ALIGNMENT);
+        chatbotPanel.setLayout(new BoxLayout(chatbotPanel, BoxLayout.Y_AXIS));
+        chatbotPanel.add(chatbotCheck);
+        chatbotPanel.add(chatbotOptions);
+
+        /* SOUND NOTIFICATION */
+        soundCheck = new JCheckBox("Enable Sound Notification");
+        soundCheck.addChangeListener(new soundListener());
+
+        /* CHATLOG */
+        chatLogCheck = new JCheckBox("Enable Chat Log");
+        chatLogCheck.addChangeListener(new chatLogListener());
+
+        /* CHAT WINDOW HISTORY */
+        this.chatWindowHistoryCheck =
+                new JCheckBox("Enable Chat Window History");
+        this.chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
+                .isChatWindowHistoryEnabled());
+        this.chatWindowHistoryCheck
+                .addChangeListener(new chatWindowHistoryListener());
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        this.add(chatbotPanel);
+        this.add(soundCheck);
+        this.add(chatLogCheck);
+        this.add(chatWindowHistoryCheck);
+    }
+
+    private void setEnabledChatbotButtons(boolean b) {
+        chatbotEditButton.setEnabled(b);
+        chatbotRemoveButton.setEnabled(b);
+    }
+
+    private class chatbotListener implements ChangeListener {
+
+        public void stateChanged(ChangeEvent e) {
+            controller.toggleChatbot();
+            if (chatbotCheck.isSelected())
+                chatbotOptions.setVisible(true);
+            else
+                chatbotOptions.setVisible(false);
+        }
+    }
+
+    private class chatbotListSelectionListener implements ListSelectionListener {
+
+        public void valueChanged(ListSelectionEvent e) {
+            if (chatbotList.getSelectedIndex() > -1) {
+                setEnabledChatbotButtons(true);
+            } else {
+                setEnabledChatbotButtons(false);
+            }
+        }
+
+    }
+
+    private class chatbotManageButtonActionListener implements ActionListener {
+        ChatbotQA addChatbotOptions;
+        char mode;
+
+        public chatbotManageButtonActionListener(char mode) {
+            this.mode = mode;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (mode == 'A') { // add
+                addChatbotOptions =
+                        new ChatbotQA(new ChatbotQADataType(), true);
+            } else if (mode == 'E') { // edit
+                addChatbotOptions =
+                        new ChatbotQA(modelStub.getQAObject(chatbotList
+                                .getSelectedIndex()), false);
+            }
+            addChatbotOptions.addWindowListener(new PopupWindowListener(
+                    mainframe, addChatbotOptions));
+            addChatbotOptions
+                    .addWindowListener(new chatbotPopupWindowListener());
+        }
+
+        private class chatbotPopupWindowListener implements WindowListener {
+
+            public void windowActivated(WindowEvent e) {
+            }
+
+            public void windowClosed(WindowEvent e) {
+            }
+
+            public void windowClosing(WindowEvent e) {
+                if (mode == 'A') {
+                    ChatbotQADataType QAObject =
+                            addChatbotOptions.getQAObject();
+
+                    if (!QAObject.isEmpty()) {
+                        try {
+                            modelStub.addQA(QAObject);
+                        } catch (ClassNotFoundException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        } catch (SQLException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+
+                chatbotList.setListData(modelStub.getQAList());
+                chatbotList.updateUI();
+            }
+
+            public void windowDeactivated(WindowEvent e) {
+            }
+
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            public void windowIconified(WindowEvent e) {
+            }
+
+            public void windowOpened(WindowEvent e) {
+            }
+
+        }
+    }
+
+    private class chatbotRemoveButtonActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            int selected = chatbotList.getSelectedIndex();
+            if (selected > -1) {
+                modelStub.removeQA(selected);
+                chatbotList.setListData(modelStub.getQAList());
+                chatbotList.updateUI();
+            }
+            if (modelStub.getQASize() == 0) {
+                setEnabledChatbotButtons(false);
+            }
+        }
+    }
+
+    private class soundListener implements ChangeListener {
+        // TODO: PLEASE SET THIS
+        public void stateChanged(ChangeEvent e) {
+            if (soundCheck.isSelected()) {
+                System.out.println("Enables sound");
+            } else {
+                System.out.println("Disables sound");
+            }
+        }
+    }
+
+    private class chatLogListener implements ChangeListener {
+        // TODO: PLEASE SET THIS
+        public void stateChanged(ChangeEvent e) {
+            if (soundCheck.isSelected()) {
+                System.out.println("Enables Chat Log");
+            } else {
+                System.out.println("Disables Chat Log");
+            }
+
+        }
+    }
+
+    private class chatWindowHistoryListener implements ChangeListener {
+        public void stateChanged(ChangeEvent e) {
+            if (chatWindowHistoryCheck.isSelected()) {
+                model.getCurrentProfile().setChatWindowHistoryEnabled(true);
+            } else {
+                model.getCurrentProfile().setChatWindowHistoryEnabled(false);
+            }
+
+            return;
+        }
+    }
+
 }
