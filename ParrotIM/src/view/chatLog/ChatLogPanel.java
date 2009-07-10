@@ -289,9 +289,13 @@ public class ChatLogPanel extends JPanel {
             	Vector<String> users = null;
                try {
             	   System.out.println("hi");
+            	   db = new DatabaseFunctions();
 				 users = db.getChatNameList(profile, searchField.getText());
 				 System.out.println("Appear");
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -300,18 +304,26 @@ public class ChatLogPanel extends JPanel {
 				Vector<String> dates = null;
                try {
             	   System.out.println("Hi again");
+            	   db = new DatabaseFunctions();
 				 dates = db.getChatDatesFromName(profile, users.get(i), searchField.getText());
 				 System.out.println("Appear again");
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 				for(int j=0;j<dates.size();j++){
 					try {
 						System.out.println("Hi third");
+						db = new DatabaseFunctions();
 						ArrayList<ChatLogMessageTempData> message = db.getMessageFromDate(profile, users.get(i), dates.get(j), searchField.getText());
 						System.out.println("Finished");
 					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} 

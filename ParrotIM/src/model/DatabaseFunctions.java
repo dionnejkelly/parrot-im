@@ -257,12 +257,7 @@ public class DatabaseFunctions {
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
-        System.out.println(profile + searched);
-        stat = conn.createStatement();
-        r3 =
-                DriverManager.getConnection(
-                        "jdbc:sqlite:" + DatabaseFunctions.getDatabaseName())
-                        .createStatement().executeQuery(
+        r3 = stat.executeQuery(
                                 "select * from people where profile='"
                                         + profile + "';");
         while (r3.next()) {
@@ -282,8 +277,12 @@ public class DatabaseFunctions {
         }
         rs.close();
         conn.close();
-
+        for (int i=0; i<accountList.size(); i++)
+        {
+        	System.out.println(accountList.get(i));
+        }
         return accountList;
+        
     }
 
     /**
@@ -923,6 +922,7 @@ public class DatabaseFunctions {
         rs.next();
         while (rs.getString("afterQuestion") != null) {
             questionsList.add(rs.getString("afterQuestion"));
+            rs.close();
             rs =
                     stat.executeQuery("select * from chatBotQuestions "
                             + "where question='"
