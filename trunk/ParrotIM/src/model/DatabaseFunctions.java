@@ -921,7 +921,6 @@ public class DatabaseFunctions {
                         + "where question='" + question + "';");
         while (rs.getString("afterQuestion") != null && !rs.getString("afterQuestion").equals("null")) {
             questionsList.add(rs.getString("afterQuestion"));
-            rs.close();
             stat = conn.createStatement();
             rs =
                     stat.executeQuery("select * from chatBotQuestions "
