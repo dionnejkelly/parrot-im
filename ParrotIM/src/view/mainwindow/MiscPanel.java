@@ -53,7 +53,7 @@ public class MiscPanel extends JPanel{
 		JSeparator line = new JSeparator();
 		
 		//guest account
-		LinkLabel help = new LinkLabel ("Help");
+		LinkLabel help = new LinkLabel ("Help", true);
 		help.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             

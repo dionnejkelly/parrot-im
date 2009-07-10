@@ -24,6 +24,7 @@
 
 package view.styles;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -37,20 +38,35 @@ import javax.swing.JLabel;
  */
 public class LinkLabel extends JLabel {
 	/** text is a String with the name of the label that will be shown on the GUI*/
-	protected String text;
+	private String text;
+	
+	private boolean enabled;
 	
 	/**
 	 * LinkLabel constructor. It takes a String object as its argument.
 	 * It sets up the String to be underlined and show it on the GUI.
 	 * @param text */
-	public LinkLabel (String text){
+	public LinkLabel (String text, boolean enable){
+		this.enabled = enable;
 		this.setHorizontalAlignment(CENTER);
 		this.text = text;
-		this.setText("<html><u>"+ text +"</u></html>");
-
+		this.setEnabled(enabled);
         this.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		
 		this.addMouseListener(new labelMouseListener(this));
+	}
+	
+	public void setEnabled(boolean enabled){
+		this.enabled = enabled;
+		if (enabled){
+			this.setText("<html><FONT COLOR=BLACK><u>"+ text +"</u></FONT></html>");
+		} else{
+			this.setText("<html><FONT COLOR=GRAY><u>"+ text +"</u></FONT></html>");
+		}
+	}
+	
+	public boolean isEnabled(){
+		return enabled;
 	}
 	
 	/**
@@ -71,26 +87,25 @@ public class LinkLabel extends JLabel {
 			label = lbl; 
 		}
 
-		public void mouseClicked(MouseEvent e) {
-		}
-
 		/** When the user hover on label, the text will be bolded.
 		 * It takes a MouseEvent argument
 		 * @param e */
 		public void mouseEntered(MouseEvent e) {
-			label.setText("<html><b>"+label.text+"</b></html>");
+			if (enabled)
+				label.setText("<html><b>"+label.text+"</b></html>");
 		}
 		
 		/** When the user hover on label, the text will be underlined.
 		 * It takes a MouseEvent argument 
 		 * @param e */
 		public void mouseExited(MouseEvent e) {
-			label.setText("<html><u>"+ text +"</u></html>");
+			if (enabled)
+				label.setText("<html><u>"+ text +"</u></html>");
 		}
 
 		public void mousePressed(MouseEvent e) {}
-
 		public void mouseReleased(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {}
 		
 	}
 
