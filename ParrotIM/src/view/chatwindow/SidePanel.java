@@ -113,6 +113,7 @@ public class SidePanel extends JPanel implements Observer {
          */
         UserDataWrapper userWrapper = null;
 
+        int loopIterationNumber = 0;
         for (ConversationData cd1 : model.getConversations()) {
             /*
              * Adding the nodes to the tree This loop is for adding the nodes to
@@ -121,26 +122,27 @@ public class SidePanel extends JPanel implements Observer {
              * this loop that only need to be run once. They will cause strange
              * exceptions.
              */
-
-            userWrapper = null;
-            for (UserDataWrapper u : this.users) {
-            	u.getConversation().getUser().getTypingState();
-                if (u.getConversation() == cd1) {
-                    userWrapper = u;
-                    break;
-                }
-            }
-            if (userWrapper == null) {
-                userWrapper = new UserDataWrapper(cd1, this.model);
-                this.users.add(userWrapper);
-            }
+        	if(loopIterationNumber > listPane.getNicknameList().size() - 1){
+	            userWrapper = null;
+	            for (UserDataWrapper u : this.users) {
+	            	u.getConversation().getUser().getTypingState();
+	                if (u.getConversation() == cd1) {
+	                    userWrapper = u;
+	                    break;
+	                }
+	            }
+	            if (userWrapper == null) {
+	                userWrapper = new UserDataWrapper(cd1, this.model);
+	                this.users.add(userWrapper);
+	            }
+	            
+	            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
+	            listPane.addElement(userWrapper.toString(), leafIcon, userWrapper, new SelectListener());
+	            
+	            System.out.println(userWrapper.toString() + " added to the sidepanel");
+        	}
             
-            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
-            if(!listPane.nicknameListContains(userWrapper.toString())){
-            	listPane.addElement(userWrapper.toString(), leafIcon, userWrapper, new SelectListener());
-            }
-            
-            System.out.println(userWrapper.toString() + " added to the sidepanel");
+        	loopIterationNumber++;
         }
         
         //refreshes the list on the screen with the new data
