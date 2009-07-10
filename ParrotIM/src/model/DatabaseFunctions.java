@@ -934,7 +934,8 @@ public class DatabaseFunctions {
         return questionsList;
     }
 
-    public void removeChatQuestion(String question) throws SQLException {
+    public void removeChatQuestion(String question) throws SQLException  {
+    	boolean wasFirstQuestion = false;
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
                         + "where question='" + question + "';");
@@ -944,20 +945,24 @@ public class DatabaseFunctions {
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
                         + "where afterQuestion='" + question + "';");
-        System.out.println("this is the quest" + rs.getString("question"));
-        if (rs.wasNull()) { System.out.println("this was null"); }
-        String beforeQuestion = rs.getString("question");
-        System.out.println("BEFORE QUESTION BEFORE QUESTION BEFORE QUESTION: " + beforeQuestion);
-        rs.close();
+        rs.next();
+        try {
+			System.out.println(rs.getString("question"));
+		} catch (SQLException e) {
+			wasFirstQuestion = true;
+		}
         stat = conn.createStatement();
-        if (!questionAfter.equals("null")) {
-            System.out.println("bleh meh wuhh?");
-            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
-                    + questionAfter + "' where question = '" + beforeQuestion
-                    + "';");
-        } else {
-            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
-                    + null + "' where question = '" + beforeQuestion + "';");
+        if (wasFirstQuestion != true) {
+            String beforeQuestion = rs.getString("question");
+	        if (questionAfter != null) {
+	            System.out.println("bleh meh wuhh?");
+	            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
+	                    + questionAfter + "' where question = '" + beforeQuestion
+	                    + "';");
+	        } else {
+	            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
+	                    + null + "' where question = '" + beforeQuestion + "';");
+	        }
         }
         stat = conn.createStatement();
         stat.executeUpdate("delete from chatBotQuestions where question='"
