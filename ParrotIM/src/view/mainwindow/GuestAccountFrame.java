@@ -224,14 +224,17 @@ public class GuestAccountFrame extends JFrame {
 
         try {
             if (serverType == ServerType.GOOGLE_TALK
-                    || serverType == ServerType.TWITTER) {
+                    || serverType == ServerType.TWITTER
+                    || serverType == ServerType.ICQ
+                    || serverType == ServerType.AIM) {
 
                 core.loginAsGuest(serverType, username, password);
             } else if (serverType == ServerType.JABBER) {
                 core.loginAsGuest(serverType, username, password, jabberServer
                         .getText());
             } else {
-                String resultMessage = "We are only supporting XMPP, Twitter, and ICQ for the beta version. Sorry for the inconvenience.";
+                String resultMessage =
+                        "We are only supporting XMPP, Twitter, and ICQ for the beta version. Sorry for the inconvenience.";
                 JOptionPane.showMessageDialog(null, resultMessage);
                 throw new BadConnectionException();
             }
@@ -292,7 +295,8 @@ public class GuestAccountFrame extends JFrame {
             }
 
             else {
-                String resultMessage = "Please provide appropriate user ID and password in the field.";
+                String resultMessage =
+                        "Please provide appropriate user ID and password in the field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
 
             }
