@@ -67,8 +67,12 @@ public class OptionFrame extends JFrame {
 		public void windowActivated(WindowEvent e) {}
 
 		public void windowClosed(WindowEvent e) {
-			controller.setStatus(personalMessage.getText());
-			accountInfo.statusMessage.setText(personalMessage.getText());
+			
+			String status = personalMessage.getText();
+			if (status.compareTo("Type your status message")!=0){
+				controller.setStatus(status);
+				accountInfo.statusMessage.setText(personalMessage.getText());
+			}
 		}
 
 		public void windowClosing(WindowEvent e) {}
