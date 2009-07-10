@@ -51,16 +51,20 @@ public class DatabaseFunctionsTest {
 	}
 
 	@Test
-	public void testGetChatNameList() throws SQLException {
-		Vector<String> test = db1.getChatNameList("cmpt275testing", "hi");
+	public void testGetChatNameList() throws SQLException, ClassNotFoundException {
+		DatabaseFunctions db = new DatabaseFunctions();
+		Vector<String> test = new Vector<String>();
+		test = db.getChatNameList("parrot275testing", "");
+		System.out.println(test.size());
 		for(int i=0;i<test.size();i++){
 			System.out.println(test.get(i));
 		}
 	}
 
 	@Test
-	public void testGetChatDatesFromName() throws SQLException {
-		Vector<String> test = db1.getChatDatesFromName("cmpt275testing", "rmamnk", "hi");
+	public void testGetChatDatesFromName() throws SQLException, ClassNotFoundException {
+		DatabaseFunctions db = new DatabaseFunctions();
+		Vector<String> test = db.getChatDatesFromName("cmpt275testing", "rmamnk", "hi");
 		for(int i=0;i<test.size();i++){
 			System.out.println(test.get(i));
 		}
