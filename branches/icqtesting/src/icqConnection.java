@@ -33,7 +33,8 @@ public class icqConnection {
 	static AimConnectionProperties connectionProperties = new AimConnectionProperties(null, null);
 	RvProcessor rvProcessor;
 	IcbmListener lastIcbmListener;
-	public icqConnection() {
+	public icqConnection() 
+	{
 	}
 	public void login(String userID, String password, String server, int port){
 		AppSession appSession = new AppSession() {
