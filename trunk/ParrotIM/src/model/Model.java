@@ -135,6 +135,12 @@ public class Model extends Observable {
             e.printStackTrace();
             profiles = new Vector<String>();
         }
+        
+        if (profiles.size() == 0){
+        	profiles.add(0, "Create a profile");
+        } else {
+        	profiles.add(0, "Select a profile");
+        }
 
         return profiles;
     }
