@@ -112,7 +112,7 @@ public class BuddyList extends JFrame {
         // Create the menu bar.
         menuBar = new JMenuBar();
 
-        fileMenu = new JMenu("File");
+        fileMenu = new JMenu("Home");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
         JMenuItem logoutItem = new JMenuItem("Sign Out", KeyEvent.VK_L);
