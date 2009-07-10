@@ -39,6 +39,10 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
+import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.RoomInfo;
+import org.jivesoftware.smackx.muc.SubjectUpdatedListener;
 import org.jivesoftware.smackx.packet.VCard;
 
 import com.sun.image.codec.jpeg.ImageFormatException;
@@ -53,6 +57,8 @@ public class GoogleTalkManager implements GenericConnection {
     private static final int GOOGLE_PORT = 5223;
     private static final String GOOGLE_DOMAIN = "gmail.com";
 
+    private MultiUserChat multiUserChat;
+    
     private XMPPConnection connection;
 
     private MainController controller;
@@ -68,6 +74,7 @@ public class GoogleTalkManager implements GenericConnection {
     private Roster roster;
     
     protected List subscribedUsers = new ArrayList();
+    
     
     //private boolean isTyping;
 
@@ -276,7 +283,139 @@ public class GoogleTalkManager implements GenericConnection {
         roster = connection.getRoster();
         roster.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
         addSubscriptionListener();
+        
+        multiUserChat.addInvitationListener(connection, new invitationListener());
         return;
+    }
+    
+    private class invitationListener implements InvitationListener {
+
+		public void invitationReceived(XMPPConnection con, String room,
+				String inviter, String reason, String password, Message message) {
+			String result = delimitUserFront(inviter) + " has been invited you to the multiple chat room!";
+			
+			int option = JOptionPane.showConfirmDialog(null, result);
+//			System.out.println("Room: " + room);
+//			System.out.println("Inviter: " + inviter);
+//			System.out.println("Reason: " + reason);
+//			System.out.println("Password: " + password);
+//			System.out.println("Message: " + message.getBody());
+			RoomInfo info;
+			try {
+				info = MultiUserChat.getRoomInfo(connection, room);
+				System.out.println("Number of occupants: " + info.getOccupantsCount());
+		        System.out.println("Room Subject: " + info.getSubject());
+			} catch (XMPPException e1) {
+				System.out.println("No information about the room.");
+			}
+	        
+			if (option == JOptionPane.OK_OPTION) {
+				try {
+					join(room);
+					
+					controller.messageReceived(delimitUserFront(inviter), delimitUserFront(connection.getUser()), " has been invited you to the multiple chat room!");
+	                lastChat = connection.getChatManager().createChat(connection.getHost(), new DefaultChatStateListener());
+	                MusicPlayer receiveMusic = new MusicPlayer("src/audio/message/receiveMessage.wav");
+				} catch (XMPPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			else {
+				
+				String validateReason = JOptionPane.showInputDialog("What would be your reason?");
+				multiUserChat.decline(connection, room, delimitUserFront(inviter), validateReason);
+			}
+			
+				
+		}
+    	
+    }
+    
+ // ***********************  GROUP CHAT  *************************
+    public void join(String room, final String nickname) {
+        join(false, room, nickname);
+    }
+    public void create(String room, String nickname) {
+        join(true, room, nickname);
+    }
+    
+    private void join(boolean create, String room, final String nickname) {
+        try {
+            multiUserChat = new MultiUserChat(connection, room);
+      
+            // The room service will decide the amount of history to send
+            if (create)
+                multiUserChat.create(nickname);
+            else
+                multiUserChat.join(nickname);
+
+            multiUserChat.changeSubject("Parrot Conversation");
+            multiUserChat.changeNickname("Parrot IM");
+            // Discover information about the room roomName@conference.myserver
+            //RoomInfo info = MultiUserChat.getRoomInfo(connection, room);
+           // System.out.println("Number of occupants: " + info.getOccupantsCount());
+           // System.out.println("Room Subject: " + info.getSubject());
+       
+            // listen for subject change and update
+            multiUserChat.addSubjectUpdatedListener(new SubjectUpdatedListener() {
+                public void subjectUpdated(String subject, String from) {
+                	System.out.println("Room Subject: " + subject);
+                }
+            });
+            multiUserChat.addMessageListener(new multipleMessagePacketListener());
+        } catch (XMPPException e) {
+        	System.out.println("Error connecting to the room: " + e.getMessage());
+        }
+        
+        
+//        multiUserChat.addInvitationListener(connection, new invitationListener());
+
+    }
+    
+    private void join(String room) throws XMPPException {
+		multiUserChat = new MultiUserChat(connection,room);
+		multiUserChat.join(room);
+		
+		 multiUserChat.addMessageListener(new multipleMessagePacketListener());
+	}
+    
+    private class multipleMessagePacketListener implements PacketListener {
+
+		public void processPacket(Packet packet) {
+			 if (packet instanceof org.jivesoftware.smack.packet.Message) {
+				 
+				 Message message = (Message) packet;
+		         String fromUserID = StringUtils.parseBareAddress(message.getFrom());
+		         String toUserID = StringUtils.parseBareAddress(connection.getUser());
+
+		            if (message.getBody() != null) {
+		                controller.messageReceived(fromUserID, toUserID, message.getBody());
+		                lastChat = connection.getChatManager().createChat(toUserID, new DefaultChatStateListener());
+		                MusicPlayer receiveMusic = new MusicPlayer("src/audio/message/receiveMessage.wav");
+		            }
+//                 org.jivesoftware.smack.packet.Message message = (org.jivesoftware.smack.packet.Message) packet;
+//                 System.out.println(delimitUserBack(message.getFrom()) + ": " + message.getBody());
+                 
+                 
+             }
+			
+		}
+    	
+    }
+    
+    private String delimitUserBack(String from) {
+    	String subString = from.substring(from.indexOf('/') + 1);
+    	
+    	return subString;
+    }
+    
+    private String delimitUserFront(String from) {
+    	
+    	String subString = from.substring(0,from.indexOf('/'));
+    	
+    	return subString;
     }
     
     /**
