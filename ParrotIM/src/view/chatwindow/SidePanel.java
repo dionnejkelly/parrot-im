@@ -12,9 +12,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreePath;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -48,10 +45,6 @@ public class SidePanel extends JPanel implements Observer {
 
     private Model model;
 
-    /** Tree stores the users as a leaf. */
-
-    private JTree tree;
-
     /** The List Pane that stores the users you are currently talking to*/
     
     private CustomListPane listPane;
@@ -61,9 +54,6 @@ public class SidePanel extends JPanel implements Observer {
      */
 
     private MainController c;
-
-    /** The default top node. */
-    private DefaultMutableTreeNode top;
 
     private ArrayList<UserDataWrapper> users;
 
@@ -88,12 +78,6 @@ public class SidePanel extends JPanel implements Observer {
 
         // List preferences
         listPane = new CustomListPane();
-        //listPane.addMouseListener(new SelectListener());
-        
-        // Tree preferences
-        top = new DefaultMutableTreeNode("Root");
-        tree = new JTree(top);
-        //tree.addMouseListener(new SelectListener());
 
         this.add(listPane, BorderLayout.CENTER);
     }
@@ -104,24 +88,11 @@ public class SidePanel extends JPanel implements Observer {
      * @throws XMPPException
      * 
      */
-    private void refreshTree() throws XMPPException {
-        /*
-         * Initializations This is where the renderer is re-initialized and then
-         * added to the tree. This only needs to be called once for it will
-         * affect the preformance of the program and cause mysterious
-         * exceptions.
-         */
+    private void refreshList() throws XMPPException {
         UserDataWrapper userWrapper = null;
 
         int loopIterationNumber = 0;
         for (ConversationData cd1 : model.getConversations()) {
-            /*
-             * Adding the nodes to the tree This loop is for adding the nodes to
-             * the the tree. And another actions that need to be preformed once
-             * for each node in the tree. NOTE: Please to not put functions into
-             * this loop that only need to be run once. They will cause strange
-             * exceptions.
-             */
         	if(loopIterationNumber > listPane.getNicknameList().size() - 1){
 	            userWrapper = null;
 	            for (UserDataWrapper u : this.users) {
@@ -141,7 +112,6 @@ public class SidePanel extends JPanel implements Observer {
 	            
 	            System.out.println(userWrapper.toString() + " added to the sidepanel");
         	}
-            
         	loopIterationNumber++;
         }
         
@@ -159,13 +129,10 @@ public class SidePanel extends JPanel implements Observer {
     public void update(Observable t, Object o) {
         if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
         		||o == UpdatedType.CHAT_STATE) {
-            // Temporary fix for early update bug
-            if (tree != null) {
-                try {
-                    refreshTree();
-                } catch (XMPPException e) {
-                    e.printStackTrace();
-                }
+        	try {
+                refreshList();
+            } catch (XMPPException e) {
+                e.printStackTrace();
             }
         }
         return;
