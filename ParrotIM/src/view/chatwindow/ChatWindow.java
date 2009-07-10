@@ -69,6 +69,7 @@ public class ChatWindow extends JFrame implements Observer {
 
         getContentPane().add(main);
 
+        setLocation(325, 0);
         pack();
         setVisible(false);
     }
