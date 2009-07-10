@@ -78,7 +78,6 @@ public class SidePanel extends JPanel implements Observer {
         // List preferences
         listPane = new CustomListPane();
         
-        
         this.add(listPane.getWithScroller(), BorderLayout.CENTER);
     }
 

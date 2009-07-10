@@ -68,6 +68,18 @@ public class CustomListPane extends JPanel{
 	}
 	
 	public void addElement(String nickname, ImageIcon img, UserDataWrapper userWrapper, 
+			Color textColor){
+		nicknames.add(nickname);
+		userWrappers.add(userWrapper);
+		
+		boxes[0].add(friendPanel(nickname, img));
+		//boxes[0].getComponent(boxes[0].getComponentCount() - 1)
+		//.addMouseListener(externalListener);
+		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
+				.addMouseListener(new SelectListener());
+	}
+	
+	public void addElement(String nickname, ImageIcon img, UserDataWrapper userWrapper, 
 			MouseListener externalListener){
 		nicknames.add(nickname);
 		userWrappers.add(userWrapper);
