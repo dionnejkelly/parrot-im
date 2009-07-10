@@ -1,3 +1,6 @@
+import java.util.Collection;
+import java.util.List;
+
 import net.kano.joscar.net.ClientConn;
 import net.kano.joscar.net.ClientConnEvent;
 import net.kano.joscar.net.ClientConnListener;
@@ -9,7 +12,14 @@ import net.kano.joustsim.oscar.AimConnectionProperties;
 import net.kano.joustsim.oscar.AimSession;
 import net.kano.joustsim.oscar.AppSession;
 import net.kano.joustsim.oscar.DefaultAimSession;
+import net.kano.joustsim.oscar.OpenedServiceListener;
+import net.kano.joustsim.oscar.oscar.service.Service;
 import net.kano.joustsim.oscar.oscar.service.icbm.IcbmListener;
+import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
+import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
+import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
+import net.kano.joustsim.oscar.oscar.service.ssi.Group;
+import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 
 public class icqConnection {
@@ -43,5 +53,81 @@ public class icqConnection {
         connection = session.openConnection(connectionProperties);
         connection.connect();
 	}
+	private void getBuddyList(){
+		connection.addOpenedServiceListener(new OpenedServiceListener(){
+
+			@Override
+			public void closedServices(AimConnection arg0,
+					Collection<? extends Service> arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void openedServices(AimConnection arg0,
+					Collection<? extends Service> arg1) {
+				for (Service service : arg1) {
+                    if (service instanceof SsiService) {
+                        ((SsiService) service).getBuddyList()
+                        .addRetroactiveLayoutListener(new BuddyListLayoutListener(){
+
+							@Override
+							public void buddiesReordered(BuddyList arg0,
+									Group arg1, List<? extends Buddy> arg2,
+									List<? extends Buddy> arg3) {
+								arg1.getName();
+								
+							}
+
+							@Override
+							public void buddyAdded(BuddyList arg0, Group arg1,
+									List<? extends Buddy> arg2,
+									List<? extends Buddy> arg3, Buddy arg4) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void buddyRemoved(BuddyList arg0,
+									Group arg1, List<? extends Buddy> arg2,
+									List<? extends Buddy> arg3, Buddy arg4) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void groupAdded(BuddyList arg0,
+									List<? extends Group> arg1,
+									List<? extends Group> arg2, Group arg3,
+									List<? extends Buddy> arg4) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void groupRemoved(BuddyList arg0,
+									List<? extends Group> arg1,
+									List<? extends Group> arg2, Group arg3) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void groupsReordered(BuddyList arg0,
+									List<? extends Group> arg1,
+									List<? extends Group> arg2) {
+								// TODO Auto-generated method stub
+								
+							}
+                        	
+                        });
+				
+                    }
+				}
+			}
+		});
+		
+	}
+		
 
 }
