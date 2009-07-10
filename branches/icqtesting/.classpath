@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry exported="true" kind="lib" path="D:/MyFolder/SFU/cmpt 275/jclaim/lib/jsocks-klea.jar"/>
-	<classpathentry kind="lib" path="D:/MyFolder/SFU/EclipseWorkSpace/trunk/dist/joscar-client.jar"/>
-	<classpathentry kind="lib" path="D:/MyFolder/SFU/EclipseWorkSpace/trunk/dist/joscar-common.jar"/>
-	<classpathentry kind="lib" path="D:/MyFolder/SFU/EclipseWorkSpace/trunk/dist/joscar-protocol.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-common.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-protocol.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsocks.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
