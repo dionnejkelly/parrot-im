@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -126,6 +127,9 @@ public class BuddyPanel extends JPanel implements Observer {
 
     private boolean searchEnabled;
 
+    private JButton searchButton;
+    
+    private JButton googleSearchButton;
     /**
      * BuddyPanel , display friend contact list in buddy panel.
      * 
@@ -223,22 +227,29 @@ public class BuddyPanel extends JPanel implements Observer {
                 "/images/buddylist/button_cancel.png")));
         blockF.setToolTipText("Block a friend");
 
-        JButton searchButton = new JButton(new ImageIcon(this.getClass()
+        searchButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching");
-
+        
+        
+        googleSearchButton = new JButton(new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/google_search.png")));
+        googleSearchButton.setToolTipText("Start Googling");
+       
         // add components
         options.add(addF);
         options.add(removeF);
         options.add(blockF);
         options.add(search);
         options.add(searchButton);
+        options.add(googleSearchButton);
 
         addF.addMouseListener(new addFriendListener());
         removeF.addMouseListener(new removeFriendListener());
         blockF.addMouseListener(new blockFriendListener());
         search.addKeyListener(new SearchKeyListener());
         searchButton.addMouseListener(new searchListener());
+        googleSearchButton.addMouseListener(new searchListener());
 
         return options;
     }
@@ -258,9 +269,25 @@ public class BuddyPanel extends JPanel implements Observer {
          */
 
         public void mousePressed(MouseEvent event) {
-
+        	Object source = event.getSource();
+        	
+        	System.out.println("Event = " + event);
             if (search.getText().length() > 0) {
-                chatClient.startConversation(buddies.get(0), true);
+            	
+            	if (source == searchButton) {
+            		chatClient.startConversation(buddies.get(0), true);
+            	}
+            	
+            	else {
+            		HelpPanel googleSearch = new HelpPanel();
+            		try {
+						googleSearch.googlePanel(search.getText());
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+            	}
+                
             }
 
             else {
