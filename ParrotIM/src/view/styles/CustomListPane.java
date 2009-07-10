@@ -31,7 +31,7 @@ public class CustomListPane extends JPanel{
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
-		setPreferredSize(new Dimension(200, 200));
+		//setPreferredSize(new Dimension(200, 200));
 		
 		boxes[0] = Box.createVerticalBox();
 		
