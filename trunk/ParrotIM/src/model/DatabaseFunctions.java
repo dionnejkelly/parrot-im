@@ -128,8 +128,9 @@ public class DatabaseFunctions {
      */
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        conn = DriverManager.getConnection("jdbc:sqlite:"
-                + DatabaseFunctions.getDatabaseName());
+        conn =
+                DriverManager.getConnection("jdbc:sqlite:"
+                        + DatabaseFunctions.getDatabaseName());
         stat = conn.createStatement();
 
         /*
@@ -220,11 +221,12 @@ public class DatabaseFunctions {
         Date date1 = new Date();
         String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
         String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
-        String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(
-                date1);
+        String time =
+                DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
 
-        prep = conn
-                .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -251,25 +253,31 @@ public class DatabaseFunctions {
      * @return A Vector of Strings holding 1 name per String.
      * @throws SQLException
      */
-    public Vector<String> getChatNameList(String profile, String searched) throws SQLException {
+    public Vector<String> getChatNameList(String profile, String searched)
+            throws SQLException {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
-        System.out.println(profile+searched);
+        System.out.println(profile + searched);
         stat = conn.createStatement();
-        r3 = DriverManager.getConnection("jdbc:sqlite:"
-                + DatabaseFunctions.getDatabaseName()).createStatement().executeQuery("select * from people where profile='"+ profile + "';");
+        r3 =
+                DriverManager.getConnection(
+                        "jdbc:sqlite:" + DatabaseFunctions.getDatabaseName())
+                        .createStatement().executeQuery(
+                                "select * from people where profile='"
+                                        + profile + "';");
         while (r3.next()) {
-                profilesAccountList.add(r3.getString("accountName"));
+            profilesAccountList.add(r3.getString("accountName"));
         }
-        rs = stat.executeQuery("select * from chatLog where profile='"
-                + profile + "' AND (message LIKE '%" + searched + "%'" +
-                		" OR fromUser LIKE '%" + searched + "%' OR" +
-                				" toUser LIKE '%" + searched + "%');");
+        rs =
+                stat.executeQuery("select * from chatLog where profile='"
+                        + profile + "' AND (message LIKE '%" + searched + "%'"
+                        + " OR fromUser LIKE '%" + searched + "%' OR"
+                        + " toUser LIKE '%" + searched + "%');");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("toUser"))) {
-            	if (!profilesAccountList.contains(rs.getString("toUser"))) {
-            		accountList.add(rs.getString("toUser"));
-            	}
+                if (!profilesAccountList.contains(rs.getString("toUser"))) {
+                    accountList.add(rs.getString("toUser"));
+                }
             }
         }
         rs.close();
@@ -277,7 +285,6 @@ public class DatabaseFunctions {
 
         return accountList;
     }
-
 
     /**
      * 
@@ -289,11 +296,18 @@ public class DatabaseFunctions {
      * @return A Vector of dates represented as Strings.
      * @throws SQLException
      */
-    public Vector<String> getChatDatesFromName(String profile, String buddyname, String searched)
-            throws SQLException {
+    public Vector<String> getChatDatesFromName(String profile,
+            String buddyname, String searched) throws SQLException {
         Vector<String> accountList = new Vector<String>();
         stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where profile = '"+ profile + "' AND (toUser='" + buddyname + "' OR fromUser='" + buddyname + "') AND (message LIKE '%" + searched + "%' OR fromUser LIKE '%" + searched + "%' OR toUser LIKE '%" + searched + "%') order by timestamp;");
+        rs =
+                stat.executeQuery("select * from chatLog where profile = '"
+                        + profile + "' AND (toUser='" + buddyname
+                        + "' OR fromUser='" + buddyname
+                        + "') AND (message LIKE '%" + searched
+                        + "%' OR fromUser LIKE '%" + searched
+                        + "%' OR toUser LIKE '%" + searched
+                        + "%') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -317,23 +331,27 @@ public class DatabaseFunctions {
      * @throws SQLException
      */
     public ArrayList<ChatLogMessageTempData> getMessageFromDate(
-            String username, String buddyname, String date, String searched) 
+            String username, String buddyname, String date, String searched)
             throws SQLException {
-        ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
+        ArrayList<ChatLogMessageTempData> messageList =
+                new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
 
-        rs = stat.executeQuery("select * from chatLog where (toUser='"
-                + buddyname + "' AND fromUser='" + username + "') OR (toUser='"
-                + username + "' AND fromUser='" + buddyname + "') AND date='"
-                + date + "'AND (message LIKE '%" + searched + "%'" +
-                		" OR fromUser LIKE '%" + searched + "%' OR" +
-                				" toUser LIKE '%" + searched + "%')" +
-                						" order by timestamp;");
+        rs =
+                stat.executeQuery("select * from chatLog where (toUser='"
+                        + buddyname + "' AND fromUser='" + username
+                        + "') OR (toUser='" + username + "' AND fromUser='"
+                        + buddyname + "') AND date='" + date
+                        + "'AND (message LIKE '%" + searched + "%'"
+                        + " OR fromUser LIKE '%" + searched + "%' OR"
+                        + " toUser LIKE '%" + searched + "%')"
+                        + " order by timestamp;");
 
         while (rs.next()) {
-            message = new ChatLogMessageTempData(rs.getString("time"), rs
-                    .getString("fromUser"), rs.getString("toUser"), rs
-                    .getString("message"));
+            message =
+                    new ChatLogMessageTempData(rs.getString("time"), rs
+                            .getString("fromUser"), rs.getString("toUser"), rs
+                            .getString("message"));
             messageList.add(message);
         }
         rs.close();
@@ -429,8 +447,9 @@ public class DatabaseFunctions {
         String password = null;
         boolean defaultProfile = false;
 
-        rs = stat.executeQuery("SELECT * FROM defaultProfile WHERE "
-                + "defaultProfile = 'yes';");
+        rs =
+                stat.executeQuery("SELECT * FROM defaultProfile WHERE "
+                        + "defaultProfile = 'yes';");
 
         if (rs.next()) {
             name = rs.getString("name");
@@ -482,8 +501,9 @@ public class DatabaseFunctions {
     public void addUsers(String profile, String serverType,
             String serverAddress, String accountName, String password)
             throws SQLException {
-        prep = conn
-                .prepareStatement("insert into people values (?, ?, ?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into people values (?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -527,8 +547,9 @@ public class DatabaseFunctions {
             throws ClassNotFoundException, SQLException {
         String password = null;
 
-        rs = stat.executeQuery("select * from people where accountName = '"
-                + accountName + "'");
+        rs =
+                stat.executeQuery("select * from people where accountName = '"
+                        + accountName + "'");
 
         if (rs.next()) {
             password = rs.getString("password");
@@ -572,18 +593,21 @@ public class DatabaseFunctions {
         String password = null;
         String serverAddress = null;
         AccountTempData account = null;
-        ArrayList<AccountTempData> accountList = new ArrayList<AccountTempData>();
+        ArrayList<AccountTempData> accountList =
+                new ArrayList<AccountTempData>();
 
-        rs = stat.executeQuery("SELECT * FROM people WHERE profile = '"
-                + profile + "';");
+        rs =
+                stat.executeQuery("SELECT * FROM people WHERE profile = '"
+                        + profile + "';");
         while (rs.next()) {
             accountName = rs.getString("accountName");
             password = rs.getString("password");
             server = rs.getString("serverType");
             serverAddress = rs.getString("serverAddress");
 
-            account = new AccountTempData(server, serverAddress, accountName,
-                    password);
+            account =
+                    new AccountTempData(server, serverAddress, accountName,
+                            password);
             accountList.add(account);
         }
         rs.close();
@@ -601,8 +625,9 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        rs = stat.executeQuery("select * from people where profile='" + name
-                + "';");
+        rs =
+                stat.executeQuery("select * from people where profile='" + name
+                        + "';");
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
@@ -623,8 +648,9 @@ public class DatabaseFunctions {
             throws SQLException {
         boolean exists = false;
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM people WHERE profile='" + profile
-                + "' and accountName='" + account + "';");
+        rs =
+                stat.executeQuery("SELECT * FROM people WHERE profile='"
+                        + profile + "' and accountName='" + account + "';");
 
         // Only check resultSet once
         if (rs.next()) {
@@ -652,8 +678,10 @@ public class DatabaseFunctions {
         boolean blocked = false;
 
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-                + accountName + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
+                                + accountName + "';");
 
         /* Only check resultSet once */
         while (rs.next()) {
@@ -689,8 +717,9 @@ public class DatabaseFunctions {
             blocked = "no";
         }
 
-        prep = conn
-                .prepareStatement("insert into friendList values (?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into friendList values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, accountName);
@@ -759,8 +788,12 @@ public class DatabaseFunctions {
             throws SQLException {
         boolean exists = false;
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-                + accountName + "' and friendName='" + friendName + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
+                                + accountName
+                                + "' and friendName='"
+                                + friendName + "';");
 
         // Only check resultSet once
         if (rs.next()) {
@@ -770,12 +803,15 @@ public class DatabaseFunctions {
         conn.close();
         return exists;
     }
+
     // Section
     // X - Chatbot Responses
 
-    public void addQuestion(String profile, String question) throws SQLException
-    {
-        prep = conn.prepareStatement("insert into chatBotQuestions values (?, ?, ?);");
+    public void addQuestion(String profile, String question)
+            throws SQLException {
+        prep =
+                conn
+                        .prepareStatement("insert into chatBotQuestions values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -786,9 +822,12 @@ public class DatabaseFunctions {
         conn.commit();
         conn.close();
     }
-    public void addAnswer(String profile, String question, String answer) throws SQLException
-    {
-        prep = conn.prepareStatement("insert into chatBotAnswers values (?, ?, ?);");
+
+    public void addAnswer(String profile, String question, String answer)
+            throws SQLException {
+        prep =
+                conn
+                        .prepareStatement("insert into chatBotAnswers values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -799,25 +838,33 @@ public class DatabaseFunctions {
         conn.commit();
         conn.close();
     }
-    public String getResponse(String profile, String question) throws SQLException
-    {
-    	Vector<String> responseList = new Vector<String>();
+
+    public String getResponse(String profile, String question)
+            throws SQLException {
+        Vector<String> responseList = new Vector<String>();
         int counter = 0;
         int whichResponse = 0;
-        rs = stat.executeQuery("SELECT * FROM chatBotAnswers WHERE profile='" + profile + "'" +
-        		" AND question='" + question + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM chatBotAnswers WHERE profile='"
+                                + profile
+                                + "'"
+                                + " AND question='"
+                                + question
+                                + "';");
 
         // Only check resultSet once
         while (rs.next()) {
             counter++;
             responseList.add(rs.getString("answer"));
-            
+
         }
         whichResponse = new Random().nextInt(counter);
         rs.close();
         conn.close();
         return responseList.get(whichResponse);
     }
+
     public Vector<String> getQuestionList() throws SQLException {
         Vector<String> questionList = new Vector<String>();
         rs = stat.executeQuery("select * from chatBotQuestions;");
@@ -828,6 +875,7 @@ public class DatabaseFunctions {
         conn.close();
         return questionList;
     }
+
     public Vector<String> getAnswersList() throws SQLException {
         Vector<String> answersList = new Vector<String>();
         rs = stat.executeQuery("select * from chatBotAnswers;");
@@ -838,10 +886,12 @@ public class DatabaseFunctions {
         conn.close();
         return answersList;
     }
+
     public Vector<String> getAnswersList(String question) throws SQLException {
         Vector<String> answersList = new Vector<String>();
-        rs = stat.executeQuery("select * from chatBotAnswers " +
-        		"where question='" + question + "';");
+        rs =
+                stat.executeQuery("select * from chatBotAnswers "
+                        + "where question='" + question + "';");
         while (rs.next()) {
             answersList.add(rs.getString("answer"));
         }
@@ -849,54 +899,76 @@ public class DatabaseFunctions {
         conn.close();
         return answersList;
     }
-	// db.addAfter(questions.lastElement(), question);
-	public void addAfter(String beforeQuestion, String afterQuestion) throws SQLException {
-		stat.executeUpdate("update chatBotQuestions set afterQuestion = '" + 
-				afterQuestion + "' where question = '" + beforeQuestion + "';");
-		
-	}
-	public Vector<String> getAllAfterQuestions(String question) throws SQLException {
+
+    // db.addAfter(questions.lastElement(), question);
+    public void addAfter(String beforeQuestion, String afterQuestion)
+            throws SQLException {
+        stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
+                + afterQuestion + "' where question = '" + beforeQuestion
+                + "';");
+
+        conn.close();
+
+        return;
+    }
+
+    public Vector<String> getAllAfterQuestions(String question)
+            throws SQLException {
         Vector<String> questionsList = new Vector<String>();
         questionsList.add(question);
         stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatBotQuestions " +
-        		"where question='" + question + "';");
+        rs =
+                stat.executeQuery("select * from chatBotQuestions "
+                        + "where question='" + question + "';");
         rs.next();
-        while(rs.getString("afterQuestion") != null)
-        {
-        	questionsList.add(rs.getString("afterQuestion"));
-            rs = stat.executeQuery("select * from chatBotQuestions " +
-            		"where question='" + rs.getString("afterQuestion") + "';");
+        while (rs.getString("afterQuestion") != null) {
+            questionsList.add(rs.getString("afterQuestion"));
+            rs =
+                    stat.executeQuery("select * from chatBotQuestions "
+                            + "where question='"
+                            + rs.getString("afterQuestion") + "';");
         }
-		return questionsList;
-	}
-	public void removeChatQuestion(String question) throws SQLException {
-        rs = stat.executeQuery("select * from chatBotQuestions " +
-        		"where question='" + question + "';");
+
+        rs.close();
+        conn.close();
+
+        return questionsList;
+    }
+
+    public void removeChatQuestion(String question) throws SQLException {
+        rs =
+                stat.executeQuery("select * from chatBotQuestions "
+                        + "where question='" + question + "';");
         rs.next();
         String questionAfter = rs.getString("afterQuestion");
         System.out.println("This is the question after: " + questionAfter);
-        rs = stat.executeQuery("select * from chatBotQuestions " +
-        		"where afterQuestion='" + question + "';");
+        rs =
+                stat.executeQuery("select * from chatBotQuestions "
+                        + "where afterQuestion='" + question + "';");
         rs.next();
         String beforeQuestion = rs.getString("question");
         rs.close();
         stat = conn.createStatement();
-        if (questionAfter != null){
+        if (questionAfter != null) {
             System.out.println("bleh meh wuhh?");
-        	stat.executeUpdate("update chatBotQuestions set afterQuestion = '" + 
-				questionAfter + "' where question = '" + beforeQuestion + "';");
+            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
+                    + questionAfter + "' where question = '" + beforeQuestion
+                    + "';");
+        } else {
+            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
+                    + null + "' where question = '" + beforeQuestion + "';");
         }
-        else {
-        	stat.executeUpdate("update chatBotQuestions set afterQuestion = '" + 
-    				null + "' where question = '" + beforeQuestion + "';");
-        }
-		stat = conn.createStatement();
-		stat.executeUpdate("delete from chatBotQuestions where question='" + question + "';");
-		stat = conn.createStatement();
-		stat.executeUpdate("delete from chatBotAnswers where question='" + question + "';");
-	}
-	
-    
+        stat = conn.createStatement();
+        stat.executeUpdate("delete from chatBotQuestions where question='"
+                + question + "';");
+        stat = conn.createStatement();
+        stat.executeUpdate("delete from chatBotAnswers where question='"
+                + question + "';");
+
+        conn.close();
+        rs.close();
+
+        return;
+    }
 
 }

@@ -77,6 +77,7 @@ public class FeaturesPanel extends JPanel {
 
         /* CHATBOT */
         chatbotCheck = new JCheckBox("Enable ChatBot");
+        chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addChangeListener(new chatbotListener());
 
         // chatbot list
@@ -120,10 +121,12 @@ public class FeaturesPanel extends JPanel {
 
         /* SOUND NOTIFICATION */
         soundCheck = new JCheckBox("Enable Sound Notification");
+        soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addChangeListener(new soundListener());
 
         /* CHATLOG */
         chatLogCheck = new JCheckBox("Enable Chat Log");
+        chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addChangeListener(new chatLogListener());
 
         /* CHAT WINDOW HISTORY */
@@ -148,13 +151,16 @@ public class FeaturesPanel extends JPanel {
     }
 
     private class chatbotListener implements ChangeListener {
-
         public void stateChanged(ChangeEvent e) {
-            controller.toggleChatbot();
-            if (chatbotCheck.isSelected())
+            if (chatbotCheck.isSelected()) {
+                model.getCurrentProfile().setChatbotEnabled(true);
                 chatbotOptions.setVisible(true);
-            else
+            } else {
+                model.getCurrentProfile().setChatbotEnabled(false);
                 chatbotOptions.setVisible(false);
+            }
+            
+            return;
         }
     }
 
@@ -254,23 +260,21 @@ public class FeaturesPanel extends JPanel {
     }
 
     private class soundListener implements ChangeListener {
-        // TODO: PLEASE SET THIS
         public void stateChanged(ChangeEvent e) {
             if (soundCheck.isSelected()) {
-                System.out.println("Enables sound");
+                model.getCurrentProfile().setSoundsEnabled(true);
             } else {
-                System.out.println("Disables sound");
+                model.getCurrentProfile().setSoundsEnabled(false);
             }
         }
     }
 
     private class chatLogListener implements ChangeListener {
-        // TODO: PLEASE SET THIS
         public void stateChanged(ChangeEvent e) {
             if (soundCheck.isSelected()) {
-                System.out.println("Enables Chat Log");
+                model.getCurrentProfile().setChatLogEnabled(true);
             } else {
-                System.out.println("Disables Chat Log");
+                model.getCurrentProfile().setChatLogEnabled(false);
             }
 
         }
