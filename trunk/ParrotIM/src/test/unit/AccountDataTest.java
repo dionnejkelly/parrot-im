@@ -15,47 +15,47 @@
 // * License: GNU General Public License version 2.
 // * Full license can be found in ParrotIM/LICENSE.txt.
 // */
+// Will work on that later
+package test.unit;
 //
-//package test.unit;
+import static org.junit.Assert.*;
 //
-//import static org.junit.Assert.*;
+import java.util.ArrayList;
 //
-//import java.util.ArrayList;
+import model.dataType.AccountData;
+import model.dataType.GoogleTalkUserData;
+import model.dataType.UserData;
+import model.enumerations.ServerType;
 //
-//import model.dataType.AccountData;
-//import model.dataType.GoogleTalkUserData;
-//import model.dataType.UserData;
-//import model.enumerations.ServerType;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 //
-//import org.junit.After;
-//import org.junit.Before;
-//import org.junit.Test;
+import controller.services.GoogleTalkManager;
 //
-//import controller.services.GoogleTalkManager;
-//
-//public class AccountDataTest {
-//    private AccountData ad1;
-//    private AccountData ad2;
-//    private AccountData ad3;
-//    private AccountData ad4;
-//    private AccountData ad5;
-//    private AccountData ad6;
+public class AccountDataTest {
+    private AccountData ad1;
+    private AccountData ad2;
+    private AccountData ad3;
+    private AccountData ad4;
+    private AccountData ad5;
+    private AccountData ad6;
 //
 //    @Before
-//    public void setUp() throws Exception {
-//        ad1 = new AccountData("Rakan", "1234");
-//        ad2 = new AccountData("Ross", "abc");
-//        ad3 = new AccountData("Janice", "ohmygod");
-//        ad4 = new AccountData("Joey", "Friends");
-//        ad5 = new AccountData("Peter", "familyguy");
-//    }
+    public void setUp() throws Exception {
+        ad1 = new AccountData("Rakan", "1234");
+        ad2 = new AccountData("Ross", "abc");
+        ad3 = new AccountData("Janice", "ohmygod");
+        ad4 = new AccountData("Joey", "Friends");
+        ad5 = new AccountData("Peter", "familyguy");
+    }
 //
 //    @After
-//    public void tearDown() throws Exception {
-//        ad1 = null;
-//        ad2 = null;
-//        ad3 = null;
-//        ad4 = null;
+    public void tearDown() throws Exception {
+        ad1 = null;
+        ad2 = null;
+        ad3 = null;
+        ad4 = null;
 //        ad5 = null;
 //        ad6 = null;
 //    }
