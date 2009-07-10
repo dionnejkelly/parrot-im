@@ -29,6 +29,8 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatStateManager;
 
+import view.options.MusicPlayer;
+
 import controller.chatbot.Chatbot;
 import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
@@ -74,7 +76,6 @@ public class MainController {
      * 
      * @param model
      */
-    
 
     public MainController(Model model) {
         this.model = model;
@@ -122,19 +123,17 @@ public class MainController {
         // TODO make a more accurate Model.addFriend
 
     }
-    
+
     public String getAccount() {
-    	AccountData account = null; // Should be passed in!!
+        AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
 
         // connection should be found from account!!
         account = model.getCurrentProfile().getAccountData().get(0);
-        
-    	return account.getNickname();
+
+        return account.getNickname();
     }
-    
-   
-    
+
     public void setAvatarPicture(byte[] byeArray) throws XMPPException {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
@@ -144,14 +143,14 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
-        System.out.println("Which connection = " + connection.getServerType().getServerList().get(0));
+        System.out.println("Which connection = "
+                + connection.getServerType().getServerList().get(0));
         connection.setAvatarPicture(byeArray);
 
-  
         // TODO make a more accurate Model.addFriend
 
     }
-    
+
     public void setAvatarPicture(File file) throws XMPPException {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
@@ -161,10 +160,10 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
-        System.out.println("Which connection = " + connection.getServerType().getServerList().get(0));
+        System.out.println("Which connection = "
+                + connection.getServerType().getServerList().get(0));
         connection.setAvatarPicture(file);
 
-  
         // TODO make a more accurate Model.addFriend
 
     }
@@ -178,13 +177,14 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
-        System.out.println("Which connection = " + connection.getServerType().getServerList().get(0));
+        System.out.println("Which connection = "
+                + connection.getServerType().getServerList().get(0));
         connection.setAvatarPicture(url);
 
-  
         // TODO make a more accurate Model.addFriend
 
     }
+
     /**
      * This method actually set presence of the user.
      * 
@@ -258,8 +258,8 @@ public class MainController {
         case TWITTER:
             connection = new TwitterManager(controller);
             account =
-                new TwitterAccountData(userID, password,
-                        (TwitterManager) connection);
+                    new TwitterAccountData(userID, password,
+                            (TwitterManager) connection);
             break;
 
         default:
@@ -359,7 +359,7 @@ public class MainController {
             // connection should be found from account!!
             account = model.getCurrentProfile().getAccountData().get(0);
             connection = account.getConnection();
-            connection.addFriend(userID);            
+            connection.addFriend(userID);
 
             // TODO make a more accurate Model.addFriend
             model.addFriend(account.getServer(), userID);
@@ -544,44 +544,49 @@ public class MainController {
 
     /**
      * changing typing state and send it to friends
-     * @param state numbers that represent different state, it depends on the service
+     * 
+     * @param state
+     *            numbers that represent different state, it depends on the
+     *            service
      */
     public void setTypingState(int state) {
-        
-            try {
-            	if (model.getActiveConversation()!=null){
-            		GenericConnection connection = model.getActiveConversation().getAccount().getConnection();
-    				connection.setTypingState(state, model.getActiveConversation().getUser()
-    						.getUserID());
-            	}
-            	
-			} catch (BadConnectionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return;
-			
-			
+
+        try {
+            if (model.getActiveConversation() != null) {
+                GenericConnection connection =
+                        model.getActiveConversation().getAccount()
+                                .getConnection();
+                connection.setTypingState(state, model.getActiveConversation()
+                        .getUser().getUserID());
+            }
+
+        } catch (BadConnectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (XMPPException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return;
+
     }
-    
+
     /**
      * update typingState in model
      * 
      * @param connection
-     * @param typingState changing to this state
+     * @param typingState
+     *            changing to this state
      * @param fromUserID
      */
-    public void typingStateUpdated(GenericConnection connection, 
-    		TypingStateType typingState, String fromUserID){
-    	AccountData account = null;
+    public void typingStateUpdated(GenericConnection connection,
+            TypingStateType typingState, String fromUserID) {
+        AccountData account = null;
         UserData userToUpdate = null;
         account = model.findAccountByConnection(connection);
-        if (account!=null){
-        	userToUpdate = model.findUserByAccountName(fromUserID);
+        if (account != null) {
+            userToUpdate = model.findUserByAccountName(fromUserID);
         }
         model.setTypingState(userToUpdate, typingState);
 
@@ -685,8 +690,7 @@ public class MainController {
 
         return;
     }
-    
-    
+
     /**
      * 
      * @param userToUpdate
@@ -792,17 +796,6 @@ public class MainController {
         return;
     }
 
-    /**
-     * Toggles through Chatbot.
-     */
-    public void toggleChatbot() {
-        this.model.getCurrentProfile().setChatbotEnabled(
-                this.model.getCurrentProfile().isChatbotEnabled() ? false
-                        : true);
-
-        return;
-    }
-
     // Response methods
 
     public void friendUpdated(GenericConnection connection, String userID) {
@@ -828,6 +821,8 @@ public class MainController {
                         false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
+        MusicPlayer receiveMusic =
+                new MusicPlayer("src/audio/message/receiveMessage.wav", model);
         model.receiveMessage(account, messageData);
 
         // Automatically add chatbot reply, if enabled
@@ -864,7 +859,5 @@ public class MainController {
 
         return;
     }
-    
- 
 
 }

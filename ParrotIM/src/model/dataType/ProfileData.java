@@ -85,10 +85,13 @@ public class ProfileData {
     public ProfileData(String profileName) {
         this.accountData = new ArrayList<AccountData>();
         this.profileName = profileName;
-        this.chatbotEnabled = false;
         this.chatWindowHistoryEnabled = true;
         this.profilePassword = "";
         this.autoSignInEnabled = false;
+        this.guestAccount = false;
+        this.chatLogEnabled = true;
+        this.soundsEnabled = true;
+        this.chatbotEnabled = false;
     }
     
     // Section:
@@ -222,6 +225,13 @@ public class ProfileData {
 
     public void setGuestAccount(boolean guestAccount) {
         this.guestAccount = guestAccount;
+        
+        // Do not allow guests to save chat logs
+        if (guestAccount) {
+            this.chatLogEnabled = false;
+        }
+        
+        return;
     }
 
     public boolean isChatLogEnabled() {
@@ -229,7 +239,15 @@ public class ProfileData {
     }
 
     public void setChatLogEnabled(boolean chatLogEnabled) {
+        
+        // Do not allow guests to save chat logs
+        if (this.guestAccount) {
+            chatLogEnabled = false;
+        }
+        
         this.chatLogEnabled = chatLogEnabled;
+        
+        return;
     }
 
     public boolean isSoundsEnabled() {

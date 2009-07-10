@@ -47,15 +47,18 @@ public class BuddyList extends JFrame {
      * conversations.
      */
     private MainController controller;
-    
+
     private ChatWindow chat;
-    
+
     /**
      * buddy window frame
      */
     protected JFrame buddywindow;
 
+    private JCheckBoxMenuItem chatbotEnabler;
+
     private AccountInfo accountInfo;
+
     /**
      * BuddyList display friend contact list, status, information and
      * conversation.
@@ -64,7 +67,7 @@ public class BuddyList extends JFrame {
      * @param model
      */
     public BuddyList(MainController c, Model model) {
-//    	setLocationRelativeTo(null);
+        // setLocationRelativeTo(null);
         buddywindow = this;
         this.setTitle("Buddy List");
         this.model = model;
@@ -72,7 +75,7 @@ public class BuddyList extends JFrame {
 
         // Create chat window
         this.chat = new ChatWindow(c, model);
-        
+
         this.setMinimumSize(new Dimension(300, 600));
 
         // Attach the top text menu
@@ -94,7 +97,8 @@ public class BuddyList extends JFrame {
         getContentPane().add(buddylistPanel);
         pack();
         setVisible(true);
-        MusicPlayer receiveMusic = new MusicPlayer("src/audio/startup/parrotOpening.wav");
+        MusicPlayer receiveMusic =
+                new MusicPlayer("src/audio/startup/parrotOpening.wav", model);
     }
 
     // Creates top Text Menu
@@ -135,14 +139,13 @@ public class BuddyList extends JFrame {
         viewChatLog.addActionListener(new chatLogListener());
         contactMenu.add(viewChatLog);
 
-        JCheckBoxMenuItem chatbotEnabler = new JCheckBoxMenuItem(
-                "Chatbot Enabled");
+        this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled");
         chatbotEnabler.setMnemonic(KeyEvent.VK_B);
         chatbotEnabler.addActionListener(new ChatbotToggleListener());
         contactMenu.add(chatbotEnabler);
-        
-        JCheckBoxMenuItem chatLogEnabler = new JCheckBoxMenuItem(
-        "Chat Log Enabled");
+
+        JCheckBoxMenuItem chatLogEnabler =
+                new JCheckBoxMenuItem("Chat Log Enabled");
         chatLogEnabler.setMnemonic(KeyEvent.VK_E);
         chatLogEnabler.addActionListener(new ChatLogToggleListener());
         contactMenu.add(chatLogEnabler);
@@ -151,8 +154,8 @@ public class BuddyList extends JFrame {
         optionsMenu = new JMenu("Options");
         optionsMenu.setMnemonic(KeyEvent.VK_O);
         menuBar.add(optionsMenu);
-        JMenuItem optionsItem1 = new JMenuItem("Parrot Preferences",
-                KeyEvent.VK_P);
+        JMenuItem optionsItem1 =
+                new JMenuItem("Parrot Preferences", KeyEvent.VK_P);
         optionsItem1.addActionListener(new optionListener());
         optionsMenu.add(optionsItem1);
 
@@ -212,8 +215,8 @@ public class BuddyList extends JFrame {
         * 
         */
         public void actionPerformed(ActionEvent e) {
-            //new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
-        	new BugReportFrame(model);
+            // new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
+            new BugReportFrame(model);
             return;
         }
     }
@@ -256,12 +259,13 @@ public class BuddyList extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-				new OptionFrame(controller, model, model.getCurrentProfile().getProfileName(), accountInfo);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+                new OptionFrame(controller, model, model.getCurrentProfile()
+                        .getProfileName(), accountInfo);
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
 
             return;
         }
@@ -278,11 +282,12 @@ public class BuddyList extends JFrame {
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
-            controller.toggleChatbot();
+            model.getCurrentProfile().setChatbotEnabled(chatbotEnabler.isSelected());
 
             return;
         }
     }
+
     private class ChatLogToggleListener implements ActionListener {
         /**
          * Listens for the uesr's event.
@@ -290,7 +295,7 @@ public class BuddyList extends JFrame {
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
-            //TODO: PROVIDE THIS!!
+            // TODO: PROVIDE THIS!!
 
             return;
         }
@@ -310,7 +315,7 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
             controller.disconnect();
             buddywindow.dispose();
-            new MusicPlayer("src/audio/exit/parrotExit.wav");
+            new MusicPlayer("src/audio/exit/parrotExit.wav", model);
 
             return;
         }
@@ -335,7 +340,7 @@ public class BuddyList extends JFrame {
             new MainWindow(controller, model);
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();
-            new MusicPlayer("src/audio/exit/parrotExit.wav");
+            new MusicPlayer("src/audio/exit/parrotExit.wav", model);
 
             return;
         }

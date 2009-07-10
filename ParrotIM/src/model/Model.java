@@ -319,14 +319,16 @@ public class Model extends Observable {
 
         String fromUser = message.getFromUser();
 
-        try {
-            db = new DatabaseFunctions();
-            db.addChat(currentProfile.getProfileName(), fromUser, account
-                    .getUserID(), message.getMessage());
-        } catch (Exception e) {
-            System.err.println("Database error. Chat not saved "
-                    + "in the chat log.");
-            e.printStackTrace();
+        if (this.getCurrentProfile().isChatLogEnabled()) {
+            try {
+                db = new DatabaseFunctions();
+                db.addChat(currentProfile.getProfileName(), fromUser, account
+                        .getUserID(), message.getMessage());
+            } catch (Exception e) {
+                System.err.println("Database error. Chat not saved "
+                        + "in the chat log.");
+                e.printStackTrace();
+            }
         }
 
         user = this.findUserByAccountName(fromUser);
@@ -335,14 +337,14 @@ public class Model extends Observable {
         if (modifiedConversation == null) {
             // No match found; create conversation and add it to the
             // list
-        	modifiedConversation = new ConversationData(account, user);
-            
+            modifiedConversation = new ConversationData(account, user);
+
         }
         modifiedConversation.addMessage(message);
         this.chatCollection.addConversation(modifiedConversation);
         setChanged();
         notifyObservers(UpdatedType.CHAT);
-        //notifyObservers(UpdatedType.RECEIVECHAT);
+        // notifyObservers(UpdatedType.RECEIVECHAT);
 
         return;
     }
@@ -362,14 +364,16 @@ public class Model extends Observable {
 
         modifiedConversation.addMessage(message);
 
-        try {
-            db = new DatabaseFunctions();
-            db.addChat(currentProfile.getProfileName(), message.getFromUser(),
-                    modifiedConversation.getUser().getUserID(), message
-                            .getMessage());
-        } catch (Exception e) {
-            System.err.println("Database error, adding chat.");
-            e.printStackTrace();
+        if (this.getCurrentProfile().isChatLogEnabled()) {
+            try {
+                db = new DatabaseFunctions();
+                db.addChat(currentProfile.getProfileName(), message
+                        .getFromUser(), modifiedConversation.getUser()
+                        .getUserID(), message.getMessage());
+            } catch (Exception e) {
+                System.err.println("Database error, adding chat.");
+                e.printStackTrace();
+            }
         }
 
         setChanged();
@@ -410,7 +414,13 @@ public class Model extends Observable {
     }
 
     public void clearAllConversations() {
-        this.chatCollection.hideAllConversations();
+
+        // Determine whether to save chat history or not
+        if (this.getCurrentProfile().isChatWindowHistoryEnabled()) {
+            this.chatCollection.hideAllConversations();
+        } else {
+            this.chatCollection.removeAllConversations();
+        }
 
         setChanged();
         notifyObservers(UpdatedType.CHAT);
@@ -601,7 +611,7 @@ public class Model extends Observable {
     public boolean currentProfileExists() {
         return (currentProfile != null);
     }
-    
+
     /**
      * Force to update.
      * 
@@ -768,10 +778,8 @@ public class Model extends Observable {
             db = new DatabaseFunctions();
             account = this.findAccountByFriend(exFriend);
             friendName = exFriend.getUserID();
-            if (friendName != null
-                    && account != null
-                    && db.checkFriendExists(account.getUserID(),
-                            friendName)) {
+            if (friendName != null && account != null
+                    && db.checkFriendExists(account.getUserID(), friendName)) {
                 db = new DatabaseFunctions();
                 db.removeFriend(account.getUserID(), friendName);
             }
@@ -932,23 +940,24 @@ public class Model extends Observable {
 
         return;
     }
+
     /**
      * Sets if a user is typing and updates the view.
      * 
      * @param friend
      *            UserData representation of the friend to unblock.
      */
-    
-    public void setTypingState(UserData friend, TypingStateType state) {
-    	friend.setTypingState(state);
-    	for (ConversationData cd1 : this.getConversations()){
-    		if(cd1.getUser().getUserID().equals(friend.getUserID())){
-    			break;
-    		}
-    	}
 
-    	super.setChanged();
-    	super.notifyObservers(UpdatedType.CHAT_STATE);
+    public void setTypingState(UserData friend, TypingStateType state) {
+        friend.setTypingState(state);
+        for (ConversationData cd1 : this.getConversations()) {
+            if (cd1.getUser().getUserID().equals(friend.getUserID())) {
+                break;
+            }
+        }
+
+        super.setChanged();
+        super.notifyObservers(UpdatedType.CHAT_STATE);
     }
 
     /**
@@ -1017,7 +1026,6 @@ public class Model extends Observable {
         // user will be returned twice.
         Vector<String> buddies = new Vector<String>();
         DatabaseFunctions db = null;
-        System.out.println(currentProfile.getProfileName());
         db = new DatabaseFunctions();
 
         // Iterates over all accounts, and adds the messages from the

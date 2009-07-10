@@ -457,7 +457,7 @@ public class BuddyPanel extends JPanel implements Observer {
                     && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
                 MusicPlayer addMusic = new MusicPlayer(
-                        "src/audio/buddy/addFriend.wav");
+                        "src/audio/buddy/addFriend.wav", model);
                 JOptionPane.showMessageDialog(null, result);
 
                 // buddies.add(new GoogleTalkUserData(userFriendID));
@@ -675,7 +675,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             MusicPlayer highlightMusic = new MusicPlayer(
-                    "src/audio/buddy/buddyHighlightedSound.wav");
+                    "src/audio/buddy/buddyHighlightedSound.wav", model);
         }
 
         /**
