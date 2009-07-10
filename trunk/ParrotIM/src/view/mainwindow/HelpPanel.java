@@ -23,6 +23,9 @@
 
 package view.mainwindow;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.swing.JPanel;
 /**
  * Sets the GUI component of Help pop up window.
@@ -30,8 +33,11 @@ import javax.swing.JPanel;
  * This class inherits JPanel methods and variables.
  */
 public class HelpPanel extends JPanel{
-	
+	public static final String GOOGLE_URL = "http://www.google.com/custom?client=pub-3922476703716903&forid=1&ie=ISO-8859-1&oe=ISO-8859-1&cof=GALT%3A%23008000%3BGL%3A1%3BDIV%3A%23336699%3BVLC%3A663399%3BAH%3Acenter%3BBGC%3AFFFFFF%3BLBGC%3A336699%3BALC%3A0000FF%3BLC%3A0000FF%3BT%3A000000%3BGFNT%3A0000FF%3BGIMP%3A0000FF%3BFORID%3A1%3B&hl=en&q=";
 	/** SignInPanel constructor. It sets up the panel. */
+	public HelpPanel() {
+		
+	}
 	public HelpPanel(String url) {
 		
 		 String browserPath;
@@ -80,6 +86,30 @@ public class HelpPanel extends JPanel{
 //		frame.setForeground(Color.WHITE);
 	}
 	
+	public void googlePanel(String word) throws UnsupportedEncodingException {
+		 String browserPath;
+		 String osName = System.getProperty("os.name").toLowerCase();
+		 String url = GOOGLE_URL + word;
+		 if(osName.contains("win")){
+			 browserPath = "C:/Program Files/Internet Explorer/IEXPLORE.EXE "; //Use your browser path 
+
+		 } 
+		 else if (osName.contains("mac")){
+			 browserPath = "open -a Safari ";
+		 } else {
+			 System.out.println("Unsupported OS");
+			 return;
+		 }
+		 
+		 try { 	  
+             Runtime.getRuntime().exec(browserPath+url); 
+         } 
+         catch (Exception exc) { 
+        	 exc.printStackTrace(); 
+          } 
+	}
+	
+	
 	
 //	public static String getcwd() { 
 //	    String cwd = System.getProperty("user.dir"); 
@@ -87,28 +117,4 @@ public class HelpPanel extends JPanel{
 //	}
 }
 
-//	class ActivatedHyperlinkListener implements HyperlinkListener {
-//		
-//		JEditorPane editorPane;
-//
-//		public ActivatedHyperlinkListener(JEditorPane editorPane) {
-//			this.editorPane = editorPane;
-//		}
-//
-//		public void hyperlinkUpdate(HyperlinkEvent hyperlinkEvent) {
-//			HyperlinkEvent.EventType type = hyperlinkEvent.getEventType();
-//			final URL url = hyperlinkEvent.getURL();
-//			if (type == HyperlinkEvent.EventType.ENTERED) {
-//				System.out.println("URL: " + url);
-//			} else if (type == HyperlinkEvent.EventType.ACTIVATED) {
-//				System.out.println("Activated");
-//				Document doc = editorPane.getDocument();
-//				try {
-//					editorPane.setPage(url);
-//				} catch (IOException ioException) {
-//					System.out.println("Error following link");
-//					editorPane.setDocument(doc);
-//				}
-//			}
-//	}
-//}
+

@@ -17,5 +17,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/jsocks.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/msnm.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/oscar.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/JOscarLib_0.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
