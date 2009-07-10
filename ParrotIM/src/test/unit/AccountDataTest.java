@@ -46,16 +46,18 @@ public class AccountDataTest {
     private AccountData ad5;
     private AccountData ad6;
 //
-//    @Before
+    @Before
     public void setUp() throws Exception {
-        ad1 = new GoogleTalkAccountData("Rakan", "1234",new GoogleTalkManager(new MainController(new Model())));
-        ad2 = new GoogleTalkAccountData("Ross", "abc",new GoogleTalkManager(new MainController(new Model())));
+    	// Look at equals
+    	GoogleTalkManager e = new GoogleTalkManager(new MainController(new Model()));
+        ad1 = new GoogleTalkAccountData("Rakan", "1234",e);
+        ad2 = new GoogleTalkAccountData("Ross", "abc",e);
         ad3 = new GoogleTalkAccountData("Janice", "ohmygod",new GoogleTalkManager(new MainController(new Model())));
         ad4 = new GoogleTalkAccountData("Joey", "Friends",new GoogleTalkManager(new MainController(new Model())));
         ad5 = new GoogleTalkAccountData("Peter", "familyguy",new GoogleTalkManager(new MainController(new Model())));
     }
 //
-//    @After
+    @After
     public void tearDown() throws Exception {
         ad1 = null;
         ad2 = null;
@@ -64,7 +66,7 @@ public class AccountDataTest {
         ad5 = null;
         ad6 = null;
     }
-
+    @Test
     public void testAccountData() throws ClassNotFoundException, SQLException {
         ad6 = new GoogleTalkAccountData("James", "007",new GoogleTalkManager(new MainController(new Model())));
         assertSame(ServerType.ICQ, ad4.getServer());
@@ -72,7 +74,7 @@ public class AccountDataTest {
         assertSame("007", ad4.getPassword());
     }
 
-////    @Test
+  
     /*
     public void testSetServer() {
         AccountData expected =
@@ -81,14 +83,14 @@ public class AccountDataTest {
         assertSame(expected.getServer(), ad1.getServer());
     }*/
 //
-//    @Test
+    @Test
     public void testGetServer() {
         ServerType expected = ServerType.GOOGLE_TALK;
         assertSame(expected, ad2.getServer());
 
     }
 //
-//    @Test
+    @Test
     public void testSetNickName() throws ClassNotFoundException, SQLException {
         ad2.setNickname("Chandler");
         AccountData expected =
@@ -96,13 +98,13 @@ public class AccountDataTest {
         assertSame(expected.getNickname(), ad2.getNickname());
     }
 
-//    @Test
+    @Test
     public void testGetNickName() {
         String expected = "Ross";
         assertSame(expected, ad2.getNickname());
     }
 //
-//    @Test
+    @Test
     public void testSetPassword() throws ClassNotFoundException, SQLException {
         ad3.setPassword("qwerty");
         AccountData expected =
@@ -110,13 +112,13 @@ public class AccountDataTest {
         assertSame(expected.getPassword(), ad3.getPassword());
     }
 //
-//    @Test
+    @Test
     public void testGetPassword() {
         String expected = "abc";
         assertSame(expected, ad2.getPassword());
     }
 //
-//    @Test
+    @Test
     public void testAddFriend() {
         ArrayList<UserData> expected = new ArrayList<UserData>();
         UserData e = new GoogleTalkUserData("toot", "talal", "Have an exam tommorow",UserStateType.OFFLINE,false);
@@ -126,7 +128,7 @@ public class AccountDataTest {
         // Test this
     }
 
-//    @Test
+    @Test
     public void testRemoveFriend() {
         GoogleTalkUserData e1 =
                 new GoogleTalkUserData("Horton", "tim", "In a coffe shop",UserStateType.AWAY,true);
@@ -135,12 +137,13 @@ public class AccountDataTest {
         ad2.addFriend(e1);
         ad2.addFriend(e2);
         assertTrue(ad2.removeFriend(e2));
+        // Review this
         assertTrue(ad2.removeFriend(new GoogleTalkUserData(
                 "Horton", "tim", "In a coffe shop",UserStateType.AWAY,true)));
 
     }
 //
-//    @Test
+    @Test
     public void testGetFriends() {
         GoogleTalkUserData e1 =
                 new GoogleTalkUserData("Horton", "tim", "Playing ps3",UserStateType.ONLINE,true);
@@ -159,7 +162,7 @@ public class AccountDataTest {
                 .getUserID());
     }
 
-//    @Test
+    @Test
     public void testFriendExists() {
         GoogleTalkUserData expected =
                 new GoogleTalkUserData("expected", "e", "good",UserStateType.OFFLINE,false);
@@ -185,8 +188,8 @@ public class AccountDataTest {
         assertNotSame(expected, ad2.isConnected());
     }
 //*/
-//    @Test
-    /*
+    @Test
+    
     public void testFindFriendByUserID() {
     	// Here an error
         UserData expected =
@@ -195,18 +198,21 @@ public class AccountDataTest {
         assertNotNull(ad4.findFriendByUserID(expected.getUserID()));
         assertFalse(ad4.addFriend(expected));
         assertNotNull(ad4.findFriendByUserID("expected"));
-    }*/
+    }
 
 ////    @Test
     // Something wrong here
-    
+    @Test
     public void testEquals() {
+    	// Maybe because of GoogleTalkManager object
+    	// Look at setup, there is a problem here
         assertTrue(!ad1.equals(ad2));
         ad2.setNickname("Rakan");
         assertTrue(!ad1.equals(ad2));
         ad2.setNickname("Not Rakan!");
         assertTrue(!ad1.equals(ad2));
         ad2.setNickname("Rakan");
+        ad1.setPassword("abc");
         assertTrue(ad1.equals(ad2));
     }
 
