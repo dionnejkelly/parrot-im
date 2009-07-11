@@ -191,6 +191,10 @@ public class SignInPanel extends JPanel implements Observer {
         account_select = new JComboBox(model.getProfileList());
         account_select.addActionListener((new AccountSelectItemListener()));
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
+        
+        //if (model.thereIsDefault)
+        	//account_select.setSelectedIndex(1);
+        
         // connect button
         JPanel connectPanel = new JPanel();
         connectButton = new JButton("Sign In");
