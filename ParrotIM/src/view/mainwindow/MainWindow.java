@@ -52,6 +52,7 @@
 package view.mainwindow;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -77,28 +78,41 @@ public class MainWindow extends JFrame implements Observer {
      * 
      * @param chatClient
      * @param model
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public MainWindow(MainController chatClient, Model model) {
         // set Main Window Frame
 //    	setLocationRelativeTo(null);
-        setTitle("Parrot-IM");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(300, 500));
-        setPreferredSize(new Dimension(300, 500));
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-
-        // call SignIn Panel
-        getContentPane().add(new SignInPanel(this, chatClient, model));
-        
-        pack();
-        setVisible(true);
-
-        // Testing for model observers
-        model.addObserver(this);
+       setFrame( chatClient, model);
     }
 
+    /**
+     * sets the location to be at location
+     * @param chatClient
+     * @param model
+     * @param location
+     * */
+    public MainWindow(MainController chatClient, Model model, Point location) {
+        // set Main Window Frame
+    	this.setLocation(location);
+    	setFrame( chatClient, model);
+    }
+    
+    private void setFrame(MainController chatClient, Model model){
+    	 setTitle("Parrot-IM");
+         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         this.setMinimumSize(new Dimension(300, 500));
+         setPreferredSize(new Dimension(300, 500));
+         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+
+         // call SignIn Panel
+         getContentPane().add(new SignInPanel(this, chatClient, model));
+         
+         pack();
+         setVisible(true);
+
+         // Testing for model observers
+         model.addObserver(this);
+    }
     /**
      * Links the MainWindow with the observer.
      * 
