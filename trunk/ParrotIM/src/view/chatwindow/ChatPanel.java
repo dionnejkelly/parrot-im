@@ -23,6 +23,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import view.styles.PopupWindowListener;
+import view.theme.LookAndFeelManager;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
@@ -83,6 +84,7 @@ public class ChatPanel extends JPanel {
     
     private JFrame emoticonChooser;
 
+    private JMenu themeMenu;
     /**
      * This is the constructor of the ChatPanel.
      * 
@@ -235,6 +237,24 @@ public class ChatPanel extends JPanel {
         pic.setToolTipText("Insert a Picture");
         pic.addActionListener(new pictureListener());
         
+        themeMenu = new JMenu("Themes");
+        themeMenu.setAutoscrolls(true);
+        
+        ImageIcon themeOriginal = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
+        ImageIcon themeMetal = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
+        ImageIcon themeWindows = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
+        ImageIcon themeWindowsClassic = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
+        
+        JMenuItem metalicMenuItem = new JMenuItem("Metalic",themeOriginal);
+        JMenuItem motifMenuItem = new JMenuItem("CDE/Motif",themeMetal);
+        JMenuItem windowsMenuItem = new JMenuItem("Windows",themeWindows);
+        JMenuItem windowsClassicMenuItem = new JMenuItem("Windows Classic",themeWindowsClassic);
+
+        themeMenu.add(metalicMenuItem);
+        themeMenu.add(motifMenuItem);
+        themeMenu.add(windowsMenuItem);
+        themeMenu.add(windowsClassicMenuItem);
+        
         // Text editing toolbar
         JToolBar bar1 = new JToolBar();
         bar1.add(fontSelect);
@@ -246,7 +266,8 @@ public class ChatPanel extends JPanel {
         bar1.add(underlineButton);
         bar1.add(colorButton);
         bar1.add(emoticons);
-        bar1.add(pic);
+        //bar1.add(pic);
+        bar1.add(themeMenu);
 
         // add to editing panel
         editingPanel.add(bar1, BorderLayout.NORTH);
@@ -354,12 +375,18 @@ public class ChatPanel extends JPanel {
          * 
          * @param evt
          */
+    	
+    	private int count = 0;
 
         public void actionPerformed(ActionEvent evt) {
 
-            String resultMessage =
-                    "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
-            JOptionPane.showMessageDialog(null, resultMessage);
+//            String resultMessage =
+//                    "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
+//            JOptionPane.showMessageDialog(null, resultMessage);
+        	
+        	LookAndFeelManager theme = new LookAndFeelManager();
+        	theme.setLookAndFeel(count);
+        	count++;
 
         }
 
