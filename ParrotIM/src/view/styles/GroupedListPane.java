@@ -16,6 +16,12 @@ import javax.swing.JPanel;
 public class GroupedListPane extends JPanel{
 	Box boxes[] = new Box[1];
 	private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
+	private ImageIcon arrowIconUp = new ImageIcon(this.getClass().getResource(
+							"/images/buddylist/up.png"));
+	private ImageIcon arrowIconDown = new ImageIcon(this.getClass().getResource(
+							"/images/buddylist/down.png"));
+	private ArrayList<JLabel> arrows = new ArrayList<JLabel>();
+	JLabel arrowPanel;
 	
 	public GroupedListPane() {
 		setBackground(Color.WHITE);
@@ -30,9 +36,12 @@ public class GroupedListPane extends JPanel{
 	public void addGroup(String name, ImageIcon img){
 		JPanel newPanel = new JPanel();
 		newPanel.setLayout(new BorderLayout());
+		newPanel.setBackground(new Color(25, 220, 110));
 		newPanel.add(new JLabel(img), BorderLayout.WEST);
 		newPanel.add(new JLabel(name), BorderLayout.CENTER);
-		newPanel.setBackground(new Color(25, 220, 110));
+		
+		arrowPanel = new JLabel(arrowIconDown);
+		newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
 		
 		CustomListPane collapsableListPane = new CustomListPane();
 		groups.add(collapsableListPane);
