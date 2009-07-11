@@ -194,14 +194,33 @@ public class BuddyPanel extends JPanel implements Observer {
         buddyListPane.addGroup("     ICQ", icqImage);
         buddyListPane.addGroup("     MSN", msnImage);
         for (int i = 0; i < buddies.size(); i++) {
-            boxes[0].add(FriendItem(buddies.get(i)));
-            buddyListPane.addElement(0, FriendItem(buddies.get(i)));
+        	if(buddies.get(i).getServer().toString().equals("Google Talk")){
+	            boxes[0].add(FriendItem(buddies.get(i)));
+	            buddyListPane.addElement(0, FriendItem(buddies.get(i)));
+        	}else if(buddies.get(i).getServer().toString().equals("Twitter")){
+            	buddyListPane.addElement(1, FriendItem(buddies.get(i)));
+            }
+            /*
+            if(buddies.get(i).getServer().equals("Google Talk")){
+            	buddyListPane.addElement(0, FriendItem(buddies.get(i)));
+            }else if(buddies.get(i).getServer().equals("Twitter")){
+            	buddyListPane.addElement(1, FriendItem(buddies.get(i)));
+            }else{
+            	buddyListPane.addElement(2, FriendItem(buddies.get(i)));
+            }*/
         }
-
-        
         
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
         	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
+        	/*
+        	if(buddies.get(i).getServer().equals("Google Talk")){
+        		buddyListPane.addExternalMouseListener(0, i, new SelectListener());
+            }else if(buddies.get(i).getServer().equals("Twitter")){
+            	buddyListPane.addExternalMouseListener(1, i, new SelectListener());
+            }else{
+            	buddyListPane.addExternalMouseListener(2, i, new SelectListener());
+            }
+        	*/
             boxes[0].getComponent(i).addMouseListener(new SelectListener());
         }
         
@@ -607,7 +626,8 @@ public class BuddyPanel extends JPanel implements Observer {
         buddies = model.getCurrentProfile().getAllFriends();
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
-
+        //buddyListPane.removeAllElements(0);
+        
         // Now check to see if there is a search going on
         if (this.searchEnabled) {
             this.searchBuddies();
