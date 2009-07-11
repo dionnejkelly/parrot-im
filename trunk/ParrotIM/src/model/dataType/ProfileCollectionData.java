@@ -28,4 +28,17 @@ public class ProfileCollectionData {
 
         return;
     }
+    
+    public ProfileData getDefaultProfile() {
+        return this.profiles.size() > 0 ? this.profiles.get(0) : null;
+    }
+    
+    public void setDefaultProfile(ProfileData profile) {
+        if (this.profiles.remove(profile)) {
+            // Move to the front
+            this.profiles.add(0, profile);
+        }
+        
+        return;
+    }
 }

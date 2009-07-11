@@ -303,7 +303,7 @@ public class MainController {
         for (AccountTempData a : accounts) {
             createdAccount =
                     login(a.getServer(), a.getUserID(), a.getPassword());
-            model.addAccountToCurrentProfile(createdAccount);
+            model.getCurrentProfile().addAccount(createdAccount);
         }
 
         return;
@@ -318,7 +318,7 @@ public class MainController {
         model.createCurrentProfile("Guest Profile");
 
         createdAccount = login(server, userID, password, serverAddress);
-        model.addAccountToCurrentProfile(createdAccount);
+        model.getCurrentProfile().addAccount(createdAccount);
 
         return;
     }
@@ -333,7 +333,7 @@ public class MainController {
      * server, and sets the current profile to null.
      */
     public void disconnect() {
-        if (model.currentProfileExists()) {
+        if (model.getCurrentProfile() != null) {
             for (AccountData a : model.getCurrentProfile().getAccountData()) {
                 a.getConnection().disconnect();
             }
