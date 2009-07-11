@@ -57,6 +57,8 @@ public abstract class UserData extends PersonData {
      * The blocked status of the user.
      */
     protected boolean blocked;
+    
+    private static int countOnline = 0;
 
     // Section II
     // Constructors
@@ -227,6 +229,7 @@ public abstract class UserData extends PersonData {
         ArrayList<UserData> friends = new ArrayList<UserData>();
         UserData candidate = null;
 
+        
         // Sort with regard to online/busy/offline/blocked
         try {
             while (!unsorted.isEmpty()) {
@@ -235,6 +238,8 @@ public abstract class UserData extends PersonData {
                         candidate = user;
                     } else if (user.isMoreOnline(candidate)) {
                         candidate = user;
+                        System.out.println("Online user: " + user.getNickname());
+                        countOnline++;
                     } else {
                         // do nothing, next iteration
                     }
@@ -250,6 +255,10 @@ public abstract class UserData extends PersonData {
         }
 
         return friends;
+    }
+    
+    public static int getCountOnline() {
+    	return countOnline;
     }
     
     
