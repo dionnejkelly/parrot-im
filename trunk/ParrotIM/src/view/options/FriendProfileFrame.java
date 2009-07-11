@@ -30,8 +30,8 @@ public class FriendProfileFrame extends JFrame{
 		JPanel avatarPanel = new JPanel();
 		avatarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
 		avatarPanel.setLayout(new BorderLayout());
-		avatarPanel.add(new AvatarLabel
-				(getClass().getClassLoader().getResource("images/buddylist/logoBox.png")), BorderLayout.NORTH);
+		avatarPanel.add(new AvatarLabel (getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString()), 
+				BorderLayout.NORTH);
 		
 		//set left layout
 		JPanel leftLayout = new JPanel();

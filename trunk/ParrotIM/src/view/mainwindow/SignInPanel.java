@@ -144,6 +144,8 @@ public class SignInPanel extends JPanel implements Observer {
 
     private JButton connectButton;
     
+    private int lastSelectedIndex;
+    
     /**
      * SignInPanel constructor.It takes a Model, MainController, and MainWindow
      * object as arguments. It sets up the panel.
@@ -382,7 +384,7 @@ public class SignInPanel extends JPanel implements Observer {
     	
     }
 	private class AccountSelectItemListener implements ActionListener{
-		private int lastSelectedIndex;
+		
 		public AccountSelectItemListener(){
 			lastSelectedIndex = account_select.getSelectedIndex();
 		}
@@ -390,10 +392,9 @@ public class SignInPanel extends JPanel implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			int selectedIndex = account_select.getSelectedIndex();
 			if (selectedIndex>0 && lastSelectedIndex != selectedIndex){
-				lastSelectedIndex = selectedIndex;
 				System.out.println("Checking...");
 				new SimplifiedPasswordPrompt(account_select.getSelectedItem().toString());
-			} else {
+			} else if (selectedIndex <=0 ){
 				manageAccount.setEnabled(false);
 				removeProfile.setEnabled(false);
 				connectButton.setEnabled(false);
@@ -470,6 +471,7 @@ public class SignInPanel extends JPanel implements Observer {
 
 			public void actionPerformed(ActionEvent e) {
 				account_select.setSelectedIndex(0);
+				lastSelectedIndex = 0;
 				passwordFrame.dispose();
 			}
 		}
@@ -481,6 +483,7 @@ public class SignInPanel extends JPanel implements Observer {
 				
 				
 					System.out.println("password is correct");
+					lastSelectedIndex = account_select.getSelectedIndex();
 					passwordFrame.dispose();
 					manageAccount.setEnabled(true);
 				    removeProfile.setEnabled(true);
