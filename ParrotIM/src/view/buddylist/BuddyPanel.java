@@ -237,8 +237,8 @@ public class BuddyPanel extends JPanel implements Observer {
 	            boxes[0].add(FriendItem(buddies.get(i)));
 	            buddyListPane.addElement(0, FriendItem(buddies.get(i)));
         	}else if(buddies.get(i).getServer().toString().equals("Twitter")){
-        		boxes[1].add(FriendItem(buddies.get(i)));
-            	buddyListPane.addElement(1, FriendItem(buddies.get(i)));
+	        	boxes[1].add(FriendItem(buddies.get(i)));
+	            buddyListPane.addElement(1, FriendItem(buddies.get(i)));
             }
         }
         
@@ -716,6 +716,8 @@ public class BuddyPanel extends JPanel implements Observer {
                         .setBackground(new Color(145, 200, 200));
 
             }
+            
+            listRepopulate();
             //refreshBuddyList(); // automatically factors in the search
 
             return;
