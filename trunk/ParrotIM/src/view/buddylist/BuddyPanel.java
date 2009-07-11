@@ -269,13 +269,6 @@ public class BuddyPanel extends JPanel implements Observer {
      * listener for the search button
      */
     class searchListener extends MouseAdapter {
-
-        /**
-         * Listens for the uesr's event.
-         * 
-         * @param e
-         */
-
         public void mousePressed(MouseEvent event) {
         	Object source = event.getSource();
         	
@@ -295,9 +288,7 @@ public class BuddyPanel extends JPanel implements Observer {
 						e.printStackTrace();
 					}
             	}
-                
             }
-
             else {
                 String resultMessage = "Please provide a key word in the search field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
@@ -310,13 +301,6 @@ public class BuddyPanel extends JPanel implements Observer {
      * listener for the block button block a buddy when event occurs
      */
     class blockFriendListener extends MouseAdapter {
-
-        /**
-         * Listens for the uesr's event.
-         * 
-         * @param e
-         */
-
         public void mousePressed(MouseEvent event) {
 
             BlockManager blockedUser = new BlockManager(chatClient, model);
@@ -331,40 +315,8 @@ public class BuddyPanel extends JPanel implements Observer {
      * 
      */
     class RightClickMenuBlockFriendListener extends MouseAdapter {
-
-        /**
-         * Listens for the uesr's event.
-         * 
-         * @param e
-         */
-
         public void mousePressed(MouseEvent event) {
             chatClient.blockFriend(selectedFriend);
-
-            // buddies.remove(selectedFriend);
-
-            /*
-             * boxes[0].removeAll();
-             * 
-             * for (int i = 0; i < buddies.size(); i++) {
-             * boxes[0].add(FriendItem(buddies.get(i))); }
-             * 
-             * for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-             * boxes[0].getComponent(i).addMouseListener(new SelectListener());
-             * // System.out.println("What is contained the box? " + //
-             * boxes[0].getComponent(i)); }
-             * 
-             * friendList.updateUI();
-             * 
-             * // model.getBannedAccountList().add(selectedFriend.toString());
-             * bannedAccountList.setBannedUserList(selectedFriend.toString());
-             * try { for (int i = 0; i < bannedAccountList.getBannedUserList()
-             * .size(); i++) { System.out.println("Banned users = " +
-             * bannedAccountList.getBannedUserList().get(i));
-             * 
-             * } } catch (SQLException e) { // TODO Auto-generated catch block
-             * e.printStackTrace(); }
-             */
         }
     }
 
@@ -373,13 +325,6 @@ public class BuddyPanel extends JPanel implements Observer {
      * 
      */
     class RightClickMenuRemoveFriendListener extends MouseAdapter {
-
-        /**
-         * Listens for the uesr's event.
-         * 
-         * @param e
-         */
-
         public void mousePressed(MouseEvent event) {
             chatClient.removeFriend(selectedFriend);
 
@@ -389,9 +334,11 @@ public class BuddyPanel extends JPanel implements Observer {
 
             buddies.remove(selectedFriend);
             boxes[0].removeAll();
+            buddyListPane.removeAllElements(0);
 
             for (int i = 0; i < buddies.size(); i++) {
                 boxes[0].add(FriendItem(buddies.get(i)));
+                buddyListPane.addElement(0, FriendItem(buddies.get(i)));
             }
 
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
@@ -408,13 +355,6 @@ public class BuddyPanel extends JPanel implements Observer {
      * 
      */
     class removeFriendListener extends MouseAdapter {
-
-        /**
-         * Listens for the uesr's event.
-         * 
-         * @param e
-         */
-
         public void mousePressed(MouseEvent event) {
 
             if (selectedFriend != null) {
@@ -422,8 +362,10 @@ public class BuddyPanel extends JPanel implements Observer {
 
                 buddies.remove(selectedFriend);
                 boxes[0].removeAll();
+                buddyListPane.removeAllElements(0);
 
                 for (int i = 0; i < buddies.size(); i++) {
+                	buddyListPane.addElement(0, FriendItem(buddies.get(i)));
                     boxes[0].add(FriendItem(buddies.get(i)));
                 }
 
@@ -616,6 +558,7 @@ public class BuddyPanel extends JPanel implements Observer {
         }
 
         for (int i = 0; i < buddies.size(); i++) {
+        	buddyListPane.addElement(0, FriendItem(buddies.get(i)));
             boxes[0].add(FriendItem(buddies.get(i)));
         }
 
@@ -649,23 +592,14 @@ public class BuddyPanel extends JPanel implements Observer {
          * mouseClicked to unhighlight the last selected
          */
         public void mouseClicked(MouseEvent event) {
-            if (lastSelectedListener != null) { // unhighlight the last selected
-                lastSelectedListener.whiteBackground(event);
-            }
-
             // FriendItems
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-
-                if (event.getSource().equals(boxes[0].getComponent(i)) || 
-                		event.getSource().equals(buddyListPane.getComponent(0, i))) {
+                if (event.getSource().equals(buddyListPane.getComponent(0, i))) {
                     if (event.getButton() == event.BUTTON1) {
-                        selected = true;
+                    	// Left Click
+                    	selected = true;
                         lastSelectedListener = this;
-
-                        // Left Click
-                        boxes[0].getComponent(i).setBackground(
-                                new Color(145, 200, 200));
-
+                       
                         /* Fix this to directly reference the GUI */
                         selectedFriend = buddies.get(i);
 
@@ -673,14 +607,12 @@ public class BuddyPanel extends JPanel implements Observer {
                             selected = false;
                             chatClient.startConversation(selectedFriend, true);
                         }
-                    } else if (event.getSource().equals(boxes[0].getComponent(i)) || 
-                    		event.getSource().equals(buddyListPane.getComponent(0, i))) {
+                    } else if (event.getSource().equals(buddyListPane.getComponent(0, i))) {
                         // Right Click
-                        boxes[0].getComponent(i).setBackground(
-                                new Color(145, 200, 200));
                         rightClickMenu.show(buddyListPane.getComponent(0, 1),//boxes[0].getComponent(i), event
                                 event.getX(), event.getY());
-                        selectedName = buddyListPane.getComponent(0, 1).getName();//boxes[0].getComponent(i).getName();
+                        System.out.println("X:" + event.getX() + " Y:" + event.getY());
+                        selectedName = buddyListPane.getComponent(0, 1).getName(); //boxes[0].getComponent(i).getName();
                         selectedFriend = buddies.get(i);
                     }
                 }
@@ -690,66 +622,11 @@ public class BuddyPanel extends JPanel implements Observer {
                     "src/audio/buddy/buddyHighlightedSound.wav", model);
         }
 
-        /**
-         * change background to color when mouse Entered
-         */
-        public void mouseEntered(MouseEvent event) {
-            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                if (event.getSource().equals(boxes[0].getComponent(i))) {
-                    boxes[0].getComponent(i).setBackground(
-                            new Color(225, 247, 247));
-                }
-            }
-        }
-
-        /**
-         * change background to white when mouse Exited
-         */
-        public void mouseExited(MouseEvent event) {
-            Color c;
-            if (selected) {
-                c = new Color(145, 200, 200);
-                lastSelectedSource = event.getSource();
-            } else {
-                c = Color.WHITE;
-            }
-
-            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                if (event.getSource().equals(boxes[0].getComponent(i))) {
-                    boxes[0].getComponent(i).setBackground(c);
-                }
-            }
-        }
-
-        /**
-         * set Background white if last select source is not null
-         * 
-         * @param event
-         */
-        public void whiteBackground(MouseEvent event) {
-            selected = false;
-            if (lastSelectedSource == null)
-                return;
-            else {
-                for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                    if (lastSelectedSource.equals(boxes[0].getComponent(i))) {
-                        boxes[0].getComponent(i).setBackground(Color.WHITE);
-                    }
-                }
-            }
-        }
-
-        /**
-         * mouse Pressed
-         */
-        public void mousePressed(MouseEvent e) {
-        }
-
-        /**
-         * mouse Released
-         */
-        public void mouseReleased(MouseEvent e) {
-        }
+        // unimplemented mouselistener methods
+        public void mouseEntered(MouseEvent event) {}
+        public void mouseExited(MouseEvent event) {}
+        public void mousePressed(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {}
     }
 
     /**
