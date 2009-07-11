@@ -27,17 +27,14 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 
 import view.buddylist.AccountInfo;
-import view.styles.StatusCombo;
 
 import model.Model;
 
 import controller.MainController;
 
 public class OptionPanel extends JPanel{
-	protected JTextArea personalMessage;
 	
 	public OptionPanel(MainController c, Model model, JFrame mainframe, String profileName, AccountInfo accInfo) 
 									throws ClassNotFoundException, SQLException{
@@ -46,7 +43,6 @@ public class OptionPanel extends JPanel{
 		//tabbed options
 		JTabbedPane tabbedOptions = new JTabbedPane(JTabbedPane.TOP);
 		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
-		personalMessage = personalProfile.personalMessage;
 		tabbedOptions.addTab("Personal Profile", personalProfile);
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c, profileName));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, mainframe, model));
