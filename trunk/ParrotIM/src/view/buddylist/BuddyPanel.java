@@ -610,7 +610,7 @@ public class BuddyPanel extends JPanel implements Observer {
                     } else if (event.getSource().equals(buddyListPane.getComponent(0, i))) {
                         // Right Click
                         rightClickMenu.show(buddyListPane.getComponent(0, 1),//boxes[0].getComponent(i), event
-                                event.getX(), event.getY());
+                                event.getX(), event.getY() + 20*i);
                         System.out.println("X:" + event.getX() + " Y:" + event.getY());
                         selectedName = buddyListPane.getComponent(0, 1).getName(); //boxes[0].getComponent(i).getName();
                         selectedFriend = buddies.get(i);
