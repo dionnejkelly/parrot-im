@@ -22,6 +22,7 @@
 package view.options;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -97,7 +98,9 @@ public class PersonalProfileTab extends JPanel {
         pmScroll.setPreferredSize(new Dimension(pmScroll.getWidth(), 150));
 		JPanel pmPanel = new JPanel();
 		pmPanel.setLayout(new BorderLayout());
-		pmPanel.add (new JLabel("Personal Message:"), BorderLayout.NORTH);
+		JLabel personalMessage = new JLabel("Personal Message:");
+		personalMessage.setForeground(Color.pink.darker());
+		pmPanel.add (personalMessage, BorderLayout.NORTH);
 		pmPanel.add (pmScroll, BorderLayout.CENTER);
         
         //status
@@ -108,7 +111,9 @@ public class PersonalProfileTab extends JPanel {
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
-        statusPanel.add(new JLabel("Status: "));
+        JLabel personalStatus = new JLabel("Status: ");
+        personalStatus.setForeground(Color.pink.darker());
+        statusPanel.add(personalStatus);
         statusPanel.add(status);
         
         //set top right layout

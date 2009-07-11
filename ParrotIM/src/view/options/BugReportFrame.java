@@ -65,7 +65,6 @@ public class BugReportFrame extends JFrame{
 	private JComboBox frequency;
 	
 	
-	
 	/**
 	 * if edit is true, use for adding a new Q/A
 	 * if edit is false, use for editing the existing data
@@ -82,10 +81,14 @@ public class BugReportFrame extends JFrame{
 		setResizable(false);
 		setLocationRelativeTo(null);
 
+		
+		
+		
 		pack();
 		getContentPane().add(mainPanel);
 		setVisible(true);
 		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+		this.setLocation(600 ,200);
 		
 	}
 	
