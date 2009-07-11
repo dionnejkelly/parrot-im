@@ -31,7 +31,6 @@ import javax.swing.SwingConstants;
 import view.styles.PopupEnableMainWindowListener;
 
 import model.Model;
-import model.enumerations.PopupEnableWindowType;
 
 /**
  * The container frame of About ParrotIM Window. User can view the details about
@@ -52,8 +51,7 @@ public class AboutFrame extends JFrame {
     public AboutFrame(Model model) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
-        this.addWindowListener(new PopupEnableMainWindowListener(
-                model, PopupEnableWindowType.ABOUT));
+        this.addWindowListener(new PopupEnableMainWindowListener(model));
         this.setTitle("About ParrotIM");
         this.setPreferredSize(new Dimension(300, 500));
         this.setResizable(false);

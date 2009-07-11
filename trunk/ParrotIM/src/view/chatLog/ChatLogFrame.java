@@ -33,7 +33,6 @@ import javax.swing.JFrame;
 import view.styles.PopupEnableMainWindowListener;
 
 import model.Model;
-import model.enumerations.PopupEnableWindowType;
 
 /**
  * The container frame of ChatLogPanel.
@@ -61,7 +60,6 @@ public class ChatLogFrame extends JFrame {
         this.setMinimumSize(new Dimension(400, 300));
         this.pack();
         this.setVisible(true); // might want to change this
-        this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.CHATLOG));
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
     
