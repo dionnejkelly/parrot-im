@@ -173,7 +173,10 @@ public class BuddyPanel extends JPanel implements Observer {
         
         // add friends to the buddy list
         boxes[0] = Box.createVerticalBox();
-        buddyListPane.addGroup("GoogleTalk");
+        
+        ImageIcon googleTalkImage = new ImageIcon(this.getClass().getResource(
+			"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png"));
+        buddyListPane.addGroup("     GoogleTalk", googleTalkImage);
         for (int i = 0; i < buddies.size(); i++) {
             boxes[0].add(FriendItem(buddies.get(i)));
             buddyListPane.addElement(0, FriendItem(buddies.get(i)));
