@@ -39,6 +39,8 @@ import controller.MainController;
 import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
 import view.options.MusicPlayer;
+import view.styles.CustomListPane;
+import view.styles.GroupedListPane;
 import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
 
@@ -100,6 +102,9 @@ public class BuddyPanel extends JPanel implements Observer {
      * box to store friend list
      */
     Box boxes[] = new Box[1];
+    
+    GroupedListPane buddyListPane = new GroupedListPane();
+    
     /**
      * selected name
      */
@@ -162,17 +167,21 @@ public class BuddyPanel extends JPanel implements Observer {
         buddies = model.getCurrentProfile().getAllFriends();
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
-
+        
         // add friends to the buddy list
         boxes[0] = Box.createVerticalBox();
+        buddyListPane.addGroup("GoogleTalk");
         for (int i = 0; i < buddies.size(); i++) {
             boxes[0].add(FriendItem(buddies.get(i)));
+            buddyListPane.addElement(0, FriendItem(buddies.get(i)));
         }
 
+        
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+        	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
             boxes[0].getComponent(i).addMouseListener(new SelectListener());
         }
-
+        
         // rightclick menu
         rightClickMenu = new JPopupMenu();
         menuItem1 = new JMenuItem("Start New Conversation");
@@ -194,8 +203,8 @@ public class BuddyPanel extends JPanel implements Observer {
         rightClickMenu.addSeparator();
         rightClickMenu.add(menuItem5);
 
-        friendList.add(boxes[0], BorderLayout.NORTH);
-        JScrollPane scroller = new JScrollPane(friendList);
+        //friendList.add(boxes[0], BorderLayout.NORTH);
+        JScrollPane scroller = new JScrollPane(buddyListPane);
         scroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         options = OptionsBar();
@@ -230,7 +239,6 @@ public class BuddyPanel extends JPanel implements Observer {
         searchButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching");
-        
         
         googleSearchButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/google_search.png")));
@@ -387,6 +395,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+            	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
                 boxes[0].getComponent(i).addMouseListener(new SelectListener());
             }
 
@@ -421,6 +430,7 @@ public class BuddyPanel extends JPanel implements Observer {
                 for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                     boxes[0].getComponent(i).addMouseListener(
                             new SelectListener());
+                    buddyListPane.addExternalMouseListener(0, i, new SelectListener());
                 }
 
                 friendList.updateUI();
@@ -610,6 +620,7 @@ public class BuddyPanel extends JPanel implements Observer {
         }
 
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+        	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
             boxes[0].getComponent(i).addMouseListener(new SelectListener());
         }
         friendList.updateUI();
@@ -645,7 +656,8 @@ public class BuddyPanel extends JPanel implements Observer {
             // FriendItems
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
 
-                if (event.getSource().equals(boxes[0].getComponent(i))) {
+                if (event.getSource().equals(boxes[0].getComponent(i)) || 
+                		event.getSource().equals(buddyListPane.getComponent(0, i))) {
                     if (event.getButton() == event.BUTTON1) {
                         selected = true;
                         lastSelectedListener = this;
@@ -661,14 +673,14 @@ public class BuddyPanel extends JPanel implements Observer {
                             selected = false;
                             chatClient.startConversation(selectedFriend, true);
                         }
-                    } else if (event.getSource().equals(
-                            boxes[0].getComponent(i))) {
+                    } else if (event.getSource().equals(boxes[0].getComponent(i)) || 
+                    		event.getSource().equals(buddyListPane.getComponent(0, i))) {
                         // Right Click
                         boxes[0].getComponent(i).setBackground(
                                 new Color(145, 200, 200));
-                        rightClickMenu.show(boxes[0].getComponent(i), event
-                                .getX(), event.getY());
-                        selectedName = boxes[0].getComponent(i).getName();
+                        rightClickMenu.show(buddyListPane.getComponent(0, 1),//boxes[0].getComponent(i), event
+                                event.getX(), event.getY());
+                        selectedName = buddyListPane.getComponent(0, 1).getName();//boxes[0].getComponent(i).getName();
                         selectedFriend = buddies.get(i);
                     }
                 }
