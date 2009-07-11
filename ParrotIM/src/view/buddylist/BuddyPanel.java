@@ -9,6 +9,7 @@ package view.buddylist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -33,6 +34,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
+
+import org.jivesoftware.smack.XMPPException;
 
 import controller.MainController;
 
@@ -515,7 +518,18 @@ public class BuddyPanel extends JPanel implements Observer {
                     + user.getStatus() + " (" + user.getState() + ")");
             friendName.setForeground(Color.RED.darker());
         }
-
+        
+        try {
+			ImageIcon avatarImage = chatClient.getAvatarPicture(user.getUserID());
+			Image img = avatarImage.getImage();
+			img = img.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH);
+			ImageIcon newIcon = new ImageIcon(img);
+			friendItem.add(new JLabel(newIcon), BorderLayout.WEST);
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        /*
         if(server == "Google Talk"){
         	if(user.getState() == UserStateType.ONLINE){
         		friendItem.add(new JLabel(new ImageIcon(this.getClass().getResource(
@@ -530,6 +544,8 @@ public class BuddyPanel extends JPanel implements Observer {
         }else{
         	friendName.setText(server + friendName.getText());
         }
+        */
+        
         friendItem.add(friendName, BorderLayout.CENTER);
         // friendItem.add(friendStatus,BorderLayout.CENTER);
 
@@ -609,10 +625,9 @@ public class BuddyPanel extends JPanel implements Observer {
                         }
                     } else if (event.getSource().equals(buddyListPane.getComponent(0, i))) {
                         // Right Click
-                        rightClickMenu.show(buddyListPane.getComponent(0, 1),//boxes[0].getComponent(i),
-                                event.getX(), event.getY() + 20*i);
-                        System.out.println("X:" + event.getX() + " Y:" + event.getY());
-                        selectedName = buddyListPane.getComponent(0, 1).getName(); //boxes[0].getComponent(i).getName();
+                        rightClickMenu.show(buddyListPane.getComponent(0, 1),
+                                event.getX(), event.getY() + 25*i);
+                        selectedName = buddyListPane.getComponent(0, 1).getName();
                         selectedFriend = buddies.get(i);
                     }
                 }

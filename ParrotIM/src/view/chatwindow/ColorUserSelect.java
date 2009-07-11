@@ -74,7 +74,6 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     
     /**
      * This is the constructor of the ColorUserSelect.
-     * 
      */
     
     public ColorUserSelect(JFrame frame, JButton colorButton) {
