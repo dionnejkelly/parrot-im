@@ -70,6 +70,10 @@ public class GroupedListPane extends JPanel{
 		return groups.get(group).boxes[0].getComponent(componentIndex);
 	}
 	
+	public void removeAllElements(int group){
+		groups.get(group).removeAllElements();
+	}
+	
 	private void setGroupVisible(int group, boolean visible){
 		groups.get(group).setVisible(visible);
 	}
