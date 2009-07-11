@@ -32,7 +32,7 @@ public class GroupedListPane extends JPanel{
 		newPanel.setLayout(new BorderLayout());
 		newPanel.add(new JLabel(img), BorderLayout.WEST);
 		newPanel.add(new JLabel(name), BorderLayout.CENTER);
-		newPanel.setBackground(Color.green.brighter());
+		newPanel.setBackground(new Color(25, 220, 110));
 		
 		CustomListPane collapsableListPane = new CustomListPane();
 		groups.add(collapsableListPane);
