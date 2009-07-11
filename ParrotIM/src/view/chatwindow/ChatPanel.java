@@ -23,7 +23,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import view.styles.PopupWindowListener;
-import view.theme.LookAndFeelManager;
+//import view.theme.LookAndFeelManager;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
@@ -84,7 +84,7 @@ public class ChatPanel extends JPanel {
     
     private JFrame emoticonChooser;
 
-    private JMenu themeMenu;
+    private JButton themeMenu;
     /**
      * This is the constructor of the ChatPanel.
      * 
@@ -137,7 +137,7 @@ public class ChatPanel extends JPanel {
         JScrollPane chatInputWindowScroller = new JScrollPane(txt1);
         chatInputWindowScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
-        sendButton = new JButton("SEND");
+        sendButton = new JButton("Send");
         sendButton.addActionListener(new SendButtonPressed());
         // displayPanel.addMessage(incoming messages); //TODO
 
@@ -237,23 +237,9 @@ public class ChatPanel extends JPanel {
         pic.setToolTipText("Insert a Picture");
         pic.addActionListener(new pictureListener());
         
-        themeMenu = new JMenu("Themes");
-        themeMenu.setAutoscrolls(true);
-        
-        ImageIcon themeOriginal = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
-        ImageIcon themeMetal = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
-        ImageIcon themeWindows = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
-        ImageIcon themeWindowsClassic = new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"));
-        
-        JMenuItem metalicMenuItem = new JMenuItem("Metalic",themeOriginal);
-        JMenuItem motifMenuItem = new JMenuItem("CDE/Motif",themeMetal);
-        JMenuItem windowsMenuItem = new JMenuItem("Windows",themeWindows);
-        JMenuItem windowsClassicMenuItem = new JMenuItem("Windows Classic",themeWindowsClassic);
-
-        themeMenu.add(metalicMenuItem);
-        themeMenu.add(motifMenuItem);
-        themeMenu.add(windowsMenuItem);
-        themeMenu.add(windowsClassicMenuItem);
+        themeMenu = new JButton("Themes");
+        themeMenu.addActionListener(new ThemeMenuActionListener());
+//        themeMenu.setAutoscrolls(true);
         
         // Text editing toolbar
         JToolBar bar1 = new JToolBar();
@@ -384,8 +370,8 @@ public class ChatPanel extends JPanel {
 //                    "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
 //            JOptionPane.showMessageDialog(null, resultMessage);
         	
-        	LookAndFeelManager theme = new LookAndFeelManager();
-        	theme.setLookAndFeel(count);
+//        	LookAndFeelManager theme = new LookAndFeelManager();
+//        	theme.setLookAndFeel(count);
         	count++;
 
         }
@@ -590,6 +576,25 @@ public class ChatPanel extends JPanel {
 			}
 			
 			
+		}
+    	
+    }
+    
+    private class ThemeMenuActionListener implements ActionListener{
+    	private ThemeOptionsFrame themeOptions = null;
+    	
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (themeOptions == null){
+				System.out.println(themeMenu.getLocation());
+				themeOptions = new ThemeOptionsFrame();
+				themeOptions.setLocationRelativeTo(themeMenu);
+				Point location = themeOptions.getLocation();
+				themeOptions.setLocation(location.x, location.y - (themeOptions.HEIGHT/2));
+			} else {
+				themeOptions.dispose();
+				themeOptions = null;
+			}
 		}
     	
     }
