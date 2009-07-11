@@ -84,6 +84,7 @@ public class CustomSplitPane extends JPanel {
 		
 		System.out.println("Right");
 		resizeButton.setIcon(leftArrow);
+		
 	}
 	
 	public boolean isMaximized(){

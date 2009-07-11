@@ -185,7 +185,7 @@ public class BuddyPanel extends JPanel implements Observer {
         ImageIcon msnImage = new ImageIcon(this.getClass().getResource(
 			"/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png"));
         
-        buddyListPane.addGroup("     GoogleTalk", googleTalkImage);
+        buddyListPane.addGroup("     GoogleTalk     " + UserData.getCountOnline()+ "/" + buddies.size(), googleTalkImage);
         buddyListPane.addGroup("     AIM", aimImage);
         buddyListPane.addGroup("     Jabber", jabberImage);
         buddyListPane.addGroup("     ICQ", icqImage);
@@ -195,6 +195,7 @@ public class BuddyPanel extends JPanel implements Observer {
             buddyListPane.addElement(0, FriendItem(buddies.get(i)));
         }
 
+        
         
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
         	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
