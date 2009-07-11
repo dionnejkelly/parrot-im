@@ -132,7 +132,8 @@ public class AccountInfo extends JPanel
 		setLayout(new BorderLayout());
 		
 		//user diplay picture
-		avatarDisplay = new AvatarLabel(chatClient,getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+		avatarDisplay = new AvatarLabel(chatClient,
+				getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString());
 		
 		//name, status message (personal message) and status
 		JPanel textInfo = new JPanel();

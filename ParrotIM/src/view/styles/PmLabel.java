@@ -98,7 +98,7 @@ public class PmLabel extends JTextField {
             this.setForeground(Color.CYAN);
             // send status to core
 
-            if (this.getText().length() == 0) {
+            if (this.getText().length() == 0 || this.getText().equals("(Type your status message)")){
                 this.setText("(Type your status message)");
                 core.setStatus("");
             } else {
