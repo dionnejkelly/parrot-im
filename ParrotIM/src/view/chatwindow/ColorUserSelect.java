@@ -85,22 +85,23 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     	
     	 this.mainFrame = frame;
          //Set up the banner at the top of the window
-         banner = new JLabel("Welcome to the Parrot IM Color Zone!",JLabel.CENTER);
-         banner.setForeground(Color.yellow);
-         banner.setBackground(Color.blue);
+         banner = new JLabel("Welcome to the Parrot IM Color Zone!", JLabel.CENTER);
+         banner.setForeground(Color.BLACK);
+         banner.setBackground(Color.WHITE);
          banner.setOpaque(true);
-         banner.setFont(new Font("SansSerif", Font.BOLD, 24));
-         banner.setPreferredSize(new Dimension(540, 5));
+         banner.setFont(new Font("SansSerif", Font.BOLD, 21));
+         banner.setPreferredSize(new Dimension(400, 50));
 
          JPanel bannerPanel = new JPanel(new BorderLayout());
          bannerPanel.add(banner, BorderLayout.CENTER);
-         bannerPanel.setBorder(BorderFactory.createTitledBorder("Banner"));
+         bannerPanel.setBorder(BorderFactory.createTitledBorder("Font Preview"));
 
          //Set up color chooser for setting text color
          colorChooser = new JColorChooser(banner.getForeground());
          colorChooser.getSelectionModel().addChangeListener(this);
          colorChooser.setBorder(BorderFactory.createTitledBorder(
                                               "Choose Text Color"));
+         colorChooser.setPreviewPanel(banner);
 
          buttonPanel = new JPanel();
          buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 10, 40));
@@ -109,19 +110,15 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
          buttonPanel.setLayout(buttonsLayout);
          buttonPanel.setPreferredSize(new Dimension(170, 35));
          
-         JButton okButton = new JButton("OK");
-         JButton cancelButton = new JButton("Cancel");
+         JButton okButton = new JButton("DONE");
          
          okButton.addActionListener(new okButtonListener());
-         cancelButton.addActionListener(new okButtonListener());
          
          buttonPanel.add(okButton);
-         buttonPanel.add(cancelButton);
          
          add(bannerPanel, BorderLayout.CENTER);
-         add(colorChooser, BorderLayout.AFTER_LINE_ENDS);
+         add(colorChooser, BorderLayout.NORTH);
          add(buttonPanel, BorderLayout.PAGE_END);
-        
     }
     
     /**
