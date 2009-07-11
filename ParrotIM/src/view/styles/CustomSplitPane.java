@@ -69,7 +69,7 @@ public class CustomSplitPane extends JPanel {
 	private void minimizeLeft(){
 		isMax = false;
 		resizeButton.setToolTipText("Click to show Side Panel");
-		resizeButton.setText(".");
+		resizeButton.setText(" ");
 		remove(leftPanel);
 		
 		System.out.println("Left");

@@ -21,13 +21,16 @@ import model.enumerations.UserStateType;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.MessageListener;
+import org.jivesoftware.smack.PacketCollector;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterListener;
+import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.PacketFilter;
+import org.jivesoftware.smack.filter.PacketIDFilter;
 import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
@@ -75,6 +78,230 @@ public class GoogleTalkManager implements GenericConnection {
 
     // private boolean isTyping;
 
+	private void save() throws XMPPException {
+//	PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
+	vcard.save(connection);
+
+  
+
+
+	
+	
+}
+
+private void load() throws XMPPException {
+	vcard.load(connection);
+}
+private void setUserNickName(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	try {
+        
+		vcard.setNickName(name);
+        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+                + "" + "</BINVAL>", true);
+    } catch (NullPointerException e) {
+        
+        e.printStackTrace();
+    }
+	
+    PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
+	vcard.save(connection);
+
+    IQ response = (IQ) collector.nextResult(SmackConfiguration.getPacketReplyTimeout());
+    collector.cancel();
+    
+    if (response == null) {
+        throw new XMPPException("No response from the server.");
+      }
+      // If the server replied with an error, throw an exception.
+      else if (response.getType() == IQ.Type.ERROR) {
+        throw new XMPPException(response.getError());
+      }
+	
+}
+
+
+
+private void setUserEmailHome(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	try {
+        
+		vcard.setEmailHome(name);
+        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+                + "" + "</BINVAL>", true);
+    } catch (NullPointerException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+	
+    PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
+	vcard.save(connection);
+
+    IQ response = (IQ) collector.nextResult(SmackConfiguration.getPacketReplyTimeout());
+    collector.cancel();
+    
+    if (response == null) {
+        throw new XMPPException("No response from the server.");
+      }
+      // If the server replied with an error, throw an exception.
+      else if (response.getType() == IQ.Type.ERROR) {
+        throw new XMPPException(response.getError());
+      }
+}
+
+
+private void setUserEmailWork(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	 try {
+            
+		 	vcard.setEmailWork(name);
+            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+                    + "" + "</BINVAL>", true);
+        } catch (NullPointerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	
+	save();
+}
+
+
+private void setUserFirstName(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	 try {
+            
+            vcard.setFirstName(name);
+            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+                    + "" + "</BINVAL>", true);
+        } catch (NullPointerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	
+	save();
+}
+
+private void setUserLastName(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	 try {
+            
+		 	vcard.setLastName(name);
+            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+                    + "" + "</BINVAL>", true);
+        } catch (NullPointerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	
+	save();
+}
+
+private void setUserMiddleName(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	try {
+        
+		vcard.setMiddleName(name);
+        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+                + "" + "</BINVAL>", true);
+    } catch (NullPointerException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+	
+	save();
+}
+
+private void setUserOrganization(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	vcard.setOrganization(name);
+	save();
+}
+
+private void setUserOrganizationUnit(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	vcard.setOrganizationUnit(name);
+	save();
+}
+
+private void setUserPhoneHome(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	vcard.setPhoneHome("VOICE", name);
+	save();
+}
+
+private void setUserPhoneWork(String name) throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	vcard.setPhoneWork("CELL", name);
+	save();
+}
+
+private String getUserNickName() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getNickName();
+	
+}
+
+private String getUserEmailHome() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getEmailHome();
+}
+
+
+private String getUserEmailWork() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getEmailWork();
+}
+
+
+private String getUserFirstName() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getFirstName();
+}
+
+private String getUserLastName() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getLastName();
+}
+
+private String getUserMiddleName() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getMiddleName();
+}
+
+private String getUserOrganization() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getOrganization();
+}
+
+private String getUserOrganizationUnit() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getOrganizationUnit();
+}
+
+private String getUserPhoneHome() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getPhoneHome("VOICE");
+}
+
+private String getUserPhoneWork() throws XMPPException {
+	//vcard.load(connection, userID);
+	
+	return vcard.getPhoneWork("CELL");
+}
+    
     public GoogleTalkManager(MainController controller) {
         this.connection = null;
         this.controller = controller;
@@ -270,7 +497,7 @@ public class GoogleTalkManager implements GenericConnection {
                 new MessagePacketFilter());
         connection.getRoster().addRosterListener(new BuddyListener());
         roster = connection.getRoster();
-        roster.setSubscriptionMode(Roster.SubscriptionMode.accept_all);
+        roster.setSubscriptionMode(Roster.SubscriptionMode.manual);
         addSubscriptionListener();
 
         multiUserChat.addInvitationListener(connection,
@@ -433,7 +660,7 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     /**
-     * By adding this methode (right now added to the contructor) we do have
+     * By adding this method (right now added to the contructor) we do have
      * auto subscription. All subscribe packets get automatically answered by a
      * subscribed packet.
      */
@@ -445,38 +672,46 @@ public class GoogleTalkManager implements GenericConnection {
         PacketListener myListener = new PacketListener() {
             public void processPacket(Packet packet) {
                 Presence presence = (Presence) packet;
-
+     
                 if (presence.getType() == Presence.Type.subscribe) {
-                    Presence response = new Presence(Presence.Type.subscribe);
-                    response.setTo(presence.getFrom());
-
-                    System.out.println("Who am I subscribing to: "
-                            + presence.getFrom());
-
-                    connection.sendPacket(response);
-                    // ask also for subscription
-                    if (!subscribedUsers.contains(presence.getFrom())) {
-                        response = null;
-                        response = new Presence(Presence.Type.subscribe);
+                	String subscriptionRequest = parseName(packet.getFrom()) + " wants to add you as a friend. Add as a friend?";
+                    int option = JOptionPane.showConfirmDialog(null, subscriptionRequest);
+    
+                    if (option == JOptionPane.OK_OPTION) {
+                    	Presence response = new Presence(Presence.Type.subscribe);
                         response.setTo(presence.getFrom());
-                        connection.sendPacket(response);
-                        // update the roster with the new user
-                        org.jivesoftware.smack.packet.RosterPacket rosterPacket =
-                                new org.jivesoftware.smack.packet.RosterPacket();
-                        rosterPacket.setType(IQ.Type.SET);
-                        org.jivesoftware.smack.packet.RosterPacket.Item item =
-                                new org.jivesoftware.smack.packet.RosterPacket.Item(
-                                        presence.getFrom(), parseName(presence
-                                                .getFrom()));
-                        // item.addGroupName(OLATBUDDIES);
-                        item
-                                .setItemType(org.jivesoftware.smack.packet.RosterPacket.ItemType.both);
+                        
+                    	 connection.sendPacket(response);
+                         // ask also for subscription
+                         if (!subscribedUsers.contains(presence.getFrom())) {
+                             response = null;
+                             response = new Presence(Presence.Type.subscribe);
+                             response.setTo(presence.getFrom());
+                             connection.sendPacket(response);
+                             // update the roster with the new user
+                             org.jivesoftware.smack.packet.RosterPacket rosterPacket =
+                                     new org.jivesoftware.smack.packet.RosterPacket();
+                             rosterPacket.setType(IQ.Type.SET);
+                             org.jivesoftware.smack.packet.RosterPacket.Item item = new org.jivesoftware.smack.packet.RosterPacket.Item(
+                                             presence.getFrom(), parseName(presence
+                                                     .getFrom()));
+                             // item.addGroupName(OLATBUDDIES);
+                             item.setItemType(org.jivesoftware.smack.packet.RosterPacket.ItemType.both);
 
-                        rosterPacket.addRosterItem(item);
-                        connection.sendPacket(rosterPacket);
+                             rosterPacket.addRosterItem(item);
+                             connection.sendPacket(rosterPacket);
 
-                        System.out.println("Updated the roster");
-                        subscribedUsers.add(presence.getFrom());
+                             System.out.println("Updated the roster");
+                             subscribedUsers.add(presence.getFrom());
+                    }
+                         
+                         else {
+                        	 response = new Presence(Presence.Type.unsubscribe);
+                             response.setTo(presence.getFrom());
+                             connection.sendPacket(response);
+                        	 
+                         }
+                   
 
                     }
                 }
@@ -667,11 +902,6 @@ public class GoogleTalkManager implements GenericConnection {
         public void entriesAdded(Collection<String> addresses) {
             // Fix me!
             System.out.println(addresses + " from entriesAdded");
-
-            String subscriptionRequest =
-                    addresses
-                            + " wants to add you as a friend. Add as a friend?";
-            JOptionPane.showMessageDialog(null, subscriptionRequest);
 
             return;
         }
