@@ -27,9 +27,11 @@ public class GroupedListPane extends JPanel{
 		add(boxes[0], BorderLayout.NORTH);
 	}
 	
-	public void addGroup(String name){
+	public void addGroup(String name, ImageIcon img){
 		JPanel newPanel = new JPanel();
-		newPanel.add(new JLabel(name));
+		newPanel.setLayout(new BorderLayout());
+		newPanel.add(new JLabel(img), BorderLayout.WEST);
+		newPanel.add(new JLabel(name), BorderLayout.CENTER);
 		newPanel.setBackground(Color.green.brighter());
 		
 		CustomListPane collapsableListPane = new CustomListPane();
