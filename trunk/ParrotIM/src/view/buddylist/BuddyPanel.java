@@ -508,7 +508,7 @@ public class BuddyPanel extends JPanel implements Observer {
             minutesSinceUpdate = ((TwitterUserData) user)
                     .getMinutesSinceUpdate();
             
-            friendName = new JLabel("  " + user.getNickname() + " - "
+            friendName = new JLabel("  " + user.getNickname()
                     + user.getStatus() + " (Changed: " + minutesSinceUpdate
                     + " minutes ago)");
             if (minutesSinceUpdate < 60) {
@@ -519,20 +519,40 @@ public class BuddyPanel extends JPanel implements Observer {
                 friendName.setForeground(Color.RED.darker());
             }
         } else if (user.getState() == UserStateType.ONLINE) {
-            friendName = new JLabel("  " + user.getNickname() + " - "
-                    + user.getStatus() + " (" + user.getState() + ")");
+        	if(user.getNickname().trim().equals("")){
+	            friendName = new JLabel("  " + user.getUserID() 
+	                    + user.getStatus() + " (" + user.getState() + ")");
+        	}else{
+        		friendName = new JLabel("  " + user.getNickname() 
+	                    + user.getStatus() + " (" + user.getState() + ")");
+        	}
             friendName.setForeground(Color.GREEN.darker());
         } else if (user.getState() == UserStateType.BUSY) {
-            friendName = new JLabel("  " + user.getNickname() + " - "
-                    + user.getStatus() + " (Busy)");
+        	if(user.getNickname().trim().equals("")){
+        		friendName = new JLabel("  " + user.getUserID()  
+                        + user.getStatus() + " (Busy)");
+        	}else{
+        		friendName = new JLabel("  " + user.getNickname() 
+                        + user.getStatus() + " (Busy)");
+        	}
             friendName.setForeground(Color.ORANGE.darker());
         } else if (user.getState() == UserStateType.AWAY) {
-            friendName = new JLabel("  " + user.getNickname() + " - "
-                    + user.getStatus() + " (Away)");
+        	if(user.getNickname().trim().equals("")){
+        		friendName = new JLabel("  " + user.getUserID()  
+                        + user.getStatus() + " (Away)");
+        	}else{
+        		friendName = new JLabel("  " + user.getNickname() 
+                        + user.getStatus() + " (Away)");
+        	}
             friendName.setForeground(Color.ORANGE.darker());
         } else {
-            friendName = new JLabel("  " + user.getNickname() + " - "
-                    + user.getStatus() + " (" + user.getState() + ")");
+        	if(user.getNickname().trim().equals("")){
+        		friendName = new JLabel("  " + user.getUserID() 
+                        + user.getStatus() + " (" + user.getState() + ")");
+        	}else{
+        		friendName = new JLabel("  " + user.getNickname() 
+                        + user.getStatus() + " (" + user.getState() + ")");
+        	}
             friendName.setForeground(Color.RED.darker());
         }
         
