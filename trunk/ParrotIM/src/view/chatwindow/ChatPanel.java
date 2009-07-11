@@ -84,7 +84,8 @@ public class ChatPanel extends JPanel {
     
     private JFrame emoticonChooser;
 
-    private JButton themeMenu;
+//    private JButton themeMenu;
+    private JComboBox themeMenu;
     /**
      * This is the constructor of the ChatPanel.
      * 
@@ -237,10 +238,12 @@ public class ChatPanel extends JPanel {
 //        pic.setToolTipText("Insert a Picture");
 //        pic.addActionListener(new pictureListener());
         
-        themeMenu = new JButton(new ImageIcon(this.getClass().getResource(
-        "/images/chatwindow/pic.png")));
+//        themeMenu = new JButton(new ImageIcon(this.getClass().getResource(
+//        "/images/chatwindow/pic.png")));
+//      themeMenu.addActionListener(new ThemeMenuActionListener());
+        themeMenu = new ThemeOptionsComboBox();
         themeMenu.setToolTipText("Select your own Theme");
-        themeMenu.addActionListener(new ThemeMenuActionListener());
+
 //        themeMenu.setAutoscrolls(true);
         
         // Text editing toolbar
