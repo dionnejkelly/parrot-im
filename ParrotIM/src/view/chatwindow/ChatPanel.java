@@ -231,13 +231,15 @@ public class ChatPanel extends JPanel {
         emoticonChooser.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
         
         //Image button
-        JButton pic =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/images/chatwindow/pic.png")));
-        pic.setToolTipText("Insert a Picture");
-        pic.addActionListener(new pictureListener());
+//        JButton pic =
+//                new JButton(new ImageIcon(this.getClass().getResource(
+//                        "/images/chatwindow/pic.png")));
+//        pic.setToolTipText("Insert a Picture");
+//        pic.addActionListener(new pictureListener());
         
-        themeMenu = new JButton("Themes");
+        themeMenu = new JButton(new ImageIcon(this.getClass().getResource(
+        "/images/chatwindow/pic.png")));
+        themeMenu.setToolTipText("Select your own Theme");
         themeMenu.addActionListener(new ThemeMenuActionListener());
 //        themeMenu.setAutoscrolls(true);
         
@@ -583,7 +585,7 @@ public class ChatPanel extends JPanel {
     private class ThemeMenuActionListener implements ActionListener{
     	private ThemeOptionsFrame themeOptions = null;
     	
-		@Override
+		//@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (themeOptions == null){
 				System.out.println(themeMenu.getLocation());

@@ -52,19 +52,19 @@ public class ThemeOptionsFrame extends JFrame{
 	
 	private class MenuMouseListener implements MouseListener{
 
-		@Override
+		//@Override
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 			themeFrame.dispose();
 		}
 
-		@Override
+		//@Override
 		public void mouseEntered(MouseEvent arg0) {
 			JLabel lbl = (JLabel)arg0.getSource();
 			lbl.setBackground(Color.BLUE);
 		}
 
-		@Override
+		//@Override
 		public void mouseExited(MouseEvent arg0) {
 			JLabel lbl = (JLabel)arg0.getSource();
 			lbl.setBackground(null);
