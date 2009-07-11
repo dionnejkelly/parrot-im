@@ -22,7 +22,7 @@ import view.chatwindow.UserDataWrapper;
 public class CustomListPane extends JPanel{
 	private ArrayList<String> nicknames = new ArrayList<String>();
 	private ArrayList<UserDataWrapper> userWrappers = new ArrayList<UserDataWrapper>();
-	private Box boxes[] = new Box[1];
+	Box boxes[] = new Box[1];
 	private ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
 				"/images/chatwindow/personal.png"));
 	private int lastSelected = 0; 
@@ -31,7 +31,6 @@ public class CustomListPane extends JPanel{
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
-		//setPreferredSize(new Dimension(200, 200));
 		
 		boxes[0] = Box.createVerticalBox();
 		
@@ -67,14 +66,8 @@ public class CustomListPane extends JPanel{
 		return userWrappers.get(i);
 	}
 	
-	public void addElement(String nickname, ImageIcon img, UserDataWrapper userWrapper, 
-			Color textColor){
-		nicknames.add(nickname);
-		userWrappers.add(userWrapper);
-		
-		boxes[0].add(friendPanel(nickname, img));
-		//boxes[0].getComponent(boxes[0].getComponentCount() - 1)
-		//.addMouseListener(externalListener);
+	public void addElement(JPanel externalFriendPanel){
+		boxes[0].add(externalFriendPanel);
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
 	}
@@ -86,7 +79,7 @@ public class CustomListPane extends JPanel{
 		
 		boxes[0].add(friendPanel(nickname, img));
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
-		.addMouseListener(externalListener);
+				.addMouseListener(externalListener);
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
 	}

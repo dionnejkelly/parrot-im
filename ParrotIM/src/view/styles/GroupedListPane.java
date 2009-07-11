@@ -20,7 +20,7 @@ public class GroupedListPane extends JPanel{
 	public GroupedListPane() {
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(200, 200));
+		//setPreferredSize(new Dimension(200, 200));
 		
 		boxes[0] = Box.createVerticalBox();
 		
@@ -55,6 +55,19 @@ public class GroupedListPane extends JPanel{
 	
 	public void addElement(int group, String name, ImageIcon img){
 		groups.get(group).addElement(name, img);
+	}
+	
+	public void addElement(int group, JPanel externalFriendPanel){
+		groups.get(group).addElement(externalFriendPanel);
+	}
+	
+	public void addExternalMouseListener(int group, int componentIndex,
+											MouseListener externalListener){
+		groups.get(group).boxes[0].getComponent(componentIndex).addMouseListener(externalListener);
+	}
+	
+	public Component getComponent(int group, int componentIndex){
+		return groups.get(group).boxes[0].getComponent(componentIndex);
 	}
 	
 	private void setGroupVisible(int group, boolean visible){
