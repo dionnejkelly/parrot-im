@@ -420,28 +420,33 @@ private String getUserPhoneWork() throws XMPPException {
 
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
         // vcard = new VCard();
-        ImageIcon icon;
+        ImageIcon icon = new ImageIcon(this.getClass().getResource(
+        "/images/chatwindow/personal.png"));;
 
-        try {
-            vcard.load(connection, userID); // load someone's VCard
+        if (connection.isAuthenticated()) {
+        	try {
+                vcard.load(connection, userID); // load someone's VCard
 
-            byte[] avatarBytes = vcard.getAvatar();
+                byte[] avatarBytes = vcard.getAvatar();
 
-            if (avatarBytes == null) {
+                if (avatarBytes == null) {
+                    icon =
+                            new ImageIcon(this.getClass().getResource(
+                                    "/images/chatwindow/personal.png"));
+                } else {
+                    icon = new ImageIcon(avatarBytes);
+                }
+
+            }
+
+            catch (XMPPException e) {
                 icon =
                         new ImageIcon(this.getClass().getResource(
                                 "/images/chatwindow/personal.png"));
-            } else {
-                icon = new ImageIcon(avatarBytes);
             }
-
         }
-
-        catch (XMPPException e) {
-            icon =
-                    new ImageIcon(this.getClass().getResource(
-                            "/images/chatwindow/personal.png"));
-        }
+ 
+        
 
         return icon;
 
@@ -467,7 +472,16 @@ private String getUserPhoneWork() throws XMPPException {
     }
 
     public void disconnect() {
-        connection.disconnect();
+    	try {
+    		
+    		connection.disconnect();
+    		
+    	}
+    	
+    	catch (IllegalArgumentException exception) {
+    		System.out.println("Not disconnecting properly");
+    	}
+        
 
         return;
     }
@@ -775,6 +789,8 @@ private String getUserPhoneWork() throws XMPPException {
 
         return;
     }
+    
+   
 
     public String retrieveStatus(String userID) {
         String userStatus = ""; // default return value
