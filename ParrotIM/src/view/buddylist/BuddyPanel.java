@@ -104,7 +104,7 @@ public class BuddyPanel extends JPanel implements Observer {
     /**
      * box to store friend list
      */
-    Box boxes[] = new Box[1];
+    Box boxes[] = new Box[2];
     
     GroupedListPane buddyListPane = new GroupedListPane();
     
@@ -173,6 +173,7 @@ public class BuddyPanel extends JPanel implements Observer {
         
         // add friends to the buddy list
         boxes[0] = Box.createVerticalBox();
+        boxes[1] = Box.createVerticalBox();
         
         ImageIcon googleTalkImage = new ImageIcon(this.getClass().getResource(
 			"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png"));
@@ -193,36 +194,8 @@ public class BuddyPanel extends JPanel implements Observer {
         buddyListPane.addGroup("     Jabber", jabberImage);
         buddyListPane.addGroup("     ICQ", icqImage);
         buddyListPane.addGroup("     MSN", msnImage);
-        for (int i = 0; i < buddies.size(); i++) {
-        	if(buddies.get(i).getServer().toString().equals("Google Talk")){
-	            boxes[0].add(FriendItem(buddies.get(i)));
-	            buddyListPane.addElement(0, FriendItem(buddies.get(i)));
-        	}else if(buddies.get(i).getServer().toString().equals("Twitter")){
-            	buddyListPane.addElement(1, FriendItem(buddies.get(i)));
-            }
-            /*
-            if(buddies.get(i).getServer().equals("Google Talk")){
-            	buddyListPane.addElement(0, FriendItem(buddies.get(i)));
-            }else if(buddies.get(i).getServer().equals("Twitter")){
-            	buddyListPane.addElement(1, FriendItem(buddies.get(i)));
-            }else{
-            	buddyListPane.addElement(2, FriendItem(buddies.get(i)));
-            }*/
-        }
         
-        for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-        	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
-        	/*
-        	if(buddies.get(i).getServer().equals("Google Talk")){
-        		buddyListPane.addExternalMouseListener(0, i, new SelectListener());
-            }else if(buddies.get(i).getServer().equals("Twitter")){
-            	buddyListPane.addExternalMouseListener(1, i, new SelectListener());
-            }else{
-            	buddyListPane.addExternalMouseListener(2, i, new SelectListener());
-            }
-        	*/
-            boxes[0].getComponent(i).addMouseListener(new SelectListener());
-        }
+        listRepopulate();
         
         // rightclick menu
         rightClickMenu = new JPopupMenu();
@@ -253,6 +226,29 @@ public class BuddyPanel extends JPanel implements Observer {
 
         add(scroller, BorderLayout.CENTER);
         add(options, BorderLayout.SOUTH);
+    }
+    
+    private void listRepopulate(){
+    	buddyListPane.removeAllElements(0);
+    	buddyListPane.removeAllElements(1);
+    	
+    	for (int i = 0; i < buddies.size(); i++) {
+        	if(buddies.get(i).getServer().toString().equals("Google Talk")){
+	            boxes[0].add(FriendItem(buddies.get(i)));
+	            buddyListPane.addElement(0, FriendItem(buddies.get(i)));
+        	}else if(buddies.get(i).getServer().toString().equals("Twitter")){
+        		boxes[1].add(FriendItem(buddies.get(i)));
+            	buddyListPane.addElement(1, FriendItem(buddies.get(i)));
+            }
+        }
+        
+        for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+        	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
+            //boxes[0].getComponent(i).addMouseListener(new SelectListener());
+        }
+        for (int i = 0; i < boxes[1].getComponentCount(); i++) {
+        	buddyListPane.addExternalMouseListener(1, i, new SelectListener());
+        }
     }
 
     /**
@@ -335,7 +331,6 @@ public class BuddyPanel extends JPanel implements Observer {
                 String resultMessage = "Please provide a key word in the search field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
-
         }
     }
 
@@ -378,15 +373,7 @@ public class BuddyPanel extends JPanel implements Observer {
             boxes[0].removeAll();
             buddyListPane.removeAllElements(0);
 
-            for (int i = 0; i < buddies.size(); i++) {
-                boxes[0].add(FriendItem(buddies.get(i)));
-                buddyListPane.addElement(0, FriendItem(buddies.get(i)));
-            }
-
-            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-            	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
-                boxes[0].getComponent(i).addMouseListener(new SelectListener());
-            }
+            listRepopulate();
 
             friendList.updateUI();
         }
@@ -406,16 +393,7 @@ public class BuddyPanel extends JPanel implements Observer {
                 boxes[0].removeAll();
                 buddyListPane.removeAllElements(0);
 
-                for (int i = 0; i < buddies.size(); i++) {
-                	buddyListPane.addElement(0, FriendItem(buddies.get(i)));
-                    boxes[0].add(FriendItem(buddies.get(i)));
-                }
-
-                for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                    boxes[0].getComponent(i).addMouseListener(
-                            new SelectListener());
-                    buddyListPane.addExternalMouseListener(0, i, new SelectListener());
-                }
+                listRepopulate();
 
                 friendList.updateUI();
 
@@ -633,15 +611,8 @@ public class BuddyPanel extends JPanel implements Observer {
             this.searchBuddies();
         }
 
-        for (int i = 0; i < buddies.size(); i++) {
-        	buddyListPane.addElement(0, FriendItem(buddies.get(i)));
-            boxes[0].add(FriendItem(buddies.get(i)));
-        }
-
-        for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-        	buddyListPane.addExternalMouseListener(0, i, new SelectListener());
-            boxes[0].getComponent(i).addMouseListener(new SelectListener());
-        }
+        listRepopulate();
+        
         friendList.updateUI();
 
         return;
