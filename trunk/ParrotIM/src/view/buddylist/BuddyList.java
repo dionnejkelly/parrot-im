@@ -65,8 +65,9 @@ public class BuddyList extends JFrame {
      * 
      * @param c
      * @param model
+     * @param location
      */
-    public BuddyList(MainController c, Model model) {
+    public BuddyList(MainController c, Model model, Point location) {
         // setLocationRelativeTo(null);
         buddywindow = this;
         this.setTitle("Buddy List");
@@ -75,7 +76,8 @@ public class BuddyList extends JFrame {
 
         // Create chat window
         this.chat = new ChatWindow(c, model);
-
+        
+        this.setLocation(location);
         this.setMinimumSize(new Dimension(300, 600));
 
         // Attach the top text menu
@@ -337,7 +339,7 @@ public class BuddyList extends JFrame {
             controller.disconnect();
             model.deleteObserver(chat);
             chat.dispose();
-            new MainWindow(controller, model);
+            new MainWindow(controller, model, buddywindow.getLocation());
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();
             new MusicPlayer("src/audio/exit/parrotExit.wav", model);

@@ -261,7 +261,7 @@ public class SignInPanel extends JPanel implements Observer {
             core.loginProfile(username);
 
             // Handle the GUI changes
-            new BuddyList(core, model);
+            new BuddyList(core, model, mainFrame.getLocation());
             mainFrame.dispose();
         } catch (BadConnectionException e1) {
             header.displaySystemStatus("Sign in failed!");

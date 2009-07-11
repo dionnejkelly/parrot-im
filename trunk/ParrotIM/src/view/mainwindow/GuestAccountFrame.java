@@ -238,7 +238,7 @@ public class GuestAccountFrame extends JFrame {
                 JOptionPane.showMessageDialog(null, resultMessage);
                 throw new BadConnectionException();
             }
-            new BuddyList(core, model);// pops buddylist window
+            new BuddyList(core, model, mainFrame.getLocation());// pops buddylist window
             mainFrame.dispose(); // TODO: consider if the sign in fails
         } catch (BadConnectionException e1) {
             // e1.printStackTrace();
