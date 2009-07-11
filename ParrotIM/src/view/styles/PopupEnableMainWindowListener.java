@@ -20,7 +20,6 @@ package view.styles;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import model.*;
-import model.enumerations.PopupEnableWindowType;
 
 /**
  * This object is a WindowListener for any popup window objects.
@@ -32,15 +31,12 @@ import model.enumerations.PopupEnableWindowType;
 public class PopupEnableMainWindowListener implements WindowListener {
 	/** model allows to store the state of ChatWindow (ie. whether it is opened or not). */
 	private Model model;
-	/** popupInt is an integer that codes the popup window name*/
-	private PopupEnableWindowType popupInt;
 	
 	/** ChatWindowListener takes Model object as an argument.
 	 * @param model
 	 * @param popupInt */
-	public PopupEnableMainWindowListener(Model model, PopupEnableWindowType popupInt){
+	public PopupEnableMainWindowListener(Model model){
 		this.model = model;
-		this.popupInt = popupInt;
 	}
 
 	public void windowActivated(WindowEvent e) {}
@@ -50,7 +46,7 @@ public class PopupEnableMainWindowListener implements WindowListener {
      * It returns nothing.
      */
 	public void windowClosed(WindowEvent e) {
-		model.updatePopupState(popupInt, false);
+		model.updateAboutState(false);
 	}
 
 	public void windowClosing(WindowEvent e) {}
@@ -63,6 +59,6 @@ public class PopupEnableMainWindowListener implements WindowListener {
      * It returns nothing.
      */
 	public void windowOpened(WindowEvent e) {
-		model.updatePopupState(popupInt, true);
+		model.updateAboutState(true);
 	}
 }

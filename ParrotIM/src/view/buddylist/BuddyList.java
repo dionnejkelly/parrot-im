@@ -52,6 +52,7 @@ public class BuddyList extends JFrame {
 
     private ChatWindow chat;
 
+    private ChatLogFrame chatlog;
     private OptionFrame options;
     /**
      * buddy window frame
@@ -238,18 +239,37 @@ public class BuddyList extends JFrame {
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
-            if (!model.logWindowOpen) {
+            if (chatlog == null) {
                 try {
-                    new ChatLogFrame(model);
+                    chatlog = new ChatLogFrame(model);
+                    chatlog.addWindowListener(new ChatLogWindowListener());
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 } catch (ClassNotFoundException e1) {
                     e1.printStackTrace();
                 }
+            } else {
+            	chatlog.setAlwaysOnTop(true);
+            	chatlog.setAlwaysOnTop(false);
             }
             return;
         }
     }
+	private class ChatLogWindowListener implements WindowListener{
+
+		public void windowActivated(WindowEvent e) {}
+
+		public void windowClosed(WindowEvent e) {
+			chatlog = null;
+		}
+
+		public void windowClosing(WindowEvent e) {}
+		public void windowDeactivated(WindowEvent e) {}
+		public void windowDeiconified(WindowEvent e) {}
+		public void windowIconified(WindowEvent e) {}
+		public void windowOpened(WindowEvent e) {}
+		
+	}
 
     /**
      * option listener
@@ -273,7 +293,10 @@ public class BuddyList extends JFrame {
 	            } catch (SQLException e1) {
 	                e1.printStackTrace();
 	            }
-        	}
+        	} else {
+            	options.setAlwaysOnTop(true);
+            	options.setAlwaysOnTop(false);
+            }
         	
             return;
         }
@@ -362,6 +385,7 @@ public class BuddyList extends JFrame {
             model.deleteObserver(chat);
             chat.dispose();
             if (options != null) options.dispose();
+            if (chatlog != null) chatlog.dispose();
             new MainWindow(controller, model, buddywindow.getLocation());
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();

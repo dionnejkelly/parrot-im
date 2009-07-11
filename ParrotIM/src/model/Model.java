@@ -66,7 +66,6 @@ import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.TypingStateType;
-import model.enumerations.PopupEnableWindowType;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 
@@ -1125,16 +1124,10 @@ public class Model extends Observable {
      * sets the boolean of the popup window either true or false true if the
      * window is opened false if the closed
      * 
-     * @param popupInt
      * @param state
      */
-    public void updatePopupState(PopupEnableWindowType popupInt, boolean state) {
-        if (popupInt == PopupEnableWindowType.CHATLOG) {
-            System.out.println("Model:  ChatWindow");
-            this.logWindowOpen = state;
-        } else if (popupInt == PopupEnableWindowType.ABOUT) {
-            System.out.println("Model: About");
-            this.aboutWindowOpen = state;
-        }
+    public void updateAboutState(boolean state) {
+        System.out.println("Model: About");
+        this.aboutWindowOpen = state;
     }
 }
