@@ -403,7 +403,7 @@ public class GoogleTalkManager implements GenericConnection {
                     controller.messageReceived(fromUserID, toUserID, message
                             .getBody());
                     lastChat =
-                            connection.getChatManager().createChat(toUserID,
+                            connection.getChatManager().createChat(fromUserID,
                                     new DefaultChatStateListener());
                     // MusicPlayer receiveMusic = new
                     // MusicPlayer("src/audio/message/receiveMessage.wav");
@@ -728,11 +728,11 @@ public class GoogleTalkManager implements GenericConnection {
             if (message.getBody() != null) {
                 controller.messageReceived(fromUserID, toUserID, message
                         .getBody());
-                lastChat =
-                        connection.getChatManager().createChat(toUserID,
-                                new DefaultChatStateListener());
+                
             }
-
+            lastChat =
+                connection.getChatManager().createChat(fromUserID,
+                        new DefaultChatStateListener());
             return;
         }
     }
