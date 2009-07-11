@@ -758,11 +758,11 @@ public class GoogleTalkManager implements GenericConnection {
     public void setTypingState(int state, String userID)
             throws BadConnectionException, XMPPException {
         ChatStateManager curState = ChatStateManager.getInstance(connection);
-        // if (lastChat==null){
+        if (lastChat==null){
         lastChat =
                 connection.getChatManager().createChat(userID,
                         new DefaultChatStateListener());
-        // }
+         }
 
         if (state == 1) {
             curState.setCurrentState(ChatState.active, lastChat);
