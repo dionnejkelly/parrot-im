@@ -461,10 +461,23 @@ public class SignInPanel extends JPanel implements Observer {
 
 			public void keyPressed(KeyEvent e) {}
 			public void keyReleased(KeyEvent e) {
-				if (passwordPrompt.getPassword().length > 0)
+				if (passwordPrompt.getPassword().length > 0) {
 					OKbutton.setEnabled(true);
-				else
+					
+					if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+						System.out.println("password is correct");
+						lastSelectedIndex = account_select.getSelectedIndex();
+						passwordFrame.dispose();
+						manageAccount.setEnabled(true);
+					    removeProfile.setEnabled(true);
+					    connectButton.setEnabled(true);
+						
+					}
+				}
+
+				else {
 					OKbutton.setEnabled(false);
+				}
 			}
 
 			public void keyTyped(KeyEvent e) {
