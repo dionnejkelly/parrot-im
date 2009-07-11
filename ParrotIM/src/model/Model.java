@@ -56,6 +56,7 @@ import controller.services.GenericConnection;
 import model.dataType.AccountData;
 import model.dataType.ChatCollectionData;
 import model.dataType.ConversationData;
+import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberUserData;
@@ -88,7 +89,7 @@ public class Model extends Observable {
      * A reference to the profile currently being used. Holds references to all
      * accounts and friends involved.
      */
-    private ProfileData currentProfile;
+    private ProfileCollectionData profileCollection;
 
     // This is clumsy. Can we integrate this into conversations? The chat
     // window should not show if there are no conversations active. This
@@ -108,7 +109,7 @@ public class Model extends Observable {
      * @throws SQLException
      */
     public Model() throws ClassNotFoundException, SQLException {
-        this.currentProfile = null;
+        this.profileCollection = new ProfileCollectionData();
         this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
         logWindowOpen = false;
@@ -135,11 +136,11 @@ public class Model extends Observable {
             e.printStackTrace();
             profiles = new Vector<String>();
         }
-        
-        if (profiles.size() == 0){
-        	profiles.add(0, "Create a profile");
+
+        if (profiles.size() == 0) {
+            profiles.add(0, "Create a profile");
         } else {
-        	profiles.add(0, "Select a profile");
+            profiles.add(0, "Select a profile");
         }
 
         return profiles;
@@ -328,8 +329,8 @@ public class Model extends Observable {
         if (this.getCurrentProfile().isChatLogEnabled()) {
             try {
                 db = new DatabaseFunctions();
-                db.addChat(currentProfile.getProfileName(), fromUser, account
-                        .getUserID(), message.getMessage());
+                db.addChat(getCurrentProfile().getProfileName(), fromUser,
+                        account.getUserID(), message.getMessage());
             } catch (Exception e) {
                 System.err.println("Database error. Chat not saved "
                         + "in the chat log.");
@@ -373,7 +374,7 @@ public class Model extends Observable {
         if (this.getCurrentProfile().isChatLogEnabled()) {
             try {
                 db = new DatabaseFunctions();
-                db.addChat(currentProfile.getProfileName(), message
+                db.addChat(getCurrentProfile().getProfileName(), message
                         .getFromUser(), modifiedConversation.getUser()
                         .getUserID(), message.getMessage());
             } catch (Exception e) {
@@ -561,29 +562,25 @@ public class Model extends Observable {
     /**
      * Creates current profile.
      * 
-     * @param account
      * @param profileName
      */
-
-    public void createCurrentProfile(AccountData account, String profileName) {
-        currentProfile = new ProfileData(profileName);
-        currentProfile.addAccount(account);
-        return;
-    }
-
     public void createCurrentProfile(String profileName) {
-        currentProfile = new ProfileData(profileName);
-        return;
-    }
+        boolean exists = false;
+        ProfileData newProfile = null;
 
-    /**
-     * Adds account to current profile.
-     * 
-     * @param account
-     */
+        for (ProfileData p : this.profileCollection.getProfiles()) {
+            if (p.getProfileName().equals(profileName)) {
+                exists = true;
+                break;
+            }
+        }
 
-    public void addAccountToCurrentProfile(AccountData account) {
-        currentProfile.addAccount(account);
+        if (!exists) {
+            newProfile = new ProfileData(profileName);
+            this.profileCollection.getProfiles().add(newProfile);
+            this.profileCollection.setActiveProfile(newProfile);
+        }
+        
         return;
     }
 
@@ -592,30 +589,18 @@ public class Model extends Observable {
      * 
      * @return CurrentProfileData
      */
-
     public ProfileData getCurrentProfile() {
-        return currentProfile;
+        return this.profileCollection.getActiveProfile();
     }
 
     /**
      * Clears current profile.
      * 
      */
-
     public void clearCurrentProfile() {
-        this.currentProfile = null;
+        this.profileCollection.setActiveProfile(null);
 
         return;
-    }
-
-    /**
-     * Check whether current profile exists.
-     * 
-     * @return boolean
-     */
-
-    public boolean currentProfileExists() {
-        return (currentProfile != null);
     }
 
     /**
@@ -641,7 +626,7 @@ public class Model extends Observable {
      */
     public UserData findUserByAccountName(String accountName) {
         UserData found = null;
-        ArrayList<UserData> friends = this.currentProfile.getAllFriends();
+        ArrayList<UserData> friends = this.getCurrentProfile().getAllFriends();
         for (UserData user : friends) {
             // Temp fix for switching conversations
             if (user.getUserID().equals(accountName)
@@ -679,16 +664,16 @@ public class Model extends Observable {
         AccountData account = null;
         UserData userToAdd = null;
 
-        account = currentProfile.getAccountFromServer(server);
+        account = getCurrentProfile().getAccountFromServer(server);
 
         // Temp fix for user bug in jabber
         // Shouldn't actually cycle through all of the accounts
         if (account == null) {
             server = ServerType.JABBER;
-            account = currentProfile.getAccountFromServer(server);
+            account = getCurrentProfile().getAccountFromServer(server);
             if (account == null) {
                 server = ServerType.GOOGLE_TALK;
-                account = currentProfile.getAccountFromServer(server);
+                account = getCurrentProfile().getAccountFromServer(server);
             }
         }
 
@@ -800,7 +785,7 @@ public class Model extends Observable {
         /* Can throw NullPointerException if exFriend is null */
         try {
             /* CurrentProfile automatically finds the account for us */
-            currentProfile.removeFriend(exFriend);
+            getCurrentProfile().removeFriend(exFriend);
             success = true;
         } catch (NullPointerException e) {
             success = false; // Should already be false, but, hey, whatever
@@ -823,7 +808,7 @@ public class Model extends Observable {
         AccountData foundAccount = null;
 
         /* Find the AccountData by searching through all accounts */
-        for (AccountData account : currentProfile.getAccountData()) {
+        for (AccountData account : getCurrentProfile().getAccountData()) {
             for (UserData user : account.getFriends()) {
                 if (user.equals(userToBeFound)) {
                     foundAccount = account;
@@ -841,7 +826,7 @@ public class Model extends Observable {
     public AccountData findAccountByUserID(String userID) {
         AccountData foundAccount = null; // Default return value
 
-        for (AccountData account : currentProfile.getAccountData()) {
+        for (AccountData account : getCurrentProfile().getAccountData()) {
             if (account.getUserID().equalsIgnoreCase(userID)) {
                 foundAccount = account;
                 break;
@@ -854,7 +839,7 @@ public class Model extends Observable {
     public AccountData findAccountByConnection(GenericConnection connection) {
         AccountData foundAccount = null; // Default return value
 
-        for (AccountData account : currentProfile.getAccountData()) {
+        for (AccountData account : getCurrentProfile().getAccountData()) {
             if (account.getConnection() == connection) {
                 foundAccount = account;
                 break;
@@ -975,7 +960,7 @@ public class Model extends Observable {
     public Vector<UserData> getBannedUserList() {
         Vector<UserData> blockedFriends = new Vector<UserData>();
 
-        for (AccountData account : this.currentProfile.getAccountData()) {
+        for (AccountData account : this.getCurrentProfile().getAccountData()) {
             for (UserData user : account.getFriends()) {
                 if (user.isBlocked()) {
                     blockedFriends.add(user);
