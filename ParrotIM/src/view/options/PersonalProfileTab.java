@@ -51,12 +51,11 @@ import view.styles.StatusCombo;
 
 public class PersonalProfileTab extends JPanel {
 	//left components
-	protected AvatarLabel avatar;
+	private AvatarLabel avatar;
 	
 	//right components
-	protected JTextArea personalMessage;
+	private JTextArea personalMessage;
 	
-//	private AvatarLabel BuddyListAvatar;
 	private PmLabel BuddyListPM;
 	private StatusCombo BuddyListStatus;
 	private StatusCombo status;

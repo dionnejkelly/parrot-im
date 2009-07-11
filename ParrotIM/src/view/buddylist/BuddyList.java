@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.SQLException;
 
 import javax.swing.*;
@@ -50,6 +52,7 @@ public class BuddyList extends JFrame {
 
     private ChatWindow chat;
 
+    private OptionFrame options;
     /**
      * buddy window frame
      */
@@ -68,6 +71,7 @@ public class BuddyList extends JFrame {
      * @param location
      */
     public BuddyList(MainController c, Model model, Point location) {
+    	
         // setLocationRelativeTo(null);
         buddywindow = this;
         this.setTitle("Buddy List");
@@ -260,19 +264,37 @@ public class BuddyList extends JFrame {
          * )
          */
         public void actionPerformed(ActionEvent e) {
-            try {
-                new OptionFrame(controller, model, model.getCurrentProfile()
-                        .getProfileName(), accountInfo);
-            } catch (ClassNotFoundException e1) {
-                e1.printStackTrace();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-
+        	if (options==null){
+	            try {
+	                options = new OptionFrame(controller, model, accountInfo);
+	                options.addWindowListener(new OptionsWindowListener());
+	            } catch (ClassNotFoundException e1) {
+	                e1.printStackTrace();
+	            } catch (SQLException e1) {
+	                e1.printStackTrace();
+	            }
+        	}
+        	
             return;
         }
     }
 
+	private class OptionsWindowListener implements WindowListener{
+
+		public void windowActivated(WindowEvent e) {}
+
+		public void windowClosed(WindowEvent e) {
+			accountInfo.statusMessage.changePM(false);
+			options = null;
+		}
+
+		public void windowClosing(WindowEvent e) {}
+		public void windowDeactivated(WindowEvent e) {}
+		public void windowDeiconified(WindowEvent e) {}
+		public void windowIconified(WindowEvent e) {}
+		public void windowOpened(WindowEvent e) {}
+		
+	}
     /**
      * Listens for the Chatbot toggle
      * 
@@ -339,6 +361,7 @@ public class BuddyList extends JFrame {
             controller.disconnect();
             model.deleteObserver(chat);
             chat.dispose();
+            if (options != null) options.dispose();
             new MainWindow(controller, model, buddywindow.getLocation());
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();
