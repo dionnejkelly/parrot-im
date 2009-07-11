@@ -32,7 +32,7 @@ public class MusicPlayer {
             audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             audioFormat = audioInputStream.getFormat();
 
-            System.out.println(audioFormat);
+            //System.out.println(audioFormat);
 
             DataLine.Info dataLineInfo =
                     new DataLine.Info(SourceDataLine.class, audioFormat);
