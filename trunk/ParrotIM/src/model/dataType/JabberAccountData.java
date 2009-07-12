@@ -19,16 +19,11 @@ public class JabberAccountData extends AccountData implements JabberPerson {
      */
     private JabberManager connection;
 
-    public JabberAccountData(String userID, String password,
-            JabberManager connection) {
+    public JabberAccountData(String userID, String password) {
         super(userID, password);
 
-        if (connection == null) {
-            throw new IllegalArgumentException();
-        }
-
         this.friends = new ArrayList<JabberUserData>();
-        this.connection = connection;
+        this.connection = null;
     }
 
     public JabberAccountData(String userID, String nickname, String status,
@@ -59,7 +54,14 @@ public class JabberAccountData extends AccountData implements JabberPerson {
     public GenericConnection getConnection() {
         return connection;
     }
-
+    
+    public void setConnection(GenericConnection connection) {
+        if (connection != null && connection instanceof JabberManager) {
+            this.connection = (JabberManager) connection;
+        }        
+        return;
+    }
+    
     /**
      * Adds a friend by UserData. Will not add duplicate entries, checked by
      * userID.

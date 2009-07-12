@@ -36,6 +36,9 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import model.DatabaseFunctions;
+import model.Model;
+import model.dataType.tempData.AccountTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
@@ -56,20 +59,20 @@ public class ProfileData {
     /**
      * The name of the current profile. Not necessarily a userID of an account.
      */
-    private String profileName;
-
-    private boolean chatWindowHistoryEnabled;
+    private String name;
 
     private String profilePassword;
+
+    private boolean chatWindowHistoryEnabled;
 
     private boolean autoSignInEnabled;
 
     private boolean guestAccount;
-    
+
     private boolean chatLogEnabled;
-    
+
     private boolean soundsEnabled;
-    
+
     /**
      * Determines whether chatbot is on or not. Defaults to off.
      */
@@ -82,18 +85,36 @@ public class ProfileData {
      * Creates a new profile with no valid accounts or information. The name is
      * set to the passed in name.
      */
-    public ProfileData(String profileName) {
+    public ProfileData(String name) {
         this.accountData = new ArrayList<AccountData>();
-        this.profileName = profileName;
-        this.chatWindowHistoryEnabled = true;
+        this.name = name;
         this.profilePassword = "";
+        this.chatWindowHistoryEnabled = true;
         this.autoSignInEnabled = false;
         this.guestAccount = false;
         this.chatLogEnabled = true;
         this.soundsEnabled = true;
         this.chatbotEnabled = false;
     }
-    
+
+    /**
+     * Full constructor.
+     */
+    public ProfileData(String name, String profilePassword,
+            boolean chatWindowHistoryEnabled, boolean autoSignInEnabled,
+            boolean guestAccount, boolean chatLogEnabled,
+            boolean soundsEnabled, boolean chatbotEnabled) {
+        this.accountData = new ArrayList<AccountData>();
+        this.name = name;
+        this.profilePassword = "";
+        this.chatWindowHistoryEnabled = true;
+        this.autoSignInEnabled = false;
+        this.guestAccount = false;
+        this.chatLogEnabled = true;
+        this.soundsEnabled = true;
+        this.chatbotEnabled = false;
+    }
+
     // Section:
     // IV - Accessors and Mutators
 
@@ -123,8 +144,8 @@ public class ProfileData {
      * 
      * @param profileName
      */
-    public void setProfileName(String profileName) {
-        this.profileName = profileName;
+    public void setProfileName(String name) {
+        this.name = name;
         return;
     }
 
@@ -134,14 +155,14 @@ public class ProfileData {
      * @return A string of the name of the profile.
      */
     public String getProfileName() {
-        return profileName;
+        return this.name;
     }
 
     public void setStatus(String status) {
         for (AccountData a : this.accountData) {
             a.setStatus(status);
         }
-        
+
         return;
     }
 
@@ -154,7 +175,7 @@ public class ProfileData {
         for (AccountData a : this.accountData) {
             a.setState(state);
         }
-        
+
         return;
     }
 
@@ -215,7 +236,6 @@ public class ProfileData {
         this.autoSignInEnabled = autoSignInEnabled;
     }
 
-    
     // Section
     // V - Account Manipulation Methods
 
@@ -225,12 +245,12 @@ public class ProfileData {
 
     public void setGuestAccount(boolean guestAccount) {
         this.guestAccount = guestAccount;
-        
+
         // Do not allow guests to save chat logs
         if (guestAccount) {
             this.chatLogEnabled = false;
         }
-        
+
         return;
     }
 
@@ -239,14 +259,14 @@ public class ProfileData {
     }
 
     public void setChatLogEnabled(boolean chatLogEnabled) {
-        
+
         // Do not allow guests to save chat logs
         if (this.guestAccount) {
             chatLogEnabled = false;
         }
-        
+
         this.chatLogEnabled = chatLogEnabled;
-        
+
         return;
     }
 
@@ -370,12 +390,65 @@ public class ProfileData {
     // VII - Other Methods
 
     /**
+     * Gets all accounts for a given profile. These accounts are returned in
+     * objects that hold all parameters that were inside the database.
+     * 
+     * @param profile
+     * @return An ArrayList of AccountTempData objects.
+     */
+    public void loadAccounts() {
+        ArrayList<AccountTempData> accounts = null;
+        DatabaseFunctions db = null;
+        AccountData newAccount = null;
+
+        // Grab accounts from the database
+        try {
+            db = new DatabaseFunctions();
+            accounts = db.getAccountList(this.getProfileName());
+        } catch (Exception e) {
+            System.err.println("Database error. No accounts added.");
+            e.printStackTrace();
+            accounts = new ArrayList<AccountTempData>();
+        }
+
+        // Add accounts to the profile.
+        for (AccountTempData a : accounts) {
+            newAccount =
+                    Model.createAccount(a.getUserID(), a.getPassword(), a
+                            .getServer());
+        }
+
+        return;
+    }
+
+    /**
      * Gets a string representation of the profile. Set to return the name only.
      * 
      * @return The name of the profile.
      */
-    @Override
     public String toString() {
-        return profileName;
+        return this.name;
     }
+
+    public int hashCode() {
+        int hash = 7;
+
+        hash = hash * 31 + this.name.hashCode();
+
+        return hash;
+    }
+
+    public boolean equals(Object o) {
+        // Equal if same name
+        boolean areEqual = false;
+        ProfileData otherProfile = null;
+
+        if (o != null && o instanceof ProfileData) {
+            otherProfile = (ProfileData) o;
+            areEqual = (this.name.equals(otherProfile.getProfileName()));
+        }
+
+        return areEqual;
+    }
+
 }

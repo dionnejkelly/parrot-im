@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.enumerations.UserStateType;
 import controller.services.GenericConnection;
+import controller.services.GoogleTalkManager;
 import controller.services.JabberManager;
 import controller.services.TwitterManager;
 
@@ -21,16 +22,11 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
 
     private int minutesSinceUpdate;
     
-    public TwitterAccountData(String userID, String password,
-            TwitterManager connection) {
+    public TwitterAccountData(String userID, String password) {
         super(userID, password);
 
-        if (connection == null) {
-            throw new IllegalArgumentException();
-        }
-
         this.friends = new ArrayList<TwitterUserData>();
-        this.connection = connection;
+        this.connection = null;
     }
 
     public TwitterAccountData(String userID, String nickname, String status,
@@ -62,6 +58,14 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
         return connection;
     }
 
+    public void setConnection(GenericConnection connection) {
+        if (connection != null && connection instanceof TwitterManager) {
+            this.connection = (TwitterManager) connection;
+        }
+        
+        return;
+    }
+    
     /**
      * Adds a friend by UserData. Will not add duplicate entries, checked by
      * userID.

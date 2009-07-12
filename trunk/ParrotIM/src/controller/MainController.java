@@ -242,24 +242,21 @@ public class MainController {
         switch (server) {
         case GOOGLE_TALK:
             connection = new GoogleTalkManager(controller);
-            account =
-                    new GoogleTalkAccountData(userID, password,
-                            (GoogleTalkManager) connection);
+            account = new GoogleTalkAccountData(userID, password);
+            account.setConnection(connection);
             break;
 
         case JABBER:
             userID += "@" + serverAddress;
             connection = new JabberManager(controller);
-            account =
-                    new JabberAccountData(userID, password,
-                            (JabberManager) connection);
+            account = new JabberAccountData(userID, password);
+            account.setConnection(connection);
             break;
 
         case TWITTER:
             connection = new TwitterManager(controller);
-            account =
-                    new TwitterAccountData(userID, password,
-                            (TwitterManager) connection);
+            account = new TwitterAccountData(userID, password);
+            account.setConnection(connection);
             break;
 
         default:

@@ -56,11 +56,14 @@ import controller.services.GenericConnection;
 import model.dataType.AccountData;
 import model.dataType.ChatCollectionData;
 import model.dataType.ConversationData;
+import model.dataType.GoogleTalkAccountData;
+import model.dataType.JabberAccountData;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
 import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
+import model.dataType.TwitterAccountData;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
@@ -112,6 +115,12 @@ public class Model extends Observable {
         this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
         logWindowOpen = false;
+        
+        // Grab profiles and account from the database
+        this.profileCollection.loadProfiles();
+        for (ProfileData p : this.profileCollection.getProfiles()) {
+            p.loadAccounts();
+        }
     }
 
     // Section
@@ -518,7 +527,8 @@ public class Model extends Observable {
         DatabaseFunctions db;
         try {
             db = new DatabaseFunctions();
-            db.addProfiles(name, pwd, defaultProfile);
+            db.addProfiles(name, pwd, defaultProfile, true, false, true, true,
+                    false);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -579,7 +589,7 @@ public class Model extends Observable {
             this.profileCollection.getProfiles().add(newProfile);
             this.profileCollection.setActiveProfile(newProfile);
         }
-        
+
         return;
     }
 
@@ -1129,5 +1139,34 @@ public class Model extends Observable {
     public void updateAboutState(boolean state) {
         System.out.println("Model: About");
         this.aboutWindowOpen = state;
+    }
+
+    public static AccountData createAccount(String userID, String password, ServerType server) {
+        AccountData account = null;
+        
+        switch (server) {
+        case GOOGLE_TALK:
+            account = new GoogleTalkAccountData(userID, password);
+            break;
+        case TWITTER:
+            account = new TwitterAccountData(userID, password);
+            break;
+        case JABBER:
+            account = new JabberAccountData(userID, password);
+            break;
+        case MSN:
+            //account = new MSNAccountData(userID, password);
+            break;
+        case ICQ:
+            //account = new ICQAccountData(userID, password);
+            break;
+        case AIM:
+            //account = new AIMAccountData(userID, password);
+            break;
+        default:
+            break;
+        }
+        
+        return account;
     }
 }

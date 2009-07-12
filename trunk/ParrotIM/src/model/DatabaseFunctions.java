@@ -82,6 +82,9 @@ import model.enumerations.ServerType;
  */
 public class DatabaseFunctions {
 
+    private static final String YES = "yes";
+    private static final String NO = "no";
+
     // Section
     // I - Static Data Members
 
@@ -152,7 +155,8 @@ public class DatabaseFunctions {
                 + "(profile, fromUser, toUser, message, "
                 + "date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
-                + "(name, password, defaultProfile);");
+                + "(name, password, defaultProfile, chatWindowHistory, "
+                + "autoSignIn, chatLog, sounds, chatbot);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
         stat.executeUpdate("create table if not exists chatBotQuestions "
@@ -257,9 +261,9 @@ public class DatabaseFunctions {
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
-        r3 = stat.executeQuery(
-                                "select * from people where profile='"
-                                        + profile + "';");
+        r3 =
+                stat.executeQuery("select * from people where profile='"
+                        + profile + "';");
         while (r3.next()) {
             profilesAccountList.add(r3.getString("accountName"));
         }
@@ -277,12 +281,11 @@ public class DatabaseFunctions {
         }
         rs.close();
         conn.close();
-        for(int i=0; i<accountList.size(); i++)
-        {
-        	System.out.println(accountList.get(i));
+        for (int i = 0; i < accountList.size(); i++) {
+            System.out.println(accountList.get(i));
         }
         return accountList;
-        
+
     }
 
     /**
@@ -371,22 +374,30 @@ public class DatabaseFunctions {
      * @param isDefault
      * @throws SQLException
      */
-    public void addProfiles(String name, String password, boolean isDefault)
+    public void addProfiles(String name, String password, boolean isDefault,
+            boolean isChatWindowHistory, boolean isAutoSignIn,
+            boolean isChatLog, boolean isSounds, boolean isChatbot)
             throws SQLException {
-        String defaultProfile = null;
+        String defaultProfile = isDefault ? YES : NO;
+        String chatWindowHistory = isChatWindowHistory ? YES : NO;
+        String autoSignIn = isAutoSignIn ? YES : NO;
+        String chatLog = isChatLog ? YES : NO;
+        String sounds = isSounds ? YES : NO;
+        String chatbot = isChatbot ? YES : NO;
 
-        if (isDefault) {
-            defaultProfile = "yes";
-        } else {
-            defaultProfile = "no";
-        }
-
-        prep = conn.prepareStatement("insert into profiles values (?, ?, ?);");
+        prep =
+                conn.prepareStatement("insert into profiles values "
+                        + "(?, ?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, name);
         prep.setString(2, password);
         prep.setString(3, defaultProfile);
+        prep.setString(4, chatWindowHistory);
+        prep.setString(5, autoSignIn);
+        prep.setString(6, chatLog);
+        prep.setString(7, sounds);
+        prep.setString(8, chatbot);
         prep.executeUpdate();
 
         conn.commit();
@@ -424,45 +435,13 @@ public class DatabaseFunctions {
      * @throws SQLException
      */
     public void setDefaultProfile(String name) throws SQLException {
-        stat.executeUpdate("UPDATE friendList SET defaultProfile = 'no';");
+        stat.executeUpdate("UPDATE profiles SET defaultProfile = 'no';");
 
-        stat.executeUpdate("UPDATE friendList SET defaultProfile = 'yes' "
+        stat.executeUpdate("UPDATE profiles SET defaultProfile = 'yes' "
                 + "' WHERE name ='" + name + "';");
 
         conn.close();
         return;
-    }
-
-    /**
-     * Gets a profile object of the default profile.
-     * 
-     * @return The profile object corresponding to the default profile. Returns
-     *         null if no such profile exists.
-     * @throws SQLException
-     */
-    public ProfileTempData getDefaultProfile() throws SQLException {
-        ProfileTempData profile = null;
-        String name = null;
-        String password = null;
-        boolean defaultProfile = false;
-
-        rs =
-                stat.executeQuery("SELECT * FROM defaultProfile WHERE "
-                        + "defaultProfile = 'yes';");
-
-        if (rs.next()) {
-            name = rs.getString("name");
-            password = rs.getString("password");
-            if (rs.getString("defaultProfile").equals("yes")) {
-                defaultProfile = true;
-            } else {
-                defaultProfile = false;
-            }
-            profile = new ProfileTempData(name, password, defaultProfile);
-        }
-        rs.close();
-        conn.close();
-        return profile;
     }
 
     /**
@@ -474,14 +453,48 @@ public class DatabaseFunctions {
      * @throws SQLException
      */
     public Vector<String> getProfileList() throws SQLException {
-        Vector<String> accountList = new Vector<String>();
+        Vector<String> profileList = new Vector<String>();
         rs = stat.executeQuery("select * from profiles;");
         while (rs.next()) {
-            accountList.add(rs.getString("name"));
+            profileList.add(rs.getString("name"));
         }
         rs.close();
         conn.close();
-        return accountList;
+        return profileList;
+    }
+
+    public ArrayList<ProfileTempData> getProfiles() throws SQLException {
+        ArrayList<ProfileTempData> profiles = new ArrayList<ProfileTempData>();
+        boolean isDefaultProfile = false;
+        boolean isChatWindowHistory = false;
+        boolean isAutoSignIn = false;
+        boolean isChatLog = false;
+        boolean isSounds = false;
+        boolean isChatbot = false;
+
+        rs = stat.executeQuery("SELECT * FROM profiles;");
+        while (rs.next()) {
+            isDefaultProfile =
+                    rs.getString("defaultProfile").equals(YES) ? true : false;
+            isChatWindowHistory =
+                    rs.getString("chatWindowHistory").equals(YES) ? true
+                            : false;
+            isAutoSignIn =
+                    rs.getString("autoSignIn").equals(YES) ? true : false;
+            isChatLog = rs.getString("chatLog").equals(YES) ? true : false;
+            isSounds = rs.getString("sounds").equals(YES) ? true : false;
+            isChatbot = rs.getString("chatbot").equals(YES) ? true : false;
+
+            profiles.add(new ProfileTempData(rs.getString("name"), rs
+                    .getString("password"), isDefaultProfile,
+                    isChatWindowHistory, isAutoSignIn, isChatLog, isSounds,
+                    isChatbot));
+        }
+        
+        rs.close();
+        conn.close();
+
+        return profiles;
     }
 
     // Section
@@ -919,7 +932,8 @@ public class DatabaseFunctions {
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
                         + "where question='" + question + "';");
-        while (rs.getString("afterQuestion") != null && !rs.getString("afterQuestion").equals("null")) {
+        while (rs.getString("afterQuestion") != null
+                && !rs.getString("afterQuestion").equals("null")) {
             questionsList.add(rs.getString("afterQuestion"));
             stat = conn.createStatement();
             rs =
@@ -934,8 +948,8 @@ public class DatabaseFunctions {
         return questionsList;
     }
 
-    public void removeChatQuestion(String question) throws SQLException  {
-    	boolean wasFirstQuestion = false;
+    public void removeChatQuestion(String question) throws SQLException {
+        boolean wasFirstQuestion = false;
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
                         + "where question='" + question + "';");
@@ -947,22 +961,27 @@ public class DatabaseFunctions {
                         + "where afterQuestion='" + question + "';");
         rs.next();
         try {
-			System.out.println(rs.getString("question"));
-		} catch (SQLException e) {
-			wasFirstQuestion = true;
-		}
+            System.out.println(rs.getString("question"));
+        } catch (SQLException e) {
+            wasFirstQuestion = true;
+        }
         stat = conn.createStatement();
         if (wasFirstQuestion != true) {
             String beforeQuestion = rs.getString("question");
-	        if (questionAfter != null) {
-	            System.out.println("bleh meh wuhh?");
-	            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
-	                    + questionAfter + "' where question = '" + beforeQuestion
-	                    + "';");
-	        } else {
-	            stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
-	                    + null + "' where question = '" + beforeQuestion + "';");
-	        }
+            if (questionAfter != null) {
+                System.out.println("bleh meh wuhh?");
+                stat
+                        .executeUpdate("update chatBotQuestions set afterQuestion = '"
+                                + questionAfter
+                                + "' where question = '"
+                                + beforeQuestion + "';");
+            } else {
+                stat
+                        .executeUpdate("update chatBotQuestions set afterQuestion = '"
+                                + null
+                                + "' where question = '"
+                                + beforeQuestion + "';");
+            }
         }
         stat = conn.createStatement();
         stat.executeUpdate("delete from chatBotQuestions where question='"
@@ -976,26 +995,26 @@ public class DatabaseFunctions {
 
         return;
     }
-    public void printQADbContents() throws SQLException
-    {
-        //stat.executeUpdate("create table if not exists chatBotQuestions "
-        //        + "(profile, question, afterQuestion);");
-        //stat.executeUpdate("create table if not exists chatBotAnswers "
-        //        + "(profile, question, answer);");
+
+    public void printQADbContents() throws SQLException {
+        // stat.executeUpdate("create table if not exists chatBotQuestions "
+        // + "(profile, question, afterQuestion);");
+        // stat.executeUpdate("create table if not exists chatBotAnswers "
+        // + "(profile, question, answer);");
         r2 = stat.executeQuery("select * from chatBotQuestions;");
-        while (r2.next())
-        {
-            System.out.println("Profile: " + r2.getString("profile") + "Question: "
-                    + r2.getString("question")  + "afterQuestion: " + r2.getString("afterQuestion"));
-           
+        while (r2.next()) {
+            System.out.println("Profile: " + r2.getString("profile")
+                    + "Question: " + r2.getString("question")
+                    + "afterQuestion: " + r2.getString("afterQuestion"));
+
         }
         System.out.println("");
         r2 = stat.executeQuery("select * from chatBotAnswers;");
-        while (r2.next())
-        {
-            System.out.println("Profile: " + r2.getString("profile") + "Question: "
-                    + r2.getString("question")  + "Answer: " + r2.getString("answer"));
-           
+        while (r2.next()) {
+            System.out.println("Profile: " + r2.getString("profile")
+                    + "Question: " + r2.getString("question") + "Answer: "
+                    + r2.getString("answer"));
+
         }
     }
 
