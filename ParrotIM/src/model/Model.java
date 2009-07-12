@@ -123,6 +123,10 @@ public class Model extends Observable {
         }
     }
 
+    public ProfileCollectionData getProfileCollection() {
+        return this.profileCollection;
+    }
+    
     // Section
     // III - Profile and Account Manipulation Methods
 
