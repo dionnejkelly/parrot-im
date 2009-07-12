@@ -20,16 +20,11 @@ public class GoogleTalkAccountData extends AccountData implements
      */
     private GoogleTalkManager connection;
 
-    public GoogleTalkAccountData(String userID, String password,
-            GoogleTalkManager connection) {
+    public GoogleTalkAccountData(String userID, String password) {
         super(userID, password);
 
-        if (connection == null) {
-            throw new IllegalArgumentException();
-        }
-
         this.friends = new ArrayList<GoogleTalkUserData>();
-        this.connection = connection;
+        this.connection = null;
     }
 
     public GoogleTalkAccountData(String userID, String nickname, String status,
@@ -48,10 +43,10 @@ public class GoogleTalkAccountData extends AccountData implements
         ArrayList<UserData> genericFriends = new ArrayList<UserData>();
 
         genericFriends.addAll(this.friends);
-        
+
         return genericFriends;
     }
-    
+
     /**
      * Sets the connection object that communicates with the server.
      * 
@@ -59,6 +54,14 @@ public class GoogleTalkAccountData extends AccountData implements
      */
     public GenericConnection getConnection() {
         return connection;
+    }
+
+    public void setConnection(GenericConnection connection) {
+        if (connection != null && connection instanceof GoogleTalkManager) {
+            this.connection = (GoogleTalkManager) connection;
+        }
+
+        return;
     }
 
     /**
@@ -98,15 +101,15 @@ public class GoogleTalkAccountData extends AccountData implements
 
     public boolean removeFriend(String exFriendUserID) {
         boolean removed = false;
-        
+
         for (GoogleTalkUserData u : this.friends) {
             if (u.isDuplicate(exFriendUserID)) {
                 removed = this.friends.remove(u);
                 break;
             }
         }
-        
+
         return removed;
     }
-    
+
 }

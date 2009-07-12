@@ -116,6 +116,8 @@ public abstract class AccountData extends PersonData {
 
     public abstract GenericConnection getConnection();
     
+    public abstract void setConnection(GenericConnection connection);
+    
     /**
      * Returns the server type as a ServerType enumeration.
      * 
