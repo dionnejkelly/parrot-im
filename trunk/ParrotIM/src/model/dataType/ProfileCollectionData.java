@@ -1,11 +1,12 @@
 package model.dataType;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import model.DatabaseFunctions;
 import model.dataType.tempData.ProfileTempData;
 
-public class ProfileCollectionData {
+public class ProfileCollectionData extends Observable {
 
     private ArrayList<ProfileData> profiles;
 
@@ -51,6 +52,9 @@ public class ProfileCollectionData {
                 e.printStackTrace();
             }
         }
+        
+        this.setChanged();
+        this.notifyObservers();
 
         return;
     }
@@ -77,6 +81,9 @@ public class ProfileCollectionData {
             }
         }
 
+        this.setChanged();
+        this.notifyObservers();
+
         return;
     }
 
@@ -95,6 +102,9 @@ public class ProfileCollectionData {
                 e.printStackTrace();
             }
         }
+
+        this.setChanged();
+        this.notifyObservers();
 
         return this.profiles.remove(profile);
     }
@@ -117,6 +127,9 @@ public class ProfileCollectionData {
                 e.printStackTrace();
             }
         }
+
+        this.setChanged();
+        this.notifyObservers();
 
         return removed;
     }

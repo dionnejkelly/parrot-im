@@ -63,9 +63,11 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -75,6 +77,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import model.Model;
+import model.dataType.ProfileCollectionData;
+import model.dataType.ProfileData;
 import model.enumerations.UpdatedType;
 
 import controller.MainController;
@@ -97,8 +101,9 @@ public class SignInPanel extends JPanel implements Observer {
      */
     protected MainController core;
 
-    /** 
-     * mainFrame is a MainWindow object which is a container of this panel. */
+    /**
+     * mainFrame is a MainWindow object which is a container of this panel.
+     */
     private MainWindow mainFrame;
 
     /**
@@ -107,9 +112,14 @@ public class SignInPanel extends JPanel implements Observer {
      */
     private Model model;
 
-    /** 
-     * account_select is a JComboBox object. It shows the listed saved profiles */
+    /**
+     * account_select is a JComboBox object. It shows the listed saved profiles
+     */
     private JComboBox account_select;
+
+    private DefaultComboBoxModel profilesModel;
+
+    private ProfileCollectionData profiles;
 
     // part of the whole panel
     /**
@@ -137,15 +147,15 @@ public class SignInPanel extends JPanel implements Observer {
      * includes a separator and help LinkLabel.
      */
     protected MiscPanel misc;
-    
+
     private LinkLabel manageAccount;
-    
+
     private LinkLabel removeProfile;
 
     private JButton connectButton;
-    
+
     private int lastSelectedIndex;
-    
+
     /**
      * SignInPanel constructor.It takes a Model, MainController, and MainWindow
      * object as arguments. It sets up the panel.
@@ -160,8 +170,9 @@ public class SignInPanel extends JPanel implements Observer {
         mainFrame = frame;
         core = chatClient;// CORE
         this.model = model;
-        this.model.addObserver(this);
         signin = this;
+        this.profiles = model.getProfileCollection();
+        this.profiles.addObserver(this);
 
         setLayout(new BorderLayout());
         manageAccountPanel();
@@ -188,13 +199,15 @@ public class SignInPanel extends JPanel implements Observer {
         accPanel.setBorder(BorderFactory.createEmptyBorder(5, 50, 10, 50));
 
         // list of accounts
-        account_select = new JComboBox(model.getProfileList());
+        profilesModel =
+                new DefaultComboBoxModel(new Vector(profiles.getProfiles()));
+        account_select = new JComboBox(profilesModel);
         account_select.addActionListener((new AccountSelectItemListener()));
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
-        
-        //if (model.thereIsDefault)
-        	//account_select.setSelectedIndex(1);
-        
+
+        // if (model.thereIsDefault)
+        // account_select.setSelectedIndex(1);
+
         // connect button
         JPanel connectPanel = new JPanel();
         connectButton = new JButton("Sign In");
@@ -211,7 +224,7 @@ public class SignInPanel extends JPanel implements Observer {
         // create account
         LinkLabel createProfile = new LinkLabel("Create New Profile", true);
         createProfile.addMouseListener(new createProfileListener());
-        
+
         // manage account
         manageAccount = new LinkLabel("Manage Profile", false);
         manageAccount.addMouseListener(new manageProfileListener());
@@ -219,10 +232,10 @@ public class SignInPanel extends JPanel implements Observer {
         // remove account
         removeProfile = new LinkLabel("Remove Profile", false);
         removeProfile.addMouseListener(new removeProfileListener());
-        
+
         // guest account
         LinkLabel guestAccount = new LinkLabel("Connect Guest Account", true);
-        guestAccount.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
+        guestAccount.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         guestAccount.addMouseListener(new guestAccountListener());
 
         // add components to accOptPanel
@@ -250,13 +263,12 @@ public class SignInPanel extends JPanel implements Observer {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    private void guestSignIn() throws ClassNotFoundException,
-            SQLException {
+    private void guestSignIn() throws ClassNotFoundException, SQLException {
         String username = (String) account_select.getSelectedItem();
 
         try {
             // Login with server and set model info
-            
+
             // TODO think of how to implement profile password
             core.loginProfile(username);
 
@@ -277,17 +289,16 @@ public class SignInPanel extends JPanel implements Observer {
      * @param o
      */
     public void update(Observable o, Object arg) {
-        if (arg == UpdatedType.PROFILE) {
-            this.account_select.removeAllItems();
-            for (String s : model.getProfileList()) {
-                this.account_select.addItem(s);
-            }
+        this.profilesModel.removeAllElements();
+        for (ProfileData p : profiles.getProfiles()) {
+            this.profilesModel.addElement(p);
         }
 
         return;
     }
-    private class signInButtonActionListener implements ActionListener{
-    	/**
+
+    private class signInButtonActionListener implements ActionListener {
+        /**
          * When the sign in button is clicked, the accounts of the currently
          * chosen profile will be connected to the server.
          * 
@@ -295,7 +306,7 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void actionPerformed(ActionEvent evt) {
             try {
-            	guestSignIn();
+                guestSignIn();
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -305,214 +316,260 @@ public class SignInPanel extends JPanel implements Observer {
             }
         }
     }
-    private class manageProfileListener implements MouseListener{
 
-    	/** 
-    	 * if manageAccount is clicked, it will launched the Profile
-         * Manager
+    private class manageProfileListener implements MouseListener {
+
+        /**
+         * if manageAccount is clicked, it will launched the Profile Manager
          * 
          * @param evt
          */
         public void mouseClicked(MouseEvent evt) {
-        	if (manageAccount.isEnabled()){
-        		System.out.println("enabled");
-				try {
-					ManageAccountFrame manageAccount = 
-						new ManageAccountFrame(model, core, account_select.getSelectedItem().toString());
-					manageAccount.addWindowListener(new PopupWindowListener(mainFrame, manageAccount));
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-        		
+            if (manageAccount.isEnabled()) {
+                System.out.println("enabled");
+                try {
+                    ManageAccountFrame manageAccount =
+                            new ManageAccountFrame(model, core, account_select
+                                    .getSelectedItem().toString());
+                    manageAccount.addWindowListener(new PopupWindowListener(
+                            mainFrame, manageAccount));
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
-        	}
-        		
+            }
+
         }
 
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-    }
-    private class createProfileListener implements MouseListener{
+        public void mouseEntered(MouseEvent e) {
+        }
 
-    	/**
-    	 * if createProfile is clicked, it will launched the Profile
-         * creator wizard
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+    }
+
+    private class createProfileListener implements MouseListener {
+
+        /**
+         * if createProfile is clicked, it will launched the Profile creator
+         * wizard
          * 
          * @param evt
          */
         public void mouseClicked(MouseEvent evt) {
-            //TODO: set this
-        	NewProfileFrame profile = new NewProfileFrame(model, core, mainFrame);
-        	profile.addWindowListener(new PopupWindowListener(mainFrame, profile));
+            // TODO: set this
+            NewProfileFrame profile =
+                    new NewProfileFrame(model, core, mainFrame);
+            profile.addWindowListener(new PopupWindowListener(mainFrame,
+                    profile));
         }
 
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-    }
-    private class removeProfileListener implements MouseListener{
+        public void mouseEntered(MouseEvent e) {
+        }
 
-    	/**
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+    }
+
+    private class removeProfileListener implements MouseListener {
+
+        /**
          * if removeProfile is clicked, it will prompt for password and verify
          * 
          * @param evt
          */
         public void mouseClicked(MouseEvent evt) {
-        	if (removeProfile.isEnabled()){
-        		System.out.println("enabled");
-        		model.removeProfile(account_select.getSelectedItem().toString());
-        	}
+            if (removeProfile.isEnabled()) {
+                System.out.println("enabled");
+                model
+                        .removeProfile(account_select.getSelectedItem()
+                                .toString());
+            }
         }
 
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-    }
-    private class guestAccountListener implements MouseListener{
+        public void mouseEntered(MouseEvent e) {
+        }
 
-    	public void mouseClicked(MouseEvent evt) {
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+    }
+
+    private class guestAccountListener implements MouseListener {
+
+        public void mouseClicked(MouseEvent evt) {
             new GuestAccountFrame(model, core, mainFrame, signin);
         }
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-    	
+
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+
     }
-	private class AccountSelectItemListener implements ActionListener{
-		
-		public AccountSelectItemListener(){
-			lastSelectedIndex = account_select.getSelectedIndex();
-		}
-		
-		public void actionPerformed(ActionEvent e) {
-			int selectedIndex = account_select.getSelectedIndex();
-			if (selectedIndex>0 && lastSelectedIndex != selectedIndex){
-				System.out.println("Checking...");
-				new SimplifiedPasswordPrompt(account_select.getSelectedItem().toString());
-			} else if (selectedIndex <=0 ){
-				manageAccount.setEnabled(false);
-				removeProfile.setEnabled(false);
-				connectButton.setEnabled(false);
-			}
-			
-		}
-	}
-	
-	private class SimplifiedPasswordPrompt extends JFrame{
-		private JFrame passwordFrame;
-		private JPasswordField passwordPrompt;
-		private JButton OKbutton;
-		
-		/**
-		 * asks for password
-		 * use this for deleting the account
-		 * @param profileName
-		 * */
-		public SimplifiedPasswordPrompt (String profileName){
-			passwordFrame = this;
-		
-			setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-			
-			//password prompt
-			passwordPrompt = new JPasswordField();
-			passwordPrompt.addKeyListener(new passwordKeyListener());
-			passwordPrompt.setPreferredSize(new Dimension(355, 20));
-			JPanel passwordPanel = new JPanel();
-			passwordPanel.add(passwordPrompt);
-		
-			//buttons
-			OKbutton = new JButton ("OK");
-			OKbutton.addActionListener(new OKActionListener());
-			OKbutton.setEnabled(false);
-			JButton cancelButton = new JButton ("Cancel");
-			cancelButton.addActionListener(new cancelActionListener());
-			JPanel buttonsPanel = new JPanel ();
-			buttonsPanel.add (OKbutton);
-			buttonsPanel.add(cancelButton);
-			
-			//panel
-			JPanel mainPanel = new JPanel();
-			mainPanel.setLayout(new BorderLayout());
-			mainPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-			mainPanel.add(new JLabel("Enter password for " + profileName + "\'s profile:"), BorderLayout.NORTH);
-			mainPanel.add(passwordPanel, BorderLayout.CENTER);
-			mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
-			
-			//frame
-			this.addWindowListener(new PopupWindowListener(mainFrame, passwordFrame));
-			this.setLocationRelativeTo(null);
-			this.setResizable(false);
-			this.setPreferredSize(new Dimension(400,150));
-			this.getContentPane().add(mainPanel);
-			this.pack();
-			this.setVisible(true);
-		}
 
-		private class passwordKeyListener implements KeyListener{
+    private class AccountSelectItemListener implements ActionListener {
 
-			public void keyPressed(KeyEvent e) {}
-			public void keyReleased(KeyEvent e) {
-				if (passwordPrompt.getPassword().length > 0) {
-					OKbutton.setEnabled(true);
-					
-					if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-						System.out.println("password is correct");
-						lastSelectedIndex = account_select.getSelectedIndex();
-						passwordFrame.dispose();
-						manageAccount.setEnabled(true);
-					    removeProfile.setEnabled(true);
-					    connectButton.setEnabled(true);
-						
-					}
-				}
+        public AccountSelectItemListener() {
+            lastSelectedIndex = account_select.getSelectedIndex();
+        }
 
-				else {
-					OKbutton.setEnabled(false);
-				}
-			}
+        public void actionPerformed(ActionEvent e) {
+            int selectedIndex = account_select.getSelectedIndex();
+            if (selectedIndex > 0 && lastSelectedIndex != selectedIndex) {
+                System.out.println("Checking...");
+                new SimplifiedPasswordPrompt(account_select.getSelectedItem()
+                        .toString());
+            } else if (selectedIndex <= 0) {
+                manageAccount.setEnabled(false);
+                removeProfile.setEnabled(false);
+                connectButton.setEnabled(false);
+            }
 
-			public void keyTyped(KeyEvent e) {
-				
-			}
-		}
-		private class cancelActionListener implements ActionListener{
+        }
+    }
 
-			public void actionPerformed(ActionEvent e) {
-				account_select.setSelectedIndex(0);
-				lastSelectedIndex = 0;
-				passwordFrame.dispose();
-			}
-		}
-		private class OKActionListener implements ActionListener{
+    private class SimplifiedPasswordPrompt extends JFrame {
+        private JFrame passwordFrame;
+        private JPasswordField passwordPrompt;
+        private JButton OKbutton;
 
-			public void actionPerformed(ActionEvent e) {
-				//if (password is correct) {
-					//enables
-				
-				
-					System.out.println("password is correct");
-					lastSelectedIndex = account_select.getSelectedIndex();
-					passwordFrame.dispose();
-					manageAccount.setEnabled(true);
-				    removeProfile.setEnabled(true);
-				    connectButton.setEnabled(true);
-				    
-				//else {
-					//gives warning
-					//cannot select that profile
-					//account_select.setSelectedIndex(0);
-				//}
-			}
-		}
-	}
-    
+        /**
+         * asks for password use this for deleting the account
+         * 
+         * @param profileName
+         * */
+        public SimplifiedPasswordPrompt(String profileName) {
+            passwordFrame = this;
+
+            setIconImage(new ImageIcon("src/images/mainwindow/logo.png")
+                    .getImage());
+
+            // password prompt
+            passwordPrompt = new JPasswordField();
+            passwordPrompt.addKeyListener(new passwordKeyListener());
+            passwordPrompt.setPreferredSize(new Dimension(355, 20));
+            JPanel passwordPanel = new JPanel();
+            passwordPanel.add(passwordPrompt);
+
+            // buttons
+            OKbutton = new JButton("OK");
+            OKbutton.addActionListener(new OKActionListener());
+            OKbutton.setEnabled(false);
+            JButton cancelButton = new JButton("Cancel");
+            cancelButton.addActionListener(new cancelActionListener());
+            JPanel buttonsPanel = new JPanel();
+            buttonsPanel.add(OKbutton);
+            buttonsPanel.add(cancelButton);
+
+            // panel
+            JPanel mainPanel = new JPanel();
+            mainPanel.setLayout(new BorderLayout());
+            mainPanel
+                    .setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+            mainPanel.add(new JLabel("Enter password for " + profileName
+                    + "\'s profile:"), BorderLayout.NORTH);
+            mainPanel.add(passwordPanel, BorderLayout.CENTER);
+            mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
+
+            // frame
+            this.addWindowListener(new PopupWindowListener(mainFrame,
+                    passwordFrame));
+            this.setLocationRelativeTo(null);
+            this.setResizable(false);
+            this.setPreferredSize(new Dimension(400, 150));
+            this.getContentPane().add(mainPanel);
+            this.pack();
+            this.setVisible(true);
+        }
+
+        private class passwordKeyListener implements KeyListener {
+
+            public void keyPressed(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+                if (passwordPrompt.getPassword().length > 0) {
+                    OKbutton.setEnabled(true);
+
+                    if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                        System.out.println("password is correct");
+                        lastSelectedIndex = account_select.getSelectedIndex();
+                        passwordFrame.dispose();
+                        manageAccount.setEnabled(true);
+                        removeProfile.setEnabled(true);
+                        connectButton.setEnabled(true);
+
+                    }
+                }
+
+                else {
+                    OKbutton.setEnabled(false);
+                }
+            }
+
+            public void keyTyped(KeyEvent e) {
+
+            }
+        }
+
+        private class cancelActionListener implements ActionListener {
+
+            public void actionPerformed(ActionEvent e) {
+                account_select.setSelectedIndex(0);
+                lastSelectedIndex = 0;
+                passwordFrame.dispose();
+            }
+        }
+
+        private class OKActionListener implements ActionListener {
+
+            public void actionPerformed(ActionEvent e) {
+                // if (password is correct) {
+                // enables
+
+                System.out.println("password is correct");
+                lastSelectedIndex = account_select.getSelectedIndex();
+                passwordFrame.dispose();
+                manageAccount.setEnabled(true);
+                removeProfile.setEnabled(true);
+                connectButton.setEnabled(true);
+
+                // else {
+                // gives warning
+                // cannot select that profile
+                // account_select.setSelectedIndex(0);
+                // }
+            }
+        }
+    }
+
 }
