@@ -4,16 +4,18 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.DatabaseFunctions;
+import model.Model;
+
 
 public class ChatbotQADataType {
 	private Vector<String> questions = new Vector<String>();
 	private Vector<String> answers = new Vector<String>();
+    private Model model;
 	
 	public ChatbotQADataType(){}
 	
 	public ChatbotQADataType(String question) throws SQLException, ClassNotFoundException{
-		DatabaseFunctions db = new DatabaseFunctions();
-		db.addQuestion("kevin", question);
+		model.addQuestion(question);
 		questions.add(question);
 	}
 	
@@ -33,43 +35,45 @@ public class ChatbotQADataType {
 	}
 	
 	public void addQuestion(String question) throws SQLException, ClassNotFoundException{
-		DatabaseFunctions db = new DatabaseFunctions();
 		for(int i=0; i<answers.size(); i++)
 		{
-			db = new DatabaseFunctions();
-			db.addAnswer("kevin", question, answers.get(i));
+			model.addAnswer(question, answers.get(i));
 		}
-		db = new DatabaseFunctions();
-		db.addQuestion("kevin", question);
-		db = new DatabaseFunctions();
+		model.addQuestion(question);
 		if (questions.size() != 0)
 		{
-		db.addAfter(questions.lastElement(), question);
+		model.addAfter(questions.lastElement(), question);
 		}
 		questions.add(question);
 		
 	}
 	
 	public void removeQuestion (int index) throws SQLException, ClassNotFoundException{
-		DatabaseFunctions db = new DatabaseFunctions();
-		db.removeChatQuestion(questions.get(index));
+		model.removeChatQuestion(questions.get(index));
 		
 		questions.remove(index);
 	}
 	
 	public void addAnswer(String answer) throws ClassNotFoundException, SQLException{
-		DatabaseFunctions db = new DatabaseFunctions();
 		for(int i=0; i<questions.size(); i++)
 		{
-			db = new DatabaseFunctions();
-			db.addAnswer("kevin", questions.get(i), answer);
+			model.addAnswer(questions.get(i), answer);
 		}
 		answers.add(answer);
 		
 		
 	}
-	
-	public void removeAnswer (int index){
+	public void removeAllQA() throws ClassNotFoundException, SQLException
+	{
+		for (int i=0; i<questions.size(); i++) {
+			model.removeChatQuestion(questions.get(i));
+		}
+		
+	}
+	public void removeAnswer (int index) throws ClassNotFoundException, SQLException{
+		for(int i=0; i<questions.size(); i++) {
+			model.removeAnswer(questions.get(i), answers.get(index));
+		}
 		answers.remove(index);
 	}
 	
@@ -79,7 +83,9 @@ public class ChatbotQADataType {
 		for (index=0; index<questions.size()-1; index++){
 			str += questions.get(index) + ", ";
 		}
-		str += questions.get(index);
+		if (questions.size() != 0) {
+			str += questions.get(index);
+		}
 		return str;		
 	}
 	
