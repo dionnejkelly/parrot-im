@@ -1,13 +1,1 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+[http://sites.google.com/site/parrotimhelp/index/how-to-log-in/how-to-chat/how-to-exit-sign-out/how-to-save-conversation/change-user-status/view-conversation-history/modify-user-preference/on-off-sound-effect, New Tutorial]
