@@ -207,7 +207,11 @@ public class DisplayPanel extends JPanel implements Observer {
             } else {
                 title.setForeground(Color.RED.darker());
             }
-
+            
+            int x;
+            txtPane.selectAll();
+            x = txtPane.getSelectionEnd();
+            txtPane.select(x,x);
         }
         
         else if (arg == UpdatedType.CHAT_STATE) {//TODO
