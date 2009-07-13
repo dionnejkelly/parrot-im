@@ -156,7 +156,7 @@ public class DatabaseFunctions {
                 + "date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile, chatWindowHistory, "
-                + "autoSignIn, chatLog, sounds, chatbot);");
+                + "autoSignIn, chatLog, sounds, chatbot, avatarDirectory);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
         stat.executeUpdate("create table if not exists chatBotQuestions "
@@ -387,7 +387,7 @@ public class DatabaseFunctions {
 
         prep =
                 conn.prepareStatement("insert into profiles values "
-                        + "(?, ?, ?, ?, ?, ?, ?, ?);");
+                        + "(?, ?, ?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, name);
@@ -398,6 +398,7 @@ public class DatabaseFunctions {
         prep.setString(6, chatLog);
         prep.setString(7, sounds);
         prep.setString(8, chatbot);
+        prep.setString(8, "");
         prep.executeUpdate();
 
         conn.commit();
@@ -495,6 +496,22 @@ public class DatabaseFunctions {
         conn.close();
 
         return profiles;
+    }
+    public void setAvatarDirectory(String profile, String directory) 
+    throws SQLException
+    {
+    	stat.executeQuery("update profiles set directory='" 
+    			+ directory + "' where profile='" + profile + "'");
+    	conn.close();
+    }
+    public String getAvatarDirectory(String profile) throws SQLException
+    {
+    	rs = stat.executeQuery("select * from profiles where profile='" + profile + "';");
+    	rs.next();
+    	String directory = rs.getString("avatarDirectory");
+    	rs.close();
+    	conn.close();
+    	return directory;
     }
 
     // Section

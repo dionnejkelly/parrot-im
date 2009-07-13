@@ -1142,4 +1142,13 @@ public class Model extends Observable {
     	DatabaseFunctions db = new DatabaseFunctions();
     	return db.isDefaultProfile(profile);
     }
+    public void setAvatarDirectory(String directory) 
+    throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.setAvatarDirectory(this.getCurrentProfile().getName(), directory);
+    }
+    public String getAvatarDirectory() throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getAvatarDirectory(this.getCurrentProfile().getName());
+    }
 }
