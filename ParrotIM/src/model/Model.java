@@ -1137,4 +1137,9 @@ public class Model extends Observable {
         DatabaseFunctions db = new DatabaseFunctions();
         db.removeAnswer(this.getCurrentProfile().getName(), question, answer);
     }
+    public boolean isDefaultProfile(String profile) 
+    throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.isDefaultProfile(profile);
+    }
 }
