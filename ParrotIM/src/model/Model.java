@@ -105,17 +105,15 @@ public class Model extends Observable {
 
     /**
      * The main constructor. Sets up the local variables. Only one model should
-     * exist for the program's execution.
-     * 
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * exist for the program's execution. Also, this constructor loads the saved
+     * profiles and accounts from the database.
      */
-    public Model() throws ClassNotFoundException, SQLException {
+    public Model() {
         this.profileCollection = new ProfileCollectionData();
         this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
         logWindowOpen = false;
-        
+
         // Grab profiles and account from the database
         this.profileCollection.loadProfiles();
         for (ProfileData p : this.profileCollection.getProfiles()) {
@@ -123,134 +121,18 @@ public class Model extends Observable {
         }
     }
 
+    /**
+     * Gets the profile collection to provide access to all profiles and
+     * accounts.
+     * 
+     * @return A ProfileCollectionData object with capability to access the
+     *         current profile, along with all its accounts. Also can be used to
+     *         add and remove profiles, or receive updates to the profile lists.
+     */
     public ProfileCollectionData getProfileCollection() {
         return this.profileCollection;
     }
     
-    // Section
-    // III - Profile and Account Manipulation Methods
-
-    /**
-     * Gets all profile names from the database.
-     * 
-     * @return A Vector of profile names in String format.
-     */
-    public Vector<String> getProfileList() {
-        Vector<String> profiles = null;
-
-        DatabaseFunctions db;
-        try {
-            db = new DatabaseFunctions();
-            profiles = db.getProfileList();
-        } catch (Exception e) {
-            System.err.println("Database error. Returning "
-                    + "a blank list of profiles.");
-            e.printStackTrace();
-            profiles = new Vector<String>();
-        }
-
-        if (profiles.size() == 0) {
-            profiles.add(0, "Create a profile");
-        } else {
-            profiles.add(0, "Select a profile");
-        }
-
-        return profiles;
-    }
-
-    /**
-     * Gets a list of all accounts stored in the database.
-     * 
-     * @return A Vector of account userIDs in String format.
-     */
-    public Vector<String> getAccountList() {
-        Vector<String> accounts = null;
-        DatabaseFunctions db = null;
-
-        try {
-            db = new DatabaseFunctions();
-            accounts = db.getUserList();
-        } catch (Exception e) {
-            System.err.println("Database failure. "
-                    + "Returning a blank account list.");
-            e.printStackTrace();
-            accounts = new Vector<String>();
-        }
-
-        return accounts;
-    }
-
-    /**
-     * Gets all accounts for a given profile. These accounts are returned in
-     * objects that hold all parameters that were inside the database.
-     * 
-     * @param profile
-     * @return An ArrayList of AccountTempData objects.
-     */
-    public ArrayList<AccountTempData> getAccountsForProfile(String profile) {
-        ArrayList<AccountTempData> accounts = null;
-        DatabaseFunctions db = null;
-
-        try {
-            db = new DatabaseFunctions();
-            accounts = db.getAccountList(profile);
-        } catch (Exception e) {
-            System.err.println("Database error. Returning "
-                    + "A blank list of accounts.");
-            e.printStackTrace();
-            accounts = new ArrayList<AccountTempData>();
-        }
-
-        return accounts;
-    }
-
-    /**
-     * Gets all accounts associated with a given profile. Returns only the
-     * userID in a list.
-     * 
-     * @param name
-     * @return A Vector of account userIDs associated with a given profile.
-     */
-    public Vector<String> getProfilesUserList(String name) {
-        Vector<String> accounts = null;
-        DatabaseFunctions db = null;
-
-        try {
-            db = new DatabaseFunctions();
-            accounts = db.getProfilesUserList(name);
-        } catch (Exception e) {
-            System.err.println("Database error. Returning "
-                    + "a blank list of accounts");
-            e.printStackTrace();
-            accounts = new Vector<String>();
-        }
-
-        return accounts;
-    }
-
-    /**
-     * Returns the password for a given user account.
-     * 
-     * @param accountUserID
-     * @return The password for the account.
-     */
-    public String getPassword(String accountUserID) {
-        String password = null;
-        DatabaseFunctions db = null;
-
-        try {
-            db = new DatabaseFunctions();
-            password = db.getAccountPassword(accountUserID);
-        } catch (Exception e) {
-            System.err.println("Database error. Returning an "
-                    + "empty string as a password");
-            e.printStackTrace();
-            password = "";
-        }
-
-        return password;
-    }
-
     // Section
     // IV = Conversation Manipulation Methods
 
@@ -341,8 +223,8 @@ public class Model extends Observable {
         if (this.getCurrentProfile().isChatLogEnabled()) {
             try {
                 db = new DatabaseFunctions();
-                db.addChat(getCurrentProfile().getName(), fromUser,
-                        account.getUserID(), message.getMessage());
+                db.addChat(getCurrentProfile().getName(), fromUser, account
+                        .getUserID(), message.getMessage());
             } catch (Exception e) {
                 System.err.println("Database error. Chat not saved "
                         + "in the chat log.");
@@ -386,9 +268,9 @@ public class Model extends Observable {
         if (this.getCurrentProfile().isChatLogEnabled()) {
             try {
                 db = new DatabaseFunctions();
-                db.addChat(getCurrentProfile().getName(), message
-                        .getFromUser(), modifiedConversation.getUser()
-                        .getUserID(), message.getMessage());
+                db.addChat(getCurrentProfile().getName(),
+                        message.getFromUser(), modifiedConversation.getUser()
+                                .getUserID(), message.getMessage());
             } catch (Exception e) {
                 System.err.println("Database error, adding chat.");
                 e.printStackTrace();
@@ -1145,9 +1027,10 @@ public class Model extends Observable {
         this.aboutWindowOpen = state;
     }
 
-    public static AccountData createAccount(String userID, String password, ServerType server) {
+    public static AccountData createAccount(String userID, String password,
+            ServerType server) {
         AccountData account = null;
-        
+
         switch (server) {
         case GOOGLE_TALK:
             account = new GoogleTalkAccountData(userID, password);
@@ -1159,62 +1042,85 @@ public class Model extends Observable {
             account = new JabberAccountData(userID, password);
             break;
         case MSN:
-            //account = new MSNAccountData(userID, password);
+            // account = new MSNAccountData(userID, password);
             break;
         case ICQ:
-            //account = new ICQAccountData(userID, password);
+            // account = new ICQAccountData(userID, password);
             break;
         case AIM:
-            //account = new AIMAccountData(userID, password);
+            // account = new AIMAccountData(userID, password);
             break;
         default:
             break;
         }
-        
+
         return account;
     }
-    public void addQuestion(String question) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.addQuestion(this.getCurrentProfile().getName(), question);
+
+    public void addQuestion(String question) throws ClassNotFoundException,
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addQuestion(this.getCurrentProfile().getName(), question);
     }
-    public void addAnswer(String question, String answer) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.addAnswer(this.getCurrentProfile().getName(), question, answer);
+
+    public void addAnswer(String question, String answer)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addAnswer(this.getCurrentProfile().getName(), question, answer);
     }
-    public String getResponse(String question) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getResponse(this.getCurrentProfile().getName(), question);
+
+    public String getResponse(String question) throws ClassNotFoundException,
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getResponse(this.getCurrentProfile().getName(), question);
     }
-    public Vector<String> getQuestionList() throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getQuestionList(this.getCurrentProfile().getName());
+
+    public Vector<String> getQuestionList() throws ClassNotFoundException,
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getQuestionList(this.getCurrentProfile().getName());
     }
-    public Vector<String> getAnswersList() throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getAnswersList(this.getCurrentProfile().getName());
+
+    public Vector<String> getAnswersList() throws ClassNotFoundException,
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getAnswersList(this.getCurrentProfile().getName());
     }
-    public Vector<String> getAnswersList(String question) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getAnswersList(this.getCurrentProfile().getName(), question);
+
+    public Vector<String> getAnswersList(String question)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getAnswersList(this.getCurrentProfile().getName(), question);
     }
-    public void addAfter(String beforeQuestion, String afterQuestion) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.addAfter(this.getCurrentProfile().getName(), beforeQuestion, afterQuestion);
+
+    public void addAfter(String beforeQuestion, String afterQuestion)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.addAfter(this.getCurrentProfile().getName(), beforeQuestion,
+                afterQuestion);
     }
-    public Vector<String> getAllAfterQuestions(String question) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getAllAfterQuestions(this.getCurrentProfile().getName(), question);
+
+    public Vector<String> getAllAfterQuestions(String question)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getAllAfterQuestions(this.getCurrentProfile().getName(),
+                question);
     }
-    public void removeChatQuestion(String question) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.removeChatQuestion(this.getCurrentProfile().getName(), question);
+
+    public void removeChatQuestion(String question)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.removeChatQuestion(this.getCurrentProfile().getName(), question);
     }
+
     public void printQADbContents() throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.printQADbContents();
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.printQADbContents();
     }
-    public void removeAnswer(String question, String answer) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.removeAnswer(this.getCurrentProfile().getName(), question, answer);
+
+    public void removeAnswer(String question, String answer)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.removeAnswer(this.getCurrentProfile().getName(), question, answer);
     }
 }
