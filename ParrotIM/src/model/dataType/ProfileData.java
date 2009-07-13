@@ -145,7 +145,7 @@ public class ProfileData extends Observable {
      * 
      * @param profileName
      */
-    public void setProfileName(String name) {
+    public void setName(String name) {
         this.name = name;
         return;
     }
@@ -155,7 +155,7 @@ public class ProfileData extends Observable {
      * 
      * @return A string of the name of the profile.
      */
-    public String getProfileName() {
+    public String getName() {
         return this.name;
     }
 
@@ -213,19 +213,22 @@ public class ProfileData extends Observable {
         this.chatWindowHistoryEnabled = chatWindowHistoryEnabled;
     }
 
-    public boolean isProfilePasswordEnabled() {
-        return this.profilePassword.length() == 0;
+    public boolean isPasswordEnabled() {
+        return this.profilePassword != null
+                && this.profilePassword.length() > 0;
     }
 
-    public void setProfilePasswordEnabled(boolean profilePasswordEnabled) {
+    public void disablePassword() {
         this.profilePassword = "";
+
+        return;
     }
 
-    public String getProfilePassword() {
+    public String getPassword() {
         return profilePassword;
     }
 
-    public void setProfilePassword(String profilePassword) {
+    public void setPassword(String profilePassword) {
         this.profilePassword = profilePassword != null ? profilePassword : "";
     }
 
@@ -314,7 +317,7 @@ public class ProfileData extends Observable {
 
         this.setChanged();
         this.notifyObservers();
-        
+
         return;
     }
 
@@ -327,12 +330,12 @@ public class ProfileData extends Observable {
      */
     public boolean removeAccount(AccountData account) {
         boolean removed = false;
-        
+
         removed = this.accountData.remove(account);
-        
+
         this.setChanged();
         this.notifyObservers();
-        
+
         return removed;
     }
 
@@ -415,7 +418,7 @@ public class ProfileData extends Observable {
         // Grab accounts from the database
         try {
             db = new DatabaseFunctions();
-            accounts = db.getAccountList(this.getProfileName());
+            accounts = db.getAccountList(this.getName());
         } catch (Exception e) {
             System.err.println("Database error. No accounts added.");
             e.printStackTrace();
@@ -457,7 +460,7 @@ public class ProfileData extends Observable {
 
         if (o != null && o instanceof ProfileData) {
             otherProfile = (ProfileData) o;
-            areEqual = (this.name.equals(otherProfile.getProfileName()));
+            areEqual = (this.name.equals(otherProfile.getName()));
         }
 
         return areEqual;

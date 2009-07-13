@@ -144,7 +144,7 @@ public class AccountInfo extends JPanel
 		textInfo.setBackground(Color.DARK_GRAY);
 			
 		
-		JLabel name = new JLabel(model.getCurrentProfile().getProfileName());
+		JLabel name = new JLabel(model.getCurrentProfile().getName());
 		name.setForeground(Color.WHITE);
 		
 		// Allowing users to change their status.
