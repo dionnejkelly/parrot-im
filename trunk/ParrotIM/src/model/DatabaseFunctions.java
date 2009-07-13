@@ -438,7 +438,7 @@ public class DatabaseFunctions {
         stat.executeUpdate("UPDATE profiles SET defaultProfile = 'no';");
 
         stat.executeUpdate("UPDATE profiles SET defaultProfile = 'yes' "
-                + "' WHERE name ='" + name + "';");
+                + "WHERE name = '" + name + "';");
 
         conn.close();
         return;
