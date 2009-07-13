@@ -398,7 +398,7 @@ public class DatabaseFunctions {
         prep.setString(6, chatLog);
         prep.setString(7, sounds);
         prep.setString(8, chatbot);
-        prep.setString(8, "");
+        prep.setString(8, "images/buddylist/logoBox.png");
         prep.executeUpdate();
 
         conn.commit();
