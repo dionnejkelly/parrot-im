@@ -30,6 +30,11 @@ public class ParrotIM {
         MainController controller = new MainController(model);
         MainWindow mainWindow = new MainWindow(controller, model);
         
+        //Mac OS Menubar optimization
+        String lcOSName = System.getProperty("os.name").toLowerCase();
+        if (lcOSName.startsWith("mac"))
+        	System.setProperty("apple.laf.useScreenMenuBar", "true");
+        
         //XMPPConnection.DEBUG_ENABLED = true;
         
         return;
