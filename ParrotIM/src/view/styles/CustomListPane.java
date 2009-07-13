@@ -70,6 +70,8 @@ public class CustomListPane extends JPanel{
 		boxes[0].add(externalFriendPanel);
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
+		updateUI();
+		//this.repaint();
 	}
 	
 	public void addElement(String nickname, ImageIcon img, UserDataWrapper userWrapper, 
@@ -83,6 +85,7 @@ public class CustomListPane extends JPanel{
 		boxes[0].getComponent(boxes[0].getComponentCount() - 1)
 				.addMouseListener(new SelectListener());
 		updateUI();
+		this.repaint();
 	}
 	
 	public void addElement(String nickname, ImageIcon img){
