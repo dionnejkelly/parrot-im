@@ -1,1 +1,3 @@
-[http://sites.google.com/site/parrotimhelp/index/how-to-log-in/how-to-chat/how-to-exit-sign-out/how-to-save-conversation/change-user-status/view-conversation-history/modify-user-preference/on-off-sound-effect, New Tutorial]
+== New Tutorial ==
+
+[http://sites.google.com/site/parrotimhelp/index, How to Create An Account]
