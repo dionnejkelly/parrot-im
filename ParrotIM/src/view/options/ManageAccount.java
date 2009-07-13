@@ -27,6 +27,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -65,6 +67,7 @@ public class ManageAccount extends JPanel implements Observer {
     private JList accList;
     private JTextField UNField;
     private JPasswordField pwdField;
+    private JCheckBox autoSigninCheck;
     private JComboBox server;
     private JButton addButton;
 
@@ -95,6 +98,12 @@ public class ManageAccount extends JPanel implements Observer {
         accList = new JList(new Vector<AccountData>(profile.getAccountData()));
         accList.addListSelectionListener(new accListSelectionListener());
         accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+        accList.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                ((JList)e.getSource()).clearSelection();
+            }
+        });
 
         JScrollPane listScroller = new JScrollPane(accList);
         listScroller.setPreferredSize(new Dimension(180, 185));
@@ -180,6 +189,9 @@ public class ManageAccount extends JPanel implements Observer {
         pwdField.setPreferredSize(new Dimension(180, 20));
         passwordPanel.add(new JLabel("Password:      "));
         passwordPanel.add(pwdField);
+        //Auto Signin
+        autoSigninCheck = new JCheckBox("Auto sign-in");
+        autoSigninCheck.setToolTipText("Auto sign-in works on default Profile only");
 
         // account setup Panel
         JPanel setupPanel = new JPanel();
@@ -188,6 +200,7 @@ public class ManageAccount extends JPanel implements Observer {
         setupPanel.add(serverPanel);
         setupPanel.add(usernamePanel);
         setupPanel.add(passwordPanel);
+        setupPanel.add(autoSigninCheck);
 
         // adding to rightPanel
         rightPanel.setPreferredSize(new Dimension(280, 400));

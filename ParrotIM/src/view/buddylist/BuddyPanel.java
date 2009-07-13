@@ -541,7 +541,9 @@ public class BuddyPanel extends JPanel implements Observer {
         server = user.getServer().toString();
 
         // end it
-        friendItem.setToolTipText("Right click to see options for this item");
+        friendItem.setToolTipText("<html>  " + user.getNickname() + 
+        		"(" + user.getUserID() + ")" + "<br>"+ user.getStatus() + "<br> Status:" + user.getState()
+        		+ "<br>" + user.getServer() + "<hr>" + "Right-click for more options");
 
         JLabel friendName;
 
