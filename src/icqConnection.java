@@ -54,10 +54,9 @@ public class icqConnection {
         connectionProperties.setLoginHost(System.getProperty("OSCAR_HOST", server));
         connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", port));
         connection = session.openConnection(connectionProperties);
-        getBuddyList();
         connection.connect();
 	}
-	private void getBuddyList(){
+	public void getBuddyList(){
 		connection.addOpenedServiceListener(new OpenedServiceListener(){
 
 			@Override
