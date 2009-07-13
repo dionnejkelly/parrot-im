@@ -26,7 +26,6 @@ public class GroupedListPane extends JPanel{
 	public GroupedListPane() {
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
-		//setPreferredSize(new Dimension(200, 200));
 		
 		boxes[0] = Box.createVerticalBox();
 		
@@ -74,7 +73,7 @@ public class GroupedListPane extends JPanel{
 	
 	public void addExternalMouseListener(int group, int componentIndex,
 											MouseListener externalListener){
-		groups.get(group).boxes[0].getComponent(componentIndex).addMouseListener(externalListener);
+		getComponent(group, componentIndex).addMouseListener(externalListener);
 	}
 	
 	public Component getComponent(int group, int componentIndex){

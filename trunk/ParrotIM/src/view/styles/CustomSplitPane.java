@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public class CustomSplitPane extends JPanel {
 	private JPanel leftPanel, rightPanel, buttonPanel;
-	private JButton resizeButton;
+	private JButton resizeButton, resizeButton2;
 	private boolean isMax;
 	
 	private final ImageIcon rightArrow = new ImageIcon(this.getClass().getResource(
@@ -72,7 +72,6 @@ public class CustomSplitPane extends JPanel {
 		resizeButton.setText(" ");
 		remove(leftPanel);
 		
-		System.out.println("Left");
 		resizeButton.setIcon(rightArrow);
 	}
 	
@@ -82,9 +81,7 @@ public class CustomSplitPane extends JPanel {
 		resizeButton.setText("");
 		add(leftPanel, BorderLayout.WEST);
 		
-		System.out.println("Right");
-		resizeButton.setIcon(leftArrow);
-		
+		resizeButton.setIcon(leftArrow);	
 	}
 	
 	public boolean isMaximized(){
