@@ -15,6 +15,9 @@ import net.kano.joustsim.oscar.AimSession;
 import net.kano.joustsim.oscar.AppSession;
 import net.kano.joustsim.oscar.DefaultAimSession;
 import net.kano.joustsim.oscar.OpenedServiceListener;
+import net.kano.joustsim.oscar.State;
+import net.kano.joustsim.oscar.StateEvent;
+import net.kano.joustsim.oscar.StateListener;
 import net.kano.joustsim.oscar.oscar.service.Service;
 import net.kano.joustsim.oscar.oscar.service.icbm.IcbmListener;
 import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
@@ -29,10 +32,10 @@ public class icqConnection {
 	/**
 	 * @param args
 	 */
-	static AimConnection connection;
-	static AimConnectionProperties connectionProperties = new AimConnectionProperties(null, null);
-	RvProcessor rvProcessor;
-	IcbmListener lastIcbmListener;
+	private AimConnection connection;
+	private AimConnectionProperties connectionProperties = new AimConnectionProperties(null, null);
+	private RvProcessor rvProcessor;
+	private IcbmListener lastIcbmListener;
 	public icqConnection() 
 	{
 	}
@@ -55,8 +58,16 @@ public class icqConnection {
         connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", port));
         connection = session.openConnection(connectionProperties);
         connection.connect();
-	}
+        
+        connection.addStateListener(new DefaultStateListener());
+        this.getBuddyList();
+        if(connection.getSsiService()!=null){
+        	connection.getSsiService().getBuddyList();
+        	System.out.println("lolololol");
+        }
+        }
 	public void getBuddyList(){
+		
 		connection.addOpenedServiceListener(new OpenedServiceListener(){
 
 			@Override
@@ -71,9 +82,10 @@ public class icqConnection {
 					Collection<? extends Service> arg1) {
 				for (Service service : arg1) {
                     if (service instanceof SsiService) {
+                        
                         ((SsiService) service).getBuddyList()
                         .addRetroactiveLayoutListener(new BuddyListFunctionListener());
-				
+                        ((SsiService) service).getBuddyList().getGroups().get(0);
                     }
 				}
 			}
@@ -81,6 +93,7 @@ public class icqConnection {
 		
 	}
 	
+	/* *********************** Listeners***************************/
 	private class BuddyListFunctionListener implements BuddyListLayoutListener{
 
 		@Override
@@ -160,5 +173,16 @@ public class icqConnection {
 		private void update(){
 			
 		}
+	}
+	private class DefaultStateListener implements StateListener{
+
+		@Override
+		public void handleStateChange(StateEvent event) {
+			if(State.ONLINE == event.getNewState()){
+				System.out.println(connection.getSsiService().getBuddyList().getGroups());
+			}
+			
+		}
+		
 	}
 }
