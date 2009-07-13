@@ -1041,4 +1041,13 @@ public class DatabaseFunctions {
     	
     	return;    	
     }
+    public boolean isDefaultProfile(String profile) throws SQLException {
+        rs = stat.executeQuery("select * from profiles;");
+        rs.next();
+        String name = rs.getString("name");
+    	rs.close();
+    	conn.close();
+    	
+    	return name.contentEquals(profile);
+    }
 }
