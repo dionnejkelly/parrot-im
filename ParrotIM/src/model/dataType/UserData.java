@@ -237,7 +237,7 @@ public abstract class UserData extends PersonData {
                         candidate = user;
                     } else if (user.isMoreOnline(candidate)) {
                         candidate = user;
-                        System.out.println("Online user: " + user.getNickname());
+                        //System.out.println("Online user: " + user.getNickname());
                     } else {
                         // do nothing, next iteration
                     }
@@ -254,7 +254,9 @@ public abstract class UserData extends PersonData {
         
         countOnline = 0;
         for (UserData user : friends){
-        	if(user.getState() == UserStateType.ONLINE){
+        	if(user.getState() == UserStateType.ONLINE ||
+        			user.getState() == UserStateType.AWAY ||
+        			user.getState() == UserStateType.BUSY){
             	countOnline++;
             }
         }
