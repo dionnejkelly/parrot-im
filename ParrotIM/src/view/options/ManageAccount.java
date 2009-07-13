@@ -97,7 +97,7 @@ public class ManageAccount extends JPanel implements Observer {
         accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         JScrollPane listScroller = new JScrollPane(accList);
-        listScroller.setPreferredSize(new Dimension(180, 190));
+        listScroller.setPreferredSize(new Dimension(180, 185));
         listScroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
