@@ -55,6 +55,8 @@ public class ICQManager implements GenericConnection {
 
     }
 
+    
+    
 
     // @Override
     public void login(String userID, String password, String server, int port)
@@ -142,5 +144,12 @@ public class ICQManager implements GenericConnection {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void login(String userID, String password)
+            throws BadConnectionException {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

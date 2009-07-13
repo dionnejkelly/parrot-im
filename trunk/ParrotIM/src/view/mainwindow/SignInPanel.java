@@ -263,14 +263,14 @@ public class SignInPanel extends JPanel implements Observer {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    private void guestSignIn() throws ClassNotFoundException, SQLException {
-        String username = (String) account_select.getSelectedItem();
+    private void profileSignIn() {
+        ProfileData profile = (ProfileData) account_select.getSelectedItem();
 
         try {
             // Login with server and set model info
 
             // TODO think of how to implement profile password
-            core.loginProfile(username);
+            core.loginProfile(profile);
 
             // Handle the GUI changes
             new BuddyList(core, model, mainFrame.getLocation());
@@ -305,15 +305,9 @@ public class SignInPanel extends JPanel implements Observer {
          * @param evt
          */
         public void actionPerformed(ActionEvent evt) {
-            try {
-                guestSignIn();
-            } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            profileSignIn();
+
+            return;
         }
     }
 
@@ -327,22 +321,15 @@ public class SignInPanel extends JPanel implements Observer {
         public void mouseClicked(MouseEvent evt) {
             if (manageAccount.isEnabled()) {
                 System.out.println("enabled");
-                try {
-                    ManageAccountFrame manageAccount =
-                            new ManageAccountFrame(model, core, account_select
-                                    .getSelectedItem().toString());
-                    manageAccount.addWindowListener(new PopupWindowListener(
-                            mainFrame, manageAccount));
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
 
+                ManageAccountFrame manageAccount =
+                        new ManageAccountFrame(model, core,
+                                (ProfileData) account_select.getSelectedItem());
+                manageAccount.addWindowListener(new PopupWindowListener(
+                        mainFrame, manageAccount));
             }
 
+            return;
         }
 
         public void mouseEntered(MouseEvent e) {
@@ -397,9 +384,8 @@ public class SignInPanel extends JPanel implements Observer {
         public void mouseClicked(MouseEvent evt) {
             if (removeProfile.isEnabled()) {
                 System.out.println("enabled");
-                model
-                        .removeProfile(account_select.getSelectedItem()
-                                .toString());
+                profiles.removeProfile((ProfileData) account_select
+                        .getSelectedItem());
             }
         }
 
@@ -446,8 +432,8 @@ public class SignInPanel extends JPanel implements Observer {
             int selectedIndex = account_select.getSelectedIndex();
             if (selectedIndex > 0 && lastSelectedIndex != selectedIndex) {
                 System.out.println("Checking...");
-                new SimplifiedPasswordPrompt(account_select.getSelectedItem()
-                        .toString());
+                new SimplifiedPasswordPrompt((ProfileData) account_select
+                        .getSelectedItem());
             } else if (selectedIndex <= 0) {
                 manageAccount.setEnabled(false);
                 removeProfile.setEnabled(false);
@@ -467,7 +453,7 @@ public class SignInPanel extends JPanel implements Observer {
          * 
          * @param profileName
          * */
-        public SimplifiedPasswordPrompt(String profileName) {
+        public SimplifiedPasswordPrompt(ProfileData profile) {
             passwordFrame = this;
 
             setIconImage(new ImageIcon("src/images/mainwindow/logo.png")
@@ -495,7 +481,7 @@ public class SignInPanel extends JPanel implements Observer {
             mainPanel.setLayout(new BorderLayout());
             mainPanel
                     .setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-            mainPanel.add(new JLabel("Enter password for " + profileName
+            mainPanel.add(new JLabel("Enter password for " + profile
                     + "\'s profile:"), BorderLayout.NORTH);
             mainPanel.add(passwordPanel, BorderLayout.CENTER);
             mainPanel.add(buttonsPanel, BorderLayout.SOUTH);

@@ -34,22 +34,23 @@ import model.Model;
 import controller.MainController;
 
 public class OptionFrame extends JFrame {
-	
-	public OptionFrame(MainController c, Model model, AccountInfo accInfo) 
-										throws ClassNotFoundException, SQLException{
-		this.setTitle("User Preferences");
-		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		OptionPanel mainPanel =  new OptionPanel(c, model, this, model.getCurrentProfile()
-                .getProfileName(), accInfo);
+
+    public OptionFrame(MainController c, Model model, AccountInfo accInfo)
+            throws ClassNotFoundException, SQLException {
+        this.setTitle("User Preferences");
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        OptionPanel mainPanel =
+                new OptionPanel(c, model, this, model.getCurrentProfile(),
+                        accInfo);
         getContentPane().add(mainPanel);
-        setPreferredSize(new Dimension(500,300));
+        setPreferredSize(new Dimension(500, 300));
         pack();
-   
+
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-	}
+    }
 
 }

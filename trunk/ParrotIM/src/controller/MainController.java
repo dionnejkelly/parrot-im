@@ -46,6 +46,7 @@ import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
+import model.dataType.ProfileData;
 import model.dataType.TwitterAccountData;
 import model.dataType.TwitterUserData;
 import model.dataType.UserData;
@@ -231,55 +232,30 @@ public class MainController {
      * @param password
      * @throws XMPPException
      */
-    public AccountData login(ServerType server, String userID, String password,
-            String serverAddress) throws BadConnectionException {
-        AccountData account = null; // Default return value
+    public void login(AccountData account) throws BadConnectionException {
         GenericConnection connection = null;
         MainController controller = this;
         int port = 5223;
 
         // Determine which type of connection the account requires, and add it
-        switch (server) {
-        case GOOGLE_TALK:
+        if (account instanceof GoogleTalkAccountData) {
             connection = new GoogleTalkManager(controller);
-            account = new GoogleTalkAccountData(userID, password);
-            account.setConnection(connection);
-            break;
-
-        case JABBER:
-            userID += "@" + serverAddress;
+        } else if (account instanceof JabberAccountData) {
+            //userID += "@" + serverAddress;
             connection = new JabberManager(controller);
-            account = new JabberAccountData(userID, password);
-            account.setConnection(connection);
-            break;
-
-        case TWITTER:
+        } else if (account instanceof TwitterAccountData) {
             connection = new TwitterManager(controller);
-            account = new TwitterAccountData(userID, password);
-            account.setConnection(connection);
-            break;
-
-        default:
+        } else {
             // Other servers
-            break;
         }
+        account.setConnection(connection);
 
-        // While we implement....
-        if (connection == null) {
-            throw new BadConnectionException(); // ... until we implement
-        }
-
-        connection.login(userID, password, serverAddress, port);
+        connection.login(account.getUserID(), account.getPassword());
 
         // Set up friends' user data
         this.populateBuddyList(account);
 
-        return account;
-    }
-
-    public AccountData login(ServerType server, String accountName,
-            String password) throws BadConnectionException {
-        return login(server, accountName, password, null);
+        return;
     }
 
     /**
@@ -288,19 +264,15 @@ public class MainController {
      * @param profile
      * @throws XMPPException
      */
-    public void loginProfile(String profile) throws BadConnectionException {
-        ArrayList<AccountTempData> accounts = null;
-        AccountData createdAccount = null;
-
+    public void loginProfile(ProfileData profile) throws BadConnectionException {
         // Disconnect in case already connected
         this.disconnect();
-        model.createCurrentProfile(profile);
-
-        accounts = model.getAccountsForProfile(profile);
-        for (AccountTempData a : accounts) {
-            createdAccount =
-                    login(a.getServer(), a.getUserID(), a.getPassword());
-            model.getCurrentProfile().addAccount(createdAccount);
+        model.getProfileCollection().setActiveProfile(profile);
+        System.out.println("we're here!");
+        // Log-in account by account
+        for (AccountData a : profile.getAccountData()) {
+            System.out.println("we're here2!");
+            login(a);
         }
 
         return;
@@ -308,14 +280,21 @@ public class MainController {
 
     public void loginAsGuest(ServerType server, String userID, String password,
             String serverAddress) throws BadConnectionException {
+        ProfileData createdProfile = null;
         AccountData createdAccount = null;
+
+        createdProfile = new ProfileData("Guest");
+        createdProfile.setGuestAccount(true);
 
         // Disconnect in case already connected
         this.disconnect();
-        model.createCurrentProfile("Guest Profile");
+        model.getProfileCollection().addProfile(createdProfile);
+        model.getProfileCollection().setActiveProfile(createdProfile);
+        
+        createdAccount = Model.createAccount(userID, password, server);
+        createdProfile.addAccount(createdAccount);
 
-        createdAccount = login(server, userID, password, serverAddress);
-        model.getCurrentProfile().addAccount(createdAccount);
+        login(createdAccount);
 
         return;
     }
@@ -335,7 +314,7 @@ public class MainController {
                 a.getConnection().disconnect();
             }
         }
-        this.model.clearCurrentProfile();
+        // this.model.clearCurrentProfile();
         this.model.removeAllConversations();
 
         return;

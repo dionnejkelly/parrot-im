@@ -59,23 +59,24 @@ import controller.MainController;
 import view.options.ManageAccount;
 
 import model.Model;
+import model.dataType.ProfileData;
 
-public class ManageAccountFrame extends JFrame{
-	
-	public ManageAccountFrame (Model model,  MainController controller, String profilename) 
-											throws ClassNotFoundException, SQLException {
+public class ManageAccountFrame extends JFrame {
 
-		setLocationRelativeTo(null);
-		
-		setTitle(profilename + "\'s Account Manager");
-		setLocationRelativeTo(null);
-		setPreferredSize(new Dimension(520,300));
-		setResizable(false);
-		JPanel accountPanel = new ManageAccount(model, controller, profilename);
-		accountPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		getContentPane().add(accountPanel);
-		pack();
-		setVisible(true);
-		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-	}
+    public ManageAccountFrame(Model model, MainController controller,
+            ProfileData profile) {
+
+        setLocationRelativeTo(null);
+
+        setTitle(profile + "\'s Account Manager");
+        setLocationRelativeTo(null);
+        setPreferredSize(new Dimension(520, 300));
+        setResizable(false);
+        JPanel accountPanel = new ManageAccount(model, controller, profile);
+        accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        getContentPane().add(accountPanel);
+        pack();
+        setVisible(true);
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+    }
 }
