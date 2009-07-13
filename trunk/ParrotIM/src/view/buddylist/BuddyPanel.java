@@ -140,6 +140,8 @@ public class BuddyPanel extends JPanel implements Observer {
     private JButton googleSearchButton;
 
     private PictureUpdateThread pictureUpdateThread;
+    
+    private long lastUpdate;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -160,6 +162,7 @@ public class BuddyPanel extends JPanel implements Observer {
         this.model = model;
         this.chat = null;
         this.searchEnabled = false;
+        this.lastUpdate = System.currentTimeMillis();
 
         // Test code, make it hide at the start
         // this.chat = new ChatWindow(chatClient, model);
@@ -693,11 +696,19 @@ public class BuddyPanel extends JPanel implements Observer {
     /**
      * update current friend status on the buddy list.
      */
-    public void update(Observable o, Object arg) {
-        /* If chat window has not been made, make it if message sent */
+    public void update(Observable o, Object arg) {                  
         if (arg == UpdatedType.BUDDY) {
-            this.refreshBuddyList();
+            if (System.currentTimeMillis() - this.lastUpdate > 10000) {
+                this.refreshBuddyList();
+                this.lastUpdate = System.currentTimeMillis();
+                System.out.println("YESSS!!!");
+            } else {
+                System.out.println("NO!!!");
+            }
+            
         }
+    
+        return;
     }
 
     public void refreshBuddyList() {
