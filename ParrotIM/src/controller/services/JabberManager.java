@@ -520,6 +520,116 @@ public class JabberManager implements GenericConnection {
                 }
         }
 
+	public String getUserEmailHome() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserEmailWork() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserFirstName() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserLastName() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserMiddleName() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserNickName() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserOrganization() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserOrganizationUnit() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserPhoneHome() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserPhoneWork() throws XMPPException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void load(String userID) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void load() throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserEmailHome(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserEmailWork(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserFirstName(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserLastName(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserMiddleName(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserNickName(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserOrganization(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserOrganizationUnit(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserPhoneHome(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserPhoneWork(String name) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }
