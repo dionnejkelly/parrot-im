@@ -214,6 +214,8 @@ public class SignInPanel extends JPanel implements Observer {
         account_select = new JComboBox(profilesModel);
         account_select.addActionListener((new AccountSelectItemListener()));
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
+        
+        // Check for default profile
 
         // if (model.thereIsDefault)
         // account_select.setSelectedIndex(1);
@@ -264,6 +266,13 @@ public class SignInPanel extends JPanel implements Observer {
         accPanel.add(panel, BorderLayout.NORTH);
 
         add(accPanel, BorderLayout.CENTER);
+        
+        if (profileList.contains(profiles.getDefaultProfile())) {
+            account_select.setSelectedIndex(profileList.indexOf(profiles.getDefaultProfile()));
+            manageAccount.setEnabled(true);
+            removeProfile.setEnabled(true);
+            connectButton.setEnabled(true);
+        }
     }
 
     /**
