@@ -32,7 +32,7 @@ import model.Model;
 
 public class BugReportFrame extends JFrame{
 
-	private final String messageTo = "parrot-im@googlegroups.com";
+	private final String messageTo = "parrotim.bugreport@gmail.com ";
 	
 	/**
      * variable model for extracting buddy list, each buddy's information and ,
@@ -46,8 +46,8 @@ public class BugReportFrame extends JFrame{
 	private JButton sendButton;
 	private JButton cancelButton;
 	
-	private String frequencyReport = "Frequency: ";
-	private String severityReport = "Severity: ";
+	private String frequencyReport = "";
+	private String severityReport = "";
 	
 	private JLabel questionLabel;
 	private JLabel subjectLabel;
@@ -203,9 +203,16 @@ public class BugReportFrame extends JFrame{
 
 		public void actionPerformed(ActionEvent event) {
 			
-			frequencyReport = frequencyReport + frequency.getSelectedItem().toString();
-			severityReport = severityReport + event.getActionCommand();
+			frequencyReport = frequency.getSelectedItem().toString();
+			System.out.println(frequencyReport);
+			severityReport =  event.getActionCommand();
 			
+			
+			if (severityReport.contains("comboBoxChanged")) {
+				severityReport = "Unspecified";
+			}
+			
+			System.out.println(severityReport);
 		}
 		
 	}
@@ -250,7 +257,7 @@ public class BugReportFrame extends JFrame{
 			System.out.println("From: " + model.getAccountList().get(0));
 			BugReport sendAemail = new BugReport(model.getAccountList().get(0), model.getPassword(model.getAccountList().get(0)));
 			try {
-				sendAemail.sendReport(subjectText.getText(), frequencyReport + "\n" + severityReport + "\n" + "Message:\n" + messageText.getText(), messageTo);
+				sendAemail.sendReport(subjectText.getText(), "Frequency: " + frequencyReport + "\n" + "Severity: " + severityReport + "\n" + "Message:\n" + messageText.getText(), messageTo);
 				String resultMessage =
                     "Your bug report has been succesfully delivered. Thank you for your co-operation.";
 				JOptionPane.showMessageDialog(null, resultMessage);
