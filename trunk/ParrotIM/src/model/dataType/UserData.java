@@ -93,7 +93,6 @@ public abstract class UserData extends PersonData {
      */
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
-
         return;
     }
 
@@ -228,7 +227,7 @@ public abstract class UserData extends PersonData {
             ArrayList<UserData> unsorted) {
         ArrayList<UserData> friends = new ArrayList<UserData>();
         UserData candidate = null;
-
+        
         
         // Sort with regard to online/busy/offline/blocked
         try {
@@ -239,7 +238,6 @@ public abstract class UserData extends PersonData {
                     } else if (user.isMoreOnline(candidate)) {
                         candidate = user;
                         System.out.println("Online user: " + user.getNickname());
-                        countOnline++;
                     } else {
                         // do nothing, next iteration
                     }
@@ -252,6 +250,13 @@ public abstract class UserData extends PersonData {
             System.err.println("Null unsorted getting passed in.");
             e.printStackTrace();
             friends.clear();
+        }
+        
+        countOnline = 0;
+        for (UserData user : friends){
+        	if(user.getState() == UserStateType.ONLINE){
+            	countOnline++;
+            }
         }
 
         return friends;
