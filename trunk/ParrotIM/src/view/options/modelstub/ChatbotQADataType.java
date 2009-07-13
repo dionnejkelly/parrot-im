@@ -11,14 +11,16 @@ public class ChatbotQADataType {
 	private Vector<String> answers = new Vector<String>();
     private Model model;
 	
-	public ChatbotQADataType(){}
+	public ChatbotQADataType(Model model){this.model = model;}
 	
-	public ChatbotQADataType(String question) throws SQLException, ClassNotFoundException{
+	public ChatbotQADataType(Model model, String question) throws SQLException, ClassNotFoundException{
+		this.model = model;
 		model.addQuestion(question);
 		questions.add(question);
 	}
 	
-	public ChatbotQADataType(String question, String answer) throws SQLException, ClassNotFoundException{
+	public ChatbotQADataType(Model model, String question, String answer) throws SQLException, ClassNotFoundException{
+		this.model = model;
 		questions.add(question);
 		answers.add(answer);
 		
@@ -28,7 +30,8 @@ public class ChatbotQADataType {
 		//db.addAnswer("kevin", question, answer);
 	}
 	
-	public ChatbotQADataType(Vector<String> questions, Vector<String> answers){
+	public ChatbotQADataType(Model model, Vector<String> questions, Vector<String> answers){
+		this.model = model;
 		this.questions = questions;
 		this.answers = answers;
 	}

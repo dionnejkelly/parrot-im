@@ -70,7 +70,7 @@ public class FeaturesPanel extends JPanel {
     public FeaturesPanel(MainController c, JFrame mainframe, Model model)
             throws ClassNotFoundException, SQLException {
         this.model = model;
-        modelStub = new model();
+        modelStub = new model(this.model);
         this.mainframe = mainframe;
 
         /* CHATBOT */
@@ -185,7 +185,7 @@ public class FeaturesPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (mode == 'A') { // add
                 addChatbotOptions =
-                        new ChatbotQA(new ChatbotQADataType(), true);
+                        new ChatbotQA(new ChatbotQADataType(model), true);
             } else if (mode == 'E') { // edit
                 addChatbotOptions =
                         new ChatbotQA(modelStub.getQAObject(chatbotList

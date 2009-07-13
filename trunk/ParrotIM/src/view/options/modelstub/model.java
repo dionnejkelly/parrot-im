@@ -8,7 +8,8 @@ public class model {
 	private Vector<ChatbotQADataType> QAs = new Vector<ChatbotQADataType> ();
     private Model model;
 	
-	public model() throws ClassNotFoundException, SQLException{
+	public model(Model model) throws ClassNotFoundException, SQLException{
+		this.model = model;
 		QAs.clear();
 		Vector<String> questionList = new Vector<String>();
 		Vector<String> answersList = new Vector<String>();
@@ -24,7 +25,7 @@ public class model {
 			tempQuestionsList = model.getAllAfterQuestions(questionList.get(i));
 			if (!doneQuestionsList.containsAll(tempQuestionsList))
 			{
-				QAs.add(new ChatbotQADataType(tempQuestionsList, tempAnswersList));
+				QAs.add(new ChatbotQADataType(model, tempQuestionsList, tempAnswersList));
 				doneQuestionsList.addAll(tempQuestionsList);
 			}
 		}
