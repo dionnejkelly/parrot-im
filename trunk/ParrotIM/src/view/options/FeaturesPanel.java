@@ -50,7 +50,6 @@ import view.styles.PopupWindowListener;
 import controller.MainController;
 
 public class FeaturesPanel extends JPanel {
-    private MainController controller;
     private model modelStub;
 
     private JFrame mainframe;
@@ -73,7 +72,6 @@ public class FeaturesPanel extends JPanel {
         this.model = model;
         modelStub = new model();
         this.mainframe = mainframe;
-        controller = c;
 
         /* CHATBOT */
         chatbotCheck = new JCheckBox("Enable ChatBot");

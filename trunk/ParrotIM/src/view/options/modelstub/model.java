@@ -2,7 +2,6 @@ package view.options.modelstub;
 
 import java.sql.SQLException;
 import java.util.Vector;
-import model.DatabaseFunctions;
 import model.Model;
 
 public class model {

@@ -62,9 +62,6 @@ import model.enumerations.UpdatedType;
 
 public class ManageAccount extends JPanel implements Observer {
     private ProfileData profile;
-
-    private Model model;
-    private MainController controller;
     private JList accList;
     private JTextField UNField;
     private JPasswordField pwdField;
@@ -81,8 +78,6 @@ public class ManageAccount extends JPanel implements Observer {
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.profile = profile;
         this.profile.addObserver(this);
-        this.model = model;
-        this.controller = controller;
 
         // set main panel
         setLayout(new BorderLayout());

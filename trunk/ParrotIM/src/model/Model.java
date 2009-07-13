@@ -68,6 +68,7 @@ import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
+import model.enumerations.PopupEnableWindowType;
 import model.enumerations.TypingStateType;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
@@ -1022,10 +1023,23 @@ public class Model extends Observable {
      * 
      * @param state
      */
-    public void updateAboutState(boolean state) {
-        System.out.println("Model: About");
-        this.aboutWindowOpen = state;
+    /**
+     * sets the boolean of the popup window either true or false true if the
+     * window is opened false if the closed
+     * 
+     * @param popupInt
+     * @param state
+     */
+    public void updatePopupState(PopupEnableWindowType popupInt, boolean state) {
+        if (popupInt == PopupEnableWindowType.ABOUT) {
+            System.out.println("Model:  About");
+            this.logWindowOpen = state;
+        } else if (popupInt == PopupEnableWindowType.BUGREPORT) {
+            System.out.println("Model: Bug report");
+            this.aboutWindowOpen = state;
+        }
     }
+
 
     public static AccountData createAccount(String userID, String password,
             ServerType server) {

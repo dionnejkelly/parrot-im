@@ -1,13 +1,9 @@
 package view.options;
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -27,7 +23,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import view.styles.PopupEnableMainWindowListener;
+
 import model.Model;
+import model.enumerations.PopupEnableWindowType;
 
 
 public class BugReportFrame extends JFrame{
@@ -74,6 +73,7 @@ public class BugReportFrame extends JFrame{
 	public BugReportFrame(Model model){
 		mainFrame = this;
 		this.model = model;
+		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.BUGREPORT));
 		this.setTitle("Bug Report");
 		
 		setPanels();
