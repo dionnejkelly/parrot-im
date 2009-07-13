@@ -34,6 +34,7 @@
 
 package model.dataType;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -308,11 +309,19 @@ public class ProfileData extends Observable {
      * @param account
      */
     public void addAccount(AccountData account) {
+        DatabaseFunctions db = null;
+
         if (!this.accountExists(account)) {
             this.accountData.add(account);
-        } else {
-            // TODO throw a DuplicateAccountException, or something
-            // similar.
+
+            try {
+                db = new DatabaseFunctions();
+                db.addUsers(this.getName(), account.getServer().toString(), "",
+                        account.getUserID(), account.getPassword());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
         this.setChanged();
@@ -329,9 +338,22 @@ public class ProfileData extends Observable {
      * @return True is removed, false otherwise.
      */
     public boolean removeAccount(AccountData account) {
+        DatabaseFunctions db = null;
         boolean removed = false;
 
         removed = this.accountData.remove(account);
+
+        if (removed) {
+            try {
+                db = new DatabaseFunctions();
+                db
+                        .removeAccountFromProfile(this.getName(), account
+                                .getUserID());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
 
         this.setChanged();
         this.notifyObservers();

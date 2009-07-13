@@ -2,6 +2,7 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
@@ -128,5 +129,7 @@ public class JabberAccountData extends AccountData implements JabberPerson {
         return areEqual;
     }
 
-    
+    public ServerType getServer() {
+        return ServerType.JABBER;
+    }
 }

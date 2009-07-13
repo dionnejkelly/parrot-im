@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
 
+import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
 public class GoogleTalkAccountData extends AccountData implements
@@ -130,4 +131,7 @@ public class GoogleTalkAccountData extends AccountData implements
         return areEqual;
     }
 
+    public ServerType getServer() {
+        return ServerType.GOOGLE_TALK;
+    }
 }

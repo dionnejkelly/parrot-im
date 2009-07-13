@@ -123,9 +123,7 @@ public abstract class AccountData extends PersonData {
      * 
      * @return The ServerType of the account.
      */
-    public ServerType getServer() {
-        return this.getConnection().getServerType();
-    }
+    public abstract ServerType getServer();
 
     /**
      * Adds a friend by UserData. Will not add duplicate entries, checked by
