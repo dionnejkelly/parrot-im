@@ -837,4 +837,14 @@ public class MainController {
         return;
     }
 
+    public GenericConnection getConnection() {
+    	AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+        
+        return connection;
+    }
 }

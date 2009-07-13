@@ -42,17 +42,14 @@ import controller.MainController;
 import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
 import view.options.MusicPlayer;
-import view.styles.CustomListPane;
 import view.styles.GroupedListPane;
 import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
 
-import model.DatabaseFunctions;
 import model.Model;
-import model.dataType.ConversationData;
-import model.dataType.GoogleTalkUserData;
 import model.dataType.TwitterUserData;
 import model.dataType.UserData;
+import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
@@ -537,13 +534,29 @@ public class BuddyPanel extends JPanel implements Observer {
         friendItem.setBackground(Color.WHITE);
 
         friendItem.setName(user.getNickname());
-
         server = user.getServer().toString();
-
+        
         // end it
-        friendItem.setToolTipText("<html>  " + user.getNickname() + 
-        		"(" + user.getUserID() + ")" + "<br>"+ user.getStatus() + "<br> Status:" + user.getState()
-        		+ "<br>" + user.getServer() + "<hr>" + "Right-click for more options");
+        if (user.getServer() == ServerType.GOOGLE_TALK){ //Jabber supports this too?
+        	// first needs to load with the user we want to get the profile information
+        	try {
+				chatClient.getConnection().load(user.getNickname() +"@gmail.com");
+				friendItem.setToolTipText("<html>Name\t: " + chatClient.getConnection().getUserFirstName() +
+						"<br>Nickname: " + chatClient.getConnection().getUserNickName() +
+						"<br>Jabber ID: " + chatClient.getConnection().getUserEmailHome() +
+						"<br>Home Phone: " + chatClient.getConnection().getUserPhoneHome() +
+						"<br>Work Phone: " + chatClient.getConnection().getUserPhoneWork() +
+						"<br>Work email: " + chatClient.getConnection().getUserEmailWork() +
+						"<br>Organization: " + chatClient.getConnection().getUserOrganization() +
+						"<br>Organization unit: " + chatClient.getConnection().getUserOrganizationUnit() + "</html>");
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
+        } else {
+        	friendItem.setToolTipText("Right click to see options for this item");
+        }
 
         JLabel friendName;
 
