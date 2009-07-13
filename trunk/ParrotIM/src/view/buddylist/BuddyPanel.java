@@ -248,7 +248,7 @@ public class BuddyPanel extends JPanel implements Observer {
         rightClickMenu.add(menuItem5);
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
-        JScrollPane scroller = new JScrollPane(buddyListPane);
+        scroller = new JScrollPane(buddyListPane);
         scroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         options = OptionsBar();
@@ -260,24 +260,41 @@ public class BuddyPanel extends JPanel implements Observer {
     private void listRepopulate() {
         buddyListPane.removeAllElements(0);
         buddyListPane.removeAllElements(1);
+        boxes[0].removeAll();
+        boxes[1].removeAll();
 
+        //System.out.println("Starting adding Buddies: " + buddies.size());
+       
         for (int i = 0; i < buddies.size(); i++) {
             if (buddies.get(i).getServer().toString().equals("Google Talk")) {
                 boxes[0].add(FriendItem(buddies.get(i)));
                 buddyListPane.addElement(0, FriendItem(buddies.get(i)));
+                //System.out.println(buddies.get(i).getUserID() + " added to googleTalk");
             } else if (buddies.get(i).getServer().toString().equals("Twitter")) {
                 boxes[1].add(FriendItem(buddies.get(i)));
                 buddyListPane.addElement(1, FriendItem(buddies.get(i)));
+                //System.out.println(buddies.get(i).getUserID() + " added to twitter");
             }
         }
+        //System.out.println("Ending adding Buddies");
 
+        //add mouse listeners to googleTalk
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+        	//System.out.println(boxes[0].getComponentCount() + ":" + i);
             buddyListPane.addExternalMouseListener(0, i, new SelectListener());
-            // boxes[0].getComponent(i).addMouseListener(new SelectListener());
         }
+        //add mouse listeners to Twitter
         for (int i = 0; i < boxes[1].getComponentCount(); i++) {
+        	//System.out.println(boxes[1].getComponentCount() + ":" + i);
             buddyListPane.addExternalMouseListener(1, i, new SelectListener());
         }
+        
+        /*
+        System.out.println("total buddies: " + buddies.size());
+        int count = boxes[0].getComponentCount() + boxes[1].getComponentCount();
+        System.out.println("Google: " + boxes[0].getComponentCount());
+        System.out.println("Twitter: " + boxes[1].getComponentCount());
+        */
     }
 
     /**
@@ -720,6 +737,7 @@ public class BuddyPanel extends JPanel implements Observer {
             } else {
                 System.out.println("NO!!!");
             }
+            
             
         }
     
