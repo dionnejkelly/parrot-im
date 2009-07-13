@@ -98,10 +98,10 @@ public class ManageAccount extends JPanel implements Observer {
         accList = new JList(new Vector<AccountData>(profile.getAccountData()));
         accList.addListSelectionListener(new accListSelectionListener());
         accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        
+
         accList.addFocusListener(new FocusAdapter() {
             public void focusLost(FocusEvent e) {
-                ((JList)e.getSource()).clearSelection();
+                // ((JList) e.getSource()).clearSelection();
             }
         });
 
@@ -189,9 +189,10 @@ public class ManageAccount extends JPanel implements Observer {
         pwdField.setPreferredSize(new Dimension(180, 20));
         passwordPanel.add(new JLabel("Password:      "));
         passwordPanel.add(pwdField);
-        //Auto Signin
+        // Auto Signin
         autoSigninCheck = new JCheckBox("Auto sign-in");
-        autoSigninCheck.setToolTipText("Auto sign-in works on default Profile only");
+        autoSigninCheck
+                .setToolTipText("Auto sign-in works on default Profile only");
 
         // account setup Panel
         JPanel setupPanel = new JPanel();
@@ -229,38 +230,16 @@ public class ManageAccount extends JPanel implements Observer {
                 profile.addAccount(Model.createAccount(UNField.getText(),
                         String.copyValueOf(pwdField.getPassword()),
                         (ServerType) server.getSelectedItem()));
-                accList.setListData(new Vector<AccountData>(profile
-                        .getAccountData()));
-
-                accList.updateUI();
                 UNField.setText("");
                 pwdField.setText("");
+                addButton.setEnabled(false);
             }
         }
-    }
-
-    /**
-     * This method is used to get the String of password from the user.
-     * 
-     * @param pass
-     * @return the string of password
-     */
-    private String password(char[] pass) {
-        String str = new String();
-        str = "";
-
-        for (int i = 0; i < pass.length; i++) {
-            str += pass[i];
-        }
-        return str;
-
     }
 
     public void update(Observable arg0, Object o) {
         accList.setListData(new Vector<AccountData>(profile.getAccountData()));
         accList.updateUI();
-
-        System.out.println("we updated!");
 
         return;
     }
@@ -283,9 +262,6 @@ public class ManageAccount extends JPanel implements Observer {
             int selected = accList.getSelectedIndex();
             if (selected >= 0) {
                 profile.removeAccount((AccountData) accList.getSelectedValue());
-                accList.setListData(new Vector<AccountData>(profile
-                        .getAccountData()));
-                accList.updateUI();
                 removeButton.setEnabled(false);
             }
         }
@@ -294,6 +270,7 @@ public class ManageAccount extends JPanel implements Observer {
     private class accListSelectionListener implements ListSelectionListener {
 
         public void valueChanged(ListSelectionEvent e) {
+
             if (accList.getSelectedIndex() > -1) {
                 removeButton.setEnabled(true);
             }
