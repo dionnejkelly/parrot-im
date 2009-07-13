@@ -639,7 +639,6 @@ private String getUserPhoneWork() throws XMPPException {
                         StringUtils.parseBareAddress(message.getFrom());
                 String toUserID =
                         StringUtils.parseBareAddress(connection.getUser());
-
                 if (message.getBody() != null) {
                     controller.messageReceived(fromUserID, toUserID, message
                             .getBody());
