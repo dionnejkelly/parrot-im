@@ -648,6 +648,13 @@ public class BuddyPanel extends JPanel implements Observer {
 
             return;
         }
+        
+        public void clearUpdateQueue() {
+            this.users.clear();
+            this.labels.clear();
+            
+            return;
+        }
 
         private boolean more() {
             return users.size() > 0 && labels.size() > 0;
@@ -695,6 +702,8 @@ public class BuddyPanel extends JPanel implements Observer {
 
     public void refreshBuddyList() {
         boxes[0].removeAll();
+        pictureUpdateThread.clearUpdateQueue();
+        
         buddies = model.getCurrentProfile().getAllFriends();
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
