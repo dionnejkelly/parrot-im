@@ -122,5 +122,22 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
         return minutesSinceUpdate;
     }
 
+    public int hashCode() {
+        int hash = "Twitter".hashCode();
+        
+        hash = hash * 31 + super.hashCode();
+        
+        return hash;
+    }
+    
+    public boolean equals(Object o) {
+        boolean areEqual = super.equals(o);
+        
+        if (areEqual) {
+            areEqual = o instanceof TwitterAccountData;
+        }
+        
+        return areEqual;
+    }
 
 }

@@ -111,5 +111,23 @@ public class GoogleTalkAccountData extends AccountData implements
 
         return removed;
     }
+    
+    public int hashCode() {
+        int hash = "Google Talk".hashCode();
+        
+        hash = hash * 31 + super.hashCode();
+        
+        return hash;
+    }
+    
+    public boolean equals(Object o) {        
+        boolean areEqual = super.equals(o);
+        
+        if (areEqual) {
+            areEqual = o instanceof GoogleTalkAccountData;
+        }
+        
+        return areEqual;
+    }
 
 }
