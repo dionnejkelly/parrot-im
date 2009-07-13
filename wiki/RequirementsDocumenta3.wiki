@@ -105,7 +105,7 @@ We have added new user tutorials here:
   * [NewTutorial_Chat (new)How to chat?]
   * [NewTutorial_Exit (new)How to exit Parrot IM?]
   * [NewTutorial_ManageBuddyList   (new)How to manage Friend list?]
-  * [NewTutorial_Help (new) parrot-im_Help]
+  
 
 = Glossary =
 
