@@ -30,14 +30,6 @@ import model.enumerations.UserStateType;
  */
 public abstract class PersonData {
 
-    private static int COUNT = 1;
-
-    /**
-     * A uniqueID given to each PersonData object to provide another field to
-     * differentiate them.
-     */
-    private int uniqueID;
-
     /**
      * The screen name, or username, of the person. May be in the form of an
      * email address. This userID is used to log-in to the server.
@@ -60,6 +52,7 @@ public abstract class PersonData {
      */
     private UserStateType state;
     private TypingStateType typingState;
+
     /**
      * Base constructor. The userID is required since it is needed to log-in and
      * authenticate users. The nickname defaults to equal the userID. It is
@@ -69,17 +62,15 @@ public abstract class PersonData {
      *            The screen name or username used for log-in.
      */
     public PersonData(String userID) {
-        if (userID == null || userID.length()==0) {
+        if (userID == null || userID.length() == 0) {
             throw new IllegalArgumentException();
         }
 
-        this.uniqueID = COUNT;
         this.userID = userID;
         this.nickname = userID;
         this.status = "";
         this.state = UserStateType.OFFLINE;
         this.typingState = TypingStateType.ACTIVE;
-        COUNT++;
     }
 
     /**
@@ -97,26 +88,14 @@ public abstract class PersonData {
      */
     public PersonData(String userID, String nickname, String status,
             UserStateType state) {
-        if (userID == null || userID.length()==0) {
+        if (userID == null || userID.length() == 0) {
             throw new IllegalArgumentException();
         }
 
-        this.uniqueID = COUNT;
         this.userID = userID;
         this.setNickname(nickname);
         this.setStatus(status);
         this.setState(state);
-
-        COUNT++;
-    }
-
-    /**
-     * Gets the unique ID for the person.
-     * 
-     * @return The unique ID as an int.
-     */
-    public int getUniqueID() {
-        return this.uniqueID;
     }
 
     /**
@@ -172,7 +151,7 @@ public abstract class PersonData {
 
         return;
     }
-    
+
     /**
      * Sets the state of the user.
      * 
@@ -197,17 +176,20 @@ public abstract class PersonData {
     }
 
     public boolean hasEmptyStatus() {
-        return this.status == null || this.status.length()==0;
+        return this.status == null || this.status.length() == 0;
     }
+
     /**
      * get Chat State like is typing, active and pause
-     * @return a string of the state have different state depends on the service 
+     * 
+     * @return a string of the state have different state depends on the service
      */
-    public String getTypingState(){
-    	return typingState.toString();
+    public String getTypingState() {
+        return typingState.toString();
     }
-    public void setTypingState(TypingStateType state){
-    	this.typingState=state;
+
+    public void setTypingState(TypingStateType state) {
+        this.typingState = state;
     }
 
     public boolean isDuplicate(PersonData person) {
@@ -221,7 +203,7 @@ public abstract class PersonData {
     public boolean isOnline() {
         return this.state != UserStateType.OFFLINE;
     }
-    
+
     public abstract ServerType getServer();
 
     /**
@@ -234,12 +216,11 @@ public abstract class PersonData {
     public String toString() {
         return this.userID;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
 
-        hash = hash * 31 + this.uniqueID;
         hash = hash * 31 + this.userID.toLowerCase().hashCode();
 
         return hash;
@@ -252,10 +233,7 @@ public abstract class PersonData {
 
         if (o != null && o instanceof PersonData) {
             otherPerson = (PersonData) o;
-            areEqual =
-                    (this.uniqueID == otherPerson.getUniqueID())
-                            && (this.userID.equalsIgnoreCase(otherPerson
-                                    .getUserID()));
+            areEqual = this.userID.equalsIgnoreCase(otherPerson.getUserID());
         }
 
         return areEqual;

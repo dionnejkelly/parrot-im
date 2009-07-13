@@ -287,11 +287,11 @@ public class ProfileData extends Observable {
      * 
      * @return True if a match is found; false otherwise.
      */
-    public boolean accountExists(String userID) {
+    public boolean accountExists(AccountData account) {
         boolean foundAccount = false;
 
         for (AccountData a : this.accountData) {
-            if (a.getUserID().equalsIgnoreCase(userID)) {
+            if (a.equals(account)) {
                 foundAccount = true;
                 break;
             }
@@ -308,7 +308,7 @@ public class ProfileData extends Observable {
      * @param account
      */
     public void addAccount(AccountData account) {
-        if (!this.accountExists(account.getUserID())) {
+        if (!this.accountExists(account)) {
             this.accountData.add(account);
         } else {
             // TODO throw a DuplicateAccountException, or something

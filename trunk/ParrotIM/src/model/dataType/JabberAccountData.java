@@ -110,4 +110,23 @@ public class JabberAccountData extends AccountData implements JabberPerson {
         return removed;
     }
 
+    public int hashCode() {
+        int hash = "Jabber".hashCode();
+        
+        hash = hash * 31 + super.hashCode();
+        
+        return hash;
+    }
+    
+    public boolean equals(Object o) {
+        boolean areEqual = super.equals(o);
+        
+        if (areEqual) {
+            areEqual = o instanceof JabberAccountData;
+        }
+        
+        return areEqual;
+    }
+
+    
 }
