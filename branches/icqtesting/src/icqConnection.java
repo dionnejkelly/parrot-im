@@ -87,7 +87,13 @@ public class icqConnection {
 		public void buddiesReordered(BuddyList bList, Group group,
 				List<? extends Buddy> oldList, List<? extends Buddy> newList) {
 			// TODO Auto-generated method stub
-			System.out.println(group.getName());
+			System.out.println("buddiesRe: "+group.getName());
+			for (Buddy b:group.getBuddiesCopy()){
+				System.out.println("buddiesRe: "+group.getName()+": "+b.getScreenname().toString());
+			}
+			for(Buddy b:newList){
+				System.out.println("buddiesRe: "+b.getScreenname().toString());
+			}
 		}
 
 		@Override
@@ -98,6 +104,14 @@ public class icqConnection {
                 buddy.getScreenname()
                         + " wants to add you as a friend. Add as a friend?";
 			JOptionPane.showMessageDialog(null, subscriptionRequest);
+			for (Group g:buddy.getBuddyList().getGroups()){
+				for(Buddy b:g.getBuddiesCopy()){
+					System.out.println("badded: "+g.getName()+": "+b.getScreenname().toString());
+				}
+			}
+			for(Buddy b:newList){
+				System.out.println("buddyadded: "+b.getScreenname().toString());
+			}
 		}
 
 		@Override
@@ -105,7 +119,7 @@ public class icqConnection {
 				List<? extends Buddy> arg2, List<? extends Buddy> arg3,
 				Buddy arg4) {
 			// TODO Auto-generated method stub
-			System.out.println(arg4.getScreenname() + " from entriesUpdated");
+			System.out.println("bRemoved"+arg4.getScreenname() + " from entriesUpdated");
 			
 		}
 
@@ -113,22 +127,35 @@ public class icqConnection {
 		public void groupAdded(BuddyList arg0, List<? extends Group> arg1,
 				List<? extends Group> arg2, Group arg3,
 				List<? extends Buddy> arg4) {
-			System.out.println(arg3.toString()+"\n"+arg4.toString()+"\n"+arg2.toString());
-			
+			System.out.println("gadded: "+arg3.toString()+"\n"+arg4.toString()+"\n"+arg2.toString());
+			for(Buddy b:arg4){
+				System.out.println("gadded2: "+b.getScreenname().toString());
+			}
+			for(Group g:arg1){
+				for (Buddy b:g.getBuddiesCopy()){
+					System.out.println("gadded3: "+g.getName()+": "+b.getScreenname().toString());
+				}
+			}
 		}
 
 		@Override
 		public void groupRemoved(BuddyList arg0, List<? extends Group> arg1,
 				List<? extends Group> arg2, Group arg3) {
 			// TODO Auto-generated method stub
-			System.out.println(arg3.toString());
+			System.out.println("gRemove: "+arg3.toString());
 		}
 
 		@Override
 		public void groupsReordered(BuddyList arg0, List<? extends Group> arg1,
 				List<? extends Group> arg2) {
 			// TODO Auto-generated method stub
-			System.out.println(arg1.toString());
+			System.out.println("gReorder: "+arg1.toString());
+			for(Group g:arg1){
+				for (Buddy b:g.getBuddiesCopy()){
+					System.out.println("gReorder2: "+g.getName()+": "+b.getScreenname().toString());
+				}
+				
+			}
 		}
 		private void update(){
 			
