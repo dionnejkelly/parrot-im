@@ -52,7 +52,7 @@ public class ProfileCollectionData extends Observable {
                 e.printStackTrace();
             }
         }
-        
+
         this.setChanged();
         this.notifyObservers();
 
@@ -68,11 +68,11 @@ public class ProfileCollectionData extends Observable {
             if (!profile.isGuestAccount()) {
                 try {
                     db = new DatabaseFunctions();
-                    db.addProfiles(profile.getName(), profile
-                            .getPassword(), false, profile
-                            .isChatWindowHistoryEnabled(), profile
-                            .isAutoSignInEnabled(), profile.isChatLogEnabled(),
-                            profile.isSoundsEnabled(), profile
+                    db.addProfiles(profile.getName(), profile.getPassword(),
+                            false, profile.isChatWindowHistoryEnabled(),
+                            profile.isAutoSignInEnabled(), profile
+                                    .isChatLogEnabled(), profile
+                                    .isSoundsEnabled(), profile
                                     .isChatbotEnabled());
                 } catch (Exception e) {
                     System.err.println("Database error loading profiles.");
@@ -137,7 +137,8 @@ public class ProfileCollectionData extends Observable {
     public void loadProfiles() {
         DatabaseFunctions db = null;
         ArrayList<ProfileTempData> dbProfiles = null;
-        ProfileData profileToAdd;
+        ProfileData profileToAdd = null;
+        ProfileData defaultProfile = null;
 
         // Grab the profiles from the database
         try {
@@ -158,12 +159,17 @@ public class ProfileCollectionData extends Observable {
                                 .isChatWindowHistory(), p.isAutoSignIn(),
                                 false, p.isChatLog(), p.isSounds(), p
                                         .isChatbot());
-                if (p.isDefaultProfile()) {
-                    this.profiles.add(0, profileToAdd);
+                if (p.isDefaultProfile() && defaultProfile == null) {
+                    defaultProfile = profileToAdd;
                 } else {
                     this.profiles.add(profileToAdd);
                 }
             }
+        }
+
+        // Add the default profile to the top
+        if (defaultProfile != null) {
+            this.profiles.add(0, profileToAdd);
         }
 
         return;

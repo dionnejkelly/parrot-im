@@ -159,6 +159,8 @@ public class SignInPanel extends JPanel implements Observer {
 
     private String passwordMatch;
 
+    private Vector<Object> profileList;
+
     /**
      * SignInPanel constructor.It takes a Model, MainController, and MainWindow
      * object as arguments. It sets up the panel.
@@ -202,9 +204,13 @@ public class SignInPanel extends JPanel implements Observer {
         accPanel.setBorder(BorderFactory.createEmptyBorder(5, 50, 10, 50));
 
         // list of accounts
-        profilesModel =
-                new DefaultComboBoxModel(new Vector<ProfileData>(profiles
-                        .getProfiles()));
+        profileList = new Vector<Object>(profiles.getProfiles());
+        if (profiles.getProfiles().size() > 1) {
+            profileList.add(0, "Select a Profile");
+        } else {
+            profileList.add(0, "Create a Profile");
+        }
+        profilesModel = new DefaultComboBoxModel(profileList);
         account_select = new JComboBox(profilesModel);
         account_select.addActionListener((new AccountSelectItemListener()));
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -293,7 +299,18 @@ public class SignInPanel extends JPanel implements Observer {
      * @param o
      */
     public void update(Observable o, Object arg) {
+
+        // Clear current list of profiles
         this.profilesModel.removeAllElements();
+
+        // Set up the "header" of the list
+        if (profiles.getProfiles().size() > 1) {
+            this.profilesModel.addElement("Select a Profile");
+        } else {
+            this.profilesModel.addElement("Create a Profile");
+        }
+
+        // Add the profiles to the list
         for (ProfileData p : profiles.getProfiles()) {
             this.profilesModel.addElement(p);
         }
