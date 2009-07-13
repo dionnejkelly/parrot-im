@@ -1173,4 +1173,48 @@ public class Model extends Observable {
         
         return account;
     }
+    public void addQuestion(String question) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.addQuestion(this.getCurrentProfile().getName(), question);
+    }
+    public void addAnswer(String question, String answer) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.addAnswer(this.getCurrentProfile().getName(), question, answer);
+    }
+    public String getResponse(String question) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getResponse(this.getCurrentProfile().getName(), question);
+    }
+    public Vector<String> getQuestionList() throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getQuestionList(this.getCurrentProfile().getName());
+    }
+    public Vector<String> getAnswersList() throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getAnswersList(this.getCurrentProfile().getName());
+    }
+    public Vector<String> getAnswersList(String question) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getAnswersList(this.getCurrentProfile().getName(), question);
+    }
+    public void addAfter(String beforeQuestion, String afterQuestion) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.addAfter(this.getCurrentProfile().getName(), beforeQuestion, afterQuestion);
+    }
+    public Vector<String> getAllAfterQuestions(String question) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getAllAfterQuestions(this.getCurrentProfile().getName(), question);
+    }
+    public void removeChatQuestion(String question) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.removeChatQuestion(this.getCurrentProfile().getName(), question);
+    }
+    public void printQADbContents() throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.printQADbContents();
+    }
+    public void removeAnswer(String question, String answer) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.removeAnswer(this.getCurrentProfile().getName(), question, answer);
+    }
 }

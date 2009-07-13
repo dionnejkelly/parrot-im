@@ -3,10 +3,11 @@ package view.options.modelstub;
 import java.sql.SQLException;
 import java.util.Vector;
 import model.DatabaseFunctions;
+import model.Model;
 
 public class model {
 	private Vector<ChatbotQADataType> QAs = new Vector<ChatbotQADataType> ();
-	
+    private Model model;
 	
 	public model() throws ClassNotFoundException, SQLException{
 		QAs.clear();
@@ -15,16 +16,13 @@ public class model {
 		Vector<String> doneQuestionsList = new Vector<String>();
 		Vector<String> tempQuestionsList = new Vector<String>();
 		Vector<String> tempAnswersList = new Vector<String>();
-		DatabaseFunctions db = new DatabaseFunctions();
-		questionList = db.getQuestionList();
+		questionList = model.getQuestionList();
 		
 		for(int i=0; i<questionList.size(); i++)
 		{
 			
-			db = new DatabaseFunctions();
-			tempAnswersList = db.getAnswersList(questionList.get(i));
-			db = new DatabaseFunctions();
-			tempQuestionsList = db.getAllAfterQuestions(questionList.get(i));
+			tempAnswersList = model.getAnswersList(questionList.get(i));
+			tempQuestionsList = model.getAllAfterQuestions(questionList.get(i));
 			if (!doneQuestionsList.containsAll(tempQuestionsList))
 			{
 				QAs.add(new ChatbotQADataType(tempQuestionsList, tempAnswersList));
@@ -37,7 +35,8 @@ public class model {
 		QAs.add(newQA);
 	}
 	
-	public void removeQA(int index){
+	public void removeQA(int index) throws ClassNotFoundException, SQLException{
+		QAs.get(index).removeAllQA();
 		QAs.remove(index);
 	}
 	

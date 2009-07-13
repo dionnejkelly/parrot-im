@@ -249,7 +249,15 @@ public class FeaturesPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             int selected = chatbotList.getSelectedIndex();
             if (selected > -1) {
-                modelStub.removeQA(selected);
+                try {
+					modelStub.removeQA(selected);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 chatbotList.setListData(modelStub.getQAList());
                 chatbotList.updateUI();
             }

@@ -877,9 +877,10 @@ public class DatabaseFunctions {
         return responseList.get(whichResponse);
     }
 
-    public Vector<String> getQuestionList() throws SQLException {
+    public Vector<String> getQuestionList(String profile) throws SQLException {
         Vector<String> questionList = new Vector<String>();
-        rs = stat.executeQuery("select * from chatBotQuestions;");
+        rs = stat.executeQuery("select * from chatBotQuestions where profile='" 
+        		+ profile + "';");
         while (rs.next()) {
             questionList.add(rs.getString("question"));
         }
@@ -888,9 +889,10 @@ public class DatabaseFunctions {
         return questionList;
     }
 
-    public Vector<String> getAnswersList() throws SQLException {
+    public Vector<String> getAnswersList(String profile) throws SQLException {
         Vector<String> answersList = new Vector<String>();
-        rs = stat.executeQuery("select * from chatBotAnswers;");
+        rs = stat.executeQuery("select * from chatBotAnswers where profile='" 
+        		+ profile + "';");
         while (rs.next()) {
             answersList.add(rs.getString("answer"));
         }
@@ -899,11 +901,13 @@ public class DatabaseFunctions {
         return answersList;
     }
 
-    public Vector<String> getAnswersList(String question) throws SQLException {
+    public Vector<String> getAnswersList(String profile, String question) 
+    throws SQLException {
         Vector<String> answersList = new Vector<String>();
         rs =
                 stat.executeQuery("select * from chatBotAnswers "
-                        + "where question='" + question + "';");
+                        + "where question='" + question + "' AND profile ='" 
+                        + profile + "';");
         while (rs.next()) {
             answersList.add(rs.getString("answer"));
         }
@@ -913,33 +917,38 @@ public class DatabaseFunctions {
     }
 
     // db.addAfter(questions.lastElement(), question);
-    public void addAfter(String beforeQuestion, String afterQuestion)
+    public void addAfter(String profile, String beforeQuestion, String afterQuestion)
             throws SQLException {
         stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
                 + afterQuestion + "' where question = '" + beforeQuestion
-                + "';");
+                + "' AND profile = '" + profile + "';");
 
         conn.close();
 
         return;
     }
 
-    public Vector<String> getAllAfterQuestions(String question)
+    public Vector<String> getAllAfterQuestions(String profile, String question)
             throws SQLException {
         Vector<String> questionsList = new Vector<String>();
         questionsList.add(question);
+        String afterQuestion = "";
         stat = conn.createStatement();
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
-                        + "where question='" + question + "';");
+                        + "where question='" + question + "' AND profile ='" 
+                        + profile + "';");
         while (rs.getString("afterQuestion") != null
                 && !rs.getString("afterQuestion").equals("null")) {
             questionsList.add(rs.getString("afterQuestion"));
+            afterQuestion = rs.getString("afterQuestion");
             stat = conn.createStatement();
+            rs.close();
             rs =
                     stat.executeQuery("select * from chatBotQuestions "
                             + "where question='"
-                            + rs.getString("afterQuestion") + "';");
+                            + afterQuestion + "' AND profile='" + profile + "';");
+            rs.next();
         }
 
         rs.close();
@@ -948,17 +957,18 @@ public class DatabaseFunctions {
         return questionsList;
     }
 
-    public void removeChatQuestion(String question) throws SQLException {
+    public void removeChatQuestion(String profile, String question) throws SQLException {
         boolean wasFirstQuestion = false;
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
-                        + "where question='" + question + "';");
+                        + "where question='" + question + "' AND profile='" 
+                        + profile + "';");
         rs.next();
         String questionAfter = rs.getString("afterQuestion");
-        System.out.println("This is the question after: " + questionAfter);
         rs =
                 stat.executeQuery("select * from chatBotQuestions "
-                        + "where afterQuestion='" + question + "';");
+                        + "where afterQuestion='" + question + "' AND profile='" 
+                        + profile + "';");
         rs.next();
         try {
             System.out.println(rs.getString("question"));
@@ -968,27 +978,28 @@ public class DatabaseFunctions {
         stat = conn.createStatement();
         if (wasFirstQuestion != true) {
             String beforeQuestion = rs.getString("question");
+            rs.close();
             if (questionAfter != null) {
                 System.out.println("bleh meh wuhh?");
                 stat
                         .executeUpdate("update chatBotQuestions set afterQuestion = '"
                                 + questionAfter
                                 + "' where question = '"
-                                + beforeQuestion + "';");
+                                + beforeQuestion + "' AND profile='" + profile + "';");
             } else {
                 stat
                         .executeUpdate("update chatBotQuestions set afterQuestion = '"
                                 + null
                                 + "' where question = '"
-                                + beforeQuestion + "';");
+                                + beforeQuestion + "' AND profile='" + profile + "';");
             }
         }
         stat = conn.createStatement();
         stat.executeUpdate("delete from chatBotQuestions where question='"
-                + question + "';");
+                + question + "' AND profile='" + profile + "';");
         stat = conn.createStatement();
         stat.executeUpdate("delete from chatBotAnswers where question='"
-                + question + "';");
+                + question + "' AND profile='" + profile + "';");
 
         conn.close();
         rs.close();
@@ -1017,5 +1028,17 @@ public class DatabaseFunctions {
 
         }
     }
-
+    
+    public void removeAnswer(String profile, String question, String answer)
+    throws SQLException {
+    	
+    	stat.executeUpdate("delete from chatBotAnswers where question='" 
+    			+ question + "' AND answer='" 
+    			+ answer + "' AND profile='" 
+    			+ profile + "'");
+    	
+    	conn.close();
+    	
+    	return;    	
+    }
 }
