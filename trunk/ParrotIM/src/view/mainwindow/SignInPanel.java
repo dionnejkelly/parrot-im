@@ -73,6 +73,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
@@ -156,6 +157,8 @@ public class SignInPanel extends JPanel implements Observer {
 
     private int lastSelectedIndex;
 
+    private String passwordMatch;
+
     /**
      * SignInPanel constructor.It takes a Model, MainController, and MainWindow
      * object as arguments. It sets up the panel.
@@ -200,7 +203,8 @@ public class SignInPanel extends JPanel implements Observer {
 
         // list of accounts
         profilesModel =
-                new DefaultComboBoxModel(new Vector(profiles.getProfiles()));
+                new DefaultComboBoxModel(new Vector<ProfileData>(profiles
+                        .getProfiles()));
         account_select = new JComboBox(profilesModel);
         account_select.addActionListener((new AccountSelectItemListener()));
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -432,8 +436,18 @@ public class SignInPanel extends JPanel implements Observer {
             int selectedIndex = account_select.getSelectedIndex();
             if (selectedIndex > 0 && lastSelectedIndex != selectedIndex) {
                 System.out.println("Checking...");
-                new SimplifiedPasswordPrompt((ProfileData) account_select
-                        .getSelectedItem());
+
+                // Only pop up password if needed
+                if (((ProfileData) account_select.getSelectedItem())
+                        .isPasswordEnabled()) {
+                    new SimplifiedPasswordPrompt((ProfileData) account_select
+                            .getSelectedItem());
+                } else {
+                    // No password required
+                    manageAccount.setEnabled(true);
+                    removeProfile.setEnabled(true);
+                    connectButton.setEnabled(true);
+                }
             } else if (selectedIndex <= 0) {
                 manageAccount.setEnabled(false);
                 removeProfile.setEnabled(false);
@@ -507,13 +521,9 @@ public class SignInPanel extends JPanel implements Observer {
                     OKbutton.setEnabled(true);
 
                     if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                        System.out.println("password is correct");
-                        lastSelectedIndex = account_select.getSelectedIndex();
-                        passwordFrame.dispose();
-                        manageAccount.setEnabled(true);
-                        removeProfile.setEnabled(true);
-                        connectButton.setEnabled(true);
+                        passwordChecker();
 
+                        return;
                     }
                 }
 
@@ -539,22 +549,30 @@ public class SignInPanel extends JPanel implements Observer {
         private class OKActionListener implements ActionListener {
 
             public void actionPerformed(ActionEvent e) {
-                // if (password is correct) {
-                // enables
+                passwordChecker();
 
-                System.out.println("password is correct");
-                lastSelectedIndex = account_select.getSelectedIndex();
-                passwordFrame.dispose();
-                manageAccount.setEnabled(true);
-                removeProfile.setEnabled(true);
-                connectButton.setEnabled(true);
-
-                // else {
-                // gives warning
-                // cannot select that profile
-                // account_select.setSelectedIndex(0);
-                // }
+                return;
             }
+        }
+
+        public void passwordChecker() {
+            passwordMatch =
+                    ((ProfileData) account_select.getSelectedItem())
+                            .getPassword();
+            if (String.copyValueOf(passwordPrompt.getPassword()).equals(
+                    passwordMatch)) {
+                lastSelectedIndex = account_select.getSelectedIndex();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Invalid password, you hacker!");
+                account_select.setSelectedIndex(0);
+            }
+            passwordFrame.dispose();
+            manageAccount.setEnabled(true);
+            removeProfile.setEnabled(true);
+            connectButton.setEnabled(true);
+
+            return;
         }
     }
 

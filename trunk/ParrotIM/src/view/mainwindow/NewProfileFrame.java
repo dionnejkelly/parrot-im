@@ -142,8 +142,10 @@ public class NewProfileFrame extends JFrame {
 
             if (profileName.getText().length() > 0) {
                 newProfile = new ProfileData(profileName.getText());
-                newProfile.setProfilePassword(String.copyValueOf(passwordField
-                        .getPassword()));
+                if (passwordCheck.isEnabled()) {
+                    newProfile.setPassword(String.copyValueOf(passwordField
+                            .getPassword()));
+                }
                 model.getProfileCollection().addProfile(newProfile);
                 if (defaultCheck.isSelected()) {
                     model.getProfileCollection().setDefaultProfile(newProfile);
@@ -157,23 +159,5 @@ public class NewProfileFrame extends JFrame {
             }
 
         }
-
-    }
-
-    /**
-     * This method is used to get the String of password from the user.
-     * 
-     * @param pass
-     * @return the string of password
-     */
-    private String password(char[] pass) {
-        String str = new String();
-        str = "";
-
-        for (int i = 0; i < pass.length; i++) {
-            str += pass[i];
-        }
-        return str;
-
     }
 }

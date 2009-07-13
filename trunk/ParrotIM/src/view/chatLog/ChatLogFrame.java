@@ -55,7 +55,7 @@ public class ChatLogFrame extends JFrame {
 
         this.getContentPane().add(
                 new ChatLogPanel(model, model.getCurrentProfile()
-                        .getProfileName()));
+                        .getName()));
         this.setPreferredSize(new Dimension(700, 500));
         this.setMinimumSize(new Dimension(400, 300));
         this.pack();

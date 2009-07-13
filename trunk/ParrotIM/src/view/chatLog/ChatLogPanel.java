@@ -137,7 +137,7 @@ public class ChatLogPanel extends JPanel {
     public ChatLogPanel(Model model, String profile) throws ClassNotFoundException, SQLException {
         // model stub
         this.model = model;
-        this.profile = model.getCurrentProfile().getProfileName();
+        this.profile = model.getCurrentProfile().getName();
          db = new DatabaseFunctions();
         
 

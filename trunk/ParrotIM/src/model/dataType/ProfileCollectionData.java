@@ -46,7 +46,7 @@ public class ProfileCollectionData extends Observable {
 
             try {
                 db = new DatabaseFunctions();
-                db.setDefaultProfile(profile.getProfileName());
+                db.setDefaultProfile(profile.getName());
             } catch (Exception e) {
                 System.err.println("Database error setting default");
                 e.printStackTrace();
@@ -62,14 +62,14 @@ public class ProfileCollectionData extends Observable {
     public void addProfile(ProfileData profile) {
         DatabaseFunctions db = null;
 
-        if (!this.duplicateName(profile.getProfileName())) {
+        if (!this.duplicateName(profile.getName())) {
             this.profiles.add(profile);
 
             if (!profile.isGuestAccount()) {
                 try {
                     db = new DatabaseFunctions();
-                    db.addProfiles(profile.getProfileName(), profile
-                            .getProfilePassword(), false, profile
+                    db.addProfiles(profile.getName(), profile
+                            .getPassword(), false, profile
                             .isChatWindowHistoryEnabled(), profile
                             .isAutoSignInEnabled(), profile.isChatLogEnabled(),
                             profile.isSoundsEnabled(), profile
@@ -96,7 +96,7 @@ public class ProfileCollectionData extends Observable {
         if (removed) {
             try {
                 db = new DatabaseFunctions();
-                db.removeProfile(profile.getProfileName());
+                db.removeProfile(profile.getName());
             } catch (Exception e) {
                 System.err.println("Database error removing profile.");
                 e.printStackTrace();
@@ -173,7 +173,7 @@ public class ProfileCollectionData extends Observable {
         boolean duplicate = false;
 
         for (ProfileData p : this.profiles) {
-            if (p.getProfileName().equals(otherName)) {
+            if (p.getName().equals(otherName)) {
                 duplicate = true;
                 break;
             }
@@ -186,7 +186,7 @@ public class ProfileCollectionData extends Observable {
         ProfileData foundProfile = null;
 
         for (ProfileData p : this.profiles) {
-            if (p.getProfileName().equals(name)) {
+            if (p.getName().equals(name)) {
                 foundProfile = p;
                 break;
             }

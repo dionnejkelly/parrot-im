@@ -341,7 +341,7 @@ public class Model extends Observable {
         if (this.getCurrentProfile().isChatLogEnabled()) {
             try {
                 db = new DatabaseFunctions();
-                db.addChat(getCurrentProfile().getProfileName(), fromUser,
+                db.addChat(getCurrentProfile().getName(), fromUser,
                         account.getUserID(), message.getMessage());
             } catch (Exception e) {
                 System.err.println("Database error. Chat not saved "
@@ -386,7 +386,7 @@ public class Model extends Observable {
         if (this.getCurrentProfile().isChatLogEnabled()) {
             try {
                 db = new DatabaseFunctions();
-                db.addChat(getCurrentProfile().getProfileName(), message
+                db.addChat(getCurrentProfile().getName(), message
                         .getFromUser(), modifiedConversation.getUser()
                         .getUserID(), message.getMessage());
             } catch (Exception e) {
@@ -582,7 +582,7 @@ public class Model extends Observable {
         ProfileData newProfile = null;
 
         for (ProfileData p : this.profileCollection.getProfiles()) {
-            if (p.getProfileName().equals(profileName)) {
+            if (p.getName().equals(profileName)) {
                 exists = true;
                 break;
             }
