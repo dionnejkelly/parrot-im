@@ -107,7 +107,7 @@ public class ProfileData extends Observable {
             boolean soundsEnabled, boolean chatbotEnabled) {
         this.accountData = new ArrayList<AccountData>();
         this.name = name;
-        this.profilePassword = "";
+        this.profilePassword = profilePassword;
         this.chatWindowHistoryEnabled = true;
         this.autoSignInEnabled = false;
         this.guestAccount = false;
