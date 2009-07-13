@@ -47,7 +47,7 @@ import model.enumerations.UserStateType;
  */
 public interface GenericConnection {
     
-    public void login(String userID, String password, String server, int port)
+    public void login(String userID, String password)
             throws BadConnectionException;
 
     public void disconnect();

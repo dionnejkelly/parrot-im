@@ -103,7 +103,7 @@ public class TwitterManager implements GenericConnection {
      * @param userID
      * @param password
      */
-    public void login(String userID, String password, String server, int port)
+    public void login(String userID, String password)
             throws BadConnectionException {
 
         // server and port unneeded for twitter

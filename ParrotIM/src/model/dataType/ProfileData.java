@@ -35,6 +35,7 @@
 package model.dataType;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import model.DatabaseFunctions;
 import model.Model;
@@ -46,7 +47,7 @@ import model.enumerations.UserStateType;
  * Holds the account information of the current account being used, whether it
  * is one stored in the database or a guest account.
  */
-public class ProfileData {
+public class ProfileData extends Observable {
 
     // Section:
     // II - Data Members
@@ -311,6 +312,9 @@ public class ProfileData {
             // similar.
         }
 
+        this.setChanged();
+        this.notifyObservers();
+        
         return;
     }
 
@@ -322,7 +326,14 @@ public class ProfileData {
      * @return True is removed, false otherwise.
      */
     public boolean removeAccount(AccountData account) {
-        return this.accountData.remove(account);
+        boolean removed = false;
+        
+        removed = this.accountData.remove(account);
+        
+        this.setChanged();
+        this.notifyObservers();
+        
+        return removed;
     }
 
     /**
@@ -416,6 +427,7 @@ public class ProfileData {
             newAccount =
                     Model.createAccount(a.getUserID(), a.getPassword(), a
                             .getServer());
+            this.addAccount(newAccount);
         }
 
         return;

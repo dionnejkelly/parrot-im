@@ -31,12 +31,13 @@ import javax.swing.JTabbedPane;
 import view.buddylist.AccountInfo;
 
 import model.Model;
+import model.dataType.ProfileData;
 
 import controller.MainController;
 
 public class OptionPanel extends JPanel{
 	
-	public OptionPanel(MainController c, Model model, JFrame mainframe, String profileName, AccountInfo accInfo) 
+	public OptionPanel(MainController c, Model model, JFrame mainframe, ProfileData profile, AccountInfo accInfo) 
 									throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
@@ -44,7 +45,7 @@ public class OptionPanel extends JPanel{
 		JTabbedPane tabbedOptions = new JTabbedPane(JTabbedPane.TOP);
 		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
 		tabbedOptions.addTab("Personal Profile", personalProfile);
-		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c, profileName));
+		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c, profile));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, mainframe, model));
 		//setting layout
 		this.add(tabbedOptions);

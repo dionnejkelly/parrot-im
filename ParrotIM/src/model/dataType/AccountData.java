@@ -182,36 +182,5 @@ public abstract class AccountData extends PersonData {
 
         return foundFriend;
     }
-
-    /**
-     * Checks if the accounts are the same. Determines so by whether their
-     * userID is the same.
-     * 
-     * @param account
-     * @return true if they have the same userID, false otherwise.
-     */
-    @Override
-    public boolean equals(Object account) {
-        boolean areEqual = false;
-        AccountData externalAccount = null;
-
-        if (account != null && account instanceof AccountData) {
-            externalAccount = (AccountData) account;
-            areEqual =
-                    super.equals(account)
-                            && this.getConnection().equals(
-                                    externalAccount.getConnection());
-        }
-
-        return areEqual;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = super.hashCode();
-
-        hash = hash * 31 + this.getConnection().hashCode();
-
-        return hash;
-    }
+    
 }

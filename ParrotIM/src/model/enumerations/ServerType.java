@@ -93,10 +93,10 @@ public enum ServerType {
      * 
      * @return A list of all ServerTypes in a Vector.
      */
-    public static Vector<String> getServerList() {
-        Vector<String> serverList = new Vector<String>();
+    public static Vector<ServerType> getServerList() {
+        Vector<ServerType> serverList = new Vector<ServerType>();
         for (ServerType s : ServerType.values()) {
-            serverList.add(s.name);
+            serverList.add(s);
         }
         return serverList;
     }

@@ -91,12 +91,12 @@ public class JabberManager implements GenericConnection {
         return;
     }
 
-    public void login(String userID, String password, String server, int port)
+    public void login(String userID, String password)
             throws BadConnectionException {
         ConnectionConfiguration config = null;
 
         this.domain = StringUtils.parseServer(userID); // will this work?
-        this.server = server;
+        this.server = StringUtils.parseServer(userID);
         userID = StringUtils.parseName(userID); // to make it work with sfu...
         // check for others
         // port currently not assigned

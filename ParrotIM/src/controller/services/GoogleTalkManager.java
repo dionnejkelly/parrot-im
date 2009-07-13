@@ -486,7 +486,7 @@ private String getUserPhoneWork() throws XMPPException {
         return;
     }
 
-    public void login(String userID, String password, String server, int port)
+    public void login(String userID, String password)
             throws BadConnectionException {
         ConnectionConfiguration config = null;
 
