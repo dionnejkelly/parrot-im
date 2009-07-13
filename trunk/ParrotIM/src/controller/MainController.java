@@ -118,6 +118,7 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
+        System.out.println("Which connection = " + connection.getServerType().name());
         ImageIcon avatarPicture = connection.getAvatarPicture(userID);
 
         return avatarPicture;

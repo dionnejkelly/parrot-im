@@ -1,6 +1,7 @@
 package controller.services;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -394,8 +396,24 @@ public class TwitterManager implements GenericConnection {
     // @Override
 
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
-        // TODO Auto-generated method stub
-        return null;
+    	
+
+        URI userAvatar = twitter.getStatus(userID).getUser().getProfileImageUrl();
+        //JOptionPane.showInputDialog(userAvatar);
+        System.out.println("URL: " + userAvatar);
+        try {
+			URL where = new URL(userAvatar.toString());
+			ImageIcon userImageAvatar = new ImageIcon(where);
+			return userImageAvatar;
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new ImageIcon(this.getClass().getResource("/images/chatwindow/personal.png"));
+        
+        
+        
     }
 
 	public void setTypingState(int state, String UserID) throws BadConnectionException,
