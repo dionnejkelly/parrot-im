@@ -603,7 +603,7 @@ public class ChatPanel extends JPanel {
 		public void actionPerformed(ActionEvent event) {
 			
 			
-			JOptionPane.showInputDialog(null, "This should open a new chat window to invite users into that room.");
+			JOptionPane.showMessageDialog(null, "This should open a new chat window to invite users into that room.");
 		}
     	
     }
@@ -617,7 +617,7 @@ public class ChatPanel extends JPanel {
 			
 			
 			
-			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(model);
+			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(model, 0);
 		}
     	
     }
