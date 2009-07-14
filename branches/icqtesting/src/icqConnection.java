@@ -14,6 +14,7 @@ import net.kano.joustsim.oscar.AimConnectionProperties;
 import net.kano.joustsim.oscar.AimSession;
 import net.kano.joustsim.oscar.AppSession;
 import net.kano.joustsim.oscar.DefaultAimSession;
+import net.kano.joustsim.oscar.DefaultAppSession;
 import net.kano.joustsim.oscar.OpenedServiceListener;
 import net.kano.joustsim.oscar.State;
 import net.kano.joustsim.oscar.StateEvent;
@@ -24,6 +25,7 @@ import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
 import net.kano.joustsim.oscar.oscar.service.ssi.Group;
+import net.kano.joustsim.oscar.oscar.service.ssi.MutableBuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 
@@ -34,6 +36,7 @@ public class icqConnection {
 	 */
 	private AimConnection connection;
 	private AimConnectionProperties connectionProperties = new AimConnectionProperties(null, null);
+	private State state;
 	private RvProcessor rvProcessor;
 	private IcbmListener lastIcbmListener;
 	public icqConnection() 
@@ -57,18 +60,7 @@ public class icqConnection {
         connectionProperties.setLoginHost(System.getProperty("OSCAR_HOST", server));
         connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", port));
         connection = session.openConnection(connectionProperties);
-        connection.connect();
-        
-        connection.addStateListener(new DefaultStateListener());
-        this.getBuddyList();
-        if(connection.getSsiService()!=null){
-        	connection.getSsiService().getBuddyList();
-        	System.out.println("lolololol");
-        }
-        }
-	public void getBuddyList(){
-		
-		connection.addOpenedServiceListener(new OpenedServiceListener(){
+        connection.addOpenedServiceListener(new OpenedServiceListener(){
 
 			@Override
 			public void closedServices(AimConnection arg0,
@@ -85,12 +77,40 @@ public class icqConnection {
                         
                         ((SsiService) service).getBuddyList()
                         .addRetroactiveLayoutListener(new BuddyListFunctionListener());
-                        ((SsiService) service).getBuddyList().getGroups().get(0);
                     }
 				}
 			}
 		});
-		
+        connection.addStateListener(new DefaultStateListener());
+        connection.connect();
+        //this.getBuddyList();
+        
+        }
+	public void getBuddyList(){
+		//assume that getBuddyList is called after logging in and connected
+		int count = 0;
+		while(state!=state.ONLINE && count<30){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				//Do nothing
+			}
+		}
+		if(count>=30){
+			System.out.println("Waiting for too long!!");
+			return;
+		}
+		if(state != State.ONLINE){
+			System.out.println("It's not ONLINE");
+			return;
+		}
+		MutableBuddyList BList = connection.getSsiService().getBuddyList();
+		for(Group g:BList.getGroups()){
+			for(Buddy b:g.getBuddiesCopy()){
+				System.out.println("buddyList works: "+b.getAlias());
+			}
+		}
+		return;
 	}
 	
 	/* *********************** Listeners***************************/
@@ -178,8 +198,10 @@ public class icqConnection {
 
 		@Override
 		public void handleStateChange(StateEvent event) {
-			if(State.ONLINE == event.getNewState()){
-				System.out.println(connection.getSsiService().getBuddyList().getGroups());
+			state = event.getNewState();
+			if(state == State.ONLINE){
+				System.out.println("is now online");
+				//System.out.println(connection.getSsiService().getBuddyList().getGroups());
 			}
 			
 		}
