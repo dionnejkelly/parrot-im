@@ -137,12 +137,15 @@ public class AccountInfo extends JPanel
 		avatarDisplay = new AvatarLabel(chatClient,
 				getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString());
 		
-		//enable this to check issue 37
 //		try {
-//			model.getAvatarDirectory(model.getClass().getName());
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
+//			String path = model.getAvatarDirectory(model.getCurrentProfile().getName());
+//			if (path == null)
+//	    		path = getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString();
+//			
+//			System.out.println(getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString());
+//			avatarDisplay = new AvatarLabel(chatClient, path);
+//		} catch (SQLException e1) {
+//			e1.printStackTrace();
 //		}
 		
 		//name, status message (personal message) and status

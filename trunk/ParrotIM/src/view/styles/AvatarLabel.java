@@ -109,6 +109,7 @@ public class AvatarLabel extends JLabel{
 	}
 	
 	private void setLabel (MainController mainControl,String path){
+		
 		this.setToolTipText("Click to change your display picture");
 		this.chatClient = mainControl;
 		changeAvatar(path);

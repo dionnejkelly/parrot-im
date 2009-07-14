@@ -398,7 +398,7 @@ public class DatabaseFunctions {
         prep.setString(6, chatLog);
         prep.setString(7, sounds);
         prep.setString(8, chatbot);
-        prep.setString(9, "images/buddylist/logoBox.png");
+        prep.setString(9, "");
         prep.executeUpdate();
 
         conn.commit();
@@ -509,9 +509,8 @@ public class DatabaseFunctions {
     	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
     	rs.next();
     	String directory = rs.getString("avatarDirectory");
-//    	rs.close();
-//    	conn.close();
-    	
+    	rs.close();
+    	conn.close();
     	return directory;
     }
 
