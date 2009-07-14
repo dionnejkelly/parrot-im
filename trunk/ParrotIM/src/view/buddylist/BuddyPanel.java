@@ -127,6 +127,8 @@ public class BuddyPanel extends JPanel implements Observer {
      * list of buddies
      */
     private ArrayList<UserData> buddies;
+    
+    private ArrayList<ArrayList<UserData>> buddyArray;
 
     private JTextField search;
 
@@ -262,16 +264,22 @@ public class BuddyPanel extends JPanel implements Observer {
         buddyListPane.removeAllElements(1);
         boxes[0].removeAll();
         boxes[1].removeAll();
+        buddyArray = new ArrayList<ArrayList<UserData>>();
+        
 
         // System.out.println("Starting adding Buddies: " + buddies.size());
 
+        buddyArray.add(new ArrayList<UserData>());
+        buddyArray.add(new ArrayList<UserData>());
         for (int i = 0; i < buddies.size(); i++) {
             if (buddies.get(i).getServer().toString().equals("Google Talk")) {
+                buddyArray.get(0).add(buddies.get(i));
                 boxes[0].add(FriendItem(buddies.get(i)));
                 buddyListPane.addElement(0, FriendItem(buddies.get(i)));
                 // System.out.println(buddies.get(i).getUserID() +
                 // " added to googleTalk");
             } else if (buddies.get(i).getServer().toString().equals("Twitter")) {
+                buddyArray.get(1).add(buddies.get(i));
                 boxes[1].add(FriendItem(buddies.get(i)));
                 buddyListPane.addElement(1, FriendItem(buddies.get(i)));
                 // System.out.println(buddies.get(i).getUserID() +
@@ -780,7 +788,7 @@ public class BuddyPanel extends JPanel implements Observer {
                             lastSelectedListener = this;
 
                             /* Fix this to directly reference the GUI */
-                            selectedFriend = buddies.get(i);
+                            selectedFriend = buddyArray.get(j).get(i);
 
                             if (event.getClickCount() == 2) {
                                 selected = false;
@@ -796,7 +804,7 @@ public class BuddyPanel extends JPanel implements Observer {
                                     + 25 * i);
                             selectedName =
                                     buddyListPane.getComponent(j, 1).getName();
-                            selectedFriend = buddies.get(i);
+                            selectedFriend = buddyArray.get(j).get(i);
                         }
                     }
                 }

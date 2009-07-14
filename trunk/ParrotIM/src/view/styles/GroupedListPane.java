@@ -81,7 +81,7 @@ public class GroupedListPane extends JPanel{
 	}
 	
 	public Component getComponent(int group, int componentIndex){
-		return groups.get(group).boxes[0].getComponent(componentIndex);
+	        return groups.get(group).boxes[0].getComponent(componentIndex);
 	}
 	
 	public void removeAllElements(int group){
