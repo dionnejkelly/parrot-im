@@ -48,11 +48,13 @@ public class GroupChatConfigurationFrame extends JFrame{
 	private JButton cancelButton;
 	
 	private JLabel groupChatRoomLabel;
+	
+	private JLabel usersToInvite;
 
 
 	private JTextArea messageText;
 	private JComboBox groupRoom;
-	
+	private JComboBox usersGroup;
 	
 	/**
 	 * if edit is true, use for adding a new Q/A
@@ -86,6 +88,73 @@ public class GroupChatConfigurationFrame extends JFrame{
 		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 		this.setLocation(600 ,200);
 		
+	}
+	
+	public GroupChatConfigurationFrame(Model model, int tempParameter){
+		mainFrame = this;
+		this.model = model;
+		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
+		this.setTitle("Group Chat Configuration");
+		
+		setAllPanels();
+		this.setPreferredSize(new Dimension(330,180));
+		setResizable(false);
+		setLocationRelativeTo(null);
+
+		
+		
+		
+		pack();
+		getContentPane().add(mainPanel);
+		setVisible(true);
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+		this.setLocation(600 ,200);
+		
+	}
+	
+	
+	
+	
+	private void setAllPanels() {
+		usersToInvite = new JLabel("Group Chat Room: ");
+		String[] usersList = {"Only online users should be displayed here", "kevin.fahy@gmail.com", "parroim.test@gmail.com", "jrfox02@gmail.com"};
+		
+		usersGroup = new JComboBox(usersList);
+		usersGroup.setPreferredSize(new Dimension(265, 25));
+		usersGroup.addActionListener(new StyleListener());
+		
+		groupChatRoomLabel = new JLabel("Group Chat Room: ");
+		
+
+		inviteButton = new JButton ("Invite");
+		inviteButton.addActionListener(new sendActionListener());
+		cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new cancelActionListener());
+		
+		// this should be extract from the list of current conferrence rooms
+		String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
+		groupRoom = new JComboBox(listGroupRoom);
+		groupRoom.setPreferredSize(new Dimension(265, 25));
+		groupRoom.addActionListener(new StyleListener());
+		
+
+		
+		StyleListener listener = new StyleListener();
+		
+		JPanel QButtonsPanel = new JPanel();
+		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
+		QButtonsPanel.setLayout(new BoxLayout(QButtonsPanel, BoxLayout.X_AXIS));
+		QButtonsPanel.add(inviteButton);
+		QButtonsPanel.add(cancelButton);
+		
+		
+		/*WRAP UP*/
+		mainPanel = new JPanel();
+		mainPanel.add(usersToInvite);
+		mainPanel.add(usersGroup);
+		mainPanel.add(groupChatRoomLabel);
+		mainPanel.add(groupRoom);
+		mainPanel.add(QButtonsPanel);
 	}
 	
 
