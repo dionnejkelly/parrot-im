@@ -127,10 +127,14 @@ public class BuddyList extends JFrame {
         fileMenu = new JMenu("Home");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
-        JMenuItem logoutItem = new JMenuItem("Sign Out", KeyEvent.VK_L);
+        JMenuItem logoutItem = new JMenuItem("Sign Out",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/sign_out.png")));
+        // KeyEvent.VK_L
         logoutItem.addActionListener(new signoutActionListener());
         fileMenu.add(logoutItem);
-        JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+        JMenuItem exitItem1 = new JMenuItem("Exit",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/stop.png")));
+        //KeyEvent.VK_N
         fileMenu.add(exitItem1);
         exitItem1.addActionListener(new exitActionListener());
 
@@ -143,17 +147,21 @@ public class BuddyList extends JFrame {
 
         contactMenu = new JMenu("Accounts");
         contactMenu.setMnemonic(KeyEvent.VK_C);
-        JMenuItem viewChatLog = new JMenuItem("View Chat Log", KeyEvent.VK_D);
+        JMenuItem viewChatLog = new JMenuItem("View Chat Log", new ImageIcon(this.getClass().getResource(
+        "/images/menu/note.png")));
+        // KeyEvent.VK_D
         viewChatLog.addActionListener(new chatLogListener());
         contactMenu.add(viewChatLog);
 
-        this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled");
+        this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled", new ImageIcon(this.getClass().getResource(
+        "/images/menu/monitor_delete.png")));
         chatbotEnabler.setMnemonic(KeyEvent.VK_B);
         chatbotEnabler.addActionListener(new ChatbotToggleListener());
         contactMenu.add(chatbotEnabler);
 
         JCheckBoxMenuItem chatLogEnabler =
-                new JCheckBoxMenuItem("Chat Log Enabled");
+                new JCheckBoxMenuItem("Chat Log Enabled", new ImageIcon(this.getClass().getResource(
+                "/images/menu/note_delete.png")));
         chatLogEnabler.setMnemonic(KeyEvent.VK_E);
         chatLogEnabler.addActionListener(new ChatLogToggleListener());
         contactMenu.add(chatLogEnabler);
@@ -163,18 +171,26 @@ public class BuddyList extends JFrame {
         optionsMenu.setMnemonic(KeyEvent.VK_O);
         menuBar.add(optionsMenu);
         JMenuItem optionsItem1 =
-                new JMenuItem("Parrot Preferences", KeyEvent.VK_P);
+                new JMenuItem("Parrot Preferences",  new ImageIcon(this.getClass().getResource(
+                "/images/menu/tick.png")));
+        // KeyEvent.VK_P
         optionsItem1.addActionListener(new optionListener());
         optionsMenu.add(optionsItem1);
 
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic(KeyEvent.VK_H);
         menuBar.add(helpMenu);
-        JMenuItem helpItem1 = new JMenuItem("User Guide", KeyEvent.VK_G);
+        JMenuItem helpItem1 = new JMenuItem("User Guide",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/information.png")));
+        // KeyEvent.VK_G
         helpItem1.addActionListener(new helpListener());
-        JMenuItem helpItem2 = new JMenuItem("Report Bug", KeyEvent.VK_R);
+        JMenuItem helpItem2 = new JMenuItem("Report Bug",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/bug.png")));
+        //KeyEvent.VK_R
         helpItem2.addActionListener(new reportBugListener());
-        JMenuItem helpItem3 = new JMenuItem("About Parrot.IM", KeyEvent.VK_A);
+        JMenuItem helpItem3 = new JMenuItem("About Parrot.IM",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/report.png")));
+        // KeyEvent.VK_A
         helpItem3.addActionListener(new aboutListener());
         helpMenu.add(helpItem1);
         helpMenu.add(helpItem2);

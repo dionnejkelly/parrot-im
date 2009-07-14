@@ -234,9 +234,9 @@ public class BuddyPanel extends JPanel implements Observer {
         // rightclick menu
         rightClickMenu = new JPopupMenu();
         menuItem1 = new JMenuItem("Start New Conversation",  new ImageIcon(this.getClass().getResource(
-        "/images/popup/user.png")));
+        "/images/popup/comment.png")));
         menuItem2 = new JMenuItem("Add to open Conversation",  new ImageIcon(this.getClass().getResource(
-        "/images/popup/group_add.png")));
+        "/images/popup/comments_add.png")));
         menuItem3 = new JMenuItem("Remove Friend", new ImageIcon(this.getClass().getResource(
         "/images/buddylist/delete_user.png")));
         menuItem4 = new JMenuItem("Block Friend",  new ImageIcon(this.getClass().getResource(
