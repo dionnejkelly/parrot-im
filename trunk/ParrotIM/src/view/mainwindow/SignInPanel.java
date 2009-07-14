@@ -174,10 +174,10 @@ public class SignInPanel extends JPanel implements Observer {
         mainFrame = frame;
         core = chatClient;// CORE
         this.model = model;
+        
         signin = this;
         this.profiles = model.getProfileCollection();
         this.profiles.addObserver(this);
-
         header = new HeaderPanel();
         
         setLayout(new BorderLayout());
@@ -280,12 +280,10 @@ public class SignInPanel extends JPanel implements Observer {
      * the server
      * @throws ClassNotFoundException 
      * 
-     * @throws ClassNotFoundException
-     * @throws SQLException
      */
     private void profileSignIn() throws ClassNotFoundException {
         ProfileData profile = (ProfileData) account_select.getSelectedItem();
-
+        
         try {
             // Login with server and set model info
 
@@ -471,17 +469,15 @@ public class SignInPanel extends JPanel implements Observer {
                 System.out.println(selectedProfile.getName());
                 //change avatar
                 
-                if (header!= null){
-	                try {
-						System.out.println(model.getAvatarDirectory(selectedProfile.getName()));
-						header.changeAvatar(model.getAvatarDirectory(selectedProfile.getName()));
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+                try {
+					System.out.println(model.getAvatarDirectory(selectedProfile.getName()));
+					header.changeAvatar(model.getAvatarDirectory(selectedProfile.getName()));
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
                 }
                 // Only pop up password if needed
                 if (selectedProfile.isPasswordEnabled()) {
@@ -497,6 +493,7 @@ public class SignInPanel extends JPanel implements Observer {
                 manageAccount.setEnabled(false);
                 removeProfile.setEnabled(false);
                 connectButton.setEnabled(false);
+                header.changeAvatar(null);
             }
 
         }
@@ -608,9 +605,11 @@ public class SignInPanel extends JPanel implements Observer {
                     passwordMatch)) {
                 lastSelectedIndex = account_select.getSelectedIndex();
             } else {
+            	passwordFrame.setAlwaysOnTop(false);
                 JOptionPane.showMessageDialog(null,
                         "Invalid password, you hacker!");
                 account_select.setSelectedIndex(0);
+                header.changeAvatar(null);
             }
             passwordFrame.dispose();
             manageAccount.setEnabled(true);
