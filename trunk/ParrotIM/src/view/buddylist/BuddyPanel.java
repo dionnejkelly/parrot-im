@@ -693,7 +693,7 @@ public class BuddyPanel extends JPanel implements Observer {
                     ImageIcon avatarImage = null;
                     try {
                         avatarImage =
-                                chatClient.getAvatarPicture(user.getUserID());
+                                chatClient.getAvatarPicture(user);
                         Image img = avatarImage.getImage();
                         img =
                                 img.getScaledInstance(25, 25,

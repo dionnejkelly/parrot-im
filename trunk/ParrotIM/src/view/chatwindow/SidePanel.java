@@ -106,7 +106,7 @@ public class SidePanel extends JPanel implements Observer {
 	                this.users.add(userWrapper);
 	            }
 	            
-	            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser().getUserID());
+	            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser());
 	            listPane.addElement(userWrapper.toString(), leafIcon, userWrapper, new SelectListener());
 	            
 	            System.out.println(userWrapper.toString() + " added to the sidepanel");

@@ -109,17 +109,16 @@ public class MainController {
         return;
     }
 
-    public ImageIcon getAvatarPicture(String userID) throws XMPPException {
+    public ImageIcon getAvatarPicture(UserData user) throws XMPPException {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
 
         // connection should be found from account!!
-        account = model.getCurrentProfile().getAccountData().get(0);
+        account = model.findAccountByFriend(user);
         connection = account.getConnection();
 
-        System.out.println("Which connection = " + connection.getServerType().name());
-        ImageIcon avatarPicture = connection.getAvatarPicture(userID);
+        ImageIcon avatarPicture = connection.getAvatarPicture(user.getUserID());
 
         return avatarPicture;
         // TODO make a more accurate Model.addFriend
@@ -242,7 +241,7 @@ public class MainController {
         if (account instanceof GoogleTalkAccountData) {
             connection = new GoogleTalkManager(controller);
         } else if (account instanceof JabberAccountData) {
-            //userID += "@" + serverAddress;
+            // userID += "@" + serverAddress;
             connection = new JabberManager(controller);
         } else if (account instanceof TwitterAccountData) {
             connection = new TwitterManager(controller);
@@ -291,7 +290,7 @@ public class MainController {
         this.disconnect();
         model.getProfileCollection().addProfile(createdProfile);
         model.getProfileCollection().setActiveProfile(createdProfile);
-        
+
         createdAccount = Model.createAccount(userID, password, server);
         createdProfile.addAccount(createdAccount);
 
@@ -838,13 +837,13 @@ public class MainController {
     }
 
     public GenericConnection getConnection() {
-    	AccountData account = null; // Should be passed in!!
+        AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
 
         // connection should be found from account!!
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
-        
+
         return connection;
     }
 }
