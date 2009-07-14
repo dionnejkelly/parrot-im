@@ -512,7 +512,7 @@ public class DatabaseFunctions {
     	String directory = rs.getString("avatarDirectory");
     	rs.close();
     	conn.close();
-    	if (directory.isEmpty()) {
+    	if (directory.length() == 0) {
     		return null;
     	} else {
     		return directory;
