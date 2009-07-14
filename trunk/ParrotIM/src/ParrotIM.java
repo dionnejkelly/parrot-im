@@ -32,6 +32,7 @@ public class ParrotIM {
         
         //Mac OS Menubar optimization
         String lcOSName = System.getProperty("os.name").toLowerCase();
+        
         if (lcOSName.startsWith("mac"))
         	System.setProperty("apple.laf.useScreenMenuBar", "true");
         
