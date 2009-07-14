@@ -553,27 +553,11 @@ public class BuddyPanel extends JPanel implements Observer {
         friendItem.setName(user.getNickname());
         server = user.getServer().toString();
         
-        // end it
-        if (user.getServer() == ServerType.GOOGLE_TALK){ //Jabber supports this too?
-        	// first needs to load with the user we want to get the profile information
-        	try {
-				chatClient.getConnection().load(user.getNickname() +"@gmail.com");
-				friendItem.setToolTipText("<html>Name\t: " + chatClient.getConnection().getUserFirstName() +
-						"<br>Nickname: " + chatClient.getConnection().getUserNickName() +
-						"<br>Jabber ID: " + chatClient.getConnection().getUserEmailHome() +
-						"<br>Home Phone: " + chatClient.getConnection().getUserPhoneHome() +
-						"<br>Work Phone: " + chatClient.getConnection().getUserPhoneWork() +
-						"<br>Work email: " + chatClient.getConnection().getUserEmailWork() +
-						"<br>Organization: " + chatClient.getConnection().getUserOrganization() +
-						"<br>Organization unit: " + chatClient.getConnection().getUserOrganizationUnit() + "</html>");
-			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	
-        } else {
-        	friendItem.setToolTipText("Right click to see options for this item");
-        }
+        
+     // end it
+        friendItem.setToolTipText("<html>  " + user.getNickname() + 
+                        "(" + user.getUserID() + ")" + "<br>"+ user.getStatus() + "<br> Status:" + user.getState()
+                        + "<br>" + user.getServer() + "<hr>" + "Right-click for more options");
 
         JLabel friendName;
 
