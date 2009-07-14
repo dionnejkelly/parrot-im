@@ -70,8 +70,9 @@ public class BuddyList extends JFrame {
      * @param c
      * @param model
      * @param location
+     * @throws ClassNotFoundException 
      */
-    public BuddyList(MainController c, Model model, Point location) {
+    public BuddyList(MainController c, Model model, Point location) throws ClassNotFoundException {
     	
         // setLocationRelativeTo(null);
         buddywindow = this;

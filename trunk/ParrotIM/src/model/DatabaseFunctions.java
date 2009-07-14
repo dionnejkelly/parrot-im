@@ -501,16 +501,17 @@ public class DatabaseFunctions {
     throws SQLException
     {
     	stat.executeQuery("update profiles set directory='" 
-    			+ directory + "' where profile='" + profile + "'");
+    			+ directory + "' where name='" + profile + "'");
     	conn.close();
     }
     public String getAvatarDirectory(String profile) throws SQLException
     {
-    	rs = stat.executeQuery("select * from profiles where profile='" + profile + "';");
+    	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
     	rs.next();
     	String directory = rs.getString("avatarDirectory");
-    	rs.close();
-    	conn.close();
+//    	rs.close();
+//    	conn.close();
+    	
     	return directory;
     }
 

@@ -55,6 +55,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -122,7 +123,7 @@ public class AccountInfo extends JPanel
 	 * @param c
 	 * @param model
 	 */
-	public AccountInfo(MainController c, Model model) 
+	public AccountInfo(MainController c, Model model) throws ClassNotFoundException 
 	{
 	    this.model = model;
 	    this.chatClient = c;
@@ -132,8 +133,17 @@ public class AccountInfo extends JPanel
 		setLayout(new BorderLayout());
 		
 		//user diplay picture
+
 		avatarDisplay = new AvatarLabel(chatClient,
 				getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString());
+		
+		//enable this to check issue 37
+//		try {
+//			model.getAvatarDirectory(model.getClass().getName());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		//name, status message (personal message) and status
 		JPanel textInfo = new JPanel();

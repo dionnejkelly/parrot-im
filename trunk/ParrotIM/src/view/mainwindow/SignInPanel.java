@@ -80,7 +80,6 @@ import javax.swing.JPasswordField;
 import model.Model;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
-import model.enumerations.UpdatedType;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
@@ -278,11 +277,12 @@ public class SignInPanel extends JPanel implements Observer {
     /**
      * signIn_ActionPerformed is a function that helps the user to sign in to
      * the server
+     * @throws ClassNotFoundException 
      * 
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    private void profileSignIn() {
+    private void profileSignIn() throws ClassNotFoundException {
         ProfileData profile = (ProfileData) account_select.getSelectedItem();
 
         try {
@@ -335,7 +335,12 @@ public class SignInPanel extends JPanel implements Observer {
          * @param evt
          */
         public void actionPerformed(ActionEvent evt) {
-            profileSignIn();
+            try {
+				profileSignIn();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
             return;
         }

@@ -18,16 +18,25 @@
 
 package controller;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Panel;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
-import org.jivesoftware.smackx.ChatStateManager;
+
+import com.sun.image.codec.jpeg.ImageFormatException;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import view.options.MusicPlayer;
 
@@ -50,7 +59,6 @@ import model.dataType.ProfileData;
 import model.dataType.TwitterAccountData;
 import model.dataType.TwitterUserData;
 import model.dataType.UserData;
-import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.TypingStateType;
@@ -135,7 +143,10 @@ public class MainController {
         return account.getNickname();
     }
 
-    public void setAvatarPicture(byte[] byeArray) throws XMPPException {
+    public void setAvatarPicture(URL url) throws XMPPException, IOException, ClassNotFoundException, SQLException {
+    	ImageIcon imageIcon = new ImageIcon(url);
+    	byte[] byeArray = toByte(imageIcon);
+    	
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
@@ -147,9 +158,39 @@ public class MainController {
         System.out.println("Which connection = "
                 + connection.getServerType().getServerList().get(0));
         connection.setAvatarPicture(byeArray);
+        model.setAvatarDirectory(model.getCurrentProfile().getName(), url.toString());
 
         // TODO make a more accurate Model.addFriend
 
+    }
+    
+	private byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {
+    	// iconData is the original array of bytes
+
+    	Image img = i.getImage();
+
+    	Image imageResize = img.getScaledInstance(100, 100, 0);
+
+    	ImageIcon imageIconResize = new ImageIcon (imageResize);
+
+    	int resizeWidth = imageIconResize.getIconWidth();
+    	int resizeHeight = imageIconResize.getIconHeight();
+
+    	Panel p = new Panel();
+    	BufferedImage bi = new BufferedImage(resizeWidth, resizeHeight,BufferedImage.TYPE_INT_RGB);
+
+    	Graphics2D big = bi.createGraphics();
+    	big.drawImage(imageIconResize.getImage(), 0, 0, p);
+
+    	ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+    	JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+    	encoder.encode(bi);
+    	byte[] byteArray = os.toByteArray();
+    	
+    	return byteArray;
+    	
+    
     }
 
     public void setAvatarPicture(File file) throws XMPPException {
@@ -169,22 +210,22 @@ public class MainController {
 
     }
 
-    public void setAvatarPicture(URL url) throws XMPPException {
-        // TODO create an account selection GUI
-        AccountData account = null; // Should be passed in!!
-        GenericConnection connection = null;
-
-        // connection should be found from account!!
-        account = model.getCurrentProfile().getAccountData().get(0);
-        connection = account.getConnection();
-
-        System.out.println("Which connection = "
-                + connection.getServerType().getServerList().get(0));
-        connection.setAvatarPicture(url);
-
-        // TODO make a more accurate Model.addFriend
-
-    }
+//    public void setAvatarPicture(URL url) throws XMPPException {
+//        // TODO create an account selection GUI
+//        AccountData account = null; // Should be passed in!!
+//        GenericConnection connection = null;
+//
+//        // connection should be found from account!!
+//        account = model.getCurrentProfile().getAccountData().get(0);
+//        connection = account.getConnection();
+//
+//        System.out.println("Which connection = "
+//                + connection.getServerType().getServerList().get(0));
+//        connection.setAvatarPicture(url);
+//
+//        // TODO make a more accurate Model.addFriend
+//
+//    }
 
     /**
      * This method actually set presence of the user.
