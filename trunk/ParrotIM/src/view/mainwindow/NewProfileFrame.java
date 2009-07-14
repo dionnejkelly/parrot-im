@@ -35,6 +35,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -146,10 +147,16 @@ public class NewProfileFrame extends JFrame {
     private class nextButtonActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) 
         {
-        	
             ProfileData newProfile = null;
-
-            if (profileName.getText().length() > 0) {
+            if (profileName.getText().length() > 15)
+            {
+            	popupFrame.setAlwaysOnTop(false);
+            	 String warning =
+                     "Please provide a profile name of no longer than 15 characters.";
+            	 JOptionPane.showMessageDialog(null, warning);
+            }
+            else if (profileName.getText().length() > 0) 
+            {
                 newProfile = new ProfileData(profileName.getText());
                 if (passwordCheck.isEnabled()) {
                     newProfile.setPassword(String.copyValueOf(passwordField
