@@ -380,13 +380,13 @@ public class BuddyList extends JFrame {
 
 		public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.DESELECTED) {
-				System.out.println("Chat log disbled");
+				
         		chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_delete.png")));
             }
 		
             else {
-            	System.out.println("Chat log enabled");
+            	
             	chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_add.png")));
             	
