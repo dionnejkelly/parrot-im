@@ -42,6 +42,7 @@ import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 import org.jivesoftware.smackx.muc.RoomInfo;
 import org.jivesoftware.smackx.muc.SubjectUpdatedListener;
 import org.jivesoftware.smackx.packet.VCard;
@@ -76,237 +77,93 @@ public class GoogleTalkManager implements GenericConnection {
 
     protected List subscribedUsers = new ArrayList();
 
-    // private boolean isTyping;
-
-	private void save() throws XMPPException {
-//	PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
-	vcard.save(connection);
-
   
+    private class joinedListener implements ParticipantStatusListener {
 
+		public void adminGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 
-	
-	
-}
+		public void adminRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 
-	public void load() throws XMPPException {
-	vcard.load(connection);
-	}
-	
-	public void load(String userID) throws XMPPException {
-		vcard = new VCard();
-		System.out.println("------------------------------------------------- Profile: " + userID);
-		vcard.load(connection, userID);
-	}
-public void setUserNickName(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	try {
-        
-		vcard.setNickName(name);
-        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
-                + "" + "</BINVAL>", true);
-    } catch (NullPointerException e) {
-        
-        e.printStackTrace();
+		public void banned(String arg0, String arg1, String arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void joined(String user) {
+			System.out.println("Who joined in the room: " + user);
+			int roomCount = multiUserChat.getOccupantsCount();
+			System.out.println("Count: " + roomCount);
+			
+		}
+
+		public void kicked(String arg0, String arg1, String arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void left(String user) {
+			System.out.println("Who left in the room: " + user);
+			int roomCount = multiUserChat.getOccupantsCount();
+			System.out.println("Count: " + roomCount);
+			
+		}
+
+		public void membershipGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void membershipRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void moderatorGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void moderatorRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void nicknameChanged(String arg0, String arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void ownershipGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void ownershipRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void voiceGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void voiceRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+    	
+    	
+    	
     }
-	
-    PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
-	vcard.save(connection);
-
-    IQ response = (IQ) collector.nextResult(SmackConfiguration.getPacketReplyTimeout());
-    collector.cancel();
-    
-    if (response == null) {
-        throw new XMPPException("No response from the server.");
-      }
-      // If the server replied with an error, throw an exception.
-      else if (response.getType() == IQ.Type.ERROR) {
-        throw new XMPPException(response.getError());
-      }
-	
-}
 
 
-
-public void setUserEmailHome(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	try {
-        
-		vcard.setEmailHome(name);
-        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
-                + "" + "</BINVAL>", true);
-    } catch (NullPointerException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-	
-    PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
-	vcard.save(connection);
-
-    IQ response = (IQ) collector.nextResult(SmackConfiguration.getPacketReplyTimeout());
-    collector.cancel();
-    
-    if (response == null) {
-        throw new XMPPException("No response from the server.");
-      }
-      // If the server replied with an error, throw an exception.
-      else if (response.getType() == IQ.Type.ERROR) {
-        throw new XMPPException(response.getError());
-      }
-}
-
-
-public void setUserEmailWork(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	 try {
-            
-		 	vcard.setEmailWork(name);
-            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
-                    + "" + "</BINVAL>", true);
-        } catch (NullPointerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-	
-	save();
-}
-
-
-public void setUserFirstName(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	 try {
-            
-            vcard.setFirstName(name);
-            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
-                    + "" + "</BINVAL>", true);
-        } catch (NullPointerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-	
-	save();
-}
-
-public void setUserLastName(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	 try {
-            
-		 	vcard.setLastName(name);
-            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
-                    + "" + "</BINVAL>", true);
-        } catch (NullPointerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-	
-	save();
-}
-
-public void setUserMiddleName(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	try {
-        
-		vcard.setMiddleName(name);
-        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
-                + "" + "</BINVAL>", true);
-    } catch (NullPointerException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-	
-	save();
-}
-
-public void setUserOrganization(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	vcard.setOrganization(name);
-	save();
-}
-
-public void setUserOrganizationUnit(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	vcard.setOrganizationUnit(name);
-	save();
-}
-
-public void setUserPhoneHome(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	vcard.setPhoneHome("VOICE", name);
-	save();
-}
-
-public void setUserPhoneWork(String name) throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	vcard.setPhoneWork("CELL", name);
-	save();
-}
-
-public String getUserNickName() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getNickName();
-	
-}
-
-public String getUserEmailHome() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getEmailHome();
-}
-
-
-public String getUserEmailWork() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getEmailWork();
-}
-
-
-public String getUserFirstName() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getFirstName();
-}
-
-public String getUserLastName() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getLastName();
-}
-
-public String getUserMiddleName() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getMiddleName();
-}
-
-public String getUserOrganization() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getOrganization();
-}
-
-public String getUserOrganizationUnit() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getOrganizationUnit();
-}
-
-public String getUserPhoneHome() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getPhoneHome("VOICE");
-}
-
-public String getUserPhoneWork() throws XMPPException {
-	//vcard.load(connection, userID);
-	
-	return vcard.getPhoneWork("CELL");
-}
     
     public GoogleTalkManager(MainController controller) {
         this.connection = null;
@@ -560,6 +417,8 @@ public String getUserPhoneWork() throws XMPPException {
                             connection.getChatManager().createChat(
                                     connection.getHost(),
                                     new DefaultChatStateListener());
+                    
+                    multiUserChat.addParticipantStatusListener(new joinedListener());
 //                    MusicPlayer receiveMusic =
 //                            new MusicPlayer(
 //                                    "src/audio/message/receiveMessage.wav");
@@ -616,8 +475,9 @@ public String getUserPhoneWork() throws XMPPException {
                             System.out.println("Room Subject: " + subject);
                         }
                     });
-            multiUserChat
-                    .addMessageListener(new multipleMessagePacketListener());
+            
+            multiUserChat.addParticipantStatusListener(new joinedListener());
+            multiUserChat.addMessageListener(new multipleMessagePacketListener());
         } catch (XMPPException e) {
             System.out.println("Error connecting to the room: "
                     + e.getMessage());
@@ -626,6 +486,11 @@ public String getUserPhoneWork() throws XMPPException {
         // multiUserChat.addInvitationListener(connection, new
         // invitationListener());
 
+    }
+    
+    public void sendMucMessage(String message) throws XMPPException {
+    	multiUserChat.sendMessage(message);
+    	
     }
 
     private void join(String room) throws XMPPException {
@@ -664,6 +529,8 @@ public String getUserPhoneWork() throws XMPPException {
         }
 
     }
+    
+    
 
     private String delimitUserBack(String from) {
         String subString = from.substring(from.indexOf('/') + 1);
@@ -1067,8 +934,224 @@ public String getUserPhoneWork() throws XMPPException {
 
     }
 
-    // public boolean isTyping() {
-    // return isTyping;
-    // }
-
+  // dont't need this for now
+//	public void load() throws XMPPException {
+//	vcard.load(connection);
+//	}
+//	
+//	public void load(String userID) throws XMPPException {
+//		vcard = new VCard();
+//		System.out.println("------------------------------------------------- Profile: " + userID);
+//		vcard.load(connection, userID);
+//	}
+//	public void setUserNickName(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	try {
+//        
+//		vcard.setNickName(name);
+//        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+//                + "" + "</BINVAL>", true);
+//    } catch (NullPointerException e) {
+//        
+//        e.printStackTrace();
+//    }
+//	
+//    PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
+//	vcard.save(connection);
+//
+//    IQ response = (IQ) collector.nextResult(SmackConfiguration.getPacketReplyTimeout());
+//    collector.cancel();
+//    
+//    if (response == null) {
+//        throw new XMPPException("No response from the server.");
+//      }
+//      // If the server replied with an error, throw an exception.
+//      else if (response.getType() == IQ.Type.ERROR) {
+//        throw new XMPPException(response.getError());
+//      }
+//	
+//}
+//
+//
+//
+//public void setUserEmailHome(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	try {
+//        
+//		vcard.setEmailHome(name);
+//        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+//                + "" + "</BINVAL>", true);
+//    } catch (NullPointerException e) {
+//        // TODO Auto-generated catch block
+//        e.printStackTrace();
+//    }
+//	
+//    PacketCollector collector = connection.createPacketCollector(new PacketIDFilter(vcard.getPacketID()));
+//	vcard.save(connection);
+//
+//    IQ response = (IQ) collector.nextResult(SmackConfiguration.getPacketReplyTimeout());
+//    collector.cancel();
+//    
+//    if (response == null) {
+//        throw new XMPPException("No response from the server.");
+//      }
+//      // If the server replied with an error, throw an exception.
+//      else if (response.getType() == IQ.Type.ERROR) {
+//        throw new XMPPException(response.getError());
+//      }
+//}
+//
+//
+//public void setUserEmailWork(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	 try {
+//            
+//		 	vcard.setEmailWork(name);
+//            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+//                    + "" + "</BINVAL>", true);
+//        } catch (NullPointerException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//	
+//	save();
+//}
+//
+//
+//public void setUserFirstName(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	 try {
+//            
+//            vcard.setFirstName(name);
+//            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+//                    + "" + "</BINVAL>", true);
+//        } catch (NullPointerException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//	
+//	save();
+//}
+//
+//public void setUserLastName(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	 try {
+//            
+//		 	vcard.setLastName(name);
+//            vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+//                    + "" + "</BINVAL>", true);
+//        } catch (NullPointerException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//	
+//	save();
+//}
+//
+//public void setUserMiddleName(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	try {
+//        
+//		vcard.setMiddleName(name);
+//        vcard.setField("PHOTO", "<TYPE>image/jpg</TYPE><BINVAL>"
+//                + "" + "</BINVAL>", true);
+//    } catch (NullPointerException e) {
+//        // TODO Auto-generated catch block
+//        e.printStackTrace();
+//    }
+//	
+//	save();
+//}
+//
+//public void setUserOrganization(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	vcard.setOrganization(name);
+//	save();
+//}
+//
+//public void setUserOrganizationUnit(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	vcard.setOrganizationUnit(name);
+//	save();
+//}
+//
+//public void setUserPhoneHome(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	vcard.setPhoneHome("VOICE", name);
+//	save();
+//}
+//
+//public void setUserPhoneWork(String name) throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	vcard.setPhoneWork("CELL", name);
+//	save();
+//}
+//
+//public String getUserNickName() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getNickName();
+//	
+//}
+//
+//public String getUserEmailHome() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getEmailHome();
+//}
+//
+//
+//public String getUserEmailWork() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getEmailWork();
+//}
+//
+//
+//public String getUserFirstName() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getFirstName();
+//}
+//
+//public String getUserLastName() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getLastName();
+//}
+//
+//public String getUserMiddleName() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getMiddleName();
+//}
+//
+//public String getUserOrganization() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getOrganization();
+//}
+//
+//public String getUserOrganizationUnit() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getOrganizationUnit();
+//}
+//
+//public String getUserPhoneHome() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getPhoneHome("VOICE");
+//}
+//
+//public String getUserPhoneWork() throws XMPPException {
+//	//vcard.load(connection, userID);
+//	
+//	return vcard.getPhoneWork("CELL");
+//}
+//
 }

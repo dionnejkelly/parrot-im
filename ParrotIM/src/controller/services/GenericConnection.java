@@ -90,56 +90,58 @@ public interface GenericConnection {
     
     //@Override
     public int hashCode();
-    public void setUserNickName(String name) throws XMPPException;
-
-
-    public void setUserEmailHome(String name) throws XMPPException;
-
-
-    public void setUserEmailWork(String name) throws XMPPException;
-
-
-    public void setUserFirstName(String name) throws XMPPException;
-
-    public void setUserLastName(String name) throws XMPPException;
-
-    public void setUserMiddleName(String name) throws XMPPException;
-
-    public void setUserOrganization(String name) throws XMPPException;
-
-    public void setUserOrganizationUnit(String name) throws XMPPException;
     
-    public void setUserPhoneHome(String name) throws XMPPException;
-
-    public void setUserPhoneWork(String name) throws XMPPException;
-
-    public String getUserNickName() throws XMPPException;
-
-    public String getUserEmailHome() throws XMPPException;
-
-
-    public String getUserEmailWork() throws XMPPException;
-
-    public String getUserFirstName() throws XMPPException;
-
-    public String getUserLastName() throws XMPPException;
-
-    public String getUserMiddleName() throws XMPPException;
-
-    public String getUserOrganization() throws XMPPException;
-
-    public String getUserOrganizationUnit() throws XMPPException;
-
-    public String getUserPhoneHome() throws XMPPException;
-   
-    
-
-    public String getUserPhoneWork() throws XMPPException;
-    
-    public void load(String userID) throws XMPPException;
-    
-    
-    public void load() throws XMPPException;
+    // don't need this for now
+//    public void setUserNickName(String name) throws XMPPException;
+//
+//
+//    public void setUserEmailHome(String name) throws XMPPException;
+//
+//
+//    public void setUserEmailWork(String name) throws XMPPException;
+//
+//
+//    public void setUserFirstName(String name) throws XMPPException;
+//
+//    public void setUserLastName(String name) throws XMPPException;
+//
+//    public void setUserMiddleName(String name) throws XMPPException;
+//
+//    public void setUserOrganization(String name) throws XMPPException;
+//
+//    public void setUserOrganizationUnit(String name) throws XMPPException;
+//    
+//    public void setUserPhoneHome(String name) throws XMPPException;
+//
+//    public void setUserPhoneWork(String name) throws XMPPException;
+//
+//    public String getUserNickName() throws XMPPException;
+//
+//    public String getUserEmailHome() throws XMPPException;
+//
+//
+//    public String getUserEmailWork() throws XMPPException;
+//
+//    public String getUserFirstName() throws XMPPException;
+//
+//    public String getUserLastName() throws XMPPException;
+//
+//    public String getUserMiddleName() throws XMPPException;
+//
+//    public String getUserOrganization() throws XMPPException;
+//
+//    public String getUserOrganizationUnit() throws XMPPException;
+//
+//    public String getUserPhoneHome() throws XMPPException;
+//   
+//    
+//
+//    public String getUserPhoneWork() throws XMPPException;
+//    
+//    public void load(String userID) throws XMPPException;
+//    
+//    
+//    public void load() throws XMPPException;
     
    
 }
