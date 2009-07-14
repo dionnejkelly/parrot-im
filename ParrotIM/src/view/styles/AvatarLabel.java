@@ -192,8 +192,6 @@ public class AvatarLabel extends JLabel{
 		path = avatarPath;
 	}
 	
-
-	
 	/**
      * Sets the behaviour with regard of mouse input and position.
      * 

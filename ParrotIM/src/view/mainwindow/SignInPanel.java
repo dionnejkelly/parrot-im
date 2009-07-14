@@ -182,6 +182,10 @@ public class SignInPanel extends JPanel implements Observer {
         manageAccountPanel();
 
         header = new HeaderPanel();
+        
+        //for JI HOON
+        //change the path ok?
+        header.changeAvatar("file:/C:/Users/Public/Pictures/Sample Pictures/Oryx Antelope.jpg");
         misc = new MiscPanel();
         add(header, BorderLayout.NORTH);
         add(misc, BorderLayout.SOUTH);
@@ -467,7 +471,7 @@ public class SignInPanel extends JPanel implements Observer {
             int selectedIndex = account_select.getSelectedIndex();
             if (selectedIndex > 0 && lastSelectedIndex != selectedIndex) {
                 System.out.println("Checking...");
-
+                
                 // Only pop up password if needed
                 if (((ProfileData) account_select.getSelectedItem())
                         .isPasswordEnabled()) {
