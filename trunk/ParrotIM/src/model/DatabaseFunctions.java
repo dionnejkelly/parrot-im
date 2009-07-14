@@ -501,7 +501,7 @@ public class DatabaseFunctions {
     throws SQLException
     {
 		//TODO: change so that it will return null if the avatar is not set 
-    	stat.executeQuery("update profiles set avatarDirectory='" 
+    	stat.executeUpdate("update profiles set avatarDirectory='" 
     			+ directory + "' where name='" + profile + "'");
     	conn.close();
     }
