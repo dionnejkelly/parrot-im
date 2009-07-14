@@ -481,18 +481,22 @@ public class SignInPanel extends JPanel implements Observer {
                 }
                 // Only pop up password if needed
                 if (selectedProfile.isPasswordEnabled()) {
+                	System.out.println("password enabled");
                     new SimplifiedPasswordPrompt((ProfileData) account_select
                             .getSelectedItem());
                 } else {
                     // No password required
+                	System.out.println("password disabled");
                     manageAccount.setEnabled(true);
                     removeProfile.setEnabled(true);
                     connectButton.setEnabled(true);
+                    lastSelectedIndex = account_select.getSelectedIndex();
                 }
             } else if (selectedIndex <= 0) {
                 manageAccount.setEnabled(false);
                 removeProfile.setEnabled(false);
                 connectButton.setEnabled(false);
+                lastSelectedIndex = account_select.getSelectedIndex();
                 header.changeAvatar(null);
             }
 
