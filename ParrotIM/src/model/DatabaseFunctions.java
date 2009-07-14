@@ -500,7 +500,8 @@ public class DatabaseFunctions {
     public void setAvatarDirectory(String profile, String directory) 
     throws SQLException
     {
-    	stat.executeQuery("update profiles set directory='" 
+		//TODO: change so that it will return null if the avatar is not set 
+    	stat.executeQuery("update profiles set avatar='" 
     			+ directory + "' where name='" + profile + "'");
     	conn.close();
     }

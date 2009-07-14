@@ -112,9 +112,17 @@ public class AvatarLabel extends JLabel{
 		
 		this.setToolTipText("Click to change your display picture");
 		this.chatClient = mainControl;
-		changeAvatar(path);
 		this.addMouseListener(new avatarMouseListener());
-		this.path = path;
+		
+		if (path.compareTo("images/buddylist/logoBox.png")==0 || path == null){
+			// TODO: If database is changed, change this as well
+    		path = getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString();
+		} else {
+			this.path = path;
+		}
+		System.out.println(path);
+
+		changeAvatar(path);
 	}
 	
 	/**
