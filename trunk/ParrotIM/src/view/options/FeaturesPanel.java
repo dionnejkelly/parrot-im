@@ -24,12 +24,15 @@ package view.options;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -74,9 +77,10 @@ public class FeaturesPanel extends JPanel {
         this.mainframe = mainframe;
 
         /* CHATBOT */
-        chatbotCheck = new JCheckBox("Enable ChatBot");
+        chatbotCheck = new JCheckBox("Enable ChatBot",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/monitor_delete.png")));
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
-        chatbotCheck.addChangeListener(new chatbotListener());
+        chatbotCheck.addItemListener(new chatbotListener());
 
         // chatbot list
         chatbotList = new JList(modelStub.getQAList());
@@ -118,22 +122,25 @@ public class FeaturesPanel extends JPanel {
         chatbotPanel.add(chatbotOptions);
 
         /* SOUND NOTIFICATION */
-        soundCheck = new JCheckBox("Enable Sound Notification");
+        soundCheck = new JCheckBox("Enable Sound Notification",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/sound.png")));
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
-        soundCheck.addChangeListener(new soundListener());
+        soundCheck.addItemListener(new soundListener());
 
         /* CHATLOG */
-        chatLogCheck = new JCheckBox("Enable Chat Log");
+        chatLogCheck = new JCheckBox("Enable Chat Log",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/note_add.png")));
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
-        chatLogCheck.addChangeListener(new chatLogListener());
+        chatLogCheck.addItemListener(new chatLogListener());
 
         /* CHAT WINDOW HISTORY */
         this.chatWindowHistoryCheck =
-                new JCheckBox("Enable Chat Window History");
+                new JCheckBox("Enable Chat Window History",  new ImageIcon(this.getClass().getResource(
+                "/images/menu/application_form_add.png")));
         this.chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
         this.chatWindowHistoryCheck
-                .addChangeListener(new chatWindowHistoryListener());
+                .addItemListener(new chatWindowHistoryListener());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -148,18 +155,25 @@ public class FeaturesPanel extends JPanel {
         chatbotRemoveButton.setEnabled(b);
     }
 
-    private class chatbotListener implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            if (chatbotCheck.isSelected()) {
+    private class chatbotListener implements ItemListener {
+        
+
+		public void itemStateChanged(ItemEvent event) {
+			if (event.getStateChange() == ItemEvent.SELECTED) {
                 model.getCurrentProfile().setChatbotEnabled(true);
                 chatbotOptions.setVisible(true);
+                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/monitor_add.png")));
             } else {
                 model.getCurrentProfile().setChatbotEnabled(false);
                 chatbotOptions.setVisible(false);
+                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/monitor_delete.png")));
             }
             
             return;
-        }
+			
+		}
     }
 
     private class chatbotListSelectionListener implements ListSelectionListener {
@@ -265,37 +279,56 @@ public class FeaturesPanel extends JPanel {
         }
     }
 
-    private class soundListener implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            if (soundCheck.isSelected()) {
+    private class soundListener implements ItemListener {
+   
+
+		public void itemStateChanged(ItemEvent event) {
+			if (event.getStateChange() == ItemEvent.SELECTED) {
                 model.getCurrentProfile().setSoundsEnabled(true);
+                soundCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/sound.png")));
             } else {
                 model.getCurrentProfile().setSoundsEnabled(false);
+                soundCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/sound_mute.png")));
             }
-        }
+			
+		}
     }
 
-    private class chatLogListener implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            if (soundCheck.isSelected()) {
-                model.getCurrentProfile().setChatLogEnabled(true);
+    private class chatLogListener implements ItemListener {
+    	public void itemStateChanged(ItemEvent event) {
+			if (event.getStateChange() == ItemEvent.SELECTED) {
+				 model.getCurrentProfile().setChatLogEnabled(true);
+				 chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
+	                "/images/menu/note_add.png")));
             } else {
-                model.getCurrentProfile().setChatLogEnabled(false);
+            	model.getCurrentProfile().setChatLogEnabled(false);
+            	chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/note_delete.png")));
             }
-
-        }
+			
+		}
+       
     }
 
-    private class chatWindowHistoryListener implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            if (chatWindowHistoryCheck.isSelected()) {
+    private class chatWindowHistoryListener implements ItemListener {
+        
+
+		public void itemStateChanged(ItemEvent event) {
+			if (event.getStateChange() == ItemEvent.SELECTED) {
                 model.getCurrentProfile().setChatWindowHistoryEnabled(true);
+                chatWindowHistoryCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/application_form_add.png")));
             } else {
                 model.getCurrentProfile().setChatWindowHistoryEnabled(false);
+                chatWindowHistoryCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/application_form_delete.png")));
             }
 
             return;
-        }
+			
+		}
     }
 
 }
