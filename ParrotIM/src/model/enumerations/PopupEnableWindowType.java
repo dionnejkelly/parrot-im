@@ -29,6 +29,6 @@ public enum PopupEnableWindowType {
     // I - Enumerated Types
         // ABOUT is the about window
 		// BUGREPORT is for bug report window
-    ABOUT, BUGREPORT;
+    ABOUT, BUGREPORT, GROUPCHAT;
 
 }

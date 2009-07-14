@@ -100,6 +100,7 @@ public class Model extends Observable {
     // TODO Phase this variable out.
     public boolean logWindowOpen;
     public boolean aboutWindowOpen;
+    public boolean groupChatWindowOpen;
 
     // Section
     // II - Constructors
@@ -114,6 +115,7 @@ public class Model extends Observable {
         this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
         logWindowOpen = false;
+        groupChatWindowOpen = false;
 
         // Grab profiles and account from the database
         this.profileCollection.loadProfiles();
@@ -1037,6 +1039,9 @@ public class Model extends Observable {
         } else if (popupInt == PopupEnableWindowType.BUGREPORT) {
             System.out.println("Model: Bug report");
             this.aboutWindowOpen = state;
+        } else if (popupInt == PopupEnableWindowType.GROUPCHAT) {
+            System.out.println("Model: Group chat");
+            this.groupChatWindowOpen = state;
         }
     }
 
