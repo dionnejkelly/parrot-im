@@ -60,6 +60,7 @@ public class AvatarLabel extends JLabel{
 	private String path;
 	private AvatarLabel avatarToSynch;
 	private boolean synch;
+	private int size;
 	
 	/** avatarlbl is this component itself */
 //	private static AvatarLabel avatarlbl;
@@ -72,9 +73,10 @@ public class AvatarLabel extends JLabel{
 	 * 
 	 * @param path
 	 */
-	public AvatarLabel(String path){
+	public AvatarLabel(String path, int size){
 		changeAvatar(path);
 		this.path =path;
+		this.size = size;
 	}
 	
 	/**
@@ -84,9 +86,9 @@ public class AvatarLabel extends JLabel{
 	 * @param path
 	 * @param mainControl
 	 */
-	public AvatarLabel(MainController mainControl,String path){
+	public AvatarLabel(MainController mainControl,String path, int size){
 		synch = false;
-		setLabel (mainControl,path);
+		setLabel (mainControl,path, size);
 	}
 	/**
 	 * AvatarLabel constructor. It takes a String that describes
@@ -98,22 +100,23 @@ public class AvatarLabel extends JLabel{
 	 * @param ava
 	 * @throws MalformedURLException 
 	 */
-	public AvatarLabel(MainController mainControl, AvatarLabel ava){
+	public AvatarLabel(MainController mainControl, AvatarLabel ava, int size){
 		avatarToSynch = ava;
 		synch = true;
-		setLabel (mainControl,ava.getAvatarPath());
+		setLabel (mainControl,ava.getAvatarPath(), size);
 	}
 	
 	public String getAvatarPath(){
 		return path;
 	}
 	
-	private void setLabel (MainController mainControl,String path){
+	private void setLabel (MainController mainControl,String path, int size){
 		
 		this.setToolTipText("Click to change your display picture");
 		this.chatClient = mainControl;
 		this.addMouseListener(new avatarMouseListener());
 		this.path = path;
+		this.size = size;
 		changeAvatar(path);
 	}
 	
@@ -185,7 +188,7 @@ public class AvatarLabel extends JLabel{
 			// TODO: If database is changed, change this as well
 			avatarPath = getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString();
 		}
-		this.setText("<html><img src=\""+ avatarPath +"\" height=\"100\" width=\"100\" ></html>");
+		this.setText("<html><img src=\""+ avatarPath +"\" height=\"" + size + "\" width=\"" + size + "\" ></html>");
 		path = avatarPath;
 	}
 	

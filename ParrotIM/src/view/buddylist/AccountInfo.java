@@ -139,7 +139,7 @@ public class AccountInfo extends JPanel
 		
 		try {
 			avatarDisplay = new AvatarLabel(chatClient,
-					model.getAvatarDirectory(model.getCurrentProfile().getName()));
+					model.getAvatarDirectory(model.getCurrentProfile().getName()), 75);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

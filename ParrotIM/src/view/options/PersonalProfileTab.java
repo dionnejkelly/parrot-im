@@ -68,7 +68,7 @@ public class PersonalProfileTab extends JPanel {
         
 		/*LEFT COMPONENTS*/
 		//avatar
-		avatar = new AvatarLabel(core, accInfo.avatarDisplay);
+		avatar = new AvatarLabel(core, accInfo.avatarDisplay, 100);
 		//browse button
 		JButton browseButton = new JButton("browse");
 		browseButton.addActionListener(new BrowseActionListener());
