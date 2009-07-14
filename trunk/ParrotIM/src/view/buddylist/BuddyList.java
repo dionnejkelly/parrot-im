@@ -207,7 +207,7 @@ public class BuddyList extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             new HelpPanel(
-                    "http://code.google.com/p/parrot-im/wiki/NewTutorial_Exit");
+                    "http://sites.google.com/site/parrotimhelp/index");
 
             return;
         }
