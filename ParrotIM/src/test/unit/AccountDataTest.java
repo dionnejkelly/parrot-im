@@ -27,6 +27,7 @@ import model.Model;
 import model.dataType.AccountData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.JabberAccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -37,6 +38,7 @@ import org.junit.Test;
 //
 import controller.MainController;
 import controller.services.GoogleTalkManager;
+import controller.services.JabberManager;
 //
 public class AccountDataTest {
     private AccountData ad1;
@@ -50,11 +52,11 @@ public class AccountDataTest {
     public void setUp() throws Exception {
     	// Look at equals
     	GoogleTalkManager e = new GoogleTalkManager(new MainController(new Model()));
-        ad1 = new GoogleTalkAccountData("Rakan", "1234",e);
-        ad2 = new GoogleTalkAccountData("Ross", "abc",e);
-        ad3 = new GoogleTalkAccountData("Janice", "ohmygod",new GoogleTalkManager(new MainController(new Model())));
-        ad4 = new GoogleTalkAccountData("Joey", "Friends",new GoogleTalkManager(new MainController(new Model())));
-        ad5 = new GoogleTalkAccountData("Peter", "familyguy",new GoogleTalkManager(new MainController(new Model())));
+        ad1 = new GoogleTalkAccountData("Rakan", "1234");
+        ad2 = new GoogleTalkAccountData("Ross", "abc");
+        ad3 = new JabberAccountData("Janice", "ohmygod","With friends","ght",UserStateType.AWAY,new JabberManager(new MainController(new Model())));
+        ad4 = new JabberAccountData("Joey", "Friends");
+        ad5 = new GoogleTalkAccountData("Peter", "familyguy","Eating","sss",UserStateType.ONLINE,new GoogleTalkManager(new MainController(new Model())));
     }
 //
     @After
@@ -67,12 +69,32 @@ public class AccountDataTest {
         ad6 = null;
     }
     @Test
-    public void testAccountData() throws ClassNotFoundException, SQLException {
-        ad6 = new GoogleTalkAccountData("James", "007",new GoogleTalkManager(new MainController(new Model())));
-        assertSame(ServerType.ICQ, ad4.getServer());
-        assertSame("James", ad4.getNickname());
-        assertSame("007", ad4.getPassword());
+    public void testAccountDataStringString() throws ClassNotFoundException, SQLException {
+        ad6 = new GoogleTalkAccountData("James", "007");
+        assertSame(ServerType.GOOGLE_TALK, ad6.getServer());
+        assertSame("James", ad6.getNickname());
+        assertSame(ad6.getUserID(),ad6.getNickname());
+        assertSame("007", ad6.getPassword());
+        assertNull(ad6.getConnection());
     }
+    @Test
+    public void testAccountDataStringStringStringString(){
+    	ad6 = new JabberAccountData("Zeina","ZH","Playing COD","r43",UserStateType.BUSY,new JabberManager(new MainController(new Model())));
+    	assertSame("Zeina", ad6.getUserID());
+    	assertSame("ZH",ad6.getNickname());
+    	assertSame("Playing COD",ad6.getStatus());
+    	assertSame(UserStateType.BUSY,ad6.getState());
+    	assertNotNull(ad6.getConnection());
+    }
+    
+    @Test
+    public void testGetUserID(){
+    	assertSame("Joey",ad4.getUserID());
+    	assertSame("Peter",ad5.getUserID());
+    }
+    
+    
+    
 
   
     /*
@@ -87,29 +109,28 @@ public class AccountDataTest {
     public void testGetServer() {
         ServerType expected = ServerType.GOOGLE_TALK;
         assertSame(expected, ad2.getServer());
+        assertSame(ServerType.JABBER,ad3.getServer());
 
     }
 //
     @Test
     public void testSetNickName() throws ClassNotFoundException, SQLException {
         ad2.setNickname("Chandler");
-        AccountData expected =
-                new GoogleTalkAccountData("Chandler", "abc",new GoogleTalkManager(new MainController(new Model())));
-        assertSame(expected.getNickname(), ad2.getNickname());
+        assertSame("Chandler", ad2.getNickname());
     }
 
     @Test
     public void testGetNickName() {
         String expected = "Ross";
         assertSame(expected, ad2.getNickname());
+        expected = "ohmygod";
+        assertSame(expected,ad3.getNickname());
     }
 //
     @Test
     public void testSetPassword() throws ClassNotFoundException, SQLException {
-        ad3.setPassword("qwerty");
-        AccountData expected =
-                new GoogleTalkAccountData("Janice", "qwerty",new GoogleTalkManager(new MainController(new Model())));
-        assertSame(expected.getPassword(), ad3.getPassword());
+    	ad3.setPassword("qwerty");
+        assertSame("qwerty", ad3.getPassword());
     }
 //
     @Test
@@ -214,6 +235,11 @@ public class AccountDataTest {
         ad2.setNickname("Rakan");
         ad1.setPassword("abc");
         assertTrue(ad1.equals(ad2));
+    }
+    @Test
+    public void testHashcode(){
+    	System.out.println(ad4.hashCode());
+    	System.out.println(ad3.hashCode());
     }
 
 }
