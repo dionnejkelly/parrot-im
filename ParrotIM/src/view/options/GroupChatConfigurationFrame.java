@@ -47,13 +47,11 @@ public class GroupChatConfigurationFrame extends JFrame{
 	private JButton inviteButton;
 	private JButton cancelButton;
 	
-	private JLabel contactLabel;
 	private JLabel groupChatRoomLabel;
 
 
 	private JTextArea messageText;
 	private JComboBox groupRoom;
-	private JComboBox groupBuddy;
 	
 	
 	/**
@@ -74,7 +72,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
 		this.setTitle("Group Chat Configuration");
 		
-		setPanels();
+		setRoomPanels();
 		this.setPreferredSize(new Dimension(330,120));
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -90,9 +88,9 @@ public class GroupChatConfigurationFrame extends JFrame{
 		
 	}
 	
+
 	
-	
-	private void setPanels(){
+	private void setRoomPanels(){
 		
 	
 		groupChatRoomLabel = new JLabel("Group Chat Room: ");
