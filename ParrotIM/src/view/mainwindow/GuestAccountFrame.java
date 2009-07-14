@@ -216,8 +216,9 @@ public class GuestAccountFrame extends JFrame {
     /**
      * This method is called when the guest login into parrot-im. The user will
      * allow to login to Google talk account only.
+     * @throws ClassNotFoundException 
      */
-    private void signIn_ActionPerformed() {
+    private void signIn_ActionPerformed() throws ClassNotFoundException {
         ServerType serverType = (ServerType) server.getSelectedItem();
         String username = UNFieldGuest.getText();
         String password = password(PwdFieldGuest.getPassword());
@@ -291,7 +292,12 @@ public class GuestAccountFrame extends JFrame {
             if (UNFieldGuest.getText().length() != 0
                     && PwdFieldGuest.getPassword().length != 0) {
                 setVisible(false);
-                signIn_ActionPerformed();
+                try {
+					signIn_ActionPerformed();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 
             else {

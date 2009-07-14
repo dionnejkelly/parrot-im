@@ -55,20 +55,21 @@ import view.styles.AvatarLabel;
 public class HeaderPanel extends JPanel{
 	/** status is a JLabel object that shows the system's status (ie. whether it is connected or not) */
 	private JLabel status;
-	
+	private AvatarLabel avatarDisplay ;
 	/** MiscPanel constructor. It sets up the panel layout.*/
 	public HeaderPanel() {
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createEmptyBorder(50,50,0,50));
 		
 		//logo-avatar
-		JLabel avatarDisplay = new JLabel ();
-		//JLabel avatarDisplay = new AvatarLabel(getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+//		JLabel avatarDisplay = new JLabel ();
+		avatarDisplay = new AvatarLabel
+				(getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString());
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+//		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
 	
 		//TODO: set auto scaling + border later
-		avatarDisplay.setIcon(avatar);
+//		avatarDisplay.setIcon(avatar);
 		
 		status = new JLabel("Not signed in", SwingConstants.CENTER);
 		status.setBorder(BorderFactory.createEmptyBorder(7,0,8,0));
@@ -83,5 +84,9 @@ public class HeaderPanel extends JPanel{
 	protected void displaySystemStatus(String errormsg){
 		//avatarDisplay.setIcon(avatar);
 		status.setText("<html><FONT COLOR=RED>"+errormsg+"</FONT></html>");
+	}
+	
+	protected void changeAvatar(String path){
+		avatarDisplay.changeAvatar(path);
 	}
 }

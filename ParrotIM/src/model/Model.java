@@ -1138,17 +1138,17 @@ public class Model extends Observable {
         db.removeAnswer(this.getCurrentProfile().getName(), question, answer);
     }
     public boolean isDefaultProfile(String profile) 
-    throws ClassNotFoundException, SQLException {
+    		throws ClassNotFoundException, SQLException {
     	DatabaseFunctions db = new DatabaseFunctions();
     	return db.isDefaultProfile(profile);
     }
-    public void setAvatarDirectory(String directory) 
-    throws ClassNotFoundException, SQLException {
+    public void setAvatarDirectory(String profile, String directory) 
+    		throws ClassNotFoundException, SQLException {
     	DatabaseFunctions db = new DatabaseFunctions();
-    	db.setAvatarDirectory(this.getCurrentProfile().getName(), directory);
+    	db.setAvatarDirectory(profile, directory);
     }
-    public String getAvatarDirectory() throws ClassNotFoundException, SQLException {
+    public String getAvatarDirectory(String profile) throws ClassNotFoundException, SQLException {
     	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getAvatarDirectory(this.getCurrentProfile().getName());
+    	return db.getAvatarDirectory(profile);
     }
 }

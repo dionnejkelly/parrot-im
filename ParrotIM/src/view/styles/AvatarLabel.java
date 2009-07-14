@@ -32,11 +32,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileFilter;
 
@@ -55,7 +56,7 @@ import controller.MainController;
  * It inherits JLabel methods and variables.
  */
 public class AvatarLabel extends JLabel{
-	
+
 	private String path;
 	private AvatarLabel avatarToSynch;
 	private boolean synch;
@@ -69,9 +70,7 @@ public class AvatarLabel extends JLabel{
 	 * AvatarLabel constructor. It takes a String that describes
 	 * the path of the display picture as its argument.
 	 * 
-	 * @param url
-	 * @param mainControl
-	 * @throws MalformedURLException 
+	 * @param path
 	 */
 	public AvatarLabel(String path){
 		changeAvatar(path);
@@ -82,9 +81,8 @@ public class AvatarLabel extends JLabel{
 	 * AvatarLabel constructor. It takes a String that describes
 	 * the path of the display picture as its argument.
 	 * 
-	 * @param url
+	 * @param path
 	 * @param mainControl
-	 * @throws MalformedURLException 
 	 */
 	public AvatarLabel(MainController mainControl,String path){
 		synch = false;
@@ -122,6 +120,7 @@ public class AvatarLabel extends JLabel{
 	 * use this if you don't need to synch with anything
 	 * @throws MalformedURLException 
 	 */
+	@SuppressWarnings("deprecation")
 	public void changeAvatarWindow() throws MalformedURLException{
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setAcceptAllFileFilterUsed(false);
@@ -129,7 +128,8 @@ public class AvatarLabel extends JLabel{
 		fileChooser.setFileFilter(filefilter);
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		fileChooser.setMultiSelectionEnabled(false);
-		fileChooser.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		fileChooser.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		
 		
 		//Show it.
         int returnVal = fileChooser.showOpenDialog(this);
@@ -138,7 +138,6 @@ public class AvatarLabel extends JLabel{
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             String avatarPath = file.toURL().toString();
-            this.changeAvatar(avatarPath);
             
             //synch
             if (synch){
@@ -149,36 +148,30 @@ public class AvatarLabel extends JLabel{
             }
 
 			try {
-				ImageIcon imageIcon = new ImageIcon(file.toURL());
-					
-	            byte[] byteArray = toByte(imageIcon);
-					
-				chatClient.setAvatarPicture(byteArray);
-
-					
+				
+				chatClient.setAvatarPicture(file.toURL());
+				// will change the avatar once the chatClient done uploading
+				this.changeAvatar(avatarPath); 
+				System.out.println("Succesfully uploaded the avatar picture.");
 			} catch (XMPPException e) {
-					
-				e.printStackTrace();
-			} catch (ImageFormatException e) {
-					// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-					// TODO Auto-generated catch block
 				e.printStackTrace();
-			}  
-			System.out.println("Succesfully uploaded the avatar picture.");
-
-        	fileChooser.setVisible(false);//DISPOSE!!!
-        	
-        	
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}          	
        } 
        else {
            System.out.println("Attachment cancelled by user.");
-           fileChooser.setVisible(false);//DISPOSE!!!
        }
 
+    	fileChooser.setVisible(false);//DISPOSE!!!
         //Reset the file chooser for the next time it's shown.
         fileChooser.setSelectedFile(null);
+        
 	}
 	
 	/**
@@ -190,34 +183,7 @@ public class AvatarLabel extends JLabel{
 		path = avatarPath;
 	}
 	
-	public byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {
-    	// iconData is the original array of bytes
 
-    	Image img = i.getImage();
-
-    	Image imageResize = img.getScaledInstance(100, 100, 0);
-
-    	ImageIcon imageIconResize = new ImageIcon (imageResize);
-
-    	int resizeWidth = imageIconResize.getIconWidth();
-    	int resizeHeight = imageIconResize.getIconHeight();
-
-    	Panel p = new Panel();
-    	BufferedImage bi = new BufferedImage(resizeWidth, resizeHeight,BufferedImage.TYPE_INT_RGB);
-
-    	Graphics2D big = bi.createGraphics();
-    	big.drawImage(imageIconResize.getImage(), 0, 0, p);
-
-    	ByteArrayOutputStream os = new ByteArrayOutputStream();
-
-    	JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
-    	encoder.encode(bi);
-    	byte[] byteArray = os.toByteArray();
-    	
-    	return byteArray;
-    	
-    
-    }
 	
 	/**
      * Sets the behaviour with regard of mouse input and position.
@@ -249,7 +215,7 @@ public class AvatarLabel extends JLabel{
 	
 	/** This class controls the file types that can be selected for the file browser. 
 	 * It can only select either a directory or an image file. */
-	protected class ImageFileFilter extends FileFilter{
+	private class ImageFileFilter extends FileFilter{
 
 		@Override
 		
