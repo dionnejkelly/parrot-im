@@ -3,6 +3,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+
 import net.kano.joscar.net.ClientConn;
 import net.kano.joscar.net.ClientConnEvent;
 import net.kano.joscar.net.ClientConnListener;
@@ -216,11 +217,16 @@ public class icqConnection {
 		SimpleMessage outgoingMessage = new SimpleMessage(message);
 		conversation.sendMessage(outgoingMessage);
 	}
-	/*public void processMessage(Message message) {
-        Conversation conversation = connection.getIcbmService().getImConversation();
-        // the offline thing is to send properly in offline.
-        SimpleMessage actualMessage = new SimpleMessage(message.toString(), message.isAutoResponse() || !message.getContact().getStatus().isOnline());
-        conversation.sendMessage(actualMessage);
-    }*/
+	 public String retrieveStatus(String userID)
+	 {
+		 String actualStatus="";
+		 return actualStatus;
+	 }
+	 public String retrieveState(String userID)
+	 {
+		 String state="online";
+		 return state;
+		 
+	 }
 
 }
