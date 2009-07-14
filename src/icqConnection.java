@@ -20,7 +20,10 @@ import net.kano.joustsim.oscar.State;
 import net.kano.joustsim.oscar.StateEvent;
 import net.kano.joustsim.oscar.StateListener;
 import net.kano.joustsim.oscar.oscar.service.Service;
+import net.kano.joustsim.oscar.oscar.service.icbm.Conversation;
 import net.kano.joustsim.oscar.oscar.service.icbm.IcbmListener;
+import net.kano.joustsim.oscar.oscar.service.icbm.Message;
+import net.kano.joustsim.oscar.oscar.service.icbm.SimpleMessage;
 import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
@@ -207,4 +210,17 @@ public class icqConnection {
 		}
 		
 	}
+	public void sendMessage(String toUserID, String message){
+		Screenname receiver = new Screenname(toUserID);;
+		Conversation conversation = connection.getIcbmService().getImConversation(receiver);
+		SimpleMessage outgoingMessage = new SimpleMessage(message);
+		conversation.sendMessage(outgoingMessage);
+	}
+	/*public void processMessage(Message message) {
+        Conversation conversation = connection.getIcbmService().getImConversation();
+        // the offline thing is to send properly in offline.
+        SimpleMessage actualMessage = new SimpleMessage(message.toString(), message.isAutoResponse() || !message.getContact().getStatus().isOnline());
+        conversation.sendMessage(actualMessage);
+    }*/
+
 }
