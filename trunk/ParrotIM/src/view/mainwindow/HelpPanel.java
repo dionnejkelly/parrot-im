@@ -44,7 +44,7 @@ public class HelpPanel extends JPanel{
 		 String osName = System.getProperty("os.name").toLowerCase();
 		 
 		 if(osName.contains("win")){
-			 browserPath = "C:/Program Files/Internet Explorer/IEXPLORE.EXE " + url; //Use your browser path 
+			 browserPath = "C:/Program Files/Internet Explorer/IEXPLORE.EXE "; //Use your browser path 
 //             String[] b = {browserPath, url};
 //             browserPath = b;
 		 } else if (osName.contains("mac")){
