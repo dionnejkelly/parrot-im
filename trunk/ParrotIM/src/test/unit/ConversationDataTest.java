@@ -25,6 +25,7 @@ import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.JabberAccountData;
 import model.dataType.MessageData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
@@ -36,6 +37,7 @@ import org.junit.Test;
 
 import controller.MainController;
 import controller.services.GoogleTalkManager;
+import controller.services.JabberManager;
 
 public class ConversationDataTest {
     private ConversationData cd1;
@@ -49,7 +51,7 @@ public class ConversationDataTest {
                 		new GoogleTalkManager(new MainController(new Model()))),
                         new GoogleTalkUserData("Rakan", "Rick", "1234",UserStateType.AWAY,false));
         cd2 =
-                new ConversationData(new GoogleTalkAccountData("Rocky", "a8",new GoogleTalkManager(new MainController(new Model()))),
+                new ConversationData(new GoogleTalkAccountData("Rocky", "a8"),
                         new GoogleTalkUserData("Rocky", "movie", "a8",UserStateType.BUSY,true));
     }
 
@@ -63,10 +65,14 @@ public class ConversationDataTest {
     @Test
     public void testConversationData() throws ClassNotFoundException, SQLException {
         cd3 =
-                new ConversationData(new GoogleTalkAccountData("Rakan", "1234",new GoogleTalkManager(new MainController(new Model()))),
+                new ConversationData(new JabberAccountData("David","Snake","Playing","mgs",UserStateType.BUSY,new JabberManager(new MainController(new Model()))),
                         new GoogleTalkUserData("Rakan", "Rick", "1234",UserStateType.ONLINE,true));
-        assertEquals("Rakan", cd3.getUser().getUserID());
-        assertSame("1234", cd3.getAccount().getPassword());
+        assertEquals("David", cd3.getAccount().getUserID());
+        assertEquals("Snake",cd3.getAccount().getNickname());
+        assertSame("mgs", cd3.getAccount().getPassword());
+        assertSame("Rakan",cd3.getUser().getUserID());
+        assertSame("Rick",cd3.getUser().getNickname());
+        assertSame("Playing",cd3.getAccount().getStatus());
         assertTrue(cd3.getText().isEmpty());
         assertTrue(cd3.getMessageCount() == 0);
 
@@ -104,8 +110,9 @@ public class ConversationDataTest {
 //    @Test
     public void testSetAccountData() throws ClassNotFoundException, SQLException {
         AccountData expected =
-                new GoogleTalkAccountData("Joseph", "staid",new GoogleTalkManager(new MainController(new Model())));
+                new GoogleTalkAccountData("Joseph", "staid");
         cd2.setAccountData(expected);
+        assertSame(expected.getUserID(),cd2.getUser());
         assertSame(expected.getNickname(), cd2.getAccount().getNickname());
         assertSame(expected.getServer(), cd2.getAccount().getServer());
         assertSame(expected.getPassword(), cd2.getAccount().getPassword());

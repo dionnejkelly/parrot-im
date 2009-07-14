@@ -51,7 +51,7 @@ public class ChatbotTest {
 
         cb1.get_input("What is your name?");
 
-        assertSame(true, cb1.check(expected));
+        assertTrue(cb1.check(expected));
     }
 
     @Test
