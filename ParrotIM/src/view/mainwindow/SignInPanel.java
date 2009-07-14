@@ -178,14 +178,10 @@ public class SignInPanel extends JPanel implements Observer {
         this.profiles = model.getProfileCollection();
         this.profiles.addObserver(this);
 
-        setLayout(new BorderLayout());
-        manageAccountPanel();
-
         header = new HeaderPanel();
         
-        //for JI HOON
-        //change the path ok?
-        header.changeAvatar("file:/C:/Users/Public/Pictures/Sample Pictures/Oryx Antelope.jpg");
+        setLayout(new BorderLayout());
+        manageAccountPanel();        
         misc = new MiscPanel();
         add(header, BorderLayout.NORTH);
         add(misc, BorderLayout.SOUTH);
@@ -470,11 +466,25 @@ public class SignInPanel extends JPanel implements Observer {
         public void actionPerformed(ActionEvent e) {
             int selectedIndex = account_select.getSelectedIndex();
             if (selectedIndex > 0 && lastSelectedIndex != selectedIndex) {
-                System.out.println("Checking...");
+
+                ProfileData selectedProfile = (ProfileData) account_select.getSelectedItem();
+                System.out.println(selectedProfile.getName());
+                //change avatar
                 
+                if (header!= null){
+	                try {
+						System.out.println(model.getAvatarDirectory(selectedProfile.getName()));
+						header.changeAvatar(model.getAvatarDirectory(selectedProfile.getName()));
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+                }
                 // Only pop up password if needed
-                if (((ProfileData) account_select.getSelectedItem())
-                        .isPasswordEnabled()) {
+                if (selectedProfile.isPasswordEnabled()) {
                     new SimplifiedPasswordPrompt((ProfileData) account_select
                             .getSelectedItem());
                 } else {
