@@ -32,6 +32,10 @@ public class GroupedListPane extends JPanel{
 		add(boxes[0], BorderLayout.NORTH);
 	}
 	
+	public int getGroupCount() {
+	    return groups.size();
+	}
+	
 	public void addGroup(String name, ImageIcon img){
 		JPanel newPanel = new JPanel();
 		newPanel.setLayout(new BorderLayout());

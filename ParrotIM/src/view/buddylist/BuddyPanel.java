@@ -137,7 +137,7 @@ public class BuddyPanel extends JPanel implements Observer {
     private JButton googleSearchButton;
 
     private PictureUpdateThread pictureUpdateThread;
-    
+
     private long lastUpdate;
 
     /**
@@ -223,7 +223,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         pictureUpdateThread = new PictureUpdateThread();
         pictureUpdateThread.start();
-        
+
         listRepopulate();
 
         // rightclick menu
@@ -263,38 +263,40 @@ public class BuddyPanel extends JPanel implements Observer {
         boxes[0].removeAll();
         boxes[1].removeAll();
 
-        //System.out.println("Starting adding Buddies: " + buddies.size());
-       
+        // System.out.println("Starting adding Buddies: " + buddies.size());
+
         for (int i = 0; i < buddies.size(); i++) {
             if (buddies.get(i).getServer().toString().equals("Google Talk")) {
                 boxes[0].add(FriendItem(buddies.get(i)));
                 buddyListPane.addElement(0, FriendItem(buddies.get(i)));
-                //System.out.println(buddies.get(i).getUserID() + " added to googleTalk");
+                // System.out.println(buddies.get(i).getUserID() +
+                // " added to googleTalk");
             } else if (buddies.get(i).getServer().toString().equals("Twitter")) {
                 boxes[1].add(FriendItem(buddies.get(i)));
                 buddyListPane.addElement(1, FriendItem(buddies.get(i)));
-                //System.out.println(buddies.get(i).getUserID() + " added to twitter");
+                // System.out.println(buddies.get(i).getUserID() +
+                // " added to twitter");
             }
         }
-        //System.out.println("Ending adding Buddies");
+        // System.out.println("Ending adding Buddies");
 
-        //add mouse listeners to googleTalk
+        // add mouse listeners to googleTalk
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-        	//System.out.println(boxes[0].getComponentCount() + ":" + i);
+            // System.out.println(boxes[0].getComponentCount() + ":" + i);
             buddyListPane.addExternalMouseListener(0, i, new SelectListener());
         }
-        //add mouse listeners to Twitter
+        // add mouse listeners to Twitter
         for (int i = 0; i < boxes[1].getComponentCount(); i++) {
-        	//System.out.println(boxes[1].getComponentCount() + ":" + i);
+            // System.out.println(boxes[1].getComponentCount() + ":" + i);
             buddyListPane.addExternalMouseListener(1, i, new SelectListener());
         }
-        
+
         /*
-        System.out.println("total buddies: " + buddies.size());
-        int count = boxes[0].getComponentCount() + boxes[1].getComponentCount();
-        System.out.println("Google: " + boxes[0].getComponentCount());
-        System.out.println("Twitter: " + boxes[1].getComponentCount());
-        */
+         * System.out.println("total buddies: " + buddies.size()); int count =
+         * boxes[0].getComponentCount() + boxes[1].getComponentCount();
+         * System.out.println("Google: " + boxes[0].getComponentCount());
+         * System.out.println("Twitter: " + boxes[1].getComponentCount());
+         */
     }
 
     /**
@@ -552,12 +554,12 @@ public class BuddyPanel extends JPanel implements Observer {
 
         friendItem.setName(user.getNickname());
         server = user.getServer().toString();
-        
-        
-     // end it
-        friendItem.setToolTipText("<html>  " + user.getNickname() + 
-                        "(" + user.getUserID() + ")" + "<br>"+ user.getStatus() + "<br> Status:" + user.getState()
-                        + "<br>" + user.getServer() + "<hr>" + "Right-click for more options");
+
+        // end it
+        friendItem.setToolTipText("<html>  " + user.getNickname() + "("
+                + user.getUserID() + ")" + "<br>" + user.getStatus()
+                + "<br> Status:" + user.getState() + "<br>" + user.getServer()
+                + "<hr>" + "Right-click for more options");
 
         JLabel friendName;
 
@@ -667,11 +669,11 @@ public class BuddyPanel extends JPanel implements Observer {
 
             return;
         }
-        
+
         public void clearUpdateQueue() {
             this.users.clear();
             this.labels.clear();
-            
+
             return;
         }
 
@@ -692,8 +694,7 @@ public class BuddyPanel extends JPanel implements Observer {
                     label = labels.remove(0);
                     ImageIcon avatarImage = null;
                     try {
-                        avatarImage =
-                                chatClient.getAvatarPicture(user);
+                        avatarImage = chatClient.getAvatarPicture(user);
                         Image img = avatarImage.getImage();
                         img =
                                 img.getScaledInstance(25, 25,
@@ -712,7 +713,7 @@ public class BuddyPanel extends JPanel implements Observer {
     /**
      * update current friend status on the buddy list.
      */
-    public void update(Observable o, Object arg) {                  
+    public void update(Observable o, Object arg) {
         if (arg == UpdatedType.BUDDY) {
             if (System.currentTimeMillis() - this.lastUpdate > 10000) {
                 this.refreshBuddyList();
@@ -721,17 +722,16 @@ public class BuddyPanel extends JPanel implements Observer {
             } else {
                 System.out.println("NO!!!");
             }
-            
-            
+
         }
-    
+
         return;
     }
 
     public void refreshBuddyList() {
         boxes[0].removeAll();
         pictureUpdateThread.clearUpdateQueue();
-        
+
         buddies = model.getCurrentProfile().getAllFriends();
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
@@ -770,29 +770,34 @@ public class BuddyPanel extends JPanel implements Observer {
          * mouseClicked to unhighlight the last selected
          */
         public void mouseClicked(MouseEvent event) {
-            // FriendItems
-            for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-                if (event.getSource().equals(buddyListPane.getComponent(0, i))) {
-                    if (event.getButton() == event.BUTTON1) {
-                        // Left Click
-                        selected = true;
-                        lastSelectedListener = this;
+            for (int j = 0; j < buddyListPane.getGroupCount(); j++) {
+                for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+                    if (event.getSource().equals(
+                            buddyListPane.getComponent(j, i))) {
+                        if (event.getButton() == event.BUTTON1) {
+                            // Left Click
+                            selected = true;
+                            lastSelectedListener = this;
 
-                        /* Fix this to directly reference the GUI */
-                        selectedFriend = buddies.get(i);
+                            /* Fix this to directly reference the GUI */
+                            selectedFriend = buddies.get(i);
 
-                        if (event.getClickCount() == 2) {
-                            selected = false;
-                            chatClient.startConversation(selectedFriend, true);
+                            if (event.getClickCount() == 2) {
+                                selected = false;
+                                chatClient.startConversation(selectedFriend,
+                                        true);
+                            }
+                        } else if (event.getSource().equals(
+                                buddyListPane.getComponent(j, i))) {
+                            // Right Click
+                            rightClickMenu.show(buddyListPane
+                                    .getComponent(j, 1), event.getX(), event
+                                    .getY()
+                                    + 25 * i);
+                            selectedName =
+                                    buddyListPane.getComponent(j, 1).getName();
+                            selectedFriend = buddies.get(i);
                         }
-                    } else if (event.getSource().equals(
-                            buddyListPane.getComponent(0, i))) {
-                        // Right Click
-                        rightClickMenu.show(buddyListPane.getComponent(0, 1),
-                                event.getX(), event.getY() + 25 * i);
-                        selectedName =
-                                buddyListPane.getComponent(0, 1).getName();
-                        selectedFriend = buddies.get(i);
                     }
                 }
             }
