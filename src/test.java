@@ -12,6 +12,7 @@ public class test {
 	public static void main(String[] args) {
 			icqConnection i = new icqConnection();
 			i.login("388832704", "testicq0", "login.messaging.aol.com", 5190);
+			i.getBuddyList();
 	}
 
 }
