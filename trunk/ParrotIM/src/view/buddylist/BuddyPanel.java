@@ -9,6 +9,7 @@ package view.buddylist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,6 +25,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -41,6 +43,7 @@ import controller.MainController;
 
 import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
+import view.options.GroupChatConfigurationFrame;
 import view.options.MusicPlayer;
 import view.styles.GroupedListPane;
 import view.styles.PopupWindowListener;
@@ -230,14 +233,19 @@ public class BuddyPanel extends JPanel implements Observer {
 
         // rightclick menu
         rightClickMenu = new JPopupMenu();
-        menuItem1 = new JMenuItem("Start New Conversation");
-        menuItem2 = new JMenuItem("Add to open Conversation");
-        menuItem3 = new JMenuItem("Remove Friend");
-        menuItem4 = new JMenuItem("Block Friend");
-        menuItem5 = new JMenuItem("View Profile");
+        menuItem1 = new JMenuItem("Start New Conversation",  new ImageIcon(this.getClass().getResource(
+        "/images/popup/user.png")));
+        menuItem2 = new JMenuItem("Add to open Conversation",  new ImageIcon(this.getClass().getResource(
+        "/images/popup/group_add.png")));
+        menuItem3 = new JMenuItem("Remove Friend", new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/delete_user.png")));
+        menuItem4 = new JMenuItem("Block Friend",  new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/button_cancel.png")));
+        menuItem5 = new JMenuItem("View Profile", new ImageIcon(this.getClass().getResource(
+        "/images/popup/picturer.png")));
 
         menuItem1.addMouseListener(new RightCickMenuListener());
-        menuItem2.addMouseListener(new RightCickMenuListener());
+        menuItem2.addMouseListener(new inviteFriendListener());
         menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
 
@@ -417,6 +425,23 @@ public class BuddyPanel extends JPanel implements Observer {
             chatClient.blockFriend(selectedFriend);
         }
     }
+    
+    /**
+     * for user to invite a friend to a group conversation
+     * 
+     */
+    
+    class inviteFriendListener extends MouseAdapter {
+    	
+    	public void mousePressed(MouseEvent event) {
+    		GroupChatConfigurationFrame groupConfig = new GroupChatConfigurationFrame(model);
+        }
+    	
+    	
+    	
+    }
+    
+ 
 
     /**
      * for user to delete friend from right click menu bar
