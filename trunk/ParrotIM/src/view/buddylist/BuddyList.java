@@ -10,6 +10,8 @@ package view.buddylist;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -60,6 +62,8 @@ public class BuddyList extends JFrame {
     protected JFrame buddywindow;
 
     private JCheckBoxMenuItem chatbotEnabler;
+    
+    private JCheckBoxMenuItem chatLogEnabler;
 
     private AccountInfo accountInfo;
 
@@ -156,14 +160,14 @@ public class BuddyList extends JFrame {
         this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled", new ImageIcon(this.getClass().getResource(
         "/images/menu/monitor_delete.png")));
         chatbotEnabler.setMnemonic(KeyEvent.VK_B);
-        chatbotEnabler.addActionListener(new ChatbotToggleListener());
+        chatbotEnabler.addItemListener(new ChatbotToggleListener());
         contactMenu.add(chatbotEnabler);
 
-        JCheckBoxMenuItem chatLogEnabler =
+        this.chatLogEnabler =
                 new JCheckBoxMenuItem("Chat Log Enabled", new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_delete.png")));
         chatLogEnabler.setMnemonic(KeyEvent.VK_E);
-        chatLogEnabler.addActionListener(new ChatLogToggleListener());
+        chatLogEnabler.addItemListener(new ChatLogToggleListener());
         contactMenu.add(chatLogEnabler);
         menuBar.add(contactMenu);
 
@@ -339,30 +343,59 @@ public class BuddyList extends JFrame {
      * Listens for the Chatbot toggle
      * 
      */
-    private class ChatbotToggleListener implements ActionListener {
+    private class ChatbotToggleListener implements ItemListener {
         /**
-         * Listens for the uesr's event.
+         * Listens for the user's event.
          * 
          * @param e
          */
-        public void actionPerformed(ActionEvent e) {
-            model.getCurrentProfile().setChatbotEnabled(chatbotEnabler.isSelected());
 
+
+		public void itemStateChanged(ItemEvent event) {
+			
+
+            if (event.getStateChange() == ItemEvent.DESELECTED) {
+            	chatbotEnabler.setIcon(new ImageIcon(this.getClass().getResource(
+                "/images/menu/monitor_delete.png")));
+            }
+            	
+            else  {
+            	model.getCurrentProfile().setChatbotEnabled(chatbotEnabler.isSelected());
+            	chatbotEnabler.setIcon(new ImageIcon(this.getClass().getResource(
+                "/images/menu/monitor_add.png")));
+            }
+            	
             return;
-        }
+			
+		}
     }
 
-    private class ChatLogToggleListener implements ActionListener {
+    private class ChatLogToggleListener implements ItemListener  {
         /**
-         * Listens for the uesr's event.
+         * Listens for the user's event.
          * 
          * @param e
          */
-        public void actionPerformed(ActionEvent e) {
-            // TODO: PROVIDE THIS!!
+       
+
+		public void itemStateChanged(ItemEvent event) {
+			if (event.getStateChange() == ItemEvent.DESELECTED) {
+				System.out.println("Chat log disbled");
+        		chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
+                "/images/menu/note_delete.png")));
+            }
+		
+            else {
+            	System.out.println("Chat log enabled");
+            	chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
+                "/images/menu/note_add.png")));
+            	
+            }
+            	
 
             return;
-        }
+			
+		}
     }
 
     /**
