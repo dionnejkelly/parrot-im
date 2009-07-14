@@ -246,6 +246,7 @@ public class SignInPanel extends JPanel implements Observer {
 
         // guest account
         LinkLabel guestAccount = new LinkLabel("Connect Guest Account", true);
+        guestAccount.setToolTipText("Connect without creating a Profile, limited to only one account and disables chatlogging.");
         guestAccount.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         guestAccount.addMouseListener(new guestAccountListener());
 
@@ -390,8 +391,7 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             // TODO: set this
-            NewProfileFrame profile =
-                    new NewProfileFrame(model, core, mainFrame);
+            NewProfileFrame profile = new NewProfileFrame(model, core, mainFrame);
             profile.addWindowListener(new PopupWindowListener(mainFrame,
                     profile));
         }

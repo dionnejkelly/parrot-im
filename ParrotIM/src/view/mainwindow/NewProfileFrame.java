@@ -27,6 +27,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -39,6 +40,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 import controller.MainController;
 
@@ -64,7 +68,7 @@ public class NewProfileFrame extends JFrame {
         this.core = core;
         this.mainFrame = mainFrame;
 
-        /* PROFILE */
+        /* PROFILE  Name is limited to __ characters */
         profileName = new JTextField();
         profileName.setPreferredSize(new Dimension(280, 20));
         JPanel profilePanel = new JPanel();
@@ -73,6 +77,7 @@ public class NewProfileFrame extends JFrame {
 
         /* PASSWORD */
         passwordCheck = new JCheckBox("Enable Password (recommended)");
+        passwordCheck.setToolTipText("Lock your profile account settings by setting a password");
         passwordCheck.addChangeListener(new passwordCheckListener());
 
         passwordField = new JPasswordField();
@@ -84,6 +89,8 @@ public class NewProfileFrame extends JFrame {
 
         /* DEFAULT PROFILE */
         defaultCheck = new JCheckBox("Default Profile");
+        defaultCheck.setToolTipText("<html>Allows for auto-login to this account when ParrotIM runs." +
+        		"<br>There can only be one Default Profile, checking this will set this profile as the new default");
         JPanel optionPanel = new JPanel();
         optionPanel.setAlignmentX(LEFT_ALIGNMENT);
         optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.Y_AXIS));
@@ -137,7 +144,9 @@ public class NewProfileFrame extends JFrame {
     }
 
     private class nextButtonActionListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) 
+        {
+        	
             ProfileData newProfile = null;
 
             if (profileName.getText().length() > 0) {
@@ -160,4 +169,5 @@ public class NewProfileFrame extends JFrame {
 
         }
     }
+    
 }
