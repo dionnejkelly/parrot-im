@@ -24,7 +24,7 @@ import model.enumerations.ServerType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+	// Done
 public class AccountTempDataTest {
     private AccountTempData ad1;
     private AccountTempData ad2;
