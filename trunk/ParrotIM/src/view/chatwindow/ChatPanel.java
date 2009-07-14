@@ -22,6 +22,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import view.options.GroupChatConfigurationFrame;
 import view.styles.PopupWindowListener;
 //import view.theme.LookAndFeelManager;
 
@@ -85,7 +86,9 @@ public class ChatPanel extends JPanel {
     private JFrame emoticonChooser;
 
 //    private JButton themeMenu;
-    private JComboBox themeMenu;
+    private JButton groupChatAddButton;
+    
+    private JButton groupChatButton;
     /**
      * This is the constructor of the ChatPanel.
      * 
@@ -235,14 +238,21 @@ public class ChatPanel extends JPanel {
 //        JButton pic =
 //                new JButton(new ImageIcon(this.getClass().getResource(
 //                        "/images/chatwindow/pic.png")));
-//        pic.setToolTipText("Insert a Picture");
-//        pic.addActionListener(new pictureListener());
+//       pic.setToolTipText("Insert a Picture");
+//       pic.addActionListener(new pictureListener());
         
-//        themeMenu = new JButton(new ImageIcon(this.getClass().getResource(
-//        "/images/chatwindow/pic.png")));
-//      themeMenu.addActionListener(new ThemeMenuActionListener());
-        themeMenu = new ThemeOptionsComboBox();
-        themeMenu.setToolTipText("Select your own Theme");
+        groupChatButton = new JButton(new ImageIcon(this.getClass().getResource(
+        "/images/popup/comments.png")));
+        
+      groupChatButton.addActionListener(new GroupChatActionListener());
+      
+        groupChatAddButton = new JButton(new ImageIcon(this.getClass().getResource(
+        "/images/popup/comments_add.png")));
+        
+      groupChatAddButton.addActionListener(new GroupChatAddActionListener());
+        
+      //themeMenu = new ThemeOptionsComboBox();
+      //  themeMenu.setToolTipText("Select your own Theme");
 
 //        themeMenu.setAutoscrolls(true);
         
@@ -258,7 +268,8 @@ public class ChatPanel extends JPanel {
         bar1.add(colorButton);
         bar1.add(emoticons);
         //bar1.add(pic);
-        bar1.add(themeMenu);
+        bar1.add(groupChatButton);
+        bar1.add(groupChatAddButton);
 
         // add to editing panel
         editingPanel.add(bar1, BorderLayout.NORTH);
@@ -585,21 +596,28 @@ public class ChatPanel extends JPanel {
     	
     }
     
-    private class ThemeMenuActionListener implements ActionListener{
-    	private ThemeOptionsFrame themeOptions = null;
+    private class GroupChatActionListener implements ActionListener{
+    	
     	
 		//@Override
-		public void actionPerformed(ActionEvent arg0) {
-			if (themeOptions == null){
-				System.out.println(themeMenu.getLocation());
-				themeOptions = new ThemeOptionsFrame();
-				themeOptions.setLocationRelativeTo(themeMenu);
-				Point location = themeOptions.getLocation();
-				themeOptions.setLocation(location.x, location.y - (themeOptions.HEIGHT/2));
-			} else {
-				themeOptions.dispose();
-				themeOptions = null;
-			}
+		public void actionPerformed(ActionEvent event) {
+			
+			
+			JOptionPane.showInputDialog(null, "This should open a new chat window to invite users into that room.");
+		}
+    	
+    }
+    
+    private class GroupChatAddActionListener implements ActionListener{
+    	
+    	
+		//@Override
+		public void actionPerformed(ActionEvent event) {
+			// if the group chat conference room doesn't exist create one
+			
+			
+			
+			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(model);
 		}
     	
     }
