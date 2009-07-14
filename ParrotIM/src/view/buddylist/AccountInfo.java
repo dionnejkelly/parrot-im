@@ -128,8 +128,8 @@ public class AccountInfo extends JPanel
 	    this.model = model;
 	    this.chatClient = c;
 	    setBackground(Color.DARK_GRAY);
-		setPreferredSize(new Dimension(300,110));
-		setBorder(BorderFactory.createEmptyBorder(5,15,5,5));
+//		setPreferredSize(new Dimension(300,110));
+		setBorder(BorderFactory.createEmptyBorder(20,10,10,10));
 		setLayout(new BorderLayout());
 		
 		//user diplay picture
@@ -139,7 +139,7 @@ public class AccountInfo extends JPanel
 		
 		try {
 			avatarDisplay = new AvatarLabel(chatClient,
-					model.getAvatarDirectory(model.getCurrentProfile().getName()), 75);
+					model.getAvatarDirectory(model.getCurrentProfile().getName()), 65);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -167,7 +167,7 @@ public class AccountInfo extends JPanel
 		JPanel info = new JPanel ();
 		info.setBackground(Color.DARK_GRAY);
 		info.setLayout(new BorderLayout ());
-		info.setBorder(BorderFactory.createEmptyBorder(13,15,13,5));
+		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,5));
 		presence = new StatusCombo(chatClient);
 		JPanel presencePanel = new JPanel();
 		presencePanel.setBackground(Color.DARK_GRAY);
