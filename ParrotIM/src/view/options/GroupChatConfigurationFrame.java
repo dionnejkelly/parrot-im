@@ -1,0 +1,200 @@
+package view.options;
+
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import view.styles.PopupEnableMainWindowListener;
+
+import model.Model;
+import model.dataType.UserData;
+import model.enumerations.PopupEnableWindowType;
+
+
+public class GroupChatConfigurationFrame extends JFrame{
+
+	private final String messageTo = "parrotim.bugreport@gmail.com ";
+	
+	/**
+     * variable model for extracting buddy list, each buddy's information and ,
+     * conversation
+     */
+    protected Model model;
+    
+	private JPanel mainPanel;
+	private JFrame mainFrame;
+	
+	private JButton inviteButton;
+	private JButton cancelButton;
+	
+	private JLabel contactLabel;
+	private JLabel groupChatRoomLabel;
+
+
+	private JTextArea messageText;
+	private JComboBox groupRoom;
+	private JComboBox groupBuddy;
+	
+	
+	/**
+	 * if edit is true, use for adding a new Q/A
+	 * if edit is false, use for editing the existing data
+	 * @param dummyQ
+	 * @param edit
+	 * */
+	
+//	public static void main(String[] args) {
+//		GroupChatConfigurationFrame group = new GroupChatConfigurationFrame();
+//	}
+	
+	
+	public GroupChatConfigurationFrame(Model model){
+		mainFrame = this;
+		this.model = model;
+		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
+		this.setTitle("Group Chat Configuration");
+		
+		setPanels();
+		this.setPreferredSize(new Dimension(330,120));
+		setResizable(false);
+		setLocationRelativeTo(null);
+
+		
+		
+		
+		pack();
+		getContentPane().add(mainPanel);
+		setVisible(true);
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+		this.setLocation(600 ,200);
+		
+	}
+	
+	
+	
+	private void setPanels(){
+		
+	
+		groupChatRoomLabel = new JLabel("Group Chat Room: ");
+	
+
+		inviteButton = new JButton ("Invite");
+		inviteButton.addActionListener(new sendActionListener());
+		cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new cancelActionListener());
+		
+		// this should be extract from the list of current conferrence rooms
+		String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
+		groupRoom = new JComboBox(listGroupRoom);
+		groupRoom.setPreferredSize(new Dimension(265, 25));
+		groupRoom.addActionListener(new StyleListener());
+		
+
+		
+		StyleListener listener = new StyleListener();
+		
+		JPanel QButtonsPanel = new JPanel();
+		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
+		QButtonsPanel.setLayout(new BoxLayout(QButtonsPanel, BoxLayout.X_AXIS));
+		QButtonsPanel.add(inviteButton);
+		QButtonsPanel.add(cancelButton);
+		
+		
+		/*WRAP UP*/
+		mainPanel = new JPanel();
+		mainPanel.add(groupChatRoomLabel);
+		mainPanel.add(groupRoom);
+		mainPanel.add(QButtonsPanel);
+
+
+	}
+	
+	
+	
+	
+	private class StyleListener implements ActionListener {
+
+		
+
+		public void actionPerformed(ActionEvent event) {
+			
+			
+		}
+			
+		
+	}
+		
+	private class cancelActionListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			mainFrame.dispose();
+		
+			
+		}
+	}
+	
+	public class TextBoxListener implements KeyListener {
+
+		public void keyPressed(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void keyReleased(KeyEvent arg0) {
+			if (messageText.getText().length() > 0) {
+				inviteButton.setEnabled(true);
+			}
+			
+			else {
+				inviteButton.setEnabled(false);
+			}
+			
+		}
+
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	private class sendActionListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			
+	
+		}
+	}
+	
+	
+	
+
+	
+	
+
+
+	
+	
+}
+
+
