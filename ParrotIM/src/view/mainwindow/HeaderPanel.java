@@ -63,8 +63,7 @@ public class HeaderPanel extends JPanel{
 		
 		//logo-avatar
 //		JLabel avatarDisplay = new JLabel ();
-		avatarDisplay = new AvatarLabel
-				(getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString(), 100);
+		avatarDisplay = new AvatarLabel(null, 100);
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 //		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
 	
