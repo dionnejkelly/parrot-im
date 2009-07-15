@@ -571,6 +571,7 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 				System.out.println("yes!");
 				int errorCode = ((AuthResponse)((AuthCommand)arg0.getSnacCommand())).getErrorCode();
 				if(errorCode == 5){
+					//TO DO: have a qui popup window to show these error message
 					System.out.println("ERROR Invalid screenname or wrong password");
 				}else if(errorCode == 17){
 					System.out.println("ERROR Account has been suspended temporarily");
