@@ -90,34 +90,58 @@ public class SidePanel extends JPanel implements Observer {
     private void addNewConversationsToList() throws XMPPException {
         UserDataWrapper userWrapper = null;
 
-        int loopIterationNumber = 0;
+        // int loopIterationNumber = 0;
         for (ConversationData cd1 : model.getConversations()) {
-            if (loopIterationNumber > listPane.getNicknameList().size() - 1) {
-                userWrapper = null;
-                for (UserDataWrapper u : this.users) {
-                    u.getConversation().getUser().getTypingState();
-                    if (u.getConversation() == cd1) {
-                        userWrapper = u;
-                        break;
-                    }
+            // if (loopIterationNumber > listPane.getNicknameList().size() - 1)
+            // {
+            userWrapper = null;
+            for (UserDataWrapper u : this.users) {
+                u.getConversation().getUser().getTypingState();
+                if (u.getConversation() == cd1) {
+                    userWrapper = u;
+                    break;
                 }
-                if (userWrapper == null) {
-                    userWrapper = new UserDataWrapper(cd1, this.model);
-                    this.users.add(userWrapper);
-                }
+            }
+            if (userWrapper == null) {
+                userWrapper = new UserDataWrapper(cd1, this.model);
+                this.users.add(userWrapper);
+            }
 
+            if (!listPane.sidePanelUserExists(userWrapper)) {
                 ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser());
                 listPane.addElement(userWrapper.toString(), leafIcon,
                         userWrapper, new SelectListener());
-
-                System.out.println(userWrapper.toString()
-                        + " added to the sidepanel");
             }
-            loopIterationNumber++;
+
+            // }
+            // loopIterationNumber++;
         }
 
         // refreshes the list on the screen with the new data
         listPane.updateUI();
+    }
+
+    private void removeClosedConversations() {
+        UserDataWrapper foundUser = null;
+
+        for (UserDataWrapper u : this.users) {
+            foundUser = null;
+            for (ConversationData c : model.getConversations()) {
+                if (c == u.getConversation()) {
+                    foundUser = u;
+                    break;
+                }
+            }
+            if (foundUser == null) {
+                foundUser = u;
+                listPane.removeSidePanelUser(foundUser);
+                this.users.remove(foundUser);
+            }
+        }
+
+        listPane.updateUI();
+
+        return;
     }
 
     /**
@@ -132,6 +156,7 @@ public class SidePanel extends JPanel implements Observer {
                 || o == UpdatedType.CHAT_STATE) {
             try {
                 addNewConversationsToList();
+                removeClosedConversations();
             } catch (XMPPException e) {
                 e.printStackTrace();
             }
@@ -153,7 +178,7 @@ public class SidePanel extends JPanel implements Observer {
          */
         public void mousePressed(MouseEvent event) {
             c.setTypingState(1); // set to the default typing state before
-                                 // switching
+            // switching
             c.changeConversation(listPane.getUserWrapper(
                     listPane.getClickedIndex()).getConversation());
 
