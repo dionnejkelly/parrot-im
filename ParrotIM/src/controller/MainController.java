@@ -475,6 +475,7 @@ public class MainController {
         UserData user = null;
         String userID = null;
         String nickname = null;
+        String group = null;
         GenericConnection connection = null;
 
         // Get friends from the database to cross reference against
@@ -492,6 +493,8 @@ public class MainController {
             // Decide which type of user to use
             userID = f.getUserID();
             nickname = f.getNickname();
+            group = f.getGroup();
+            
             if (nickname == null || nickname.equalsIgnoreCase(userID)) {
                 nickname = StringUtils.parseName(userID);
             }
@@ -508,6 +511,7 @@ public class MainController {
             } else if (account.getServer() == ServerType.ICQ){
             	user = new ICQUserData(userID);
             	user.setNickname(f.getNickname());
+            	user.setGroup(group);
             }else { // some other user
                 // TODO implement me!
             }
