@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
@@ -887,4 +888,31 @@ public class MainController {
 
         return connection;
     }
+
+	public void sendFile(String userID, String filePath) {
+		 AccountData account = null; // Should be passed in!!
+	      GenericConnection connection = null;
+
+	        // connection should be found from account!!
+	      account = model.getCurrentProfile().getAccountData().get(0);
+	      connection = account.getConnection();
+	      
+	      try {
+			connection.sendFile(userID, filePath);
+		} catch (XMPPException e) {
+			JOptionPane.showMessageDialog(null, "No response from the server.");
+		}
+		
+	}
+	
+	public boolean isValidUserID(String userID) {
+		 AccountData account = null; // Should be passed in!!
+	      GenericConnection connection = null;
+
+	        // connection should be found from account!!
+	      account = model.getCurrentProfile().getAccountData().get(0);
+	      connection = account.getConnection();
+	      
+	      return connection.isValidUserID(userID);
+	}
 }

@@ -90,6 +90,10 @@ public interface GenericConnection {
     
     //@Override
     public int hashCode();
+
+	public void sendFile(String filePath, String userID) throws XMPPException;
+	
+	public boolean isValidUserID(String userID);
     
     // don't need this for now
 //    public void setUserNickName(String name) throws XMPPException;
