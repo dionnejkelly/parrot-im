@@ -83,12 +83,22 @@ public class CustomListPane extends JPanel {
     public ArrayList<String> getNicknameList() {
         return nicknames;
     }
+    
+    public void setNickname(String str, int i){
+    	nicknames.add(i, str);
+    }
+    
+    public String getNickname(int i){
+    	return nicknames.get(i);
+    }
 
     public UserDataWrapper getUserWrapper(int i) {
         return userWrappers.get(i);
     }
 
     public void addElement(JPanel externalFriendPanel) {
+    	userPanels.add(externalFriendPanel);
+    	
         boxes[0].add(externalFriendPanel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(new SelectListener());
@@ -144,6 +154,10 @@ public class CustomListPane extends JPanel {
 
     public Component getElement(int i) {
         return boxes[0].getComponent(i);
+    }
+    
+    public JPanel getPanel(int i ){
+    	return userPanels.get(i);
     }
 
     public void removeElement(JPanel panel) {
