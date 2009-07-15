@@ -42,7 +42,7 @@ public class GoogleTalkUserDataTest {
         u2 = null;
        // u3 = null;
     }
-
+    @Test
     public void testGoogleTalkUserDataStringStringString() {
         u2 = new GoogleTalkUserData("Win", "vista", "away",UserStateType.BUSY,false);
         assertSame("Win", u2.getUserID());
@@ -75,6 +75,7 @@ public class GoogleTalkUserDataTest {
         u1.setOnline(false);
         assertFalse(u1.isOnline());
     }*/
+    @Test
     public void testGetServer(){
     	assertSame(ServerType.GOOGLE_TALK,u1.getServer());
     }
