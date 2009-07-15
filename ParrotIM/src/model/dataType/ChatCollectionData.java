@@ -19,7 +19,11 @@
 
 package model.dataType;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ChatCollectionData {
 
@@ -36,7 +40,7 @@ public class ChatCollectionData {
      * should be contained inside data member, conversations.
      */
     private ConversationData activeConversation;
-    
+
     private boolean chatWindowHistoryEnabled;
 
     public ChatCollectionData() {
@@ -44,6 +48,10 @@ public class ChatCollectionData {
         this.hiddenConversations = new ArrayList<ConversationData>();
         this.activeConversation = null;
         this.chatWindowHistoryEnabled = true;
+
+        // Debug code
+        ChatDebugThread chatDebugThread = new ChatDebugThread();
+        chatDebugThread.start();
     }
 
     public ArrayList<ConversationData> getConversations() {
@@ -120,12 +128,12 @@ public class ChatCollectionData {
 
         return;
     }
-    
+
     public void removeAllConversations() {
         this.conversations.clear();
         this.hiddenConversations.clear();
         this.activeConversation = null;
-        
+
         return;
     }
 
@@ -138,6 +146,60 @@ public class ChatCollectionData {
         allConversations.addAll(this.hiddenConversations);
 
         return allConversations;
+    }
+
+    // Debug code
+    private class ChatDebugThread extends Thread {
+        public void run() {
+            BufferedReader br =
+                    new BufferedReader(new InputStreamReader(System.in));
+            String selection = "";
+            System.out.println("*** ChatCollectionData Dev Tools ***");
+            System.out.println("chat info - show info, chat quit - quit");
+            System.out.println("************************************");
+            try {
+                while (!selection.equals("chat quit")) {
+                    selection = "";
+                    if (br.ready()) {
+                        selection = br.readLine();
+                    }
+                    
+                    if (selection.equals("chat info")) {
+                        System.out.print("Active Conversation: ");
+                        if (getActiveConversation() != null) {
+                            System.out.println(getActiveConversation()
+                                    .getUser()
+                                    + " ("
+                                    + getActiveConversation().getAccount()
+                                    + ")");
+                        } else {
+                            System.out.println("<null>");
+                        }
+
+                        System.out.println("Conversation list ("
+                                + getConversations().size() + "):");
+                        for (ConversationData c : getConversations()) {
+                            System.out.println("  " + c.getUser() + " ("
+                                    + c.getAccount() + ")");
+                        }
+                        System.out.println("Hidden Conversation list ("
+                                + getHiddenConversations().size() + "):");
+                        for (ConversationData c : getHiddenConversations()) {
+                            System.out.println("  " + c.getUser() + " ("
+                                    + c.getAccount() + ")");
+                        }
+                    } else if (selection.equals("chat quit")) {
+                        System.out
+                                .println("Exiting ChatCollectionData Dev Tools...");
+                    }
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            return;
+        }
     }
 
 }
