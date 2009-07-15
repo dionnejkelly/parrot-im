@@ -30,11 +30,11 @@ h) Select import
 
 i) Select SVN and import repesitory
 
-j) import from the site : https//parrot-im.googlecode.com/svn/trunk
+j) import from the site: https//parrot-im.googlecode.com/svn/trunk
 
 k) download parrot-im
 
-l) run test cases in test,unittest, beta test (anyway I think we need to put everything in one package)
+l) run test cases in test, unittest, beta test (anyway I think we need to put everything in one package)
 
 *2. Copy paste*
 
@@ -44,7 +44,7 @@ b) Download JUnit 4.0 (include http)
 
 c) Copy test cases into eclipse and run tests
 
-All the test cases has succesfuly passed the test. We test most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
+All the test cases has successfully passed the test. We test most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
 
 *DatabaseFunctions:* We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
 
@@ -64,7 +64,7 @@ In this phase, we tried to make sure that everything works well practically. Thi
 We did the testing, by doing tasks typicall users do. We put a table that include tasks, observations on testing the task, and the expected output based on our features document:
 
 || *Task* || *Observation* || *Expected result* ||
-|| !Sign in || It takes around 10 s to login || User ablse to sign in within ()||
+|| !Sign in || It takes around 10 s to login || User able to sign in within ()||
 || !Sign out || There was no problem with that || User able to sign out within ()||
 || !Sign out, Sign in again || See know bugs || User able to sign in and out multiple times ||
 || !Add user || Need to be tested || When adding a friend, it takes () ||
@@ -85,7 +85,7 @@ We included this test with user accptance test. It tests our product in how:
 Observations on User Interface:
 
 == User Acceptance Testing ==
-We asked the following 20 users to test our prodcut and do the following tasks, and that by observing them while they talk about the problems with the interface(Natural observation). Here are the tasks:
+We asked the following 20 users to test our product and do the following tasks, and that by observing them while they talk about the problems with the interface(Natural observation). Here are the tasks:
 
 This is a table of the users:
 
