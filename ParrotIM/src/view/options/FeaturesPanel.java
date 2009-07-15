@@ -46,6 +46,7 @@ import javax.swing.event.ListSelectionListener;
 
 import model.Model;
 
+import view.chatwindow.ThemeOptionsComboBox;
 import view.options.modelstub.ChatbotQADataType;
 import view.options.modelstub.model;
 import view.styles.PopupWindowListener;
@@ -61,6 +62,7 @@ public class FeaturesPanel extends JPanel {
     private JCheckBox soundCheck;
     private JCheckBox chatLogCheck;
     private JCheckBox chatWindowHistoryCheck;
+    private ThemeOptionsComboBox themeMenu;
 
     private JList chatbotList;
     private JButton chatbotAddButton;
@@ -132,7 +134,7 @@ public class FeaturesPanel extends JPanel {
         "/images/menu/note_add.png")));
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
-
+        
         /* CHAT WINDOW HISTORY */
         this.chatWindowHistoryCheck =
                 new JCheckBox("Enable Chat Window History",  new ImageIcon(this.getClass().getResource(
@@ -148,6 +150,7 @@ public class FeaturesPanel extends JPanel {
         this.add(soundCheck);
         this.add(chatLogCheck);
         this.add(chatWindowHistoryCheck);
+       
     }
 
     private void setEnabledChatbotButtons(boolean b) {

@@ -11,10 +11,10 @@ import javax.swing.ListCellRenderer;
 
 
 public class ThemeOptionsComboBox extends JComboBox{
-    private ImageIcon[] images = {new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png")),
-    						new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png")),
-    						new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png")),
-    						new ImageIcon(this.getClass().getResource("/images/chatwindow/pic.png"))};
+    private ImageIcon[] images = {new ImageIcon(this.getClass().getResource("/images/theme/metal.png")),
+    						new ImageIcon(this.getClass().getResource("/images/theme/motif.png")),
+    						new ImageIcon(this.getClass().getResource("/images/theme/windows.png")),
+    						new ImageIcon(this.getClass().getResource("/images/theme/classic.png"))};
     private String[] themes = {"Metalic", "CDE/Motif", "Windows", "Windows Classic"};
     private static Integer[] intArray = {0,1,2,3};
     
