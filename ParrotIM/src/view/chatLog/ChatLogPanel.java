@@ -225,7 +225,7 @@ public class ChatLogPanel extends JPanel {
             if (buddies.getSelectedIndex() > -1) {
 
                 Vector<String> dateVectorList = model.getBuddyDateList(profile, buddies
-                        .getSelectedValue().toString());
+                        .getSelectedValue().toString(), "");
                 
 
 //                System.out.println("dateVectorList is null??  "+dateVectorList.size());
@@ -272,7 +272,7 @@ public class ChatLogPanel extends JPanel {
         private void updateLog(String date) {
         	// Grab all message objects from the database
             Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
-                    .toString(), date);
+                    .toString(), date, "");
             
             text.setListData(messages);
             text.updateUI();

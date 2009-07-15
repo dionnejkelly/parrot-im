@@ -58,7 +58,7 @@ public class BuddyPanel extends JPanel {
 
         // list of buddies who has logged chat
 
-        buddyList = new JList(model.getBuddyLogList(profile));
+        buddyList = new JList(model.getBuddyLogList(profile, ""));
 
         buddyList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollBuddy = new JScrollPane(buddyList);
