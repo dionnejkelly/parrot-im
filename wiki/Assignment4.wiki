@@ -1,3 +1,63 @@
 == New Tutorial ==
 
 [http://sites.google.com/site/parrotimhelp/index How to Create A Profile]
+
+== Testing ==
+
+To validate our product, we did the following phases:
+
+== Unit Testing ==
+We used Eclipse 3.4.2 and JUnit 4.0 to write our test cases.
+To see our results you have two options:
+
+1. Import from SVN
+
+a) Download Eclipse 3.4.2
+
+b) Open Eclipse
+
+c) Select Help tab
+
+d) Go to Software update
+
+e) Import from following site: http//subclipse.tigirs.org/update1_4x (if you don't have SVN downloaded yet)
+
+f) Download required and recommended features (you can have a problem with downloading optional features) then just go on until it's downloaded
+
+g) Select File tab
+
+h) Select import
+
+i) Select SVN and import repesitory
+
+j) import from the site : https//parrot-im.googlecode.com/svn/trunk
+
+k) download parrot-im
+
+l) run test cases in test,unittest, beta test (anyway I think we need to put everything in one package)
+
+2. Copy paste
+
+a) Download eclipse 3.4.2
+
+b) Download JUnit 4.0 (include http)
+
+c) Copy test cases into eclipse and run tests
+
+All the test cases has succesfuly passed the test. We test most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
+
+DatabaseFunctions: We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
+
+GUI, sounds, Spell checker and Dictionary: It's more difficult to test those classes using unit testing. So, we tested this by integration and manual testing.
+
+== Integration Testing ==
+
+In this phase, we tried to make sure that everything works well practically. This include testing that:
+
+1. All the features are working fine, without any crashes
+
+2. Database retuns correct data
+
+3. GUI don't have any inconsistent problems
+
+We did the testing, by doing tasks typicall users do. We put a table that include tasks, observations on testing the task, and the expected output based on our features document:
