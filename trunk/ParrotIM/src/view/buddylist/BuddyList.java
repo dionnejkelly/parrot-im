@@ -108,13 +108,13 @@ public class BuddyList extends JFrame {
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
         		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel);
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        "/images/buddylist/twitter_logo.png")), new JPanel());
+        "/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this));
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png")), new JPanel());
+        		"/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png")), new ICQPanel(c,model,this));
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png")), new JPanel());
+        		"/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png")), new MSNPanel(c,model,this));
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/statusIcons/AIM/AIM-AvailableSM.png")), new JPanel());
+        		"/images/buddylist/statusIcons/AIM/AIM-AvailableSM.png")), new AIMPanel(c,model,this));
 
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);
