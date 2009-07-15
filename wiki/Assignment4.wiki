@@ -64,19 +64,19 @@ In this phase, we tried to make sure that everything works well practically. Thi
 We did the testing, by doing tasks typicall users do. We put a table that include tasks, observations on testing the task, and the expected output based on our features document:
 
 || *Task* || *Observation* || *Expected result* ||
-|| !Sign in || It takes around 10 s to login || User able to sign in within ()||
-|| !Sign out || There was no problem with that || User able to sign out within ()||
-|| !Sign out, Sign in again || See know bugs || User able to sign in and out multiple times ||
-|| !Add user || Need to be tested || When adding a friend, it takes () ||
-|| !Remove user || See posible problems || User have no problem removing a user, and friend will be removed from database ||
-|| !Block a friend || See know bugs || Need to be discussed ||
-|| !Unblock a friend || See known bugs || You can block, and unblock a friend ||
-|| !View Chat log || See known bugs || You can view chatlog, and search conversations ||
-|| !Connected friends || Inconsistent number || Number of connected friends should be consistent ||
-|| !Change states || There was no problem changing states (check on chatty) || should I delete this column ||
-|| !Change avator picture || Need to be tested || ||
-|| !Chat with a friend || There was no problem with that || ||
-|| !Press Enter to send || It takes around 2 seconds to process that ||  ||
+|| Sign in || It takes around 10 s to login || User able to sign in within ()||
+|| Sign out || There was no problem with that || User able to sign out within ()||
+|| Sign out, Sign in again || See know bugs || User able to sign in and out multiple times ||
+|| Add user || Need to be tested || When adding a friend, it takes () ||
+|| Remove user || See posible problems || User have no problem removing a user, and friend will be removed from database ||
+|| Block a friend || See know bugs || Need to be discussed ||
+|| Unblock a friend || See known bugs || You can block, and unblock a friend ||
+|| View Chat log || See known bugs || You can view chatlog, and search conversations ||
+|| Connected friends || Inconsistent number || Number of connected friends should be consistent ||
+|| Change states || There was no problem changing states (check on chatty) || should I delete this column ||
+|| Change avator picture || Need to be tested || ||
+|| Chat with a friend || There was no problem with that || ||
+|| Press Enter to send || It takes around 2 seconds to process that ||  ||
 
 == User Interface Testing ==
 
