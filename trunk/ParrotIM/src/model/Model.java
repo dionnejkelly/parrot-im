@@ -907,7 +907,7 @@ public class Model extends Observable {
      * @return Vector<String> representation of the buddy log list.
      */
 
-    public Vector<String> getBuddyLogList(String profile) throws SQLException,
+    public Vector<String> getBuddyLogList(String profile, String search) throws SQLException,
             ClassNotFoundException {
         // returns list of buddies (that have chat log)
         // We might need to consider the case in which the same
@@ -919,7 +919,7 @@ public class Model extends Observable {
 
         // Iterates over all accounts, and adds the messages from the
         // database of all accounts into messages
-        buddies.addAll(db.getChatNameList(profile, ""));
+        buddies.addAll(db.getChatNameList(profile, search));
 
         return buddies;
     }
@@ -932,14 +932,14 @@ public class Model extends Observable {
      * @return Vector<String> representation of the buddy date list.
      */
 
-    public Vector<String> getBuddyDateList(String profile, String buddyname) {
+    public Vector<String> getBuddyDateList(String profile, String buddyname, String search) {
         // returns history date list
         Vector<String> chats = null;
 
         DatabaseFunctions db = null;
         try {
             db = new DatabaseFunctions();
-            chats = db.getChatDatesFromName(profile, buddyname, "");
+            chats = db.getChatDatesFromName(profile, buddyname, search);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -961,7 +961,7 @@ public class Model extends Observable {
      */
 
     public Vector<ChatLogMessageTempData> getLogMessage(String username,
-            String buddyname, String date) {
+            String buddyname, String date, String search) {
         DatabaseFunctions db = null;
         Vector<ChatLogMessageTempData> messages =
                 new Vector<ChatLogMessageTempData>();
@@ -974,7 +974,7 @@ public class Model extends Observable {
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
                 messages.addAll(db.getMessageFromDate(account.getUserID(),
-                        buddyname, date, ""));
+                        buddyname, date, search));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
