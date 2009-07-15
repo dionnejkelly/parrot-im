@@ -145,7 +145,7 @@ public class TwitterPanel extends JPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
-    public TwitterPanel(MainController c, Model model, JFrame buddyWindow) {
+    public TwitterPanel(MainController c, Model model, JFrame buddyWindow, BuddyPanel buddyList) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
@@ -164,7 +164,7 @@ public class TwitterPanel extends JPanel implements Observer {
         tweetList = new JPanel();
         tweetList.setBackground(Color.WHITE);
         tweetList.setLayout(new BorderLayout());
-
+        
         // Place all friends from currentProfile into buddy list
         //tweets = model.getCurrentProfile().getAllFriends();
 
@@ -177,11 +177,12 @@ public class TwitterPanel extends JPanel implements Observer {
                         "/images/buddylist/twitter_logo.png"));
 
         buddyListPane.addGroup("     Twitter", twitterImage);
+        //buddyListPane.addElement(0, "test", null);
 
         //pictureUpdateThread = new PictureUpdateThread();
         //pictureUpdateThread.start();
 
-        //listRepopulate();
+        listRepopulate();
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
@@ -189,6 +190,16 @@ public class TwitterPanel extends JPanel implements Observer {
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         add(scroller);
+    }
+    
+    public void listRepopulate(){
+    	model.getCurrentProfile().getAllFriends().get(1).getNickname();
+    	
+    	for(UserData user : model.getCurrentProfile().getAllFriends()){
+    		if(user.getServer() == ServerType.TWITTER){
+    			buddyListPane.addElement(0, user.getStatus(), null);
+    		}
+    	}
     }
 
 	public void update(Observable arg0, Object arg1) {
