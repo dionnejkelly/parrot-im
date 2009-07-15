@@ -91,6 +91,15 @@ public class CustomListPane extends JPanel {
     public String getNickname(int i){
     	return nicknames.get(i);
     }
+    
+    public int getIndex(String nickname){
+    	for(int i = 0; i < nicknames.size(); i++){
+    		if(nicknames.get(i).equals(nickname)){
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
 
     public UserDataWrapper getUserWrapper(int i) {
         return userWrappers.get(i);
