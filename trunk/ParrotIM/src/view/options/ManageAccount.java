@@ -25,6 +25,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -68,7 +69,6 @@ public class ManageAccount extends JPanel implements Observer {
     private JList accList;
     private JTextField UNField;
     private JPasswordField pwdField;
-    private JCheckBox autoSigninCheck;
     private JComboBox server;
     private JButton addButton;
 
@@ -203,10 +203,6 @@ public class ManageAccount extends JPanel implements Observer {
         pwdField.setPreferredSize(new Dimension(180, 20));
         passwordPanel.add(new JLabel("Password:      "));
         passwordPanel.add(pwdField);
-        // Auto Signin
-        autoSigninCheck = new JCheckBox("Auto sign-in");
-        autoSigninCheck
-                .setToolTipText("Auto sign-in works on default Profile only");
 
         // account setup Panel
         JPanel setupPanel = new JPanel();
@@ -215,7 +211,6 @@ public class ManageAccount extends JPanel implements Observer {
         setupPanel.add(serverPanel);
         setupPanel.add(usernamePanel);
         setupPanel.add(passwordPanel);
-        setupPanel.add(autoSigninCheck);
 
         // adding to rightPanel
         rightPanel.setPreferredSize(new Dimension(280, 400));
