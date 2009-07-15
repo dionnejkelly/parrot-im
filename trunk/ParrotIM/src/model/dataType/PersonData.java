@@ -18,6 +18,8 @@
 
 package model.dataType;
 
+import java.util.Observable;
+
 import model.enumerations.TypingStateType;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -28,7 +30,7 @@ import model.enumerations.UserStateType;
  * nicknames, and statuses. Also contains utility methods for searching and
  * equivalence tests.
  */
-public abstract class PersonData {
+public abstract class PersonData extends Observable {
 
     /**
      * The screen name, or username, of the person. May be in the form of an
@@ -138,6 +140,9 @@ public abstract class PersonData {
      */
     public void setNickname(String nickname) {
         this.nickname = nickname != null ? nickname : "";
+        
+        super.setChanged();
+        super.notifyObservers();
 
         return;
     }
@@ -162,6 +167,9 @@ public abstract class PersonData {
     public void setStatus(String status) {
         this.status = status != null ? status : "";
 
+        super.setChanged();
+        super.notifyObservers();
+        
         return;
     }
 
@@ -177,6 +185,11 @@ public abstract class PersonData {
      */
     public void setState(UserStateType state) {
         this.state = state != null ? state : UserStateType.OFFLINE;
+        
+        super.setChanged();
+        super.notifyObservers();
+        
+        return;
     }
 
     /**

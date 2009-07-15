@@ -146,8 +146,14 @@ public class CustomListPane extends JPanel {
         return boxes[0].getComponent(i);
     }
 
+    public void removeElement(JPanel panel) {
+        boxes[0].remove(panel);
+        updateUI();
+        
+        return;
+    }
+    
     public void removeAllElements() {
-        nicknames = new ArrayList();
         boxes[0].removeAll();
         updateUI();
     }

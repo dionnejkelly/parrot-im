@@ -75,6 +75,16 @@ public class GroupedListPane extends JPanel{
 		groups.get(group).addElement(externalFriendPanel);
 	}
 	
+	public void removeElement(int group, JPanel externalFriendPanel) {
+	    groups.get(group).removeElement(externalFriendPanel);
+	    
+	    return;
+	}
+	
+	public CustomListPane getListPane(int group) {
+	    return groups.get(group);
+	}
+	
 	public void addExternalMouseListener(int group, int componentIndex,
 											MouseListener externalListener){
 		getComponent(group, componentIndex).addMouseListener(externalListener);

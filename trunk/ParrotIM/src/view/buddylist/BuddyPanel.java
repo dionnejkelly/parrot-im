@@ -130,7 +130,7 @@ public class BuddyPanel extends JPanel implements Observer {
      * list of buddies
      */
     private ArrayList<UserData> buddies;
-    
+
     private ArrayList<ArrayList<UserData>> buddyArray;
 
     private JTextField search;
@@ -144,6 +144,10 @@ public class BuddyPanel extends JPanel implements Observer {
     private PictureUpdateThread pictureUpdateThread;
 
     private long lastUpdate;
+
+    private ArrayList<FriendWrapper> friendWrappers;
+
+    private ArrayList<FriendPanel> friendPanels;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -165,6 +169,12 @@ public class BuddyPanel extends JPanel implements Observer {
         this.chat = null;
         this.searchEnabled = false;
         this.lastUpdate = System.currentTimeMillis();
+        this.friendWrappers = new ArrayList<FriendWrapper>();
+        this.friendPanels = new ArrayList<FriendPanel>();
+
+        buddyArray = new ArrayList<ArrayList<UserData>>();
+        buddyArray.add(new ArrayList<UserData>());
+        buddyArray.add(new ArrayList<UserData>());
 
         // Test code, make it hide at the start
         // this.chat = new ChatWindow(chatClient, model);
@@ -233,16 +243,22 @@ public class BuddyPanel extends JPanel implements Observer {
 
         // rightclick menu
         rightClickMenu = new JPopupMenu();
-        menuItem1 = new JMenuItem("Start New Conversation",  new ImageIcon(this.getClass().getResource(
-        "/images/popup/comment.png")));
-        menuItem2 = new JMenuItem("Add to open Conversation",  new ImageIcon(this.getClass().getResource(
-        "/images/popup/comments_add.png")));
-        menuItem3 = new JMenuItem("Remove Friend", new ImageIcon(this.getClass().getResource(
-        "/images/buddylist/delete_user.png")));
-        menuItem4 = new JMenuItem("Block Friend",  new ImageIcon(this.getClass().getResource(
-        "/images/buddylist/button_cancel.png")));
-        menuItem5 = new JMenuItem("View Profile", new ImageIcon(this.getClass().getResource(
-        "/images/popup/pictures.png")));
+        menuItem1 =
+                new JMenuItem("Start New Conversation", new ImageIcon(this
+                        .getClass().getResource("/images/popup/comment.png")));
+        menuItem2 =
+                new JMenuItem("Add to open Conversation", new ImageIcon(this
+                        .getClass().getResource(
+                                "/images/popup/comments_add.png")));
+        menuItem3 =
+                new JMenuItem("Remove Friend", new ImageIcon(this.getClass()
+                        .getResource("/images/buddylist/delete_user.png")));
+        menuItem4 =
+                new JMenuItem("Block Friend", new ImageIcon(this.getClass()
+                        .getResource("/images/buddylist/button_cancel.png")));
+        menuItem5 =
+                new JMenuItem("View Profile", new ImageIcon(this.getClass()
+                        .getResource("/images/popup/pictures.png")));
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new inviteFriendListener());
@@ -268,33 +284,40 @@ public class BuddyPanel extends JPanel implements Observer {
     }
 
     private void listRepopulate() {
+        FriendPanel tempPanel = null;
+
         buddyListPane.removeAllElements(0);
         buddyListPane.removeAllElements(1);
         boxes[0].removeAll();
         boxes[1].removeAll();
-        buddyArray = new ArrayList<ArrayList<UserData>>();
-        
 
-        // System.out.println("Starting adding Buddies: " + buddies.size());
-
-        buddyArray.add(new ArrayList<UserData>());
-        buddyArray.add(new ArrayList<UserData>());
-        for (int i = 0; i < buddies.size(); i++) {
-            if (buddies.get(i).getServer().toString().equals("Google Talk")) {
-                buddyArray.get(0).add(buddies.get(i));
-                boxes[0].add(FriendItem(buddies.get(i)));
-                buddyListPane.addElement(0, FriendItem(buddies.get(i)));
-                // System.out.println(buddies.get(i).getUserID() +
-                // " added to googleTalk");
-            } else if (buddies.get(i).getServer().toString().equals("Twitter")) {
-                buddyArray.get(1).add(buddies.get(i));
-                boxes[1].add(FriendItem(buddies.get(i)));
-                buddyListPane.addElement(1, FriendItem(buddies.get(i)));
-                // System.out.println(buddies.get(i).getUserID() +
-                // " added to twitter");
+        // Create the friend wrapper
+        // Compare the model friends with the GUI friends
+        for (UserData u : this.buddies) {
+            tempPanel = FriendItem(u);
+            this.friendPanels.add(tempPanel); // adds wrapper
+            if (u.getServer() == ServerType.GOOGLE_TALK) {
+                buddyArray.get(0).add(u);
+                boxes[0].add(tempPanel);
+                buddyListPane.addElement(0, tempPanel);
+            } else if (u.getServer() == ServerType.TWITTER) {
+                buddyArray.get(1).add(u);
+                boxes[1].add(tempPanel);
+                buddyListPane.addElement(1, tempPanel);
             }
         }
-        // System.out.println("Ending adding Buddies");
+
+        // for (int i = 0; i < buddies.size(); i++) {
+        // if (buddies.get(i).getServer() == ServerType.GOOGLE_TALK) {
+        // buddyArray.get(0).add(buddies.get(i));
+        // boxes[0].add(FriendItem(buddies.get(i)));
+        // buddyListPane.addElement(0, FriendItem(buddies.get(i)));
+        // } else if (buddies.get(i).getServer() == ServerType.JABBER) {
+        // buddyArray.get(1).add(buddies.get(i));
+        // boxes[1].add(FriendItem(buddies.get(i)));
+        // buddyListPane.addElement(1, FriendItem(buddies.get(i)));
+        // }
+        // }
 
         // add mouse listeners to googleTalk
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
@@ -425,23 +448,20 @@ public class BuddyPanel extends JPanel implements Observer {
             chatClient.blockFriend(selectedFriend);
         }
     }
-    
+
     /**
      * for user to invite a friend to a group conversation
      * 
      */
-    
+
     class inviteFriendListener extends MouseAdapter {
-    	
-    	public void mousePressed(MouseEvent event) {
-    		GroupChatConfigurationFrame groupConfig = new GroupChatConfigurationFrame(model);
+
+        public void mousePressed(MouseEvent event) {
+            GroupChatConfigurationFrame groupConfig =
+                    new GroupChatConfigurationFrame(model);
         }
-    	
-    	
-    	
+
     }
-    
- 
 
     /**
      * for user to delete friend from right click menu bar
@@ -573,20 +593,18 @@ public class BuddyPanel extends JPanel implements Observer {
      * @param user
      * @return friendItem
      */
-    public JPanel FriendItem(UserData user) {
+    public FriendPanel FriendItem(UserData user) {
         ImageIcon defaultIcon =
                 new ImageIcon(this.getClass().getResource(
                         "/images/chatwindow/personal.png"));
         JLabel label = null;
+        FriendPanel friendItem = new FriendPanel();
+        FriendWrapper tempWrapper = null;
 
-        JPanel friendItem = new JPanel();
-        String server = null;
-        int minutesSinceUpdate = 16384;
         friendItem.setLayout(new BorderLayout());
         friendItem.setBackground(Color.WHITE);
 
         friendItem.setName(user.getNickname());
-        server = user.getServer().toString();
 
         // end it
         friendItem.setToolTipText("<html>  " + user.getNickname() + "("
@@ -594,73 +612,11 @@ public class BuddyPanel extends JPanel implements Observer {
                 + "<br> Status:" + user.getState() + "<br>" + user.getServer()
                 + "<hr>" + "Right-click for more options");
 
-        JLabel friendName;
-
         // Colour our world! Sets colours for our friends.
         // Note: Separating the name and the status colours would be great.
-        if (user.isBlocked()) {
-            friendName = new JLabel("  Blocked: " + user.getUserID() + " *");
-            friendName.setForeground(Color.LIGHT_GRAY.darker());
-        } else if (user instanceof TwitterUserData) {
-            minutesSinceUpdate =
-                    ((TwitterUserData) user).getMinutesSinceUpdate();
 
-            friendName =
-                    new JLabel("  " + user.getNickname() + user.getStatus()
-                            + " (Changed: " + minutesSinceUpdate
-                            + " minutes ago)");
-            if (minutesSinceUpdate < 60) {
-                friendName.setForeground(Color.GREEN.darker());
-            } else if (minutesSinceUpdate < 300) {
-                friendName.setForeground(Color.ORANGE.darker());
-            } else {
-                friendName.setForeground(Color.RED.darker());
-            }
-        } else if (user.getState() == UserStateType.ONLINE) {
-            if (user.getNickname().trim().equals("")) {
-                friendName =
-                        new JLabel("  " + user.getUserID() + user.getStatus()
-                                + " (" + user.getState() + ")");
-            } else {
-                friendName =
-                        new JLabel("  " + user.getNickname() + user.getStatus()
-                                + " (" + user.getState() + ")");
-            }
-            friendName.setForeground(Color.GREEN.darker());
-        } else if (user.getState() == UserStateType.BUSY) {
-            if (user.getNickname().trim().equals("")) {
-                friendName =
-                        new JLabel("  " + user.getUserID() + user.getStatus()
-                                + " (Busy)");
-            } else {
-                friendName =
-                        new JLabel("  " + user.getNickname() + user.getStatus()
-                                + " (Busy)");
-            }
-            friendName.setForeground(Color.ORANGE.darker());
-        } else if (user.getState() == UserStateType.AWAY) {
-            if (user.getNickname().trim().equals("")) {
-                friendName =
-                        new JLabel("  " + user.getUserID() + user.getStatus()
-                                + " (Away)");
-            } else {
-                friendName =
-                        new JLabel("  " + user.getNickname() + user.getStatus()
-                                + " (Away)");
-            }
-            friendName.setForeground(Color.ORANGE.darker());
-        } else {
-            if (user.getNickname().trim().equals("")) {
-                friendName =
-                        new JLabel("  " + user.getUserID() + user.getStatus()
-                                + " (" + user.getState() + ")");
-            } else {
-                friendName =
-                        new JLabel("  " + user.getNickname() + user.getStatus()
-                                + " (" + user.getState() + ")");
-            }
-            friendName.setForeground(Color.RED.darker());
-        }
+        tempWrapper = new FriendWrapper(user);
+        this.friendWrappers.add(tempWrapper);
 
         ImageIcon avatarImage = defaultIcon;
         Image img = avatarImage.getImage();
@@ -686,7 +642,11 @@ public class BuddyPanel extends JPanel implements Observer {
          * friendName.getText()); }
          */
 
-        friendItem.add(friendName, BorderLayout.CENTER);
+        friendItem.add(tempWrapper.getLabelRepresentation(),
+                BorderLayout.CENTER);
+        friendItem.setWrapper(tempWrapper);
+        
+        
         // friendItem.add(friendStatus,BorderLayout.CENTER);
 
         return friendItem;
@@ -748,14 +708,8 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.BUDDY) {
-            if (System.currentTimeMillis() - this.lastUpdate > 10000) {
-                this.refreshBuddyList();
-                this.lastUpdate = System.currentTimeMillis();
-                System.out.println("YESSS!!!");
-            } else {
-                System.out.println("NO!!!");
-            }
-
+            
+            this.refreshBuddyList();
         }
 
         return;
