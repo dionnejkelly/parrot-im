@@ -207,6 +207,8 @@ public class ChatLogPanel extends JPanel {
         dateList.setListData(dateVectorList);
         dateList.setEnabled(true);
         dateList.updateUI();
+
+        text.setListData(stub);
     }
 
     /**
@@ -231,7 +233,6 @@ public class ChatLogPanel extends JPanel {
 //                System.out.println("dateVectorList is null??  "+dateVectorList.size());
                 updateDateList(dateVectorList);
                 	
-                text.setListData(stub);
 
             }
         }
@@ -291,51 +292,54 @@ public class ChatLogPanel extends JPanel {
         public void mousePressed(MouseEvent event) {
 
             if (searchField.getText().length() > 0) {
-//                updateDateList(dateVectorList);
-//                text.setListData(stub);
-            	Vector<String> users = null;
-               try {
-            	   System.out.println("hi");
-            	   db = new DatabaseFunctions();
-				 users = db.getChatNameList(profile, searchField.getText());
-				 System.out.println("Appear");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(users.size());
-			for(int i=0;i<users.size();i++){
-				Vector<String> dates = null;
-               try {
-            	   System.out.println("Hi again");
-            	   db = new DatabaseFunctions();
-				 dates = db.getChatDatesFromName(profile, users.get(i), searchField.getText());
-				 System.out.println("Appear again");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-				for(int j=0;j<dates.size();j++){
-					try {
-						System.out.println("Hi third");
-						db = new DatabaseFunctions();
-						ArrayList<ChatLogMessageTempData> message = db.getMessageFromDate(profile, users.get(i), dates.get(j), searchField.getText());
-						System.out.println("Finished");
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} 
-            }
-			}
+            	Vector <String> dateVectorList = 
+            		model.getBuddyDateList(model.getCurrentProfile().getName(),buddies.getSelectedValue().toString() , searchField.getText());
+               updateDateList(dateVectorList);
+            	
+            	
+//            	Vector<String> users = null;
+//               try {
+//            	   System.out.println("hi");
+//            	   db = new DatabaseFunctions();
+//				 users = db.getChatNameList(profile, searchField.getText());
+//				 System.out.println("Appear");
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ClassNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			System.out.println(users.size());
+//			for(int i=0;i<users.size();i++){
+//				Vector<String> dates = null;
+//               try {
+//            	   System.out.println("Hi again");
+//            	   db = new DatabaseFunctions();
+//				 dates = db.getChatDatesFromName(profile, users.get(i), searchField.getText());
+//				 System.out.println("Appear again");
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ClassNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//				for(int j=0;j<dates.size();j++){
+//					try {
+//						System.out.println("Hi third");
+//						db = new DatabaseFunctions();
+//						ArrayList<ChatLogMessageTempData> message = db.getMessageFromDate(profile, users.get(i), dates.get(j), searchField.getText());
+//						System.out.println("Finished");
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					} catch (ClassNotFoundException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					} 
+//            }
+			
 		}
 
             else {

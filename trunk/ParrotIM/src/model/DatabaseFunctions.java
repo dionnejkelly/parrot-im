@@ -387,7 +387,7 @@ public class DatabaseFunctions {
 
         prep =
                 conn.prepareStatement("insert into profiles values "
-                        + "(?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                        + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, name);
@@ -399,6 +399,8 @@ public class DatabaseFunctions {
         prep.setString(7, sounds);
         prep.setString(8, chatbot);
         prep.setString(9, "");
+        prep.setString(10, "");
+        prep.setInt(11, 0);
         prep.executeUpdate();
 
         conn.commit();
@@ -517,6 +519,44 @@ public class DatabaseFunctions {
     	} else {
     		return directory;
     	}
+    }
+    public void setStatusMessage(String profile, String statusMessage) 
+    throws SQLException
+    {
+		//TODO: change so that it will return null if the avatar is not set 
+    	stat.executeUpdate("update profiles set statusMessage='" 
+    			+ statusMessage + "' where name='" + profile + "'");
+    	conn.close();
+    }
+    public String getStatusMessage(String profile) throws SQLException
+    {
+    	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
+    	rs.next();
+    	String statusMessage = rs.getString("statusMessage");
+    	rs.close();
+    	conn.close();
+    	if (statusMessage.length() == 0) {
+    		return null;
+    	} else {
+    		return statusMessage;
+    	}
+    }
+    public void setStatus(String profile, int status) 
+    throws SQLException
+    {
+		//TODO: change so that it will return null if the avatar is not set 
+    	stat.executeUpdate("update profiles set status='" 
+    			+ status + "' where name='" + profile + "'");
+    	conn.close();
+    }
+    public int getStatus(String profile) throws SQLException
+    {
+    	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
+    	rs.next();
+    	int status = rs.getInt("status");
+    	rs.close();
+    	conn.close();
+    	return status;
     }
 
     // Section
