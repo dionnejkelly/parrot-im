@@ -101,14 +101,14 @@ public class BuddyList extends JFrame {
 
         // INSIDE PANEL
         JTabbedPane tabbedthing = new JTabbedPane();
-        JPanel mainListPanel = new BuddyPanel(c, model, this);
+        BuddyPanel mainListPanel = new BuddyPanel(c, model, this);
         //JPanel twitterPanel = new TwitterPanel(c,model,this);
         
         accountInfo = new AccountInfo(c, model);
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
         		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel);
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        "/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this));
+        		"/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this,mainListPanel));
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
         		"/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png")), new ICQPanel(c,model,this));
         tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(

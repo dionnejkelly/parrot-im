@@ -472,8 +472,8 @@ public class BuddyPanel extends JPanel implements Observer {
     class inviteFriendListener extends MouseAdapter {
 
         public void mousePressed(MouseEvent event) {
-            GroupChatConfigurationFrame groupConfig =
-                    new GroupChatConfigurationFrame(model);
+            //GroupChatConfigurationFrame groupConfig =
+            //        new GroupChatConfigurationFrame(model);
         }
 
     }
