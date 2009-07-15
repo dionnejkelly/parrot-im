@@ -156,7 +156,8 @@ public class DatabaseFunctions {
                 + "date, time, timestamp);");
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile, chatWindowHistory, "
-                + "autoSignIn, chatLog, sounds, chatbot, avatarDirectory);");
+                + "autoSignIn, chatLog, sounds, chatbot, avatarDirectory, "
+                + "statusMessage, status);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
         stat.executeUpdate("create table if not exists chatBotQuestions "
@@ -400,7 +401,7 @@ public class DatabaseFunctions {
         prep.setString(8, chatbot);
         prep.setString(9, "");
         prep.setString(10, "");
-        prep.setInt(11, 0);
+        prep.setString(11, "");
         prep.executeUpdate();
 
         conn.commit();
@@ -511,6 +512,7 @@ public class DatabaseFunctions {
     {
     	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
     	rs.next();
+    	System.out.println(rs.getString("status"));
     	String directory = rs.getString("avatarDirectory");
     	rs.close();
     	conn.close();
@@ -518,6 +520,7 @@ public class DatabaseFunctions {
     		return null;
     	} else {
     		return directory;
+    		
     	}
     }
     public void setStatusMessage(String profile, String statusMessage) 
@@ -544,16 +547,18 @@ public class DatabaseFunctions {
     public void setStatus(String profile, int status) 
     throws SQLException
     {
+    	String theStatus = new Integer(status).toString();
 		//TODO: change so that it will return null if the avatar is not set 
     	stat.executeUpdate("update profiles set status='" 
-    			+ status + "' where name='" + profile + "'");
+    			+ theStatus + "' where name='" + profile + "'");
     	conn.close();
     }
     public int getStatus(String profile) throws SQLException
     {
     	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
     	rs.next();
-    	int status = rs.getInt("status");
+    	int status = Integer.parseInt(rs.getString("status"));
+    	
     	rs.close();
     	conn.close();
     	return status;
