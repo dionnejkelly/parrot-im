@@ -129,7 +129,6 @@ public class SidePanel extends JPanel implements Observer {
         // Remove from the sidePanel, and make a list
         for (UserDataWrapper u : this.users) {
             foundUser = null;
-            System.out.println("convos: " + model.getConversations().size());
             for (ConversationData c : model.getConversations()) {
                 if (c == u.getConversation()) {
                     foundUser = u;
