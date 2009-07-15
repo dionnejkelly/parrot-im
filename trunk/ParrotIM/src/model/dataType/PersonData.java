@@ -41,7 +41,8 @@ public abstract class PersonData {
      * be equal to the userID. Is unrelated to log-in information.
      */
     private String nickname;
-
+    
+    private String group;
     /**
      * A person's customized status message. May be empty.
      */
@@ -52,6 +53,7 @@ public abstract class PersonData {
      */
     private UserStateType state;
     private TypingStateType typingState;
+    
 
     /**
      * Base constructor. The userID is required since it is needed to log-in and
@@ -65,12 +67,13 @@ public abstract class PersonData {
         if (userID == null || userID.length() == 0) {
             throw new IllegalArgumentException();
         }
-
+        
         this.userID = userID;
         this.nickname = userID;
         this.status = "";
         this.state = UserStateType.OFFLINE;
         this.typingState = TypingStateType.ACTIVE;
+        this.setGroup("");
     }
 
     /**
@@ -96,8 +99,18 @@ public abstract class PersonData {
         this.setNickname(nickname);
         this.setStatus(status);
         this.setState(state);
+        this.setGroup("");
     }
-
+    
+    public PersonData(String userID, String nickname, String status,
+            UserStateType state,String group){
+    	this.userID = userID;
+        this.setNickname(nickname);
+        this.setStatus(status);
+        this.setState(state);
+        this.setGroup(group);
+    }
+    
     /**
      * Gets the userID as a String. Cannot be null or empty.
      * 
@@ -238,4 +251,12 @@ public abstract class PersonData {
 
         return areEqual;
     }
+    public void setGroup(String group) {
+		this.group=group;
+		
+	}
+	public String getGroup() {
+		
+		return group;
+	}
 }
