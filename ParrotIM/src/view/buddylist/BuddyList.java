@@ -97,7 +97,7 @@ public class BuddyList extends JFrame {
 
         JPanel buddylistPanel = new JPanel();
         buddylistPanel.setLayout(new BorderLayout());
-        buddylistPanel.setPreferredSize(new Dimension(320, 600));
+        buddylistPanel.setPreferredSize(new Dimension(370, 600));
 
         // INSIDE PANEL
         JTabbedPane tabbedthing = new JTabbedPane();
@@ -105,8 +105,16 @@ public class BuddyList extends JFrame {
         //JPanel twitterPanel = new TwitterPanel(c,model,this);
         
         accountInfo = new AccountInfo(c, model);
-        tabbedthing.addTab("IM", mainListPanel);
-        tabbedthing.addTab("Twitter", new JPanel());
+        tabbedthing.addTab("GTalk", new ImageIcon(this.getClass().getResource(
+        		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel);
+        tabbedthing.addTab("Twit", new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/twitter_logo.png")), new JPanel());
+        tabbedthing.addTab("ICQ", new ImageIcon(this.getClass().getResource(
+        		"/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png")), new JPanel());
+        tabbedthing.addTab("MSN", new ImageIcon(this.getClass().getResource(
+        		"/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png")), new JPanel());
+        tabbedthing.addTab("AIM", new ImageIcon(this.getClass().getResource(
+        		"/images/buddylist/statusIcons/AIM/AIM-AvailableSM.png")), new JPanel());
 
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);

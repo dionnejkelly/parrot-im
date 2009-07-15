@@ -90,8 +90,8 @@ public class NewProfileFrame extends JFrame {
         passwordOption.setVisible(false);
 
         /* DEFAULT PROFILE */
-        defaultCheck = new JCheckBox("Default Profile");
-        defaultCheck.setToolTipText("<html>Allows for auto-login to this account when ParrotIM runs." +
+        defaultCheck = new JCheckBox("Default Profile (Auto-Signin)");
+        defaultCheck.setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs." +
         		"<br>There can only be one Default Profile, checking this will set this profile as the new default");
         JPanel optionPanel = new JPanel();
         optionPanel.setAlignmentX(LEFT_ALIGNMENT);
