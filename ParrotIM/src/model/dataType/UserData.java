@@ -39,6 +39,8 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import view.buddylist.FriendWrapper;
+
 import model.enumerations.UserStateType;
 
 /**
@@ -48,7 +50,7 @@ import model.enumerations.UserStateType;
  * hold the common data members for all protocols. Also, this class holds static
  * methods to aid the sorting of friends.
  */
-public abstract class UserData extends PersonData {
+public abstract class UserData extends PersonData implements Comparable {
 
     // Section I
     // Data Members
@@ -57,7 +59,7 @@ public abstract class UserData extends PersonData {
      * The blocked status of the user.
      */
     protected boolean blocked;
-    
+
     private static int countOnline = 0;
 
     // Section II
@@ -93,6 +95,10 @@ public abstract class UserData extends PersonData {
      */
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
+
+        super.setChanged();
+        super.notifyObservers();
+
         return;
     }
 
@@ -227,8 +233,7 @@ public abstract class UserData extends PersonData {
             ArrayList<UserData> unsorted) {
         ArrayList<UserData> friends = new ArrayList<UserData>();
         UserData candidate = null;
-        
-        
+
         // Sort with regard to online/busy/offline/blocked
         try {
             while (!unsorted.isEmpty()) {
@@ -237,7 +242,8 @@ public abstract class UserData extends PersonData {
                         candidate = user;
                     } else if (user.isMoreOnline(candidate)) {
                         candidate = user;
-                        //System.out.println("Online user: " + user.getNickname());
+                        // System.out.println("Online user: " +
+                        // user.getNickname());
                     } else {
                         // do nothing, next iteration
                     }
@@ -251,24 +257,78 @@ public abstract class UserData extends PersonData {
             e.printStackTrace();
             friends.clear();
         }
-        
+
         countOnline = 0;
-        for (UserData user : friends){
-        	if(user.getState() == UserStateType.ONLINE ||
-        			user.getState() == UserStateType.AWAY ||
-        			user.getState() == UserStateType.BUSY){
-            	countOnline++;
+        for (UserData user : friends) {
+            if (user.getState() == UserStateType.ONLINE
+                    || user.getState() == UserStateType.AWAY
+                    || user.getState() == UserStateType.BUSY) {
+                countOnline++;
             }
         }
 
         return friends;
     }
-    
+
     public static int getCountOnline() {
-    	return countOnline;
+        return countOnline;
     }
-    
-    
+
+    public int getAvailability() {
+        int howAvailable = -1;
+        int minutesSinceUpdate = 16384;
+
+        if (this.isBlocked()) {
+            howAvailable = 1;
+        } else if (this instanceof TwitterUserData) {
+            minutesSinceUpdate =
+                    ((TwitterUserData) this).getMinutesSinceUpdate();
+            if (minutesSinceUpdate < 60) {
+                howAvailable = 4;
+            } else if (minutesSinceUpdate < 300) {
+                howAvailable = 3;
+            } else {
+                howAvailable = 2;
+            }
+        } else if (this.getState() == UserStateType.ONLINE) {
+            howAvailable = 4;
+        } else if (this.getState() == UserStateType.BUSY) {
+            howAvailable = 3;
+        } else if (this.getState() == UserStateType.AWAY) {
+            howAvailable = 3;
+        } else {
+            howAvailable = 2;
+        }
+
+        return howAvailable;
+    }
+
+    public int compareTo(Object o) {
+        UserData otherUser = null;
+        int toReturn = 0;
+
+        try {
+            otherUser = (UserData) o;
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
+
+        if (this.getAvailability() == otherUser.getAvailability()) {
+            // Equal availability, check alpha
+            toReturn =
+                    this.toString().compareToIgnoreCase(
+                            otherUser.toString());
+        } else if (this.getAvailability() > otherUser.getAvailability()) {
+            // this is more online than parameter
+            toReturn = -1;
+        } else {
+            // parameter is more online
+            toReturn = 1;
+        }
+
+        return toReturn;
+    }
+
     public static ArrayList<UserData> sortByStringMatch(
             ArrayList<UserData> unsorted, String match) {
 
@@ -302,7 +362,5 @@ public abstract class UserData extends PersonData {
 
         return friends;
     }
-
-	
 
 }
