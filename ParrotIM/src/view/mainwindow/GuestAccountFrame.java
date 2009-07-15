@@ -148,7 +148,7 @@ public class GuestAccountFrame extends JFrame {
         // textfield
         jabberServer = new JTextField();
         jabberServer.setPreferredSize(new Dimension(200, 20));
-        jabberServer.setToolTipText("specify jabber server");
+        jabberServer.setToolTipText("Specify jabber server");
         JPanel jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
         jabberServerPanel.add(jabberServer, BorderLayout.NORTH);

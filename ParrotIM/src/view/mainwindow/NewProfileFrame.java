@@ -31,6 +31,7 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -100,9 +101,11 @@ public class NewProfileFrame extends JFrame {
         optionPanel.add(passwordOption);
 
         /* BUTTONS */
-        JButton nextButton = new JButton("Next");
+        JButton nextButton = new JButton("Next", new ImageIcon(this.getClass().getResource(
+        "/images/mainwindow/next.png")));
         nextButton.addActionListener(new nextButtonActionListener());
-        JButton cancelButton = new JButton("Cancel");
+        JButton cancelButton = new JButton("Cancel", new ImageIcon(this.getClass().getResource(
+        "/images/mainwindow/cancel.png")));
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(nextButton);
@@ -124,6 +127,7 @@ public class NewProfileFrame extends JFrame {
 
         this.pack();
         this.setVisible(true);
+        this.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
     }
 
