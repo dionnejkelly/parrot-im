@@ -647,6 +647,11 @@ public class TwitterManager implements GenericConnection {
         return false;
     }
 
+	public void create(String room, String nickname) {
+		// TODO Auto-generated method stub
+		
+	}
+
     // public boolean isTyping() {
     // // TODO Auto-generated method stub
     // return false;

@@ -656,7 +656,9 @@ public class ChatPanel extends JPanel {
     	
 		//@Override
 		public void actionPerformed(ActionEvent event) {
+			System.out.println("Name = " + model.getCurrentProfile().getName());
 			
+			c.create(model.getCurrentProfile().getName());
 			
 			JOptionPane.showMessageDialog(null, "This should open a new chat window to invite users into that room.");
 		}
@@ -672,7 +674,7 @@ public class ChatPanel extends JPanel {
 			
 			
 			
-			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(model, 0);
+			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(c, model);
 		}
     	
     }

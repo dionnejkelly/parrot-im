@@ -24,6 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import controller.MainController;
+
 import view.styles.PopupEnableMainWindowListener;
 
 import model.Model;
@@ -56,6 +58,8 @@ public class GroupChatConfigurationFrame extends JFrame{
 	private JComboBox groupRoom;
 	private JComboBox usersGroup;
 	
+	private MainController controller;
+	
 	/**
 	 * if edit is true, use for adding a new Q/A
 	 * if edit is false, use for editing the existing data
@@ -68,9 +72,10 @@ public class GroupChatConfigurationFrame extends JFrame{
 //	}
 	
 	
-	public GroupChatConfigurationFrame(Model model){
+	public GroupChatConfigurationFrame(MainController c, Model model){
 		mainFrame = this;
 		this.model = model;
+		this.controller = c;
 		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
 		this.setTitle("Group Chat Configuration");
 		
@@ -133,7 +138,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 		
 		// this should be extract from the list of current conferrence rooms
 		String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
-		groupRoom = new JComboBox(listGroupRoom);
+		groupRoom = new JComboBox(controller.getAvailableRoom());
 		groupRoom.setPreferredSize(new Dimension(265, 25));
 		groupRoom.addActionListener(new StyleListener());
 		
@@ -172,7 +177,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 		
 		// this should be extract from the list of current conferrence rooms
 		String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
-		groupRoom = new JComboBox(listGroupRoom);
+		groupRoom = new JComboBox(controller.getAvailableRoom());
 		groupRoom.setPreferredSize(new Dimension(265, 25));
 		groupRoom.addActionListener(new StyleListener());
 		

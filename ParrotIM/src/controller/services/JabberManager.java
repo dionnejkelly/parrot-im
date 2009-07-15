@@ -645,6 +645,11 @@ public class JabberManager implements GenericConnection {
 		return false;
 	}
 
+	public void create(String room, String nickname) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }
