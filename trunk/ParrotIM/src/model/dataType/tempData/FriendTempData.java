@@ -22,6 +22,7 @@
 
 package model.dataType.tempData;
 
+import net.kano.joustsim.oscar.oscar.service.ssi.Group;
 import model.enumerations.UserStateType;
 
 /**
@@ -49,16 +50,19 @@ public class FriendTempData {
      * Indicates whether the user is blocked or not.
      */
     private boolean blocked;
+    
+    private String group;
 
     /**
      * Empty constructor.
      */
     public FriendTempData() {
-        this.setUserID(null);
-        this.nickname = null;
-        this.status = null;
-        this.state = null;
-        this.setBlocked(false);
+    	this(null,null,null,null,null,false);
+//        this.setUserID(null);
+//        this.nickname = null;
+//        this.status = null;
+//        this.state = null;
+//        this.setBlocked(false);
     }
 
     /**
@@ -68,11 +72,13 @@ public class FriendTempData {
      * @param blocked
      */
     public FriendTempData(String userID, boolean blocked) {
-        this.setUserID(userID);
-        this.nickname = null;
-        this.status = null;
-        this.state = null;
-        this.setBlocked(blocked);
+    	this(userID,null,null,null,null,blocked);
+//        this.setUserID(userID);
+//        this.nickname = null;
+//        this.status = null;
+//        this.state = null;
+//        
+//        this.setBlocked(blocked);
     }
 
     /**
@@ -84,14 +90,25 @@ public class FriendTempData {
     public FriendTempData(
             String userID, String nickname, String status,
             UserStateType state, boolean blocked) {
-        this.setUserID(userID);
+    	this(userID,nickname,status,state,null,blocked);
+//        this.setUserID(userID);
+//        this.nickname = nickname;
+//        this.status = status;
+//        this.state = state;
+//        this.setBlocked(blocked);
+    }
+
+    public FriendTempData(String normal, String alias, String retrieveStatus,
+			UserStateType retrieveState, String group, boolean b) {
+    	this.setUserID(userID);
         this.nickname = nickname;
         this.status = status;
         this.state = state;
+        this.group = group;
         this.setBlocked(blocked);
-    }
+	}
 
-    /**
+	/**
      * Sets userID.
      * 
      * @param userID
@@ -110,6 +127,9 @@ public class FriendTempData {
         return userID;
     }
 
+    public String getGroup(){
+    	return group;
+    }
     public void setNickname(String nickname) {
         this.nickname = nickname;
 

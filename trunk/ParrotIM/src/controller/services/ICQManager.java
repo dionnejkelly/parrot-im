@@ -104,9 +104,18 @@ public class ICQManager implements GenericConnection {
 			return null;
 		}
         MutableBuddyList bList = connection.getSsiService().getBuddyList();
+        for(Group group:bList.getGroups()){
+        	for (Buddy buddy:group.getBuddiesCopy()){
+        		userID = buddy.getScreenname().getNormal();
+        		friendToAdd =
+                    new FriendTempData(buddy.getScreenname().getNormal(), buddy.getAlias(), this
+                            .retrieveStatus(userID),
+                            this.retrieveState(userID),group.getName(), false);
+        		friends.add(friendToAdd);
+        	}
+        }
         
-        
-        return null;
+        return friends;
     }
 
     // @Override
@@ -139,6 +148,7 @@ public class ICQManager implements GenericConnection {
 			userState = UserStateType.OFFLINE;
 			System.out.println("User is offline");
 		}
+
     	return userState;
     }
 
