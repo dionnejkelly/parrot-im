@@ -100,12 +100,18 @@ public class BuddyList extends JFrame {
         buddylistPanel.setPreferredSize(new Dimension(320, 600));
 
         // INSIDE PANEL
+        JTabbedPane tabbedthing = new JTabbedPane();
         JPanel mainListPanel = new BuddyPanel(c, model, this);
+        //JPanel twitterPanel = new TwitterPanel(c,model,this);
+        
         accountInfo = new AccountInfo(c, model);
+        tabbedthing.addTab("IM", mainListPanel);
+        tabbedthing.addTab("Twitter", new JPanel());
 
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);
-        buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
+        buddylistPanel.add(tabbedthing, BorderLayout.CENTER);
+        // buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
         getContentPane().add(buddylistPanel);
         pack();
         setVisible(true);
