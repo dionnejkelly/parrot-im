@@ -53,6 +53,7 @@ import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.ICQUserData;
 import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
@@ -504,7 +505,10 @@ public class MainController {
             } else if (account.getServer() == ServerType.TWITTER) {
                 user = new TwitterUserData(userID);
                 user.setNickname(f.getNickname());
-            } else { // some other user
+            } else if (account.getServer() == ServerType.ICQ){
+            	user = new ICQUserData(userID);
+            	user.setNickname(f.getNickname());
+            }else { // some other user
                 // TODO implement me!
             }
             this.updateStateAndStatus(user, connection);

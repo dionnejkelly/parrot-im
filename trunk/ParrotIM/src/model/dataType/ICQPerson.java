@@ -1,5 +1,11 @@
 package model.dataType;
 
-public interface ICQPerson {
+import model.enumerations.UserStateType;
 
+public interface ICQPerson {
+    
+    public UserStateType getState();
+    
+    public void setState(UserStateType state);
+    
 }
