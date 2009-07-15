@@ -82,6 +82,18 @@ We did the testing, by doing tasks typicall users do. We put a table that includ
 
 We included this test with user accptance test. It tests our product in how:
 
+1. It uses terms that is easy for the user to comprehend
+
+2. Interface is consistent, that's it do similar things for similar operations
+
+3. It's minimal, it doesn't do surprise the user. It do what the user expect it to do.
+
+4. User can recover from errors such as blocking a friend, or removing a friend by mistake
+
+5. It provide help and warnings to the user such as Help tab
+
+6. The user can interact with the interface the way he/she prefer
+
 Observations on User Interface:
 
 == User Acceptance Testing ==
