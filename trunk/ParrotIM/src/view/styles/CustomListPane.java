@@ -23,6 +23,7 @@ public class CustomListPane extends JPanel {
     private ArrayList<String> nicknames = new ArrayList<String>();
     private ArrayList<UserDataWrapper> userWrappers =
             new ArrayList<UserDataWrapper>();
+    private ArrayList<JPanel> userPanels;
     Box boxes[] = new Box[1];
     private ImageIcon defaultIcon =
             new ImageIcon(this.getClass().getResource(
@@ -34,6 +35,7 @@ public class CustomListPane extends JPanel {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
 
+        userPanels = new ArrayList<JPanel>();
         boxes[0] = Box.createVerticalBox();
 
         add(boxes[0], BorderLayout.NORTH);
@@ -70,7 +72,7 @@ public class CustomListPane extends JPanel {
 
         friendPanel.add(new JLabel(newIcon), BorderLayout.WEST);
         friendPanel.add(user.getLabelRepresentation(), BorderLayout.CENTER);
-        
+
         return friendPanel;
     }
 
@@ -98,14 +100,34 @@ public class CustomListPane extends JPanel {
             UserDataWrapper userWrapper, MouseListener externalListener) {
         nicknames.add(nickname);
         userWrappers.add(userWrapper);
+        JPanel panel = friendPanel(userWrapper, img);
+        userPanels.add(panel);
 
-        boxes[0].add(friendPanel(userWrapper, img));
+        boxes[0].add(panel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(externalListener);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(new SelectListener());
         updateUI();
         this.repaint();
+    }
+
+    public void removeSidePanelUser(UserDataWrapper userWrapper) {
+        int index = -1;
+        
+        index = userWrappers.indexOf(userWrapper);
+        
+        if (index >= 0) {
+            userWrappers.remove(index);
+            boxes[0].remove(userPanels.get(index));
+            userPanels.remove(index);
+        }
+        
+        return;
+    }
+    
+    public boolean sidePanelUserExists(UserDataWrapper userWrapper) {
+        return userWrappers.contains(userWrapper);
     }
 
     public void addElement(String nickname, ImageIcon img) {
