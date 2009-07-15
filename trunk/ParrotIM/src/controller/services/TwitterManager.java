@@ -16,6 +16,7 @@ import org.jivesoftware.smack.XMPPException;
 
 import controller.MainController;
 
+import model.Model;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -36,8 +37,16 @@ public class TwitterManager implements GenericConnection {
     private Twitter twitter;
 
     private GenericConnection genericConnection;
-    
+
     private MainController controller;
+
+    private Model model;
+
+    private ArrayList<Long> friendLastUpdates;
+
+    private ArrayList<String> friendList;
+
+    private String thisScreenName;
 
     /**
      * Instantiates a new TwitterManager that should be associated with one
@@ -48,11 +57,18 @@ public class TwitterManager implements GenericConnection {
      * @param controller
      *            The MainController object that handles the main program flow.
      */
-    public TwitterManager(MainController controller) {
+    public TwitterManager(MainController controller, Model model) {
+        PollingThread poller = null;
         this.twitter = null;
         this.genericConnection = this;
         this.controller = controller;
-        PollingThread poller = new PollingThread();
+        this.model = model;
+        this.friendLastUpdates = new ArrayList<Long>();
+        this.friendList = new ArrayList<String>();
+        this.thisScreenName = "";
+
+        // Check server every 30 seconds for updates
+        poller = new PollingThread();
         poller.start();
     }
 
@@ -112,6 +128,7 @@ public class TwitterManager implements GenericConnection {
 
         try {
             twitter = new Twitter(userID, password);
+            thisScreenName = userID;
         } catch (Exception e) {
             System.err.println("Error logging into twitter");
             e.printStackTrace();
@@ -241,14 +258,25 @@ public class TwitterManager implements GenericConnection {
     public ServerType getServerType() {
         return ServerType.TWITTER;
     }
-    
+
     // Section
     // Polling methods
-    
-    public class PollingThread extends Thread {
+
+    private class PollingThread extends Thread {
         public void run() {
+            try {
+                sleep(5000); // Delay for 5 seconds
+            } catch (InterruptedException e) {
+                System.err.println("Threading error");
+                e.printStackTrace();
+            }
+
             while (true) {
                 controller.refreshFriends(genericConnection);
+
+                if (twitter != null) {
+                    updateLocalFriendList();
+                }
                 try {
                     sleep(30000); // Delay for 30 seconds
                 } catch (InterruptedException e) {
@@ -258,8 +286,71 @@ public class TwitterManager implements GenericConnection {
             }
         }
     }
-    
-    
+
+    private void addMessages(String userID) {
+
+    }
+
+    private void updateLocalFriendList() {
+        List<Twitter.User> friends = null; // from server
+        List<Twitter.Message> messages = null;
+        List<Twitter.Status> statuses = null;
+        int index = -1;
+
+        try {
+            friends = twitter.getFriends();
+        } catch (Exception e) {
+            System.err.println("Error getting friend list in twitter");
+            e.printStackTrace();
+        }
+
+        messages = twitter.getDirectMessages();
+
+        for (Twitter.User f : friends) {
+
+            // Set up index
+            index = -1;
+            for (int i = 0; i < friendList.size(); i++) {
+                if (friendList.get(i).equalsIgnoreCase(f.getScreenName())) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index == -1) {
+                friendList.add(f.getScreenName());
+                friendLastUpdates.add(0L);
+                index = friendList.size() - 1;
+            }
+
+            statuses = twitter.getUserTimeline(f.getScreenName());
+            for (int i = statuses.size() - 1; i >= 0; i--) {
+                for (int j = messages.size() - 1; j >= 0
+                        && messages.get(j).getCreatedAt().compareTo(
+                                statuses.get(i).getCreatedAt()) < 0; j--) {
+                    if (messages.get(j).getUser().getScreenName()
+                            .equalsIgnoreCase(friendList.get(index))
+                            && friendLastUpdates.get(index) < messages.get(j)
+                                    .getCreatedAt().getTime()) {
+                        friendLastUpdates.set(index, messages.get(j)
+                                .getCreatedAt().getTime());
+                        controller.messageReceived(f.getScreenName(),
+                                thisScreenName, "@" + thisScreenName + " "
+                                        + messages.get(j).getText());
+                    }
+                }
+                if (friendLastUpdates.get(index) < statuses.get(i)
+                        .getCreatedAt().getTime()) {
+                    friendLastUpdates.set(index, statuses.get(i).getCreatedAt()
+                            .getTime());
+                    controller.messageReceived(f.getScreenName(),
+                            thisScreenName, statuses.get(i).getText());
+                }
+            }
+        }
+
+        return;
+    }
+
     /**
      * This method is used to check if the user is following.
      * 
@@ -396,170 +487,169 @@ public class TwitterManager implements GenericConnection {
     // @Override
 
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
-    	
 
-        URI userAvatar = twitter.getStatus(userID).getUser().getProfileImageUrl();
-        //JOptionPane.showInputDialog(userAvatar);
+        URI userAvatar = twitter.getStatus(userID).getUser()
+                .getProfileImageUrl();
+        // JOptionPane.showInputDialog(userAvatar);
         System.out.println("URL: " + userAvatar);
         try {
-			URL where = new URL(userAvatar.toString());
-			ImageIcon userImageAvatar = new ImageIcon(where);
-			return userImageAvatar;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return new ImageIcon(this.getClass().getResource("/images/chatwindow/personal.png"));
-        
-        
-        
+            URL where = new URL(userAvatar.toString());
+            ImageIcon userImageAvatar = new ImageIcon(where);
+            return userImageAvatar;
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return new ImageIcon(this.getClass().getResource(
+                "/images/chatwindow/personal.png"));
+
     }
 
-	public void setTypingState(int state, String UserID) throws BadConnectionException,
-			XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setTypingState(int state, String UserID)
+            throws BadConnectionException, XMPPException {
+        // TODO Auto-generated method stub
 
-	public void setAvatarPicture(byte[] byeArray) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	public void setAvatarPicture(File file) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setAvatarPicture(byte[] byeArray) throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public void setAvatarPicture(URL url) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	public String getUserEmailHome() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public void setAvatarPicture(File file) throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public String getUserEmailWork() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	public String getUserFirstName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public void setAvatarPicture(URL url) throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public String getUserLastName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	public String getUserMiddleName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getUserEmailHome() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public String getUserNickName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getUserEmailWork() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public String getUserOrganization() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getUserFirstName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public String getUserOrganizationUnit() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getUserLastName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public String getUserPhoneHome() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getUserMiddleName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public String getUserPhoneWork() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getUserNickName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void load(String userID) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public String getUserOrganization() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void load() throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public String getUserOrganizationUnit() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void setUserEmailHome(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public String getUserPhoneHome() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void setUserEmailWork(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public String getUserPhoneWork() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void setUserFirstName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void load(String userID) throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public void setUserLastName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	public void setUserMiddleName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void load() throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public void setUserNickName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	public void setUserOrganization(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setUserEmailHome(String name) throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public void setUserOrganizationUnit(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	public void setUserPhoneHome(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setUserEmailWork(String name) throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public void setUserPhoneWork(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	public void sendFile(String filePath, String userID) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setUserFirstName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
 
-	public boolean isValidUserID(String userID) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
 
-//	public boolean isTyping() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
+    public void setUserLastName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserMiddleName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserNickName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserOrganization(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserOrganizationUnit(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserPhoneHome(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserPhoneWork(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void sendFile(String filePath, String userID) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public boolean isValidUserID(String userID) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    // public boolean isTyping() {
+    // // TODO Auto-generated method stub
+    // return false;
+    // }
 
 }

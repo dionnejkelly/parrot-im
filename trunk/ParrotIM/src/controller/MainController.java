@@ -281,12 +281,12 @@ public class MainController {
 
         // Determine which type of connection the account requires, and add it
         if (account instanceof GoogleTalkAccountData) {
-            connection = new GoogleTalkManager(controller);
+            connection = new GoogleTalkManager(controller, model);
         } else if (account instanceof JabberAccountData) {
             // userID += "@" + serverAddress;
-            connection = new JabberManager(controller);
+            connection = new JabberManager(controller, model);
         } else if (account instanceof TwitterAccountData) {
-            connection = new TwitterManager(controller);
+            connection = new TwitterManager(controller, model);
         } else {
             // Other servers
         }

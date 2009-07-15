@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import model.Model;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.TypingStateType;
@@ -56,7 +57,7 @@ import org.jivesoftware.smackx.packet.VCard;
 import com.sun.image.codec.jpeg.ImageFormatException;
 
 import view.options.MusicPlayer;
-import view.styles.ProgressMonitorScreen;
+//import view.styles.ProgressMonitorScreen;
 
 import controller.MainController;
 
@@ -89,6 +90,8 @@ public class GoogleTalkManager implements GenericConnection {
     private ArrayList<XMPPFileManager> receiveManager;
 
     protected List subscribedUsers = new ArrayList();
+    
+    private Model model;
 
    
   
@@ -179,9 +182,10 @@ public class GoogleTalkManager implements GenericConnection {
 
 
     
-    public GoogleTalkManager(MainController controller) {
+    public GoogleTalkManager(MainController controller, Model model) {
         this.connection = null;
         this.controller = controller;
+        this.model = model;
         this.genericConnection = this;
         this.chats = new ArrayList<Chat>();
         this.vcard = new VCard();

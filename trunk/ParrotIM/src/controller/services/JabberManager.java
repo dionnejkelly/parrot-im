@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import model.Model;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -48,6 +49,8 @@ public class JabberManager implements GenericConnection {
     private MainController controller;
 
     private GenericConnection genericConnection;
+    
+    private Model model;
 
     private ArrayList<Chat> chats;
 
@@ -59,11 +62,13 @@ public class JabberManager implements GenericConnection {
     
     private VCard vcard;
 
-    public JabberManager(MainController controller) {
+    public JabberManager(MainController controller, Model model) {
         this.connection = null;
         this.controller = controller;
+        this.model = model;
         this.genericConnection = this;
         this.chats = new ArrayList<Chat>();
+        this.model = model;
     }
 
     public void addFriend(String userID) throws BadConnectionException {
