@@ -123,9 +123,13 @@ public class SidePanel extends JPanel implements Observer {
 
     private void removeClosedConversations() {
         UserDataWrapper foundUser = null;
+        ArrayList<UserDataWrapper> usersToRemove =
+                new ArrayList<UserDataWrapper>();
 
+        // Remove from the sidePanel, and make a list
         for (UserDataWrapper u : this.users) {
             foundUser = null;
+            System.out.println("convos: " + model.getConversations().size());
             for (ConversationData c : model.getConversations()) {
                 if (c == u.getConversation()) {
                     foundUser = u;
@@ -135,8 +139,13 @@ public class SidePanel extends JPanel implements Observer {
             if (foundUser == null) {
                 foundUser = u;
                 listPane.removeSidePanelUser(foundUser);
-                this.users.remove(foundUser);
+                usersToRemove.add(u);
             }
+        }
+        
+        // Remove the users from the list
+        for (UserDataWrapper u : usersToRemove) {
+            this.users.remove(u);
         }
 
         listPane.updateUI();
