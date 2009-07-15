@@ -1,7 +1,9 @@
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
+
 
 import net.kano.joscar.JoscarTools;
 import net.kano.joscar.logging.Logger;
@@ -10,10 +12,14 @@ import net.kano.joscar.net.ClientConnEvent;
 import net.kano.joscar.net.ClientConnListener;
 import net.kano.joscar.net.ConnDescriptor;
 import net.kano.joscar.rv.RvProcessor;
+import net.kano.joscar.rvcmd.DefaultRvCommandFactory;
+import net.kano.joscar.snac.ClientSnacProcessor;
 import net.kano.joscar.snac.SnacResponseEvent;
 import net.kano.joscar.snac.SnacResponseListener;
+import net.kano.joscar.snaccmd.FullUserInfo;
 import net.kano.joscar.snaccmd.auth.AuthCommand;
 import net.kano.joscar.snaccmd.auth.AuthResponse;
+import net.kano.joscar.snaccmd.loc.UserInfoCmd;
 import net.kano.joustsim.Screenname;
 import net.kano.joustsim.oscar.AimConnection;
 import net.kano.joustsim.oscar.AimConnectionProperties;
@@ -26,15 +32,25 @@ import net.kano.joustsim.oscar.State;
 import net.kano.joustsim.oscar.StateEvent;
 import net.kano.joustsim.oscar.StateListener;
 import net.kano.joustsim.oscar.oscar.service.Service;
+import net.kano.joustsim.oscar.oscar.service.buddy.BuddyService;
+import net.kano.joustsim.oscar.oscar.service.buddy.BuddyServiceListener;
 import net.kano.joustsim.oscar.oscar.service.icbm.Conversation;
+import net.kano.joustsim.oscar.oscar.service.icbm.ConversationAdapter;
+import net.kano.joustsim.oscar.oscar.service.icbm.IcbmBuddyInfo;
 import net.kano.joustsim.oscar.oscar.service.icbm.IcbmListener;
+import net.kano.joustsim.oscar.oscar.service.icbm.IcbmService;
 import net.kano.joustsim.oscar.oscar.service.icbm.Message;
+import net.kano.joustsim.oscar.oscar.service.icbm.MessageInfo;
 import net.kano.joustsim.oscar.oscar.service.icbm.SimpleMessage;
+import net.kano.joustsim.oscar.oscar.service.icbm.TypingInfo;
+import net.kano.joustsim.oscar.oscar.service.icbm.TypingListener;
+import net.kano.joustsim.oscar.oscar.service.icbm.TypingState;
 import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
 import net.kano.joustsim.oscar.oscar.service.ssi.Group;
 import net.kano.joustsim.oscar.oscar.service.ssi.MutableBuddyList;
+import net.kano.joustsim.oscar.oscar.service.ssi.MutableGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 
@@ -90,8 +106,57 @@ public class icqConnection {
 				//Do nothing
 			}
 		}
+		ClientSnacProcessor processor = connection.getBosService()
+		.getOscarConnection().getSnacProcessor();
+		rvProcessor = new RvProcessor(processor);
+        rvProcessor.registerRvCmdFactory(new DefaultRvCommandFactory());
+        IcbmService icbmService = connection.getIcbmService();
+        icbmService.removeIcbmListener(lastIcbmListener);
+        lastIcbmListener = new IcbmListener() {
+
+			@Override
+			public void buddyInfoUpdated(IcbmService service, Screenname buddy,
+					IcbmBuddyInfo info) {
+				// Adds a conversation listener that tells every listener when a message has been received.
+                System.out.print(buddy.getNormal()+"  :"+info.toString());
+				
+			}
+
+			@Override
+			public void newConversation(IcbmService service, Conversation conv) {
+				// TODO Auto-generated method stub
+				conv.addConversationListener(new TypingAdapter());
+			}
+
+			@Override
+			public void sendAutomaticallyFailed(IcbmService service, Message msg,
+					Set<Conversation> convs) {
+				// TODO Auto-generated method stub
+				
+			}
+        	
+        };
+        icbmService.addIcbmListener(lastIcbmListener);
         
-        }
+        connection.getBuddyService().addBuddyListener(new BuddyServiceListener(){
+
+			@Override
+			public void buddyOffline(BuddyService arg0, Screenname arg1) {
+				System.out.print(arg1+" is offline");
+				
+			}
+
+			@Override
+			public void gotBuddyStatus(BuddyService service, Screenname buddy,
+					FullUserInfo info) {
+				System.out.println(buddy+" is "+longToStatus(info.getIcqStatus())
+						+" with "+info.getAwayStatus());
+				
+			}
+        	
+        });
+	}
+        
 	public void getBuddyList(){
 		
 		//assume that getBuddyList is called after logging in and connected
@@ -126,32 +191,57 @@ public class icqConnection {
 				.getBuddyInfo(new Screenname("595605824")).getStatusMessage());
 		System.out.println(connection.getBuddyInfoManager()
 				.getBuddyInfo(new Screenname("595605824")).getStatusMessage());
-		if((l & 0x0001) != 0){
-			System.out.println("User is away");
-		}else if((l & 0x0002) != 0){
-			System.out.println("User should not be disturbed");
-		}else if((l & 0x0004) != 0){
-			System.out.println("User is not available");
-		}else if((l & 0x0010) != 0){
-			System.out.println("User is occupied");
-		}else if((l & 0x0020) != 0){
-			System.out.println("User is free for chat");
-		}else if((l & 0x0100) != 0){
-			System.out.println("User is marked as invisible");
-		}else{
-			System.out.println("User is offline");
-		}
+		
+		System.out.println(longToStatus(l));
+
 		MutableBuddyList BList = connection.getSsiService().getBuddyList();
 		for(Group g:BList.getGroups()){
 			for(Buddy b:g.getBuddiesCopy()){
+				String userID = b.getScreenname().getNormal();
+				System.out.println(userID);
 				System.out.println("buddyList works: "+b.getAlias());
 			}
 		}
 		return;
-		
+
+	}
+	private String longToStatus(Long l){
+		if(l == -1){
+			return "User is offline";
+		}
+		else if((l & FullUserInfo.ICQSTATUS_AWAY) != 0){
+			return "User is away";
+		}else if((l & FullUserInfo.ICQSTATUS_DND) != 0){
+			return "User should not be disturbed";
+		}else if((l & FullUserInfo.ICQSTATUS_NA) != 0){
+			return "User is not available";
+		}else if((l & FullUserInfo.ICQSTATUS_OCCUPIED) != 0){
+			return "User is occupied";
+		}else if((l & FullUserInfo.ICQSTATUS_FFC) != 0){
+			return "User is free for chat";
+		}else if((l & FullUserInfo.ICQSTATUS_INVISIBLE) != 0){
+			return "User is marked as invisible";
+		}else{
+			return "User is offline";
+		}
 	}
 	
 	/* *********************** Listeners***************************/
+	private class TypingAdapter extends ConversationAdapter implements TypingListener{
+		
+		public void gotMessage(Conversation c, final MessageInfo minfo){
+			String text = minfo.getMessage().getMessageBody();
+			System.out.println(text);
+		}
+		@Override
+		public void gotTypingState(Conversation conversation, TypingInfo typingInfo) {
+			if (typingInfo.getTypingState().equals(TypingState.TYPING)){
+				System.out.println(conversation.getBuddy()+" is typing");
+			}
+			
+		}
+		
+	}
 	private class BuddyListFunctionListener implements BuddyListLayoutListener{
 
 		@Override
@@ -258,13 +348,28 @@ public class icqConnection {
 					public void handleResponse(SnacResponseEvent arg0) {
 						if(arg0.getSnacCommand() instanceof AuthResponse){
 							System.out.println("yes!");
-							System.out.println(((AuthResponse)((AuthCommand)arg0.getSnacCommand())).getErrorCode());
-						}else{
-							System.out.println("no!");
+							int errorCode = ((AuthResponse)((AuthCommand)arg0.getSnacCommand())).getErrorCode();
+							if(errorCode == 5){
+								System.out.println("ERROR Invalid screenname or wrong password");
+							}else if(errorCode == 17){
+								System.out.println("ERROR Account has been suspended temporarily");
+							}else if(errorCode == 20){
+								System.out.println("ERROR Account temporarily unavailable");
+							}else if(errorCode == 24){
+								System.out.println("ERROR Connecting too frequently, Try" +
+										" waiting a few minutes to reconnect - AIM recommends 10 minutes");
+							}else if(errorCode == 28){
+								System.out.println("ERROR Client software is too old to connect");
+							}
+						}else if (arg0.getSnacCommand() instanceof UserInfoCmd){
+							UserInfoCmd uic = (UserInfoCmd) arg0.getSnacCommand();
+
+		                    FullUserInfo userInfo = uic.getUserInfo();
+		                    if (userInfo != null){
+		                    	System.out.println(userInfo.getScreenname()+":  "+longToStatus(userInfo.getIcqStatus()));
+		                    	
+		                    }
 						}
-						System.out.println(arg0.getSnacPacket().getFamily() );
-						System.out.println(arg0.getSnacPacket().getCommand());
-						System.out.println(arg0.getSnacPacket().getReqid());
 						
 						
 					}
