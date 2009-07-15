@@ -113,6 +113,7 @@ public class MainWindow extends JFrame implements Observer {
          // Testing for model observers
          model.addObserver(this);
     }
+    
     /**
      * Links the MainWindow with the observer.
      * 

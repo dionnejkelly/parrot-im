@@ -56,6 +56,8 @@ public class HeaderPanel extends JPanel{
 	/** status is a JLabel object that shows the system's status (ie. whether it is connected or not) */
 	private JLabel status;
 	private AvatarLabel avatarDisplay ;
+	
+	private AvatarLabel progressDisplay ;
 	/** MiscPanel constructor. It sets up the panel layout.*/
 	public HeaderPanel() {
 		setLayout(new BorderLayout());
@@ -64,9 +66,10 @@ public class HeaderPanel extends JPanel{
 		//logo-avatar
 //		JLabel avatarDisplay = new JLabel ();
 		avatarDisplay = new AvatarLabel(null, 100);
+		progressDisplay = new AvatarLabel(getClass().getClassLoader().getResource("images/mainwindow/animation.gif").toString(), 100);
 		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 //		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
-	
+		progressDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		//TODO: set auto scaling + border later
 //		avatarDisplay.setIcon(avatar);
 		
@@ -84,6 +87,13 @@ public class HeaderPanel extends JPanel{
 		//avatarDisplay.setIcon(avatar);
 		status.setText("<html><FONT COLOR=RED>"+errormsg+"</FONT></html>");
 	}
+	
+	public void loadProgress() {
+		this.remove(avatarDisplay);
+		this.add(progressDisplay, BorderLayout.NORTH);
+	}
+	
+	
 	
 	protected void changeAvatar(String path){
 		avatarDisplay.changeAvatar(path);
