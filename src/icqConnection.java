@@ -3,7 +3,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
+import net.kano.joscar.JoscarTools;
+import net.kano.joscar.logging.Logger;
 import net.kano.joscar.net.ClientConn;
 import net.kano.joscar.net.ClientConnEvent;
 import net.kano.joscar.net.ClientConnListener;
@@ -39,7 +40,7 @@ public class icqConnection {
 	 * @param args
 	 */
 	private AimConnection connection;
-	private AimConnectionProperties connectionProperties = new AimConnectionProperties(null, null);
+	private AimConnectionProperties connectionProperties;
 	private State state;
 	private RvProcessor rvProcessor;
 	private IcbmListener lastIcbmListener;
@@ -57,34 +58,18 @@ public class icqConnection {
                 };
             }
         };
+
+        
 		Screenname screenName = new Screenname(userID);
 		AimSession session = appSession.openAimSession(screenName);
+		
+		connectionProperties = new AimConnectionProperties(null, null);
         connectionProperties.setScreenname(screenName);
         connectionProperties.setPassword(password);
         connectionProperties.setLoginHost(System.getProperty("OSCAR_HOST", server));
         connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", port));
         connection = session.openConnection(connectionProperties);
-        connection.addOpenedServiceListener(new OpenedServiceListener(){
-
-			@Override
-			public void closedServices(AimConnection arg0,
-					Collection<? extends Service> arg1) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void openedServices(AimConnection arg0,
-					Collection<? extends Service> arg1) {
-				for (Service service : arg1) {
-                    if (service instanceof SsiService) {
-                        
-                        ((SsiService) service).getBuddyList()
-                        .addRetroactiveLayoutListener(new BuddyListFunctionListener());
-                    }
-				}
-			}
-		});
+        connection.addOpenedServiceListener(new DefaultOpenedServiceListener());
         connection.addStateListener(new DefaultStateListener());
         connection.connect();
         //this.getBuddyList();
@@ -197,6 +182,31 @@ public class icqConnection {
 		private void update(){
 			
 		}
+	}
+	
+	private class DefaultOpenedServiceListener implements OpenedServiceListener{
+
+		@Override
+		public void closedServices(AimConnection arg0,
+				Collection<? extends Service> arg1) {
+			// Do Nothing when closing services
+			
+		}
+
+		@Override
+		public void openedServices(AimConnection arg0,
+				Collection<? extends Service> arg1) {
+			
+			for (Service service : arg1) {
+                if (service instanceof SsiService) {
+                	//if this services is a SsiService(child of service)
+                    ((SsiService) service).getBuddyList()
+                    .addRetroactiveLayoutListener(new BuddyListFunctionListener());
+                }
+			}
+			
+		}
+		
 	}
 	private class DefaultStateListener implements StateListener{
 
