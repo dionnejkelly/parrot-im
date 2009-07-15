@@ -99,6 +99,34 @@ Observations on User Interface:
 == User Acceptance Testing ==
 We asked the following 20 users to test our product and do the following tasks, and that by observing them while they talk about the problems with the interface(Natural observation). Here are the tasks:
 
+1. Sign in and out
+
+2. Add a friend, "cmpt275testing"
+
+3. Block a friend
+
+4. Unblock a friend
+
+5. Remove a friend
+
+6. Add the removed friend
+
+7. Search for a user "cmpt275testing" in your search bar
+
+8. Send a message
+
+9. See if friend is typing and wait for the message
+
+10. Change your avatour picture, state and statues
+
+11. Other user will tell you if you change it
+
+12. Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
+
+13. Disable chatbot and talks to "cmpt275testing"'s chatbot
+
+14. Go to help
+
 This is a table of the users:
 
 Observations on the application entirly:
