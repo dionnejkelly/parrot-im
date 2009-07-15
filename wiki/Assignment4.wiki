@@ -10,7 +10,7 @@ To validate our product, we did the following phases:
 We used Eclipse 3.4.2 and JUnit 4.0 to write our test cases.
 To see our results you have two options:
 
-1. Import from SVN
+*1. Import from SVN*
 
 a) Download Eclipse 3.4.2
 
@@ -36,7 +36,7 @@ k) download parrot-im
 
 l) run test cases in test,unittest, beta test (anyway I think we need to put everything in one package)
 
-2. Copy paste
+*2. Copy paste*
 
 a) Download eclipse 3.4.2
 
@@ -46,9 +46,10 @@ c) Copy test cases into eclipse and run tests
 
 All the test cases has succesfuly passed the test. We test most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
 
-DatabaseFunctions: We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
+*DatabaseFunctions:* We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
 
-GUI, sounds, Spell checker and Dictionary: It's more difficult to test those classes using unit testing. So, we tested this by integration and manual testing.
+*GUI, sounds, Spell checker and Dictionary:* It's more difficult to test those classes using unit testing. So, we tested this by integration and manual testing.
+
 
 == Integration Testing ==
 
@@ -61,3 +62,37 @@ In this phase, we tried to make sure that everything works well practically. Thi
 3. GUI don't have any inconsistent problems
 
 We did the testing, by doing tasks typicall users do. We put a table that include tasks, observations on testing the task, and the expected output based on our features document:
+
+|| *Task* || *Observation* || *Expected result* ||
+|| !Sign in || It takes around 10 s to login || User ablse to sign in within ()||
+|| !Sign out || There was no problem with that || User able to sign out within ()||
+|| !Sign out, Sign in again || See know bugs || User able to sign in and out multiple times ||
+|| !Add user || Need to be tested || When adding a friend, it takes () ||
+|| !Remove user || See posible problems || User have no problem removing a user, and friend will be removed from database ||
+|| !Block a friend || See know bugs || Need to be discussed ||
+|| !Unblock a friend || See known bugs || You can block, and unblock a friend ||
+|| !View Chat log || See known bugs || You can view chatlog, and search conversations ||
+|| !Connected friends || Inconsistent number || Number of connected friends should be consistent ||
+|| !Change states || There was no problem changing states (check on chatty) || should I delete this column ||
+|| !Change avator picture || Need to be tested || ||
+|| !Chat with a friend || There was no problem with that || ||
+|| !Press Enter to send || It takes around 2 seconds to process that ||  ||
+
+== User Interface Testing ==
+
+We included this test with user accptance test. It tests our product in how:
+
+Observations on User Interface:
+
+== User Acceptance Testing ==
+We asked the following 20 users to test our prodcut and do the following tasks, and that by observing them while they talk about the problems with the interface(Natural observation). Here are the tasks:
+
+This is a table of the users:
+
+Observations on the application entirly:
+
+== Known Bugs and problems ==
+
+== Possible problems in the application ==
+
+== Features Not implemented ==
