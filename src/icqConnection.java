@@ -206,18 +206,19 @@ public class icqConnection {
 
 	}
 	private String longToStatus(Long l){
+		System.out.println(l);
 		if(l == -1){
 			return "User is offline";
 		}
-		else if((l & FullUserInfo.ICQSTATUS_AWAY) != 0){
+		else if((l==(long)268435457)){
 			return "User is away";
-		}else if((l & FullUserInfo.ICQSTATUS_DND) != 0){
+		}else if((l==(long)268435473)){
 			return "User should not be disturbed";
-		}else if((l & FullUserInfo.ICQSTATUS_NA) != 0){
+		}else if((l==(long)268435461)){
 			return "User is not available";
 		}else if((l & FullUserInfo.ICQSTATUS_OCCUPIED) != 0){
 			return "User is occupied";
-		}else if((l & FullUserInfo.ICQSTATUS_FFC) != 0){
+		}else if((l==(long)268435456)){
 			return "User is free for chat";
 		}else if((l & FullUserInfo.ICQSTATUS_INVISIBLE) != 0){
 			return "User is marked as invisible";
@@ -404,7 +405,7 @@ public class icqConnection {
 		SimpleMessage outgoingMessage = new SimpleMessage(message);
 		conversation.sendMessage(outgoingMessage);
 	}
-	 public String retrieveStatus(String userID)
+	 /*public String retrieveStatus(String userID)
 	 {
 		 String actualStatus="";
 		 return actualStatus;
@@ -414,6 +415,6 @@ public class icqConnection {
 		 String state="online";
 		 return state;
 		 
-	 }
+	 }*/
 
 }
