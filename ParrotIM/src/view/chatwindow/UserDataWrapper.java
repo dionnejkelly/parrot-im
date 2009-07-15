@@ -3,6 +3,8 @@ package view.chatwindow;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JLabel;
+
 import model.Model;
 import model.dataType.ConversationData;
 import model.enumerations.UpdatedType;
@@ -14,16 +16,23 @@ public class UserDataWrapper implements Observer {
     private int readMessages;
 
     private Model model;
+    
+    private JLabel labelRepresentation;
 
     public UserDataWrapper(ConversationData conversation, Model model) {
         this.conversation = conversation;
         this.readMessages = 0;
         this.model = model;
         this.model.addObserver(this);
+        this.labelRepresentation = new JLabel("  " + this.toString());
     }
 
     public ConversationData getConversation() {
         return this.conversation;
+    }
+    
+    public JLabel getLabelRepresentation() {
+        return this.labelRepresentation;
     }
 
     public String toString() {
@@ -42,6 +51,7 @@ public class UserDataWrapper implements Observer {
 	        }
 	        message += "\n "+this.conversation.getUser().getTypingState();
 //        }
+	        
         return message;
     }
 
@@ -50,6 +60,7 @@ public class UserDataWrapper implements Observer {
             if (model.getActiveConversation() == this.conversation) {
                 this.readMessages = this.conversation.getMessageCount();
             }
+            this.labelRepresentation.setText("  " + this.toString());
         }
 
         return;

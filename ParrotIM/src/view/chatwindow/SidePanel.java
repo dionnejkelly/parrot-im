@@ -45,10 +45,10 @@ public class SidePanel extends JPanel implements Observer {
 
     private Model model;
 
-    /** The List Pane that stores the users you are currently talking to*/
-    
+    /** The List Pane that stores the users you are currently talking to */
+
     private CustomListPane listPane;
-    
+
     /**
      * Maintains the Parrot IM XMPP Protocol.
      */
@@ -77,7 +77,7 @@ public class SidePanel extends JPanel implements Observer {
 
         // List preferences
         listPane = new CustomListPane();
-        
+
         this.add(listPane.getWithScroller(), BorderLayout.CENTER);
     }
 
@@ -92,32 +92,34 @@ public class SidePanel extends JPanel implements Observer {
 
         int loopIterationNumber = 0;
         for (ConversationData cd1 : model.getConversations()) {
-        	if(loopIterationNumber > listPane.getNicknameList().size() - 1){
-	            userWrapper = null;
-	            for (UserDataWrapper u : this.users) {
-	            	u.getConversation().getUser().getTypingState();
-	                if (u.getConversation() == cd1) {
-	                    userWrapper = u;
-	                    break;
-	                }
-	            }
-	            if (userWrapper == null) {
-	                userWrapper = new UserDataWrapper(cd1, this.model);
-	                this.users.add(userWrapper);
-	            }
-	            
-	            ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser());
-	            listPane.addElement(userWrapper.toString(), leafIcon, userWrapper, new SelectListener());
-	            
-	            System.out.println(userWrapper.toString() + " added to the sidepanel");
-        	}
-        	loopIterationNumber++;
+            if (loopIterationNumber > listPane.getNicknameList().size() - 1) {
+                userWrapper = null;
+                for (UserDataWrapper u : this.users) {
+                    u.getConversation().getUser().getTypingState();
+                    if (u.getConversation() == cd1) {
+                        userWrapper = u;
+                        break;
+                    }
+                }
+                if (userWrapper == null) {
+                    userWrapper = new UserDataWrapper(cd1, this.model);
+                    this.users.add(userWrapper);
+                }
+
+                ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser());
+                listPane.addElement(userWrapper.toString(), leafIcon,
+                        userWrapper, new SelectListener());
+
+                System.out.println(userWrapper.toString()
+                        + " added to the sidepanel");
+            }
+            loopIterationNumber++;
         }
-        
-        //refreshes the list on the screen with the new data
+
+        // refreshes the list on the screen with the new data
         listPane.updateUI();
     }
-    
+
     /**
      * Update according to the UpdatedType.
      * 
@@ -127,9 +129,9 @@ public class SidePanel extends JPanel implements Observer {
 
     public void update(Observable t, Object o) {
         if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
-        		||o == UpdatedType.CHAT_STATE) {
-        	try {
-        		addNewConversationsToList();
+                || o == UpdatedType.CHAT_STATE) {
+            try {
+                addNewConversationsToList();
             } catch (XMPPException e) {
                 e.printStackTrace();
             }
@@ -150,18 +152,27 @@ public class SidePanel extends JPanel implements Observer {
          * @param event
          */
         public void mousePressed(MouseEvent event) {
-        	c.setTypingState(1); //set to the default typing state before switching
-            c.changeConversation(listPane.getUserWrapper(listPane.getClickedIndex()).getConversation());
-            
+            c.setTypingState(1); // set to the default typing state before
+                                 // switching
+            c.changeConversation(listPane.getUserWrapper(
+                    listPane.getClickedIndex()).getConversation());
+
             return;
         }
 
         /**
          * Unimplemented MouseListener Methods
          */
-        public void mouseEntered(MouseEvent event) {}
-        public void mouseExited(MouseEvent event) {}
-        public void mouseClicked(MouseEvent event) {}
-        public void mouseReleased(MouseEvent event) {}
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        public void mouseExited(MouseEvent event) {
+        }
+
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        public void mouseReleased(MouseEvent event) {
+        }
     }
 }
