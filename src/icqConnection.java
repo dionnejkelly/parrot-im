@@ -10,6 +10,10 @@ import net.kano.joscar.net.ClientConnEvent;
 import net.kano.joscar.net.ClientConnListener;
 import net.kano.joscar.net.ConnDescriptor;
 import net.kano.joscar.rv.RvProcessor;
+import net.kano.joscar.snac.SnacResponseEvent;
+import net.kano.joscar.snac.SnacResponseListener;
+import net.kano.joscar.snaccmd.auth.AuthCommand;
+import net.kano.joscar.snaccmd.auth.AuthResponse;
 import net.kano.joustsim.Screenname;
 import net.kano.joustsim.oscar.AimConnection;
 import net.kano.joustsim.oscar.AimConnectionProperties;
@@ -71,20 +75,36 @@ public class icqConnection {
         connection = session.openConnection(connectionProperties);
         connection.addOpenedServiceListener(new DefaultOpenedServiceListener());
         connection.addStateListener(new DefaultStateListener());
-        connection.connect();
-        //this.getBuddyList();
         
-        }
-	public void getBuddyList(){
-		//assume that getBuddyList is called after logging in and connected
-		int count = 0;
-		while(state!=state.ONLINE && count<30){
+        connection.connect();
+        
+        //this.getBuddyList();
+        int count = 0;
+		while(state!=State.ONLINE && count<30){
 			try {
+				if(state == State.FAILED){
+					
+				}
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				//Do nothing
 			}
 		}
+        
+        }
+	public void getBuddyList(){
+		
+		//assume that getBuddyList is called after logging in and connected
+		int count = 0;
+		while(state!=state.ONLINE && count<30){
+			try {
+				System.out.println(state);
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				//Do nothing
+			}
+		}
+		System.out.println("after connection");
 		if(count>=30){
 			System.out.println("Waiting for too long!!");
 			return;
@@ -93,6 +113,34 @@ public class icqConnection {
 			System.out.println("It's not ONLINE");
 			return;
 		}
+		
+		System.out.println(connection.getBuddyInfoManager()
+				.getBuddyInfo(new Screenname("595605824")).getAwayMessage());
+		System.out.println(connection.getBuddyInfoManager()
+				.getBuddyInfo(new Screenname("595605824")).getIcqStatus());
+		Long l = connection.getBuddyInfoManager()
+		.getBuddyInfo(new Screenname("595605824")).getIcqStatus();
+		System.out.println(l.toHexString(connection.getBuddyInfoManager()
+		.getBuddyInfo(new Screenname("595605824")).getIcqStatus()));
+		System.out.println(connection.getBuddyInfoManager()
+				.getBuddyInfo(new Screenname("595605824")).getStatusMessage());
+		System.out.println(connection.getBuddyInfoManager()
+				.getBuddyInfo(new Screenname("595605824")).getStatusMessage());
+		if((l & 0x0001) != 0){
+			System.out.println("User is away");
+		}else if((l & 0x0002) != 0){
+			System.out.println("User should not be disturbed");
+		}else if((l & 0x0004) != 0){
+			System.out.println("User is not available");
+		}else if((l & 0x0010) != 0){
+			System.out.println("User is occupied");
+		}else if((l & 0x0020) != 0){
+			System.out.println("User is free for chat");
+		}else if((l & 0x0100) != 0){
+			System.out.println("User is marked as invisible");
+		}else{
+			System.out.println("User is offline");
+		}
 		MutableBuddyList BList = connection.getSsiService().getBuddyList();
 		for(Group g:BList.getGroups()){
 			for(Buddy b:g.getBuddiesCopy()){
@@ -100,6 +148,7 @@ public class icqConnection {
 			}
 		}
 		return;
+		
 	}
 	
 	/* *********************** Listeners***************************/
@@ -203,6 +252,24 @@ public class icqConnection {
                     ((SsiService) service).getBuddyList()
                     .addRetroactiveLayoutListener(new BuddyListFunctionListener());
                 }
+                service.getOscarConnection().getSnacProcessor().addGlobalResponseListener(new SnacResponseListener() {
+
+					@Override
+					public void handleResponse(SnacResponseEvent arg0) {
+						if(arg0.getSnacCommand() instanceof AuthResponse){
+							System.out.println("yes!");
+							System.out.println(((AuthResponse)((AuthCommand)arg0.getSnacCommand())).getErrorCode());
+						}else{
+							System.out.println("no!");
+						}
+						System.out.println(arg0.getSnacPacket().getFamily() );
+						System.out.println(arg0.getSnacPacket().getCommand());
+						System.out.println(arg0.getSnacPacket().getReqid());
+						
+						
+					}
+                	
+                });
 			}
 			
 		}
@@ -216,7 +283,12 @@ public class icqConnection {
 			if(state == State.ONLINE){
 				System.out.println("is now online");
 				//System.out.println(connection.getSsiService().getBuddyList().getGroups());
+			}else if(state == State.CONNECTINGAUTH){
+				System.out.println(state);
+			}else {
+				System.out.println(state);
 			}
+
 			
 		}
 		
