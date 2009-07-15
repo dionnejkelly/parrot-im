@@ -185,7 +185,6 @@ public class AvatarLabel extends JLabel{
 	public void changeAvatar(String avatarPath){
 		
 		if (avatarPath == null){
-			// TODO: If database is changed, change this as well
 			avatarPath = getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString();
 		}
 		this.setText("<html><img src=\""+ avatarPath +"\" height=\"" + size + "\" width=\"" + size + "\" ></html>");
