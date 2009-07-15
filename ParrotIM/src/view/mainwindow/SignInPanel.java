@@ -179,9 +179,10 @@ public class SignInPanel extends JPanel implements Observer {
         this.profiles = model.getProfileCollection();
         this.profiles.addObserver(this);
         header = new HeaderPanel();
-        
+
         setLayout(new BorderLayout());
         manageAccountPanel();        
+
         misc = new MiscPanel();
         add(header, BorderLayout.NORTH);
         add(misc, BorderLayout.SOUTH);
@@ -222,6 +223,7 @@ public class SignInPanel extends JPanel implements Observer {
         // connect button
         JPanel connectPanel = new JPanel();
         connectButton = new JButton("Sign In");
+        connectButton.setMnemonic(KeyEvent.VK_S);
         connectButton.setEnabled(false);
         connectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         connectPanel.add(connectButton);
@@ -281,7 +283,7 @@ public class SignInPanel extends JPanel implements Observer {
      * @throws ClassNotFoundException 
      * 
      */
-    private void profileSignIn() throws ClassNotFoundException {
+    private synchronized void profileSignIn() {
         ProfileData profile = (ProfileData) account_select.getSelectedItem();
         
         try {
@@ -294,10 +296,14 @@ public class SignInPanel extends JPanel implements Observer {
             new BuddyList(core, model, mainFrame.getLocation());
             mainFrame.dispose();
         } catch (BadConnectionException e1) {
+        	
             header.displaySystemStatus("Sign in failed!");
             System.out.println("sign in failed!");
             mainFrame.setEnabled(true);
-        }
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /**
@@ -334,12 +340,13 @@ public class SignInPanel extends JPanel implements Observer {
          * @param evt
          */
         public void actionPerformed(ActionEvent evt) {
-            try {
-				profileSignIn();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            
+            	header.changeAvatar(getClass().getClassLoader().getResource("images/mainwindow/animation.gif").toString());
+				header.displaySystemStatus("Signing in...");
+				
+				
+            	profileSignIn();
+			
 
             return;
         }
@@ -611,7 +618,7 @@ public class SignInPanel extends JPanel implements Observer {
             } else {
             	passwordFrame.setAlwaysOnTop(false);
                 JOptionPane.showMessageDialog(null,
-                        "Invalid password, you hacker!");
+                        "Profile and password do not match. You provided \"" + ((ProfileData) account_select.getSelectedItem()).getName() + "\"", "Failed", JOptionPane.ERROR_MESSAGE);
                 account_select.setSelectedIndex(0);
                 header.changeAvatar(null);
             }
