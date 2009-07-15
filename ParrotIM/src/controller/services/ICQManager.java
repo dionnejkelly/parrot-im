@@ -3,6 +3,8 @@ package controller.services;
 
 
 
+
+
 import java.io.File;
 import java.net.URL;
 import java.util.*;
@@ -13,6 +15,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import net.kano.joscar.rv.RvProcessor;
+import net.kano.joscar.rvcmd.DefaultRvCommandFactory;
+import net.kano.joscar.snac.ClientSnacProcessor;
+import net.kano.joscar.snac.SnacResponseEvent;
+import net.kano.joscar.snac.SnacResponseListener;
+import net.kano.joscar.snaccmd.FullUserInfo;
+import net.kano.joscar.snaccmd.auth.AuthCommand;
+import net.kano.joscar.snaccmd.auth.AuthResponse;
 import net.kano.joustsim.Screenname;
 import net.kano.joustsim.oscar.AimConnection;
 import net.kano.joustsim.oscar.AimConnectionProperties;
@@ -24,7 +33,19 @@ import net.kano.joustsim.oscar.State;
 import net.kano.joustsim.oscar.StateEvent;
 import net.kano.joustsim.oscar.StateListener;
 import net.kano.joustsim.oscar.oscar.service.Service;
+import net.kano.joustsim.oscar.oscar.service.buddy.BuddyService;
+import net.kano.joustsim.oscar.oscar.service.buddy.BuddyServiceListener;
+import net.kano.joustsim.oscar.oscar.service.icbm.Conversation;
+import net.kano.joustsim.oscar.oscar.service.icbm.ConversationAdapter;
+import net.kano.joustsim.oscar.oscar.service.icbm.IcbmBuddyInfo;
 import net.kano.joustsim.oscar.oscar.service.icbm.IcbmListener;
+import net.kano.joustsim.oscar.oscar.service.icbm.IcbmService;
+import net.kano.joustsim.oscar.oscar.service.icbm.Message;
+import net.kano.joustsim.oscar.oscar.service.icbm.MessageInfo;
+import net.kano.joustsim.oscar.oscar.service.icbm.SimpleMessage;
+import net.kano.joustsim.oscar.oscar.service.icbm.TypingInfo;
+import net.kano.joustsim.oscar.oscar.service.icbm.TypingListener;
+import net.kano.joustsim.oscar.oscar.service.icbm.TypingState;
 import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
@@ -34,6 +55,9 @@ import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 import org.jivesoftware.smack.XMPPException;
 
+import controller.MainController;
+
+import model.Model;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -51,9 +75,20 @@ public class ICQManager implements GenericConnection {
 	private RvProcessor rvProcessor;
 	
 	private State state;
+	private UserStateType curState;
+	
+	private MainController controller;
+	private Model model;
+	private GenericConnection genericConnection;
 	
 	private IcbmListener lastIcbmListener;
     
+	public ICQManager(MainController controller, Model model){
+		this.controller = controller;
+		this.model = model;
+		this.genericConnection = this;
+
+	}
     // @Override
     public void addFriend(String userID) throws BadConnectionException {
         // TODO Auto-generated method stub
@@ -89,28 +124,16 @@ public class ICQManager implements GenericConnection {
         FriendTempData friendToAdd = null;
         String userID = null;
         
-        int count = 0;
-        while(state != State.ONLINE && count < TIME_OUT){
-        	//wait until the client is connected and online
-        	try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				//Do nothing
-			}
-			count++;
-        }
-        if(count>=30){
-			System.out.println("Waiting for too long!!");
-			return null;
-		}
+        
         MutableBuddyList bList = connection.getSsiService().getBuddyList();
         for(Group group:bList.getGroups()){
         	for (Buddy buddy:group.getBuddiesCopy()){
         		userID = buddy.getScreenname().getNormal();
+        		System.out.println(userID);
         		friendToAdd =
                     new FriendTempData(buddy.getScreenname().getNormal(), buddy.getAlias(), this
                             .retrieveStatus(userID),
-                            this.retrieveState(userID),group.getName(), false);
+                            UserStateType.OFFLINE,group.getName(), false);
         		friends.add(friendToAdd);
         	}
         }
@@ -121,48 +144,30 @@ public class ICQManager implements GenericConnection {
     // @Override
     public UserStateType retrieveState(String userID)
             throws BadConnectionException {
-    	UserStateType userState = UserStateType.OFFLINE;
+//    	UserStateType userState = UserStateType.OFFLINE;
+//    	
+//    	Long bitFlag = connection.getBuddyInfoManager()
+//		.getBuddyInfo(new Screenname(userID)).getIcqStatus();
+//    	
     	
-    	Long bitFlag = connection.getBuddyInfoManager()
-		.getBuddyInfo(new Screenname(userID)).getIcqStatus();
-    	
-    	if((bitFlag & 0x0001) != 0){
-    		userState = UserStateType.AWAY;
-			System.out.println("User is away");
-		}else if((bitFlag & 0x0002) != 0){
-			userState = UserStateType.NOT_BE_DISTURBED;
-			System.out.println("User should not be disturbed");
-		}else if((bitFlag & 0x0004) != 0){
-			userState = UserStateType.NOT_AVAILABLE;
-			System.out.println("User is not available");
-		}else if((bitFlag & 0x0010) != 0){
-			userState = UserStateType.BUSY;
-			System.out.println("User is occupied");
-		}else if((bitFlag & 0x0020) != 0){
-			userState = UserStateType.ONLINE;
-			System.out.println("User is free for chat");
-		}else if((bitFlag & 0x0100) != 0){
-			userState = UserStateType.INVISIBLE;
-			System.out.println("User is marked as invisible");
-		}else{
-			userState = UserStateType.OFFLINE;
-			System.out.println("User is offline");
-		}
 
-    	return userState;
+    	return curState;
     }
 
     // @Override
     public String retrieveStatus(String userID) throws BadConnectionException {
     	return connection.getBuddyInfoManager()
-		.getBuddyInfo(new Screenname("595605824")).getStatusMessage();
+		.getBuddyInfo(new Screenname(userID)).getStatusMessage();
     	
     }
 
     // @Override
     public void sendMessage(String toUserID, String message)
             throws BadConnectionException {
-        // TODO Auto-generated method stub
+    	Screenname receiver = new Screenname(toUserID);;
+		Conversation conversation = connection.getIcbmService().getImConversation(receiver);
+		SimpleMessage outgoingMessage = new SimpleMessage(message);
+		conversation.sendMessage(outgoingMessage);
 
     }
 
@@ -220,6 +225,71 @@ public class ICQManager implements GenericConnection {
         connection.addOpenedServiceListener(new DefaultOpenedServiceListener());
         connection.addStateListener(new DefaultStateListener());
         connection.connect();
+        
+        int count = 0;
+        while(state != State.ONLINE && count < TIME_OUT){
+        	//wait until the client is connected and online
+        	try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				//Do nothing
+			}
+			count++;
+        }
+        if(count>=30){
+			System.out.println("Waiting for too long!!");
+			return;
+		}
+        
+        ClientSnacProcessor processor =  connection.getBosService()
+        .getOscarConnection().getSnacProcessor();
+        rvProcessor = new RvProcessor(processor);
+        rvProcessor.registerRvCmdFactory(new DefaultRvCommandFactory());
+        
+        IcbmService icbmService = connection.getIcbmService();
+        icbmService.removeIcbmListener(lastIcbmListener);
+        lastIcbmListener = new IcbmListener() {
+
+			@Override
+			public void buddyInfoUpdated(IcbmService arg0, Screenname arg1,
+					IcbmBuddyInfo arg2) {
+				//runs when a new message has been received
+				
+			}
+
+			@Override
+			public void newConversation(IcbmService service, Conversation conversation) {
+				conversation.addConversationListener(new TypingAdapter());
+				
+			}
+
+			@Override
+			public void sendAutomaticallyFailed(IcbmService arg0, Message arg1,
+					Set<Conversation> arg2) {
+				// TODO Auto-generated method stub
+				
+			}
+        	
+        };
+        icbmService.addIcbmListener(lastIcbmListener);
+        
+        connection.getBuddyService().addBuddyListener(new BuddyServiceListener(){
+
+			@Override
+			public void buddyOffline(BuddyService service, Screenname arg1) {
+				curState = UserStateType.OFFLINE;
+				controller.friendUpdated(genericConnection, arg1.getNormal());
+			}
+
+			@Override
+			public void gotBuddyStatus(BuddyService service, Screenname buddy,
+					FullUserInfo info) {
+				curState = longToStatus(info.getIcqStatus());
+				controller.friendUpdated(genericConnection, buddy.getNormal());
+				
+			}
+        	
+        });
     }
 
 	public String getUserEmailHome() throws XMPPException {
@@ -331,7 +401,50 @@ public class ICQManager implements GenericConnection {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private UserStateType longToStatus(Long l){
+		//TO DO have to figure out signal value for each state
+		if(l == -1){
+			return UserStateType.OFFLINE;
+		}
+		else if((l & FullUserInfo.ICQSTATUS_AWAY) != 0){
+			return UserStateType.AWAY;
+		}else if((l & FullUserInfo.ICQSTATUS_DND) != 0){
+			return UserStateType.NOT_BE_DISTURBED;
+		}else if((l & FullUserInfo.ICQSTATUS_NA) != 0){
+			return UserStateType.NOT_AVAILABLE;
+		}else if((l & FullUserInfo.ICQSTATUS_OCCUPIED) != 0){
+			return UserStateType.BUSY;
+		}else if((l & FullUserInfo.ICQSTATUS_FFC) != 0){
+			return UserStateType.ONLINE;
+		}else if((l & FullUserInfo.ICQSTATUS_INVISIBLE) != 0){
+			return UserStateType.INVISIBLE;
+		}else{
+			return UserStateType.OFFLINE;
+		}
+	}
 	/* *********************** Listeners***************************/
+private class TypingAdapter extends ConversationAdapter implements TypingListener{
+		
+		public void gotMessage(Conversation c, final MessageInfo minfo){
+			controller.messageReceived(c.getBuddy().getNormal(), connection.getLocalPrefs().getScreenname().getNormal()
+					, minfo.getMessage().getMessageBody());
+			String text = minfo.getMessage().getMessageBody();
+			System.out.println(text);
+		}
+		@Override
+		public void gotTypingState(Conversation conversation, TypingInfo typingInfo) {
+			if (typingInfo.getTypingState().equals(TypingState.TYPING)){
+				controller.setTypingState(2);
+			}else if (typingInfo.getTypingState().equals(TypingState.PAUSED)){
+				controller.setTypingState(5);
+			}else if (typingInfo.getTypingState().equals(TypingState.NO_TEXT)){
+				controller.setTypingState(1);
+			}
+			
+		}
+		
+	}
 	private class BuddyListFunctionListener implements BuddyListLayoutListener{
 
 		@Override
@@ -430,6 +543,8 @@ public class ICQManager implements GenericConnection {
                     ((SsiService) service).getBuddyList()
                     .addRetroactiveLayoutListener(new BuddyListFunctionListener());
                 }
+                service.getOscarConnection().getSnacProcessor()
+                .addGlobalResponseListener(new DefaultSnacResponseListener());
 			}
 			
 		}
@@ -443,6 +558,32 @@ public class ICQManager implements GenericConnection {
 			if(state == State.ONLINE){
 				System.out.println("is now online");
 				//System.out.println(connection.getSsiService().getBuddyList().getGroups());
+			}
+			
+		}
+		
+	}
+	private class DefaultSnacResponseListener implements SnacResponseListener{
+
+		@Override
+		public void handleResponse(SnacResponseEvent arg0) {
+			if(arg0.getSnacCommand() instanceof AuthResponse){
+				System.out.println("yes!");
+				int errorCode = ((AuthResponse)((AuthCommand)arg0.getSnacCommand())).getErrorCode();
+				if(errorCode == 5){
+					System.out.println("ERROR Invalid screenname or wrong password");
+				}else if(errorCode == 17){
+					System.out.println("ERROR Account has been suspended temporarily");
+				}else if(errorCode == 20){
+					System.out.println("ERROR Account temporarily unavailable");
+				}else if(errorCode == 24){
+					System.out.println("ERROR Connecting too frequently, Try" +
+							" waiting a few minutes to reconnect - AIM recommends 10 minutes");
+				}else if(errorCode == 28){
+					System.out.println("ERROR Client software is too old to connect");
+				}
+			}else{
+				
 			}
 			
 		}
