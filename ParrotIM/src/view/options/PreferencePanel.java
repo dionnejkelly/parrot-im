@@ -50,6 +50,7 @@ import view.chatwindow.ThemeOptionsComboBox;
 import view.options.modelstub.ChatbotQADataType;
 import view.options.modelstub.model;
 import view.styles.PopupWindowListener;
+import view.theme.LookAndFeelManager;
 
 import controller.MainController;
 
@@ -83,11 +84,23 @@ public class PreferencePanel extends JPanel {
         themeMenu = new ThemeOptionsComboBox();
         themeMenu.setToolTipText("Select your own Theme");
         themeMenu.setAutoscrolls(true);
+        themeMenu.addActionListener(new ThemeMenuListener());
         
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.add(themeMenu);
        
+    }
+    
+    private class ThemeMenuListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+
+			System.out.println("Combo = " + themeMenu.getSelectedIndex());
+			LookAndFeelManager themeSelector = new LookAndFeelManager();
+			themeSelector.setLookAndFeel(themeMenu.getSelectedIndex());
+		}
+    	
     }
 
     
