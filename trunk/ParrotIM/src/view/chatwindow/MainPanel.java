@@ -64,7 +64,9 @@ public class MainPanel extends JPanel implements Observer {
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
-        JMenuItem exitItem1 = new JMenuItem("Exit", KeyEvent.VK_N);
+        JMenuItem exitItem1 = new JMenuItem("Exit", new ImageIcon(this.getClass().getResource(
+        "/images/chatwindow/chat_close.png")));
+        // KeyEvent.VK_N
         exitItem1.addActionListener(new exitListener());
         fileMenu.addSeparator();
         fileMenu.add(exitItem1);
@@ -73,8 +75,10 @@ public class MainPanel extends JPanel implements Observer {
         JMenu helpMenu = new JMenu("Help");
         fileMenu.setMnemonic(KeyEvent.VK_H);
         menuBar.add(helpMenu);
-        JMenuItem helpItem1 = new JMenuItem("Help Contents");
-        JMenuItem helpItem2 = new JMenuItem("About");
+        JMenuItem helpItem1 = new JMenuItem("Help Contents", new ImageIcon(this.getClass().getResource(
+        "/images/menu/information.png")));
+        JMenuItem helpItem2 = new JMenuItem("About",  new ImageIcon(this.getClass().getResource(
+        "/images/menu/report.png")));
         helpMenu.add(helpItem1);
         helpMenu.addSeparator();
         helpMenu.add(helpItem2);
