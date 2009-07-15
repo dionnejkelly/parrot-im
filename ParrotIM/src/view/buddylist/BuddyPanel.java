@@ -104,7 +104,7 @@ public class BuddyPanel extends JPanel implements Observer {
     /**
      * box to store friend list
      */
-    Box boxes[] = new Box[2];
+    Box boxes[] = new Box[6];
 
     GroupedListPane buddyListPane = new GroupedListPane();
 
@@ -173,8 +173,9 @@ public class BuddyPanel extends JPanel implements Observer {
         this.friendPanels = new ArrayList<FriendPanel>();
 
         buddyArray = new ArrayList<ArrayList<UserData>>();
-        buddyArray.add(new ArrayList<UserData>());
-        buddyArray.add(new ArrayList<UserData>());
+        for (int i = 0; i < 6; i++) {
+            buddyArray.add(new ArrayList<UserData>());
+        }
 
         // Test code, make it hide at the start
         // this.chat = new ChatWindow(chatClient, model);
@@ -190,8 +191,9 @@ public class BuddyPanel extends JPanel implements Observer {
         buddies = UserData.sortMostOnline(buddies);
 
         // add friends to the buddy list
-        boxes[0] = Box.createVerticalBox();
-        boxes[1] = Box.createVerticalBox();
+        for (int i = 0; i < 6; i++) {
+            boxes[i] = Box.createVerticalBox();
+        }
 
         ImageIcon googleTalkImage =
                 new ImageIcon(
@@ -286,18 +288,16 @@ public class BuddyPanel extends JPanel implements Observer {
     private void listRepopulate() {
         FriendPanel tempPanel = null;
 
-        buddyListPane.removeAllElements(0);
-        buddyListPane.removeAllElements(1);
-        boxes[0].removeAll();
-        boxes[1].removeAll();
+        for (int i = 0; i < 6; i++) {
+            buddyListPane.removeAllElements(i);    
+        }
         
-        
-        buddyArray.get(0).clear();
-        buddyArray.get(1).clear();
-        buddyArray = new ArrayList<ArrayList<UserData>>();
-        buddyArray.add(new ArrayList<UserData>());
-        buddyArray.add(new ArrayList<UserData>());
-        
+        for (int i = 0; i < 6; i++) {
+            boxes[i].removeAll();
+        }
+        for (ArrayList<UserData> a : buddyArray) {
+            a.clear();
+        }
 
         // Create the friend wrapper
         // Compare the model friends with the GUI friends
@@ -312,7 +312,12 @@ public class BuddyPanel extends JPanel implements Observer {
                 buddyArray.get(1).add(u);
                 boxes[1].add(FriendItem(u));
                 buddyListPane.addElement(1, FriendItem(u));
+            } else if (u.getServer() == ServerType.ICQ) {
+                buddyArray.get(4).add(u);
+                boxes[4].add(FriendItem(u));
+                buddyListPane.addElement(4, FriendItem(u));
             }
+
         }
 
         // for (int i = 0; i < buddies.size(); i++) {
@@ -329,9 +334,9 @@ public class BuddyPanel extends JPanel implements Observer {
 
         System.out.println("about to add listener");
         // add mouse listeners to googleTalk
-        
+
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-        	System.out.println(boxes[0].getComponentCount() + ":" + i);
+            System.out.println(boxes[0].getComponentCount() + ":" + i);
             buddyListPane.addExternalMouseListener(0, i, new SelectListener());
         }
         // add mouse listeners to Twitter
@@ -769,9 +774,9 @@ public class BuddyPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent event) {
             System.out.println("click");
-            for (int j = 0; j < buddyArray.size(); j++){
+            for (int j = 0; j < buddyArray.size(); j++) {
                 for (int i = 0; i < boxes[j].getComponentCount(); i++) {
-                	System.out.println("j: " + j + "  and i: " + i);
+                    System.out.println("j: " + j + "  and i: " + i);
                     if (event.getSource().equals(
                             buddyListPane.getComponent(j, i))) {
                         if (event.getButton() == event.BUTTON1) {

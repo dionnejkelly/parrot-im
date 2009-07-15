@@ -45,6 +45,7 @@ import controller.chatbot.Chatbot;
 import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
+import controller.services.ICQManager;
 import controller.services.JabberManager;
 import controller.services.TwitterManager;
 
@@ -53,6 +54,7 @@ import model.dataType.AccountData;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.GoogleTalkUserData;
+import model.dataType.ICQAccountData;
 import model.dataType.ICQUserData;
 import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
@@ -295,6 +297,8 @@ public class MainController {
             connection = new JabberManager(controller, model);
         } else if (account instanceof TwitterAccountData) {
             connection = new TwitterManager(controller, model);
+        } else if (account instanceof ICQAccountData) {
+            connection = new ICQManager(controller, model);
         } else {
             // Other servers
         }
