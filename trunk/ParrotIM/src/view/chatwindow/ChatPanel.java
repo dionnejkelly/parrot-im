@@ -17,10 +17,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileFilter;
 
 import view.options.GroupChatConfigurationFrame;
 import view.styles.PopupWindowListener;
@@ -235,11 +237,11 @@ public class ChatPanel extends JPanel {
         emoticonChooser.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
         
         //Image button
-//        JButton pic =
-//                new JButton(new ImageIcon(this.getClass().getResource(
-//                        "/images/chatwindow/pic.png")));
-//       pic.setToolTipText("Insert a Picture");
-//       pic.addActionListener(new pictureListener());
+        JButton pic =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/pic.png")));
+       pic.setToolTipText("Send a file");
+       pic.addActionListener(new sendFileListener());
         
         groupChatButton = new JButton(new ImageIcon(this.getClass().getResource(
         "/images/popup/comments.png")));
@@ -267,7 +269,7 @@ public class ChatPanel extends JPanel {
         bar1.add(underlineButton);
         bar1.add(colorButton);
         bar1.add(emoticons);
-        //bar1.add(pic);
+        bar1.add(pic);
         bar1.add(groupChatButton);
         bar1.add(groupChatAddButton);
 
@@ -371,28 +373,81 @@ public class ChatPanel extends JPanel {
      * picture preference .
      */
 
-    public class pictureListener implements ActionListener {
+    public class sendFileListener implements ActionListener {
         /**
          * Listens for the uesr's action.
          * 
          * @param evt
          */
     	
-    	private int count = 0;
+    	
 
         public void actionPerformed(ActionEvent evt) {
-
-//            String resultMessage =
-//                    "Sorry for the inconvenience but for the Alpha Version, we are not supporting this feature. Thank you for your co-operation.";
-//            JOptionPane.showMessageDialog(null, resultMessage);
+        	String userID = "solidworktesting@gmail.com";
         	
-//        	LookAndFeelManager theme = new LookAndFeelManager();
-//        	theme.setLookAndFeel(count);
-        	count++;
+        	if (c.isValidUserID(userID)) {
+        		System.out.println("Start Transfering File... " + userID);
+           		
+            	ImageFileFilter filefilter = new ImageFileFilter();
+            	JFileChooser fileChooser = new JFileChooser();
+            	fileChooser.setFileFilter(filefilter);
+        		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        		fileChooser.setMultiSelectionEnabled(false);
+        		
+            	int fileConfirmation = fileChooser.showOpenDialog(null);
+            	
+            	if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
+            		String filePath = fileChooser.getSelectedFile().getPath();
+            		c.sendFile(userID, filePath);
+            	}
+        	}
+        	
+        	else {
+        		JOptionPane.showMessageDialog(null, "Cannot send file because " + userID + "does not support file receiving.",
+                        "Failed", JOptionPane.ERROR_MESSAGE);
+        	}
+        	
+       		
 
         }
 
     }
+    
+    /** This class controls the file types that can be selected for the file browser. 
+	 * It can only select either a directory or an image file. */
+	private class ImageFileFilter extends FileFilter{
+
+		@Override
+		
+		/** accept takes a File object argument. If the file is an image file or a directory, then it returns true.
+		 * It returns false otherwise 
+		 * 
+		 * @param f*/
+		public boolean accept(File f) {
+			
+			if (f.isDirectory()) return true; //if directory, return true
+			
+			//now search of image files
+			String[] extentionList = new String[]{"jpg", "gif", "png", "bmp"};
+
+			String name = f.getName();
+			String extention = name.substring(name.indexOf(".")+1, name.length());
+			
+			for(int pos=0; pos < extentionList.length; pos++){
+				if (extention.compareToIgnoreCase(extentionList[pos])==0 && f.length() <= 524288){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		@Override
+		/** Describes what file types the system will accept. */
+		public String getDescription() {
+			return "choose image file less than 512 kb";
+		}
+		
+	}
 
     /**
      * This is a color listener class that is responsible for handling user's

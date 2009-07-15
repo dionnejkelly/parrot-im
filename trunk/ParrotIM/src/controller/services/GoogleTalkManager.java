@@ -1,10 +1,12 @@
 package controller.services;
 
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
@@ -40,6 +43,9 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
+import org.jivesoftware.smackx.filetransfer.FileTransfer;
+import org.jivesoftware.smackx.filetransfer.FileTransferManager;
+import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
@@ -50,6 +56,7 @@ import org.jivesoftware.smackx.packet.VCard;
 import com.sun.image.codec.jpeg.ImageFormatException;
 
 import view.options.MusicPlayer;
+import view.styles.ProgressMonitorScreen;
 
 import controller.MainController;
 
@@ -74,9 +81,16 @@ public class GoogleTalkManager implements GenericConnection {
     private VCard vcard;
 
     private Roster roster;
+    
+    private FileTransferManager fileTransferManager;
+    
+    private DecimalFormat transferringProgress = new DecimalFormat("#");
+    
+    private ArrayList<XMPPFileManager> receiveManager;
 
     protected List subscribedUsers = new ArrayList();
 
+   
   
     private class joinedListener implements ParticipantStatusListener {
 
@@ -379,6 +393,11 @@ public class GoogleTalkManager implements GenericConnection {
 
         multiUserChat.addInvitationListener(connection,
                 new invitationListener());
+        
+        fileTransferManager = new FileTransferManager(connection);
+        
+        setReceiveListener();
+        
         return;
     }
 
@@ -572,7 +591,6 @@ public class GoogleTalkManager implements GenericConnection {
                          if (!subscribedUsers.contains(presence.getFrom())) {
                              response = null;
                              response = new Presence(Presence.Type.subscribe);
-                             response.setTo(presence.getFrom());
                              connection.sendPacket(response);
                              // update the roster with the new user
                              org.jivesoftware.smack.packet.RosterPacket rosterPacket =
@@ -712,8 +730,22 @@ public class GoogleTalkManager implements GenericConnection {
         return userState;
     }
 
+    public void setReceiveListener() {
+    	receiveManager = new ArrayList<XMPPFileManager>();
+    	int count = 0;
+    	
+    	for (RosterEntry r : roster.getEntries()) {
+    		System.out.println("From the File Transfer User = " + r.getUser());
+    		receiveManager.add(new XMPPFileManager(connection, fileTransferManager, transferringProgress));
+    		receiveManager.get(count).fileReceiver(r.getUser());
+    		count++;
+    	}
+    }
+    
+    
     public ArrayList<FriendTempData> retrieveFriendList() {
         ArrayList<FriendTempData> friends = new ArrayList<FriendTempData>();
+        
         FriendTempData friendToAdd = null;
         String userID = null;
         Roster roster = null;
@@ -727,6 +759,7 @@ public class GoogleTalkManager implements GenericConnection {
                             .retrieveStatus(userID),
                             this.retrieveState(userID), false);
             friends.add(friendToAdd);
+            
         }
 
         return friends;
@@ -863,6 +896,59 @@ public class GoogleTalkManager implements GenericConnection {
 
         return hash;
     }
+    
+    public boolean isValidUserID(String userID) {
+    	String checkJID = roster.getPresence(userID).getFrom();
+    	
+   		return checkJID.contains(userID);
+    }
+    
+    public void sendFile(String userID, String path) throws XMPPException {
+    	
+    	String convertToJID = roster.getPresence(userID).getFrom();
+    	
+   		System.out.println("Start Transfering File... " + convertToJID);
+   			
+		OutgoingFileTransfer fileTransfer = fileTransferManager.createOutgoingFileTransfer(convertToJID);
+
+		
+		fileTransfer.sendFile(new File(path), "");
+		System.out.println("Start Transfering File...");
+		
+		
+		while(!fileTransfer.isDone()) {
+		    if(fileTransfer.getStatus() == FileTransfer.Status.refused)
+		    {
+		    	JOptionPane.showMessageDialog(null, "Could not send the file to " + userID + ".",
+                        "Failed", JOptionPane.ERROR_MESSAGE);
+		    	return;
+		    }
+		    if(fileTransfer.getStatus() == FileTransfer.Status.error)
+		    {
+		    	JOptionPane.showMessageDialog(null, "Cannot send the file because an error occured during the process.",
+                        "Failed", JOptionPane.ERROR_MESSAGE);
+		    	return;
+		    }
+		    
+		    System.out.println("Transferring Progress: " + transferringProgress.format(fileTransfer.getProgress() * 100)  + "% transferred.");
+		    
+		    	try {
+			    	Thread.sleep(100);
+			    
+			    } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			    	e.printStackTrace();
+			    }
+		    
+		    
+		}
+		
+		System.out.println(fileTransfer.getFileName() + "has been successfully transferred.");		
+		System.out.println("The Transfer is " + fileTransfer.isDone());
+	    
+	    
+ 		
+    }
 
     /**
      * 
@@ -933,6 +1019,8 @@ public class GoogleTalkManager implements GenericConnection {
         }
 
     }
+    
+  
 
   // dont't need this for now
 //	public void load() throws XMPPException {

@@ -261,4 +261,14 @@ public class ICQManager implements GenericConnection {
 		
 	}
 
+	public void sendFile(String filePath, String userID) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean isValidUserID(String userID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
