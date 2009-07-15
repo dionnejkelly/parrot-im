@@ -118,18 +118,25 @@ public class ICQManager implements GenericConnection {
 		.getBuddyInfo(new Screenname(userID)).getIcqStatus();
     	
     	if((bitFlag & 0x0001) != 0){
+    		userState = UserStateType.AWAY;
 			System.out.println("User is away");
 		}else if((bitFlag & 0x0002) != 0){
+			userState = UserStateType.NOT_BE_DISTURBED;
 			System.out.println("User should not be disturbed");
 		}else if((bitFlag & 0x0004) != 0){
+			userState = UserStateType.NOT_AVAILABLE;
 			System.out.println("User is not available");
 		}else if((bitFlag & 0x0010) != 0){
+			userState = UserStateType.BUSY;
 			System.out.println("User is occupied");
 		}else if((bitFlag & 0x0020) != 0){
+			userState = UserStateType.ONLINE;
 			System.out.println("User is free for chat");
 		}else if((bitFlag & 0x0100) != 0){
+			userState = UserStateType.INVISIBLE;
 			System.out.println("User is marked as invisible");
 		}else{
+			userState = UserStateType.OFFLINE;
 			System.out.println("User is offline");
 		}
     	return userState;
@@ -137,7 +144,8 @@ public class ICQManager implements GenericConnection {
 
     // @Override
     public String retrieveStatus(String userID) throws BadConnectionException {
-    	return null;
+    	return connection.getBuddyInfoManager()
+		.getBuddyInfo(new Screenname("595605824")).getStatusMessage();
     	
     }
 
