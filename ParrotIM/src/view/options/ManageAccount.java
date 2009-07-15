@@ -33,6 +33,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
@@ -95,7 +96,18 @@ public class ManageAccount extends JPanel implements Observer {
         leftPanel.setLayout(new BorderLayout());
 
         // saved account list
-        accList = new JList(new Vector<AccountData>(profile.getAccountData()));
+        accList = new JList(new Vector<AccountData>(profile.getAccountData())){
+        	public String getToolTipText(MouseEvent e) {
+        		int index = locationToIndex(e.getPoint());
+        		if (-1 < index) {
+        			String item = "<html>Account Type: " + profile.getAccountData().get(index).getServer().toString()
+        			+ "<br>UserID: " + profile.getAccountData().get(index).getUserID();
+        			return item;
+        		} else {
+        			return null;
+        		}
+        	}
+        };
         accList.addListSelectionListener(new accListSelectionListener());
         accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
@@ -106,6 +118,8 @@ public class ManageAccount extends JPanel implements Observer {
         });
 
         JScrollPane listScroller = new JScrollPane(accList);
+        
+        
         listScroller.setPreferredSize(new Dimension(180, 185));
         listScroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
