@@ -98,8 +98,8 @@ public class FriendTempData {
 //        this.setBlocked(blocked);
     }
 
-    public FriendTempData(String normal, String alias, String retrieveStatus,
-			UserStateType retrieveState, String group, boolean b) {
+    public FriendTempData(String userID, String nickname, String status,
+			UserStateType state, String group, boolean blocked) {
     	this.setUserID(userID);
         this.nickname = nickname;
         this.status = status;
