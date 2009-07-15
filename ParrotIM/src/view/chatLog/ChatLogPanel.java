@@ -202,6 +202,12 @@ public class ChatLogPanel extends JPanel {
         this.add(searchBarPanel, BorderLayout.SOUTH);
         this.add(chatlogPane, BorderLayout.CENTER);
     }
+    
+    public void updateDateList(Vector<String> dateVectorList){
+        dateList.setListData(dateVectorList);
+        dateList.setEnabled(true);
+        dateList.updateUI();
+    }
 
     /**
      * Sets the behaviour when one of the buddies on the buddies JList is selected
@@ -223,15 +229,14 @@ public class ChatLogPanel extends JPanel {
                 
 
 //                System.out.println("dateVectorList is null??  "+dateVectorList.size());
-                dateList.setListData(dateVectorList);
-                dateList.setEnabled(true);
-                dateList.updateUI();
+                updateDateList(dateVectorList);
                 	
                 text.setListData(stub);
 
             }
         }
     }
+    
 
     /**
      * Sets the behaviour when one of the dates on the dateList JList is selected
@@ -286,6 +291,8 @@ public class ChatLogPanel extends JPanel {
         public void mousePressed(MouseEvent event) {
 
             if (searchField.getText().length() > 0) {
+//                updateDateList(dateVectorList);
+//                text.setListData(stub);
             	Vector<String> users = null;
                try {
             	   System.out.println("hi");
