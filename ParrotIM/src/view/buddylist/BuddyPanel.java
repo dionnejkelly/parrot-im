@@ -290,6 +290,14 @@ public class BuddyPanel extends JPanel implements Observer {
         buddyListPane.removeAllElements(1);
         boxes[0].removeAll();
         boxes[1].removeAll();
+        
+        
+        buddyArray.get(0).clear();
+        buddyArray.get(1).clear();
+        buddyArray = new ArrayList<ArrayList<UserData>>();
+        buddyArray.add(new ArrayList<UserData>());
+        buddyArray.add(new ArrayList<UserData>());
+
 
         // Create the friend wrapper
         // Compare the model friends with the GUI friends
@@ -298,12 +306,12 @@ public class BuddyPanel extends JPanel implements Observer {
             this.friendPanels.add(tempPanel); // adds wrapper
             if (u.getServer() == ServerType.GOOGLE_TALK) {
                 buddyArray.get(0).add(u);
-                boxes[0].add(tempPanel);
-                buddyListPane.addElement(0, tempPanel);
+                boxes[0].add(FriendItem(u));
+                buddyListPane.addElement(0, FriendItem(u));
             } else if (u.getServer() == ServerType.TWITTER) {
                 buddyArray.get(1).add(u);
-                boxes[1].add(tempPanel);
-                buddyListPane.addElement(1, tempPanel);
+                boxes[1].add(FriendItem(u));
+                buddyListPane.addElement(1, FriendItem(u));
             }
         }
 
@@ -320,8 +328,8 @@ public class BuddyPanel extends JPanel implements Observer {
         // }
 
         // add mouse listeners to googleTalk
+        System.out.println(boxes[0].getComponentCount() + ":");
         for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-            // System.out.println(boxes[0].getComponentCount() + ":" + i);
             buddyListPane.addExternalMouseListener(0, i, new SelectListener());
         }
         // add mouse listeners to Twitter
@@ -645,8 +653,7 @@ public class BuddyPanel extends JPanel implements Observer {
         friendItem.add(tempWrapper.getLabelRepresentation(),
                 BorderLayout.CENTER);
         friendItem.setWrapper(tempWrapper);
-        
-        
+
         // friendItem.add(friendStatus,BorderLayout.CENTER);
 
         return friendItem;
@@ -657,8 +664,10 @@ public class BuddyPanel extends JPanel implements Observer {
         private ArrayList<UserData> users;
 
         public void addUserAndLabel(UserData user, JLabel label) {
-            users.add(user);
-            labels.add(label);
+            if (users != null && labels != null) {
+                users.add(user);
+                labels.add(label);
+            }
 
             return;
         }
@@ -708,7 +717,7 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.BUDDY) {
-            
+
             this.refreshBuddyList();
         }
 
@@ -757,8 +766,10 @@ public class BuddyPanel extends JPanel implements Observer {
          * mouseClicked to unhighlight the last selected
          */
         public void mouseClicked(MouseEvent event) {
+            System.out.println("click");
             for (int j = 0; j < buddyListPane.getGroupCount(); j++) {
                 for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+                    System.out.println("j: " + j + "  and i: " + i);
                     if (event.getSource().equals(
                             buddyListPane.getComponent(j, i))) {
                         if (event.getButton() == event.BUTTON1) {
