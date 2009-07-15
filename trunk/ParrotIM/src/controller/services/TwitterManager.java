@@ -265,7 +265,7 @@ public class TwitterManager implements GenericConnection {
     private class PollingThread extends Thread {
         public void run() {
             try {
-                sleep(5000); // Delay for 5 seconds
+                sleep(10000); // Delay for 5 seconds
             } catch (InterruptedException e) {
                 System.err.println("Threading error");
                 e.printStackTrace();

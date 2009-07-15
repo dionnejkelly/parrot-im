@@ -57,6 +57,7 @@ import model.dataType.AccountData;
 import model.dataType.ChatCollectionData;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
+import model.dataType.ICQAccountData;
 import model.dataType.JabberAccountData;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
@@ -135,7 +136,7 @@ public class Model extends Observable {
     public ProfileCollectionData getProfileCollection() {
         return this.profileCollection;
     }
-    
+
     // Section
     // IV = Conversation Manipulation Methods
 
@@ -1045,7 +1046,6 @@ public class Model extends Observable {
         }
     }
 
-
     public static AccountData createAccount(String userID, String password,
             ServerType server) {
         AccountData account = null;
@@ -1064,7 +1064,7 @@ public class Model extends Observable {
             // account = new MSNAccountData(userID, password);
             break;
         case ICQ:
-            // account = new ICQAccountData(userID, password);
+            account = new ICQAccountData(userID, password);
             break;
         case AIM:
             // account = new AIMAccountData(userID, password);
@@ -1142,19 +1142,23 @@ public class Model extends Observable {
         DatabaseFunctions db = new DatabaseFunctions();
         db.removeAnswer(this.getCurrentProfile().getName(), question, answer);
     }
-    public boolean isDefaultProfile(String profile) 
-    		throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.isDefaultProfile(profile);
+
+    public boolean isDefaultProfile(String profile)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.isDefaultProfile(profile);
     }
-    public void setAvatarDirectory(String profile, String directory) 
-    		throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.setAvatarDirectory(profile, directory);
+
+    public void setAvatarDirectory(String profile, String directory)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.setAvatarDirectory(profile, directory);
     }
-    public String getAvatarDirectory(String profile) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getAvatarDirectory(profile);
+
+    public String getAvatarDirectory(String profile)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getAvatarDirectory(profile);
     }
     public void setStatusMessage(String profile, String statusMessage) 
 	throws ClassNotFoundException, SQLException {

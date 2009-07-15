@@ -150,7 +150,6 @@ public class ConversationData {
         return messages;
     }
 
-    @Override
     public boolean equals(Object o) {
         boolean areEqual = false;
         ConversationData externalConversation = null;
@@ -164,14 +163,14 @@ public class ConversationData {
 
         return areEqual;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
-        
+
         hash = hash * 31 + this.user.hashCode();
         hash = hash * 31 + this.account.hashCode();
-        
+
         return hash;
     }
 }
