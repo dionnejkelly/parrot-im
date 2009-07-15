@@ -1156,4 +1156,23 @@ public class Model extends Observable {
     	DatabaseFunctions db = new DatabaseFunctions();
     	return db.getAvatarDirectory(profile);
     }
+    public void setStatusMessage(String profile, String statusMessage) 
+	throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.setStatusMessage(profile, statusMessage);
+    }
+    public String getStatusMessage(String profile) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getStatusMessage(profile);
+    }
+    public void setStatus(String profile, int status) 
+	throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	db.setStatus(profile, status);
+    }
+    public int getStatus(String profile) throws ClassNotFoundException, SQLException {
+    	DatabaseFunctions db = new DatabaseFunctions();
+    	return db.getStatus(profile);
+    }
+    
 }
