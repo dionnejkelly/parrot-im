@@ -51,12 +51,12 @@ public class AccountDataTest {
     @Before
     public void setUp() throws Exception {
     	// Look at equals
-    	GoogleTalkManager e = new GoogleTalkManager(new MainController(new Model()));
+    	//GoogleTalkManager e = new GoogleTalkManager(new MainController(new Model()));
         ad1 = new GoogleTalkAccountData("Rakan", "1234");
         ad2 = new GoogleTalkAccountData("Ross", "abc");
-        ad3 = new JabberAccountData("Janice", "ohmygod","With friends","ght",UserStateType.AWAY,new JabberManager(new MainController(new Model())));
+        ad3 = new JabberAccountData("Janice", "ohmygod","With friends","ght",UserStateType.AWAY,new JabberManager(new MainController(new Model()),new Model()));
         ad4 = new JabberAccountData("Joey", "Friends");
-        ad5 = new GoogleTalkAccountData("Peter", "familyguy","Eating","sss",UserStateType.ONLINE,new GoogleTalkManager(new MainController(new Model())));
+        ad5 = new GoogleTalkAccountData("Peter", "familyguy","Eating","sss",UserStateType.ONLINE,new GoogleTalkManager(new MainController(new Model()),new Model()));
     }
 //
     @After
@@ -79,7 +79,7 @@ public class AccountDataTest {
     }
     @Test
     public void testAccountDataStringStringStringString(){
-    	ad6 = new JabberAccountData("Zeina","ZH","Playing COD","r43",UserStateType.BUSY,new JabberManager(new MainController(new Model())));
+    	ad6 = new JabberAccountData("Zeina","ZH","Playing COD","r43",UserStateType.BUSY,new JabberManager(new MainController(new Model()),new Model()));
     	assertSame("Zeina", ad6.getUserID());
     	assertSame("ZH",ad6.getNickname());
     	assertSame("Playing COD",ad6.getStatus());
@@ -239,7 +239,9 @@ public class AccountDataTest {
     @Test
     public void testHashcode(){
     	System.out.println(ad4.hashCode());
+    	assertEquals(-170383538,ad4.hashCode());
     	System.out.println(ad3.hashCode());
+    	assertEquals(-1340965975,ad3.hashCode());
     }
 
 }
