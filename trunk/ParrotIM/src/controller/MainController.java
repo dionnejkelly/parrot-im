@@ -82,6 +82,13 @@ public class MainController {
      */
     private Chatbot chatbot;
 
+    private Vector<String> availableRoom = new Vector<String>();
+    
+    private String groupRoom;
+    
+    private int countRoom = 0;
+    
+    
     /**
      * This is the constructor of Xmpp.
      * 
@@ -922,5 +929,26 @@ public class MainController {
 	      connection = account.getConnection();
 	      
 	      return connection.isValidUserID(userID);
+	}
+	
+	public void create(String nickname) {
+		groupRoom = "Parrot" + countRoom;
+		availableRoom.add(groupRoom);
+		countRoom++;
+		
+		AccountData account = null; // Should be passed in!!
+	    GenericConnection connection = null;
+
+	        // connection should be found from account!!
+	    account = model.getCurrentProfile().getAccountData().get(0);
+	    connection = account.getConnection();
+	    
+	    connection.create(groupRoom, nickname);
+		
+		
+	}
+	
+	public Vector<String> getAvailableRoom() {
+		return availableRoom;
 	}
 }

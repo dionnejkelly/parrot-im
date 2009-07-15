@@ -91,7 +91,7 @@ public class Chatbot {
      */  
       
      private String[][][] KnowledgeBase = {
-    			{{"WHAT IS YOUR NAME"}, 
+    			{{"WHAT IS YOUR NAME", "What really is your name?"}, 
     				{"MY NAME IS CHATTERBOT9.",
     				 "YOU CAN CALL ME CHATTERBOT9.",
     				 "WHY DO YOU WANT TO KNOW MY NAME?"}
