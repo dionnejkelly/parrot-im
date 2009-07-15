@@ -25,7 +25,13 @@ public enum UserStateType {
 
     BUSY("Busy"),
 
-    OFFLINE("Offline");
+    OFFLINE("Offline"),
+    
+    NOT_AVAILABLE("not avalable"),
+    
+    NOT_BE_DISTURBED("not to be disturbed"),
+    
+    INVISIBLE("Invisibled");
 
     /**
      * The name of the enumerated type for GUI output.
