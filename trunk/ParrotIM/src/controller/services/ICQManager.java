@@ -1,6 +1,8 @@
 package controller.services;
 
 
+
+
 import java.io.File;
 import java.net.URL;
 import java.util.*;
@@ -8,6 +10,7 @@ import java.util.regex.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import net.kano.joscar.rv.RvProcessor;
 import net.kano.joustsim.Screenname;
@@ -16,7 +19,18 @@ import net.kano.joustsim.oscar.AimConnectionProperties;
 import net.kano.joustsim.oscar.AimSession;
 import net.kano.joustsim.oscar.AppSession;
 import net.kano.joustsim.oscar.DefaultAimSession;
+import net.kano.joustsim.oscar.OpenedServiceListener;
+import net.kano.joustsim.oscar.State;
+import net.kano.joustsim.oscar.StateEvent;
+import net.kano.joustsim.oscar.StateListener;
+import net.kano.joustsim.oscar.oscar.service.Service;
 import net.kano.joustsim.oscar.oscar.service.icbm.IcbmListener;
+import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
+import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
+import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
+import net.kano.joustsim.oscar.oscar.service.ssi.Group;
+import net.kano.joustsim.oscar.oscar.service.ssi.MutableBuddyList;
+import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 import org.jivesoftware.smack.XMPPException;
 
@@ -27,12 +41,16 @@ import model.enumerations.UserStateType;
 public class ICQManager implements GenericConnection {
 	private static final String ICQ_SERVER = "login.messaging.aol.com";
     private static final int ICQ_PORT = 5190;
+   
+    private static final int TIME_OUT = 30; //30 seconds
     
     private AimConnection connection;
     
-	private AimConnectionProperties connectionProperties = new AimConnectionProperties(null, null);
+	private AimConnectionProperties connectionProperties;
 	
 	private RvProcessor rvProcessor;
+	
+	private State state;
 	
 	private IcbmListener lastIcbmListener;
     
@@ -55,32 +73,6 @@ public class ICQManager implements GenericConnection {
 
     }
 
-    
-    
-
-    // @Override
-    public void login(String userID, String password, String server, int port)
-            throws BadConnectionException {
-    	AppSession appSession = new AppSession() {
-            public AimSession openAimSession(Screenname sn) {
-                return new DefaultAimSession(this, sn) {
-                    // todo finish off secure stuff
-                    //                    public TrustPreferences getTrustPreferences() {
-                    //                        return new PermanentSignerTrustManager(screenName);
-                    //                    }
-                };
-            }
-        };
-		Screenname screenName = new Screenname(userID);
-		AimSession session = appSession.openAimSession(screenName);
-        connectionProperties.setScreenname(screenName);
-        connectionProperties.setPassword(password);
-        connectionProperties.setLoginHost(System.getProperty("OSCAR_HOST", server));
-        connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", port));
-        connection = session.openConnection(connectionProperties);
-        connection.connect();
-
-    }
 
     // @Override
     public boolean removeFriend(String userID) throws BadConnectionException {
@@ -91,7 +83,29 @@ public class ICQManager implements GenericConnection {
     // @Override
     public ArrayList<FriendTempData> retrieveFriendList()
             throws BadConnectionException {
-        // TODO Auto-generated method stub
+    	
+    	//assume that this method is called after logging in and connected
+    	ArrayList<FriendTempData> friends = new ArrayList<FriendTempData>();
+        FriendTempData friendToAdd = null;
+        String userID = null;
+        
+        int count = 0;
+        while(state != State.ONLINE && count < TIME_OUT){
+        	//wait until the client is connected and online
+        	try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				//Do nothing
+			}
+			count++;
+        }
+        if(count>=30){
+			System.out.println("Waiting for too long!!");
+			return null;
+		}
+        MutableBuddyList bList = connection.getSsiService().getBuddyList();
+        
+        
         return null;
     }
 
@@ -147,8 +161,28 @@ public class ICQManager implements GenericConnection {
 
     public void login(String userID, String password)
             throws BadConnectionException {
-        // TODO Auto-generated method stub
+    	AppSession app = new AppSession() {
+            public AimSession openAimSession(Screenname screenName) {
+                return new DefaultAimSession(this, screenName) {
+                	//for security stuff
+                	//Do nothing for now
+                };
+            }
+        };
+        Screenname screenName = new Screenname(userID);
+        AimSession session = app.openAimSession(screenName);
         
+        connectionProperties = new AimConnectionProperties(null, null);
+        connectionProperties.setScreenname(screenName);
+        connectionProperties.setPassword(password);
+        connectionProperties.setLoginHost(System.getProperty("OSCAR_HOST", ICQ_SERVER));
+        connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", ICQ_PORT));
+        
+        connection = session.openConnection(connectionProperties);
+        
+        connection.addOpenedServiceListener(new DefaultOpenedServiceListener());
+        connection.addStateListener(new DefaultStateListener());
+        connection.connect();
     }
 
 	public String getUserEmailHome() throws XMPPException {
@@ -258,6 +292,123 @@ public class ICQManager implements GenericConnection {
 
 	public void setUserPhoneWork(String name) throws XMPPException {
 		// TODO Auto-generated method stub
+		
+	}
+	/* *********************** Listeners***************************/
+	private class BuddyListFunctionListener implements BuddyListLayoutListener{
+
+		@Override
+		public void buddiesReordered(BuddyList bList, Group group,
+				List<? extends Buddy> oldList, List<? extends Buddy> newList) {
+			
+			System.out.println("buddiesRe: "+group.getName());
+			for (Buddy b:group.getBuddiesCopy()){
+				System.out.println("buddiesRe: "+group.getName()+": "+b.getScreenname().toString());
+			}
+			for(Buddy b:newList){
+				System.out.println("buddiesRe: "+b.getScreenname().toString());
+			}
+		}
+
+		@Override
+		public void buddyAdded(BuddyList bList, Group group,
+				List<? extends Buddy> oldList, List<? extends Buddy> newList,
+				Buddy buddy) {
+			String subscriptionRequest =
+                buddy.getScreenname()
+                        + " wants to add you as a friend. Add as a friend?";
+			JOptionPane.showMessageDialog(null, subscriptionRequest);
+			for (Group g:buddy.getBuddyList().getGroups()){
+				for(Buddy b:g.getBuddiesCopy()){
+					System.out.println("badded: "+g.getName()+": "+b.getScreenname().toString());
+				}
+			}
+			for(Buddy b:newList){
+				System.out.println("buddyadded: "+b.getScreenname().toString());
+			}
+		}
+
+		@Override
+		public void buddyRemoved(BuddyList bList, Group group,
+				List<? extends Buddy> oldList, List<? extends Buddy> newList,
+				Buddy buddy) {
+			
+			
+		}
+
+		@Override
+		public void groupAdded(BuddyList arg0, List<? extends Group> arg1,
+				List<? extends Group> arg2, Group arg3,
+				List<? extends Buddy> arg4) {
+			System.out.println("gadded: "+arg3.toString()+"\n"+arg4.toString()+"\n"+arg2.toString());
+			for(Buddy b:arg4){
+				System.out.println("gadded2: "+b.getScreenname().toString());
+			}
+			for(Group g:arg1){
+				for (Buddy b:g.getBuddiesCopy()){
+					System.out.println("gadded3: "+g.getName()+": "+b.getScreenname().toString());
+				}
+			}
+		}
+
+		@Override
+		public void groupRemoved(BuddyList arg0, List<? extends Group> arg1,
+				List<? extends Group> arg2, Group arg3) {
+			
+			System.out.println("gRemove: "+arg3.toString());
+		}
+
+		@Override
+		public void groupsReordered(BuddyList arg0, List<? extends Group> arg1,
+				List<? extends Group> arg2) {
+			
+			System.out.println("gReorder: "+arg1.toString());
+			for(Group g:arg1){
+				for (Buddy b:g.getBuddiesCopy()){
+					System.out.println("gReorder2: "+g.getName()+": "+b.getScreenname().toString());
+				}
+				
+			}
+		}
+		private void update(){
+			
+		}
+	}
+	private class DefaultOpenedServiceListener implements OpenedServiceListener{
+
+		@Override
+		public void closedServices(AimConnection arg0,
+				Collection<? extends Service> arg1) {
+			// Do Nothing when closing services
+			
+		}
+
+		@Override
+		public void openedServices(AimConnection arg0,
+				Collection<? extends Service> arg1) {
+			
+			for (Service service : arg1) {
+                if (service instanceof SsiService) {
+                	//if this services is a SsiService(child of service)
+                    ((SsiService) service).getBuddyList()
+                    .addRetroactiveLayoutListener(new BuddyListFunctionListener());
+                }
+			}
+			
+		}
+		
+	}
+	private class DefaultStateListener implements StateListener{
+
+		@Override
+		public void handleStateChange(StateEvent event) {
+			state = event.getNewState();
+			if(state == State.ONLINE){
+				System.out.println("is now online");
+				//System.out.println(connection.getSsiService().getBuddyList().getGroups());
+			}
+			
+		}
 		
 	}
 
