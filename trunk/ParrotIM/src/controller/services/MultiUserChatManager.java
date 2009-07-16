@@ -4,6 +4,11 @@ package controller.services;
 
 import java.util.Vector;
 
+import model.Model;
+import model.dataType.ChatCollectionData;
+import model.dataType.MultiConversationData;
+import model.enumerations.UpdatedType;
+
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -23,11 +28,14 @@ public class MultiUserChatManager extends MultiUserChat  {
 	
 	private XMPPConnection xmppConnection;
 	
+	private Model model;
 	
-	public MultiUserChatManager(XMPPConnection connection, String room) {
+	
+	public MultiUserChatManager(XMPPConnection connection, String room, Model model) {
 		super(connection, room);
 		this.xmppConnection = connection;
 		this.roomName = room;
+		this.model = model;
 	}
 	
 	public String getRoomName() {
@@ -84,11 +92,22 @@ public class MultiUserChatManager extends MultiUserChat  {
 		}
 
 		public void joined(String user) {
-			// Kevin is there a better function we can use from the StringUtil ?
-			System.out.println("Who joined in the room: " +  delimitUserBack(user));
+		    MultiConversationData conversation = null;
+		    int index = 0;
+
+		    // Kevin is there a better function we can use from the StringUtil ? 
+			//System.out.println("Who joined in the room: " +  delimitUserBack(user));
+		        System.out.println("User before surgery " +  user);
+		        user = delimitUserBack(user);
+		        index = user.lastIndexOf('_');
+		        user = user.substring(0, index) + "@" + user.substring(index + 1, user.length());
+		        System.out.println("Who joined in the room: " +  user);
 			users.add(user);
 			countUsers++;
+			conversation = model.getChatCollection().findByRoomName(delimitRoom(roomName));
+			conversation.addUser(model.findUserByUserID(user));
 			//int roomCount = multiUserChat.getOccupantsCount();
+			model.getChatCollection().forceUpdate();
 			System.out.println("Count: " + countUsers);
 			
 		}
@@ -99,11 +118,20 @@ public class MultiUserChatManager extends MultiUserChat  {
 		}
 
 		public void left(String user) {
+		    MultiConversationData conversation = null;
+		    int index = 0;
 			// Kevin is there a better function we can use from the StringUtil ?
 			System.out.println("Who left in the room: " + delimitUserBack(user));
+		    user = delimitUserBack(user);
+                    index = user.lastIndexOf('_');
+                    user = user.substring(0, index) + "@" + user.substring(index + 1, user.length());		    
+                    System.out.println("Who joined in the room: " +  user);
 			users.remove(user);
 			countUsers--;
+			conversation = model.getChatCollection().findByRoomName(delimitRoom(roomName));
+			conversation.removeUser(conversation.findUserByUserID(user));
 			//int roomCount = multiUserChat.getOccupantsCount();
+			model.getChatCollection().forceUpdate();
 			System.out.println("Count: " + countUsers);
 			
 		}
@@ -162,6 +190,12 @@ public class MultiUserChatManager extends MultiUserChat  {
 
 	        return subString;
 	    }
+	 
+	 private String delimitRoom(String from) {
+             String subString = from.substring(0, from.lastIndexOf('@'));
+
+             return subString;
+         }
 	
 
 

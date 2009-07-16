@@ -108,6 +108,12 @@ public class ChatCollectionData extends Observable {
                 || hiddenMultiConversations.contains(conversation);
     }
 
+
+    public boolean isVisible(Conversation conversation) {
+        return this.conversations.contains(conversation)
+                || this.multiConversations.contains(conversation);
+    }
+    
     public void activateConversation(Conversation conversation) {
 
         if (this.hiddenConversations.contains(conversation)) {
@@ -240,6 +246,40 @@ public class ChatCollectionData extends Observable {
         allConversations.addAll(this.multiConversations);
 
         return allConversations;
+    }
+
+    public boolean activeIsMulti() {
+        return this.activeConversation != null
+                && this.activeConversation instanceof MultiConversationData;
+    }
+
+    public void forceUpdate() {
+        super.setChanged();
+        super.notifyObservers();
+        
+        return;
+    }
+    
+    public MultiConversationData findByRoomName(String roomName) {
+        MultiConversationData found = null; // Default return value
+
+        for (MultiConversationData c : this.multiConversations) {
+            if (c.getRoomName().equalsIgnoreCase(roomName)) {
+                found = c;
+                break;
+            }
+        }
+
+        if (found == null) {
+            for (MultiConversationData c : this.hiddenMultiConversations) {
+                if (c.getRoomName().equalsIgnoreCase(roomName)) {
+                    found = c;
+                    break;
+                }
+            }
+        }
+
+        return found;
     }
 
     // Debug code

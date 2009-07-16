@@ -70,6 +70,7 @@ public class DisplayPanel extends JPanel implements Observer {
 
         this.model = model;
         this.model.addObserver(this);
+        this.model.getChatCollection().addObserver(this);
         this.chatClient = c;
         // textPane's Properties
         txtPane = new JEditorPane();
@@ -190,7 +191,7 @@ public class DisplayPanel extends JPanel implements Observer {
         ChatCollectionData chatCollection = model.getChatCollection();
         String text = "";
 
-        if ((arg == UpdatedType.CHAT || arg == UpdatedType.CHATNOTSIDEPANEL)
+        if ((arg == UpdatedType.CHAT || arg == UpdatedType.CHATNOTSIDEPANEL || o instanceof ChatCollectionData)
                 && model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
 
