@@ -429,6 +429,11 @@ public class MainController {
 
         return;
     }
+    
+    public void modelAddFriend(String userID) {
+    	AccountData account = account = model.getCurrentProfile().getAccountData().get(0);
+    	model.addFriend(account.getServer(), userID);
+    }
 
     /**
      * This method is used to remove a friend to the friend list.

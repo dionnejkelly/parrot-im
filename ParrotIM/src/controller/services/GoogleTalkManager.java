@@ -694,6 +694,7 @@ public class GoogleTalkManager implements GenericConnection {
 
                             System.out.println("Updated the roster");
                             subscribedUsers.add(presence.getFrom());
+                            controller.modelAddFriend(parseName(packet.getFrom()));
                         }
 
                         else {
