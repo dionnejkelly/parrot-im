@@ -206,18 +206,37 @@ public class ChatLogPanel extends JPanel {
         this.add(chatlogPane, BorderLayout.CENTER);
     }
     
-    public void updateBuddyList(Vector<String> buddyList){
-        buddies.setListData(buddyList);
-        buddies.setEnabled(true);
-        buddies.updateUI();
-
-        dateList.setListData(stub);
-        dateList.setEnabled(false);
-        text.setListData(stub);
-        text.setEnabled(false);
+    public void updateBuddyList(){
+    	
+    	try {
+			Vector <String> buddiesSearchResult = model.getBuddyLogList(profile, searchKey);
+			
+			if (buddiesSearchResult.size()>0){
+		        buddies.setListData(buddiesSearchResult);
+		        buddies.setEnabled(true);
+		        buddies.updateUI();
+	
+		        dateList.setListData(stub);
+		        dateList.setEnabled(false);
+		        text.setListData(stub);
+		        text.setEnabled(false);
+			} else{
+				buddies.setListData(stub);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
-    public void updateDateList(Vector<String> dateVectorList){
+    public void updateDateList(){
+    	Vector<String> dateVectorList = model.getBuddyDateList(profile, buddies
+                .getSelectedValue().toString(), searchKey);
+        
+
         dateList.setListData(dateVectorList);
         dateList.setEnabled(true);
         dateList.updateUI();
@@ -256,12 +275,9 @@ public class ChatLogPanel extends JPanel {
         public void valueChanged(ListSelectionEvent e) {
             if (buddies.getSelectedIndex() > -1) {
 
-                Vector<String> dateVectorList = model.getBuddyDateList(profile, buddies
-                        .getSelectedValue().toString(), searchKey);
                 
-
 //                System.out.println("dateVectorList is null??  "+dateVectorList.size());
-                updateDateList(dateVectorList);
+                updateDateList();
                 	
 
             }
@@ -325,22 +341,12 @@ public class ChatLogPanel extends JPanel {
 		public void keyReleased(KeyEvent arg0) {
 			if (searchField.getText().length() > 0) {
             	searchKey = searchField.getText();
-            	try {
-					Vector <String> buddiesSearchResult = model.getBuddyLogList(profile, searchKey);
-					
-					if (buddiesSearchResult.size()>0)
-						updateBuddyList(buddiesSearchResult);
-					else{
-						buddies.setListData(stub);
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            	System.out.println(searchKey);
 			}
+			else{
+				searchKey = "";
+			}
+			updateBuddyList();
 		}
 
 		@Override
