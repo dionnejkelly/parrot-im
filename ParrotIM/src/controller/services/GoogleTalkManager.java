@@ -470,8 +470,9 @@ public class GoogleTalkManager implements GenericConnection {
     
     public void inviteFriend(String userID, String roomName) throws XMPPException {
     	MultiUserChat inviteFriend = new MultiUserChat(connection, roomName);
-    	System.out.println("From GoogleTalkManager = " + userID);
-    	System.out.println("From GoogleTalkManager = " + roomName);
+    	System.out.println("== From GoogleTalkManager Class == ");
+    	System.out.println("Invited User: "  + userID);
+    	System.out.println("Room Name: " + roomName);
 		multiUserChat.invite(userID, "Let's have fun");
 		
 		multiUserChat.addParticipantStatusListener(new joinedListener());
@@ -560,8 +561,8 @@ public class GoogleTalkManager implements GenericConnection {
                 }
                 // org.jivesoftware.smack.packet.Message message =
                 // (org.jivesoftware.smack.packet.Message) packet;
-                // System.out.println(delimitUserBack(message.getFrom()) + ": "
-                // + message.getBody());
+                System.out.println(delimitUserBack(message.getFrom()) + ": "
+                 + message.getBody());
 
             }
 
