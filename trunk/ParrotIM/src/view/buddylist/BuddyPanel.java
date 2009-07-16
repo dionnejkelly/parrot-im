@@ -290,11 +290,9 @@ public class BuddyPanel extends JPanel implements Observer {
 
         for (int i = 0; i < 6; i++) {
             buddyListPane.removeAllElements(i);    
-        }
-        
-        for (int i = 0; i < 6; i++) {
             boxes[i].removeAll();
         }
+
         for (ArrayList<UserData> a : buddyArray) {
             a.clear();
         }
