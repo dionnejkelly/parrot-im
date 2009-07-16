@@ -717,8 +717,8 @@ public class ChatPanel extends JPanel {
             // }
 
             if (c.getAvailableRoom().size() > 0) {
-                GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(
-                        c, model, 0);
+            	if (!model.groupChatWindowOpen)
+                	new GroupChatConfigurationFrame(c, model, 0);
             }
 
             else {
