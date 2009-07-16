@@ -432,7 +432,7 @@ public class MainController {
             // TODO Make the GUI know the friend doesn't exist?
             e.printStackTrace();
         }
-        if (removed) {
+        if (removed || friendToRemove.isBlocked()) {
             model.removeFriend(friendToRemove);
         }
 
