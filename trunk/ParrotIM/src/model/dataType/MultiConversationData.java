@@ -158,6 +158,20 @@ public class MultiConversationData extends Observable implements Conversation {
 
         return;
     }
+    
+    public String userList() {
+        String toReturn = "";
+        if (this.users.size() > 0) {
+            for (UserData u : this.users) {
+                toReturn += u.toString() + ", ";
+            }
+            toReturn = toReturn.substring(0, toReturn.length() - 2);
+        } else {
+            toReturn = "<Empty>";
+        }
+        
+        return toReturn;
+    }
 
     /**
      * Gets the number of messages in the conversation.
