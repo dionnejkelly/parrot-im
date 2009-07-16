@@ -36,8 +36,8 @@ public class DatabaseFunctionsTest {
 
 	@Test
 	public void testSetDatabaseName() {
-		db1.setDatabaseName("Test");
-		assertEquals("Test",db1.getDatabaseName());
+		db1.setDatabaseName("test.db");
+		assertEquals("test.db",db1.getDatabaseName());
 	}
 
 	@Test

@@ -290,13 +290,11 @@ public class ChatbotQA extends JFrame{
 		
 		private class newQAfieldKeyListener implements KeyListener{
 
-			@Override
 			public void keyPressed(KeyEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
 
-			@Override
 			public void keyReleased(KeyEvent arg0) {
 				if (field.getText().length()>0)
 					okButton.setEnabled(true);
@@ -304,7 +302,6 @@ public class ChatbotQA extends JFrame{
 					okButton.setEnabled(false);
 			}
 
-			@Override
 			public void keyTyped(KeyEvent arg0) {
 				// TODO Auto-generated method stub
 				
