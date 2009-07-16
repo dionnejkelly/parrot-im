@@ -200,6 +200,7 @@ public class ManageAccount extends JPanel implements Observer {
         UNField.setPreferredSize(new Dimension(180, 20));
         usernamePanel.add(new JLabel("Username:     "));
         usernamePanel.add(UNField);
+        usernamePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         // set password
         JPanel passwordPanel = new JPanel();
         pwdField = new JPasswordField();
