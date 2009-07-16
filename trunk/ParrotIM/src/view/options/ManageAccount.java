@@ -42,11 +42,13 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -125,7 +127,8 @@ public class ManageAccount extends JPanel implements Observer {
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         // add button
-        addButton = new JButton("Add");
+        addButton = new JButton("Add", new ImageIcon(this.getClass().getResource(
+        "/images/mainwindow/add.png")));
         addButton.setEnabled(false);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -140,7 +143,8 @@ public class ManageAccount extends JPanel implements Observer {
         });
 
         // remove button
-        removeButton = new JButton("Remove");
+        removeButton = new JButton("Remove",  new ImageIcon(this.getClass().getResource(
+        "/images/mainwindow/remove.png")));
         removeButton.setEnabled(false);
         removeButton.addActionListener(new removeActionListener());
 
@@ -222,28 +226,43 @@ public class ManageAccount extends JPanel implements Observer {
 
     private void addAccount_actionPerform(ActionEvent evt)
             throws ClassNotFoundException, SQLException {
-        if (UNField.getText().length() != 0
-                && pwdField.getPassword().length != 0) {
-            // search if it exists or not
-            // TODO: newACC is supposed to be an Object that includes server,
-            // username, password
-            boolean match = false; // someone deleted my code here. or will
-            // model provide this method?
-            // (if there the account has already beed added, then do something.)
+    	System.out.println("Server Type = " + (ServerType) server.getSelectedItem());
+    	
+    	if ((ServerType) server.getSelectedItem() == ServerType.GOOGLE_TALK ||
+    			(ServerType) server.getSelectedItem() == ServerType.TWITTER) {
+    		
+    		 if (UNField.getText().length() != 0
+    	                && pwdField.getPassword().length != 0) {
+    	            // search if it exists or not
+    	            // TODO: newACC is supposed to be an Object that includes server,
+    	            // username, password
+    	            boolean match = false; // someone deleted my code here. or will
+    	            // model provide this method?
+    	            // (if there the account has already beed added, then do something.)
 
-            if (match) {
-                // if found, then edit the password as manage
-                // TODO:edit password
-            } else {
-                // insert new
-                profile.addAccount(Model.createAccount(UNField.getText(),
-                        String.copyValueOf(pwdField.getPassword()),
-                        (ServerType) server.getSelectedItem()));
-                UNField.setText("");
-                pwdField.setText("");
-                addButton.setEnabled(false);
-            }
-        }
+    	            if (match) {
+    	                // if found, then edit the password as manage
+    	                // TODO:edit password
+    	            } else {
+    	                // insert new
+    	                profile.addAccount(Model.createAccount(UNField.getText(),
+    	                        String.copyValueOf(pwdField.getPassword()),
+    	                        (ServerType) server.getSelectedItem()));
+    	                UNField.setText("");
+    	                pwdField.setText("");
+    	                addButton.setEnabled(false);
+    	            }
+    	        }
+    				
+    	}
+    	
+    	else {
+    		String resultMessage =
+                "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
+        JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    	
+       
     }
 
     public void update(Observable arg0, Object o) {
