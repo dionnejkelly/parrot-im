@@ -51,6 +51,8 @@ package model;
 import java.util.*;
 import java.sql.*;
 
+import view.options.modelstub.CustomizedChatbotModel;
+
 import controller.services.GenericConnection;
 
 import model.dataType.AccountData;
@@ -1182,4 +1184,7 @@ public class Model extends Observable {
     	return db.getStatus(profile);
     }
     
+    public CustomizedChatbotModel getCustomizedChatbotModel() throws ClassNotFoundException, SQLException{
+    	return new CustomizedChatbotModel(this);
+    }
 }

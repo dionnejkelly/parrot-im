@@ -18,6 +18,8 @@ package controller.chatbot;
 
 import java.util.*;
 
+import view.options.modelstub.CustomizedChatbotModel;
+
 import model.dataType.ChatbotQADataType;
 
 
@@ -43,7 +45,7 @@ public class Chatbot {
      private final int userMaxResp = 4;
      private final String puncSymbDelim = "?!.;:/(){}@#$%^&*+-|\\\'<>{}[]\"";
      
-     private Vector<ChatbotQADataType> customizedList = new Vector<ChatbotQADataType>();
+     private CustomizedChatbotModel customizedModel;
      
      
      // Section
@@ -1721,13 +1723,13 @@ public class Chatbot {
     	public String getCustomizedResponse(String input) {
     		int QAPos = 0;
     		
-    		for (QAPos = 0; QAPos < customizedList.size(); QAPos ++) {
-    			Vector<String> questions = customizedList.get(QAPos).getQuestions();
+    		for (QAPos = 0; QAPos < customizedModel.getQASize(); QAPos ++) {
+    			Vector<String> questions = customizedModel.getQAObject(QAPos).getQuestions();
     			
     			for (int QPos = 0; QPos < questions.size(); QPos ++) {
     				
     				if (input.contains(questions.get(QPos))) {
-    					Vector<String> answers = customizedList.get(QAPos).getAnswers();
+    					Vector<String> answers = customizedModel.getQAObject(QAPos).getAnswers();
     					
     					return answers.get(randInt(answers.size()));
     				}
@@ -1743,9 +1745,9 @@ public class Chatbot {
     	}
     	
     	
-    	public Chatbot() {
-    	}
-    	public Chatbot(Vector<ChatbotQADataType> customList) {
-    		this.customizedList = customList;
+    	public Chatbot() {}
+    	
+    	public Chatbot(CustomizedChatbotModel chatbotModel) {
+    		this.customizedModel = chatbotModel;
     	}
 }

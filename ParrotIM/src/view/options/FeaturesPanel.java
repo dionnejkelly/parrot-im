@@ -39,8 +39,6 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -48,13 +46,13 @@ import model.Model;
 import model.dataType.ChatbotQADataType;
 
 import view.chatwindow.ThemeOptionsComboBox;
-import view.options.modelstub.model;
+import view.options.modelstub.CustomizedChatbotModel;
 import view.styles.PopupWindowListener;
 
 import controller.MainController;
 
 public class FeaturesPanel extends JPanel {
-    private model modelStub;
+    private CustomizedChatbotModel chatBotModel;
 
     private JFrame mainframe;
 
@@ -62,7 +60,6 @@ public class FeaturesPanel extends JPanel {
     private JCheckBox soundCheck;
     private JCheckBox chatLogCheck;
     private JCheckBox chatWindowHistoryCheck;
-    private ThemeOptionsComboBox themeMenu;
 
     private JList chatbotList;
     private JButton chatbotAddButton;
@@ -75,7 +72,9 @@ public class FeaturesPanel extends JPanel {
     public FeaturesPanel(MainController c, JFrame mainframe, Model model)
             throws ClassNotFoundException, SQLException {
         this.model = model;
-        modelStub = new model(this.model);
+        chatBotModel = model.getCustomizedChatbotModel();
+
+//        chatBotModel = new CustomizedChatbotModel(this.model);
         this.mainframe = mainframe;
 
         /* CHATBOT */
@@ -85,7 +84,7 @@ public class FeaturesPanel extends JPanel {
         chatbotCheck.addItemListener(new chatbotListener());
 
         // chatbot list
-        chatbotList = new JList(modelStub.getQAList());
+        chatbotList = new JList(chatBotModel.getQAList());
         chatbotList
                 .addListSelectionListener(new chatbotListSelectionListener());
         JScrollPane chatbotListScroll = new JScrollPane(chatbotList);
@@ -205,7 +204,7 @@ public class FeaturesPanel extends JPanel {
                         new ChatbotQA(new ChatbotQADataType(model), true);
             } else if (mode == 'E') { // edit
                 addChatbotOptions =
-                        new ChatbotQA(modelStub.getQAObject(chatbotList
+                        new ChatbotQA(chatBotModel.getQAObject(chatbotList
                                 .getSelectedIndex()), false);
             }
             addChatbotOptions.addWindowListener(new PopupWindowListener(
@@ -229,7 +228,7 @@ public class FeaturesPanel extends JPanel {
 
                     if (!QAObject.isEmpty()) {
                         try {
-                            modelStub.addQA(QAObject);
+                            chatBotModel.addQA(QAObject);
                         } catch (ClassNotFoundException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
@@ -240,7 +239,7 @@ public class FeaturesPanel extends JPanel {
                     }
                 }
 
-                chatbotList.setListData(modelStub.getQAList());
+                chatbotList.setListData(chatBotModel.getQAList());
                 chatbotList.updateUI();
             }
 
@@ -265,7 +264,7 @@ public class FeaturesPanel extends JPanel {
             int selected = chatbotList.getSelectedIndex();
             if (selected > -1) {
                 try {
-					modelStub.removeQA(selected);
+					chatBotModel.removeQA(selected);
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -273,10 +272,10 @@ public class FeaturesPanel extends JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-                chatbotList.setListData(modelStub.getQAList());
+                chatbotList.setListData(chatBotModel.getQAList());
                 chatbotList.updateUI();
             }
-            if (modelStub.getQASize() == 0) {
+            if (chatBotModel.getQASize() == 0) {
                 setEnabledChatbotButtons(false);
             }
         }
