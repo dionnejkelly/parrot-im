@@ -331,13 +331,13 @@ public class ChatLogPanel extends JPanel {
     
     private class searchFieldKeyListener implements KeyListener{
 
-		@Override
+		//@Override
 		public void keyPressed(KeyEvent arg0) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+		//@Override
 		public void keyReleased(KeyEvent arg0) {
 			if (searchField.getText().length() > 0) {
             	searchKey = searchField.getText();
@@ -349,7 +349,7 @@ public class ChatLogPanel extends JPanel {
 			updateBuddyList();
 		}
 
-		@Override
+		//@Override
 		public void keyTyped(KeyEvent arg0) {
 			// TODO Auto-generated method stub
 			
