@@ -18,9 +18,9 @@ package controller.chatbot;
 
 import java.util.*;
 
-import view.options.modelstub.CustomizedChatbotModel;
 
 import model.dataType.ChatbotQADataType;
+import model.dataType.tempData.CustomizedChatbotModel;
 
 
 /**

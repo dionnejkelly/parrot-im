@@ -51,7 +51,6 @@ package model;
 import java.util.*;
 import java.sql.*;
 
-import view.options.modelstub.CustomizedChatbotModel;
 
 import controller.services.GenericConnection;
 
@@ -71,6 +70,7 @@ import model.dataType.TwitterAccountData;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
+import model.dataType.tempData.CustomizedChatbotModel;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.PopupEnableWindowType;
 import model.enumerations.TypingStateType;
