@@ -170,13 +170,13 @@ public class ManageAccount extends JPanel implements Observer {
         rightPanel.setLayout(new BorderLayout());
         // select server
         server = new JComboBox(ServerType.getServerList());
-        server.setPreferredSize(new Dimension(200, 30));
+        server.setPreferredSize(new Dimension(180, 30));
         server.addItemListener(new serverListener());
         // server name for jabber
         // textfield
         jabberServer = new JTextField();
         jabberServer.addKeyListener(keyListener);
-        jabberServer.setPreferredSize(new Dimension(200, 20));
+        jabberServer.setPreferredSize(new Dimension(180, 20));
         jabberServer.setToolTipText("specify jabber server");
         JPanel jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
@@ -197,7 +197,7 @@ public class ManageAccount extends JPanel implements Observer {
         JPanel usernamePanel = new JPanel();
         UNField = new JTextField();
         UNField.addKeyListener(keyListener);
-        UNField.setPreferredSize(new Dimension(180, 20));
+        UNField.setPreferredSize(new Dimension(160, 20));
         usernamePanel.add(new JLabel("Username:     "));
         usernamePanel.add(UNField);
         usernamePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
@@ -205,7 +205,7 @@ public class ManageAccount extends JPanel implements Observer {
         JPanel passwordPanel = new JPanel();
         pwdField = new JPasswordField();
         pwdField.addKeyListener(keyListener);
-        pwdField.setPreferredSize(new Dimension(180, 20));
+        pwdField.setPreferredSize(new Dimension(160, 20));
         passwordPanel.add(new JLabel("Password:      "));
         passwordPanel.add(pwdField);
 
@@ -218,7 +218,7 @@ public class ManageAccount extends JPanel implements Observer {
         setupPanel.add(passwordPanel);
 
         // adding to rightPanel
-        rightPanel.setPreferredSize(new Dimension(280, 400));
+        rightPanel.setPreferredSize(new Dimension(260, 400));
         rightPanel.add(setupPanel, BorderLayout.NORTH);
 
         // add to account manager pop up main panel

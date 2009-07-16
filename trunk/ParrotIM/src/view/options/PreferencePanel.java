@@ -21,6 +21,8 @@
 
 package view.options;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +37,7 @@ import javax.swing.JPanel;
 import model.Model;
 
 import view.chatwindow.ThemeOptionsComboBox;
+import view.styles.StatusCombo;
 import view.theme.LookAndFeelManager;
 
 import controller.MainController;
@@ -47,19 +50,23 @@ public class PreferencePanel extends JPanel {
         
         /* THEME SELECTOR */
         themeMenu = new ThemeOptionsComboBox();
+        themeMenu.setMaximumSize(new Dimension(200, 30));
         themeMenu.setToolTipText("Select your own Theme");
+        themeMenu.setMaximumSize(new Dimension(200,30));
         themeMenu.setAutoscrolls(true);
         themeMenu.addActionListener(new ThemeMenuListener());
-        
+        JLabel themeLabel = new JLabel("Status: ");
+        themeLabel.setForeground(Color.pink.darker());
         JPanel themePanel = new JPanel();
-        themePanel.setPreferredSize(new Dimension(400, 30));
+        themePanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
         themePanel.setAlignmentX(LEFT_ALIGNMENT);
-        themePanel.add(new JLabel("ParrotIM theme: ", JLabel.LEFT));
+        themePanel.setLayout(new BoxLayout(themePanel, BoxLayout.X_AXIS));
+        themePanel.add(themeLabel);
         themePanel.add(themeMenu);
         
-//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        this.add(themePanel);
+        this.add(themePanel, BorderLayout.NORTH);
        
     }
     
