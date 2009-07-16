@@ -510,17 +510,18 @@ public class DatabaseFunctions {
     }
     public String getAvatarDirectory(String profile) throws SQLException
     {
+        String directory = null;
+        
     	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
-    	rs.next();
-    	System.out.println(rs.getString("status"));
-    	String directory = rs.getString("avatarDirectory");
+    	if (rs.next()) {
+    	    directory = rs.getString("avatarDirectory");
+    	}
     	rs.close();
     	conn.close();
-    	if (directory.length() == 0) {
+    	if (directory == null || directory.length() == 0) {
     		return null;
     	} else {
     		return directory;
-    		
     	}
     }
     public void setStatusMessage(String profile, String statusMessage) 
