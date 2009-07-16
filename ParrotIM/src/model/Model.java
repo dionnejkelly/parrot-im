@@ -979,13 +979,12 @@ public class Model extends Observable {
                 new Vector<ChatLogMessageTempData>();
 
         try {
-            db = new DatabaseFunctions();
             for (AccountData account : this.getCurrentProfile()
                     .getAccountData()) {
-
+            	db = new DatabaseFunctions();
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                messages.addAll(db.getMessageFromDate(account.getUserID(),
+            		messages.addAll(db.getMessageFromDate(account.getUserID(),
                         buddyname, date, search));
             }
         } catch (SQLException e) {
