@@ -115,17 +115,7 @@ public class Model extends Observable {
      * profiles and accounts from the database.
      */
     public Model() {
-        this.profileCollection = new ProfileCollectionData();
-        this.chatCollection = new ChatCollectionData();
-        aboutWindowOpen = false;
-        logWindowOpen = false;
-        groupChatWindowOpen = false;
-
-        // Grab profiles and account from the database
-        this.profileCollection.loadProfiles();
-        for (ProfileData p : this.profileCollection.getProfiles()) {
-            p.loadAccounts();
-        }
+        initializeAllVariables();
     }
 
     /**
@@ -499,9 +489,19 @@ public class Model extends Observable {
      * Clears current profile.
      * 
      */
-    public void clearCurrentProfile() {
-        this.profileCollection.setActiveProfile(null);
+    public void initializeAllVariables() {
+        this.profileCollection = new ProfileCollectionData();
+        this.chatCollection = new ChatCollectionData();
+        aboutWindowOpen = false;
+        logWindowOpen = false;
+        groupChatWindowOpen = false;
 
+        // Grab profiles and account from the database
+        this.profileCollection.loadProfiles();
+        for (ProfileData p : this.profileCollection.getProfiles()) {
+            p.loadAccounts();
+        }
+        
         return;
     }
 
