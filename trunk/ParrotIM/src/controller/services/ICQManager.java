@@ -404,11 +404,11 @@ public class ICQManager implements GenericConnection {
 		}
 		else if(l==(long)268435457){
 			return UserStateType.AWAY;
-		}else if(l==(long)268435473){
+		}else if((l & FullUserInfo.ICQSTATUS_INVISIBLE) != 0){
 			return UserStateType.NOT_BE_DISTURBED;
 		}else if(l==(long)268435461){
 			return UserStateType.NOT_AVAILABLE;
-		}else if((l & FullUserInfo.ICQSTATUS_OCCUPIED) != 0){
+		}else if(l==(long)268435473){
 			return UserStateType.BUSY;
 		}else if(l==(long)268435456){
 			return UserStateType.ONLINE;
