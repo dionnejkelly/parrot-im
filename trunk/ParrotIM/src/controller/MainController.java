@@ -382,8 +382,8 @@ public class MainController {
                 a.getConnection().disconnect();
             }
         }
-        // this.model.clearCurrentProfile();
-        this.model.removeAllConversations();
+        
+        this.model.initializeAllVariables();
 
         return;
     }
