@@ -410,6 +410,8 @@ public class GoogleTalkManager implements GenericConnection {
         
         setReceiveListener();
         
+  
+        
         return;
     }
 
@@ -427,15 +429,7 @@ public class GoogleTalkManager implements GenericConnection {
             // System.out.println("Reason: " + reason);
             // System.out.println("Password: " + password);
             // System.out.println("Message: " + message.getBody());
-            RoomInfo info;
-            try {
-                info = MultiUserChat.getRoomInfo(connection, room);
-                System.out.println("Number of occupants: "
-                        + info.getOccupantsCount());
-                System.out.println("Room Subject: " + info.getSubject());
-            } catch (XMPPException e1) {
-                System.out.println("No information about the room.");
-            }
+           
 
             if (option == JOptionPane.OK_OPTION) {
                 try {
@@ -476,8 +470,12 @@ public class GoogleTalkManager implements GenericConnection {
     
     public void inviteFriend(String userID, String roomName) throws XMPPException {
     	MultiUserChat inviteFriend = new MultiUserChat(connection, roomName);
-
+    	System.out.println("From GoogleTalkManager = " + userID);
+    	System.out.println("From GoogleTalkManager = " + roomName);
 		multiUserChat.invite(userID, "Let's have fun");
+		
+		multiUserChat.addParticipantStatusListener(new joinedListener());
+		multiUserChat.addMessageListener(new multipleMessagePacketListener());
 	
 	}
     
