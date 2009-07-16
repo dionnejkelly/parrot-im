@@ -257,7 +257,7 @@ public class Model extends Observable {
             }
         }
 
-        user = this.findUserByAccountName(fromUser);
+        user = this.findUserByUserID(fromUser);
         modifiedConversation = this.findConversation(account, user);
 
         if (modifiedConversation == null) {
@@ -534,7 +534,7 @@ public class Model extends Observable {
      * @return A UserData with the friend info. Can be null if the friend is not
      *         found.
      */
-    public UserData findUserByAccountName(String accountName) {
+    public UserData findUserByUserID(String accountName) {
         UserData found = null;
         ArrayList<UserData> friends = this.getCurrentProfile().getAllFriends();
         for (UserData user : friends) {

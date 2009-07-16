@@ -1,7 +1,5 @@
 package controller.services;
 
-
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,9 +17,13 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import model.Model;
+import model.dataType.ChatCollectionData;
+import model.dataType.Conversation;
+import model.dataType.MessageData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.TypingStateType;
+import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;
@@ -59,8 +61,7 @@ import org.jivesoftware.smackx.packet.VCard;
 
 import com.sun.image.codec.jpeg.ImageFormatException;
 
-import view.options.MusicPlayer;
-//import view.styles.ProgressMonitorScreen;
+import view.options.MusicPlayer; //import view.styles.ProgressMonitorScreen;
 
 import controller.MainController;
 
@@ -85,117 +86,115 @@ public class GoogleTalkManager implements GenericConnection {
     private VCard vcard;
 
     private Roster roster;
-    
+
     private FileTransferManager fileTransferManager;
-    
+
     private DecimalFormat transferringProgress = new DecimalFormat("#");
-    
+
     private ArrayList<XMPPFileManager> receiveManager;
 
     protected List subscribedUsers = new ArrayList();
-    
+
     private Model model;
-    
+
     private boolean isConferenceChat = false;
-    
-    //private Vector<String> availableRoom = new Vector<String>();
-    
+
+    // private Vector<String> availableRoom = new Vector<String>();
+
     private String groupRoom;
-    
+
     private int countRoom = 0;
 
     private Vector<MultiUserChatManager> multiChatList = new Vector<MultiUserChatManager>();
-	private Vector<String> availableRoom = new Vector<String>();
-  
-//    private class joinedListener implements ParticipantStatusListener {
-//
-//		public void adminGranted(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void adminRevoked(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void banned(String arg0, String arg1, String arg2) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void joined(String user) {
-//			// Kevin is there a better function we can use from the StringUtil ?
-//			System.out.println("Who joined in the room: " + delimitUserBack(user));
-//			//int roomCount = multiUserChat.getOccupantsCount();
-//			//System.out.println("Count: " + roomCount);
-//			
-//		}
-//
-//		public void kicked(String arg0, String arg1, String arg2) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void left(String user) {
-//			// Kevin is there a better function we can use from the StringUtil ?
-//			System.out.println("Who left in the room: " + delimitUserBack(user));
-//			//int roomCount = multiUserChat.getOccupantsCount();
-//			//System.out.println("Count: " + roomCount);
-//			
-//		}
-//
-//		public void membershipGranted(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void membershipRevoked(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void moderatorGranted(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void moderatorRevoked(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void nicknameChanged(String arg0, String arg1) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void ownershipGranted(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void ownershipRevoked(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void voiceGranted(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		public void voiceRevoked(String arg0) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//    	
-//    	
-//    	
-//    }
+    private Vector<String> availableRoom = new Vector<String>();
 
+    // private class joinedListener implements ParticipantStatusListener {
+    //
+    // public void adminGranted(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void adminRevoked(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void banned(String arg0, String arg1, String arg2) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void joined(String user) {
+    // // Kevin is there a better function we can use from the StringUtil ?
+    // System.out.println("Who joined in the room: " + delimitUserBack(user));
+    // //int roomCount = multiUserChat.getOccupantsCount();
+    // //System.out.println("Count: " + roomCount);
+    //			
+    // }
+    //
+    // public void kicked(String arg0, String arg1, String arg2) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void left(String user) {
+    // // Kevin is there a better function we can use from the StringUtil ?
+    // System.out.println("Who left in the room: " + delimitUserBack(user));
+    // //int roomCount = multiUserChat.getOccupantsCount();
+    // //System.out.println("Count: " + roomCount);
+    //			
+    // }
+    //
+    // public void membershipGranted(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void membershipRevoked(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void moderatorGranted(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void moderatorRevoked(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void nicknameChanged(String arg0, String arg1) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void ownershipGranted(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void ownershipRevoked(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void voiceGranted(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //
+    // public void voiceRevoked(String arg0) {
+    // // TODO Auto-generated method stub
+    //			
+    // }
+    //    	
+    //    	
+    //    	
+    // }
 
-    
     public GoogleTalkManager(MainController controller, Model model) {
         this.connection = null;
         this.controller = controller;
@@ -316,18 +315,17 @@ public class GoogleTalkManager implements GenericConnection {
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
         // vcard = new VCard();
         ImageIcon icon = new ImageIcon(this.getClass().getResource(
-        "/images/chatwindow/personal.png"));
+                "/images/chatwindow/personal.png"));
 
         if (connection.isAuthenticated()) {
-        	try {
+            try {
                 vcard.load(connection, userID); // load someone's VCard
 
                 byte[] avatarBytes = vcard.getAvatar();
 
                 if (avatarBytes == null) {
-                    icon =
-                            new ImageIcon(this.getClass().getResource(
-                                    "/images/chatwindow/personal.png"));
+                    icon = new ImageIcon(this.getClass().getResource(
+                            "/images/chatwindow/personal.png"));
                 } else {
                     icon = new ImageIcon(avatarBytes);
                 }
@@ -335,13 +333,10 @@ public class GoogleTalkManager implements GenericConnection {
             }
 
             catch (XMPPException e) {
-                icon =
-                        new ImageIcon(this.getClass().getResource(
-                                "/images/chatwindow/personal.png"));
+                icon = new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/personal.png"));
             }
         }
- 
-        
 
         return icon;
 
@@ -367,16 +362,15 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     public void disconnect() {
-    	try {
-    		
-    		connection.disconnect();
-    		
-    	}
-    	
-    	catch (IllegalArgumentException exception) {
-    		System.out.println("Not disconnecting properly");
-    	}
-        
+        try {
+
+            connection.disconnect();
+
+        }
+
+        catch (IllegalArgumentException exception) {
+            System.out.println("Not disconnecting properly");
+        }
 
         return;
     }
@@ -387,9 +381,8 @@ public class GoogleTalkManager implements GenericConnection {
 
         // server and port currently not assigned
 
-        config =
-                new ConnectionConfiguration(GOOGLE_SERVER, GOOGLE_PORT,
-                        GOOGLE_DOMAIN);
+        config = new ConnectionConfiguration(GOOGLE_SERVER, GOOGLE_PORT,
+                GOOGLE_DOMAIN);
         config.setSocketFactory(SSLSocketFactory.getDefault());
 
         connection = new XMPPConnection(config);
@@ -411,13 +404,11 @@ public class GoogleTalkManager implements GenericConnection {
 
         multiUserChat.addInvitationListener(connection,
                 new invitationListener());
-        
+
         fileTransferManager = new FileTransferManager(connection);
-        
+
         setReceiveListener();
-        
-  
-        
+
         return;
     }
 
@@ -425,9 +416,8 @@ public class GoogleTalkManager implements GenericConnection {
 
         public void invitationReceived(XMPPConnection con, String room,
                 String inviter, String reason, String password, Message message) {
-            String result =
-                    delimitUserFront(inviter)
-                            + " has been invited you to the multiple chat room!";
+            String result = delimitUserFront(inviter)
+                    + " has been invited you to the multiple chat room!";
 
             int option = JOptionPane.showConfirmDialog(null, result);
             // System.out.println("Room: " + room);
@@ -435,7 +425,6 @@ public class GoogleTalkManager implements GenericConnection {
             // System.out.println("Reason: " + reason);
             // System.out.println("Password: " + password);
             // System.out.println("Message: " + message.getBody());
-           
 
             if (option == JOptionPane.OK_OPTION) {
                 try {
@@ -444,15 +433,15 @@ public class GoogleTalkManager implements GenericConnection {
                     controller.messageReceived(delimitUserFront(inviter),
                             delimitUserFront(connection.getUser()),
                             " has been invited you to the multiple chat room!");
-                    lastChat =
-                            connection.getChatManager().createChat(
-                                    connection.getHost(),
-                                    new DefaultChatStateListener());
-                    
-                    //multiUserChat.addParticipantStatusListener(new joinedListener());
-//                    MusicPlayer receiveMusic =
-//                            new MusicPlayer(
-//                                    "src/audio/message/receiveMessage.wav");
+                    lastChat = connection.getChatManager().createChat(
+                            connection.getHost(),
+                            new DefaultChatStateListener());
+
+                    // multiUserChat.addParticipantStatusListener(new
+                    // joinedListener());
+                    // MusicPlayer receiveMusic =
+                    // new MusicPlayer(
+                    // "src/audio/message/receiveMessage.wav");
                 } catch (XMPPException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -461,9 +450,8 @@ public class GoogleTalkManager implements GenericConnection {
 
             else {
 
-                String validateReason =
-                        JOptionPane
-                                .showInputDialog("What would be your reason?");
+                String validateReason = JOptionPane
+                        .showInputDialog("What would be your reason?");
                 multiUserChat.decline(connection, room,
                         delimitUserFront(inviter), validateReason);
             }
@@ -473,172 +461,174 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     // *********************** GROUP CHAT *************************
-    
+
     /**
-     * 	The New Way
+     * The New Way
      * 
-     * Kevin you can decide which way is easier for you to handle it.	
+     * Kevin you can decide which way is easier for you to handle it.
      * 
      * 
      */
     public void createRoom(String room) throws XMPPException {
-		MultiUserChatManager multiChat = new MultiUserChatManager(connection, room + "@conference.jabber.org");
-		multiChat.createRoom();
-		multiChatList.add(multiChat);
-		availableRoom.add(room + "@conference.jabber.org");
-		//multiChat.addParticipantStatusListener(new joinedListener());
-		
-	}
-	
-	public void joinRoom(String room) throws XMPPException {
-		MultiUserChatManager multiChat = new MultiUserChatManager(connection, room);
-		multiChat.joinRoom();
-		multiChatList.add(multiChat);
-		availableRoom.add(room);
-		//multiChat.addParticipantStatusListener(new joinedListener());
-		
-	}
-	
-	public void inviteFriend(String userID, String roomName) throws XMPPException {
-		int roomNumber = availableRoom.indexOf(roomName);
-		multiChatList.get(roomNumber).inviteFriend(userID);
-		
-	}
-	
-	public void leaveRoom(String roomName) {
-		int roomNumber = availableRoom.indexOf(roomName);
-		
-		multiChatList.get(roomNumber).leaveRoom();
-		multiChatList.remove(roomNumber);
-		availableRoom.remove(roomNumber);
-	}
-	
-	public void sendMultMessage(String message, String roomName) throws BadConnectionException {
-		int roomNumber = availableRoom.indexOf(roomName);
-		System.out.println("Room number = " + roomNumber);
-		try {
-			multiChatList.get(roomNumber).sendMessage(message);
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * 	The Previous Way:
-	 * 	Kevin you can decide which way is the best to handle it.
-	 *
-	 */
-//    public void inviteFriend(String userID, String roomName) throws XMPPException {
-//    	MultiUserChat multiUserChat = new MultiUserChat(connection, roomName);
-//    	System.out.println("== From GoogleTalkManager Class == ");
-//    	System.out.println("Invited User: "  + userID);
-//    	System.out.println("Room Name: " + roomName);
-//		multiUserChat.invite(userID, "Let's have fun");
-//		
-//		multiUserChat.addParticipantStatusListener(new joinedListener());
-//		//multiUserChat.addMessageListener(new multipleMessagePacketListener());
-//	
-//	}
-//    
-//    public void join(String room, final String nickname) {
-//        join(false, room, nickname);
-//    }
-//
-//    public void create(String room, String nickname) {
-//    	groupRoom = "Parrot" + countRoom;
-//		availableRoom.add(groupRoom);
-//		
-//		countRoom++;
-//		
-//        join(true, room, nickname);
-//    }
-//
-//    private void join(boolean create, String room, final String nickname) {
-//        try {
-//        	 multiUserChat = new MultiUserChat(connection, room + "@conference.jabber.org");
-//
-//            // The room service will decide the amount of history to send
-//            if (create) {
-//            	multiUserChat.create(nickname);
-//            	multiUserChat.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
-//            }
-//                
-//            else 
-//                multiUserChat.join(nickname);
-//
-//            multiUserChat.changeSubject("Parrot Conversation");
-//            multiUserChat.changeNickname("Parrot IM");
-//          
-//            multiUserChat
-//                    .addSubjectUpdatedListener(new SubjectUpdatedListener() {
-//                        public void subjectUpdated(String subject, String from) {
-//                            System.out.println("Room Subject: " + subject);
-//                        }
-//                    });
-//            
-//            multiUserChat.addParticipantStatusListener(new joinedListener());
-//            //multiUserChat.addMessageListener(new multipleMessagePacketListener());
-//        } catch (XMPPException e) {
-//            System.out.println("Error connecting to the room: "
-//                    + e.getMessage());
-//        }
-//
-//        // multiUserChat.addInvitationListener(connection, new
-//        // invitationListener());
-//
-//    }
-//    
-//    public void sendMucMessage(String message) throws XMPPException {
-//    	multiUserChat.sendMessage(message);
-//    	
-//    }
-//
-//    private void join(String room) throws XMPPException {
-//        multiUserChat = new MultiUserChat(connection, room);
-//        multiUserChat.join(room);
-//
-//        //multiUserChat.addMessageListener(new multipleMessagePacketListener());
-//    }
+        MultiUserChatManager multiChat = new MultiUserChatManager(connection,
+                room + "@conference.jabber.org", model);
+        multiChat.createRoom();
+        multiChatList.add(multiChat);
+        availableRoom.add(room + "@conference.jabber.org");
+        // multiChat.addParticipantStatusListener(new joinedListener());
 
+    }
+
+    public void joinRoom(String room) throws XMPPException {
+        MultiUserChatManager multiChat = new MultiUserChatManager(connection,
+                room, model);
+        multiChat.joinRoom();
+        multiChatList.add(multiChat);
+        availableRoom.add(room);
+        // multiChat.addParticipantStatusListener(new joinedListener());
+
+    }
+
+    public void inviteFriend(String userID, String roomName)
+            throws XMPPException {
+        int roomNumber = availableRoom.indexOf(roomName);
+        multiChatList.get(roomNumber).inviteFriend(userID);
+
+    }
+
+    public void leaveRoom(String roomName) {
+        int roomNumber = availableRoom.indexOf(roomName);
+
+        multiChatList.get(roomNumber).leaveRoom();
+        multiChatList.remove(roomNumber);
+        availableRoom.remove(roomNumber);
+    }
+
+    public void sendMultMessage(String message, String roomName)
+            throws BadConnectionException {
+        int roomNumber = availableRoom.indexOf(roomName
+                + "@conference.jabber.org");
+        System.out.println("Room number = " + roomNumber);
+        try {
+            multiChatList.get(roomNumber).sendMessage(message);
+        } catch (XMPPException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The Previous Way: Kevin you can decide which way is the best to handle
+     * it.
+     * 
+     */
+    // public void inviteFriend(String userID, String roomName) throws
+    // XMPPException {
+    // MultiUserChat multiUserChat = new MultiUserChat(connection, roomName);
+    // System.out.println("== From GoogleTalkManager Class == ");
+    // System.out.println("Invited User: " + userID);
+    // System.out.println("Room Name: " + roomName);
+    // multiUserChat.invite(userID, "Let's have fun");
+    //		
+    // multiUserChat.addParticipantStatusListener(new joinedListener());
+    // //multiUserChat.addMessageListener(new multipleMessagePacketListener());
+    //	
+    // }
+    //    
+    // public void join(String room, final String nickname) {
+    // join(false, room, nickname);
+    // }
+    //
+    // public void create(String room, String nickname) {
+    // groupRoom = "Parrot" + countRoom;
+    // availableRoom.add(groupRoom);
+    //		
+    // countRoom++;
+    //		
+    // join(true, room, nickname);
+    // }
+    //
+    // private void join(boolean create, String room, final String nickname) {
+    // try {
+    // multiUserChat = new MultiUserChat(connection, room +
+    // "@conference.jabber.org");
+    //
+    // // The room service will decide the amount of history to send
+    // if (create) {
+    // multiUserChat.create(nickname);
+    // multiUserChat.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+    // }
+    //                
+    // else
+    // multiUserChat.join(nickname);
+    //
+    // multiUserChat.changeSubject("Parrot Conversation");
+    // multiUserChat.changeNickname("Parrot IM");
+    //          
+    // multiUserChat
+    // .addSubjectUpdatedListener(new SubjectUpdatedListener() {
+    // public void subjectUpdated(String subject, String from) {
+    // System.out.println("Room Subject: " + subject);
+    // }
+    // });
+    //            
+    // multiUserChat.addParticipantStatusListener(new joinedListener());
+    // //multiUserChat.addMessageListener(new multipleMessagePacketListener());
+    // } catch (XMPPException e) {
+    // System.out.println("Error connecting to the room: "
+    // + e.getMessage());
+    // }
+    //
+    // // multiUserChat.addInvitationListener(connection, new
+    // // invitationListener());
+    //
+    // }
+    //    
+    // public void sendMucMessage(String message) throws XMPPException {
+    // multiUserChat.sendMessage(message);
+    //    	
+    // }
+    //
+    // private void join(String room) throws XMPPException {
+    // multiUserChat = new MultiUserChat(connection, room);
+    // multiUserChat.join(room);
+    //
+    // //multiUserChat.addMessageListener(new multipleMessagePacketListener());
+    // }
     // can be handled by the single message packet listener
-    
-//    private class multipleMessagePacketListener implements PacketListener {
-//
-//        public void processPacket(Packet packet) {
-//        	System.out.println("From multipleMessagePacketListener, Conference chat received!!");
-//        	
-//        	System.out.println("I received the conference room message listener but some how it is interfered by single message packet listener?");
-//        	
-//            if (packet instanceof org.jivesoftware.smack.packet.Message) {
-//
-//                Message message = (Message) packet;
-//                String fromUserID =
-//                        StringUtils.parseBareAddress(message.getFrom());
-//                String toUserID =
-//                        StringUtils.parseBareAddress(connection.getUser());
-//                if (message.getBody() != null) {
-//                    controller.messageReceived(fromUserID, toUserID, message
-//                            .getBody());
-//                    lastChat =
-//                            connection.getChatManager().createChat(fromUserID,
-//                                    new DefaultChatStateListener());
-//                    // MusicPlayer receiveMusic = new
-//                    // MusicPlayer("src/audio/message/receiveMessage.wav");
-//                }
-//                // org.jivesoftware.smack.packet.Message message =
-//                // (org.jivesoftware.smack.packet.Message) packet;
-//                System.out.println(delimitUserBack(message.getFrom()) + ": "
-//                 + message.getBody());
-//
-//            }
-//
-//        }
-//
-//    }
-    
-    
-
+    // private class multipleMessagePacketListener implements PacketListener {
+    //
+    // public void processPacket(Packet packet) {
+    // System.out.println("From multipleMessagePacketListener, Conference chat received!!");
+    //        	
+    // System.out.println("I received the conference room message listener but some how it is interfered by single message packet listener?");
+    //        	
+    // if (packet instanceof org.jivesoftware.smack.packet.Message) {
+    //
+    // Message message = (Message) packet;
+    // String fromUserID =
+    // StringUtils.parseBareAddress(message.getFrom());
+    // String toUserID =
+    // StringUtils.parseBareAddress(connection.getUser());
+    // if (message.getBody() != null) {
+    // controller.messageReceived(fromUserID, toUserID, message
+    // .getBody());
+    // lastChat =
+    // connection.getChatManager().createChat(fromUserID,
+    // new DefaultChatStateListener());
+    // // MusicPlayer receiveMusic = new
+    // // MusicPlayer("src/audio/message/receiveMessage.wav");
+    // }
+    // // org.jivesoftware.smack.packet.Message message =
+    // // (org.jivesoftware.smack.packet.Message) packet;
+    // System.out.println(delimitUserBack(message.getFrom()) + ": "
+    // + message.getBody());
+    //
+    // }
+    //
+    // }
+    //
+    // }
     private String delimitUserBack(String from) {
         String subString = from.substring(from.indexOf('/') + 1);
 
@@ -652,58 +642,65 @@ public class GoogleTalkManager implements GenericConnection {
         return subString;
     }
 
+    private String delimitRoom(String from) {
+        String subString = from.substring(0, from.indexOf('@'));
+
+        return subString;
+    }
+
     /**
-     * By adding this method (right now added to the contructor) we do have
-     * auto subscription. All subscribe packets get automatically answered by a
+     * By adding this method (right now added to the contructor) we do have auto
+     * subscription. All subscribe packets get automatically answered by a
      * subscribed packet.
      */
     private void addSubscriptionListener() {
-        PacketFilter filter =
-                new org.jivesoftware.smack.filter.PacketTypeFilter(
-                        Presence.class);
+        PacketFilter filter = new org.jivesoftware.smack.filter.PacketTypeFilter(
+                Presence.class);
         connection.createPacketCollector(filter);
         PacketListener myListener = new PacketListener() {
             public void processPacket(Packet packet) {
                 Presence presence = (Presence) packet;
-     
+
                 if (presence.getType() == Presence.Type.subscribe) {
-                	String subscriptionRequest = parseName(packet.getFrom()) + " wants to add you as a friend. Add as a friend?";
-                    int option = JOptionPane.showConfirmDialog(null, subscriptionRequest);
-    
+                    String subscriptionRequest = parseName(packet.getFrom())
+                            + " wants to add you as a friend. Add as a friend?";
+                    int option = JOptionPane.showConfirmDialog(null,
+                            subscriptionRequest);
+
                     if (option == JOptionPane.OK_OPTION) {
-                    	Presence response = new Presence(Presence.Type.subscribe);
+                        Presence response = new Presence(
+                                Presence.Type.subscribe);
                         response.setTo(presence.getFrom());
-                        
-                    	 connection.sendPacket(response);
-                         // ask also for subscription
-                         if (!subscribedUsers.contains(presence.getFrom())) {
-                             response = null;
-                             response = new Presence(Presence.Type.subscribe);
-                             connection.sendPacket(response);
-                             // update the roster with the new user
-                             org.jivesoftware.smack.packet.RosterPacket rosterPacket =
-                                     new org.jivesoftware.smack.packet.RosterPacket();
-                             rosterPacket.setType(IQ.Type.SET);
-                             org.jivesoftware.smack.packet.RosterPacket.Item item = new org.jivesoftware.smack.packet.RosterPacket.Item(
-                                             presence.getFrom(), parseName(presence
-                                                     .getFrom()));
-                             // item.addGroupName(OLATBUDDIES);
-                             item.setItemType(org.jivesoftware.smack.packet.RosterPacket.ItemType.both);
 
-                             rosterPacket.addRosterItem(item);
-                             connection.sendPacket(rosterPacket);
+                        connection.sendPacket(response);
+                        // ask also for subscription
+                        if (!subscribedUsers.contains(presence.getFrom())) {
+                            response = null;
+                            response = new Presence(Presence.Type.subscribe);
+                            connection.sendPacket(response);
+                            // update the roster with the new user
+                            org.jivesoftware.smack.packet.RosterPacket rosterPacket = new org.jivesoftware.smack.packet.RosterPacket();
+                            rosterPacket.setType(IQ.Type.SET);
+                            org.jivesoftware.smack.packet.RosterPacket.Item item = new org.jivesoftware.smack.packet.RosterPacket.Item(
+                                    presence.getFrom(), parseName(presence
+                                            .getFrom()));
+                            // item.addGroupName(OLATBUDDIES);
+                            item
+                                    .setItemType(org.jivesoftware.smack.packet.RosterPacket.ItemType.both);
 
-                             System.out.println("Updated the roster");
-                             subscribedUsers.add(presence.getFrom());
-                    }
-                         
-                         else {
-                        	 response = new Presence(Presence.Type.unsubscribe);
-                             response.setTo(presence.getFrom());
-                             connection.sendPacket(response);
-                        	 
-                         }
-                   
+                            rosterPacket.addRosterItem(item);
+                            connection.sendPacket(rosterPacket);
+
+                            System.out.println("Updated the roster");
+                            subscribedUsers.add(presence.getFrom());
+                        }
+
+                        else {
+                            response = new Presence(Presence.Type.unsubscribe);
+                            response.setTo(presence.getFrom());
+                            connection.sendPacket(response);
+
+                        }
 
                     }
                 }
@@ -767,15 +764,13 @@ public class GoogleTalkManager implements GenericConnection {
 
         return;
     }
-    
-   
 
     public String retrieveStatus(String userID) {
         String userStatus = ""; // default return value
 
         try {
-            userStatus =
-                    this.connection.getRoster().getPresence(userID).getStatus();
+            userStatus = this.connection.getRoster().getPresence(userID)
+                    .getStatus();
         } catch (NullPointerException e) {
             System.err.println("Invalid connection or "
                     + "user in retrieveStatus()");
@@ -819,21 +814,22 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     public void setReceiveListener() {
-    	receiveManager = new ArrayList<XMPPFileManager>();
-    	int count = 0;
-    	
-    	for (RosterEntry r : roster.getEntries()) {
-    		//System.out.println("From the File Transfer User = " + r.getUser());
-    		receiveManager.add(new XMPPFileManager(connection, fileTransferManager, transferringProgress));
-    		receiveManager.get(count).fileReceiver(r.getUser());
-    		count++;
-    	}
+        receiveManager = new ArrayList<XMPPFileManager>();
+        int count = 0;
+
+        for (RosterEntry r : roster.getEntries()) {
+            // System.out.println("From the File Transfer User = " +
+            // r.getUser());
+            receiveManager.add(new XMPPFileManager(connection,
+                    fileTransferManager, transferringProgress));
+            receiveManager.get(count).fileReceiver(r.getUser());
+            count++;
+        }
     }
-    
-    
+
     public ArrayList<FriendTempData> retrieveFriendList() {
         ArrayList<FriendTempData> friends = new ArrayList<FriendTempData>();
-        
+
         FriendTempData friendToAdd = null;
         String userID = null;
         Roster roster = null;
@@ -842,12 +838,10 @@ public class GoogleTalkManager implements GenericConnection {
 
         for (RosterEntry r : roster.getEntries()) {
             userID = r.getUser();
-            friendToAdd =
-                    new FriendTempData(userID, r.getName(), this
-                            .retrieveStatus(userID),
-                            this.retrieveState(userID), false);
+            friendToAdd = new FriendTempData(userID, r.getName(), this
+                    .retrieveStatus(userID), this.retrieveState(userID), false);
             friends.add(friendToAdd);
-            
+
         }
 
         return friends;
@@ -866,9 +860,8 @@ public class GoogleTalkManager implements GenericConnection {
         System.out.println("ToUserID = " + toUserID);
 
         if (ourChat == null) {
-            ourChat =
-                    connection.getChatManager().createChat(toUserID,
-                            new DefaultChatStateListener());
+            ourChat = connection.getChatManager().createChat(toUserID,
+                    new DefaultChatStateListener());
         }
         lastChat = ourChat;
         try {
@@ -944,8 +937,8 @@ public class GoogleTalkManager implements GenericConnection {
          * @param presence
          */
         public void presenceChanged(Presence presence) {
-            String bareAddress =
-                    StringUtils.parseBareAddress(presence.getFrom());
+            String bareAddress = StringUtils.parseBareAddress(presence
+                    .getFrom());
             controller.friendUpdated(genericConnection, bareAddress);
             return;
         }
@@ -961,32 +954,45 @@ public class GoogleTalkManager implements GenericConnection {
 
         public void processPacket(Packet packet) {
             Message message = (Message) packet;
-            String fromUserID = StringUtils.parseBareAddress(message.getFrom());
-            String toUserID =
-                    StringUtils.parseBareAddress(connection.getUser());
+            MessageData messageObject = null;
+            String fromUserID = null;
+            String roomName = null;
+            String toUserID = StringUtils
+                    .parseBareAddress(connection.getUser());
+            ChatCollectionData chatCollection = model.getChatCollection();
+            Conversation conversation = null;
             
-            System.out.println("Is it me??...");
             if (message.getType() == Message.Type.groupchat) {
-            	isConferenceChat = true;
-            	System.out.println("From Group Chat:");
-            	System.out.println(fromUserID + ": " + message.getBody());
+                isConferenceChat = true;
+                roomName = delimitRoom(message.getFrom());
+                fromUserID = delimitUserBack(message.getFrom());
+                System.out.println("From Group Chat:");
+                System.out.println(fromUserID + ": " + message.getBody());
+
+                conversation = chatCollection.findByRoomName(roomName);
+                messageObject = new MessageData(fromUserID, message.getBody());
+
+                if (chatCollection.isHidden(conversation)) {
+                    chatCollection.activateConversation(conversation);
+                }
+                
+                conversation.addMessage(messageObject);
+                chatCollection.forceUpdate();
+
+            } else {
+                fromUserID = StringUtils.parseBareAddress(message.getFrom());
+                if (message.getBody() != null) {
+                    controller.messageReceived(fromUserID, toUserID, message
+                            .getBody());
+
+                }
+                lastChat = connection.getChatManager().createChat(fromUserID,
+                        new DefaultChatStateListener());
+
+                isConferenceChat = false;
             }
-            
-            else {
-            	 if (message.getBody() != null) {
-                     controller.messageReceived(fromUserID, toUserID, message
-                             .getBody());
-                     
-                 }
-                 lastChat =
-                     connection.getChatManager().createChat(fromUserID,
-                             new DefaultChatStateListener());
-                 
-                 isConferenceChat = false;
-                 return;
-            	
-            }
-           
+
+            return;
         }
     }
 
@@ -998,58 +1004,60 @@ public class GoogleTalkManager implements GenericConnection {
 
         return hash;
     }
-    
-    public boolean isValidUserID(String userID) {
-    	String checkJID = roster.getPresence(userID).getFrom();
-    	
-   		return checkJID.contains(userID);
-    }
-    
-    public void sendFile(String userID, String path) throws XMPPException {
-    	
-    	String convertToJID = roster.getPresence(userID).getFrom();
-    	
-   		System.out.println("Start Transfering File... " + convertToJID);
-   			
-		OutgoingFileTransfer fileTransfer = fileTransferManager.createOutgoingFileTransfer(convertToJID);
 
-		
-		fileTransfer.sendFile(new File(path), "");
-		System.out.println("Start Transfering File...");
-		
-		
-		while(!fileTransfer.isDone()) {
-		    if(fileTransfer.getStatus() == FileTransfer.Status.refused)
-		    {
-		    	JOptionPane.showMessageDialog(null, "Could not send the file to " + userID + ".",
-                        "Failed", JOptionPane.ERROR_MESSAGE);
-		    	return;
-		    }
-		    if(fileTransfer.getStatus() == FileTransfer.Status.error)
-		    {
-		    	JOptionPane.showMessageDialog(null, "Cannot send the file because an error occured during the process.",
-                        "Failed", JOptionPane.ERROR_MESSAGE);
-		    	return;
-		    }
-		    
-		    System.out.println("Transferring Progress: " + transferringProgress.format(fileTransfer.getProgress() * 100)  + "% transferred.");
-		    
-		    	try {
-			    	Thread.sleep(100);
-			    
-			    } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-			    	e.printStackTrace();
-			    }
-		    
-		    
-		}
-		
-		System.out.println(fileTransfer.getFileName() + "has been successfully transferred.");		
-		System.out.println("The Transfer is " + fileTransfer.isDone());
-	    
-	    
- 		
+    public boolean isValidUserID(String userID) {
+        String checkJID = roster.getPresence(userID).getFrom();
+
+        return checkJID.contains(userID);
+    }
+
+    public void sendFile(String userID, String path) throws XMPPException {
+
+        String convertToJID = roster.getPresence(userID).getFrom();
+
+        System.out.println("Start Transfering File... " + convertToJID);
+
+        OutgoingFileTransfer fileTransfer = fileTransferManager
+                .createOutgoingFileTransfer(convertToJID);
+
+        fileTransfer.sendFile(new File(path), "");
+        System.out.println("Start Transfering File...");
+
+        while (!fileTransfer.isDone()) {
+            if (fileTransfer.getStatus() == FileTransfer.Status.refused) {
+                JOptionPane.showMessageDialog(null,
+                        "Could not send the file to " + userID + ".", "Failed",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (fileTransfer.getStatus() == FileTransfer.Status.error) {
+                JOptionPane
+                        .showMessageDialog(
+                                null,
+                                "Cannot send the file because an error occured during the process.",
+                                "Failed", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            System.out.println("Transferring Progress: "
+                    + transferringProgress
+                            .format(fileTransfer.getProgress() * 100)
+                    + "% transferred.");
+
+            try {
+                Thread.sleep(100);
+
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
+
+        System.out.println(fileTransfer.getFileName()
+                + "has been successfully transferred.");
+        System.out.println("The Transfer is " + fileTransfer.isDone());
+
     }
 
     /**
@@ -1064,11 +1072,10 @@ public class GoogleTalkManager implements GenericConnection {
     public void setTypingState(int state, String userID)
             throws BadConnectionException, XMPPException {
         ChatStateManager curState = ChatStateManager.getInstance(connection);
-        if (lastChat==null){
-        lastChat =
-                connection.getChatManager().createChat(userID,
-                        new DefaultChatStateListener());
-         }
+        if (lastChat == null) {
+            lastChat = connection.getChatManager().createChat(userID,
+                    new DefaultChatStateListener());
+        }
 
         if (state == 1) {
             curState.setCurrentState(ChatState.active, lastChat);
@@ -1121,12 +1128,9 @@ public class GoogleTalkManager implements GenericConnection {
         }
 
     }
-    
+
     public boolean isConferenceChat() {
-    	return isConferenceChat;
+        return isConferenceChat;
     }
 
-
-    
-  
 }

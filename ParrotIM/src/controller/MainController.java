@@ -51,6 +51,7 @@ import controller.services.TwitterManager;
 
 import model.Model;
 import model.dataType.AccountData;
+import model.dataType.ChatCollectionData;
 import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
@@ -648,7 +649,7 @@ public class MainController {
         UserData userToUpdate = null;
         account = model.findAccountByConnection(connection);
         if (account != null) {
-            userToUpdate = model.findUserByAccountName(fromUserID);
+            userToUpdate = model.findUserByUserID(fromUserID);
         }
         model.setTypingState(userToUpdate, typingState);
 
@@ -681,7 +682,7 @@ public class MainController {
         String color = "#000000";
         GenericConnection connection = null;
 
-        toUser = model.findUserByAccountName(to);
+        toUser = model.findUserByUserID(to);
         conversation = model.findConversation(account, toUser);
 
         if (conversation == null) {
@@ -1035,7 +1036,7 @@ public class MainController {
          String color = "#000000";
          GenericConnection connection = null;
 
-         toUser = model.findUserByAccountName(roomName);
+         toUser = model.findUserByUserID(roomName);
          conversation = model.findConversation(account, toUser);
 
          if (conversation == null) {
@@ -1078,12 +1079,20 @@ public class MainController {
             throws BadConnectionException {
         String to = null;
         MessageData messageObject = null;
-        Conversation conversation = null;
+        MultiConversationData conversation = null;
         String fromUser = null;
         GenericConnection connection = null;
+        ChatCollectionData chatCollection = null;
 
         // Default to sending to the active user
-        conversation = model.getActiveConversation();
+        chatCollection = model.getChatCollection();
+        try {
+            conversation = (MultiConversationData) chatCollection.getActiveConversation();
+        } catch (ClassCastException e) {
+            System.err.println("sendMultMessage took in a single conversation. Oops?");
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
@@ -1093,7 +1102,11 @@ public class MainController {
                 bold, italics, underlined, color);
 
         sendMultMessage(messageString, roomName);
-        //model.sendMessage(conversation, messageObject);
+        if (chatCollection.isHidden(conversation)) {
+            chatCollection.activateConversation(conversation);
+        }
+        chatCollection.forceUpdate();
+        conversation.addMessage(messageObject);
 
         return;
     }
