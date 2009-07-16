@@ -333,8 +333,6 @@ public class MainController {
      * @throws XMPPException
      */
     public void loginProfile(ProfileData profile) throws BadConnectionException {
-        // Disconnect in case already connected
-        this.disconnect();
         model.getProfileCollection().setActiveProfile(profile);
         System.out.println("we're here!");
         // Log-in account by account
@@ -354,8 +352,6 @@ public class MainController {
         createdProfile = new ProfileData("Guest");
         createdProfile.setGuestAccount(true);
 
-        // Disconnect in case already connected
-        this.disconnect();
         model.getProfileCollection().addProfile(createdProfile);
         model.getProfileCollection().setActiveProfile(createdProfile);
 
