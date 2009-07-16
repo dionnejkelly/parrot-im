@@ -588,5 +588,9 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
         // TODO Auto-generated method stub
         
     }
+	public void inviteFriend(String userID, String roomName) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

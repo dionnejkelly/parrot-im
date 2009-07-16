@@ -38,6 +38,7 @@
 package model.dataType;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import view.buddylist.FriendWrapper;
 
@@ -61,6 +62,8 @@ public abstract class UserData extends PersonData implements Comparable {
     protected boolean blocked;
 
     private static int countOnline = 0;
+    
+    private static Vector<String> onlineBuddy = new Vector<String>();
 
     // Section II
     // Constructors
@@ -259,11 +262,16 @@ public abstract class UserData extends PersonData implements Comparable {
         }
 
         countOnline = 0;
+        onlineBuddy = new Vector<String>();
+        
         for (UserData user : friends) {
             if (user.getState() == UserStateType.ONLINE
                     || user.getState() == UserStateType.AWAY
                     || user.getState() == UserStateType.BUSY) {
                 countOnline++;
+                
+                // puts online/away/busy users into the Vector<String> list
+                onlineBuddy.add(user.getUserID());
             }
         }
 
@@ -272,6 +280,10 @@ public abstract class UserData extends PersonData implements Comparable {
 
     public static int getCountOnline() {
         return countOnline;
+    }
+    
+    public static Vector<String> getOnlineBuddy() {
+    	return onlineBuddy;
     }
 
     public int getAvailability() {

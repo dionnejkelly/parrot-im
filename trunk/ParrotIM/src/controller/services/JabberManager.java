@@ -650,6 +650,11 @@ public class JabberManager implements GenericConnection {
 		
 	}
 
+	public void inviteFriend(String userID, String roomName) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }
