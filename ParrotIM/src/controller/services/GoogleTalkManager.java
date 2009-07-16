@@ -107,92 +107,92 @@ public class GoogleTalkManager implements GenericConnection {
     private Vector<MultiUserChatManager> multiChatList = new Vector<MultiUserChatManager>();
 	private Vector<String> availableRoom = new Vector<String>();
   
-    private class joinedListener implements ParticipantStatusListener {
-
-		public void adminGranted(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void adminRevoked(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void banned(String arg0, String arg1, String arg2) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void joined(String user) {
-			// Kevin is there a better function we can use from the StringUtil ?
-			System.out.println("Who joined in the room: " + delimitUserBack(user));
-			//int roomCount = multiUserChat.getOccupantsCount();
-			//System.out.println("Count: " + roomCount);
-			
-		}
-
-		public void kicked(String arg0, String arg1, String arg2) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void left(String user) {
-			// Kevin is there a better function we can use from the StringUtil ?
-			System.out.println("Who left in the room: " + delimitUserBack(user));
-			//int roomCount = multiUserChat.getOccupantsCount();
-			//System.out.println("Count: " + roomCount);
-			
-		}
-
-		public void membershipGranted(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void membershipRevoked(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void moderatorGranted(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void moderatorRevoked(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void nicknameChanged(String arg0, String arg1) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void ownershipGranted(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void ownershipRevoked(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void voiceGranted(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void voiceRevoked(String arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-    	
-    	
-    	
-    }
+//    private class joinedListener implements ParticipantStatusListener {
+//
+//		public void adminGranted(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void adminRevoked(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void banned(String arg0, String arg1, String arg2) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void joined(String user) {
+//			// Kevin is there a better function we can use from the StringUtil ?
+//			System.out.println("Who joined in the room: " + delimitUserBack(user));
+//			//int roomCount = multiUserChat.getOccupantsCount();
+//			//System.out.println("Count: " + roomCount);
+//			
+//		}
+//
+//		public void kicked(String arg0, String arg1, String arg2) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void left(String user) {
+//			// Kevin is there a better function we can use from the StringUtil ?
+//			System.out.println("Who left in the room: " + delimitUserBack(user));
+//			//int roomCount = multiUserChat.getOccupantsCount();
+//			//System.out.println("Count: " + roomCount);
+//			
+//		}
+//
+//		public void membershipGranted(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void membershipRevoked(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void moderatorGranted(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void moderatorRevoked(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void nicknameChanged(String arg0, String arg1) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void ownershipGranted(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void ownershipRevoked(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void voiceGranted(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		public void voiceRevoked(String arg0) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//    	
+//    	
+//    	
+//    }
 
 
     
@@ -449,7 +449,7 @@ public class GoogleTalkManager implements GenericConnection {
                                     connection.getHost(),
                                     new DefaultChatStateListener());
                     
-                    multiUserChat.addParticipantStatusListener(new joinedListener());
+                    //multiUserChat.addParticipantStatusListener(new joinedListener());
 //                    MusicPlayer receiveMusic =
 //                            new MusicPlayer(
 //                                    "src/audio/message/receiveMessage.wav");
@@ -486,7 +486,7 @@ public class GoogleTalkManager implements GenericConnection {
 		multiChat.createRoom();
 		multiChatList.add(multiChat);
 		availableRoom.add(room + "@conference.jabber.org");
-		multiChat.addParticipantStatusListener(new joinedListener());
+		//multiChat.addParticipantStatusListener(new joinedListener());
 		
 	}
 	
@@ -495,7 +495,7 @@ public class GoogleTalkManager implements GenericConnection {
 		multiChat.joinRoom();
 		multiChatList.add(multiChat);
 		availableRoom.add(room);
-		multiChat.addParticipantStatusListener(new joinedListener());
+		//multiChat.addParticipantStatusListener(new joinedListener());
 		
 	}
 	
@@ -863,6 +863,7 @@ public class GoogleTalkManager implements GenericConnection {
                 break;
             }
         }
+        System.out.println("ToUserID = " + toUserID);
 
         if (ourChat == null) {
             ourChat =
@@ -963,6 +964,8 @@ public class GoogleTalkManager implements GenericConnection {
             String fromUserID = StringUtils.parseBareAddress(message.getFrom());
             String toUserID =
                     StringUtils.parseBareAddress(connection.getUser());
+            
+            System.out.println("Is it me??...");
             if (message.getType() == Message.Type.groupchat) {
             	isConferenceChat = true;
             	System.out.println("From Group Chat:");

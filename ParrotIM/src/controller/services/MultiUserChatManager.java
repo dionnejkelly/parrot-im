@@ -14,6 +14,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
 
+
 public class MultiUserChatManager extends MultiUserChat  {
 	private Vector<String> users = new Vector<String>();
 	
@@ -21,6 +22,7 @@ public class MultiUserChatManager extends MultiUserChat  {
 	private String roomName;
 	
 	private XMPPConnection xmppConnection;
+	
 	
 	public MultiUserChatManager(XMPPConnection connection, String room) {
 		super(connection, room);
@@ -46,11 +48,13 @@ public class MultiUserChatManager extends MultiUserChat  {
 	
 	public void joinRoom() throws XMPPException {
 		super.join(roomName);
+		addParticipantStatusListener(new joinedListener());
 	}
 	
 	public void createRoom() throws XMPPException {
 		super.create(roomName);
 		super.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+		addParticipantStatusListener(new joinedListener());
 	}
 	
 	public void inviteFriend(String userID) throws XMPPException {
@@ -61,6 +65,103 @@ public class MultiUserChatManager extends MultiUserChat  {
 		super.leave();
 	}
 	
+	
+	private class joinedListener implements ParticipantStatusListener {
+
+		public void adminGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void adminRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void banned(String arg0, String arg1, String arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void joined(String user) {
+			// Kevin is there a better function we can use from the StringUtil ?
+			System.out.println("Who joined in the room: " +  delimitUserBack(user));
+			users.add(user);
+			countUsers++;
+			//int roomCount = multiUserChat.getOccupantsCount();
+			System.out.println("Count: " + countUsers);
+			
+		}
+
+		public void kicked(String arg0, String arg1, String arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void left(String user) {
+			// Kevin is there a better function we can use from the StringUtil ?
+			System.out.println("Who left in the room: " + delimitUserBack(user));
+			users.remove(user);
+			countUsers--;
+			//int roomCount = multiUserChat.getOccupantsCount();
+			System.out.println("Count: " + countUsers);
+			
+		}
+
+		public void membershipGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void membershipRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void moderatorGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void moderatorRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void nicknameChanged(String arg0, String arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void ownershipGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void ownershipRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void voiceGranted(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void voiceRevoked(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+    	
+    	
+    	
+    }
+	
+	 private String delimitUserBack(String from) {
+	        String subString = from.substring(from.indexOf('/') + 1);
+
+	        return subString;
+	    }
 	
 
 
