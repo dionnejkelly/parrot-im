@@ -724,7 +724,7 @@ public class MainController {
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
-        //to = conversation.getUser().getUserID();
+        to = conversation.getUser().getUserID();
 
         messageObject = new MessageData(fromUser, messageString, font, size,
                 bold, italics, underlined, color);
