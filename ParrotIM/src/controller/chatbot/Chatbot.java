@@ -1510,7 +1510,8 @@ public class Chatbot {
          */
         
         public boolean null_input()  {
-                return (sInput.length() == 0 && sPrevInput.length() != 0);
+        	// I changed this into 2 instead of 0, because any preprocess input will have two spaces
+                return (sInput.length() == 2 && sPrevInput.length() != 2);
         }
         
         /**
@@ -1520,7 +1521,7 @@ public class Chatbot {
          */
 
         public boolean null_input_repetition()  {
-                return (sInput.length() == 0 && sPrevInput.length() == 0);
+                return (sInput.length() == 2 && sPrevInput.length() == 2);
         }
         
         /**

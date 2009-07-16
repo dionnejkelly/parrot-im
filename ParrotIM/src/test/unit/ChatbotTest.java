@@ -237,7 +237,7 @@ public class ChatbotTest {
 
         String expected = cb1.respond();
 
-        assertSame(expected, cb1.get_response());
+        assertEquals(expected, cb1.get_response());
 
     }
 
@@ -292,7 +292,7 @@ public class ChatbotTest {
         cb1.get_input(q2);
         // But it will return false because we inserted two spaces
         assertTrue(cb1.getPreprocess_input().length()==2 && cb1.getSave_prev_input().length()!=0);
-       //assertTrue(cb1.null_input());
+       assertTrue(cb1.null_input());
     }
 
     @Test
@@ -304,7 +304,7 @@ public class ChatbotTest {
         String q2 = "";
         cb1.get_input(q2);
         assertTrue(cb1.getPreprocess_input().length()==2 && cb1.getSave_prev_input().length()==2);
-        //assertTrue(cb1.null_input_repetition());
+        assertTrue(cb1.null_input_repetition());
     }
 
     @Test
