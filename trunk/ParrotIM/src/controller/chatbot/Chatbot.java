@@ -1719,8 +1719,6 @@ public class Chatbot {
     	
     	
     	public String getCustomizedResponse(String input) {
-    		boolean found = false;
-    		
     		int QAPos = 0;
     		
     		for (QAPos = 0; QAPos < customizedList.size(); QAPos ++) {
@@ -1729,32 +1727,13 @@ public class Chatbot {
     			for (int QPos = 0; QPos < questions.size(); QPos ++) {
     				
     				if (input.contains(questions.get(QPos))) {
-    					found = true;
-    					break;
+    					Vector<String> answers = customizedList.get(QAPos).getAnswers();
+    					
+    					return answers.get(randInt(answers.size()));
     				}
     			}
-    			
-    			
     		}
-    		
-    		if (found) {
-				Vector<String> answers = customizedList.get(QAPos).getAnswers();
-				
-				return answers.get(randInt(answers.size()));
-			}
-			
-			else {
-				return "Chat bot does not understand.";
-			}
-    		
-    		
-    	
-    		
-    		
-    		
-    		
-    		
-    		
+			return "Chat bot does not understand.";
     	}
     	
     	
@@ -1769,13 +1748,4 @@ public class Chatbot {
     	public Chatbot(Vector<ChatbotQADataType> customList) {
     		this.customizedList = customList;
     	}
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-
-
 }
