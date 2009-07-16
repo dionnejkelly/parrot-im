@@ -647,12 +647,22 @@ public class TwitterManager implements GenericConnection {
         return false;
     }
 
-	public void create(String room, String nickname) {
+    public void createRoom(String room) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	public void inviteFriend(String userID, String roomName) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean isConferenceChat() {
+    	return false;
+    }
+
+	public void sendMultMessage(String message, String roomName)
+			throws BadConnectionException {
 		// TODO Auto-generated method stub
 		
 	}
