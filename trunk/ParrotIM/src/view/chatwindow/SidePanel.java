@@ -20,6 +20,8 @@ import view.styles.CustomListPane;
 import controller.MainController;
 
 import model.*;
+import model.dataType.ChatCollectionData;
+import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.UserData;
 import model.enumerations.UpdatedType;
@@ -53,9 +55,11 @@ public class SidePanel extends JPanel implements Observer {
      * Maintains the Parrot IM XMPP Protocol.
      */
 
-    private MainController c;
+    private MainController controller;
 
     private ArrayList<UserDataWrapper> users;
+
+    private ChatCollectionData chatCollection;
 
     /**
      * This is the constructor of the SidePanel.
@@ -64,11 +68,13 @@ public class SidePanel extends JPanel implements Observer {
      * @param model
      */
 
-    public SidePanel(MainController c, Model model) {
+    public SidePanel(MainController controller, Model model) {
         this.model = model;
-        this.c = c;
-        this.model.addObserver(this);
+        this.controller = controller;
+        // this.model.addObserver(this);
+        this.model.getChatCollection().addObserver(this);
         this.users = new ArrayList<UserDataWrapper>();
+        this.chatCollection = this.model.getChatCollection();
 
         // Panel Properties
         setLayout(new BorderLayout());
@@ -91,24 +97,28 @@ public class SidePanel extends JPanel implements Observer {
         UserDataWrapper userWrapper = null;
 
         // int loopIterationNumber = 0;
-        for (ConversationData cd1 : model.getConversations()) {
+        // for (ConversationData cd1 : model.getConversations()) {
+        for (Conversation c : this.chatCollection.getVisibleConversations()) {
             // if (loopIterationNumber > listPane.getNicknameList().size() - 1)
             // {
             userWrapper = null;
             for (UserDataWrapper u : this.users) {
-                u.getConversation().getUser().getTypingState();
-                if (u.getConversation() == cd1) {
+                if (u.getConversation().getUser() != null) {
+                    u.getConversation().getUser().getTypingState();
+                }
+                
+                if (u.getConversation() == c) {
                     userWrapper = u;
                     break;
                 }
             }
             if (userWrapper == null) {
-                userWrapper = new UserDataWrapper(cd1, this.model);
+                userWrapper = new UserDataWrapper(c, this.model);
                 this.users.add(userWrapper);
             }
 
             if (!listPane.sidePanelUserExists(userWrapper)) {
-                ImageIcon leafIcon = c.getAvatarPicture(cd1.getUser());
+                ImageIcon leafIcon = controller.getAvatarPicture(c.getUser());
                 listPane.addElement(userWrapper.toString(), leafIcon,
                         userWrapper, new SelectListener());
             }
@@ -123,13 +133,12 @@ public class SidePanel extends JPanel implements Observer {
 
     private void removeClosedConversations() {
         UserDataWrapper foundUser = null;
-        ArrayList<UserDataWrapper> usersToRemove =
-                new ArrayList<UserDataWrapper>();
+        ArrayList<UserDataWrapper> usersToRemove = new ArrayList<UserDataWrapper>();
 
         // Remove from the sidePanel, and make a list
         for (UserDataWrapper u : this.users) {
             foundUser = null;
-            for (ConversationData c : model.getConversations()) {
+            for (Conversation c : this.chatCollection.getVisibleConversations()) {
                 if (c == u.getConversation()) {
                     foundUser = u;
                     break;
@@ -141,7 +150,7 @@ public class SidePanel extends JPanel implements Observer {
                 usersToRemove.add(u);
             }
         }
-        
+
         // Remove the users from the list
         for (UserDataWrapper u : usersToRemove) {
             this.users.remove(u);
@@ -160,15 +169,15 @@ public class SidePanel extends JPanel implements Observer {
      */
 
     public void update(Observable t, Object o) {
-        if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
-                || o == UpdatedType.CHAT_STATE) {
-            try {
-                addNewConversationsToList();
-                removeClosedConversations();
-            } catch (XMPPException e) {
-                e.printStackTrace();
-            }
+        // if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
+        // || o == UpdatedType.CHAT_STATE) {
+        try {
+            addNewConversationsToList();
+            removeClosedConversations();
+        } catch (XMPPException e) {
+            e.printStackTrace();
         }
+        // }
         return;
     }
 
@@ -185,9 +194,10 @@ public class SidePanel extends JPanel implements Observer {
          * @param event
          */
         public void mousePressed(MouseEvent event) {
-            c.setTypingState(1); // set to the default typing state before
+            controller.setTypingState(1); // set to the default typing state
+                                          // before
             // switching
-            c.changeConversation(listPane.getUserWrapper(
+            controller.changeConversation(listPane.getUserWrapper(
                     listPane.getClickedIndex()).getConversation());
 
             return;

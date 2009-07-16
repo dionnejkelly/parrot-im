@@ -152,6 +152,10 @@ public class Model extends Observable {
     public ProfileCollectionData getProfileCollection() {
         return this.profileCollection;
     }
+    
+    public ChatCollectionData getChatCollection() {
+        return this.chatCollection;
+    }
 
     // Section
     // IV = Conversation Manipulation Methods
@@ -198,7 +202,7 @@ public class Model extends Observable {
      * 
      * @param conversation
      */
-    public void setActiveConversation(ConversationData conversation) {
+    public void setActiveConversation(Conversation conversation) {
         this.chatCollection.setActiveConversation(conversation);
 
         super.setChanged();

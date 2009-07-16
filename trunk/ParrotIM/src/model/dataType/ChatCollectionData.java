@@ -92,6 +92,9 @@ public class ChatCollectionData extends Observable {
         if (this.isHidden(this.activeConversation)) {
             this.activateConversation(this.activeConversation);
         }
+        
+        super.setChanged();
+        super.notifyObservers();
 
         return;
     }
@@ -153,6 +156,9 @@ public class ChatCollectionData extends Observable {
                 }
             }
         }
+        
+        super.setChanged();
+        super.notifyObservers();
 
         return;
     }
@@ -178,6 +184,9 @@ public class ChatCollectionData extends Observable {
                         : this.multiConversations.get(0);
             }
         }
+        
+        super.setChanged();
+        super.notifyObservers();
 
         return removed;
     }
@@ -220,6 +229,16 @@ public class ChatCollectionData extends Observable {
         allConversations.addAll(this.multiConversations);
         allConversations.addAll(this.hiddenMultiConversations);
 
+        return allConversations;
+    }
+    
+    public ArrayList<Conversation> getVisibleConversations() {
+        ArrayList<Conversation> allConversations = null;
+        
+        allConversations = new ArrayList<Conversation>();
+        allConversations.addAll(this.conversations);
+        allConversations.addAll(this.multiConversations);
+        
         return allConversations;
     }
 
