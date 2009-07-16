@@ -813,8 +813,12 @@ public class BuddyPanel extends JPanel implements Observer {
                             selectedFriend = buddyArray.get(j).get(i);
                             if (selectedFriend.isBlocked()) {
                                 menuItem4.setText("Unblock Friend");
+                                menuItem4.setIcon( new ImageIcon(this.getClass()
+                                        .getResource("/images/buddylist/button_ok.png")));
                             } else { // is not blocked; block it
                                 menuItem4.setText("Block Friend");
+                                menuItem4.setIcon( new ImageIcon(this.getClass()
+                                        .getResource("/images/buddylist/button_cancel.png")));
                             }
                         }
                     }
