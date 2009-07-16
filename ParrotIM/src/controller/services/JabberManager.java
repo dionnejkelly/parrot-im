@@ -38,6 +38,8 @@ import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateManager;
 import org.jivesoftware.smackx.packet.VCard;
 
+import view.styles.ProgressMonitorScreen;
+
 import controller.MainController;
 
 public class JabberManager implements GenericConnection {
@@ -635,7 +637,7 @@ public class JabberManager implements GenericConnection {
 		
 	}
 
-	public void sendFile(String filePath, String userID) throws XMPPException {
+	public void sendFile(String filePath, String userID, ProgressMonitorScreen progress) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}

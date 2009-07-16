@@ -40,6 +40,8 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.PacketIDFilter;
 import org.jivesoftware.smack.packet.IQ;
 
+import view.styles.ProgressMonitorScreen;
+
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -91,7 +93,7 @@ public interface GenericConnection {
     //@Override
     public int hashCode();
 
-	public void sendFile(String filePath, String userID) throws XMPPException;
+	public void sendFile(String filePath, String userID, ProgressMonitorScreen progress) throws XMPPException;
 	
 	public boolean isValidUserID(String userID);
     
