@@ -111,6 +111,7 @@ public class AccountInfo extends JPanel
 	protected String text;
 	
 	public StatusCombo presence;
+	private JPanel presencePanel;
 	
 	/**
 	 * variable model for extracting buddy list, each buddy's information and , conversation 
@@ -141,21 +142,22 @@ public class AccountInfo extends JPanel
 		
 		//name, status message (personal message) and status
 		JPanel textInfo = new JPanel();
-		GridLayout infoLayout = new GridLayout (2,1);
-		infoLayout.setVgap(2);
+		//GridLayout infoLayout = new GridLayout (2,1);
+		//infoLayout.setVgap(2);
 		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
-		textInfo.setLayout(infoLayout);
+		textInfo.setLayout(new BorderLayout());
 		textInfo.setBackground(Color.DARK_GRAY);
 			
 		
 		JLabel name = new JLabel(model.getCurrentProfile().getName());
 		name.setForeground(Color.WHITE);
+		//name.setSize(50, 10);
 		
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
 		statusMessage.setForeground(Color.CYAN);
-		textInfo.add(name);
-		textInfo.add(statusMessage);
+		textInfo.add(name,BorderLayout.NORTH);
+		textInfo.add(statusMessage,BorderLayout.CENTER);
 		// new Listener
 		
 		//combobox to change presence
@@ -164,7 +166,7 @@ public class AccountInfo extends JPanel
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		presence = new StatusCombo(chatClient);
-		JPanel presencePanel = new JPanel();
+		presencePanel = new JPanel();
 		presencePanel.setBackground(Color.DARK_GRAY);
 		presencePanel.add(presence);
 		
@@ -179,6 +181,17 @@ public class AccountInfo extends JPanel
    
 	// Section
     // III - Accessors and Mutators
+	void IMpanelSelected(){
+		presencePanel.setVisible(true);
+		statusMessage.setPreferredSize(new Dimension(70,20));
+	}
+	
+	void TwitterpanelSelected(){
+		presencePanel.setVisible(false);
+		statusMessage.setPreferredSize(new Dimension(70,80));
+	}
+	
+	
 	/**
 	 * mouse listener for mouse to do actions
 	 *

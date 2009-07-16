@@ -18,6 +18,8 @@ import java.awt.event.WindowListener;
 import java.sql.SQLException;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import view.mainwindow.HelpPanel;
 import view.mainwindow.MainWindow;
@@ -32,6 +34,7 @@ import view.chatwindow.ChatWindow;
 import controller.MainController;
 
 import model.Model;
+import model.enumerations.ServerType;
 
 /**
  * BuddyList display Friend contact list for Parrot IM users.
@@ -100,25 +103,37 @@ public class BuddyList extends JFrame {
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
 
         // INSIDE PANEL
-        JTabbedPane tabbedthing = new JTabbedPane();
+        accountInfo = new AccountInfo(c, model);
         BuddyPanel mainListPanel = new BuddyPanel(c, model, this);
         //JPanel twitterPanel = new TwitterPanel(c,model,this);
         
-        accountInfo = new AccountInfo(c, model);
-        tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel);
-        tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this,mainListPanel));
-        tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png")), new ICQPanel(c,model,this));
-        tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png")), new MSNPanel(c,model,this));
-        tabbedthing.addTab("", new ImageIcon(this.getClass().getResource(
-        		"/images/buddylist/statusIcons/AIM/AIM-AvailableSM.png")), new AIMPanel(c,model,this));
+        //If twitter exists, make tabbed buddy frame ; add to buddylistpanel
+        if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null){
+        	JTabbedPane contactList = new JTabbedPane();
+        	contactList.addTab("IM", new ImageIcon(this.getClass().getResource(
+    		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel, "Instant Messaging Contact List");
+        	contactList.addTab("Twitter Feed", new ImageIcon(this.getClass().getResource(
+        	"/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this,mainListPanel), "Twitter Live Feed");
+        	buddylistPanel.add(contactList, BorderLayout.CENTER);
+        	
+        	contactList.addChangeListener(new ChangeListener(){
+        		//Modifies info panel according to twitter/IM tab
+        		public void stateChanged(ChangeEvent evt){
+        			JTabbedPane contactPane = (JTabbedPane)evt.getSource();
+        			if (contactPane.getSelectedIndex() == 1)
+        				accountInfo.TwitterpanelSelected();
+        			else 
+        				accountInfo.IMpanelSelected();
+        		}
+        	});
+        }
+        else{
+        	buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
+        }
 
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);
-        buddylistPanel.add(tabbedthing, BorderLayout.CENTER);
+        
         // buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
         getContentPane().add(buddylistPanel);
         pack();
