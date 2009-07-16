@@ -18,6 +18,9 @@ package controller.chatbot;
 
 import java.util.*;
 
+import model.dataType.ChatbotQADataType;
+
+
 /**
  * The Chatbot currently stores all the knowledge base and respond list data
  * to provide users with auto-mated messaging. The Chatbot can be turn on/off
@@ -39,7 +42,8 @@ public class Chatbot {
      private final int userMaxInput = 1;
      private final int userMaxResp = 4;
      private final String puncSymbDelim = "?!.;:/(){}@#$%^&*+-|\\\'<>{}[]\"";
-        
+     
+     private Vector<ChatbotQADataType> customizedList = new Vector<ChatbotQADataType>();
      
      
      // Section
@@ -60,6 +64,7 @@ public class Chatbot {
  	 private String	sKeyWord = new String("");
      private boolean chatBotQuit = false;
 
+     private String customizedAnswer;
      
      private String transposList[][] = {
 			{"I'M", "YOU'RE"},
@@ -995,6 +1000,8 @@ public class Chatbot {
 
                 sInput = message;
                 
+                customizedAnswer = getCustomizedResponse(sInput);
+                
                 preprocess_input();
         }
       
@@ -1008,47 +1015,50 @@ public class Chatbot {
 
         public String respond()
         {
-                save_prev_response();
-                set_event("BOT UNDERSTAND**");
-
-                String response = "";
-                
-                if(null_input())
-                {
-                        handle_event("NULL INPUT**");
-                }
-                else if(null_input_repetition())
-                {
-                        handle_event("NULL INPUT REPETITION**");
-                }
-                else if(user_repeat())
-                {
-                        handle_user_repetition();
-                }
-                else
-                {
-                        find_match();
-                }
-
-
-                if(!bot_understand())
-                {
-                        handle_event("BOT DONT UNDERSTAND**");
-                }
-                
-                if(respList.size() > 0) 
-                {
-                        select_response();
-
-                        if(bot_repeat())
-                        {
-                                handle_repetition();
-                        }
-                        response = get_response();
-                }
+//                save_prev_response();
+//                set_event("BOT UNDERSTAND**");
+//
+//                String response = "";
+//                
+//                if(null_input())
+//                {
+//                        handle_event("NULL INPUT**");
+//                }
+//                else if(null_input_repetition())
+//                {
+//                        handle_event("NULL INPUT REPETITION**");
+//                }
+//                else if(user_repeat())
+//                {
+//                        handle_user_repetition();
+//                }
+//                else
+//                {
+//                        find_match();
+//                }
+//
+//
+//                if(!bot_understand())
+//                {
+//                        handle_event("BOT DONT UNDERSTAND**");
+//                        // get it from a customized list
+//                }
+//                
+//                if(respList.size() > 0) 
+//                {
+//                        select_response();
+//
+//                        if(bot_repeat())
+//                        {
+//                                handle_repetition();
+//                        }
+//                        response = get_response();
+//                }
                 
                 //System.out.println("Response = " + sInput);
-                return response;
+                //return response;
+        	
+        	return customizedAnswer;
         }
 
         
@@ -1704,6 +1714,63 @@ public class Chatbot {
     		temp.insert(temp.length(), ' ');
     		return temp.toString();
     	}
+    	
+    	
+    	
+    	public String getCustomizedResponse(String input) {
+    		boolean found = false;
+    		
+    		int QAPos = 0;
+    		
+    		for (QAPos = 0; QAPos < customizedList.size(); QAPos ++) {
+    			Vector<String> questions = customizedList.get(QAPos).getQuestions();
+    			
+    			for (int QPos = 0; QPos < questions.size(); QPos ++) {
+    				
+    				if (input.contains(questions.get(QPos))) {
+    					found = true;
+    					break;
+    				}
+    			}
+    			
+    			
+    		}
+    		
+    		if (found) {
+				Vector<String> answers = customizedList.get(QAPos).getAnswers();
+				
+				return answers.get(randInt(answers.size()));
+			}
+			
+			else {
+				return "Chat bot does not understand.";
+			}
+    		
+    		
+    	
+    		
+    		
+    		
+    		
+    		
+    		
+    	}
+    	
+    	
+    	private int randInt(int size) {
+    		Random random = new Random(size);
+    		return random.nextInt();
+    	}
+    	
+    	
+    	public Chatbot() {
+    	}
+    	public Chatbot(Vector<ChatbotQADataType> customList) {
+    		this.customizedList = customList;
+    	}
+    	
+    	
+    	
     	
     	
     	

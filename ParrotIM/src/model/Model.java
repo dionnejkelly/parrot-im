@@ -55,6 +55,7 @@ import controller.services.GenericConnection;
 
 import model.dataType.AccountData;
 import model.dataType.ChatCollectionData;
+import model.dataType.ChatbotQADataType;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.ICQAccountData;
@@ -87,6 +88,8 @@ public class Model extends Observable {
     // Section
     // I - Data Members
 
+	private Vector<ChatbotQADataType> QAs = new Vector<ChatbotQADataType> ();
+	
     private ChatCollectionData chatCollection;
 
     /**
@@ -1075,7 +1078,7 @@ public class Model extends Observable {
 
         return account;
     }
-
+	
     public void addQuestion(String question) throws ClassNotFoundException,
             SQLException {
         DatabaseFunctions db = new DatabaseFunctions();

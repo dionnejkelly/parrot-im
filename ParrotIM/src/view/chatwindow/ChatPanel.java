@@ -674,7 +674,7 @@ public class ChatPanel extends JPanel {
 			
 			
 			
-			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(c, model);
+			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(c, model, "chat window");
 		}
     	
     }

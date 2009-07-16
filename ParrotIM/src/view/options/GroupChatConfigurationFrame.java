@@ -72,36 +72,44 @@ public class GroupChatConfigurationFrame extends JFrame{
 //	}
 	
 	
-	public GroupChatConfigurationFrame(MainController c, Model model){
-		mainFrame = this;
-		this.model = model;
-		this.controller = c;
-		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
-		this.setTitle("Group Chat Configuration");
-		
-		setRoomPanels();
-		this.setPreferredSize(new Dimension(330,120));
-		setResizable(false);
-		setLocationRelativeTo(null);
-
-		
-		
-		
-		pack();
-		getContentPane().add(mainPanel);
-		setVisible(true);
-		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-		this.setLocation(600 ,200);
-		
-	}
+//	public GroupChatConfigurationFrame(MainController c, Model model){
+//		mainFrame = this;
+//		this.model = model;
+//		this.controller = c;
+//		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
+//		this.setTitle("Group Chat Configuration");
+//		
+//		setRoomPanels();
+//		this.setPreferredSize(new Dimension(330,120));
+//		setResizable(false);
+//		setLocationRelativeTo(null);
+//
+//		
+//		
+//		
+//		pack();
+//		getContentPane().add(mainPanel);
+//		setVisible(true);
+//		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+//		this.setLocation(600 ,200);
+//		
+//	}
 	
-	public GroupChatConfigurationFrame(Model model, int tempParameter){
+	public GroupChatConfigurationFrame(MainController c, Model model, String type){
 		mainFrame = this;
 		this.model = model;
 		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
 		this.setTitle("Group Chat Configuration");
 		
-		setAllPanels();
+		
+		if (type.equals("chat window")) {
+			setAllPanels();
+		}
+		
+		else {
+			setRoomPanels();
+		}
+		
 		this.setPreferredSize(new Dimension(330,180));
 		setResizable(false);
 		setLocationRelativeTo(null);

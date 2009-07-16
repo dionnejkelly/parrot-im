@@ -40,6 +40,7 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import view.options.MusicPlayer;
+import view.options.modelstub.model;
 
 import controller.chatbot.Chatbot;
 import controller.services.BadConnectionException;
@@ -99,7 +100,20 @@ public class MainController {
 
     public MainController(Model model) {
         this.model = model;
-        this.chatbot = new Chatbot();
+        
+		try {
+			model modelStub = new model(model);
+	        this.chatbot = new Chatbot(modelStub.getChatbotQAList());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		catch (Exception e){
+			
+			//INVESTIGATE: getQuestions in model
+			this.chatbot = new Chatbot();
+		}
     }
 
     /**
