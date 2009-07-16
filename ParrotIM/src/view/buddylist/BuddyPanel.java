@@ -467,8 +467,15 @@ public class BuddyPanel extends JPanel implements Observer {
     class inviteFriendListener extends MouseAdapter {
 
         public void mousePressed(MouseEvent event) {
-            // GroupChatConfigurationFrame groupConfig =
-            // new GroupChatConfigurationFrame(model);
+        	
+        	if (chatClient.getAvailableRoom().size() > 0) {
+        		 GroupChatConfigurationFrame groupConfig =  new GroupChatConfigurationFrame(chatClient, model);
+        	}
+        	
+        	else {
+        		JOptionPane.showMessageDialog(null, "Could not find any conference room.", "Failed", JOptionPane.ERROR_MESSAGE);
+        	}
+           
         }
 
     }
