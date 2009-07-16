@@ -203,6 +203,15 @@ public class ChatLogPanel extends JPanel {
         this.add(chatlogPane, BorderLayout.CENTER);
     }
     
+    public void updateBuddyList(Vector<String> buddyList){
+    	//NOT DONE
+        buddies.setListData(buddyList);
+        buddies.setEnabled(true);
+        buddies.updateUI();
+
+        text.setListData(stub);
+    }
+    
     public void updateDateList(Vector<String> dateVectorList){
         dateList.setListData(dateVectorList);
         dateList.setEnabled(true);
@@ -211,6 +220,22 @@ public class ChatLogPanel extends JPanel {
         text.setListData(stub);
     }
 
+    /**
+     * This method grabs the message from the database and sets the Vector returned
+     * by the model as the text's data source. It also update the message shown by text.
+     * It takes a String argument that specify the date.
+     * @param date
+     */
+    private void updateLog(String date) {
+    	// Grab all message objects from the database
+        Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
+                .toString(), date, "");
+        
+        text.setListData(messages);
+        text.updateUI();
+
+    }
+    
     /**
      * Sets the behaviour when one of the buddies on the buddies JList is selected
      * 
@@ -262,22 +287,6 @@ public class ChatLogPanel extends JPanel {
             String date = source.getSelectedValue().toString();
 //            System.out.println("date is null??  "+date.length());
             updateLog(date);
-        }
-
-        /**
-         * This method grabs the message from the database and sets the Vector returned
-         * by the model as the text's data source. It also update the message shown by text.
-         * It takes a String argument that specify the date.
-         * @param date
-         */
-        private void updateLog(String date) {
-        	// Grab all message objects from the database
-            Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
-                    .toString(), date, "");
-            
-            text.setListData(messages);
-            text.updateUI();
-
         }
     }
     
