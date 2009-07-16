@@ -19,13 +19,15 @@
 
 package model.dataType;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Observable;
 
-public class ChatCollectionData {
+//import java.util.Scanner;
+
+public class ChatCollectionData extends Observable {
 
     /**
      * Holds a collection of all conversations. If no conversations are
@@ -35,23 +37,29 @@ public class ChatCollectionData {
 
     private ArrayList<ConversationData> hiddenConversations;
 
+    private ArrayList<MultiConversationData> multiConversations;
+
+    private ArrayList<MultiConversationData> hiddenMultiConversations;
+
     /**
      * Holds a reference to the current active conversation. This conversation
      * should be contained inside data member, conversations.
      */
-    private ConversationData activeConversation;
+    private Conversation activeConversation;
 
     private boolean chatWindowHistoryEnabled;
 
     public ChatCollectionData() {
         this.conversations = new ArrayList<ConversationData>();
         this.hiddenConversations = new ArrayList<ConversationData>();
+        this.multiConversations = new ArrayList<MultiConversationData>();
+        this.hiddenMultiConversations = new ArrayList<MultiConversationData>();
         this.activeConversation = null;
         this.chatWindowHistoryEnabled = true;
 
         // Debug code
-        ChatDebugThread chatDebugThread = new ChatDebugThread();
-        chatDebugThread.start();
+        // ChatDebugThread chatDebugThread = new ChatDebugThread();
+        // chatDebugThread.start();
     }
 
     public ArrayList<ConversationData> getConversations() {
@@ -71,15 +79,45 @@ public class ChatCollectionData {
         this.hiddenConversations = hiddenConversations;
     }
 
-    public void setActiveConversation(ConversationData activeConversation) {
-        this.addConversation(activeConversation);
+    public ArrayList<MultiConversationData> getMultiConversations() {
+        return multiConversations;
+    }
+
+    public ArrayList<MultiConversationData> getHiddenMultiConversations() {
+        return hiddenMultiConversations;
+    }
+
+    public void setActiveConversation(Conversation activeConversation) {
         this.activeConversation = activeConversation;
+        if (this.isHidden(this.activeConversation)) {
+            this.activateConversation(this.activeConversation);
+        }
 
         return;
     }
 
-    public ConversationData getActiveConversation() {
+    public Conversation getActiveConversation() {
         return activeConversation;
+    }
+
+    public boolean isHidden(Conversation conversation) {
+        return hiddenConversations.contains(conversation)
+                || hiddenMultiConversations.contains(conversation);
+    }
+
+    public void activateConversation(Conversation conversation) {
+
+        if (this.hiddenConversations.contains(conversation)) {
+            this.conversations.add((ConversationData) conversation);
+            this.hiddenConversations.remove(conversation);
+        } else if (this.hiddenMultiConversations.contains(conversation)) {
+            this.multiConversations.add((MultiConversationData) conversation);
+            this.hiddenMultiConversations.remove(conversation);
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+        return;
     }
 
     // Addition/Removal methods
@@ -92,30 +130,53 @@ public class ChatCollectionData {
         return chatWindowHistoryEnabled;
     }
 
-    public void addConversation(ConversationData conversation) {
-        if (!this.conversations.contains(conversation)) {
-            this.conversations.add(conversation);
-            if (conversations.size() == 1) {
-                this.activeConversation = conversation;
+    public void addConversation(Conversation conversation) {
+        if (conversation instanceof ConversationData) {
+            if (!this.conversations.contains(conversation)) {
+                this.conversations.add((ConversationData) conversation);
+                if (conversations.size() == 1) {
+                    this.activeConversation = conversation;
+                }
+                if (this.hiddenConversations.contains(conversation)) {
+                    this.hiddenConversations.remove(conversation);
+                }
             }
-            if (this.hiddenConversations.contains(conversation)) {
-                this.hiddenConversations.remove(conversation);
+        } else if (conversation instanceof MultiConversationData) {
+            if (!this.multiConversations.contains(conversation)) {
+                this.multiConversations
+                        .add((MultiConversationData) conversation);
+                if (multiConversations.size() == 1) {
+                    this.activeConversation = conversation;
+                }
+                if (this.hiddenMultiConversations.contains(conversation)) {
+                    this.hiddenMultiConversations.remove(conversation);
+                }
             }
         }
 
         return;
     }
 
-    public boolean removeConversation(ConversationData conversation) {
+    public boolean removeConversation(Conversation conversation) {
         boolean removed = false;
 
-        if (this.conversations.contains(conversation)) {
-            this.conversations.remove(conversation);
-            this.hiddenConversations.add(conversation);
-            removed = true;
-            this.activeConversation =
-                    this.conversations.isEmpty() ? null : this.conversations
-                            .get(0);
+        if (conversation instanceof ConversationData) {
+            if (this.conversations.contains(conversation)) {
+                this.conversations.remove(conversation);
+                this.hiddenConversations.add((ConversationData) conversation);
+                removed = true;
+                this.activeConversation = this.conversations.isEmpty() ? null
+                        : this.conversations.get(0);
+            }
+        } else if (conversation instanceof MultiConversationData) {
+            if (this.multiConversations.contains(conversation)) {
+                this.multiConversations.remove(conversation);
+                this.hiddenMultiConversations
+                        .add((MultiConversationData) conversation);
+                removed = true;
+                this.activeConversation = this.multiConversations.isEmpty() ? null
+                        : this.multiConversations.get(0);
+            }
         }
 
         return removed;
@@ -124,6 +185,8 @@ public class ChatCollectionData {
     public void hideAllConversations() {
         this.hiddenConversations.addAll(this.conversations);
         this.conversations.clear();
+        this.hiddenMultiConversations.addAll(this.multiConversations);
+        this.multiConversations.clear();
         this.activeConversation = null;
 
         return;
@@ -132,6 +195,8 @@ public class ChatCollectionData {
     public void removeAllConversations() {
         this.conversations.clear();
         this.hiddenConversations.clear();
+        this.hiddenMultiConversations.clear();
+        this.multiConversations.clear();
         this.activeConversation = null;
 
         return;
@@ -147,59 +212,69 @@ public class ChatCollectionData {
 
         return allConversations;
     }
+    
+    public ArrayList<MultiConversationData> getAllMultiConversations() {
+        ArrayList<MultiConversationData> allConversations = null;
+
+        allConversations = new ArrayList<MultiConversationData>();
+        allConversations.addAll(this.multiConversations);
+        allConversations.addAll(this.hiddenMultiConversations);
+
+        return allConversations;
+    }
 
     // Debug code
-    private class ChatDebugThread extends Thread {
-        public void run() {
-            BufferedReader br =
-                    new BufferedReader(new InputStreamReader(System.in));
-            String selection = "";
-            System.out.println("*** ChatCollectionData Dev Tools ***");
-            System.out.println("chat info - show info, chat quit - quit");
-            System.out.println("************************************");
-            try {
-                while (!selection.equals("chat quit")) {
-                    selection = "";
-                    if (br.ready()) {
-                        selection = br.readLine();
-                    }
-                    
-                    if (selection.equals("chat info")) {
-                        System.out.print("Active Conversation: ");
-                        if (getActiveConversation() != null) {
-                            System.out.println(getActiveConversation()
-                                    .getUser()
-                                    + " ("
-                                    + getActiveConversation().getAccount()
-                                    + ")");
-                        } else {
-                            System.out.println("<null>");
-                        }
-
-                        System.out.println("Conversation list ("
-                                + getConversations().size() + "):");
-                        for (ConversationData c : getConversations()) {
-                            System.out.println("  " + c.getUser() + " ("
-                                    + c.getAccount() + ")");
-                        }
-                        System.out.println("Hidden Conversation list ("
-                                + getHiddenConversations().size() + "):");
-                        for (ConversationData c : getHiddenConversations()) {
-                            System.out.println("  " + c.getUser() + " ("
-                                    + c.getAccount() + ")");
-                        }
-                    } else if (selection.equals("chat quit")) {
-                        System.out
-                                .println("Exiting ChatCollectionData Dev Tools...");
-                    }
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            return;
-        }
-    }
+    // private class ChatDebugThread extends Thread {
+    // public void run() {
+    // BufferedReader br =
+    // new BufferedReader(new InputStreamReader(System.in));
+    // String selection = "";
+    // System.out.println("*** ChatCollectionData Dev Tools ***");
+    // System.out.println("chat info - show info, chat quit - quit");
+    // System.out.println("************************************");
+    // try {
+    // while (!selection.equals("chat quit")) {
+    // selection = "";
+    // if (br.ready()) {
+    // selection = br.readLine();
+    // }
+    //                    
+    // if (selection.equals("chat info")) {
+    // System.out.print("Active Conversation: ");
+    // if (getActiveConversation() != null) {
+    // System.out.println(getActiveConversation()
+    // .getUser()
+    // + " ("
+    // + getActiveConversation().getAccount()
+    // + ")");
+    // } else {
+    // System.out.println("<null>");
+    // }
+    //
+    // System.out.println("Conversation list ("
+    // + getConversations().size() + "):");
+    // for (ConversationData c : getConversations()) {
+    // System.out.println("  " + c.getUser() + " ("
+    // + c.getAccount() + ")");
+    // }
+    // System.out.println("Hidden Conversation list ("
+    // + getHiddenConversations().size() + "):");
+    // for (ConversationData c : getHiddenConversations()) {
+    // System.out.println("  " + c.getUser() + " ("
+    // + c.getAccount() + ")");
+    // }
+    // } else if (selection.equals("chat quit")) {
+    // System.out
+    // .println("Exiting ChatCollectionData Dev Tools...");
+    // }
+    // }
+    // } catch (IOException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // }
+    //
+    // return;
+    // }
+    // }
 
 }

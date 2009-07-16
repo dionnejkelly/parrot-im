@@ -1,21 +1,15 @@
 /* ConversationData.java
  * 
  * Programmed By:
+ *     Jihoon Choi
  *     Kevin Fahy
- *     William Chen
  *     
  *     Change Log:
- *     2009-June-9, KF
- *         Initial write. Holds all data for a specific conversation with
- *         one person.
- *     2009-June-13, WC
- *         Moved over to ParrotIM project.
- *     2009-June-24, KF
- *         Completed JavaDoc documentation of the class.
+ *     2009-July-15 JC, KF
+ *         - First write.
  *         
  * Known Issues:
- *     1. Only functional for one user; multi-user chats are not
- *        implemented by this class.
+ *     none
  * 
  * Copyright (C) 2009  Pirate Captains
  * 
@@ -28,17 +22,14 @@ package model.dataType;
 import java.util.ArrayList;
 import java.util.Observable;
 
-/**
- * Holds all information represented in a conversation. Typically, each
- * ConversationData object represents a new chat. When the number of or status
- * of an object changes, the GUI should update accordingly.
- */
-public class ConversationData extends Observable implements Conversation {
+public class MultiConversationData extends Observable implements Conversation {
+
+    private String roomName;
 
     /**
      * The external user being talked to.
      */
-    private UserData user;
+    private ArrayList<UserData> users;
 
     /**
      * The local user, classified by AccountData.
@@ -63,30 +54,29 @@ public class ConversationData extends Observable implements Conversation {
      * @param user
      *            The external user.
      */
-    public ConversationData(AccountData account, UserData user) {
-        this.user = user;
+    public MultiConversationData(String roomName, AccountData account) {
+        this.roomName = roomName;
+        this.users = new ArrayList<UserData>();
         this.account = account;
         this.text = new ArrayList<MessageData>();
         this.messageCount = 0;
     }
 
+    public String getRoomName() {
+        return this.roomName;
+    }
+
+    public UserData getUser() {
+        return this.users.size() >= 1 ? this.users.get(0) : null;
+    }
+    
     /**
      * Gets the UserData of the external user.
      * 
      * @return The external user in UserData form.
      */
-    public UserData getUser() {
-        return user;
-    }
-
-    /**
-     * Changes the external user of the conversation.
-     * 
-     * @param user
-     */
-    public void setUser(UserData user) {
-        this.user = user;
-        return;
+    public ArrayList<UserData> getUsers() {
+        return this.users;
     }
 
     /**
@@ -117,6 +107,42 @@ public class ConversationData extends Observable implements Conversation {
         return this.text;
     }
 
+    public UserData findUserByUserID(String userID) {
+        UserData foundUser = null; // Default return value
+
+        for (UserData u : this.users) {
+            if (u.getUserID().equalsIgnoreCase(userID)) {
+                foundUser = u;
+                break;
+            }
+        }
+
+        return foundUser;
+    }
+
+    public void addUser(UserData user) {
+
+        if (!this.users.contains(user)) {
+            this.users.add(user);
+        }
+
+        super.setChanged();
+        super.notifyObservers();
+
+        return;
+    }
+
+    public boolean removeUser(UserData user) {
+        boolean removed = false;
+
+        removed = this.users.remove(user);
+
+        super.setChanged();
+        super.notifyObservers();
+
+        return removed;
+    }
+
     /**
      * Add a message to the conversation. Useful for when sending or receiving a
      * new message. This method can be called to update the conversation.
@@ -126,6 +152,10 @@ public class ConversationData extends Observable implements Conversation {
     public void addMessage(MessageData message) {
         this.text.add(message);
         this.messageCount++;
+
+        super.setChanged();
+        super.notifyObservers();
+
         return;
     }
 
@@ -153,13 +183,13 @@ public class ConversationData extends Observable implements Conversation {
 
     public boolean equals(Object o) {
         boolean areEqual = false;
-        ConversationData externalConversation = null;
+        MultiConversationData externalConversation = null;
 
-        if (o != null && o instanceof ConversationData) {
-            externalConversation = (ConversationData) o;
-            areEqual =
-                    (this.user.equals(externalConversation.getUser()) && this.account
-                            .equals(externalConversation.getAccount()));
+        if (o != null && o instanceof MultiConversationData) {
+            externalConversation = (MultiConversationData) o;
+            areEqual = (this.roomName
+                    .equals(externalConversation.getRoomName()) && this.account
+                    .equals(externalConversation.getAccount()));
         }
 
         return areEqual;
@@ -169,7 +199,7 @@ public class ConversationData extends Observable implements Conversation {
     public int hashCode() {
         int hash = 7;
 
-        hash = hash * 31 + this.user.hashCode();
+        hash = hash * 31 + this.roomName.hashCode();
         hash = hash * 31 + this.account.hashCode();
 
         return hash;
