@@ -289,7 +289,7 @@ public class BuddyPanel extends JPanel implements Observer {
         FriendPanel tempPanel = null;
 
         for (int i = 0; i < 6; i++) {
-            buddyListPane.removeAllElements(i);    
+            buddyListPane.removeAllElements(i);
             boxes[i].removeAll();
         }
 
@@ -305,15 +305,15 @@ public class BuddyPanel extends JPanel implements Observer {
             if (u.getServer() == ServerType.GOOGLE_TALK) {
                 buddyArray.get(0).add(u);
                 boxes[0].add(FriendItem(u));
-                buddyListPane.addElement(0, FriendItem(u));
+                buddyListPane.addElement(0, tempPanel);
             } else if (u.getServer() == ServerType.TWITTER) {
                 buddyArray.get(1).add(u);
                 boxes[1].add(FriendItem(u));
-                buddyListPane.addElement(1, FriendItem(u));
+                buddyListPane.addElement(1, tempPanel);
             } else if (u.getServer() == ServerType.ICQ) {
                 buddyArray.get(4).add(u);
                 boxes[4].add(FriendItem(u));
-                buddyListPane.addElement(4, FriendItem(u));
+                buddyListPane.addElement(4, tempPanel);
             }
 
         }
@@ -332,11 +332,12 @@ public class BuddyPanel extends JPanel implements Observer {
 
         System.out.println("about to add listener");
         // add mouse listeners
-        for(int j = 0; j < 6; j++){
-	        for (int i = 0; i < boxes[j].getComponentCount(); i++) {
-	            // System.out.println(boxes[j].getComponentCount() + ":" + i);
-	            buddyListPane.addExternalMouseListener(j, i, new SelectListener());
-	        }
+        for (int j = 0; j < 6; j++) {
+            for (int i = 0; i < boxes[j].getComponentCount(); i++) {
+                // System.out.println(boxes[j].getComponentCount() + ":" + i);
+                buddyListPane.addExternalMouseListener(j, i,
+                        new SelectListener());
+            }
         }
 
         /*
@@ -466,8 +467,8 @@ public class BuddyPanel extends JPanel implements Observer {
     class inviteFriendListener extends MouseAdapter {
 
         public void mousePressed(MouseEvent event) {
-            //GroupChatConfigurationFrame groupConfig =
-            //        new GroupChatConfigurationFrame(model);
+            // GroupChatConfigurationFrame groupConfig =
+            // new GroupChatConfigurationFrame(model);
         }
 
     }
