@@ -102,7 +102,7 @@ public class Model extends Observable {
     // window should not show if there are no conversations active. This
     // variable should be phased out.
     // TODO Phase this variable out.
-    public boolean logWindowOpen;
+    public boolean bugReportWindowOpen;
     public boolean aboutWindowOpen;
     public boolean groupChatWindowOpen;
 
@@ -493,7 +493,7 @@ public class Model extends Observable {
         this.profileCollection = new ProfileCollectionData();
         this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
-        logWindowOpen = false;
+        bugReportWindowOpen = false;
         groupChatWindowOpen = false;
 
         // Grab profiles and account from the database
@@ -1039,10 +1039,10 @@ public class Model extends Observable {
     public void updatePopupState(PopupEnableWindowType popupInt, boolean state) {
         if (popupInt == PopupEnableWindowType.ABOUT) {
             System.out.println("Model:  About");
-            this.logWindowOpen = state;
+            this.aboutWindowOpen = state;
         } else if (popupInt == PopupEnableWindowType.BUGREPORT) {
             System.out.println("Model: Bug report");
-            this.aboutWindowOpen = state;
+            this.bugReportWindowOpen = state;
         } else if (popupInt == PopupEnableWindowType.GROUPCHAT) {
             System.out.println("Model: Group chat");
             this.groupChatWindowOpen = state;

@@ -129,6 +129,8 @@ public class GroupChatConfigurationFrame extends JFrame{
 	
 	
 	private void setAllPanels() {
+
+        this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
 		usersToInvite = new JLabel("Users to invite: ");
 		//String[] usersList = {"Only online users should be displayed here", "kevin.fahy@gmail.com", "parroim.test@gmail.com", "jrfox02@gmail.com"};
 		
