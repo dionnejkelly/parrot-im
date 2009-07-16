@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
@@ -203,6 +205,7 @@ public class ChatbotQA extends JFrame{
 	private class addNewQAFrame extends JFrame{
 		private JTextField field;
 		private JFrame frame;
+		private JButton okButton;
 		
 		public addNewQAFrame(char mode){
 			frame =this;
@@ -215,10 +218,12 @@ public class ChatbotQA extends JFrame{
 				label.setText("Please type in your answer: ");
 			
 			field = new JTextField();
+			field.addKeyListener (new newQAfieldKeyListener());
 			field.setPreferredSize(new Dimension(260, 20));
 			
-			JButton okButton = new JButton ("OK");
+			okButton = new JButton ("OK");
 			okButton.addActionListener(new okActionListener(mode));
+			okButton.setEnabled(false);
 			JButton cancelButton = new JButton ("Cancel");
 			cancelButton.addActionListener(new cancelActionListener());
 			JPanel buttonPanel = new JPanel ();
@@ -252,7 +257,7 @@ public class ChatbotQA extends JFrame{
 				this.mode = mode;
 			}
 			public void actionPerformed(ActionEvent e) {
-				if (field.getText().length()!=0)
+//				if (field.getText().length()!=0)
 				if (mode == 'Q'){
 					try {
 						QAObject.addQuestion(field.getText());
@@ -281,6 +286,30 @@ public class ChatbotQA extends JFrame{
 				frame.dispose();
 				
 			}	
+		}
+		
+		private class newQAfieldKeyListener implements KeyListener{
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if (field.getText().length()>0)
+					okButton.setEnabled(true);
+				else
+					okButton.setEnabled(false);
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		}
 	}
 }
