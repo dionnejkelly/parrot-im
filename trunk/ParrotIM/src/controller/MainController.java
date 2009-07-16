@@ -868,6 +868,8 @@ public class MainController {
                         false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
+        
+        
         MusicPlayer receiveMusic =
                 new MusicPlayer("src/audio/message/receiveMessage.wav", model);
         model.receiveMessage(account, messageData);
