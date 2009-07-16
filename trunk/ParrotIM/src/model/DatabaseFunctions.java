@@ -950,11 +950,16 @@ public class DatabaseFunctions {
         Vector<String> questionList = new Vector<String>();
         rs = stat.executeQuery("select * from chatBotQuestions where profile='" 
         		+ profile + "';");
+        int counter = 0;
         while (rs.next()) {
+        	counter++;
             questionList.add(rs.getString("question"));
         }
         rs.close();
         conn.close();
+        if (counter == 0) {
+        	return null;
+        }
         return questionList;
     }
 
