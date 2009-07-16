@@ -724,7 +724,7 @@ public class MainController {
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
-        to = conversation.getUser().getUserID();
+        //to = conversation.getUser().getUserID();
 
         messageObject = new MessageData(fromUser, messageString, font, size,
                 bold, italics, underlined, color);
@@ -973,7 +973,12 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
-        connection.create(groupRoom, account.getUserID());
+        try {
+			connection.createRoom(groupRoom);
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         multiConversation = new MultiConversationData(groupRoom, account);
         model.getChatCollection().addConversation(multiConversation);
@@ -1004,5 +1009,92 @@ public class MainController {
     public void setAvailableRoom(String roomName) {
         availableRoom.add(roomName);
         countRoom++;
+    }
+    
+    public boolean isConferenceChat() {
+    	  AccountData account = null; // Should be passed in!!
+          GenericConnection connection = null;
+
+          // connection should be found from account!!
+          account = model.getCurrentProfile().getAccountData().get(0);
+          connection = account.getConnection();
+          
+          return connection.isConferenceChat();
+    }
+    
+    public void sendMultMessage(String message, String roomName, AccountData account) throws BadConnectionException {
+    	 ConversationData conversation = null;
+         MessageData messageObject = null;
+         String fromUser = null;
+         UserData toUser = null;
+         String font = "Arial"; // temp values
+         String size = "4";
+         boolean bold = false;
+         boolean italics = false;
+         boolean underlined = false;
+         String color = "#000000";
+         GenericConnection connection = null;
+
+         toUser = model.findUserByAccountName(roomName);
+         conversation = model.findConversation(account, toUser);
+
+         if (conversation == null) {
+             model.startConversation(account, toUser);
+             conversation = model.findConversation(account, toUser);
+         }
+         connection = conversation.getAccount().getConnection();
+
+         fromUser = conversation.getAccount().getUserID();
+         roomName = conversation.getUser().getUserID();
+
+         messageObject = new MessageData(fromUser, message, font, size,
+                 bold, italics, underlined, color);
+
+         connection.sendMultMessage(message, roomName);
+         model.sendMessage(conversation, messageObject);
+
+         
+        
+        
+        return;
+    	
+    }
+    
+    public void sendMultMessage(String message, String roomName) throws BadConnectionException {
+    	AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+        
+        connection.sendMultMessage(message, roomName);
+        
+        
+    }
+    
+    public void sendMultMessage(String messageString, String roomName, String font, String size,
+            boolean bold, boolean italics, boolean underlined, String color)
+            throws BadConnectionException {
+        String to = null;
+        MessageData messageObject = null;
+        Conversation conversation = null;
+        String fromUser = null;
+        GenericConnection connection = null;
+
+        // Default to sending to the active user
+        conversation = model.getActiveConversation();
+        connection = conversation.getAccount().getConnection();
+
+        fromUser = conversation.getAccount().getUserID();
+        //to = conversation.getUser().getUserID();
+
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
+
+        sendMultMessage(messageString, roomName);
+        //model.sendMessage(conversation, messageObject);
+
+        return;
     }
 }

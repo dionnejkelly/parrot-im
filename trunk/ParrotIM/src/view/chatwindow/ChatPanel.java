@@ -319,29 +319,53 @@ public class ChatPanel extends JPanel {
      */
     public void sendMessage() {
         String msg = txt1.getText();
-
+        
         if (msg != null && msg.length() > 0) {
-            System.out.println(msg);
-            System.out.println(msg.length());
-            try {
-            	if(oldContentPane == null){
-	                c.sendMessage(
-	                        msg, fontSelect.getSelectedItem().toString(),
-	                        fontSizemodel.getValue().toString(), bold, italics,
-	                        underlined, "#000000");
-            	}else{
-            		c.sendMessage(
-	                        msg, fontSelect.getSelectedItem().toString(),
-	                        fontSizemodel.getValue().toString(), bold, italics,
-	                        underlined, oldContentPane.hexColor);
-            	}
-
-            } catch (BadConnectionException e) {
-                e.printStackTrace();
-                System.out.println("failed in sending text");
+        	if (c.isConferenceChat()) {
+            	//  we need to know which room is selected in the Chat Side Panel
+        		// for now I'll assume it only sends to the room "Parrot0@conference.jabber.org"
+        		// as a Proof of concept
+        		
+        		try {
+        			c.sendMultMessage(
+ 	                        msg, "Parrot0@conference.jabber.org",fontSelect.getSelectedItem().toString(),
+ 	                        fontSizemodel.getValue().toString(), bold, italics,
+ 	                        underlined, "#000000");
+					//c.sendMultMessage(msg, "Parrot0@conference.jabber.org");
+				} catch (BadConnectionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
-            txt1.setText("");
+            
+            else {
+            	 //if (msg != null && msg.length() > 0) {
+                     System.out.println(msg);
+                     System.out.println(msg.length());
+                     try {
+                     	if(oldContentPane == null){
+         	                c.sendMessage(
+         	                        msg, fontSelect.getSelectedItem().toString(),
+         	                        fontSizemodel.getValue().toString(), bold, italics,
+         	                        underlined, "#000000");
+                     	}else{
+                     		c.sendMessage(
+         	                        msg, fontSelect.getSelectedItem().toString(),
+         	                        fontSizemodel.getValue().toString(), bold, italics,
+         	                        underlined, oldContentPane.hexColor);
+                     	}
+
+                     } catch (BadConnectionException e) {
+                         e.printStackTrace();
+                         System.out.println("failed in sending text");
+                     }
+                     txt1.setText("");
+                // }
+            	
+            }
         }
+        
+       
     }
 
     /**

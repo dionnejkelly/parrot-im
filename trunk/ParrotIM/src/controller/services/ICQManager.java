@@ -584,11 +584,21 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 		// TODO Auto-generated method stub
 		return false;
 	}
-    public void create(String room, String nickname) {
-        // TODO Auto-generated method stub
-        
-    }
+    
 	public void inviteFriend(String userID, String roomName) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+	public void createRoom(String room) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean isConferenceChat() {
+    	return false;
+    }
+	public void sendMultMessage(String message, String roomName)
+			throws BadConnectionException {
 		// TODO Auto-generated method stub
 		
 	}

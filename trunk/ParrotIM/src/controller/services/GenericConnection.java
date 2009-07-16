@@ -95,9 +95,13 @@ public interface GenericConnection {
 	
 	public boolean isValidUserID(String userID);
     
-	public void create(String room, String nickname);
+	public void createRoom(String room) throws XMPPException;
 	
 	public void inviteFriend(String userID, String roomName) throws XMPPException;
+	
+	 public boolean isConferenceChat();
+	 
+	 public void sendMultMessage(String message, String roomName) throws BadConnectionException;
     // don't need this for now
 //    public void setUserNickName(String name) throws XMPPException;
 //
