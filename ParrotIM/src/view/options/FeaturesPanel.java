@@ -44,9 +44,9 @@ import javax.swing.event.ListSelectionListener;
 
 import model.Model;
 import model.dataType.ChatbotQADataType;
+import model.dataType.tempData.CustomizedChatbotModel;
 
 import view.chatwindow.ThemeOptionsComboBox;
-import view.options.modelstub.CustomizedChatbotModel;
 import view.styles.PopupWindowListener;
 
 import controller.MainController;

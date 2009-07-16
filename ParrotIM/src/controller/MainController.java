@@ -100,18 +100,7 @@ public class MainController {
     public MainController(Model model) {
         this.model = model;
         
-		try {
-	        this.chatbot = new Chatbot(model.getCustomizedChatbotModel());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		catch (Exception e){
-			
-			//INVESTIGATE: getQuestions in model
-			this.chatbot = new Chatbot();
-		}
+
     }
 
     /**
@@ -320,7 +309,21 @@ public class MainController {
 
         // Set up friends' user data
         this.populateBuddyList(account);
-
+        
+        //set up chatbot
+		try {
+	        this.chatbot = new Chatbot(model.getCustomizedChatbotModel());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+//	catch (Exception e){
+//		
+//		//INVESTIGATE: getQuestions in model
+//		this.chatbot = new Chatbot();
+//	}
+        
         return;
     }
 
