@@ -22,6 +22,7 @@
 package view.options;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -182,15 +183,17 @@ public class ManageAccount extends JPanel implements Observer {
         jabberServerPanel.setLayout(new BorderLayout());
         jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
         // label
-        JPanel jabberServerLabel = new JPanel();
-        jabberServerLabel.setLayout(new BorderLayout());
-        jabberServerLabel.add(new JLabel("Jabber server:  "),
+        JLabel jabberServerLabel = new JLabel("Jabber server:  ");
+        jabberServerLabel.setForeground(Color.pink.darker());
+        JPanel jabberServerLabelPanel = new JPanel();
+        jabberServerLabelPanel.setLayout(new BorderLayout());
+        jabberServerLabelPanel.add(jabberServerLabel,
                 BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
         serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
-        serverPanel.add(jabberServerLabel, BorderLayout.WEST);
+        serverPanel.add(jabberServerLabelPanel, BorderLayout.WEST);
         serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
 
         // set username
@@ -198,7 +201,9 @@ public class ManageAccount extends JPanel implements Observer {
         UNField = new JTextField();
         UNField.addKeyListener(keyListener);
         UNField.setPreferredSize(new Dimension(160, 20));
-        usernamePanel.add(new JLabel("Username:     "));
+        JLabel UNLabel = new JLabel("Username:     ");
+        UNLabel.setForeground(Color.pink.darker());
+        usernamePanel.add(UNLabel);
         usernamePanel.add(UNField);
         usernamePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         // set password
@@ -206,7 +211,9 @@ public class ManageAccount extends JPanel implements Observer {
         pwdField = new JPasswordField();
         pwdField.addKeyListener(keyListener);
         pwdField.setPreferredSize(new Dimension(160, 20));
-        passwordPanel.add(new JLabel("Password:      "));
+        JLabel pwdLabel = new JLabel("Password:      ");
+        pwdLabel.setForeground(Color.pink.darker());
+        passwordPanel.add(pwdLabel);
         passwordPanel.add(pwdField);
 
         // account setup Panel

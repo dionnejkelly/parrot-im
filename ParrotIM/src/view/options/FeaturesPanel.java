@@ -21,6 +21,7 @@
 
 package view.options;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,6 +81,7 @@ public class FeaturesPanel extends JPanel {
         /* CHATBOT */
         chatbotCheck = new JCheckBox("Enable ChatBot",  new ImageIcon(this.getClass().getResource(
         "/images/menu/monitor_delete.png")));
+        chatbotCheck.setForeground(Color.pink.darker());
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addItemListener(new chatbotListener());
 
@@ -125,22 +127,25 @@ public class FeaturesPanel extends JPanel {
         /* SOUND NOTIFICATION */
         soundCheck = new JCheckBox("Enable Sound Notification",  new ImageIcon(this.getClass().getResource(
         "/images/menu/sound.png")));
+        soundCheck.setForeground(Color.pink.darker());
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
 
         /* CHATLOG */
         chatLogCheck = new JCheckBox("Enable Chat Log",  new ImageIcon(this.getClass().getResource(
         "/images/menu/note_add.png")));
+        chatLogCheck.setForeground(Color.pink.darker());
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
         
         /* CHAT WINDOW HISTORY */
-        this.chatWindowHistoryCheck =
+        chatWindowHistoryCheck =
                 new JCheckBox("Enable Chat Window History",  new ImageIcon(this.getClass().getResource(
                 "/images/menu/application_form_add.png")));
-        this.chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
+        chatWindowHistoryCheck.setForeground(Color.pink.darker());
+        chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
-        this.chatWindowHistoryCheck
+        chatWindowHistoryCheck
                 .addItemListener(new chatWindowHistoryListener());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

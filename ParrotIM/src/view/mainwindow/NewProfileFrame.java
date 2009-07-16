@@ -22,6 +22,7 @@
 package view.mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -73,12 +74,15 @@ public class NewProfileFrame extends JFrame {
         /* PROFILE  Name is limited to __ characters */
         profileName = new JTextField();
         profileName.setPreferredSize(new Dimension(280, 20));
+        JLabel profileLabel = new JLabel("Profile Name: ");
+        profileLabel.setForeground(Color.pink.darker());
         JPanel profilePanel = new JPanel();
-        profilePanel.add(new JLabel("Profile Name: "));
+        profilePanel.add(profileLabel);
         profilePanel.add(profileName);
 
         /* PASSWORD */
         passwordCheck = new JCheckBox("Enable Password (recommended)");
+        passwordCheck.setForeground(Color.pink.darker());
         passwordCheck.setToolTipText("Lock your profile account settings by setting a password");
         passwordCheck.addChangeListener(new passwordCheckListener());
 
@@ -91,6 +95,7 @@ public class NewProfileFrame extends JFrame {
 
         /* DEFAULT PROFILE */
         defaultCheck = new JCheckBox("Default Profile (Auto-Signin)");
+        defaultCheck.setForeground(Color.pink.darker());
         defaultCheck.setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs." +
         		"<br>There can only be one Default Profile, checking this will set this profile as the new default");
         JPanel optionPanel = new JPanel();
