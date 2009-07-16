@@ -62,6 +62,7 @@ import org.jivesoftware.smackx.packet.VCard;
 import com.sun.image.codec.jpeg.ImageFormatException;
 
 import view.options.MusicPlayer; //import view.styles.ProgressMonitorScreen;
+import view.styles.ProgressMonitorScreen;
 
 import controller.MainController;
 
@@ -1011,7 +1012,7 @@ public class GoogleTalkManager implements GenericConnection {
         return checkJID.contains(userID);
     }
 
-    public void sendFile(String userID, String path) throws XMPPException {
+    public void sendFile(String userID, String path, ProgressMonitorScreen progress) throws XMPPException {
 
         String convertToJID = roster.getPresence(userID).getFrom();
 
@@ -1046,7 +1047,7 @@ public class GoogleTalkManager implements GenericConnection {
 
             try {
                 Thread.sleep(100);
-
+                progress.counter = (int)fileTransfer.getProgress() * 100;
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

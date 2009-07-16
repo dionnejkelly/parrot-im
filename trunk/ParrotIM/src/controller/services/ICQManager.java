@@ -55,6 +55,8 @@ import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 import org.jivesoftware.smack.XMPPException;
 
+import view.styles.ProgressMonitorScreen;
+
 import controller.MainController;
 
 import model.Model;
@@ -575,7 +577,7 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 		
 	}
 
-	public void sendFile(String filePath, String userID) throws XMPPException {
+	public void sendFile(String filePath, String userID, ProgressMonitorScreen progress) throws XMPPException {
 		// TODO Auto-generated method stub
 		
 	}

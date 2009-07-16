@@ -21,6 +21,7 @@ import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
+import view.styles.ProgressMonitorScreen;
 import winterwell.jtwitter.Twitter;
 import winterwell.jtwitter.Twitter.Status;
 import winterwell.jtwitter.Twitter.User;
@@ -637,7 +638,7 @@ public class TwitterManager implements GenericConnection {
 
     }
 
-    public void sendFile(String filePath, String userID) throws XMPPException {
+    public void sendFile(String filePath, String userID, ProgressMonitorScreen progress) throws XMPPException {
         // TODO Auto-generated method stub
 
     }

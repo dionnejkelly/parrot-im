@@ -974,15 +974,16 @@ public class MainController {
         	
         		File selectedFile = fileChooser.getSelectedFile();
 
-        		 ProgressMonitorScreen progress = new ProgressMonitorScreen();
+        		 
  
         		 long fileSize = selectedFile.length() / 1000;
         		System.out.println("The file size = " + fileSize + " KB");
         		
         		if (fileSize < 64) {
+        			ProgressMonitorScreen progress = new ProgressMonitorScreen();
             		try {
         			String filePath = fileChooser.getSelectedFile().getPath();
-					connection.sendFile(to, filePath);
+					connection.sendFile(to, filePath, progress);
             		} catch (XMPPException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -991,10 +992,11 @@ public class MainController {
         		}
         		
         		else {
-        			
+        			JOptionPane.showMessageDialog(null, "Please choose a file that does not exceed more than 60 KB.",
+                            "Failed", JOptionPane.ERROR_MESSAGE);
         		}
 
-				progress.counter += 2;
+				
         	}
            
         }
