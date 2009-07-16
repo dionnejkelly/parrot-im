@@ -34,6 +34,8 @@ package view.chatLog;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -185,9 +187,11 @@ public class ChatLogPanel extends JPanel {
 
         /*SEARCH BAR*/
         searchField = new JTextField();
+        searchField.addKeyListener(new searchFieldKeyListener());
         JButton searchButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching");
+        searchButton.setPreferredSize(new Dimension(30,30));
         //
         searchButton.addMouseListener(new searchListener());
         JPanel searchBarPanel = new JPanel();
@@ -301,12 +305,26 @@ public class ChatLogPanel extends JPanel {
 //
         public void mousePressed(MouseEvent event) {
 
-            if (searchField.getText().length() > 0) {
+            if (searchField.getText().length() == 0) {
+            	String resultMessage = "Please provide a key word in the search field.";
+                JOptionPane.showMessageDialog(null, resultMessage);
+            }
+
+        }
+    }
+    
+    private class searchFieldKeyListener implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			if (searchField.getText().length() > 0) {
             	searchKey = searchField.getText();
-//            	Vector <String> dateVectorList = 
-//            		model.getBuddyDateList(model.getCurrentProfile().getName(),buddies.getSelectedValue().toString() , searchKey);
-//               updateDateList(dateVectorList);
-            	
             	try {
 					Vector <String> buddiesSearchResult = model.getBuddyLogList(profile, searchKey);
 					
@@ -322,58 +340,14 @@ public class ChatLogPanel extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            	
-            	
-//            	Vector<String> users = null;
-//               try {
-//            	   System.out.println("hi");
-//            	   db = new DatabaseFunctions();
-//				 users = db.getChatNameList(profile, searchField.getText());
-//				 System.out.println("Appear");
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			System.out.println(users.size());
-//			for(int i=0;i<users.size();i++){
-//				Vector<String> dates = null;
-//               try {
-//            	   System.out.println("Hi again");
-//            	   db = new DatabaseFunctions();
-//				 dates = db.getChatDatesFromName(profile, users.get(i), searchField.getText());
-//				 System.out.println("Appear again");
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//				for(int j=0;j<dates.size();j++){
-//					try {
-//						System.out.println("Hi third");
-//						db = new DatabaseFunctions();
-//						ArrayList<ChatLogMessageTempData> message = db.getMessageFromDate(profile, users.get(i), dates.get(j), searchField.getText());
-//						System.out.println("Finished");
-//					} catch (SQLException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					} catch (ClassNotFoundException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					} 
-//            }
-			
+			}
 		}
 
-            else {
-            	String resultMessage = "Please provide a key word in the search field.";
-                JOptionPane.showMessageDialog(null, resultMessage);
-            }
-
-        }
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+    	
     }
 }
