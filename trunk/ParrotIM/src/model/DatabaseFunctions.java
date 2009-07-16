@@ -282,9 +282,6 @@ public class DatabaseFunctions {
         }
         rs.close();
         conn.close();
-        for (int i = 0; i < accountList.size(); i++) {
-            System.out.println(accountList.get(i));
-        }
         return accountList;
 
     }
