@@ -19,6 +19,7 @@ package controller.chatbot;
 import java.util.*;
 
 
+import model.Model;
 import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
 
@@ -31,7 +32,7 @@ import model.dataType.tempData.CustomizedChatbotModel;
  */
 
 public class Chatbot {
-	
+	private Model model;
   
 	// Section
     // I - Final Data Members
@@ -45,7 +46,7 @@ public class Chatbot {
      private final int userMaxResp = 4;
      private final String puncSymbDelim = "?!.;:/(){}@#$%^&*+-|\\\'<>{}[]\"";
      
-     private CustomizedChatbotModel customizedModel;
+
      
      
      // Section
@@ -1721,33 +1722,39 @@ public class Chatbot {
     	
     	
     	public String getCustomizedResponse(String input) {
+    	    CustomizedChatbotModel customizedModel = model.getCustomizedChatbotModel();
+    	     
     		int QAPos = 0;
-    		
-    		for (QAPos = 0; QAPos < customizedModel.getQASize(); QAPos ++) {
-    			Vector<String> questions = customizedModel.getQAObject(QAPos).getQuestions();
-    			
-    			for (int QPos = 0; QPos < questions.size(); QPos ++) {
-    				
-    				if (input.contains(questions.get(QPos))) {
-    					Vector<String> answers = customizedModel.getQAObject(QAPos).getAnswers();
-    					
-    					return answers.get(randInt(answers.size()));
-    				}
-    			}
+    		if (customizedModel.getQASize() > 0){
+	    		for (QAPos = 0; QAPos < customizedModel.getQASize(); QAPos ++) {
+	    			Vector<String> questions = customizedModel.getQAObject(QAPos).getQuestions();
+	    			
+	    			for (int QPos = 0; QPos < questions.size(); QPos ++) {
+	    				
+	    				if (input.contains(questions.get(QPos))) {
+	    					Vector<String> answers = customizedModel.getQAObject(QAPos).getAnswers();
+	    					
+	    					System.out.println("answer size: " + answers.size());
+	    					int select = randInt(answers.size());
+	    					System.out.println("select: " + select);
+	    					return answers.get(select);
+	    				}
+	    			}
+	    		}
     		}
 			return "Chat bot does not understand.";
     	}
     	
     	
     	private int randInt(int size) {
-    		Random random = new Random(size);
-    		return random.nextInt();
+    		Random random = new Random();
+    		return random.nextInt(size);
     	}
     	
     	
     	public Chatbot() {}
     	
-    	public Chatbot(CustomizedChatbotModel chatbotModel) {
-    		this.customizedModel = chatbotModel;
+    	public Chatbot(Model model) {
+    		this.model = model;
     	}
 }

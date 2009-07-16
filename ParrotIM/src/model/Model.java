@@ -88,6 +88,7 @@ import model.enumerations.UpdatedType;
  */
 public class Model extends Observable {
 
+	private CustomizedChatbotModel chatbotModel;
     // Section
     // I - Data Members
 
@@ -1189,7 +1190,10 @@ public class Model extends Observable {
     	return db.getStatus(profile);
     }
     
-    public CustomizedChatbotModel getCustomizedChatbotModel() throws ClassNotFoundException, SQLException{
-    	return new CustomizedChatbotModel(this);
+    public void initiateChatbotModel() throws ClassNotFoundException, SQLException{
+    	chatbotModel = new CustomizedChatbotModel(this);
+    }
+    public CustomizedChatbotModel getCustomizedChatbotModel(){
+    	return chatbotModel;
     }
 }

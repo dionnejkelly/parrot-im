@@ -318,21 +318,23 @@ public class MainController {
 
         // Set up friends' user data
         this.populateBuddyList(account);
-
-        // set up chatbot
-        try {
-            this.chatbot = new Chatbot(model.getCustomizedChatbotModel());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        // catch (Exception e){
-        //		
-        // //INVESTIGATE: getQuestions in model
-        // this.chatbot = new Chatbot();
-        // }
-
+        
+        //set up chatbot
+		try {
+			model.initiateChatbotModel();
+			chatbot = new Chatbot(model);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//	catch (Exception e){
+//		
+//		//INVESTIGATE: getQuestions in model
+//		this.chatbot = new Chatbot();
+//	}
         return;
     }
 
