@@ -310,7 +310,7 @@ public class GoogleTalkManager implements GenericConnection {
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
         // vcard = new VCard();
         ImageIcon icon = new ImageIcon(this.getClass().getResource(
-        "/images/chatwindow/personal.png"));;
+        "/images/chatwindow/personal.png"));
 
         if (connection.isAuthenticated()) {
         	try {

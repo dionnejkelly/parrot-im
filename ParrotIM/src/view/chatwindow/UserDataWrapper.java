@@ -6,20 +6,22 @@ import java.util.Observer;
 import javax.swing.JLabel;
 
 import model.Model;
+import model.dataType.Conversation;
 import model.dataType.ConversationData;
+import model.dataType.MultiConversationData;
 import model.enumerations.UpdatedType;
 
 public class UserDataWrapper implements Observer {
 
-    private ConversationData conversation;
+    private Conversation conversation;
 
     private int readMessages;
 
     private Model model;
-    
+
     private JLabel labelRepresentation;
 
-    public UserDataWrapper(ConversationData conversation, Model model) {
+    public UserDataWrapper(Conversation conversation, Model model) {
         this.conversation = conversation;
         this.readMessages = 0;
         this.model = model;
@@ -27,10 +29,10 @@ public class UserDataWrapper implements Observer {
         this.labelRepresentation = new JLabel("  " + this.toString());
     }
 
-    public ConversationData getConversation() {
+    public Conversation getConversation() {
         return this.conversation;
     }
-    
+
     public JLabel getLabelRepresentation() {
         return this.labelRepresentation;
     }
@@ -38,20 +40,22 @@ public class UserDataWrapper implements Observer {
     public String toString() {
         String message = "";
         if (this.conversation.getMessageCount() - this.readMessages > 0) {
-            message +=
-                    "("
-                            + (this.conversation.getMessageCount() - this.readMessages)
-                            + ") ";
+            message += "("
+                    + (this.conversation.getMessageCount() - this.readMessages)
+                    + ") ";
         }
-        message += this.conversation.getUser().getUserID();
-        String typingState = this.conversation.getUser().getTypingState();
-//        if (this.conversation!=model.getActiveConversation()){
-	        if(!typingState.equals("")){
-	        	message += "\n ("+typingState+")";
-	        }
-	        message += "\n "+this.conversation.getUser().getTypingState();
-//        }
-	        
+        if (this.conversation instanceof ConversationData) {
+            message += this.conversation.getUser().getUserID();
+            
+            String typingState = this.conversation.getUser().getTypingState();
+            if (!typingState.equals("")) {
+                message += "\n (" + typingState + ")";
+            }
+            message += "\n " + this.conversation.getUser().getTypingState();
+        } else if (this.conversation instanceof MultiConversationData) {
+            message += ((MultiConversationData) this.conversation).getRoomName();
+        }     
+
         return message;
     }
 

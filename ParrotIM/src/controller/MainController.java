@@ -60,6 +60,7 @@ import model.dataType.ICQUserData;
 import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
+import model.dataType.MultiConversationData;
 import model.dataType.ProfileData;
 import model.dataType.TwitterAccountData;
 import model.dataType.TwitterUserData;
@@ -86,12 +87,11 @@ public class MainController {
     private Chatbot chatbot;
 
     private Vector<String> availableRoom = new Vector<String>();
-    
+
     private String groupRoom;
-    
+
     private int countRoom = 0;
-    
-    
+
     /**
      * This is the constructor of Xmpp.
      * 
@@ -100,7 +100,6 @@ public class MainController {
 
     public MainController(Model model) {
         this.model = model;
-        
 
     }
 
@@ -134,12 +133,19 @@ public class MainController {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
+        ImageIcon avatarPicture = null;
 
         // connection should be found from account!!
-        account = model.findAccountByFriend(user);
-        connection = account.getConnection();
+        try {
+            account = model.findAccountByFriend(user);
+            connection = account.getConnection();
 
-        ImageIcon avatarPicture = connection.getAvatarPicture(user.getUserID());
+            avatarPicture = connection.getAvatarPicture(user.getUserID());
+        } catch (Exception e) {
+            // (May be called if account is null... think: multi user chat)
+            avatarPicture = new ImageIcon(this.getClass().getResource(
+                    "/images/chatwindow/personal.png"));
+        }
 
         return avatarPicture;
         // TODO make a more accurate Model.addFriend
@@ -156,10 +162,11 @@ public class MainController {
         return account.getNickname();
     }
 
-    public void setAvatarPicture(URL url) throws XMPPException, IOException, ClassNotFoundException, SQLException {
-    	ImageIcon imageIcon = new ImageIcon(url);
-    	byte[] byeArray = toByte(imageIcon);
-    	
+    public void setAvatarPicture(URL url) throws XMPPException, IOException,
+            ClassNotFoundException, SQLException {
+        ImageIcon imageIcon = new ImageIcon(url);
+        byte[] byeArray = toByte(imageIcon);
+
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
@@ -171,39 +178,40 @@ public class MainController {
         System.out.println("Which connection = "
                 + connection.getServerType().getServerList().get(0));
         connection.setAvatarPicture(byeArray);
-        model.setAvatarDirectory(model.getCurrentProfile().getName(), url.toString());
+        model.setAvatarDirectory(model.getCurrentProfile().getName(), url
+                .toString());
 
         // TODO make a more accurate Model.addFriend
 
     }
-    
-	private byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {
-    	// iconData is the original array of bytes
 
-    	Image img = i.getImage();
+    private byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {
+        // iconData is the original array of bytes
 
-    	Image imageResize = img.getScaledInstance(100, 100, 0);
+        Image img = i.getImage();
 
-    	ImageIcon imageIconResize = new ImageIcon (imageResize);
+        Image imageResize = img.getScaledInstance(100, 100, 0);
 
-    	int resizeWidth = imageIconResize.getIconWidth();
-    	int resizeHeight = imageIconResize.getIconHeight();
+        ImageIcon imageIconResize = new ImageIcon(imageResize);
 
-    	Panel p = new Panel();
-    	BufferedImage bi = new BufferedImage(resizeWidth, resizeHeight,BufferedImage.TYPE_INT_RGB);
+        int resizeWidth = imageIconResize.getIconWidth();
+        int resizeHeight = imageIconResize.getIconHeight();
 
-    	Graphics2D big = bi.createGraphics();
-    	big.drawImage(imageIconResize.getImage(), 0, 0, p);
+        Panel p = new Panel();
+        BufferedImage bi = new BufferedImage(resizeWidth, resizeHeight,
+                BufferedImage.TYPE_INT_RGB);
 
-    	ByteArrayOutputStream os = new ByteArrayOutputStream();
+        Graphics2D big = bi.createGraphics();
+        big.drawImage(imageIconResize.getImage(), 0, 0, p);
 
-    	JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
-    	encoder.encode(bi);
-    	byte[] byteArray = os.toByteArray();
-    	
-    	return byteArray;
-    	
-    
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+        encoder.encode(bi);
+        byte[] byteArray = os.toByteArray();
+
+        return byteArray;
+
     }
 
     public void setAvatarPicture(File file) throws XMPPException {
@@ -223,22 +231,22 @@ public class MainController {
 
     }
 
-//    public void setAvatarPicture(URL url) throws XMPPException {
-//        // TODO create an account selection GUI
-//        AccountData account = null; // Should be passed in!!
-//        GenericConnection connection = null;
-//
-//        // connection should be found from account!!
-//        account = model.getCurrentProfile().getAccountData().get(0);
-//        connection = account.getConnection();
-//
-//        System.out.println("Which connection = "
-//                + connection.getServerType().getServerList().get(0));
-//        connection.setAvatarPicture(url);
-//
-//        // TODO make a more accurate Model.addFriend
-//
-//    }
+    // public void setAvatarPicture(URL url) throws XMPPException {
+    // // TODO create an account selection GUI
+    // AccountData account = null; // Should be passed in!!
+    // GenericConnection connection = null;
+    //
+    // // connection should be found from account!!
+    // account = model.getCurrentProfile().getAccountData().get(0);
+    // connection = account.getConnection();
+    //
+    // System.out.println("Which connection = "
+    // + connection.getServerType().getServerList().get(0));
+    // connection.setAvatarPicture(url);
+    //
+    // // TODO make a more accurate Model.addFriend
+    //
+    // }
 
     /**
      * This method actually set presence of the user.
@@ -310,21 +318,21 @@ public class MainController {
 
         // Set up friends' user data
         this.populateBuddyList(account);
-        
-        //set up chatbot
-		try {
-	        this.chatbot = new Chatbot(model.getCustomizedChatbotModel());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-//	catch (Exception e){
-//		
-//		//INVESTIGATE: getQuestions in model
-//		this.chatbot = new Chatbot();
-//	}
-        
+
+        // set up chatbot
+        try {
+            this.chatbot = new Chatbot(model.getCustomizedChatbotModel());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // catch (Exception e){
+        //		
+        // //INVESTIGATE: getQuestions in model
+        // this.chatbot = new Chatbot();
+        // }
+
         return;
     }
 
@@ -380,7 +388,7 @@ public class MainController {
                 a.getConnection().disconnect();
             }
         }
-        
+
         this.model.initializeAllVariables();
 
         return;
@@ -517,8 +525,9 @@ public class MainController {
             userID = f.getUserID();
             nickname = f.getNickname();
             group = f.getGroup();
-            
-            if (nickname == null || nickname.equals("") || nickname.equalsIgnoreCase(userID)) {
+
+            if (nickname == null || nickname.equals("")
+                    || nickname.equalsIgnoreCase(userID)) {
                 nickname = StringUtils.parseName(userID);
             }
 
@@ -531,11 +540,11 @@ public class MainController {
             } else if (account.getServer() == ServerType.TWITTER) {
                 user = new TwitterUserData(userID);
                 user.setNickname(f.getNickname());
-            } else if (account.getServer() == ServerType.ICQ){
-            	user = new ICQUserData(userID);
-            	user.setNickname(f.getNickname());
-            	user.setGroup(group);
-            }else { // some other user
+            } else if (account.getServer() == ServerType.ICQ) {
+                user = new ICQUserData(userID);
+                user.setNickname(f.getNickname());
+                user.setGroup(group);
+            } else { // some other user
                 // TODO implement me!
             }
             this.updateStateAndStatus(user, connection);
@@ -602,11 +611,13 @@ public class MainController {
 
         try {
             if (model.getActiveConversation() != null) {
-                GenericConnection connection =
-                        model.getActiveConversation().getAccount()
-                                .getConnection();
-                connection.setTypingState(state, model.getActiveConversation()
-                        .getUser().getUserID());
+                if (model.getActiveConversation().getUser() != null) {
+                    GenericConnection connection = model
+                            .getActiveConversation().getAccount()
+                            .getConnection();
+                    connection.setTypingState(state, model
+                            .getActiveConversation().getUser().getUserID());
+                }
             }
 
         } catch (BadConnectionException e) {
@@ -680,9 +691,8 @@ public class MainController {
         fromUser = conversation.getAccount().getUserID();
         to = conversation.getUser().getUserID();
 
-        messageObject =
-                new MessageData(fromUser, messageString, font, size, bold,
-                        italics, underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -714,9 +724,8 @@ public class MainController {
         fromUser = conversation.getAccount().getUserID();
         to = conversation.getUser().getUserID();
 
-        messageObject =
-                new MessageData(fromUser, messageString, font, size, bold,
-                        italics, underlined, color);
+        messageObject = new MessageData(fromUser, messageString, font, size,
+                bold, italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -732,7 +741,7 @@ public class MainController {
      * @param accountName
      */
 
-    public void changeConversation(ConversationData conversation) {
+    public void changeConversation(Conversation conversation) {
         if (conversation != null) {
             model.setActiveConversation(conversation);
         }
@@ -865,15 +874,12 @@ public class MainController {
         MessageData messageData = null;
         AccountData account = null;
 
-        messageData =
-                new MessageData(fromUserID, message, "font", "4", false, false,
-                        false, "#000000");
+        messageData = new MessageData(fromUserID, message, "font", "4", false,
+                false, false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
-        
-        
-        MusicPlayer receiveMusic =
-                new MusicPlayer("src/audio/message/receiveMessage.wav", model);
+        MusicPlayer receiveMusic = new MusicPlayer(
+                "src/audio/message/receiveMessage.wav", model);
         model.receiveMessage(account, messageData);
 
         // Automatically add chatbot reply, if enabled
@@ -922,76 +928,79 @@ public class MainController {
         return connection;
     }
 
-	public void sendFile(String userID, String filePath) {
-		 AccountData account = null; // Should be passed in!!
-	      GenericConnection connection = null;
+    public void sendFile(String userID, String filePath) {
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
 
-	        // connection should be found from account!!
-	      account = model.getCurrentProfile().getAccountData().get(0);
-	      connection = account.getConnection();
-	      
-	      try {
-			connection.sendFile(userID, filePath);
-		} catch (XMPPException e) {
-			JOptionPane.showMessageDialog(null, "No response from the server.");
-		}
-		
-	}
-	
-	public boolean isValidUserID(String userID) {
-		 AccountData account = null; // Should be passed in!!
-	      GenericConnection connection = null;
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
 
-	        // connection should be found from account!!
-	      account = model.getCurrentProfile().getAccountData().get(0);
-	      connection = account.getConnection();
-	      
-	      return connection.isValidUserID(userID);
-	}
-	
-	public void create(String nickname) {
-		groupRoom = "Parrot" + countRoom;
-		availableRoom.add(groupRoom);
-		
-		
-		
-		System.out.println("From main controller = " + availableRoom.get(countRoom));
-		countRoom++;
-		
-		AccountData account = null; // Should be passed in!!
-	    GenericConnection connection = null;
+        try {
+            connection.sendFile(userID, filePath);
+        } catch (XMPPException e) {
+            JOptionPane.showMessageDialog(null, "No response from the server.");
+        }
 
-	        // connection should be found from account!!
-	    account = model.getCurrentProfile().getAccountData().get(0);
-	    connection = account.getConnection();
-	    
-	    connection.create(groupRoom, nickname);
-		
-		
-	}
-	
-	public void inviteFriend(String userID, String roomName) {
-		AccountData account = null; // Should be passed in!!
-	    GenericConnection connection = null;
+    }
 
-	        // connection should be found from account!!
-	    account = model.getCurrentProfile().getAccountData().get(0);
-	    connection = account.getConnection();
-	    
-	    try {
-			connection.inviteFriend(userID, roomName);
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public Vector<String> getAvailableRoom() {
-		return availableRoom;
-	}
-	
-	public void setAvailableRoom(String roomName) {
-		availableRoom.add(roomName);
-		countRoom++;
-	}
+    public boolean isValidUserID(String userID) {
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+
+        return connection.isValidUserID(userID);
+    }
+
+    public void create(String nickname) {
+        MultiConversationData multiConversation = null;
+        groupRoom = "Parrot" + countRoom;
+        availableRoom.add(groupRoom);
+
+        System.out.println("From main controller = "
+                + availableRoom.get(countRoom));
+        countRoom++;
+
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+
+        connection.create(groupRoom, account.getUserID());
+
+        multiConversation = new MultiConversationData(groupRoom, account);
+        model.getChatCollection().addConversation(multiConversation);
+
+        return;
+    }
+
+    public void inviteFriend(String userID, String roomName) {
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+
+        try {
+            connection.inviteFriend(userID, roomName);
+        } catch (XMPPException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public Vector<String> getAvailableRoom() {
+        return availableRoom;
+    }
+
+    public void setAvailableRoom(String roomName) {
+        availableRoom.add(roomName);
+        countRoom++;
+    }
 }
