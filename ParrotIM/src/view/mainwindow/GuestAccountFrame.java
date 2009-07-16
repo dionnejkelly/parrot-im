@@ -225,9 +225,11 @@ public class GuestAccountFrame extends JFrame {
 
         try {
             if (serverType == ServerType.GOOGLE_TALK
-                    || serverType == ServerType.TWITTER
-                    || serverType == ServerType.ICQ
-                    || serverType == ServerType.AIM) {
+                    || serverType == ServerType.TWITTER) {
+                
+            	// depends on the ICQManager implementation
+            	//  || serverType == ServerType.ICQ
+                //  || serverType == ServerType.AIM) {
 
                 core.loginAsGuest(serverType, username, password);
             } else if (serverType == ServerType.JABBER) {
@@ -235,8 +237,8 @@ public class GuestAccountFrame extends JFrame {
                         .getText());
             } else {
                 String resultMessage =
-                        "We are only supporting XMPP, Twitter, and ICQ for the beta version. Sorry for the inconvenience.";
-                JOptionPane.showMessageDialog(null, resultMessage);
+                        "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
+                JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
                 throw new BadConnectionException();
             }
             new BuddyList(core, model, mainFrame.getLocation());// pops buddylist window
