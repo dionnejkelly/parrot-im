@@ -37,7 +37,8 @@ import controller.MainController;
 
 public class OptionPanel extends JPanel{
 	
-	public OptionPanel(MainController c, Model model, JFrame mainframe, ProfileData profile, AccountInfo accInfo) 
+	public OptionPanel
+		(MainController c, Model model, JFrame mainframe, ProfileData profile, AccountInfo accInfo) 
 									throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
