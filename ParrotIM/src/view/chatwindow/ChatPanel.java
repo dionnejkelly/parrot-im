@@ -661,6 +661,11 @@ public class ChatPanel extends JPanel {
 			c.create(model.getCurrentProfile().getName());
 			
 			JOptionPane.showMessageDialog(null, "This should open a new chat window to invite users into that room.");
+			
+			// need to create a new conference chat room here
+//			c.messageReceived("the left side panel in the chat window should be empty"
+//			,model.getCurrentProfile().getName(),
+//                    " has created a conference chat room!");
 		}
     	
     }
@@ -671,10 +676,21 @@ public class ChatPanel extends JPanel {
 		//@Override
 		public void actionPerformed(ActionEvent event) {
 			// if the group chat conference room doesn't exist create one
+			System.out.println("Invite a friend...");
+			
+//			for (String room: c.getAvailableRoom()) {
+//				System.out.println("From main controller Room = " + room);
+//			}
+			
+			if (c.getAvailableRoom().size() > 0) {
+				GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(c, model, 0);
+			}
+			
+			else {
+				JOptionPane.showMessageDialog(null, "Could not find any conference room.", "Failed", JOptionPane.ERROR_MESSAGE);
+			}
 			
 			
-			
-			GroupChatConfigurationFrame groupChat = new GroupChatConfigurationFrame(c, model, "chat window");
 		}
     	
     }

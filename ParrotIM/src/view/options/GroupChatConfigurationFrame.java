@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -72,43 +73,42 @@ public class GroupChatConfigurationFrame extends JFrame{
 //	}
 	
 	
-//	public GroupChatConfigurationFrame(MainController c, Model model){
-//		mainFrame = this;
-//		this.model = model;
-//		this.controller = c;
-//		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
-//		this.setTitle("Group Chat Configuration");
-//		
-//		setRoomPanels();
-//		this.setPreferredSize(new Dimension(330,120));
-//		setResizable(false);
-//		setLocationRelativeTo(null);
-//
-//		
-//		
-//		
-//		pack();
-//		getContentPane().add(mainPanel);
-//		setVisible(true);
-//		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-//		this.setLocation(600 ,200);
-//		
-//	}
-	
-	public GroupChatConfigurationFrame(MainController c, Model model, String type){
+	public GroupChatConfigurationFrame(MainController c, Model model){
 		mainFrame = this;
 		this.model = model;
+		this.controller = c;
+		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
+		this.setTitle("Group Chat Configuration");
+		
+		setRoomPanels();
+		this.setPreferredSize(new Dimension(330,120));
+		setResizable(false);
+		setLocationRelativeTo(null);
+
+		
+		
+		
+		pack();
+		getContentPane().add(mainPanel);
+		setVisible(true);
+		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+		this.setLocation(600 ,200);
+		
+	}
+	
+	public GroupChatConfigurationFrame(MainController c, Model model, int type){
+		mainFrame = this;
+		this.model = model;
+		this.controller = c;
+		
 		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
 		this.setTitle("Group Chat Configuration");
 		
 		
-		if (type.equals("chat window")) {
-			setAllPanels();
-		}
 		
-		else {
-			setRoomPanels();
-		}
+		setAllPanels();
+		
+		
 		
 		this.setPreferredSize(new Dimension(330,180));
 		setResizable(false);
@@ -129,10 +129,10 @@ public class GroupChatConfigurationFrame extends JFrame{
 	
 	
 	private void setAllPanels() {
-		usersToInvite = new JLabel("Group Chat Room: ");
-		String[] usersList = {"Only online users should be displayed here", "kevin.fahy@gmail.com", "parroim.test@gmail.com", "jrfox02@gmail.com"};
+		usersToInvite = new JLabel("Users to invite: ");
+		//String[] usersList = {"Only online users should be displayed here", "kevin.fahy@gmail.com", "parroim.test@gmail.com", "jrfox02@gmail.com"};
 		
-		usersGroup = new JComboBox(usersList);
+		usersGroup = new JComboBox(UserData.getOnlineBuddy());
 		usersGroup.setPreferredSize(new Dimension(265, 25));
 		usersGroup.addActionListener(new StyleListener());
 		
@@ -140,19 +140,21 @@ public class GroupChatConfigurationFrame extends JFrame{
 		
 
 		inviteButton = new JButton ("Invite");
-		inviteButton.addActionListener(new sendActionListener());
+		inviteButton.addActionListener(new inviteActionListener());
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new cancelActionListener());
 		
 		// this should be extract from the list of current conferrence rooms
-		String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
+		//String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
+		
+		
 		groupRoom = new JComboBox(controller.getAvailableRoom());
 		groupRoom.setPreferredSize(new Dimension(265, 25));
 		groupRoom.addActionListener(new StyleListener());
 		
 
 		
-		StyleListener listener = new StyleListener();
+		
 		
 		JPanel QButtonsPanel = new JPanel();
 		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -179,19 +181,17 @@ public class GroupChatConfigurationFrame extends JFrame{
 	
 
 		inviteButton = new JButton ("Invite");
-		inviteButton.addActionListener(new sendActionListener());
+		inviteButton.addActionListener(new inviteActionListener());
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new cancelActionListener());
 		
 		// this should be extract from the list of current conferrence rooms
-		String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
+		//String[] listGroupRoom = {"Empty if there exists no conferrence room", "ParrotsOnly@conferrence.jabber.org"};
 		groupRoom = new JComboBox(controller.getAvailableRoom());
 		groupRoom.setPreferredSize(new Dimension(265, 25));
 		groupRoom.addActionListener(new StyleListener());
 		
 
-		
-		StyleListener listener = new StyleListener();
 		
 		JPanel QButtonsPanel = new JPanel();
 		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -258,9 +258,28 @@ public class GroupChatConfigurationFrame extends JFrame{
 		
 	}
 	
-	private class sendActionListener implements ActionListener{
+	private class inviteActionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+			
+			Vector<String> onlineBuddy = UserData.getOnlineBuddy();
+			
+			String roomName = groupRoom.getSelectedItem().toString();
+			String friend = onlineBuddy.get(usersGroup.getSelectedIndex());
+			
+			System.out.println("Room Name = " + roomName);
+			System.out.println("Friend to invite = " + friend);
+			
+			if (roomName.contains("Parrot")) {
+				System.out.println("The room does contain Parrot");
+				controller.inviteFriend(friend, roomName + "@conference.jabber.org");
+			}
+				
+			else {
+				System.out.println("The room doesn't contain Parrot");
+				controller.inviteFriend(friend, roomName);
+				
+			}
 			
 	
 		}

@@ -89,7 +89,6 @@ public class HeaderPanel extends JPanel{
 	}
 	
 	public void loadProgress() {
-		this.remove(avatarDisplay);
 		this.add(progressDisplay, BorderLayout.NORTH);
 	}
 	

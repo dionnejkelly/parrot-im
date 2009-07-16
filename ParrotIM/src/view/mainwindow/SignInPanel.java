@@ -288,7 +288,7 @@ public class SignInPanel extends JPanel implements Observer {
         
         try {
             // Login with server and set model info
-
+        	
             // TODO think of how to implement profile password
             core.loginProfile(profile);
 
@@ -303,7 +303,7 @@ public class SignInPanel extends JPanel implements Observer {
         } catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
     }
 
     /**
@@ -343,7 +343,6 @@ public class SignInPanel extends JPanel implements Observer {
             
             	header.changeAvatar(getClass().getClassLoader().getResource("images/mainwindow/animation.gif").toString());
 				header.displaySystemStatus("Signing in...");
-				
 				
             	profileSignIn();
 			

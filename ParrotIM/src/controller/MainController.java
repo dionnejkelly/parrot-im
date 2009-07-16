@@ -948,6 +948,10 @@ public class MainController {
 	public void create(String nickname) {
 		groupRoom = "Parrot" + countRoom;
 		availableRoom.add(groupRoom);
+		
+		
+		
+		System.out.println("From main controller = " + availableRoom.get(countRoom));
 		countRoom++;
 		
 		AccountData account = null; // Should be passed in!!
@@ -962,7 +966,28 @@ public class MainController {
 		
 	}
 	
+	public void inviteFriend(String userID, String roomName) {
+		AccountData account = null; // Should be passed in!!
+	    GenericConnection connection = null;
+
+	        // connection should be found from account!!
+	    account = model.getCurrentProfile().getAccountData().get(0);
+	    connection = account.getConnection();
+	    
+	    try {
+			connection.inviteFriend(userID, roomName);
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public Vector<String> getAvailableRoom() {
 		return availableRoom;
+	}
+	
+	public void setAvailableRoom(String roomName) {
+		availableRoom.add(roomName);
+		countRoom++;
 	}
 }
