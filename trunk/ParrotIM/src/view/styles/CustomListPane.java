@@ -107,7 +107,6 @@ public class CustomListPane extends JPanel {
 
     public void addElement(JPanel externalFriendPanel) {
     	userPanels.add(externalFriendPanel);
-    	
         boxes[0].add(externalFriendPanel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(new SelectListener());
