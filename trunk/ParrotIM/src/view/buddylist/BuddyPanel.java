@@ -456,7 +456,13 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     class RightClickMenuBlockFriendListener extends MouseAdapter {
         public void mousePressed(MouseEvent event) {
-            chatClient.blockFriend(selectedFriend);
+            if (selectedFriend.isBlocked()) {
+                chatClient.unblockFriend(selectedFriend);
+            } else { // currently unblocked; block it
+                chatClient.blockFriend(selectedFriend);    
+            }
+            
+            return;
         }
     }
 
@@ -777,10 +783,9 @@ public class BuddyPanel extends JPanel implements Observer {
          * mouseClicked to unhighlight the last selected
          */
         public void mouseClicked(MouseEvent event) {
-            System.out.println("click");
             for (int j = 0; j < buddyArray.size(); j++) {
                 for (int i = 0; i < boxes[j].getComponentCount(); i++) {
-                    System.out.println("j: " + j + "  and i: " + i);
+                    //System.out.println("j: " + j + "  and i: " + i);
                     if (event.getSource().equals(
                             buddyListPane.getComponent(j, i))) {
                         if (event.getButton() == event.BUTTON1) {
@@ -806,6 +811,11 @@ public class BuddyPanel extends JPanel implements Observer {
                             selectedName =
                                     buddyListPane.getComponent(j, 1).getName();
                             selectedFriend = buddyArray.get(j).get(i);
+                            if (selectedFriend.isBlocked()) {
+                                menuItem4.setText("Unblock Friend");
+                            } else { // is not blocked; block it
+                                menuItem4.setText("Block Friend");
+                            }
                         }
                     }
                 }
