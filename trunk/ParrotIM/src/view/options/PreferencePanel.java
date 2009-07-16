@@ -21,6 +21,7 @@
 
 package view.options;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -28,6 +29,7 @@ import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Model;
@@ -49,9 +51,15 @@ public class PreferencePanel extends JPanel {
         themeMenu.setAutoscrolls(true);
         themeMenu.addActionListener(new ThemeMenuListener());
         
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JPanel themePanel = new JPanel();
+        themePanel.setPreferredSize(new Dimension(400, 30));
+        themePanel.setAlignmentX(LEFT_ALIGNMENT);
+        themePanel.add(new JLabel("ParrotIM theme: ", JLabel.LEFT));
+        themePanel.add(themeMenu);
+        
+//        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        this.add(themeMenu);
+        this.add(themePanel);
        
     }
     
