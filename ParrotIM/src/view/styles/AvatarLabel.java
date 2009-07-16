@@ -142,7 +142,8 @@ public class AvatarLabel extends JLabel{
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             String avatarPath = file.toURL().toString();
-            
+
+			this.changeAvatar(avatarPath); 
             //synch
             if (synch){
             	System.out.println("synching");
@@ -155,7 +156,6 @@ public class AvatarLabel extends JLabel{
 				
 				chatClient.setAvatarPicture(file.toURL());
 				// will change the avatar once the chatClient done uploading
-				this.changeAvatar(avatarPath); 
 				System.out.println("Succesfully uploaded the avatar picture.");
 			} catch (XMPPException e) {
 				e.printStackTrace();

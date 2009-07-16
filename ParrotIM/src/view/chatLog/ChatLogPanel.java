@@ -37,7 +37,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -65,7 +64,7 @@ import model.dataType.tempData.ChatLogMessageTempData;
  * This class inherits JSplitPane methods and variables.
  */
 public class ChatLogPanel extends JPanel {
-	
+	private String searchKey = "";
 	/** 
 	 * profile describes the name of the currently used profile. 
 	 * It is used as one the arguments to extract chatlog data from database*/
@@ -204,12 +203,14 @@ public class ChatLogPanel extends JPanel {
     }
     
     public void updateBuddyList(Vector<String> buddyList){
-    	//NOT DONE
         buddies.setListData(buddyList);
         buddies.setEnabled(true);
         buddies.updateUI();
 
+        dateList.setListData(stub);
+        dateList.setEnabled(false);
         text.setListData(stub);
+        text.setEnabled(false);
     }
     
     public void updateDateList(Vector<String> dateVectorList){
@@ -229,7 +230,7 @@ public class ChatLogPanel extends JPanel {
     private void updateLog(String date) {
     	// Grab all message objects from the database
         Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
-                .toString(), date, "");
+                .toString(), date, searchKey);
         
         text.setListData(messages);
         text.updateUI();
@@ -252,7 +253,7 @@ public class ChatLogPanel extends JPanel {
             if (buddies.getSelectedIndex() > -1) {
 
                 Vector<String> dateVectorList = model.getBuddyDateList(profile, buddies
-                        .getSelectedValue().toString(), "");
+                        .getSelectedValue().toString(), searchKey);
                 
 
 //                System.out.println("dateVectorList is null??  "+dateVectorList.size());
@@ -301,9 +302,26 @@ public class ChatLogPanel extends JPanel {
         public void mousePressed(MouseEvent event) {
 
             if (searchField.getText().length() > 0) {
-            	Vector <String> dateVectorList = 
-            		model.getBuddyDateList(model.getCurrentProfile().getName(),buddies.getSelectedValue().toString() , searchField.getText());
-               updateDateList(dateVectorList);
+            	searchKey = searchField.getText();
+//            	Vector <String> dateVectorList = 
+//            		model.getBuddyDateList(model.getCurrentProfile().getName(),buddies.getSelectedValue().toString() , searchKey);
+//               updateDateList(dateVectorList);
+            	
+            	try {
+					Vector <String> buddiesSearchResult = model.getBuddyLogList(profile, searchKey);
+					
+					if (buddiesSearchResult.size()>0)
+						updateBuddyList(buddiesSearchResult);
+					else{
+						buddies.setListData(stub);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             	
             	
 //            	Vector<String> users = null;

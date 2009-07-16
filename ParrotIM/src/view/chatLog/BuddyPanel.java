@@ -58,9 +58,7 @@ public class BuddyPanel extends JPanel {
     public BuddyPanel(Model model, String profile) throws SQLException, ClassNotFoundException {
 
         // list of buddies who has logged chat
-
         buddyList = new JList(model.getBuddyLogList(profile, ""));
-
         buddyList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollBuddy = new JScrollPane(buddyList);
         scrollBuddy.setAutoscrolls(true);
