@@ -45,9 +45,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import model.Model;
+import model.dataType.ChatbotQADataType;
 
 import view.chatwindow.ThemeOptionsComboBox;
-import view.options.modelstub.ChatbotQADataType;
 import view.options.modelstub.model;
 import view.styles.PopupWindowListener;
 import view.theme.LookAndFeelManager;

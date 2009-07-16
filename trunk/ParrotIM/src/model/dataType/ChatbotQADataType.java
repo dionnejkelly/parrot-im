@@ -1,4 +1,4 @@
-package view.options.modelstub;
+package model.dataType;
 
 import java.sql.SQLException;
 import java.util.Vector;
@@ -11,7 +11,9 @@ public class ChatbotQADataType {
 	private Vector<String> answers = new Vector<String>();
     private Model model;
 	
-	public ChatbotQADataType(Model model){this.model = model;}
+	public ChatbotQADataType(Model model){
+		this.model = model;
+	}
 	
 	public ChatbotQADataType(Model model, String question) throws SQLException, ClassNotFoundException{
 		this.model = model;

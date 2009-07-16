@@ -250,20 +250,17 @@ public class ICQManager implements GenericConnection {
         icbmService.removeIcbmListener(lastIcbmListener);
         lastIcbmListener = new IcbmListener() {
 
-			@Override
 			public void buddyInfoUpdated(IcbmService arg0, Screenname arg1,
 					IcbmBuddyInfo arg2) {
 				//runs when a new message has been received
 				
 			}
 
-			@Override
 			public void newConversation(IcbmService service, Conversation conversation) {
 				conversation.addConversationListener(new TypingAdapter());
 				
 			}
 
-			@Override
 			public void sendAutomaticallyFailed(IcbmService arg0, Message arg1,
 					Set<Conversation> arg2) {
 				// TODO Auto-generated method stub
@@ -275,13 +272,11 @@ public class ICQManager implements GenericConnection {
         
         connection.getBuddyService().addBuddyListener(new BuddyServiceListener(){
 
-			@Override
 			public void buddyOffline(BuddyService service, Screenname arg1) {
 				curState = UserStateType.OFFLINE;
 				controller.friendUpdated(genericConnection, arg1.getNormal());
 			}
 
-			@Override
 			public void gotBuddyStatus(BuddyService service, Screenname buddy,
 					FullUserInfo info) {
 				curState = longToStatus(info.getIcqStatus());
@@ -432,7 +427,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			String text = minfo.getMessage().getMessageBody();
 			System.out.println(text);
 		}
-		@Override
 		public void gotTypingState(Conversation conversation, TypingInfo typingInfo) {
 			if (typingInfo.getTypingState().equals(TypingState.TYPING)){
 				controller.setTypingState(2);
@@ -447,7 +441,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 	}
 	private class BuddyListFunctionListener implements BuddyListLayoutListener{
 
-		@Override
 		public void buddiesReordered(BuddyList bList, Group group,
 				List<? extends Buddy> oldList, List<? extends Buddy> newList) {
 			
@@ -460,7 +453,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			}
 		}
 
-		@Override
 		public void buddyAdded(BuddyList bList, Group group,
 				List<? extends Buddy> oldList, List<? extends Buddy> newList,
 				Buddy buddy) {
@@ -478,7 +470,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			}
 		}
 
-		@Override
 		public void buddyRemoved(BuddyList bList, Group group,
 				List<? extends Buddy> oldList, List<? extends Buddy> newList,
 				Buddy buddy) {
@@ -486,7 +477,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			
 		}
 
-		@Override
 		public void groupAdded(BuddyList arg0, List<? extends Group> arg1,
 				List<? extends Group> arg2, Group arg3,
 				List<? extends Buddy> arg4) {
@@ -501,14 +491,12 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			}
 		}
 
-		@Override
 		public void groupRemoved(BuddyList arg0, List<? extends Group> arg1,
 				List<? extends Group> arg2, Group arg3) {
 			
 			System.out.println("gRemove: "+arg3.toString());
 		}
 
-		@Override
 		public void groupsReordered(BuddyList arg0, List<? extends Group> arg1,
 				List<? extends Group> arg2) {
 			
@@ -526,14 +514,12 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 	}
 	private class DefaultOpenedServiceListener implements OpenedServiceListener{
 
-		@Override
 		public void closedServices(AimConnection arg0,
 				Collection<? extends Service> arg1) {
 			// Do Nothing when closing services
 			
 		}
 
-		@Override
 		public void openedServices(AimConnection arg0,
 				Collection<? extends Service> arg1) {
 			
@@ -552,7 +538,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 	}
 	private class DefaultStateListener implements StateListener{
 
-		@Override
 		public void handleStateChange(StateEvent event) {
 			state = event.getNewState();
 			if(state == State.ONLINE){
@@ -565,7 +550,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 	}
 	private class DefaultSnacResponseListener implements SnacResponseListener{
 
-		@Override
 		public void handleResponse(SnacResponseEvent arg0) {
 			if(arg0.getSnacCommand() instanceof AuthResponse){
 				System.out.println("yes!");
@@ -600,7 +584,6 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 		// TODO Auto-generated method stub
 		return false;
 	}
-    @Override
     public void create(String room, String nickname) {
         // TODO Auto-generated method stub
         

@@ -20,7 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import view.options.modelstub.ChatbotQADataType;
+import model.dataType.ChatbotQADataType;
+
 import view.styles.PopupWindowListener;
 
 public class ChatbotQA extends JFrame{

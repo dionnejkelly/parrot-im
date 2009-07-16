@@ -475,7 +475,7 @@ public class GoogleTalkManager implements GenericConnection {
 
     private void join(boolean create, String room, final String nickname) {
         try {
-            multiUserChat = new MultiUserChat(connection, room);
+            multiUserChat = new MultiUserChat(connection, room + "@conferrence.jabber.org");
 
             // The room service will decide the amount of history to send
             if (create)

@@ -3,16 +3,14 @@ package view.options.modelstub;
 import java.sql.SQLException;
 import java.util.Vector;
 import model.Model;
+import model.dataType.ChatbotQADataType;
 
 public class model {
 	private Vector<ChatbotQADataType> QAs = new Vector<ChatbotQADataType> ();
-    private Model model;
 	
 	public model(Model model) throws ClassNotFoundException, SQLException{
-		this.model = model;
 		QAs.clear();
 		Vector<String> questionList = new Vector<String>();
-		Vector<String> answersList = new Vector<String>();
 		Vector<String> doneQuestionsList = new Vector<String>();
 		Vector<String> tempQuestionsList = new Vector<String>();
 		Vector<String> tempAnswersList = new Vector<String>();
@@ -53,5 +51,9 @@ public class model {
 	}
 	public int getQASize(){
 		return QAs.size();
+	}
+	
+	public Vector<ChatbotQADataType> getChatbotQAList() {
+		return QAs;
 	}
 }
