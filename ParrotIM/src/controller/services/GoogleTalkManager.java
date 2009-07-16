@@ -543,6 +543,10 @@ public class GoogleTalkManager implements GenericConnection {
     private class multipleMessagePacketListener implements PacketListener {
 
         public void processPacket(Packet packet) {
+        	System.out.println("From multipleMessagePacketListener, Conference chat received!!");
+        	
+        	System.out.println("I received the conference room message listener but some how it is interfered by single message packet listener?");
+        	
             if (packet instanceof org.jivesoftware.smack.packet.Message) {
 
                 Message message = (Message) packet;
@@ -756,7 +760,7 @@ public class GoogleTalkManager implements GenericConnection {
     	int count = 0;
     	
     	for (RosterEntry r : roster.getEntries()) {
-    		System.out.println("From the File Transfer User = " + r.getUser());
+    		//System.out.println("From the File Transfer User = " + r.getUser());
     		receiveManager.add(new XMPPFileManager(connection, fileTransferManager, transferringProgress));
     		receiveManager.get(count).fileReceiver(r.getUser());
     		count++;
