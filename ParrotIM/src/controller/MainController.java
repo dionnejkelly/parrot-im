@@ -51,6 +51,7 @@ import controller.services.TwitterManager;
 
 import model.Model;
 import model.dataType.AccountData;
+import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.GoogleTalkUserData;
@@ -702,7 +703,7 @@ public class MainController {
             throws BadConnectionException {
         String to = null;
         MessageData messageObject = null;
-        ConversationData conversation = null;
+        Conversation conversation = null;
         String fromUser = null;
         GenericConnection connection = null;
 

@@ -93,7 +93,7 @@ public class ChatCollectionDataTest {
 		ConversationData expected = new ConversationData(new GoogleTalkAccountData("rmamnk","123"),
 		new GoogleTalkUserData("rma3"));
 		cd1.setActiveConversation(expected);
-		ConversationData result = cd1.getActiveConversation();
+		ConversationData result = (ConversationData) cd1.getActiveConversation();
 			assertEquals(expected.getAccount().getNickname(),result.getAccount().getNickname());
 			assertEquals(expected.getAccount().getPassword(),result.getAccount().getPassword());
 			assertEquals(expected.getUser().getNickname(),result.getUser().getNickname());
@@ -128,7 +128,7 @@ public class ChatCollectionDataTest {
 		assertEquals(test.getAccount().getPassword(),result.get(0).getAccount().getPassword());
 		assertEquals(test.getUser().getNickname(),result.get(0).getUser().getNickname());
 		assertSame(test.getUser().getServer(),result.get(0).getUser().getServer());
-		ConversationData result2 = cd1.getActiveConversation();
+		ConversationData result2 = (ConversationData) cd1.getActiveConversation();
 		assertEquals(result2.getAccount().getNickname(),test.getAccount().getNickname());
 		assertEquals(result2.getAccount().getPassword(),test.getAccount().getPassword());
 		assertEquals(result2.getUser().getNickname(),test.getUser().getNickname());

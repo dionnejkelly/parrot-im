@@ -57,6 +57,7 @@ import controller.services.GenericConnection;
 import model.dataType.AccountData;
 import model.dataType.ChatCollectionData;
 import model.dataType.ChatbotQADataType;
+import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.ICQAccountData;
@@ -119,7 +120,27 @@ public class Model extends Observable {
     public Model() {
         initializeAllVariables();
     }
+  
+    /**
+     * Clears current profile.
+     * 
+     */
+    public void initializeAllVariables() {
+        this.profileCollection = new ProfileCollectionData();
+        this.chatCollection = new ChatCollectionData();
+        aboutWindowOpen = false;
+        bugReportWindowOpen = false;
+        groupChatWindowOpen = false;
 
+        // Grab profiles and account from the database
+        this.profileCollection.loadProfiles();
+        for (ProfileData p : this.profileCollection.getProfiles()) {
+            p.loadAccounts();
+        }
+        
+        return;
+    }
+    
     /**
      * Gets the profile collection to provide access to all profiles and
      * accounts.
@@ -201,7 +222,7 @@ public class Model extends Observable {
      * 
      * @return The current active conversation object.
      */
-    public ConversationData getActiveConversation() {
+    public Conversation getActiveConversation() {
         return this.chatCollection.getActiveConversation();
     }
 
@@ -258,7 +279,7 @@ public class Model extends Observable {
      * @throws SQLException
      */
 
-    public void sendMessage(ConversationData modifiedConversation,
+    public void sendMessage(Conversation modifiedConversation,
             MessageData message) {
         DatabaseFunctions db = null;
 
@@ -485,26 +506,6 @@ public class Model extends Observable {
      */
     public ProfileData getCurrentProfile() {
         return this.profileCollection.getActiveProfile();
-    }
-
-    /**
-     * Clears current profile.
-     * 
-     */
-    public void initializeAllVariables() {
-        this.profileCollection = new ProfileCollectionData();
-        this.chatCollection = new ChatCollectionData();
-        aboutWindowOpen = false;
-        bugReportWindowOpen = false;
-        groupChatWindowOpen = false;
-
-        // Grab profiles and account from the database
-        this.profileCollection.loadProfiles();
-        for (ProfileData p : this.profileCollection.getProfiles()) {
-            p.loadAccounts();
-        }
-        
-        return;
     }
 
     /**
