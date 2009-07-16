@@ -402,15 +402,15 @@ public class ICQManager implements GenericConnection {
 		if(l == -1){
 			return UserStateType.OFFLINE;
 		}
-		else if((l & FullUserInfo.ICQSTATUS_AWAY) != 0){
+		else if(l==(long)268435457){
 			return UserStateType.AWAY;
-		}else if((l & FullUserInfo.ICQSTATUS_DND) != 0){
+		}else if(l==(long)268435473){
 			return UserStateType.NOT_BE_DISTURBED;
-		}else if((l & FullUserInfo.ICQSTATUS_NA) != 0){
+		}else if(l==(long)268435461){
 			return UserStateType.NOT_AVAILABLE;
 		}else if((l & FullUserInfo.ICQSTATUS_OCCUPIED) != 0){
 			return UserStateType.BUSY;
-		}else if((l & FullUserInfo.ICQSTATUS_FFC) != 0){
+		}else if(l==(long)268435456){
 			return UserStateType.ONLINE;
 		}else if((l & FullUserInfo.ICQSTATUS_INVISIBLE) != 0){
 			return UserStateType.INVISIBLE;
