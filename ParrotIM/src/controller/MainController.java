@@ -27,10 +27,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
@@ -40,6 +43,7 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import view.options.MusicPlayer;
+import view.styles.ProgressMonitorScreen;
 
 import controller.chatbot.Chatbot;
 import controller.services.BadConnectionException;
@@ -93,6 +97,8 @@ public class MainController {
 
     private int countRoom = 0;
 
+    private DecimalFormat progressBar;
+    
     /**
      * This is the constructor of Xmpp.
      * 
@@ -725,7 +731,12 @@ public class MainController {
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
+
         to = conversation.getUser().getUserID();
+        System.out.println("---------------------------------------------------- Who am I sending it to = " + to);
+
+        to = conversation.getUser().getUserID();
+
 
         messageObject = new MessageData(fromUser, messageString, font, size,
                 bold, italics, underlined, color);
@@ -931,21 +942,74 @@ public class MainController {
         return connection;
     }
 
-    public void sendFile(String userID, String filePath) {
-        AccountData account = null; // Should be passed in!!
-        GenericConnection connection = null;
+    public void sendFile() {
+    	
+    	 AccountData account = null; // Should be passed in!!
+         Conversation conversation = null;
 
-        // connection should be found from account!!
-        account = model.getCurrentProfile().getAccountData().get(0);
-        connection = account.getConnection();
+         GenericConnection connection = null;
 
-        try {
-            connection.sendFile(userID, filePath);
-        } catch (XMPPException e) {
-            JOptionPane.showMessageDialog(null, "No response from the server.");
+         // Default to sending to the active user
+         conversation = model.getActiveConversation();
+
+
+     
+        String to = conversation.getUser().getUserID();
+         
+    
+        if (isValidUserID(to)) {
+        	  // connection should be found from account!!
+            account = model.getCurrentProfile().getAccountData().get(0);
+            connection = account.getConnection();
+            System.out.println("Start Transfering File... " + to);
+       		
+        
+        	JFileChooser fileChooser = new JFileChooser();
+    		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    		fileChooser.setMultiSelectionEnabled(false);
+    		
+        	int fileConfirmation = fileChooser.showOpenDialog(null);
+        	
+        	if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
+        	
+        		File selectedFile = fileChooser.getSelectedFile();
+
+        		 ProgressMonitorScreen progress = new ProgressMonitorScreen();
+ 
+        		 long fileSize = selectedFile.length() / 1000;
+        		System.out.println("The file size = " + fileSize + " KB");
+        		
+        		if (fileSize < 64) {
+            		try {
+        			String filePath = fileChooser.getSelectedFile().getPath();
+					connection.sendFile(to, filePath);
+            		} catch (XMPPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+            		}
+        			
+        		}
+        		
+        		else {
+        			
+        		}
+
+				progress.counter += 2;
+        	}
+           
         }
-
+        
+        else {
+        	JOptionPane.showMessageDialog(null, "Cannot send file because " + to + " does not support file receiving.",
+                    "Failed", JOptionPane.ERROR_MESSAGE);
+        }
+        
+       
+        
     }
+    
+  
+	
 
     public boolean isValidUserID(String userID) {
         AccountData account = null; // Should be passed in!!

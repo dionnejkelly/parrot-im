@@ -410,76 +410,40 @@ public class ChatPanel extends JPanel {
          */
 
         public void actionPerformed(ActionEvent evt) {
-            String userID = "solidworktesting@gmail.com";
 
-            if (c.isValidUserID(userID)) {
-                System.out.println("Start Transfering File... " + userID);
+//        	String userID = "solidworktesting@gmail.com";
+//        	
+//        	if (c.isValidUserID(userID)) {
+//        		System.out.println("Start Transfering File... " + userID);
+//           		
+//            	ImageFileFilter filefilter = new ImageFileFilter();
+//            	JFileChooser fileChooser = new JFileChooser();
+//            	fileChooser.setFileFilter(filefilter);
+//        		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//        		fileChooser.setMultiSelectionEnabled(false);
+//        		
+//            	int fileConfirmation = fileChooser.showOpenDialog(null);
+//            	
+//            	if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
+            		//String filePath = fileChooser.getSelectedFile().getPath();
+            		c.sendFile();
+            	//}
+        	//}
+        	
+//        	else {
+//        		JOptionPane.showMessageDialog(null, "Cannot send file because " + userID + "does not support file receiving.",
+//                        "Failed", JOptionPane.ERROR_MESSAGE);
+//        	}
+        	
+       		
 
-                ImageFileFilter filefilter = new ImageFileFilter();
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setFileFilter(filefilter);
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                fileChooser.setMultiSelectionEnabled(false);
 
-                int fileConfirmation = fileChooser.showOpenDialog(null);
-
-                if (fileConfirmation == JFileChooser.APPROVE_OPTION) {
-                    String filePath = fileChooser.getSelectedFile().getPath();
-                    c.sendFile(userID, filePath);
-                }
-            }
-
-            else {
-                JOptionPane.showMessageDialog(null, "Cannot send file because "
-                        + userID + "does not support file receiving.",
-                        "Failed", JOptionPane.ERROR_MESSAGE);
-            }
 
         }
 
     }
 
-    /**
-     * This class controls the file types that can be selected for the file
-     * browser. It can only select either a directory or an image file.
-     */
-    private class ImageFileFilter extends FileFilter {
-
-        @Override
-        /*
-         * * accept takes a File object argument. If the file is an image file
-         * or a directory, then it returns true. It returns false otherwise
-         * 
-         * @param f
-         */
-        public boolean accept(File f) {
-
-            if (f.isDirectory())
-                return true; // if directory, return true
-
-            // now search of image files
-            String[] extentionList = new String[] { "jpg", "gif", "png", "bmp" };
-
-            String name = f.getName();
-            String extention = name.substring(name.indexOf(".") + 1, name
-                    .length());
-
-            for (int pos = 0; pos < extentionList.length; pos++) {
-                if (extention.compareToIgnoreCase(extentionList[pos]) == 0
-                        && f.length() <= 524288) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        /* * Describes what file types the system will accept. */
-        public String getDescription() {
-            return "choose image file less than 512 kb";
-        }
-
-    }
+  
 
     /**
      * This is a color listener class that is responsible for handling user's
