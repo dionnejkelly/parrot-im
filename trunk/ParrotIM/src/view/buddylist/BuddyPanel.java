@@ -331,16 +331,12 @@ public class BuddyPanel extends JPanel implements Observer {
         // }
 
         System.out.println("about to add listener");
-        // add mouse listeners to googleTalk
-
-        for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-            System.out.println(boxes[0].getComponentCount() + ":" + i);
-            buddyListPane.addExternalMouseListener(0, i, new SelectListener());
-        }
-        // add mouse listeners to Twitter
-        for (int i = 0; i < boxes[1].getComponentCount(); i++) {
-            System.out.println(boxes[1].getComponentCount() + ":" + i);
-            buddyListPane.addExternalMouseListener(1, i, new SelectListener());
+        // add mouse listeners
+        for(int j = 0; j < 6; j++){
+	        for (int i = 0; i < boxes[j].getComponentCount(); i++) {
+	            System.out.println(boxes[j].getComponentCount() + ":" + i);
+	            buddyListPane.addExternalMouseListener(0, i, new SelectListener());
+	        }
         }
 
         /*
