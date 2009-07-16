@@ -518,7 +518,7 @@ public class MainController {
             nickname = f.getNickname();
             group = f.getGroup();
             
-            if (nickname == null || nickname.equalsIgnoreCase(userID)) {
+            if (nickname == null || nickname.equals("") || nickname.equalsIgnoreCase(userID)) {
                 nickname = StringUtils.parseName(userID);
             }
 
