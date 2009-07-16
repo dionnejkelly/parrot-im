@@ -469,14 +469,14 @@ public class GoogleTalkManager implements GenericConnection {
     // *********************** GROUP CHAT *************************
     
     public void inviteFriend(String userID, String roomName) throws XMPPException {
-    	MultiUserChat inviteFriend = new MultiUserChat(connection, roomName);
+    	MultiUserChat multiUserChat = new MultiUserChat(connection, roomName);
     	System.out.println("== From GoogleTalkManager Class == ");
     	System.out.println("Invited User: "  + userID);
     	System.out.println("Room Name: " + roomName);
 		multiUserChat.invite(userID, "Let's have fun");
 		
 		multiUserChat.addParticipantStatusListener(new joinedListener());
-		multiUserChat.addMessageListener(new multipleMessagePacketListener());
+		//multiUserChat.addMessageListener(new multipleMessagePacketListener());
 	
 	}
     
@@ -495,7 +495,7 @@ public class GoogleTalkManager implements GenericConnection {
 
     private void join(boolean create, String room, final String nickname) {
         try {
-            multiUserChat = new MultiUserChat(connection, room + "@conference.jabber.org");
+        	 multiUserChat = new MultiUserChat(connection, room + "@conference.jabber.org");
 
             // The room service will decide the amount of history to send
             if (create) {
@@ -517,7 +517,7 @@ public class GoogleTalkManager implements GenericConnection {
                     });
             
             multiUserChat.addParticipantStatusListener(new joinedListener());
-            multiUserChat.addMessageListener(new multipleMessagePacketListener());
+            //multiUserChat.addMessageListener(new multipleMessagePacketListener());
         } catch (XMPPException e) {
             System.out.println("Error connecting to the room: "
                     + e.getMessage());
@@ -537,42 +537,44 @@ public class GoogleTalkManager implements GenericConnection {
         multiUserChat = new MultiUserChat(connection, room);
         multiUserChat.join(room);
 
-        multiUserChat.addMessageListener(new multipleMessagePacketListener());
+        //multiUserChat.addMessageListener(new multipleMessagePacketListener());
     }
 
-    private class multipleMessagePacketListener implements PacketListener {
-
-        public void processPacket(Packet packet) {
-        	System.out.println("From multipleMessagePacketListener, Conference chat received!!");
-        	
-        	System.out.println("I received the conference room message listener but some how it is interfered by single message packet listener?");
-        	
-            if (packet instanceof org.jivesoftware.smack.packet.Message) {
-
-                Message message = (Message) packet;
-                String fromUserID =
-                        StringUtils.parseBareAddress(message.getFrom());
-                String toUserID =
-                        StringUtils.parseBareAddress(connection.getUser());
-                if (message.getBody() != null) {
-                    controller.messageReceived(fromUserID, toUserID, message
-                            .getBody());
-                    lastChat =
-                            connection.getChatManager().createChat(fromUserID,
-                                    new DefaultChatStateListener());
-                    // MusicPlayer receiveMusic = new
-                    // MusicPlayer("src/audio/message/receiveMessage.wav");
-                }
-                // org.jivesoftware.smack.packet.Message message =
-                // (org.jivesoftware.smack.packet.Message) packet;
-                System.out.println(delimitUserBack(message.getFrom()) + ": "
-                 + message.getBody());
-
-            }
-
-        }
-
-    }
+    // can be handled by the single message packet listener
+    
+//    private class multipleMessagePacketListener implements PacketListener {
+//
+//        public void processPacket(Packet packet) {
+//        	System.out.println("From multipleMessagePacketListener, Conference chat received!!");
+//        	
+//        	System.out.println("I received the conference room message listener but some how it is interfered by single message packet listener?");
+//        	
+//            if (packet instanceof org.jivesoftware.smack.packet.Message) {
+//
+//                Message message = (Message) packet;
+//                String fromUserID =
+//                        StringUtils.parseBareAddress(message.getFrom());
+//                String toUserID =
+//                        StringUtils.parseBareAddress(connection.getUser());
+//                if (message.getBody() != null) {
+//                    controller.messageReceived(fromUserID, toUserID, message
+//                            .getBody());
+//                    lastChat =
+//                            connection.getChatManager().createChat(fromUserID,
+//                                    new DefaultChatStateListener());
+//                    // MusicPlayer receiveMusic = new
+//                    // MusicPlayer("src/audio/message/receiveMessage.wav");
+//                }
+//                // org.jivesoftware.smack.packet.Message message =
+//                // (org.jivesoftware.smack.packet.Message) packet;
+//                System.out.println(delimitUserBack(message.getFrom()) + ": "
+//                 + message.getBody());
+//
+//            }
+//
+//        }
+//
+//    }
     
     
 
@@ -900,16 +902,25 @@ public class GoogleTalkManager implements GenericConnection {
             String fromUserID = StringUtils.parseBareAddress(message.getFrom());
             String toUserID =
                     StringUtils.parseBareAddress(connection.getUser());
-
-            if (message.getBody() != null) {
-                controller.messageReceived(fromUserID, toUserID, message
-                        .getBody());
-                
+            if (message.getType() == Message.Type.groupchat) {
+            	
+            	System.out.println("From Group Chat:");
+            	System.out.println(fromUserID + ": " + message.getBody());
             }
-            lastChat =
-                connection.getChatManager().createChat(fromUserID,
-                        new DefaultChatStateListener());
-            return;
+            
+            else {
+            	 if (message.getBody() != null) {
+                     controller.messageReceived(fromUserID, toUserID, message
+                             .getBody());
+                     
+                 }
+                 lastChat =
+                     connection.getChatManager().createChat(fromUserID,
+                             new DefaultChatStateListener());
+                 return;
+            	
+            }
+           
         }
     }
 
