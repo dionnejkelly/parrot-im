@@ -826,6 +826,7 @@ public class DatabaseFunctions {
                 .executeUpdate("DELETE FROM friendList WHERE "
                         + "accountName = '" + accountName + "' and "
                         + "friendName = '" + friendName + "';");
+        System.out.println("here!");
 
         conn.close();
         return;
