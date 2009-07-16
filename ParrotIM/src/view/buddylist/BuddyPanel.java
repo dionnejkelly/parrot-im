@@ -43,6 +43,7 @@ import controller.MainController;
 
 import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
+import view.options.BugReportFrame;
 import view.options.GroupChatConfigurationFrame;
 import view.options.MusicPlayer;
 import view.styles.GroupedListPane;
@@ -469,7 +470,8 @@ public class BuddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
         	
         	if (chatClient.getAvailableRoom().size() > 0) {
-        		 GroupChatConfigurationFrame groupConfig =  new GroupChatConfigurationFrame(chatClient, model);
+            	if (!model.groupChatWindowOpen)
+            		new GroupChatConfigurationFrame(chatClient, model);
         	}
         	
         	else {

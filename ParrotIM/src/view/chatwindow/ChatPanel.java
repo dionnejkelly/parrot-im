@@ -662,6 +662,9 @@ public class ChatPanel extends JPanel {
 			
 			JOptionPane.showMessageDialog(null, "This should open a new chat window to invite users into that room.");
 			
+
+//        	if (!model.groupChatWindowOpen)
+//        		new GroupChatConfigurationFrame(chatClient, model);
 			// need to create a new conference chat room here
 //			c.messageReceived("the left side panel in the chat window should be empty"
 //			,model.getCurrentProfile().getName(),
