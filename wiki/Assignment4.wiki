@@ -1,8 +1,17 @@
 == Software Metrics ==
 
+As of 2009-July-16 at 18:51 PM (r1754)
+
 (Gathered via loc at http://freshmeat.net/projects/loc/)
 || Pure Source || Comment || Source followed by Comment || Blank || 
-|| 17275 || 8391 || 83 || 6296 ||
+|| 15435 || 7099 || 80 || 5764 ||
+Total lines of code: 28378
+
+(Gathered via Eclipse Metrics plugin at http://metrics.sourceforge.net/)
+|| Classes || Methods || Attributes ||
+|| 227 || 1433 || 630 ||
+
+Test cases (methods in test classes): 317
 
 == New Tutorial ==
 
