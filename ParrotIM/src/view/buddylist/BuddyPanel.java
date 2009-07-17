@@ -429,7 +429,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         googleSearchButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/google_search.png")));
-        googleSearchButton.setToolTipText("Start Googling");
+        googleSearchButton.setToolTipText("Click me to start Googling");
 
         // add components
         options.add(addF);
