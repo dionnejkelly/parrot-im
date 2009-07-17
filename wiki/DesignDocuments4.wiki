@@ -22,7 +22,7 @@ http://parrot-im.googlecode.com/files/alphaUML.png
 
 = Data Requirements =
 
-Notes: The file formats are almost done for all including the Avatar Picture.
+Notes: The file formats are almost done including the Avatar Picture.
 
 
 
