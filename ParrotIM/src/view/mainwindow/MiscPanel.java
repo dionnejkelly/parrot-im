@@ -63,7 +63,7 @@ public class MiscPanel extends JPanel{
         	 */
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-            	HelpPanel helpPanel = new HelpPanel("http://sites.google.com/site/parrotimhelp/index");
+            	HelpPanel helpPanel = new HelpPanel("http://sites.google.com/site/parrotimhelp/Home");
             }
         });
 		
