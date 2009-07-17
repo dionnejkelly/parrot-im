@@ -379,7 +379,7 @@ c) Select Help tab
 
 d) Go to Software update
 
-e) Import from following site: http//subclipse.tigirs.org/update1_4x (if you don't have SVN downloaded yet)
+e) Add this remote site: http://subclipse.tigirs.org/update1_4x (if you don't have SVN downloaded yet)
 
 f) Download required and recommended features (you can have a problem with downloading optional features) then just go on until it's downloaded
 
