@@ -390,9 +390,8 @@ public class SignInPanel extends JPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             // TODO: set this
-            NewProfileFrame profile = new NewProfileFrame(model, core, mainFrame);
-            profile.addWindowListener(new PopupWindowListener(mainFrame,
-                    profile));
+            new NewProfileFrame(model, core, mainFrame);
+            
         }
 
         public void mouseEntered(MouseEvent e) {
