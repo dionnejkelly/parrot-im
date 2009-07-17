@@ -47,6 +47,7 @@ import model.Model;
 import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
 
+import view.buddylist.BuddyList;
 import view.chatwindow.ThemeOptionsComboBox;
 import view.styles.PopupWindowListener;
 
@@ -215,14 +216,21 @@ public class FeaturesPanel extends JPanel {
 		public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.SELECTED) {
                 model.getCurrentProfile().setChatbotEnabled(true);
+                BuddyList.chatbotEnabler.setSelected(true);
                 chatbotOptions.setVisible(true);
                 chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/monitor_add.png")));
+                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/monitor_add.png")));
             } else {
                 model.getCurrentProfile().setChatbotEnabled(false);
                 chatbotOptions.setVisible(false);
+                BuddyList.chatbotEnabler.setSelected(false);
                 chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/monitor_delete.png")));
+                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/monitor_delete.png")));
+                
             }
             
 			System.out.println("=================================");
@@ -361,11 +369,17 @@ public class FeaturesPanel extends JPanel {
     	public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.SELECTED) {
 				 model.getCurrentProfile().setChatLogEnabled(true);
+				 BuddyList.chatLogEnabler.setSelected(true);
 				 chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
+	                "/images/menu/note_add.png")));
+				 BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
 	                "/images/menu/note_add.png")));
             } else {
             	model.getCurrentProfile().setChatLogEnabled(false);
+            	BuddyList.chatLogEnabler.setSelected(false);
             	chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/note_delete.png")));
+            	BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_delete.png")));
             }
 			
