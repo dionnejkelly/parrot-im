@@ -871,12 +871,13 @@ public class BuddyPanel extends JPanel implements Observer {
                             }
                         } else if (event.getSource().equals(
                                 buddyListPane.getComponent(j, i))) {
+                        	
                             // Right Click
                             rightClickMenu.show(buddyListPane
-                                    .getComponent(j, 1), event.getX(), event
-                                    .getY()
-                                    + 25 * i);
-                            selectedName = buddyListPane.getComponent(j, 1)
+                                    .getComponent(j, i), event.getX(), event
+                                    .getY());
+                                    //+ 25 * i);
+                            selectedName = buddyListPane.getComponent(j, i)
                                     .getName();
                             selectedFriend = buddyArray.get(j).get(i);
                             if (selectedFriend.isBlocked()) {
