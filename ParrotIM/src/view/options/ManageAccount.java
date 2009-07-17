@@ -76,9 +76,7 @@ public class ManageAccount extends JPanel implements Observer {
     protected JTextField jabberServer;
     protected JButton removeButton;
 
-    public ManageAccount(Model model, MainController controller,
-            ProfileData profile) {
-
+    public ManageAccount(ProfileData profile) {
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.profile = profile;
         this.profile.addObserver(this);
@@ -128,17 +126,7 @@ public class ManageAccount extends JPanel implements Observer {
         addButton = new JButton("Add", new ImageIcon(this.getClass().getResource(
         "/images/mainwindow/add.png")));
         addButton.setEnabled(false);
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                try {
-                    addAccount_actionPerform(evt);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        addButton.addActionListener(new addActionListener());
 
         // remove button
         removeButton = new JButton("Remove",  new ImageIcon(this.getClass().getResource(
@@ -229,46 +217,7 @@ public class ManageAccount extends JPanel implements Observer {
         add(rightPanel, BorderLayout.EAST);
     }
 
-    private void addAccount_actionPerform(ActionEvent evt)
-            throws ClassNotFoundException, SQLException {
-    	System.out.println("Server Type = " + (ServerType) server.getSelectedItem());
-    	
-    	if ((ServerType) server.getSelectedItem() == ServerType.GOOGLE_TALK ||
-    			(ServerType) server.getSelectedItem() == ServerType.TWITTER) {
-    		
-    		 if (UNField.getText().length() != 0
-    	                && pwdField.getPassword().length != 0) {
-    	            // search if it exists or not
-    	            // TODO: newACC is supposed to be an Object that includes server,
-    	            // username, password
-    	            boolean match = false; // someone deleted my code here. or will
-    	            // model provide this method?
-    	            // (if there the account has already beed added, then do something.)
-
-    	            if (match) {
-    	                // if found, then edit the password as manage
-    	                // TODO:edit password
-    	            } else {
-    	                // insert new
-    	                profile.addAccount(Model.createAccount(UNField.getText(),
-    	                        String.copyValueOf(pwdField.getPassword()),
-    	                        (ServerType) server.getSelectedItem()));
-    	                UNField.setText("");
-    	                pwdField.setText("");
-    	                addButton.setEnabled(false);
-    	            }
-    	        }
-    				
-    	}
-    	
-    	else {
-    		String resultMessage =
-                "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
-        JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
-    	}
-    	
-       
-    }
+    
 
     public void update(Observable arg0, Object o) {
         accList.setListData(new Vector<AccountData>(profile.getAccountData()));
@@ -290,6 +239,47 @@ public class ManageAccount extends JPanel implements Observer {
         }
     }
 
+    private class addActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if ((ServerType) server.getSelectedItem() == ServerType.GOOGLE_TALK ||
+	    			(ServerType) server.getSelectedItem() == ServerType.TWITTER) {
+	    		
+	    		 if (UNField.getText().length() != 0
+	    	                && pwdField.getPassword().length != 0) {
+	    	            // search if it exists or not
+	    	            // TODO: newACC is supposed to be an Object that includes server,
+	    	            // username, password
+	    			 
+	    			 
+	    			 //FOR BETA: we only support one account per server
+	    			 if (profile.getAccountFromServer((ServerType)server.getSelectedItem()) != null){
+	    				//AccountData is not null: account of the selected serverType is stored
+	    				 String resultMessage =
+	    		                "We are only supporting one account per server for the beta version. \n" +
+	    		                "Sorry for the inconvenience.";
+	    		        JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
+	    			 } else {
+	    				//AccountData is null: account of the selected serverType is not yet stored
+		    	         profile.addAccount(Model.createAccount(UNField.getText(),
+		    	                        String.copyValueOf(pwdField.getPassword()),
+		    	                        (ServerType) server.getSelectedItem()));
+	    			 }
+	    	         UNField.setText("");
+	    	         pwdField.setText("");
+	    	         addButton.setEnabled(false);
+	    		 }		
+	    	
+			}else {
+	    		String resultMessage =
+	                "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
+	        JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
+	    	}
+		}
+    	
+    }
+    
     private class removeActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             int selected = accList.getSelectedIndex();
