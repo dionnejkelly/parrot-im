@@ -14,17 +14,17 @@ Below is the list of features and indications of progress.
 
 [Feature_LiveInstantMessaging Live Instant Messaging]: Implemented. Currently can bring up a chat window and use tabbed chatting to select between open conversations. Users can send and receive messages.
 
-[Feature_XMPP XMPP Protocol]: Google Talk functionality implemented. Jabber functionality is enabled, but not fully supported yet.
+[Feature_XMPP XMPP Protocol]: Google Talk and Twitter functionality implemented. Jabber functionality is enabled, but not fully supported yet.
 
-[Feature_Chatbot Chatbot]: To enable or disable Chatbot is in the Contact menu, not in the chatWindow. Implemented. The chatbot currently is set with a list of common phrases to generate responses for. There is no way to customize the messages, yet.
+[Feature_Chatbot Chatbot]: To enable or disable Chatbot is in the Contact menu, not in the chatWindow. Implemented. The chatbot currently is able to use either a customized chatbot questions and answers or a set with a list of common phrases to generate responses for. There is no way to customize the messages, yet.
 
-[Feature_ProfileSystem Profile System]: Implemented. Can add multiple accounts to the profile. Changes are saved in the database. However, logging in functionality is only supported for one account, currently.
+[Feature_ProfileSystem Profile System]: Implemented. Can add multiple accounts to the profile. Changes are saved in the database. 
 
 [Feature_FontCustomization Font Customization]: GUI elements have been implemented, but it is not functional yet. This is due to XMPP not supporting fonts being sent to buddies.
 
-[Feature_AutoSignIn Auto Sign In]: Not implemented yet.
+[Feature_AutoSignIn Auto Sign In]: Users are able to flexibly auto sign in upon launching the program.
 
-[Feature_AvatarPicture Avatar picture]: GUI elements implemented. That is, users can select the image file on their computer by clicking on the current avatar. However, doing so will not have any effect. Not completely implemented.
+[Feature_AvatarPicture Avatar picture]: Implemented for XMPP Protocol. Users can select the image file on their computer by clicking on the current avatar. 
 
 [Feature_TabbedWindows Tabbed Windows]: No change. Implemented. Users can click on tabs on the left-hand side of the chat window to toggle between open conversations.
 
@@ -32,25 +32,25 @@ Below is the list of features and indications of progress.
 
 [Feature_Status Status]: Implemented. Users can set their status and state, and see the status of others on the buddy list. The states are colour coded on both the buddy list and the chat window so the user can quickly know how available their friend is.
 
-[Feature_ChatLog Chat Log]: No change. Implemented. Not searchable, yet.
+[Feature_ChatLog Chat Log]: No change. Implemented and searchable.
 
-[Feature_SearchEngine Search Engine]: Not implemented yet. GUI is provided for buddy list, not yet implemented for chatlog.
+[Feature_SearchEngine Search Engine]: GUI is able to provide both a buddylist and Google Searching Capability upon users input in the text field. 
 
-[Feature_TwitterAndICQProtocols Twitter and ICQ Protocols]: Not implemented yet.
+[Feature_TwitterAndICQProtocols Twitter and ICQ Protocols]: Twitter implemented.
 
-[Feature_IsTyping Is Typing]: Not implemented yet.
+[Feature_IsTyping Is Typing]: Users are able to send signals to other users to indicate "Is Typing" and also receive the signals.
 
-[Feature_Emoticons Emoticons]: Not implemented yet.
+[Feature_Emoticons Emoticons]: Users are free to choose any emoticons from the Parrot Emoticion Button.
 
-[Feature_Spellchecker Spellchecker]: Not implemented yet.
+[Feature_Spellchecker Spellchecker]: Spell Checker currently only supports English language.
 
-[Feature_ConferenceChatting Conference Chatting]: Not implemented yet.
+[Feature_ConferenceChatting Conference Chatting]: Users are able to create a conference to join it and also invite their buddies to have a conference chatting.
 
-[Feature_FileTransfer File Transfer]: Not implemented yet.
+[Feature_FileTransfer File Transfer]: Users are able to send a file to another users that is less than 60 KB.
 
-[Feature_SoundNotification Sound Notification]: Not implemented yet.
+[Feature_SoundNotification Sound Notification]: Sounds are notified whenever the user logs in, exit, receive a message, and adds a friend.
 
-[Feature_UICustomization UICustomization]: Not implemented yet.
+[Feature_UICustomization UICustomization]: Users are allowed to choose their own theme for the Graphical User Interface.
 
 [Feature_AdditionalProtocolModules Additional Protocol Modules]: Not implement yet.
 
@@ -64,7 +64,7 @@ Below is the list of features and indications of progress.
 
 [Feature_LanguageLocalization Language Localization]: Not implemented yet.
 
-[Feature_EmailNotification Email Notification]: Not implemented yet.
+[Feature_EmailNotification Email Notification]: Not implemented yet. However, users are able to send a bug report to the Parrot IM software engineers.
 
 [Feature_SlashCommands Slash Commands]: Not implemented yet.
 
