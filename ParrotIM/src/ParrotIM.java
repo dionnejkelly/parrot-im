@@ -15,29 +15,33 @@
  */
 
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 import controller.MainController;
 
 import view.mainwindow.MainWindow;
 import model.DatabaseFunctions;
 import model.Model;
+import model.dataType.ProfileData;
 
 public class ParrotIM {
 
-    public static void main(String[] args)
-            throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException,
+            SQLException {
         DatabaseFunctions.setDatabaseName("parrot.db");
         Model model = new Model();
         MainController controller = new MainController(model);
         MainWindow mainWindow = new MainWindow(controller, model);
-        
-        //Mac OS Menubar optimization
+
+        // Mac OS Menubar optimization
         String lcOSName = System.getProperty("os.name").toLowerCase();
-        
+
         if (lcOSName.startsWith("mac"))
-        	System.setProperty("apple.laf.useScreenMenuBar", "true");
-        
-        //XMPPConnection.DEBUG_ENABLED = true;
-        
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+        // XMPPConnection.DEBUG_ENABLED = true;
+
         return;
     }
 }

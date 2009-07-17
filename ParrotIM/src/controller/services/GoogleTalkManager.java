@@ -698,7 +698,7 @@ public class GoogleTalkManager implements GenericConnection {
                             // is there a better way to handle it than this
                             controller.modelAddFriend(parseName(packet.getFrom()) + "@gmail.com");
                             MusicPlayer addMusic =
-                                new MusicPlayer("src/audio/buddy/addFriend.wav", model);
+                                new MusicPlayer("/audio/buddy/addFriend.wav", model);
 //                            System.out.println("Updated the roster ========================== " + parseName(packet.getFrom()));
                         }
 
