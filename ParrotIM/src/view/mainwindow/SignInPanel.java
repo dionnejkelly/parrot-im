@@ -101,6 +101,7 @@ public class SignInPanel extends JPanel implements Observer {
      */
     protected MainController core;
 
+    protected boolean dontInstantiate =false;
     /**
      * mainFrame is a MainWindow object which is a container of this panel.
      */
@@ -287,9 +288,12 @@ public class SignInPanel extends JPanel implements Observer {
             // TODO think of how to implement profile password
             core.loginProfile(profile);
 
+            if (profile.isAutoSignInEnabled())
+            	dontInstantiate = true;
             // Handle the GUI changes
             new BuddyList(core, model, mainFrame.getLocation());
             mainFrame.dispose();
+            System.out.println("got here!!");
         } catch (BadConnectionException e1) {
         	
             header.displaySystemStatus("Sign in failed!");

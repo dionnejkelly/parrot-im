@@ -104,14 +104,18 @@ public class MainWindow extends JFrame implements Observer {
 //         setPreferredSize(new Dimension(300, 500));
          setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
+         SignInPanel signinPanel = new SignInPanel(this, chatClient, model);
          // call SignIn Panel
-         getContentPane().add(new SignInPanel(this, chatClient, model));
-         
-         pack();
-         setVisible(true);
-
-         // Testing for model observers
-         model.addObserver(this);
+         getContentPane().add(signinPanel);
+         if (signinPanel.dontInstantiate){
+        	 this.dispose();
+         } else {
+	         pack();
+	         setVisible(true);
+	
+	         // Testing for model observers
+	         model.addObserver(this);
+         }
     }
     
     /**
