@@ -181,7 +181,7 @@ public class ManageAccount extends JPanel implements Observer {
         jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
         // label
         JLabel jabberServerLabel = new JLabel("Jabber server:  ");
-        jabberServerLabel.setForeground(Color.pink.darker());
+        jabberServerLabel.setForeground(Color.red.darker());
         JPanel jabberServerLabelPanel = new JPanel();
         jabberServerLabelPanel.setLayout(new BorderLayout());
         jabberServerLabelPanel.add(jabberServerLabel,
@@ -199,7 +199,7 @@ public class ManageAccount extends JPanel implements Observer {
         UNField.addKeyListener(keyListener);
         UNField.setPreferredSize(new Dimension(160, 20));
         JLabel UNLabel = new JLabel("Username:     ");
-        UNLabel.setForeground(Color.pink.darker());
+        UNLabel.setForeground(Color.red.darker());
         usernamePanel.add(UNLabel);
         usernamePanel.add(UNField);
         usernamePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
@@ -209,7 +209,7 @@ public class ManageAccount extends JPanel implements Observer {
         pwdField.addKeyListener(keyListener);
         pwdField.setPreferredSize(new Dimension(160, 20));
         JLabel pwdLabel = new JLabel("Password:      ");
-        pwdLabel.setForeground(Color.pink.darker());
+        pwdLabel.setForeground(Color.red.darker());
         passwordPanel.add(pwdLabel);
         passwordPanel.add(pwdField);
 

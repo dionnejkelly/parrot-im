@@ -101,7 +101,7 @@ public class PersonalProfileTab extends JPanel {
 		JPanel pmPanel = new JPanel();
 		pmPanel.setLayout(new BorderLayout());
 		JLabel personalMessage = new JLabel("Personal Message:");
-		personalMessage.setForeground(Color.pink.darker());
+		personalMessage.setForeground(Color.red.darker());
 		pmPanel.add (personalMessage, BorderLayout.NORTH);
 		pmPanel.add (pmScroll, BorderLayout.CENTER);
         
@@ -114,7 +114,7 @@ public class PersonalProfileTab extends JPanel {
         statusPanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
         JLabel personalStatus = new JLabel("Status: ");
-        personalStatus.setForeground(Color.pink.darker());
+        personalStatus.setForeground(Color.red.darker());
         statusPanel.add(personalStatus);
         statusPanel.add(status);
         

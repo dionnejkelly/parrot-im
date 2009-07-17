@@ -98,7 +98,7 @@ public class FeaturesPanel extends JPanel {
             "/images/menu/monitor_delete.png")));
         }
         
-        chatbotCheck.setForeground(Color.pink.darker());
+        chatbotCheck.setForeground(Color.red.darker());
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addItemListener(new chatbotListener());
 
@@ -154,7 +154,7 @@ public class FeaturesPanel extends JPanel {
        }
         
        
-        soundCheck.setForeground(Color.pink.darker());
+        soundCheck.setForeground(Color.red.darker());
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
 
@@ -171,7 +171,7 @@ public class FeaturesPanel extends JPanel {
        }
         
        
-        chatLogCheck.setForeground(Color.pink.darker());
+        chatLogCheck.setForeground(Color.red.darker());
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
         
@@ -190,7 +190,7 @@ public class FeaturesPanel extends JPanel {
         }
         
         
-        chatWindowHistoryCheck.setForeground(Color.pink.darker());
+        chatWindowHistoryCheck.setForeground(Color.red.darker());
         chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
         chatWindowHistoryCheck

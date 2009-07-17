@@ -79,7 +79,7 @@ public class NewProfileFrame extends JFrame {
         profileName.setPreferredSize(new Dimension(280, 20));
         profileName.addKeyListener(new profileNameKeyListener());
         JLabel profileLabel = new JLabel("Profile Name: ");
-        profileLabel.setForeground(Color.pink.darker());
+        profileLabel.setForeground(Color.red.darker());
         JPanel profilePanel = new JPanel();
         profilePanel.add(profileLabel);
         profilePanel.add(profileName);
@@ -88,14 +88,14 @@ public class NewProfileFrame extends JFrame {
         defaultCheck = new JCheckBox("Default Profile (Auto-Signin)");
         defaultCheck.setPreferredSize(new Dimension(375, 20));
         defaultCheck.setAlignmentX(LEFT_ALIGNMENT);
-        defaultCheck.setForeground(Color.pink.darker());
+        defaultCheck.setForeground(Color.red.darker());
         defaultCheck
                 .setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs."
                         + "<br>There can only be one Default Profile, checking this will set this profile as the new default");
 
         autoSigninCheck = new JCheckBox("Auto Signin");
         autoSigninCheck.setPreferredSize(new Dimension(330, 20));
-        autoSigninCheck.setForeground(Color.pink.darker());
+        autoSigninCheck.setForeground(Color.red.darker());
         JPanel autoSigninPanel = new JPanel();
         autoSigninPanel.setAlignmentX(LEFT_ALIGNMENT);
         autoSigninPanel.add(autoSigninCheck);
@@ -108,7 +108,7 @@ public class NewProfileFrame extends JFrame {
         passwordCheck = new JCheckBox("Enable Password (recommended)");
         passwordCheck.setPreferredSize(new Dimension(375, 20));
         passwordCheck.setAlignmentX(LEFT_ALIGNMENT);
-        passwordCheck.setForeground(Color.pink.darker());
+        passwordCheck.setForeground(Color.red.darker());
         passwordCheck
                 .setToolTipText("Lock your profile account settings by setting a password");
 
