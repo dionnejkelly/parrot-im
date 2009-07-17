@@ -64,9 +64,9 @@ public class BuddyList extends JFrame {
      */
     protected JFrame buddywindow;
 
-    private JCheckBoxMenuItem chatbotEnabler;
+    public static JCheckBoxMenuItem chatbotEnabler;
     
-    private JCheckBoxMenuItem chatLogEnabler;
+    public static JCheckBoxMenuItem chatLogEnabler;
 
     private AccountInfo accountInfo;
 
