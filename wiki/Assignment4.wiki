@@ -119,25 +119,80 @@ Additionally, we asked some testers to try out Parrot IM alone, and they reporte
 
 GUI Testing and acceptance steps:
 
-1. We asked 10 users to try and run our software.
+We have asked the following 20 users to test our program and do the following tasks. By carefully observing them while they interacted with our program, we have noticed the users' tendency of their natural reaction to certain interfaces. The tasks included were:
 
-2. We asked them to do the following tasks while one of the team is loggin with cmpt275testing@gmail.com
 
-a) Register with your !GoogleTalk account
+1. We asked 20 users to try and run our software.
 
-b) Add cmpt275testing@gmail.com
+2. We asked them to do the following tasks while one of the team is logged in with cmpt275testing@gmail.com
 
-c) Send cmpt275testing a message
+a) Create a personal profile
 
-d) Wait for a message coming for cmpt275testing
+b) Register with your !GoogleTalk account
 
-e) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
+c) Sign in with the profile
 
-f) block cmpt275testing (cmpt275testing will sign again and he should not find user)
+d) Add cmpt275testing@gmail.com
 
-g) delete cmpt275 testing
+e) Send cmpt275testing a message
 
-h) log out
+f) Wait for a message coming for cmpt275testing
+
+g) Create a conference room
+
+h) Invite cmpt275testing to that conference room
+
+i) Send a message to the conference room
+
+j) Wait for cmpt275testing's reponse
+
+k) See if your friend is typing and wait for the message
+
+l) Type a mispelled word.
+
+m) Send a small file to cmpt275testing.
+
+n) Wait for the file acceptance. 
+
+o) Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
+
+p) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
+
+q) Disable chatbot and talks to "cmpt275testing"'s chatbot
+
+r) Change your personal avatar picture, state and statues
+
+s) Search for a user "cmpt275testing" in your search bar
+
+t) Sign out
+
+
+3. We asked them to do the following tasks while one of the team is logged in with cmpt275testing on Twitter
+
+a) Create a personal profile
+
+b) Register with your !Twitter account
+
+c) Sign in with the profile
+
+d) Add a twitter friend
+
+e) Remove a friend
+
+f) Send a message to your twitter friend
+
+g) Set your status
+
+h) Send a bug report
+
+i) Enable Sound Notifcation
+
+j) Disable Sound Notifcation
+
+j) Go to help menu and click
+
+k) Do google search by typing in the text field
+
 
 *Observations:*
   * User got confused with the idea of profile and account. Probably the GUI is confusing.
@@ -349,36 +404,6 @@ Observations on User Interface:
 
 
 
-== User Acceptance Testing ==
-We asked the following 20 users to test our product and do the following tasks, and that by observing them while they talk about the problems with the interface(Natural observation). Here are the tasks:
-
-1. Sign in and out
-
-2. Add a friend, "cmpt275testing"
-
-3. Block a friend
-
-4. Unblock a friend
-
-5. Remove a friend
-
-6. Add the removed friend
-
-7. Search for a user "cmpt275testing" in your search bar
-
-8. Send a message
-
-9. See if friend is typing and wait for the message
-
-10. Change your avatour picture, state and statues
-
-11. Other user will tell you if you change it
-
-12. Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
-
-13. Disable chatbot and talks to "cmpt275testing"'s chatbot
-
-14. Go to help
 
 This is list of some of the users who used our realese version beta:
 
