@@ -220,15 +220,13 @@ We have asked the following 20 users to test our program and do the following ta
 
 == Critical Priority ==
 
-  # [http://code.google.com/p/parrot-im/issues/detail?id=22 Issue 22]
-    * Adding and remove friends used to work fine. However, after a period, certain accounts would give the errors detailed in the issue above, making adding and removing friends impossible. It appears to be an error with the smack API, and it is impossible to recover from the exception it throws.
-    * Was uncovered with integration testing using the XMPPTest test case.
+  # [http://code.google.com/p/parrot-im/issues/detail?id=61 Issue 61]
+    * Changing fonts, size, font size, bold, italic, underlnie, and font color used to work fine. However, after a period, the object type of the text field were changed and became non functional as detailed in the issue above, making text editiing impossible. It appears to be an error with the changing in the text object.
+    * Was uncovered with user acceptance testing with the helpful comments from the users.
 
 == Medium Priority ==
-  # [http://code.google.com/p/parrot-im/issues/detail?id=9 Issue 9]
-    * Exception thrown from an unknown source 50% of the time when receiving a message. No other effects seen.
-  # [http://code.google.com/p/parrot-im/issues/detail?id=10 Issue 10]
-    * Exception thrown from an unknown source 25% of the time when logging in. No other effects seen.  
+  # [http://code.google.com/p/parrot-im/issues/detail?id=56 Issue 56]
+    * Exception thrown from an unknown source 50% of the time when logging and being neutral. No other effects seen.
 
 ----
 
