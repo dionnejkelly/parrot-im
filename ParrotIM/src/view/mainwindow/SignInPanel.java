@@ -156,7 +156,7 @@ public class SignInPanel extends JPanel implements Observer {
 
     private int lastSelectedIndex;
 
-    private String passwordMatch;
+    
 
     private Vector<Object> profileList;
 
@@ -215,11 +215,6 @@ public class SignInPanel extends JPanel implements Observer {
         account_select.addActionListener((new AccountSelectItemListener()));
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
         
-        // Check for default profile
-
-        // if (model.thereIsDefault)
-        // account_select.setSelectedIndex(1);
-
         // connect button
         JPanel connectPanel = new JPanel();
         connectButton = new JButton("Sign In");
@@ -285,7 +280,7 @@ public class SignInPanel extends JPanel implements Observer {
      */
     private synchronized void profileSignIn() {
         ProfileData profile = (ProfileData) account_select.getSelectedItem();
-        
+        System.out.println(profile.getName()+" is signing in");
         try {
             // Login with server and set model info
         	
@@ -488,15 +483,20 @@ public class SignInPanel extends JPanel implements Observer {
                 // Only pop up password if needed
                 if (selectedProfile.isPasswordEnabled()) {
                 	System.out.println("password enabled");
-                    new SimplifiedPasswordPrompt((ProfileData) account_select
-                            .getSelectedItem());
+                    new SimplifiedPasswordPrompt(selectedProfile);
+
                 } else {
                     // No password required
                 	System.out.println("password disabled");
                     manageAccount.setEnabled(true);
                     removeProfile.setEnabled(true);
                     connectButton.setEnabled(true);
-                    lastSelectedIndex = account_select.getSelectedIndex();
+                    //auto sign in
+
+                	System.out.println("auto sign in: " + selectedProfile.isAutoSignInEnabled());
+                    if (selectedProfile.isAutoSignInEnabled()){
+                    	profileSignIn();
+                    }
                 }
             } else if (selectedIndex <= 0) {
                 manageAccount.setEnabled(false);
@@ -608,12 +608,16 @@ public class SignInPanel extends JPanel implements Observer {
         }
 
         public void passwordChecker() {
-            passwordMatch =
-                    ((ProfileData) account_select.getSelectedItem())
-                            .getPassword();
+        	ProfileData selectedProfile = (ProfileData) account_select.getSelectedItem();
+        	String passwordMatch = selectedProfile.getPassword();
             if (String.copyValueOf(passwordPrompt.getPassword()).equals(
                     passwordMatch)) {
                 lastSelectedIndex = account_select.getSelectedIndex();
+                
+                System.out.println("auto sign in: " + selectedProfile.isAutoSignInEnabled());
+                //auto sign in
+                if (selectedProfile.isAutoSignInEnabled())
+                	profileSignIn();
             } else {
             	passwordFrame.setAlwaysOnTop(false);
                 JOptionPane.showMessageDialog(null,

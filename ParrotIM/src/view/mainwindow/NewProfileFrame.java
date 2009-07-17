@@ -24,11 +24,12 @@ package view.mainwindow;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.Vector;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -59,11 +60,12 @@ public class NewProfileFrame extends JFrame {
     private JFrame popupFrame;
     private JCheckBox defaultCheck;
     private JCheckBox passwordCheck;
-    private JPanel passwordOption;
     private JPasswordField passwordField;
     private JTextField profileName;
     private MainController core;
     private JFrame mainFrame;
+    private JButton nextButton;
+    private JCheckBox autoSigninCheck;
 
     public NewProfileFrame(Model model, MainController core, JFrame mainFrame) {
         popupFrame = this;
@@ -74,40 +76,62 @@ public class NewProfileFrame extends JFrame {
         /* PROFILE  Name is limited to __ characters */
         profileName = new JTextField();
         profileName.setPreferredSize(new Dimension(280, 20));
+        profileName.addKeyListener(new profileNameKeyListener());
         JLabel profileLabel = new JLabel("Profile Name: ");
         profileLabel.setForeground(Color.pink.darker());
         JPanel profilePanel = new JPanel();
         profilePanel.add(profileLabel);
         profilePanel.add(profileName);
-
-        /* PASSWORD */
-        passwordCheck = new JCheckBox("Enable Password (recommended)");
-        passwordCheck.setForeground(Color.pink.darker());
-        passwordCheck.setToolTipText("Lock your profile account settings by setting a password");
-        passwordCheck.addChangeListener(new passwordCheckListener());
-
-        passwordField = new JPasswordField();
-        passwordField.setPreferredSize(new Dimension(330, 20));
-        passwordOption = new JPanel();
-        passwordOption.setAlignmentX(LEFT_ALIGNMENT);
-        passwordOption.add(passwordField);
-        passwordOption.setVisible(false);
-
+        
         /* DEFAULT PROFILE */
         defaultCheck = new JCheckBox("Default Profile (Auto-Signin)");
+        defaultCheck.setPreferredSize(new Dimension(375, 20));
+        defaultCheck.setAlignmentX(LEFT_ALIGNMENT);
         defaultCheck.setForeground(Color.pink.darker());
         defaultCheck.setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs." +
         		"<br>There can only be one Default Profile, checking this will set this profile as the new default");
+        
+        autoSigninCheck = new JCheckBox("Auto Signin");
+        autoSigninCheck.setPreferredSize(new Dimension(330, 20));
+        autoSigninCheck.setForeground(Color.pink.darker());
+        JPanel autoSigninPanel = new JPanel();
+        autoSigninPanel.setAlignmentX(LEFT_ALIGNMENT);
+        autoSigninPanel.add(autoSigninCheck);
+        autoSigninPanel.setVisible(false);
+        
+        defaultCheck.addChangeListener(new CheckListener(defaultCheck, autoSigninPanel));
+        
+        /* PASSWORD */
+        passwordCheck = new JCheckBox("Enable Password (recommended)");
+        passwordCheck.setPreferredSize(new Dimension(375, 20));
+        passwordCheck.setAlignmentX(LEFT_ALIGNMENT);
+        passwordCheck.setForeground(Color.pink.darker());
+        passwordCheck.setToolTipText("Lock your profile account settings by setting a password");
+        
+        passwordField = new JPasswordField();
+        passwordField.setPreferredSize(new Dimension(330, 20));
+        JPanel passwordOption = new JPanel();
+        passwordOption.setAlignmentX(LEFT_ALIGNMENT);
+        passwordOption.add(passwordField);
+        passwordOption.setVisible(false);
+        
+        passwordCheck.addChangeListener(new CheckListener(passwordCheck, passwordOption));
+
+        
+        
         JPanel optionPanel = new JPanel();
         optionPanel.setAlignmentX(LEFT_ALIGNMENT);
-        optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.Y_AXIS));
+//        optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.Y_AXIS));
+        optionPanel.setLayout(new FlowLayout());
         optionPanel.add(defaultCheck);
+        optionPanel.add(autoSigninPanel);
         optionPanel.add(passwordCheck);
         optionPanel.add(passwordOption);
 
         /* BUTTONS */
-        JButton nextButton = new JButton("Next", new ImageIcon(this.getClass().getResource(
+        nextButton = new JButton("Next", new ImageIcon(this.getClass().getResource(
         "/images/mainwindow/next.png")));
+        nextButton.setEnabled(false);
         nextButton.addActionListener(new nextButtonActionListener());
         JButton cancelButton = new JButton("Cancel", new ImageIcon(this.getClass().getResource(
         "/images/mainwindow/cancel.png")));
@@ -119,7 +143,7 @@ public class NewProfileFrame extends JFrame {
         /* LAYOUT */
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         mainPanel.add(profilePanel, BorderLayout.NORTH);
         mainPanel.add(optionPanel, BorderLayout.CENTER);
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
@@ -127,7 +151,7 @@ public class NewProfileFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("New Profile");
         this.setResizable(false);
-        this.setPreferredSize(new Dimension(420, 220));
+        this.setPreferredSize(new Dimension(420, 260));
         this.getContentPane().add(mainPanel);
 
         this.pack();
@@ -136,13 +160,20 @@ public class NewProfileFrame extends JFrame {
 
     }
 
-    private class passwordCheckListener implements ChangeListener {
-
+    private class CheckListener implements ChangeListener {
+    	private JCheckBox check;
+    	private JPanel panel;
+    	
+    	public CheckListener(JCheckBox c, JPanel p){
+    		check = c;
+    		panel = p;
+    	}
+    	
         public void stateChanged(ChangeEvent e) {
-            if (passwordCheck.isSelected())
-                passwordOption.setVisible(true);
+            if (check.isSelected())
+                panel.setVisible(true);
             else
-                passwordOption.setVisible(false);
+                panel.setVisible(false);
         }
     }
 
@@ -175,6 +206,9 @@ public class NewProfileFrame extends JFrame {
                 if (defaultCheck.isSelected()) {
                     model.getProfileCollection().setDefaultProfile(newProfile);
                 }
+                if (autoSigninCheck.isSelected()){
+                	newProfile.setAutoSignInEnabled(true);
+                }
 
                 ManageAccountFrame manageAccount =
                         new ManageAccountFrame(model, core, newProfile);
@@ -184,6 +218,23 @@ public class NewProfileFrame extends JFrame {
             }
 
         }
+    }
+    private class profileNameKeyListener implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			if (profileName.getText().length()>0)
+				nextButton.setEnabled(true);
+			else
+				nextButton.setEnabled(false);
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {}
+    	
     }
     
 }
