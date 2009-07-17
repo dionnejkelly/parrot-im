@@ -15,7 +15,7 @@ Test cases (methods in test classes): 317
 
 == New Tutorial ==
 
-[http://sites.google.com/site/parrotimhelp/index How to Create A Profile]
+[http://sites.google.com/site/parrotimhelp/Home Parrot IM Tutorial Guide]
 
 == Testing ==
 
