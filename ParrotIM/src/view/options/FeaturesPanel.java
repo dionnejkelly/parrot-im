@@ -79,8 +79,24 @@ public class FeaturesPanel extends JPanel {
         this.mainframe = mainframe;
 
         /* CHATBOT */
-        chatbotCheck = new JCheckBox("Enable ChatBot",  new ImageIcon(this.getClass().getResource(
-        "/images/menu/monitor_delete.png")));
+        
+        System.out.println("=================================");
+        System.out.println("           From the feature panel");
+        System.out.println("Chatbot =  " + model.getCurrentProfile().isChatbotEnabled());
+        System.out.println("Chat Log =  " + model.getCurrentProfile().isChatLogEnabled());
+        System.out.println("=================================");
+        
+        if (model.getCurrentProfile().isChatbotEnabled()) {
+        	 chatbotCheck = new JCheckBox("Enable ChatBot",  new ImageIcon(this.getClass().getResource(
+             "/images/menu/monitor_add.png")));
+             
+        }
+        
+        else {
+        	chatbotCheck = new JCheckBox("Enable ChatBot",  new ImageIcon(this.getClass().getResource(
+            "/images/menu/monitor_delete.png")));
+        }
+        
         chatbotCheck.setForeground(Color.pink.darker());
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addItemListener(new chatbotListener());
@@ -125,23 +141,54 @@ public class FeaturesPanel extends JPanel {
         chatbotPanel.add(chatbotOptions);
 
         /* SOUND NOTIFICATION */
-        soundCheck = new JCheckBox("Enable Sound Notification",  new ImageIcon(this.getClass().getResource(
-        "/images/menu/sound.png")));
+        if (model.getCurrentProfile().isSoundsEnabled()) {
+        	 soundCheck = new JCheckBox("Enable Sound Notification",  new ImageIcon(this.getClass().getResource(
+             "/images/menu/sound.png")));
+            
+       }
+       
+       else {
+    	   soundCheck = new JCheckBox("Enable Sound Notification",  new ImageIcon(this.getClass().getResource(
+           "/images/menu/sound_mute.png")));
+       }
+        
+       
         soundCheck.setForeground(Color.pink.darker());
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
 
         /* CHATLOG */
-        chatLogCheck = new JCheckBox("Enable Chat Log",  new ImageIcon(this.getClass().getResource(
-        "/images/menu/note_add.png")));
+        if (model.getCurrentProfile().isChatLogEnabled()) {
+        	 chatLogCheck = new JCheckBox("Enable Chat Log",  new ImageIcon(this.getClass().getResource(
+             "/images/menu/note_add.png")));
+            
+       }
+       
+       else {
+    	   chatLogCheck = new JCheckBox("Enable Chat Log",  new ImageIcon(this.getClass().getResource(
+           "/images/menu/note_delete.png")));
+       }
+        
+       
         chatLogCheck.setForeground(Color.pink.darker());
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
         
         /* CHAT WINDOW HISTORY */
-        chatWindowHistoryCheck =
+        if (model.getCurrentProfile().isChatWindowHistoryEnabled()) {
+        	chatWindowHistoryCheck =
                 new JCheckBox("Enable Chat Window History",  new ImageIcon(this.getClass().getResource(
                 "/images/menu/application_form_add.png")));
+           
+        }
+      
+        else {
+        	chatWindowHistoryCheck =
+                new JCheckBox("Enable Chat Window History",  new ImageIcon(this.getClass().getResource(
+                "/images/menu/application_form_delete.png")));
+        }
+        
+        
         chatWindowHistoryCheck.setForeground(Color.pink.darker());
         chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
@@ -178,6 +225,11 @@ public class FeaturesPanel extends JPanel {
                 "/images/menu/monitor_delete.png")));
             }
             
+			System.out.println("=================================");
+	        System.out.println("           From the chatbotListener");
+	        System.out.println("Chatbot =  " + model.getCurrentProfile().isChatbotEnabled());
+	        System.out.println("Chat Log =  " + model.getCurrentProfile().isChatLogEnabled());
+	        System.out.println("=================================");
             return;
 			
 		}
@@ -300,6 +352,8 @@ public class FeaturesPanel extends JPanel {
                 "/images/menu/sound_mute.png")));
             }
 			
+			
+			
 		}
     }
 
@@ -314,6 +368,12 @@ public class FeaturesPanel extends JPanel {
             	chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_delete.png")));
             }
+			
+			   System.out.println("=================================");
+		        System.out.println("           From the chatLogListener");
+		        System.out.println("Chatbot =  " + model.getCurrentProfile().isChatbotEnabled());
+		        System.out.println("Chat Log =  " + model.getCurrentProfile().isChatLogEnabled());
+		        System.out.println("=================================");
 			
 		}
        

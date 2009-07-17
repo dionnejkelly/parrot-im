@@ -210,16 +210,38 @@ public class BuddyList extends JFrame {
         optionsItem1.addActionListener(new optionListener());
         optionsMenu.add(optionsItem1);
         
-        this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled", new ImageIcon(this.getClass().getResource(
-        "/images/menu/monitor_delete.png")));
+        if (model.getCurrentProfile().isChatbotEnabled()) {
+        	this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled", new ImageIcon(this.getClass().getResource(
+            "/images/menu/monitor_add.png")));
+            
+       }
+       
+       else {
+    	   this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled", new ImageIcon(this.getClass().getResource(
+           "/images/menu/monitor_delete.png")));
+       }
+
         chatbotEnabler.setMnemonic(KeyEvent.VK_B);
+        chatbotEnabler.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotEnabler.addItemListener(new ChatbotToggleListener());
         optionsMenu.add(chatbotEnabler);
 
-        this.chatLogEnabler =
+        if (model.getCurrentProfile().isChatLogEnabled()) {
+        	this.chatLogEnabler =
                 new JCheckBoxMenuItem("Chat Log Enabled", new ImageIcon(this.getClass().getResource(
-                "/images/menu/note_delete.png")));
+                "/images/menu/note_add.png")));
+            
+       }
+       
+       else {
+    	   this.chatLogEnabler =
+               new JCheckBoxMenuItem("Chat Log Enabled", new ImageIcon(this.getClass().getResource(
+               "/images/menu/note_delete.png")));
+       }
+        
+        
         chatLogEnabler.setMnemonic(KeyEvent.VK_E);
+        chatLogEnabler.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogEnabler.addItemListener(new ChatLogToggleListener());
         optionsMenu.add(chatLogEnabler);
 
@@ -399,12 +421,13 @@ public class BuddyList extends JFrame {
 			
 
             if (event.getStateChange() == ItemEvent.DESELECTED) {
+            	model.getCurrentProfile().setChatbotEnabled(false);
             	chatbotEnabler.setIcon(new ImageIcon(this.getClass().getResource(
                 "/images/menu/monitor_delete.png")));
             }
             	
             else  {
-            	model.getCurrentProfile().setChatbotEnabled(chatbotEnabler.isSelected());
+            	model.getCurrentProfile().setChatbotEnabled(true);
             	chatbotEnabler.setIcon(new ImageIcon(this.getClass().getResource(
                 "/images/menu/monitor_add.png")));
             }
@@ -424,13 +447,13 @@ public class BuddyList extends JFrame {
 
 		public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.DESELECTED) {
-				
+				model.getCurrentProfile().setChatLogEnabled(false);
         		chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_delete.png")));
             }
 		
             else {
-            	
+            	model.getCurrentProfile().setChatLogEnabled(true);
             	chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_add.png")));
             	
