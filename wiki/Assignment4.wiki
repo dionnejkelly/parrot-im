@@ -83,8 +83,6 @@ We employed two main integration steps to test Parrot IM. First, we integrated t
 *Results:*
 Integration testing was useful in organizing and cleaning up the code. In designing, it was not completely clear which components of the program handled certain things. For instance, is it the controller, model, or database's job to deal with duplicate account additions? Is it all of them? Integration testing showed errors when we didn't handle these situations properly. Ultimately, the testing made us set a focus to handle data integrity, the Model.
 
-Also, integration testing of the controller was first to show [http://code.google.com/p/parrot-im/issues/detail?id=22 Issue 22]. The XMPPTest.java class attempted to add and remove dummy accounts from our userIDs, and this bug manifested itself. If it weren't for this testing, we may have found this bug out at a later, more crucial time in development. Also, the test confirmed that it was the server at fault, not our controller, GUI, model, or database.
-
 In this phase, we tried to make sure that everything works well in practice. This includes testing the following:
 
 1. All the features are working properly without any errors or crashing.
