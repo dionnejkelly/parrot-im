@@ -164,36 +164,28 @@ We have asked the following 20 users to test our program and do the following ta
 
  * g) Wait for a message coming for cmpt275testing
 
- * h) Create a conference room
+ * h) See if your friend is typing and wait for the message
 
- * i) Invite cmpt275testing to that conference room
+ * i) Type a mispelled word.
 
- * j) Send a message to the conference room
+ * j) Send a small file to cmpt275testing.
 
- * k) Wait for cmpt275testing's reponse
+ * k) Wait for the file acceptance. 
 
- * l) See if your friend is typing and wait for the message
+ * l) Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
 
- * m) Type a mispelled word.
+ * m) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
+ * n) Disable chatbot and talks to "cmpt275testing"'s chatbot
 
- * n) Send a small file to cmpt275testing.
+ * o) Change your personal avatar picture, state and statues
 
- * o) Wait for the file acceptance. 
+ * p) Search for a user "cmpt275testing" in your search bar
 
- * p) Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
+ * q) Check Chat Log
 
- * q) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
- * r) Disable chatbot and talks to "cmpt275testing"'s chatbot
+ * r) Search Chat Log by typing cmpt275testing
 
- * s) Change your personal avatar picture, state and statues
-
- * t) Search for a user "cmpt275testing" in your search bar
-
- * u) Check Chat Log
-
- * v) Search Chat Log by typing cmpt275testing
-
- * w) Sign out
+ * s) Sign out
 
 
 3. We asked them to do the following tasks while one of the team is logged in with cmpt275testing on Twitter
