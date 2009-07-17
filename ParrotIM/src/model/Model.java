@@ -991,6 +991,7 @@ public class Model extends Observable {
         try {
             for (AccountData account : this.getCurrentProfile()
                     .getAccountData()) {
+            	System.out.println("loop");
             	db = new DatabaseFunctions();
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages

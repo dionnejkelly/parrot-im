@@ -44,6 +44,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -51,6 +52,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -101,7 +103,7 @@ public class ChatLogPanel extends JPanel {
      */
     private JList dateList;
     // bottom
-//    private JEditorPane text;
+    private JEditorPane text;
     
     /** 
      * text is a JList that shows the chat log.
@@ -111,7 +113,7 @@ public class ChatLogPanel extends JPanel {
      * Right now, the code is efficient but the GUI looks bad. Please help me to 
      * consider which is better.
      */
-    private JList text;
+//    private JList text;
     
     /** 
      * chatLog is a JScrollPane object. It is the scrollPane for text.
@@ -122,8 +124,7 @@ public class ChatLogPanel extends JPanel {
      * stub is an array of String with one member.
      * It used if there is no message to display on text.
      */
-    private String[] stub = new String[]{"<html><i>no data is displayed</i></html>"};
-
+    private String[] stub = new String[]{"no data is displayed"};
     private JTextField searchField ;
     // Added the database
     private DatabaseFunctions db;
@@ -163,13 +164,15 @@ public class ChatLogPanel extends JPanel {
 //                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         
         // bottom right component shows the chat logs
-        text = new JList (stub);
-        text.setEnabled(false);
-        text.setCellRenderer(new TextListCellRenderer());
+//        text = new JList (stub);
+//        text.setCellRenderer(new TextListCellRenderer());
+        text = new JEditorPane();
+        text.setEditable(false);
+//        text.setEnabled(false);
         
         chatlog = new JScrollPane(text);
-//        chatlog
-//                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        chatlog
+                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
         
         /* set right JSplitPane component */
@@ -219,7 +222,8 @@ public class ChatLogPanel extends JPanel {
 	
 		        dateList.setListData(stub);
 		        dateList.setEnabled(false);
-		        text.setListData(stub);
+//		        text.setListData(stub);
+		        text.setText(stub[0]);
 		        text.setEnabled(false);
 			} else{
 				buddies.setListData(stub);
@@ -242,7 +246,8 @@ public class ChatLogPanel extends JPanel {
         dateList.setEnabled(true);
         dateList.updateUI();
 
-        text.setListData(stub);
+//        text.setListData(stub);
+        text.setText(stub[0]);
     }
 
     /**
@@ -256,9 +261,19 @@ public class ChatLogPanel extends JPanel {
         Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
                 .toString(), date, searchKey);
         
-        text.setListData(messages);
+//        text.setListData(messages);
+        text.setText(ChatLogMessageToString(messages));
         text.updateUI();
 
+    }
+    
+    private String ChatLogMessageToString(Vector<ChatLogMessageTempData> messages){
+    	String message = "";
+    	
+    	for (int i=0; i<messages.size(); i++){
+    		message += messages.get(i).toString();
+    	}
+    	return message;
     }
     
     /**
