@@ -458,6 +458,7 @@ public class BuddyList extends JFrame {
             buddywindow.dispose();
             new MusicPlayer("src/audio/exit/parrotExit.wav", model);
 
+            System.exit(0);
             return;
         }
 
