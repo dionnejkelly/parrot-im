@@ -101,7 +101,8 @@ public class SignInPanel extends JPanel implements Observer {
      */
     protected MainController core;
 
-    protected boolean dontInstantiate =false;
+    protected boolean dontInstantiate = false;
+    private boolean allowAutoSignIn;
     /**
      * mainFrame is a MainWindow object which is a container of this panel.
      */
@@ -171,7 +172,10 @@ public class SignInPanel extends JPanel implements Observer {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public SignInPanel(MainWindow frame, MainController chatClient, Model model) {
+    public SignInPanel
+    	(MainWindow frame, MainController chatClient, Model model, boolean allowAutoSignIn) {
+    	System.out.println("init auto sign in allowed: " + allowAutoSignIn);
+    	this.allowAutoSignIn = allowAutoSignIn;
         mainFrame = frame;
         core = chatClient;// CORE
         this.model = model;
@@ -494,7 +498,7 @@ public class SignInPanel extends JPanel implements Observer {
                     //auto sign in
 
                 	System.out.println("auto sign in: " + selectedProfile.isAutoSignInEnabled());
-                    if (selectedProfile.isAutoSignInEnabled()){
+                    if (selectedProfile.isAutoSignInEnabled() && allowAutoSignIn){
                     	profileSignIn();
                     }
                 }
@@ -615,8 +619,9 @@ public class SignInPanel extends JPanel implements Observer {
                 lastSelectedIndex = account_select.getSelectedIndex();
                 
                 System.out.println("auto sign in: " + selectedProfile.isAutoSignInEnabled());
+                
                 //auto sign in
-                if (selectedProfile.isAutoSignInEnabled())
+                if (selectedProfile.isAutoSignInEnabled() && allowAutoSignIn)
                 	profileSignIn();
             } else {
             	passwordFrame.setAlwaysOnTop(false);

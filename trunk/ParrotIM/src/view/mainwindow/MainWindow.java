@@ -72,21 +72,24 @@ import model.enumerations.UpdatedType;
  * This class inherits JFrame methods and variables, and implements Observer.
  */
 public class MainWindow extends JFrame implements Observer {
-
+	private boolean allowAutoSignIn;
     /**
      * Sets the title of the window, size, and default close operation.
-     * 
+     * called upon program start up
      * @param chatClient
      * @param model
      */
-    public MainWindow(MainController chatClient, Model model) {
+    public MainWindow(MainController chatClient, Model model) { 
         // set Main Window Frame
 //    	setLocationRelativeTo(null);
+
+       allowAutoSignIn = true;
        setFrame( chatClient, model);
     }
 
     /**
      * sets the location to be at location
+     * called upon sign out
      * @param chatClient
      * @param model
      * @param location
@@ -94,6 +97,7 @@ public class MainWindow extends JFrame implements Observer {
     public MainWindow(MainController chatClient, Model model, Point location) {
         // set Main Window Frame
     	this.setLocation(location);
+    	allowAutoSignIn = false;
     	setFrame( chatClient, model);
     }
     
@@ -104,7 +108,7 @@ public class MainWindow extends JFrame implements Observer {
 //         setPreferredSize(new Dimension(300, 500));
          setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
-         SignInPanel signinPanel = new SignInPanel(this, chatClient, model);
+         SignInPanel signinPanel = new SignInPanel(this, chatClient, model, allowAutoSignIn);
          // call SignIn Panel
          getContentPane().add(signinPanel);
          if (signinPanel.dontInstantiate){
