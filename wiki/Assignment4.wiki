@@ -1,4 +1,163 @@
-== Software Metrics ==
+#summary Assignment 3 submission
+
+= Source = 
+All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
+
+SVN link to source (deadline of June 26 1:30pm for updates to its files) [http://code.google.com/p/parrot-im/source/browse/#svn/branches/assignment3_alphaVersion] <br>
+Direct link (last update, before June 26 1:30pm): [http://parrot-im.googlecode.com/files/ParrotIM_alpha.zip]
+
+----
+
+= Executable File =
+
+Direct link: 
+
+----
+
+= New Tutorial =
+
+[http://sites.google.com/site/parrotimhelp/Home Parrot IM Tutorial Guide]
+
+----
+
+= Testing Report =
+
+Testing for the Alpha released consisted of three parts:
+
+== Unit Testing ==
+
+The low-level data types were checked for consistency, and each method was verified to return the expected results and make state changes to the objects as expected. The test cases are as follows:
+
+|| *Filename* || *Components Tested* ||
+|| !AccountDataTest.java || data consistency, adding friends, removing friends, searching for friends ||
+|| !AccountTempDataTest.java || data consistency ||
+|| !ChatbotTest || response generation, response triggering, enabler ||
+|| !ChatlogMessageTempDataTest || data consistency ||
+|| !ConversationDataTest || data consistency, message retrieval, message formatting, message storage ||
+|| !CurrentProfileDataTest || data consistency, adding accounts, removing friends, getting friend list ||
+|| !GoogleTalkUserData || data consistency ||
+|| !JabberUserData || data consistency ||
+|| !MessageDataTest || data consistency, message manipulation, message retrieval ||
+|| !ServerTypeTest || utility methods for enumerated type ||
+|| !UserDataTest || inheritance test, data consistency ||
+
+*Results:*
+
+Development of unit test cases allowed us to remove redundant code and add more robust methods to our low-level data. For instance, the Quality Assurance team identified methods that effectively did the same task, and merged them into one. 
+
+Another important find was that the search functions were comparing based on an equals method inherited by the Object class. Essentially, two !UserData or !AccountData objects were treated as equal only if they had the same reference; not if their data was equal. This posed subtle problems for removing or checking for the existence of these objects. As The equals() method was overridden as a result of the test cases.
+
+Furthermore, these tests will be conducted and updated as our low-level data types under go upgrades in future revisions of the program.
+
+== Integration Testing ==
+
+We employed two main integration steps to test Parrot IM. First, we integrated the Database and the Model, and checked both for consistencies while accessing and mutating data. Next, we integrated the Controller class, and performed a functional test which in turn integrated the lower-level components of the system, namely the Model and the Database.
+
+  * !ModelToDatabaseTest.java
+    * Checks for consistency between the model and the database. The only location in which the database can be called is the model. We mainly checked for consistency in dealing with duplicate input.
+  * XMPPTest.java
+    * Executes functions to mimic user interaction with Parrot IM. All calls come from the MainController class, which currently only supports XMPP functions. The Model and Database are, again, involved in processing the requests. The integrity of both are checked also.
+
+*Results:*
+Integration testing was useful in organizing and cleaning up the code. In designing, it was not completely clear which components of the program handled certain things. For instance, is it the controller, model, or database's job to deal with duplicate account additions? Is it all of them? Integration testing showed errors when we didn't handle these situations properly. Ultimately, the testing made us set a focus to handle data integrity, the Model.
+
+Also, integration testing of the controller was first to show [http://code.google.com/p/parrot-im/issues/detail?id=22 Issue 22]. The XMPPTest.java class attempted to add and remove dummy accounts from our userIDs, and this bug manifested itself. If it weren't for this testing, we may have found this bug out at a later, more crucial time in development. Also, the test confirmed that it was the server at fault, not our controller, GUI, model, or database.
+
+== User Acceptance Testing ==
+
+For the alpha release, each member asked friends and family members to try out Parrot IM. In some cases, we did an ethnographic test, in which we directly observed the user's interaction with our system, and noted which areas of the program seemed to be difficult for them to access. Also, we observed the tendencies of users to perform certain tasks while using our program. 
+
+Additionally, we asked some testers to try out Parrot IM alone, and they reported back on any challenges they had or features they'd like changed or added. We also instructed these users to try to do certain tasks, such as adding a friend, or using the chat log, and report back on the experience.
+
+GUI Testing and acceptance steps:
+
+1. We asked 10 users to try and run our software.
+
+2. We asked them to do the following tasks while one of the team is loggin with cmpt275testing@gmail.com
+
+a) Register with your !GoogleTalk account
+
+b) Add cmpt275testing@gmail.com
+
+c) Send cmpt275testing a message
+
+d) Wait for a message coming for cmpt275testing
+
+e) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
+
+f) block cmpt275testing (cmpt275testing will sign again and he should not find user)
+
+g) delete cmpt275 testing
+
+h) log out
+
+*Observations:*
+  * User got confused with the idea of profile and account. Probably the GUI is confusing.
+  * User felt good about the sign in window, but they thought the buddy list is a  little bit simple.
+  * User got confused with the block user icon, because they thought that icon is not clear.
+  * User got could not figure out how to unblock an account.
+  * User did not like the design of the Help window.
+  * User did not like the fact that he can't find out which account he's logged into while logged on, only the profile.
+  * User did not like the Help/About Parrot.IM link opening right on top of the main window, causing a confusing effect.
+  * Didn't like buttons with icons not having tooltips.
+  * Didn't like text formatting buttons not changing the text in the input box
+  * Add a buddy asked for an "Input", not user friendly.
+  * Didn't like message box having a delay after pressing enter to clear the box.
+  * When opening a conversation, the keyboard input should be focused on the text input field.
+  * Wanted an indicator for signing it. Currently it looks like it's frozen when logging in.
+  * Exiting Buddy list with File->Exit doesn't also close the chat window.
+  * Wanted a Account Setup wizard to open on first run of the program.
+
+
+*Future Plans:*
+  * Need to improve the GUI so the user can easily distinguish profile and account.
+  * I think we need to impove the view of the buddy list in the Beta version.
+  * We should make the block friend icon as clear as the add friend and remove friend icon. 
+  * Need to make a sleeker Help window.
+  * Show which account is talking to each friend in Conversation Window.
+  * Move Help/About Parrot.IM link a bit down and to the right.
+  * The display picture should have a tooltip saying it's actully clickable to pop the file browser.
+----
+
+= Known Bugs =
+
+== Critical Priority ==
+
+  # [http://code.google.com/p/parrot-im/issues/detail?id=22 Issue 22]
+    * Adding and remove friends used to work fine. However, after a period, certain accounts would give the errors detailed in the issue above, making adding and removing friends impossible. It appears to be an error with the smack API, and it is impossible to recover from the exception it throws.
+    * Was uncovered with integration testing using the XMPPTest test case.
+
+== Medium Priority ==
+  # [http://code.google.com/p/parrot-im/issues/detail?id=9 Issue 9]
+    * Exception thrown from an unknown source 50% of the time when receiving a message. No other effects seen.
+  # [http://code.google.com/p/parrot-im/issues/detail?id=10 Issue 10]
+    * Exception thrown from an unknown source 25% of the time when logging in. No other effects seen.  
+
+----
+
+= Documents =
+
+Our previous documents can be found here:
+  * [RequirementsDocument Old Requirements Document]
+  * [DesignDocument Old Design Document]
+  * [QualityAssurancePlan Old Quality Assurance Plan]
+
+All changes to the documents are given here:
+  * [RequirementsDocumenta3 Requirements Document]
+  * [DesignDocumenta3 Design Document]
+  * [QualityAssurancePlana3 Quality Assurance Plan]
+
+----
+
+= Testing Schedule =
+
+ * Alpha (On Schedule)
+        Unit Testing Deadline: June 18, 2009 <br> 
+        Integration Testing Deadline: June 22, 2009 <br>
+        User Acceptance Testing Deadline: June 25, 2009<br>
+
+
+= Software Metrics =
 
 As of 2009-July-16 at 18:51 PM (r1754)
 
@@ -13,9 +172,67 @@ Total lines of code: 28378
 
 Test cases (methods in test classes): 317
 
-== New Tutorial ==
+----
 
-[http://sites.google.com/site/parrotimhelp/Home Parrot IM Tutorial Guide]
+= Coding Conventions = 
+The following are the conventions used in coding Parrot IM:
+
+== Code Style ==
+Listed are the conventions for all visual aspects of the code.
+
+=== Capitalization ===
+|| *Type* || *Convention* ||
+|| Packages || Start with lower case, follow in !CamelCase ||
+|| Classes || Start with upper case, follow in !CamelCase ||
+|| Methods || Start with lower case, follow in !CamelCase ||
+|| Constants || All upper case, words separated by underscores ||
+|| Data Members || Start with lower case, follow in !CamelCase ||
+
+=== Spacing ===
+|| *Type* || *Convention* ||
+|| Block Indentations || 4 spaces wide ||
+|| Tabs || 8 spaces wide ||
+|| Maximum line size || 80 characters long ||
+
+=== Comments ===
+|| *Type* || *Convention* ||
+|| Header comment || C-Style, include filename, programmers, change log, known issues, and license pointer ||
+|| Classes || Include !JavaDoc comment block ||
+|| Data Members || Include !JavaDoc comment block ||
+|| Methods || Include !JavaDoc comment block ||
+|| Single-line comments || C++ style comments ||
+|| Multi-line comments || C++ or C-style comments ||
+|| Commenting-out code || C++ or C-style comments ||
+
+== Naming Conventions ==
+
+=== Files and terms ===
+Terminology:
+  * *userID* - The username, with the "@server.com" for a friend or an account.
+  * *account* - Represents one userID for the local user. Used to log-in to the server.
+  * *profile* - An identity that contains a list of accounts for the local user.
+  * *friends* - A list of userIDs in an account, shown in the buddy list.
+
+Filename conventions:
+  * Data types, such as an Account or Profile, are suffixed with "DataType" in the filename.
+  * Enumerated types are suffixed with "Type" in the filename.
+  * Test cases are suffixed with "Test" in the filename.
+
+=== Data Hierarchy ===
+The Model holds Conversations and Profiles.   
+
+Model's Chat Data:
+  * !ConversationData has:
+    * !MessageData
+
+Model's Profile Data
+  * !CurrentProfileData has:
+    * !AccountData, which has:
+      * !UserData
+
+
+
+
 
 == Testing ==
 
