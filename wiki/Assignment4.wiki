@@ -332,6 +332,8 @@ For privacy reasons we put their initials only
   * Didn't like message box having a delay after pressing enter to clear the box.
   * When opening a conversation, the keyboard input should be focused on the text input field.
   * Wanted an indicator for signing it. Currently it looks like it's frozen when logging in.
+  * Users felt the scroll bar is slow. We'll work on that
+  * Some users felt the ok button in parrot preferences are missing, but macintosh, msn and adium are not implementing the ok button. Thus, we are following the majority of users mental model and not implementing ok button. Moreover, we need parrot-im to be more effeicent and ok button are not that helpful.
 
 
 
