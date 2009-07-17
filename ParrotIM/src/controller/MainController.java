@@ -120,16 +120,25 @@ public class MainController {
      * 
      * @param status
      */
-    public void setStatus(String status) {
+    public void setStatus(String status, boolean changeTwitter) {
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            try {
-                a.getConnection().changeStatus(
-                        model.getCurrentProfile().getState(), status);
-            } catch (BadConnectionException e) {
-                // TODO Throw something back?
-            }
+        	if (changeTwitter && a.getServer() != ServerType.TWITTER){
+	            try {
+	                a.getConnection().changeStatus(
+	                        model.getCurrentProfile().getState(), status);
+	                model.setStatusMessage(model.getCurrentProfile().getName(), status);
+	            } catch (BadConnectionException e) {
+	                // TODO Throw something back?
+	            } catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
         }
         model.getCurrentProfile().setStatus(status);
 

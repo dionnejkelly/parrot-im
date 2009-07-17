@@ -92,7 +92,6 @@ public class Model extends Observable {
     // Section
     // I - Data Members
 
-	private Vector<ChatbotQADataType> QAs = new Vector<ChatbotQADataType> ();
 	
     private ChatCollectionData chatCollection;
 
