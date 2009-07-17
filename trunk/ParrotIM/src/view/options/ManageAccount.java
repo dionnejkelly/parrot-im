@@ -241,7 +241,6 @@ public class ManageAccount extends JPanel implements Observer {
 
     private class addActionListener implements ActionListener{
 
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if ((ServerType) server.getSelectedItem() == ServerType.GOOGLE_TALK ||
 	    			(ServerType) server.getSelectedItem() == ServerType.TWITTER) {

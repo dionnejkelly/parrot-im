@@ -284,7 +284,7 @@ public class ChatbotQA extends JFrame{
 					AList.updateUI();
 				}
 				frame.dispose();
-				
+				mainFrame.setAlwaysOnTop(true);
 			}	
 		}
 		
