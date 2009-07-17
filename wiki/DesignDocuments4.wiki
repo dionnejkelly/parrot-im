@@ -22,19 +22,16 @@ http://parrot-im.googlecode.com/files/alphaUML.png
 
 = Data Requirements =
 
-Notes: The file formats are almost done except the Avatar Picture.
+Notes: The file formats are almost done for all including the Avatar Picture.
 
 
 
 
 = Feature Priority =
 
-Notes of change: 
-We added Chatlog into the Alpha version, and moved Avatar picture into the Beta version.
 
+Beta: Chatlog and Avatar picture are implemented.  <br>
 
-Alpha: Chatlog is implemented. Avatar picture is not yet implemented. However, user is able to choose avatar picture from their computer. <br>
-Beta: Avatar picture will be developed more on this version.
 
 Notes of change of classes to implement:
  
@@ -44,7 +41,8 @@ Notes of change of classes to implement:
  * Chatbot(Controller.chatbot classes)
  * User Profile( View.profilemanager)
  * Jabber User( Not implement yet) 
- * Google Talk User(Same as controller class)
+ * Twitter User(controller.services) 
+ * Google Talk User(controller.services)
  * Friend List(buddylist classes)
  * Friends(Same as friendlist)
  * Account( Same as profilemanager)
