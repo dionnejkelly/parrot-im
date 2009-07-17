@@ -14,7 +14,7 @@
 // * Full license can be found in ParrotIM/LICENSE.txt.
 // */
 //
-//package test.integration;
+package test.integration;
 //
 //import static org.junit.Assert.*;
 //
@@ -29,7 +29,7 @@
 //
 //import controller.MainController;
 //
-//public class XMPPTest {
+public class XMPPTest {
 //
 //    private Model model;
 //    private MainController controller;
@@ -133,4 +133,4 @@
 //     * 
 //     * return; }
 //     */
-//}
+}

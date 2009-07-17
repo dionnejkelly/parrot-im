@@ -14,7 +14,7 @@
 // * Full license can be found in ParrotIM/LICENSE.txt.
 // */
 //
-//package test.unit;
+package test.unit;
 //
 //import static org.junit.Assert.*;
 //
@@ -27,7 +27,7 @@
 //import org.junit.Before;
 //import org.junit.Test;
 //
-//public class UserDataTest {
+public class UserDataTest {
 //    private UserData ud1;
 //    private UserData ud2;
 //    private UserData ud3;
@@ -152,4 +152,4 @@
 //        assertSame(expected, ud2.toString());
 //    }
 //
-//}
+}
