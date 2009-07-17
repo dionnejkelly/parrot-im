@@ -77,7 +77,7 @@ We employed two main integration steps to test Parrot IM. First, we integrated t
 
   * !ModelToDatabaseTest.java
     * Checks for consistency between the model and the database. The only location in which the database can be called is the model. We mainly checked for consistency in dealing with duplicate input.
-  * MainController.java
+  * !MainController.java
     * Executes functions to mimic user interaction with Parrot IM. All calls come from the this main controller class, which currently only supports XMPP and Twitter functions. The Model and Database are, again, involved in processing the requests. The integrity of both are checked also.
 
 
@@ -277,6 +277,7 @@ As of 2009-July-16 at 18:51 PM (r1754)
 (Gathered via loc at http://freshmeat.net/projects/loc/)
 || Pure Source || Comment || Source followed by Comment || Blank || 
 || 15435 || 7099 || 80 || 5764 ||
+
 Total lines of code: 28378
 
 (Gathered via Eclipse Metrics plugin at http://metrics.sourceforge.net/)
