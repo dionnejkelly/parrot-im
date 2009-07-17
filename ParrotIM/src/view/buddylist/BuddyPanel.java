@@ -589,7 +589,7 @@ public class BuddyPanel extends JPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
             String userFriendID;
-            String result = "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
+            //String result = "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
 
             // not able to cancel it for now
 
@@ -608,7 +608,7 @@ public class BuddyPanel extends JPanel implements Observer {
                 chatClient.addFriend(userFriendID);
                 MusicPlayer addMusic = new MusicPlayer(
                         "/audio/buddy/addFriend.wav", model);
-                JOptionPane.showMessageDialog(null, result);
+                
 
                 // buddies.add(new GoogleTalkUserData(userFriendID));
 

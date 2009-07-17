@@ -1151,4 +1151,14 @@ public class GoogleTalkManager implements GenericConnection {
         return isConferenceChat;
     }
 
+	public boolean doesExist(String userID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isFollowing(String userID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

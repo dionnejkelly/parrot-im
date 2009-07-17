@@ -104,6 +104,11 @@ public interface GenericConnection {
 	 public boolean isConferenceChat();
 	 
 	 public void sendMultMessage(String message, String roomName) throws BadConnectionException;
+	 
+	 // For Twitter
+	 public boolean doesExist(String userID);
+	 
+	 public boolean isFollowing(String userID);
     // don't need this for now
 //    public void setUserNickName(String name) throws XMPPException;
 //

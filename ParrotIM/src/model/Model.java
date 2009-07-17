@@ -68,6 +68,7 @@ import model.dataType.GoogleTalkUserData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
 import model.dataType.TwitterAccountData;
+import model.dataType.TwitterUserData;
 import model.dataType.UserData;
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
@@ -583,13 +584,23 @@ public class Model extends Observable {
             if (account == null) {
                 server = ServerType.GOOGLE_TALK;
                 account = getCurrentProfile().getAccountFromServer(server);
+                
+                if (account == null) {
+                	server = ServerType.TWITTER;
+                    account = getCurrentProfile().getAccountFromServer(server);
+                }
             }
+            
         }
 
         if (server == ServerType.GOOGLE_TALK) {
             userToAdd = new GoogleTalkUserData(accountName);
         } else if (server == ServerType.JABBER) {
             userToAdd = new JabberUserData(accountName);
+        }
+        
+        else if (server == ServerType.TWITTER) {
+        	userToAdd = new TwitterUserData(accountName);
         }
 
         account.addFriend(userToAdd);

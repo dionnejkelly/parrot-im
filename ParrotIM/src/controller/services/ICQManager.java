@@ -604,5 +604,13 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 		// TODO Auto-generated method stub
 		
 	}
+	public boolean doesExist(String userID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	public boolean isFollowing(String userID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
