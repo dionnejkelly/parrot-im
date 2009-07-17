@@ -124,7 +124,7 @@ public class MainController {
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-        	if (changeTwitter && a.getServer() != ServerType.TWITTER){
+        	if (a.getServer() != ServerType.TWITTER){
 	            try {
 	                a.getConnection().changeStatus(
 	                        model.getCurrentProfile().getState(), status);
@@ -138,6 +138,22 @@ public class MainController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+        	} else {
+        		if (changeTwitter){
+        			try {
+    	                a.getConnection().changeStatus(
+    	                        model.getCurrentProfile().getState(), status);
+    	                model.setStatusMessage(model.getCurrentProfile().getName(), status);
+    	            } catch (BadConnectionException e) {
+    	                // TODO Throw something back?
+    	            } catch (ClassNotFoundException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				} catch (SQLException e) {
+    					// TODO Auto-generated catch block
+    					e.printStackTrace();
+    				}
+        		}
         	}
         }
         if (!model.getCurrentProfile().getName().equals("Guest")){
