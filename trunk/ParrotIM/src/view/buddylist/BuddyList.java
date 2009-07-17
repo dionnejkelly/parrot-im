@@ -508,7 +508,8 @@ public class BuddyList extends JFrame {
             chat.dispose();
             if (options != null) options.dispose();
             if (chatlog != null) chatlog.dispose();
-            new MainWindow(controller, model, buddywindow.getLocation());
+            Model newModel = new Model();
+            new MainWindow(new MainController(newModel), newModel, buddywindow.getLocation());
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();
             new MusicPlayer("/audio/exit/parrotExit.wav", model);

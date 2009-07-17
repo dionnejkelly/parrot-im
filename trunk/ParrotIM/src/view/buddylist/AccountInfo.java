@@ -61,6 +61,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import org.jivesoftware.smack.XMPPException;
+
 import model.Model;
 import model.enumerations.ServerType;
 
