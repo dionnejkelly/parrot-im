@@ -28,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import view.buddylist.AccountInfo;
+import view.styles.PopupWindowListener;
 
 import model.Model;
 
@@ -35,10 +36,14 @@ import controller.MainController;
 
 public class OptionFrame extends JFrame {
 
-    public OptionFrame(MainController c, Model model, AccountInfo accInfo)
+	protected JFrame mainFrame;
+	
+    public OptionFrame(MainController c, Model model, AccountInfo accInfo, JFrame buddywindow)
             throws ClassNotFoundException, SQLException {
         this.setTitle("User Preferences");
 
+        this.mainFrame = buddywindow;
+        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         OptionPanel mainPanel =
                 new OptionPanel(c, model, this, model.getCurrentProfile(),
@@ -51,6 +56,7 @@ public class OptionFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        this.addWindowListener(new PopupWindowListener(this.mainFrame, this));
     }
 
 }
