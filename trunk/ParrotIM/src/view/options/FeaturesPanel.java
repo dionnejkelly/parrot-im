@@ -133,7 +133,10 @@ public class FeaturesPanel extends JPanel {
         chatbotOptions.setAlignmentX(LEFT_ALIGNMENT);
         chatbotOptions.add(chatbotListScroll);
         chatbotOptions.add(chatbotButtonsPanel);
-        chatbotOptions.setVisible(false);
+        if (chatbotCheck.isSelected())
+        	chatbotOptions.setVisible(true);
+        else
+        	chatbotOptions.setVisible(false);
 
         JPanel chatbotPanel = new JPanel();
         chatbotPanel.setAlignmentX(LEFT_ALIGNMENT);
