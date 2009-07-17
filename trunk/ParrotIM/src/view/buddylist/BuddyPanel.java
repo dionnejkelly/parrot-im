@@ -425,7 +425,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         searchButton = new JButton(new ImageIcon(this.getClass().getResource(
                 "/images/buddylist/document_preview.png")));
-        searchButton.setToolTipText("Start searching");
+        searchButton.setToolTipText("Start searching for a contact");
 
         googleSearchButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/google_search.png")));
