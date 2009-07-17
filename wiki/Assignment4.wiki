@@ -101,8 +101,8 @@ We acheived the testing by following a simple tasks that users normally do. We p
 || Signing out, Signing in again || Users are able to flexibly sign-in and sign-out at any time. || Users are able to sign in and out multiple times. ||
 || Adding a buddy|| Users are able to add a buddy within 3 seconds. || When adding a buddy, it takes 3 seconds. ||
 || Removing a buddy|| Users are able to removea user within 2 seconds. || Users have no problem removing a buddy, and the buddy will be removed from the database. ||
-|| Blocking a buddy|| Users can organize the list of blocked buddies by blocking a buddy within 2 seconds.|| Users are able to see the blocked buddies both in the buddy list and the blocked manager.  ||
-|| Unblocking a buddy|| Users are able to unblock a buddy within 2 seconds.|| || Users are able to unblock a buddythrough the buddy list and the blocked manager. ||
+|| Blocking a buddy|| Users can organize the list of blocked buddies by blocking a buddy within 2 seconds.|| Users are able to see the blocked buddies both in the buddy list and the blocked manager.  || 
+|| Unblocking a buddy|| Users are able to unblock a buddy within 2 seconds.||  Users are able to unblock a buddythrough the buddy list and the blocked manager. ||
 || Viewing Chat log || Shows the previous chat history organized by users' account. || You can view chatlog, and search conversations. ||
 || Connected buddies|| Inconsistent number of connected buddies. || Number of connected buddiesshould be displayed consistently. ||
 || Changing a personal status|| Users are able to change their states effectively. || Users are able to change their states both in the buddylist and the option.||
