@@ -92,15 +92,14 @@ public class LinkLabel extends JLabel {
 		 * @param e */
 		public void mouseEntered(MouseEvent e) {
 			if (enabled)
-				label.setText("<html><b>"+label.text+"</b></html>");
+				label.setText("<html><FONT COLOR=BLACK><b>"+label.text+"</b></FONT></html>");
 		}
 		
 		/** When the user hover on label, the text will be underlined.
 		 * It takes a MouseEvent argument 
 		 * @param e */
 		public void mouseExited(MouseEvent e) {
-			if (enabled)
-				label.setText("<html><u>"+ text +"</u></html>");
+			label.setEnabled(enabled);
 		}
 
 		public void mousePressed(MouseEvent e) {}
