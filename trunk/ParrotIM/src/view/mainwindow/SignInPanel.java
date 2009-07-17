@@ -335,10 +335,7 @@ public class SignInPanel extends JPanel implements Observer {
          * @param evt
          */
         public void actionPerformed(ActionEvent evt) {
-            
-            	header.changeAvatar(getClass().getClassLoader().getResource("images/mainwindow/animation.gif").toString());
-				header.displaySystemStatus("Signing in...");
-				
+      
             	profileSignIn();
 			
 
