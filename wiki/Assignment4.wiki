@@ -155,11 +155,11 @@ All changes to the documents are given here:
 = Testing Schedule =
 
  * Alpha (On Schedule)
-        Unit Testing Deadline: June 18, 2009 <br> 
-        Integration Testing Deadline: June 22, 2009 <br>
-        User Acceptance Testing Deadline: June 25, 2009<br>
+        Unit Testing Deadline: July 11, 2009 <br> 
+        Integration Testing Deadline: July 12, 2009 <br>
+        User Acceptance Testing Deadline: July 14, 2009<br>
 
-
+----
 = Software Metrics =
 
 As of 2009-July-16 at 18:51 PM (r1754)
