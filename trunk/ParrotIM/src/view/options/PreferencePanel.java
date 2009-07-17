@@ -55,7 +55,7 @@ public class PreferencePanel extends JPanel {
         themeMenu.setAutoscrolls(true);
         themeMenu.addActionListener(new ThemeMenuListener());
         JLabel themeLabel = new JLabel("Status: ");
-        themeLabel.setForeground(Color.pink.darker());
+        themeLabel.setForeground(Color.red.darker());
         JPanel themePanel = new JPanel();
         themePanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
         themePanel.setAlignmentX(LEFT_ALIGNMENT);
