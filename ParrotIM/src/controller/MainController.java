@@ -998,58 +998,65 @@ public class MainController {
          conversation = model.getActiveConversation();
 
 
-     
-        String to = conversation.getUser().getUserID();
-         
-    
-        if (isValidUserID(to)) {
-        	  // connection should be found from account!!
-            account = model.getCurrentProfile().getAccountData().get(0);
-            connection = account.getConnection();
-            System.out.println("Start Transfering File... " + to);
-       		
-        
-        	JFileChooser fileChooser = new JFileChooser();
-    		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    		fileChooser.setMultiSelectionEnabled(false);
-    		
-        	int fileConfirmation = fileChooser.showOpenDialog(null);
-        	
-        	if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
-        	
-        		File selectedFile = fileChooser.getSelectedFile();
+        try {
+        	 String to = conversation.getUser().getUserID();
+             
+        	    
+             if (isValidUserID(to)) {
+             	  // connection should be found from account!!
+                 account = model.getCurrentProfile().getAccountData().get(0);
+                 connection = account.getConnection();
+                 System.out.println("Start Transfering File... " + to);
+            		
+             
+             	JFileChooser fileChooser = new JFileChooser();
+         		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+         		fileChooser.setMultiSelectionEnabled(false);
+         		
+             	int fileConfirmation = fileChooser.showOpenDialog(null);
+             	
+             	if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
+             	
+             		File selectedFile = fileChooser.getSelectedFile();
 
-        		 
- 
-        		 long fileSize = selectedFile.length() / 1000;
-        		System.out.println("The file size = " + fileSize + " KB");
-        		
-        		if (fileSize < 64) {
-        			ProgressMonitorScreen progress = new ProgressMonitorScreen();
-            		try {
-        			String filePath = fileChooser.getSelectedFile().getPath();
-					connection.sendFile(to, filePath, progress);
-            		} catch (XMPPException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-            		}
-        			
-        		}
-        		
-        		else {
-        			JOptionPane.showMessageDialog(null, "Please choose a file that does not exceed more than 60 KB.",
-                            "Failed", JOptionPane.ERROR_MESSAGE);
-        		}
+             		 
+      
+             		 long fileSize = selectedFile.length() / 1000;
+             		System.out.println("The file size = " + fileSize + " KB");
+             		
+             		if (fileSize < 64) {
+             			ProgressMonitorScreen progress = new ProgressMonitorScreen();
+                 		try {
+             			String filePath = fileChooser.getSelectedFile().getPath();
+     					connection.sendFile(to, filePath, progress);
+                 		} catch (XMPPException e) {
+     					// TODO Auto-generated catch block
+     					e.printStackTrace();
+                 		}
+             			
+             		}
+             		
+             		else {
+             			JOptionPane.showMessageDialog(null, "Please choose a file that does not exceed more than 60 KB.",
+                                 "Failed", JOptionPane.ERROR_MESSAGE);
+             		}
 
-				
-        	}
-           
+     				
+             	}
+                
+             }
+             
+             else {
+             	JOptionPane.showMessageDialog(null, "Cannot send a file because " + to + " does not support file receiving.",
+                         "Failed", JOptionPane.ERROR_MESSAGE);
+             }
         }
         
-        else {
-        	JOptionPane.showMessageDialog(null, "Cannot send file because " + to + " does not support file receiving.",
+        catch (NullPointerException e) {
+        	JOptionPane.showMessageDialog(null, "Failed to send a file because it is either:\n" + "a) A user does not support file receiving.\n" + "b) A user is not using an XMPP protocol.\n" +"c) Conference chat room does not support file receiving.",
                     "Failed", JOptionPane.ERROR_MESSAGE);
         }
+       
         
        
         
