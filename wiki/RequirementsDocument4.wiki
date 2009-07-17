@@ -100,11 +100,7 @@ Metrics for specifying non-functional requirements:
 = Example Tutorials =
 We have added new user tutorials here:
 
-  * [NewTutorial_CreateAccount (new)How to create an account?]
-  * [NewTutorial_LogIn (new)How to log in?]
-  * [NewTutorial_Chat (new)How to chat?]
-  * [NewTutorial_Exit (new)How to exit Parrot IM?]
-  * [NewTutorial_ManageBuddyList   (new)How to manage Friend list?]
+  [http://sites.google.com/site/parrotimhelp/Home Parrot IM Tutorial Guide]
   
 
 = Glossary =
