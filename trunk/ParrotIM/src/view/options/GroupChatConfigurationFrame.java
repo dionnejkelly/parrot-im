@@ -124,7 +124,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 		pack();
 		getContentPane().add(mainPanel);
 		setVisible(true);
-		setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+		setIconImage(new ImageIcon(this.getClass().getResource("/images/mainwindow/logo.png")).getImage());
 		this.setLocation(600 ,200);
 		 this.addWindowListener(new PopupWindowListener(this.mainFrame, popUpFrame));
 		
@@ -234,7 +234,8 @@ public class GroupChatConfigurationFrame extends JFrame{
 	private class cancelActionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			mainFrame.dispose();
+			//mainFrame.dispose();
+		    popUpFrame.dispose();
 		
 			
 		}

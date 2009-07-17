@@ -473,19 +473,30 @@ public class GoogleTalkManager implements GenericConnection {
     public void createRoom(String room) throws XMPPException {
         MultiUserChatManager multiChat = new MultiUserChatManager(connection,
                 room + "@conference.jabber.org", model);
-        multiChat.createRoom();
+        try {
+            multiChat.createRoom();
+        } catch (Exception e) {
+            System.err.println("room already exists, joining instead");
+            multiChat.joinRoom();
+        }
+        
         multiChatList.add(multiChat);
         availableRoom.add(room + "@conference.jabber.org");
+
         // multiChat.addParticipantStatusListener(new joinedListener());
 
     }
 
-    public void joinRoom(String room) throws XMPPException {
+    public void joinRoom(String room) throws XMPPException {      
+      
+        // *** Dev note: Does this need the @conference... added to room?
+        
         MultiUserChatManager multiChat = new MultiUserChatManager(connection,
                 room, model);
         multiChat.joinRoom();
         multiChatList.add(multiChat);
         availableRoom.add(room);
+
         // multiChat.addParticipantStatusListener(new joinedListener());
 
     }
