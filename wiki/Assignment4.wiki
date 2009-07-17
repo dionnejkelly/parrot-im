@@ -79,6 +79,45 @@ Here are three examples for result from JUnit testing:
 
 The green line and green labels on the methods mean that methods,(or when also the test case are labeled green) are successful and no errors have occured according to test case alogrithms. If the test case are labeled blue this means there were an error according to test case (mostly logical) for example in our !DatabasefunctionsTest class, it gives failure to some functions eventhough it works in practice (that's why we didn't fully implemented !DatabaseFunctionsTest). When methods are labeled red, this means that there were an error in processing the function itself (syntax error, initialization error) and complier stops the testing for the method in this case. 
 
+== Installation of JUnit ==
+
+To use JUnit in order to see the different results:
+
+*1. Import from SVN*
+
+a) Download Eclipse 3.4.2
+
+b) Open Eclipse
+
+c) Select Help tab
+
+d) Go to Software update
+
+e) Add this remote site: http://subclipse.tigirs.org/update1_4x (if you don't have SVN downloaded yet)
+
+f) Download required and recommended features (you can have a problem with downloading optional features) then just go on until it's downloaded
+
+g) Select File tab
+
+h) Select import
+
+i) Select SVN and import repesitory
+
+j) Import from the site: https//parrot-im.googlecode.com/svn/trunk
+
+k) Download parrot-im
+
+l) Run test cases in unit test, integration test, and beta test.
+
+*2. Copy paste*
+
+a) Download eclipse 3.4.2
+
+b) Download JUnit 4.0 (include http)
+
+c) Copy test cases into eclipse and run tests.
+
+
 == Integration Testing ==
 
 We employed two main integration steps to test Parrot IM. First, we integrated the Database and the Model, and checked both for consistencies while accessing and mutating data. Next, we integrated the Controller class, and performed a functional test which in turn integrated the lower-level components of the system, namely the Model and the Database.
@@ -368,7 +407,7 @@ The MainController holds friend and preset chatbot data:
 
 
 
-== Installation of Subclipse ==
+== Installation of JUnit ==
 *1. Import from SVN*
 
 a) Download Eclipse 3.4.2
