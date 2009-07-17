@@ -46,7 +46,7 @@ public class OptionPanel extends JPanel{
 		JTabbedPane tabbedOptions = new JTabbedPane(JTabbedPane.TOP);
 		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
 		tabbedOptions.addTab("Personal Profile", personalProfile);
-		tabbedOptions.addTab("Manage Accounts", new ManageAccount(model, c, profile));
+		tabbedOptions.addTab("Manage Accounts", new ManageAccount(profile));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, mainframe, model));
 		tabbedOptions.addTab("Preference", new PreferencePanel(c, mainframe, model));
 		//setting layout

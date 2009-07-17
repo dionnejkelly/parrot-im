@@ -47,24 +47,19 @@
 package view.mainwindow;
 
 import java.awt.Dimension;
-import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controller.MainController;
-
 import view.options.ManageAccount;
 
-import model.Model;
 import model.dataType.ProfileData;
 
 public class ManageAccountFrame extends JFrame {
 
-    public ManageAccountFrame(Model model, MainController controller,
-            ProfileData profile) {
+    public ManageAccountFrame(ProfileData profile) {
 
         setLocationRelativeTo(null);
 
@@ -72,7 +67,7 @@ public class ManageAccountFrame extends JFrame {
         setLocationRelativeTo(null);
         setPreferredSize(new Dimension(530, 300));
         setResizable(false);
-        JPanel accountPanel = new ManageAccount(model, controller, profile);
+        JPanel accountPanel = new ManageAccount(profile);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(accountPanel);
         pack();
