@@ -77,46 +77,7 @@ Here are three examples for result from JUnit testing:
 [http://parrot-im.googlecode.com/files/Untitled3.jpg]
 
 
-The green line and green labels on the methods mean that methods,(or when also the test case are labeled green) are successful and no errors have occured according to test case alogrithms. If the test case are labeled blue this means there were an error according to test case (mostly logical) for example in our !DatabasefunctionsTest class, it gives failure to some functions eventhough it works in practice (that's why we didn't fully implemented !DatabaseFunctionsTest). When methods are labeled red, this means that there were an error in processing the function itself (syntax error, initialization error) and complier stops the testing for the method in this case. 
-
-== Installation of JUnit ==
-
-To use JUnit in order to see the different results:
-
-*1. Import from SVN*
-
-a) Download Eclipse 3.4.2
-
-b) Open Eclipse
-
-c) Select Help tab
-
-d) Go to Software update
-
-e) Add this remote site: http://subclipse.tigirs.org/update1_4x (if you don't have SVN downloaded yet)
-
-f) Download required and recommended features (you can have a problem with downloading optional features) then just go on until it's downloaded
-
-g) Select File tab
-
-h) Select import
-
-i) Select SVN and import repesitory
-
-j) Import from the site: https//parrot-im.googlecode.com/svn/trunk
-
-k) Download parrot-im
-
-l) Run test cases in unit test, integration test, and beta test.
-
-*2. Copy paste*
-
-a) Download eclipse 3.4.2
-
-b) Download JUnit 4.0 (include http)
-
-c) Copy test cases into eclipse and run tests.
-
+The green line and green labels on the methods mean that methods,(or when also the test case are labeled green) are successful and no errors have occured according to test case alogrithms. If the test case are labeled blue this means there were an error according to test case (mostly logical) for example in our DatabasefunctionsTest class, it gives failure to some functions eventhough it works in practice (that's why we didn't fully implemented DatabaseFunctionsTest). When methods are labeled red, this means that there were an error in processing the function itself (syntax error, initialization error) and complier stops the testing for the method in this case. 
 
 == Integration Testing ==
 
@@ -203,28 +164,36 @@ We have asked the following 20 users to test our program and do the following ta
 
  * g) Wait for a message coming for cmpt275testing
 
- * h) See if your friend is typing and wait for the message
+ * h) Create a conference room
 
- * i) Type a mispelled word.
+ * i) Invite cmpt275testing to that conference room
 
- * j) Send a small file to cmpt275testing.
+ * j) Send a message to the conference room
 
- * k) Wait for the file acceptance. 
+ * k) Wait for cmpt275testing's reponse
 
- * l) Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
+ * l) See if your friend is typing and wait for the message
 
- * m) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
- * n) Disable chatbot and talks to "cmpt275testing"'s chatbot
+ * m) Type a mispelled word.
 
- * o) Change your personal avatar picture, state and statues
+ * n) Send a small file to cmpt275testing.
 
- * p) Search for a user "cmpt275testing" in your search bar
+ * o) Wait for the file acceptance. 
 
- * q) Check Chat Log
+ * p) Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
 
- * r) Search Chat Log by typing cmpt275testing
+ * q) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
+ * r) Disable chatbot and talks to "cmpt275testing"'s chatbot
 
- * s) Sign out
+ * s) Change your personal avatar picture, state and statues
+
+ * t) Search for a user "cmpt275testing" in your search bar
+
+ * u) Check Chat Log
+
+ * v) Search Chat Log by typing cmpt275testing
+
+ * w) Sign out
 
 
 3. We asked them to do the following tasks while one of the team is logged in with cmpt275testing on Twitter
@@ -372,42 +341,57 @@ Filename conventions:
   * Test cases are suffixed with "Test" in the filename.
 
 === Data Hierarchy ===
-The Model holds Conversations and Profiles.   
-
-Model's Chat Data:
-  * !ConversationData has:
+!ParrotIM holds Model, Controller, and Main Window:
+ * Model has: 
+   * !AccountData
+   * !ChatCollectionData
+   * Conversation
+   * !ConversationData has:
     * !MessageData
-
-Model's Profile Data
-  * !CurrentProfileData has:
+   * !GoogleTalkAccountData
+   * !GoogleTalkUserData
+   * ICQAccountData
+   * ICQUserData
+   * !JabberAccountData
+   * !JabberUserData
+   * !MessageData
+   * !MultiConversationData
+   * !ProfileData
     * !AccountData, which has:
       * !UserData
+      * !FriendData
+   * !TwitterAccountData
+   * !TwitterUserData
+   * !UserData
+   * !FriendTempData
+    * !UserStateType
+   * !ServerType
+   * !TypingStateType
+   * !UpdatedType
+ * MainController
+ * MainWindow has:
+   * Chat window
 
-
-The CustomizedChatbotModel holds Question/Answer Lists:
-
-CustomizedChatbotModel's Chat Bot Data:
+The !CustomizedChatbotModel holds Question/Answer Lists:
+ * !CustomizedChatbotModel's Chat Bot Data:
   * ChatbotQADataType has:
     * questions
     * answers
 
-The ChatLogPanel holds chatlog data:
-  * ChatLogMessageTempData has:
+The !ChatLogPanel holds chatlog data:
+  * !ChatLogMessageTempData has:
     * time
     * from
     * to
     * text
 
-The MainController holds friend and preset chatbot data:
-  * FriendTempData
-  * Chatbot
 
 
 
 
 
 
-== Installation of JUnit ==
+== Installation of Subclipse ==
 *1. Import from SVN*
 
 a) Download Eclipse 3.4.2
@@ -418,7 +402,7 @@ c) Select Help tab
 
 d) Go to Software update
 
-e) Add this remote site: http://subclipse.tigirs.org/update1_4x (if you don't have SVN downloaded yet)
+e) Import from following site: http//subclipse.tigirs.org/update1_4x (if you don't have SVN downloaded yet)
 
 f) Download required and recommended features (you can have a problem with downloading optional features) then just go on until it's downloaded
 
