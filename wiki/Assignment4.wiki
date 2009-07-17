@@ -4,19 +4,14 @@
 All source can be found on this Google Code website inside trunk->ParrotIM. All other folders are for testing purposes. 
 
 SVN link to source (deadline of July 17 1:30pm for updates to its files) 
-
-<br>
-Direct link (last update, before July 17 1:30pm): 
-
-----
+[http://code.google.com/p/parrot-im/source/browse/#svn/tags/beta Source code]
 
 = Executable File =
 
 Direct link: 
+[http://parrot-im.googlecode.com/files/ParrotIM_beta.jar Parrot IM Beta Version]
 
-----
-
-= New Tutorial =
+= Installation Instructions/Tutorial =
 
 [http://sites.google.com/site/parrotimhelp/Home Parrot IM Tutorial Guide]
 
