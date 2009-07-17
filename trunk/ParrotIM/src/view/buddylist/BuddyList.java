@@ -110,7 +110,7 @@ public class BuddyList extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        BuddyPanel mainListPanel = new BuddyPanel(c, model, this);
+        BuddyPanel mainListPanel = new BuddyPanel(c, model, this, chat);
         //JPanel twitterPanel = new TwitterPanel(c,model,this);
         
         //If twitter exists, make tabbed buddy frame ; add to buddylistpanel

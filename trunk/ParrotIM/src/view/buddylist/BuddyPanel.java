@@ -159,7 +159,7 @@ public class BuddyPanel extends JPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
-    public BuddyPanel(MainController c, Model model, JFrame buddyWindow) {
+    public BuddyPanel(MainController c, Model model, JFrame buddyWindow, ChatWindow chat) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
@@ -167,7 +167,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
         this.chatClient = c;
         this.model = model;
-        this.chat = null;
+        this.chat = chat;
         this.searchEnabled = false;
         this.lastUpdate = System.currentTimeMillis();
         this.friendWrappers = new ArrayList<FriendWrapper>();
@@ -521,7 +521,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
             if (chatClient.getAvailableRoom().size() > 0) {
                 if (!model.groupChatWindowOpen)
-                    new GroupChatConfigurationFrame(chatClient, model, buddyWindow, chat);
+                    new GroupChatConfigurationFrame(chatClient, model, chat, buddyWindow);
             }
 
             else {
