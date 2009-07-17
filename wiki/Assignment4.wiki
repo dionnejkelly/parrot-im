@@ -39,6 +39,7 @@ The low-level data types were checked for consistency, and each method was verif
 || !CurrentProfileDataTest || data consistency, adding accounts, removing friends, getting friend list ||
 || !GoogleTalkUserData || data consistency ||
 || !JabberUserData || data consistency ||
+|| !TwitterUserData || data consistency ||
 || !MessageDataTest || data consistency, message manipulation, message retrieval ||
 || !ServerTypeTest || utility methods for enumerated type ||
 || !UserDataTest || inheritance test, data consistency ||
