@@ -76,7 +76,11 @@ public class GroupedListPane extends JPanel {
     public void addElement(int group, JPanel externalFriendPanel) {
         groups.get(group).addElement(externalFriendPanel);
     }
-
+    
+    public void addElement(int group, JPanel externalFriendPanel, int index) {
+        groups.get(group).addElement(externalFriendPanel, index);
+    }
+    
     public void removeElement(int group, JPanel externalFriendPanel) {
         groups.get(group).removeElement(externalFriendPanel);
 
@@ -94,6 +98,10 @@ public class GroupedListPane extends JPanel {
 
     public Component getComponent(int group, int componentIndex) {
         return groups.get(group).boxes[0].getComponent(componentIndex);
+    }
+    
+    public CustomListPane getGroup(int group) {
+        return groups.get(group);
     }
 
     public void removeAllElements(int group) {

@@ -21,13 +21,11 @@ import view.chatwindow.UserDataWrapper;
 
 public class CustomListPane extends JPanel {
     private ArrayList<String> nicknames = new ArrayList<String>();
-    private ArrayList<UserDataWrapper> userWrappers =
-            new ArrayList<UserDataWrapper>();
+    private ArrayList<UserDataWrapper> userWrappers = new ArrayList<UserDataWrapper>();
     private ArrayList<JPanel> userPanels;
     Box boxes[] = new Box[1];
-    private ImageIcon defaultIcon =
-            new ImageIcon(this.getClass().getResource(
-                    "/images/chatwindow/personal.png"));
+    private ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
+            "/images/chatwindow/personal.png"));
     private int lastSelected = 0;
 
     public CustomListPane() {
@@ -83,22 +81,22 @@ public class CustomListPane extends JPanel {
     public ArrayList<String> getNicknameList() {
         return nicknames;
     }
-    
-    public void setNickname(String str, int i){
-    	nicknames.add(i, str);
+
+    public void setNickname(String str, int i) {
+        nicknames.add(i, str);
     }
-    
-    public String getNickname(int i){
-    	return nicknames.get(i);
+
+    public String getNickname(int i) {
+        return nicknames.get(i);
     }
-    
-    public int getIndex(String nickname){
-    	for(int i = 0; i < nicknames.size(); i++){
-    		if(nicknames.get(i).equals(nickname)){
-    			return i;
-    		}
-    	}
-    	return -1;
+
+    public int getIndex(String nickname) {
+        for (int i = 0; i < nicknames.size(); i++) {
+            if (nicknames.get(i).equals(nickname)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public UserDataWrapper getUserWrapper(int i) {
@@ -106,10 +104,18 @@ public class CustomListPane extends JPanel {
     }
 
     public void addElement(JPanel externalFriendPanel) {
-    	userPanels.add(externalFriendPanel);
+        userPanels.add(externalFriendPanel);
         boxes[0].add(externalFriendPanel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(new SelectListener());
+        updateUI();
+        // this.repaint();
+    }
+
+    public void addElement(JPanel externalFriendPanel, int index) {
+        userPanels.add(externalFriendPanel);
+        boxes[0].add(externalFriendPanel, index);
+        boxes[0].getComponent(index).addMouseListener(new SelectListener());
         updateUI();
         // this.repaint();
     }
@@ -132,18 +138,18 @@ public class CustomListPane extends JPanel {
 
     public void removeSidePanelUser(UserDataWrapper userWrapper) {
         int index = -1;
-        
+
         index = userWrappers.indexOf(userWrapper);
-        
+
         if (index >= 0) {
             userWrappers.remove(index);
             boxes[0].remove(userPanels.get(index));
             userPanels.remove(index);
         }
-        
+
         return;
     }
-    
+
     public boolean sidePanelUserExists(UserDataWrapper userWrapper) {
         return userWrappers.contains(userWrapper);
     }
@@ -163,19 +169,21 @@ public class CustomListPane extends JPanel {
     public Component getElement(int i) {
         return boxes[0].getComponent(i);
     }
-    
-    public JPanel getPanel(int i ){
-    	return userPanels.get(i);
+
+    public JPanel getPanel(int i) {
+        return userPanels.get(i);
     }
 
     public void removeElement(JPanel panel) {
+        userPanels.remove(panel);
         boxes[0].remove(panel);
         updateUI();
-        
+
         return;
     }
-    
+
     public void removeAllElements() {
+        userPanels.clear();
         boxes[0].removeAll();
         updateUI();
     }
@@ -190,6 +198,10 @@ public class CustomListPane extends JPanel {
         scroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         return scroller;
+    }
+
+    public Box getBoxes() {
+        return boxes[0];
     }
 
     private class SelectListener implements MouseListener {
