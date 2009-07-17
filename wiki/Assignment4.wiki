@@ -54,7 +54,7 @@ Furthermore, these tests will be conducted and updated as our low-level data typ
 
 All the test cases have successfully passed the test. We have tested most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
 
-*DatabaseFunctions:* We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
+*!DatabaseFunctions:* We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
 
 *GUI, sounds, Spell checker and Dictionary:* It's more difficult to test those classes using unit testing. So, we tested this by integration and manual testing.
 
