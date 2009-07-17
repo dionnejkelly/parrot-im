@@ -44,7 +44,7 @@ Below is the list of features and indications of progress.
 
 [Feature_Spellchecker Spellchecker]: Spell Checker currently only supports English language.
 
-[Feature_ConferenceChatting Conference Chatting]: Not yet implemented however users were  able to create a conference to room and invite users to join and start a conference chatting.
+[Feature_ConferenceChatting Conference Chatting]: Not yet implemented however users are  able to create a conference to room and invite users to join and start a conference chatting.
 
 [Feature_FileTransfer File Transfer]: Users are able to send a file to another users that is less than 60 KB.
 
