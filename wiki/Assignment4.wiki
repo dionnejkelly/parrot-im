@@ -66,6 +66,8 @@ All the test cases have successfully passed the test. We have tested most of the
 
 *GUI, sounds, Spell checker and Dictionary:* It's more difficult to test those classes using unit testing. So, we tested this by integration and manual testing.
 
+In ChatbotQADataTypeTest, the test case returns failures and errors with processing question or answer alone. We are keeping those tests and functions hoping to fix them or else delete them from the next version
+
 == Reports from JUnit test cases  ==
 
 Here are three examples for result from JUnit testing:
