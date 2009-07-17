@@ -90,7 +90,7 @@ public class Chatbot {
      /**
       *  Collection of respond list.
      */  
-     
+     private Vector<String> noMatchCase = new Vector<String>();
      private Vector<String>  respList = new Vector<String>(userMaxResp);
         
      
@@ -1143,7 +1143,7 @@ public class Chatbot {
                 return temp.toString();
                 
             }
-            
+            Collections.shuffle(noMatchCase);
             return "";
                 
         }
@@ -1266,7 +1266,7 @@ public class Chatbot {
 	    			
 	    			for (int QPos = 0; QPos < questions.size(); QPos ++) {
 	    				
-	    				if (input.contains(questions.get(QPos))) {
+	    				if (input.toLowerCase().contains(questions.get(QPos).toLowerCase())) {
 	    					Vector<String> answers = customizedModel.getQAObject(QAPos).getAnswers();
 	    					
 	    					System.out.println("answer size: " + answers.size());
@@ -1277,7 +1277,8 @@ public class Chatbot {
 	    			}
 	    		}
     		}
-			return "Chat bot does not understand.";
+    		Collections.shuffle(noMatchCase);
+			return noMatchCase.get(0);
     	}
     	
     	
@@ -1291,5 +1292,13 @@ public class Chatbot {
     	
     	public Chatbot(Model model) {
     		this.model = model;
+    		populateNoMatchCase();
+    	}
+    	
+    	private void populateNoMatchCase(){
+    		noMatchCase.add("I don't understand what you mean");
+    		noMatchCase.add("What are you trying to say?");
+    		noMatchCase.add("Hmmm....");
+    		noMatchCase.add("Err....");
     	}
 }
