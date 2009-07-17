@@ -62,8 +62,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import model.Model;
+import model.enumerations.ServerType;
 
 import controller.MainController;
+import controller.services.TwitterManager;
 
 import view.styles.AvatarLabel;
 import view.styles.StatusCombo;
@@ -158,8 +160,18 @@ public class AccountInfo extends JPanel
 		statusMessage.setForeground(Color.CYAN);
 		if (!model.getCurrentProfile().getName().equals("Guest")){
 			statusMessage.setText(model.getStatusMessage(model.getCurrentProfile().getName()));
-			statusMessage.changePM(false, false);
 		}
+		if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER)!=null){
+			TwitterManager twitterMan = 
+				(TwitterManager) model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER).
+									getConnection();
+		
+			statusMessage.setText(twitterMan.getMyRecentStatus());
+		}
+
+		statusMessage.changePM(false, false);
+		
+		
 		textInfo.add(name,BorderLayout.NORTH);
 		textInfo.add(statusMessage,BorderLayout.CENTER);
 		// new Listener
