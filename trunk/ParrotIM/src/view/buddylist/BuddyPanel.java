@@ -243,6 +243,7 @@ public class BuddyPanel extends JPanel implements Observer {
         menuItem2.addMouseListener(new inviteFriendListener());
         menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
+        menuItem5.addMouseListener(new RightClickMenuViewProfileFriendListener());
 
         rightClickMenu.add(menuItem1);
         rightClickMenu.add(menuItem2);
@@ -977,5 +978,16 @@ public class BuddyPanel extends JPanel implements Observer {
         buddies = UserData.sortByStringMatch(buddies, search.getText());
 
         return;
+    }
+    
+    private class RightClickMenuViewProfileFriendListener extends MouseAdapter {
+
+		public void mousePressed(MouseEvent arg0) {
+			JOptionPane.showMessageDialog(null, "View Profile is not supported for the beta version. Sorry for the inconvenience.", "Information", JOptionPane.INFORMATION_MESSAGE);
+			
+		}
+
+	
+    	
     }
 }
