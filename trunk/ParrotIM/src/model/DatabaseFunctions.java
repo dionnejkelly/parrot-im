@@ -557,7 +557,7 @@ public class DatabaseFunctions {
         rs = stat.executeQuery("select * from profiles where name='" + profile
                 + "';");
         rs.next();
-        int status = Integer.parseInt(rs.getString("status"));
+        int status = Integer.parseInt(rs.getString("status") + 1) - 1;
         System.out.println(status);
 
         rs.close();
