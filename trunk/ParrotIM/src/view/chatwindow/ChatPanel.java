@@ -247,12 +247,12 @@ public class ChatPanel extends JPanel {
                 .getResource("/images/popup/comments.png")));
 
         groupChatButton.addActionListener(new GroupChatActionListener());
-
+        groupChatButton.setToolTipText("Start a conference chat");
         groupChatAddButton = new JButton(new ImageIcon(this.getClass()
                 .getResource("/images/popup/comments_add.png")));
 
         groupChatAddButton.addActionListener(new GroupChatAddActionListener());
-
+        groupChatAddButton.setToolTipText("Add users to an already existing conference chat");
         // themeMenu = new ThemeOptionsComboBox();
         // themeMenu.setToolTipText("Select your own Theme");
 
