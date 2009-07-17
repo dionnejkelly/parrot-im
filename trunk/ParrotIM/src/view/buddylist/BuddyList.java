@@ -351,7 +351,7 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
         	if (options==null){
 	            try {
-	                options = new OptionFrame(controller, model, accountInfo);
+	                options = new OptionFrame(controller, model, accountInfo, buddywindow);
 	                options.addWindowListener(new OptionsWindowListener());
 	            } catch (ClassNotFoundException e1) {
 	                e1.printStackTrace();
