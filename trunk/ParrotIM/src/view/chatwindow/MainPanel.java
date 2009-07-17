@@ -52,7 +52,7 @@ public class MainPanel extends JPanel implements Observer {
      * @param model
      * @param chatFrame
      */
-    public MainPanel(MainController c, Model model, JFrame chatFrame) {
+    public MainPanel(MainController c, Model model, JFrame chatFrame, JFrame buddyFrame) {
 
     	this.chatFrame = chatFrame;
         this.model = model;
@@ -89,7 +89,7 @@ public class MainPanel extends JPanel implements Observer {
         // Horizontal SplitPane Properties
         CustomSplitPane splitPane = new CustomSplitPane();
         
-        chat = new ChatPanel(c, model, chatFrame);
+        chat = new ChatPanel(c, model, chatFrame, buddyFrame);
         side = new SidePanel(c, model);
         side.setMinimumSize(new Dimension(500, 300));
         

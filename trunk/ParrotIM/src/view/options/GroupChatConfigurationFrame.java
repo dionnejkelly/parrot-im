@@ -99,13 +99,14 @@ public class GroupChatConfigurationFrame extends JFrame{
 //		
 //	}
 	
-	public GroupChatConfigurationFrame(MainController c, Model model, JFrame chatFrame){
+	public GroupChatConfigurationFrame(MainController c, Model model, JFrame chatFrame, JFrame buddyFrame){
 		this.mainFrame = chatFrame;
 		popUpFrame = this;
 		this.model = model;
 		this.controller = c;
 		
-		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
+		this.addWindowListener(new PopupWindowListener(chatFrame, this));
+		this.addWindowListener(new PopupWindowListener(buddyFrame, this));
 		this.setTitle("Group Chat Configuration");
 		
 		

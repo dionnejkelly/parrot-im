@@ -70,7 +70,7 @@ public class ChatPanel extends JPanel {
     /** Allows users to type messages in the JTextArea. */
 
     private JTextArea txt1;
-
+    private JFrame buddyFrame;
     /** Allows users to see the messages in the DisplayPanel. */
 
     private DisplayPanel displayPanel;
@@ -99,9 +99,10 @@ public class ChatPanel extends JPanel {
      * @param model
      */
 
-    public ChatPanel(MainController c, Model model, JFrame chatFrame) {
+    public ChatPanel(MainController c, Model model, JFrame chatFrame, JFrame buddyFrame) {
         setLayout(new BorderLayout());
         this.chatFrame = chatFrame;
+        this.buddyFrame = buddyFrame;
 
         this.model = model;
         this.c = c;
@@ -682,7 +683,7 @@ public class ChatPanel extends JPanel {
 
             if (c.getAvailableRoom().size() > 0) {
             	if (!model.groupChatWindowOpen)
-                	new GroupChatConfigurationFrame(c, model, chatFrame);
+                	new GroupChatConfigurationFrame(c, model, chatFrame, buddyFrame);
             }
 
             else {

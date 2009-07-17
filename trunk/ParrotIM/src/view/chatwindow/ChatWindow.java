@@ -51,7 +51,7 @@ public class ChatWindow extends JFrame implements Observer {
      * @param c
      * @param model
      */
-    public ChatWindow(MainController c, Model model) {
+    public ChatWindow(MainController c, Model model, JFrame buddyFrame) {
         super("Chat Window");
 
         model.addObserver(this);
@@ -65,7 +65,7 @@ public class ChatWindow extends JFrame implements Observer {
 
         this.addWindowListener(new ChatWindowListener(this.model));
 
-        main = new MainPanel(c, model, this);//////////////////////
+        main = new MainPanel(c, model, this, buddyFrame);//////////////////////
 
         getContentPane().add(main);
 
