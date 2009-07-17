@@ -43,6 +43,14 @@ We have used Eclipse 3.4.2 and JUnit 4.0 to write our unit and integration test 
 || !MessageDataTest || data consistency, message manipulation, message retrieval ||
 || !ServerTypeTest || utility methods for enumerated type ||
 || !UserDataTest || inheritance test, data consistency ||
+|| !BuddyListTest || data consistency ||
+|| !BuddyTest || data consistency ||
+|| !FriendTempDataTest || data consistency ||
+|| !ProfileListTest || data consistency ||
+|| !ProfileTempDataTest || data consistency ||
+|| !ProfileTest || data consistency ||
+|| !ProtocolSettingsTest || data consistency ||
+|| !ModelToDatabaseTest || data consistency ||
 
 *Results:*
 
