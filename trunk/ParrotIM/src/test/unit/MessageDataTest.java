@@ -32,8 +32,8 @@ public class MessageDataTest {
     public void setUp() throws Exception {
         md1 =
                 new MessageData(
-                        "Gina", "Hey, are you coming?", "TimesNewRoman",
-                        "17", false, false, false, "#FFFFFF");
+                        "Gina", "Hey, are you coming?", "Arial",
+                        "4", false, false, false, "#FFFFFF");
 
     }
 
@@ -47,12 +47,13 @@ public class MessageDataTest {
     public void testMessageData() {
         md2 =
                 new MessageData(
-                        "Niko", "What did you say?", "Bold", "20", false,
+                        "Niko", "What did you say?", "Arial", "4", false,
                         false, false, "#FFFFFF");
         assertSame("Niko", md2.getFromUser());
         assertSame("What did you say?", md2.getMessage());
-        assertSame("Bold", md2.getFont());
-        assertSame("20", md2.getSize());
+        assertSame("Arial", md2.getFont());
+        assertSame("4", md2.getSize());
+     
     }
 
     @Test
@@ -69,13 +70,13 @@ public class MessageDataTest {
 
     @Test
     public void testGetFont() {
-        String expected = "TimesNewRoman";
+        String expected = "Arial";
         assertSame(expected, md1.getFont());
     }
 
     @Test
     public void testGetSize() {
-        String expected = "17";
+        String expected = "4";
         assertSame(expected, md1.getSize());
     }
 
@@ -96,11 +97,12 @@ public class MessageDataTest {
     @Test
     public void testText() {
         String expected =
-                "<U>"
-                        + "Gina" + ":</U> " + "<font face=\""
-                        + "TimesNewRoman" + "\" size=\"" + "17" + "\">"
-                        + md1.getMessage() + "</font><br><br>";
+        	"<U><font face = \"Arial\">"
+			+ "Gina" + ":</font></U> " + "<font face=\"" + "Arial" + "\" size=\"" + "4" +
+			"\" color=\"" + "#000000" + "\"> " 
+            + "Hey, are you coming?" + " </font><br><br>";
         assertEquals(expected, md1.text());
+        //System.out.println(md1.text());
     }
 
     @Test
@@ -111,11 +113,11 @@ public class MessageDataTest {
 
     @Test
     public void testToString() {
-        String expected =
-                "<U>"
-                        + md1.getFromUser() + ":</U> " + "<font face=\""
-                        + md1.getFont() + "\" size=\"" + md1.getSize()
-                        + "\">" + md1.getMessage() + "</font><br><br>";
+        String expected ="<U><font face = \"Arial\">"
+			+ "Gina" + ":</font></U> " + "<font face=\"" + "Arial" + "\" size=\"" + "4" +
+			"\" color=\"" + "#000000" + "\"> " 
+            + "Hey, are you coming?" + " </font><br><br>";
+                
         assertEquals(expected, md1.toString());
     }
 
