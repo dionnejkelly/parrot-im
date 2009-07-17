@@ -341,7 +341,7 @@ Filename conventions:
   * Test cases are suffixed with "Test" in the filename.
 
 === Data Hierarchy ===
-!ParrotIM holds Model, Controller, and Main Window:
+ParrotIM holds Model, Controller, and Main Window:
  * Model has: 
    * !AccountData
    * !ChatCollectionData
@@ -368,8 +368,8 @@ Filename conventions:
    * !ServerType
    * !TypingStateType
    * !UpdatedType
- * MainController
- * MainWindow has:
+ * !MainController:
+ * !MainWindow has:
    * Chat window
 
 The !CustomizedChatbotModel holds Question/Answer Lists:
