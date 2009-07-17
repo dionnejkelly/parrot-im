@@ -126,72 +126,77 @@ We have asked the following 20 users to test our program and do the following ta
 
 2. We asked them to do the following tasks while one of the team is logged in with cmpt275testing@gmail.com
 
-a) Create a personal profile
+ * a) Create a personal profile
 
-b) Register with your !GoogleTalk account
+ * b) Register with your !GoogleTalk account
 
-c) Sign in with the profile
+ * c) Sign in with the profile
 
-d) Add cmpt275testing@gmail.com
+ * d) Add cmpt275testing@gmail.com
 
-e) Send cmpt275testing a message
+ * e) Enable Chat Log
 
-f) Wait for a message coming for cmpt275testing
+ * f) Send cmpt275testing a message
 
-g) Create a conference room
+ * g) Wait for a message coming for cmpt275testing
 
-h) Invite cmpt275testing to that conference room
+ * h) Create a conference room
 
-i) Send a message to the conference room
+ * i) Invite cmpt275testing to that conference room
 
-j) Wait for cmpt275testing's reponse
+ * j) Send a message to the conference room
 
-k) See if your friend is typing and wait for the message
+ * k) Wait for cmpt275testing's reponse
 
-l) Type a mispelled word.
+ * l) See if your friend is typing and wait for the message
 
-m) Send a small file to cmpt275testing.
+ * m) Type a mispelled word.
 
-n) Wait for the file acceptance. 
+ * n) Send a small file to cmpt275testing.
 
-o) Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
+ * o) Wait for the file acceptance. 
 
-p) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
+ * p) Enalbe Chatbot and "cmpt275testing" will talk to your chatbot
 
-q) Disable chatbot and talks to "cmpt275testing"'s chatbot
+ * q) (cmpt275 will sign out) send a message to chatbot and ask him "What is your name?" and "What is up!" and wait for his respond
+ * r) Disable chatbot and talks to "cmpt275testing"'s chatbot
 
-r) Change your personal avatar picture, state and statues
+ * s) Change your personal avatar picture, state and statues
 
-s) Search for a user "cmpt275testing" in your search bar
+ * t) Search for a user "cmpt275testing" in your search bar
 
-t) Sign out
+ * u) Check Chat Log
+
+ * v) Search Chat Log by typing cmpt275testing
+
+ * w) Sign out
 
 
 3. We asked them to do the following tasks while one of the team is logged in with cmpt275testing on Twitter
 
-a) Create a personal profile
+ * a) Create a personal profile
 
-b) Register with your !Twitter account
+ * b) Register with your !Twitter account
 
-c) Sign in with the profile
+ * c) Sign in with the profile
 
-d) Add a twitter friend
+ * d) Add a twitter friend
 
-e) Remove a friend
+ * e) Remove a friend
 
-f) Send a message to your twitter friend
+ * f) Send a message to your twitter friend
 
-g) Set your status
+ * g) Set your status
 
-h) Send a bug report
+ * h) Send a bug report
 
-i) Enable Sound Notifcation
+ * i) Enable Sound Notifcation
 
-j) Disable Sound Notifcation
+ * j) Disable Sound Notifcation
 
-j) Go to help menu and click
+ * j) Go to help menu and click
 
-k) Do google search by typing in the text field
+ * k) Do google search by typing in the text field
 
 
 *Observations:*
