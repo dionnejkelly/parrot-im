@@ -19,7 +19,7 @@ Test cases (methods in test classes): 317
 
 == Testing ==
 
-To validate our product, we did the following phases:
+To validate our product, we have accomplished the following phases:
 
 == Unit Testing ==
 We used Eclipse 3.4.2 and JUnit 4.0 to write our test cases.
