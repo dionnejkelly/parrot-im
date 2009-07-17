@@ -32,7 +32,7 @@ Below is the list of features and indications of progress.
 
 [Feature_Status Status]: Implemented. Users can set their status and state, and see the status of others on the buddy list. The states are colour coded on both the buddy list and the chat window so the user can quickly know how available their friend is.
 
-[Feature_ChatLog Chat Log]: No change. Implemented and searchable.
+[Feature_ChatLog Chat Log]: Implemented and searchable.
 
 [Feature_SearchEngine Search Engine]: GUI is able to provide both a buddylist and Google Searching Capability upon users input in the text field. 
 
