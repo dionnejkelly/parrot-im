@@ -457,16 +457,71 @@ public class MainController {
             // connection should be found from account!!
             account = model.getCurrentProfile().getAccountData().get(0);
             connection = account.getConnection();
-            connection.addFriend(userID);
-
-            // TODO make a more accurate Model.addFriend
-            model.addFriend(account.getServer(), userID);
+            
+            // make sure users are not using Twitter and trying to add users
+            if (connection.getServerType() != ServerType.TWITTER) {
+            	 connection.addFriend(userID);
+                 // TODO make a more accurate Model.addFriend
+                 model.addFriend(account.getServer(), userID);
+                 JOptionPane.showMessageDialog(null, "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
+            }
+            
+            // it must be an XMPP Protocol
+            else {
+            	// need to check if a user exists or is already being followed
+            	System.out.println("Twitter adding a friend...");
+            	System.out.println("Twitting = " + userID);
+            	
+            	if (isFollowing(userID)) {
+            		
+            		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user is already following you.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            	
+            	}
+            	
+            	else if (doesExist(userID)) {
+            		connection.addFriend(userID);
+                    // TODO make a more accurate Model.addFriend
+                    model.addFriend(account.getServer(), userID);
+                    JOptionPane.showMessageDialog(null, "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
+            	}
+            	
+            	
+            	
+            	else {
+            		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user does not exist or has been suspended.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+            	}
+            	
+            }
+           
         } catch (BadConnectionException e) {
             // TODO throw another exception to prompt for re-entry
             e.printStackTrace();
         }
 
         return;
+    }
+    
+    public boolean isFollowing(String userID) {
+    	AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        
+            // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+        
+        return connection.isFollowing(userID);
+    }
+    public boolean doesExist(String userID) {
+    	AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        
+            // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+        
+        return connection.doesExist(userID);
     }
     
     public void modelAddFriend(String userID) {

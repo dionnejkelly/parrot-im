@@ -24,6 +24,7 @@ import model.enumerations.UserStateType;
 
 import view.styles.ProgressMonitorScreen;
 import winterwell.jtwitter.Twitter;
+import winterwell.jtwitter.TwitterException;
 import winterwell.jtwitter.Twitter.Status;
 import winterwell.jtwitter.Twitter.User;
 
@@ -50,6 +51,25 @@ public class TwitterManager implements GenericConnection {
 
     private String thisScreenName;
 
+    public static void main(String[] args) throws BadConnectionException	 {
+    	TwitterManager twit = new TwitterManager();
+    	twit.login("cmpt275testing", "abcdefghi");
+    	
+    	boolean doesit = twit.isFollowing("parrotimtest");
+    	
+    	
+    	if (!twit.isFollowing("parrotimtest")) {
+    		twit.addFriend("parrotimtest");
+    	}
+    	
+    	System.out.println("Does user exists? " + doesit);
+    	
+    }
+    
+    public TwitterManager() {
+    	
+    }
+    
     /**
      * Instantiates a new TwitterManager that should be associated with one
      * TwitterAccount. Provides all the methods to communicate with the Twitter
@@ -97,12 +117,12 @@ public class TwitterManager implements GenericConnection {
      * @param status
      */
     public void changeStatus(UserStateType state, String status)
-            throws BadConnectionException {
+            throws BadConnectionException, TwitterException {
         // TODO figure out state
         try {
             twitter.updateStatus(status);
-        } catch (Exception e) {
-            System.err.println("Error posting status in twitter");
+        } catch (TwitterException e) {
+            System.err.println("Error posting status in twitter upon log-in.");
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -360,7 +380,18 @@ public class TwitterManager implements GenericConnection {
      * @return boolean
      */
 
-    private boolean isFollowing(String userID) {
+    public boolean isFollowing(String userID) {
+        return twitter.isFollowing(userID);
+    }
+    
+    /**
+     * This method is used to check if the user is a follower.
+     * 
+     * @param userID
+     * @return boolean
+     */
+
+    public boolean isFollower(String userID) {
         return twitter.isFollower(userID);
     }
 
@@ -371,7 +402,7 @@ public class TwitterManager implements GenericConnection {
      * @return boolean
      */
 
-    private boolean doesExist(String userID) {
+    public boolean doesExist(String userID) {
         return twitter.userExists(userID);
     }
 

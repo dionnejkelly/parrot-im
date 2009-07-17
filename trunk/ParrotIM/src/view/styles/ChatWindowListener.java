@@ -45,7 +45,13 @@ public class ChatWindowListener implements WindowListener {
 	/** Sets chatWindowOpen to false. It takes a WindowEvent argument. 
 	 * @param e */
 	public void windowClosed(WindowEvent e) {
-	    model.clearAllConversations();
+	try {
+		model.clearAllConversations();
+	}
+    catch (NullPointerException nullEvent) {
+    	System.out.println("No chat windows were opened");
+    }
+	    
 	}
 	
 	/** Sets chatWindowOpen to false. It takes a WindowEvent argument.

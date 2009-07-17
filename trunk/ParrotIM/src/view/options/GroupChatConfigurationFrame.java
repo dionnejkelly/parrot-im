@@ -273,21 +273,26 @@ public class GroupChatConfigurationFrame extends JFrame{
 			Vector<String> onlineBuddy = UserData.getOnlineBuddy();
 			
 			String roomName = groupRoom.getSelectedItem().toString();
-			String friend = onlineBuddy.get(usersGroup.getSelectedIndex());
 			
-			System.out.println("Room Name = " + roomName);
-			System.out.println("Friend to invite = " + friend);
+			// make sure that there are enough online buddies
+			if (onlineBuddy.size() > 0) {
+				String friend = onlineBuddy.get(usersGroup.getSelectedIndex());
+				
+				System.out.println("Room Name = " + roomName);
+				System.out.println("Friend to invite = " + friend);
+				
+				if (roomName.contains("Parrot")) {
+					System.out.println("The room does contain Parrot");
+					controller.inviteFriend(friend, roomName + "@conference.jabber.org");
+				}
+					
+				else {
+					System.out.println("The room doesn't contain Parrot");
+					controller.inviteFriend(friend, roomName);
+					
+				}
+			}
 			
-			if (roomName.contains("Parrot")) {
-				System.out.println("The room does contain Parrot");
-				controller.inviteFriend(friend, roomName + "@conference.jabber.org");
-			}
-				
-			else {
-				System.out.println("The room doesn't contain Parrot");
-				controller.inviteFriend(friend, roomName);
-				
-			}
 			
 	
 		}

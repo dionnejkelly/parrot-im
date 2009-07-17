@@ -283,7 +283,7 @@ public class SignInPanel extends JPanel implements Observer {
      * @throws ClassNotFoundException 
      * 
      */
-    private synchronized void profileSignIn() {
+    private void profileSignIn() {
         ProfileData profile = (ProfileData) account_select.getSelectedItem();
         System.out.println(profile.getName()+" is signing in");
         try {
