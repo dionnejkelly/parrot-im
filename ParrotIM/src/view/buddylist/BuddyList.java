@@ -313,8 +313,10 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
             // new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
         	
-        	if (!model.bugReportWindowOpen)
-        		new BugReportFrame(model);
+            if (!model.bugReportWindowOpen) {
+            	new BugReportFrame(model);
+            }
+            
             return;
         }
     }

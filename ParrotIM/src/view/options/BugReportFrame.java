@@ -74,6 +74,7 @@ public class BugReportFrame extends JFrame{
 		mainFrame = this;
 		this.model = model;
 		this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.BUGREPORT));
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setTitle("Bug Report");
 		
 		setPanels();

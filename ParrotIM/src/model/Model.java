@@ -1058,7 +1058,7 @@ public class Model extends Observable {
             System.out.println("Model:  About");
             this.aboutWindowOpen = state;
         } else if (popupInt == PopupEnableWindowType.BUGREPORT) {
-            System.out.println("Model: Bug report");
+            System.out.println("Model: Bug report ");
             this.bugReportWindowOpen = state;
         } else if (popupInt == PopupEnableWindowType.GROUPCHAT) {
             System.out.println("Model: Group chat");
