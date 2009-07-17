@@ -441,6 +441,7 @@ public class MainController {
 
         return;
     }
+    
 
     /**
      * This method is used to add a friend to the friend list.
@@ -466,7 +467,7 @@ public class MainController {
                  JOptionPane.showMessageDialog(null, "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
             }
             
-            // it must be an XMPP Protocol
+            // it must be Twitter
             else {
             	// need to check if a user exists or is already being followed
             	System.out.println("Twitter adding a friend...");
@@ -501,6 +502,64 @@ public class MainController {
         return;
     }
     
+    /**
+     * This method is used to remove a friend to the friend list.
+     * 
+     * @param userID
+     */
+    public void removeFriend(UserData friendToRemove) {
+        boolean removed = false;
+        GenericConnection connection = null;
+
+        connection = model.findAccountByFriend(friendToRemove).getConnection();
+        
+        if (connection.getServerType() != ServerType.TWITTER) {
+        	try {
+                removed = connection.removeFriend(friendToRemove.getUserID());
+            } catch (BadConnectionException e) {
+                // TODO Make the GUI know the friend doesn't exist?
+                e.printStackTrace();
+            }
+            if (removed || friendToRemove.isBlocked()) {
+                model.removeFriend(friendToRemove);
+            }
+
+            return;
+        }
+        
+     // it must be Twitter
+        else {
+        	// need to check if a user exists or is already being followed
+        	System.out.println("Twitter removing a friend...");
+        	System.out.println("=============== Twitting = " + friendToRemove.getUserID());
+        	
+//        	if (isFollowing(friendToRemove.getUserID())) {
+        		try {
+					connection.removeFriend(friendToRemove.getUserID());
+        			if (removed || friendToRemove.isBlocked()) {
+        					model.removeFriend(friendToRemove);
+        			}
+				} catch (BadConnectionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//        		
+//        	
+//        	}
+//        
+//        	
+//        	else {
+//        		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user does not exist or has been suspended.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+//        	}
+        	
+        	
+        	
+        }
+        
+        
+        
+    }
+    
     public boolean isFollowing(String userID) {
     	AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
@@ -529,29 +588,7 @@ public class MainController {
     	model.addFriend(account.getServer(), userID);
     }
 
-    /**
-     * This method is used to remove a friend to the friend list.
-     * 
-     * @param userID
-     */
-    public void removeFriend(UserData friendToRemove) {
-        boolean removed = false;
-        GenericConnection connection = null;
-
-        connection = model.findAccountByFriend(friendToRemove).getConnection();
-
-        try {
-            removed = connection.removeFriend(friendToRemove.getUserID());
-        } catch (BadConnectionException e) {
-            // TODO Make the GUI know the friend doesn't exist?
-            e.printStackTrace();
-        }
-        if (removed || friendToRemove.isBlocked()) {
-            model.removeFriend(friendToRemove);
-        }
-
-        return;
-    }
+   
 
     /**
      * This method is used to block a friend to the friend list.

@@ -58,10 +58,10 @@ public class TwitterManager implements GenericConnection {
     	boolean doesit = twit.isFollowing("parrotimtest");
     	
     	
-    	if (!twit.isFollowing("parrotimtest")) {
-    		twit.addFriend("parrotimtest");
-    	}
-    	
+//    	if (twit.isFollowing("parrotimtest")) {
+//    		
+//    	}
+    	twit.removeFriend("abc");
     	System.out.println("Does user exists? " + doesit);
     	
     }
@@ -225,11 +225,13 @@ public class TwitterManager implements GenericConnection {
 
         try {
             status = twitter.getStatus(userID).getText();
-        } catch (Exception e) {
-            System.err.println("Error getting friend status in twitter");
+        } catch (TwitterException e) {
+            System.err.println("Server is not yet ready to get friends' status in twitter");
             e.printStackTrace();
             throw new BadConnectionException();
         }
+        
+        
 
         return status;
     }
@@ -294,6 +296,8 @@ public class TwitterManager implements GenericConnection {
             }
 
             while (true) {
+            	
+            	
                 controller.refreshFriends(genericConnection);
 
                 if (twitter != null) {
