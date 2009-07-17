@@ -396,6 +396,7 @@ public class BuddyPanel extends JPanel implements Observer {
          * System.out.println("Google: " + boxes[0].getComponentCount());
          * System.out.println("Twitter: " + boxes[1].getComponentCount());
          */
+        
     }
 
     /**
@@ -606,7 +607,7 @@ public class BuddyPanel extends JPanel implements Observer {
                     && !userExist(userFriendID)) {
                 chatClient.addFriend(userFriendID);
                 MusicPlayer addMusic = new MusicPlayer(
-                        "src/audio/buddy/addFriend.wav", model);
+                        "/audio/buddy/addFriend.wav", model);
                 JOptionPane.showMessageDialog(null, result);
 
                 // buddies.add(new GoogleTalkUserData(userFriendID));
@@ -890,7 +891,7 @@ public class BuddyPanel extends JPanel implements Observer {
             }
 
             MusicPlayer highlightMusic = new MusicPlayer(
-                    "src/audio/buddy/buddyHighlightedSound.wav", model);
+                    "/audio/buddy/buddyHighlightedSound.wav", model);
         }
 
         // unimplemented mouselistener methods

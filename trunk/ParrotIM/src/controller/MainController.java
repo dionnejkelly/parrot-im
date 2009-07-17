@@ -913,7 +913,7 @@ public class MainController {
         account = model.findAccountByUserID(toUserID);
 
         MusicPlayer receiveMusic = new MusicPlayer(
-                "src/audio/message/receiveMessage.wav", model);
+                "/audio/message/receiveMessage.wav", model);
         model.receiveMessage(account, messageData);
 
         // Automatically add chatbot reply, if enabled

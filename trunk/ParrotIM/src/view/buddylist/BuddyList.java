@@ -86,7 +86,7 @@ public class BuddyList extends JFrame {
         this.setTitle("Buddy List");
         this.model = model;
         this.controller = c;
-
+        
         // Create chat window
         this.chat = new ChatWindow(c, model);
         
@@ -143,8 +143,11 @@ public class BuddyList extends JFrame {
         getContentPane().add(buddylistPanel);
         pack();
         setVisible(true);
+
+
         MusicPlayer receiveMusic =
-                new MusicPlayer("src/audio/startup/parrotOpening.wav", model);
+                new MusicPlayer("/audio/startup/parrotOpening.wav", model);
+
     }
 
     // Creates top Text Menu
@@ -479,7 +482,7 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
             controller.disconnect();
             buddywindow.dispose();
-            new MusicPlayer("src/audio/exit/parrotExit.wav", model);
+            new MusicPlayer("/audio/exit/parrotExit.wav", model);
 
             System.exit(0);
             return;
@@ -507,7 +510,7 @@ public class BuddyList extends JFrame {
             new MainWindow(controller, model, buddywindow.getLocation());
             // TODO: might want to reset the data/variables/list in model
             buddywindow.dispose();
-            new MusicPlayer("src/audio/exit/parrotExit.wav", model);
+            new MusicPlayer("/audio/exit/parrotExit.wav", model);
 
             return;
         }

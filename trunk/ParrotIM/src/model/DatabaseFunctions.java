@@ -134,7 +134,7 @@ public class DatabaseFunctions {
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:"
-                + "database/" + DatabaseFunctions.getDatabaseName());
+                + DatabaseFunctions.getDatabaseName());
         stat = conn.createStatement();
 
         /*
@@ -556,13 +556,13 @@ public class DatabaseFunctions {
     }
 
     public int getStatus(String profile) throws SQLException {
-    	int status = 0;
+        int status = 0;
         rs = stat.executeQuery("select * from profiles where name='" + profile
                 + "';");
         rs.next();
-        //Integer.
+        // Integer.
         if (rs.getString("status").length() != 0) {
-        	status = Integer.parseInt(rs.getString("status"));
+            status = Integer.parseInt(rs.getString("status"));
         }
         System.out.println(status);
 
