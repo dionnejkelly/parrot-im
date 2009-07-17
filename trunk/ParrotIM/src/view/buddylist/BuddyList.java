@@ -103,7 +103,12 @@ public class BuddyList extends JFrame {
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
 
         // INSIDE PANEL
-        accountInfo = new AccountInfo(c, model);
+        try {
+			accountInfo = new AccountInfo(c, model);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         BuddyPanel mainListPanel = new BuddyPanel(c, model, this);
         //JPanel twitterPanel = new TwitterPanel(c,model,this);
         
@@ -367,7 +372,7 @@ public class BuddyList extends JFrame {
 		public void windowActivated(WindowEvent e) {}
 
 		public void windowClosed(WindowEvent e) {
-			accountInfo.statusMessage.changePM(false);
+			accountInfo.statusMessage.changePM(false, true);
 			options = null;
 		}
 

@@ -91,7 +91,7 @@ public class PmLabel extends JTextField {
      * boolean b is true, the user will be able to type their status message on
      * the GUI.
      */
-    public void changePM(boolean b) {
+    public void changePM(boolean b, boolean changeTwitter) {
         if (b) {// editable
             if (!this.getText().equals("Type your status message")) {
                 this.setText("");
@@ -110,17 +110,21 @@ public class PmLabel extends JTextField {
             this.setForeground(Color.CYAN);
             // send status to core
 
-            if (this.getText().length() == 0
+            if (this.getText() == null || this.getText().length() == 0
                     || this.getText().equals("(Type your status message)")) {
                 this.setText("(Type your status message)");
-                core.setStatus("");
+                core.setStatus("", changeTwitter);
             } else {
-                core.setStatus(this.getText());
+                core.setStatus(this.getText(), changeTwitter);
             }
 
         }
     }
 
+    public void setText(String t){
+    	super.setText(t);
+    	System.out.println(this.getText());
+    }
     /**
      * Sets the behaviour with regard of mouse input and position.
      * 
@@ -144,7 +148,7 @@ public class PmLabel extends JTextField {
          */
         public void mouseClicked(MouseEvent e) {
             if (!label.isEditable()) {
-                label.changePM(true);
+                label.changePM(true, true);
             }
         }
 
@@ -205,7 +209,7 @@ public class PmLabel extends JTextField {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 // test printing
                 // System.out.println("Pressed Enter!");
-                label.changePM(false);
+                label.changePM(false, true);
                 
                
             }

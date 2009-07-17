@@ -122,8 +122,9 @@ public class AccountInfo extends JPanel
 	 * Account information area, display user's information and avatar picture.
 	 * @param c
 	 * @param model
+	 * @throws SQLException 
 	 */
-	public AccountInfo(MainController c, Model model) throws ClassNotFoundException 
+	public AccountInfo(MainController c, Model model) throws ClassNotFoundException, SQLException 
 	{
 	    this.model = model;
 	    this.chatClient = c;
@@ -155,7 +156,8 @@ public class AccountInfo extends JPanel
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
 		statusMessage.setForeground(Color.CYAN);
-//		statusMessage.setText(model.getCurrentProfile().get)
+		statusMessage.setText(model.getStatusMessage(model.getCurrentProfile().getName()));
+		statusMessage.changePM(false, false);
 		textInfo.add(name,BorderLayout.NORTH);
 		textInfo.add(statusMessage,BorderLayout.CENTER);
 		// new Listener
@@ -203,7 +205,7 @@ public class AccountInfo extends JPanel
 		 */
 		public void mouseClicked(MouseEvent e) {
 			if (statusMessage.isEditable()){
-				statusMessage.changePM(false);
+				statusMessage.changePM(false, true);
 			}
 		}
 
