@@ -52,7 +52,6 @@ package view.buddylist;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -156,6 +155,7 @@ public class AccountInfo extends JPanel
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
 		statusMessage.setForeground(Color.CYAN);
+//		statusMessage.setText(model.getCurrentProfile().get)
 		textInfo.add(name,BorderLayout.NORTH);
 		textInfo.add(statusMessage,BorderLayout.CENTER);
 		// new Listener

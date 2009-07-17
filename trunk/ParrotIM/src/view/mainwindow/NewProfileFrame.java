@@ -72,6 +72,7 @@ public class NewProfileFrame extends JFrame {
         this.model = model;
         this.core = core;
         this.mainFrame = mainFrame;
+        this.addWindowListener(new PopupWindowListener(this.mainFrame,this));
 
         /* PROFILE  Name is limited to __ characters */
         profileName = new JTextField();
