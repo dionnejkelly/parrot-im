@@ -416,7 +416,7 @@ public class TwitterManager implements GenericConnection {
      * @return String
      */
 
-    private String getMyRecentStatus() {
+    public String getMyRecentStatus() {
         return twitter.getStatus().toString();
     }
 
