@@ -111,7 +111,7 @@ We acheived the testing by following a simple tasks that users normally do. We p
 
 == User Acceptance Testing ==
 
-For the alpha release, each member asked friends and family members to try out Parrot IM. In some cases, we did an ethnographic test, in which we directly observed the user's interaction with our system, and noted which areas of the program seemed to be difficult for them to access. Also, we observed the tendencies of users to perform certain tasks while using our program. 
+For the beta release, each member asked friends and family members to try out Parrot IM. In some cases, we did an ethnographic test, in which we directly observed the user's interaction with our system, and noted which areas of the program seemed to be difficult for them to access. Also, we observed the tendencies of users to perform certain tasks while using our program. 
 
 Additionally, we asked some testers to try out Parrot IM alone, and they reported back on any challenges they had or features they'd like changed or added. We also instructed these users to try to do certain tasks, such as adding a friend, or using the chat log, and report back on the experience.
 
