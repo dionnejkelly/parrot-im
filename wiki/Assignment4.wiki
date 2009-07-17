@@ -353,6 +353,25 @@ Model's Profile Data
       * !UserData
 
 
+The CustomizedChatbotModel holds Question/Answer Lists:
+
+CustomizedChatbotModel's Chat Bot Data:
+  * !ChatbotQADataType has:
+    * !questions
+    * !answers
+
+The ChatLogPanel holds chatlog data:
+  * !ChatLogMessageTempData has:
+    * !time
+    * !from
+    * !to
+    * !text
+
+The MainController holds friend and preset chatbot data:
+  * !FriendTempData
+  * !Chatbot
+
+
 
 
 
