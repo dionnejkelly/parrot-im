@@ -109,12 +109,12 @@ public class ProfileData extends Observable {
         this.accountData = new ArrayList<AccountData>();
         this.name = name;
         this.profilePassword = profilePassword;
-        this.chatWindowHistoryEnabled = true;
-        this.autoSignInEnabled = false;
-        this.guestAccount = false;
-        this.chatLogEnabled = true;
-        this.soundsEnabled = true;
-        this.chatbotEnabled = false;
+        this.chatWindowHistoryEnabled = chatWindowHistoryEnabled;
+        this.autoSignInEnabled = autoSignInEnabled;
+        this.guestAccount = guestAccount;
+        this.chatLogEnabled = chatLogEnabled;
+        this.soundsEnabled = soundsEnabled;
+        this.chatbotEnabled = chatbotEnabled;
     }
 
     // Section:
