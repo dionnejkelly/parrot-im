@@ -108,12 +108,11 @@ public class ChatCollectionData extends Observable {
                 || hiddenMultiConversations.contains(conversation);
     }
 
-
     public boolean isVisible(Conversation conversation) {
         return this.conversations.contains(conversation)
                 || this.multiConversations.contains(conversation);
     }
-    
+
     public void activateConversation(Conversation conversation) {
 
         if (this.hiddenConversations.contains(conversation)) {
@@ -159,6 +158,36 @@ public class ChatCollectionData extends Observable {
                 }
                 if (this.hiddenMultiConversations.contains(conversation)) {
                     this.hiddenMultiConversations.remove(conversation);
+                }
+            }
+        }
+
+        super.setChanged();
+        super.notifyObservers();
+
+        return;
+    }
+
+    public void addHiddenConversation(Conversation conversation) {
+        if (conversation instanceof ConversationData) {
+            if (!this.hiddenConversations.contains(conversation)) {
+                this.hiddenConversations.add((ConversationData) conversation);
+                if (this.conversations.contains(conversation)) {
+                    this.conversations.remove(conversation);
+                    if (this.conversations.size() < 1) {
+                        this.activeConversation = null;
+                    }
+                }
+            }
+        } else if (conversation instanceof MultiConversationData) {
+            if (!this.hiddenMultiConversations.contains(conversation)) {
+                this.hiddenMultiConversations
+                        .add((MultiConversationData) conversation);
+                if (this.multiConversations.contains(conversation)) {
+                    this.multiConversations.remove(conversation);
+                    if (multiConversations.size() < 1) {
+                        this.activeConversation = null;
+                    }
                 }
             }
         }
@@ -256,10 +285,10 @@ public class ChatCollectionData extends Observable {
     public void forceUpdate() {
         super.setChanged();
         super.notifyObservers();
-        
+
         return;
     }
-    
+
     public MultiConversationData findByRoomName(String roomName) {
         MultiConversationData found = null; // Default return value
 
@@ -273,6 +302,28 @@ public class ChatCollectionData extends Observable {
         if (found == null) {
             for (MultiConversationData c : this.hiddenMultiConversations) {
                 if (c.getRoomName().equalsIgnoreCase(roomName)) {
+                    found = c;
+                    break;
+                }
+            }
+        }
+
+        return found;
+    }
+
+    public ConversationData findSingleByUserID(String userID) {
+        ConversationData found = null; // Default return value
+
+        for (ConversationData c : this.conversations) {
+            if (c.getUser().getUserID().equalsIgnoreCase(userID)) {
+                found = c;
+                break;
+            }
+        }
+
+        if (found == null) {
+            for (ConversationData c : this.hiddenConversations) {
+                if (c.getUser().getUserID().equalsIgnoreCase(userID)) {
                     found = c;
                     break;
                 }
