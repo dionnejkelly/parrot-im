@@ -134,7 +134,7 @@ public class DatabaseFunctions {
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:"
-                + DatabaseFunctions.getDatabaseName());
+                + "database/" + DatabaseFunctions.getDatabaseName());
         stat = conn.createStatement();
 
         /*
