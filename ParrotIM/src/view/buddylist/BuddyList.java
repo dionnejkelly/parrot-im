@@ -89,7 +89,7 @@ public class BuddyList extends JFrame {
         this.controller = c;
         
         // Create chat window
-        this.chat = new ChatWindow(c, model);
+        this.chat = new ChatWindow(c, model, this);
         
         this.setLocation(location);
         this.setMinimumSize(new Dimension(300, 600));

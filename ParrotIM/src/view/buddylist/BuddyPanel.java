@@ -521,7 +521,7 @@ public class BuddyPanel extends JPanel implements Observer {
 
             if (chatClient.getAvailableRoom().size() > 0) {
                 if (!model.groupChatWindowOpen)
-                    new GroupChatConfigurationFrame(chatClient, model, buddyWindow);
+                    new GroupChatConfigurationFrame(chatClient, model, buddyWindow, chat);
             }
 
             else {

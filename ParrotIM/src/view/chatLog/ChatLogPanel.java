@@ -152,16 +152,6 @@ public class ChatLogPanel extends JPanel {
         buddies = buddyList.buddyList;
         buddies.addListSelectionListener(new buddyListener());
 
-        // bottom right component shows the chat logs
-        text = new JList (stub);
-        text.setEnabled(false);
-        text.setCellRenderer(new TextListCellRenderer());
-        
-        chatlog = new JScrollPane(text);
-//        chatlog
-//                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
-
         // top right component shows the list of dates
         dateList = new JList(stub);
         dateList.setEnabled(false);
@@ -171,6 +161,17 @@ public class ChatLogPanel extends JPanel {
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
 //        datesScroll
 //                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
+        // bottom right component shows the chat logs
+        text = new JList (stub);
+        text.setEnabled(false);
+        text.setCellRenderer(new TextListCellRenderer());
+        
+        chatlog = new JScrollPane(text);
+//        chatlog
+//                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
+        
         /* set right JSplitPane component */
         logPane = new JSplitPane();
         logPane.setBorder(null);
