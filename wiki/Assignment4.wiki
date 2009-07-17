@@ -1,3 +1,9 @@
+== Software Metrics ==
+
+(Gathered via loc at http://freshmeat.net/projects/loc/)
+|| Pure Source || Comment || Source followed by Comment || Blank || 
+|| 17275 || 8391 || 83 || 6296 ||
+
 == New Tutorial ==
 
 [http://sites.google.com/site/parrotimhelp/index How to Create A Profile]
