@@ -77,8 +77,8 @@ We employed two main integration steps to test Parrot IM. First, we integrated t
 
   * !ModelToDatabaseTest.java
     * Checks for consistency between the model and the database. The only location in which the database can be called is the model. We mainly checked for consistency in dealing with duplicate input.
-  * XMPPTest.java
-    * Executes functions to mimic user interaction with Parrot IM. All calls come from the MainController class, which currently only supports XMPP functions. The Model and Database are, again, involved in processing the requests. The integrity of both are checked also.
+  * MainController.java
+    * Executes functions to mimic user interaction with Parrot IM. All calls come from the this main controller class, which currently only supports XMPP and Twitter functions. The Model and Database are, again, involved in processing the requests. The integrity of both are checked also.
 
 *Results:*
 Integration testing was useful in organizing and cleaning up the code. In designing, it was not completely clear which components of the program handled certain things. For instance, is it the controller, model, or database's job to deal with duplicate account additions? Is it all of them? Integration testing showed errors when we didn't handle these situations properly. Ultimately, the testing made us set a focus to handle data integrity, the Model.
