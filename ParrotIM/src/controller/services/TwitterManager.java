@@ -55,7 +55,7 @@ public class TwitterManager implements GenericConnection {
     	TwitterManager twit = new TwitterManager();
     	twit.login("cmpt275testing", "abcdefghi");
     	
-    	boolean doesit = twit.isFollowing("parrotimtest");
+    	boolean doesit = twit.doesExist("parrotim");
     	
     	
 //    	if (twit.isFollowing("parrotimtest")) {
