@@ -36,7 +36,7 @@ Below is the list of features and indications of progress.
 
 [Feature_SearchEngine Search Engine]: GUI is able to provide both a buddylist and Google Searching Capability upon users input in the text field. 
 
-[Feature_TwitterAndICQProtocols Twitter and ICQ Protocols]: Twitter implemented.
+[Feature_TwitterAndICQProtocols Twitter and ICQ Protocols]: Twitter implemented. Users are able to set their status, extract avatar pictures, and add/remove friends. 
 
 [Feature_IsTyping Is Typing]: Users are able to send signals to other users to indicate "Is Typing" and also receive the signals.
 
