@@ -39,7 +39,7 @@ import org.junit.Test;
 import controller.MainController;
 import controller.services.GoogleTalkManager;
 import controller.services.JabberManager;
-//
+// This tests GoogleTalk, Twitter, and Jabber Account Data
 public class AccountDataTest {
     private AccountData ad1;
     private AccountData ad2;

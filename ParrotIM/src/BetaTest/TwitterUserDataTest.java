@@ -50,5 +50,20 @@ public class TwitterUserDataTest {
 		assertFalse(tu2.isBlocked());
 		assertSame(UserStateType.OFFLINE,tu2.getState());
 	}
+	@Test
+	public void testsetMinutessinceupdate(){
+		tu3.setMinutesSinceUpdate(30);
+		assertSame(30,tu3.getMinutesSinceUpdate());
+	}
+	@Test
+	public void testGetMinutessinceupdate(){
+		assertTrue(16384==tu3.getMinutesSinceUpdate());
+		tu3.setMinutesSinceUpdate(2);
+		assertSame(2,tu3.getMinutesSinceUpdate());
+	}
+	@Test
+	public void testGetserver(){
+		assertSame(ServerType.TWITTER,tu3.getServer());
+	}
 
 }

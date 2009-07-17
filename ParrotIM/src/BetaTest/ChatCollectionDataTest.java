@@ -137,22 +137,46 @@ public class ChatCollectionDataTest {
 
 	@Test
 	public void testRemoveConversation() {
-		fail("Not yet implemented");
+		ConversationData test = new ConversationData(new GoogleTalkAccountData("rmamnk","Rakan","Home","abc",UserStateType.AWAY,new GoogleTalkManager(new MainController(new Model()),new Model())),
+				new GoogleTalkUserData("rmamnk","rakan","Tired",UserStateType.ONLINE,true));
+		cd1.addConversation(test);
+		assertTrue(cd1.removeConversation(test));
 	}
 
 	@Test
 	public void testHideAllConversations() {
-		fail("Not yet implemented");
+		ConversationData test = new ConversationData(new GoogleTalkAccountData("rmamnk","Rakan","Home","abc",UserStateType.AWAY,new GoogleTalkManager(new MainController(new Model()),new Model())),
+				new GoogleTalkUserData("rmamnk","rakan","Tired",UserStateType.ONLINE,true));
+		cd1.addConversation(test);
+		cd1.hideAllConversations();
+		assertSame("rmamnk",cd1.getHiddenConversations().get(0).getAccount().getUserID());
 	}
 
 	@Test
 	public void testRemoveAllConversations() {
-		fail("Not yet implemented");
+		ConversationData test = new ConversationData(new GoogleTalkAccountData("rmamnk","Rakan","Home","abc",UserStateType.AWAY,new GoogleTalkManager(new MainController(new Model()),new Model())),
+				new GoogleTalkUserData("rmamnk","rakan","Tired",UserStateType.ONLINE,true));
+		cd1.addConversation(test);
+		cd1.removeAllConversations();
+		assertTrue(cd1.getConversations().isEmpty());
+		assertTrue(cd1.getAllConversations().isEmpty());
+		assertTrue(cd1.getHiddenConversations().isEmpty());
+		assertNull(cd1.getActiveConversation());
 	}
 
 	@Test
 	public void testGetAllConversations() {
-		fail("Not yet implemented");
+		ConversationData test = new ConversationData(new GoogleTalkAccountData("rmamnk","Rakan","Home","abc",UserStateType.AWAY,new GoogleTalkManager(new MainController(new Model()),new Model())),
+				new GoogleTalkUserData("rmamnk","rakan","Tired",UserStateType.ONLINE,true));
+		cd1.addConversation(test);
+		cd1.hideAllConversations();
+		ConversationData test1 = new ConversationData(new GoogleTalkAccountData("rma","Rakan","Home","abc",UserStateType.AWAY,new GoogleTalkManager(new MainController(new Model()),new Model())),
+				new GoogleTalkUserData("rma","rakan","Tired",UserStateType.ONLINE,true));
+		cd1.addConversation(test1);
+		assertEquals("rmamnk",cd1.getAllConversations().get(1).getAccount().getUserID());
+		assertNotSame("rma",cd1.getAllConversations().get(1).getAccount().getUserID());
+		assertSame("rma",cd1.getAllConversations().get(0).getAccount().getUserID());
+
 	}
 
 }
