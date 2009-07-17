@@ -52,6 +52,25 @@ Another important find was that the search functions were comparing based on an 
 
 Furthermore, these tests will be conducted and updated as our low-level data types under go upgrades in future revisions of the program.
 
+All the test cases have successfully passed the test. We have tested most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
+
+*DatabaseFunctions:* We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
+
+*GUI, sounds, Spell checker and Dictionary:* It's more difficult to test those classes using unit testing. So, we tested this by integration and manual testing.
+
+== Reports from JUnit test cases  ==
+
+Here are three examples for result we got from JUnit testing:
+
+[http://parrot-im.googlecode.com/files/Untitled.jpg]
+
+[http://parrot-im.googlecode.com/files/Untitled2.jpg]
+
+[http://parrot-im.googlecode.com/files/Untitled3.jpg]
+
+
+The green line and green labels on the methods mean that methods,(or when also the test case are labeled green) are successful and no errors have occured according to test case alogrithms. If the test case are labeled blue this means there were an error according to test case (mostly logical) for example in our DatabasefunctionsTest class, it gives failure to some functions eventhough it works in practice (that's why we didn't fully implemented DatabaseFunctionsTest). When methods are labeled red, this means that there were an error in processing the function itself (syntax error, initialization error) and complier stops the testing for the method in this case. 
+
 == Integration Testing ==
 
 We employed two main integration steps to test Parrot IM. First, we integrated the Database and the Model, and checked both for consistencies while accessing and mutating data. Next, we integrated the Controller class, and performed a functional test which in turn integrated the lower-level components of the system, namely the Model and the Database.
@@ -236,7 +255,7 @@ Model's Profile Data
 
 
 
-
+=================================================================================
 == Testing ==
 
 To validate our product, we have accomplished the following phases:
@@ -245,6 +264,7 @@ To validate our product, we have accomplished the following phases:
 We used Eclipse 3.4.2 and JUnit 4.0 to write our test cases.
 To see our results you have two options:
 
+== Installation of Subclipse ==
 *1. Import from SVN*
 
 a) Download Eclipse 3.4.2
@@ -279,24 +299,7 @@ b) Download JUnit 4.0 (include http)
 
 c) Copy test cases into eclipse and run tests.
 
-All the test cases have successfully passed the test. We test most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
 
-*DatabaseFunctions:* We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
-
-*GUI, sounds, Spell checker and Dictionary:* It's more difficult to test those classes using unit testing. So, we tested this by integration and manual testing.
-
-== Reports from JUnit test cases  ==
-
-Here are three examples for result we got from JUnit testing:
-
-[http://parrot-im.googlecode.com/files/Untitled.jpg]
-
-[http://parrot-im.googlecode.com/files/Untitled2.jpg]
-
-[http://parrot-im.googlecode.com/files/Untitled3.jpg]
-
-
-The green line and green labels on the methods mean that methods,(or when also the test case are labeled green) are successful and no errors have occured according to test case alogrithms. If the test case are labeled blue this means there were an error according to test case (mostly logical) for example in our DatabasefunctionsTest class, it gives failure to some functions eventhough it works in practice (that's why we didn't fully implemented DatabaseFunctionsTest). When methods are labeled red, this means that there were an error in processing the function itself (syntax error, initialization error) and complier stops the testing for the method in this case. 
 
 == Integration Testing ==
 
