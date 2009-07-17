@@ -1,0 +1,111 @@
+/* linkLabel.java
+ * 
+ * Programmed By:
+ * 	   Vera Lukman
+ * 	   William Chen
+ *     
+ * Change Log:
+ *     2009-June-6, VL
+ *         Initial write.The label is underlined when hovered.
+ *     2009-June-13, WC
+ *         Transferred file over to new project, ParrotIM.
+ *     2009-June-19, VL
+ *     	   The label is underlined on mouse out. It is bolded when hovered.
+ *     2009-June-23, KF
+ *         Naming convention updates. Changed all class names.
+ *         
+ * Known Issues:
+ *     1. The best look and feel for linkLabel is still on dispute
+ * 
+ * Copyright (C) 2009  Pirate Captains
+ * 
+ * Full license can be found in ParrotIM/LICENSE.txt.
+ */
+
+package view.styles;
+
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+
+/**
+ * This object sets the style of the clickable labels on mainwindow (sign in window).
+ * 
+ * It inherits JLabel methods and variables.
+ */
+public class LinkLabel extends JLabel {
+	/** text is a String with the name of the label that will be shown on the GUI*/
+	private String text;
+	
+	private boolean enabled;
+	
+	/**
+	 * LinkLabel constructor. It takes a String object as its argument.
+	 * It sets up the String to be underlined and show it on the GUI.
+	 * @param text */
+	public LinkLabel (String text, boolean enable){
+		this.enabled = enable;
+		this.setHorizontalAlignment(CENTER);
+		this.text = text;
+		this.setEnabled(enabled);
+        this.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
+		
+		this.addMouseListener(new labelMouseListener(this));
+	}
+	
+	public void setEnabled(boolean enabled){
+		this.enabled = enabled;
+		if (enabled){
+			this.setText("<html><FONT COLOR=BLACK><u>"+ text +"</u></FONT></html>");
+		} else{
+			this.setText("<html><FONT COLOR=GRAY><u>"+ text +"</u></FONT></html>");
+		}
+	}
+	
+	public boolean isEnabled(){
+		return enabled;
+	}
+	
+	/**
+     * Sets the behaviour with regard of mouse input and position.
+     * 
+     * This class inherits MouseListener methods and variables.
+     */
+	private class labelMouseListener implements MouseListener{
+		/** label is a LinkLabel object. */
+		private LinkLabel label;
+		
+		/**
+		 * labelMouseListener constructor.
+		 * It takes a PmLabel object.
+		 * @param lbl
+		 */
+		public labelMouseListener (LinkLabel lbl){
+			label = lbl; 
+		}
+
+		/** When the user hover on label, the text will be bolded.
+		 * It takes a MouseEvent argument
+		 * @param e */
+		public void mouseEntered(MouseEvent e) {
+			if (enabled)
+				label.setText("<html><FONT COLOR=BLACK><b>"+label.text+"</b></FONT></html>");
+		}
+		
+		/** When the user hover on label, the text will be underlined.
+		 * It takes a MouseEvent argument 
+		 * @param e */
+		public void mouseExited(MouseEvent e) {
+			label.setEnabled(enabled);
+		}
+
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {}
+		
+	}
+
+}
