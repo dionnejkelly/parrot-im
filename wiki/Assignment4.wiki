@@ -145,6 +145,108 @@ We have asked the following 20 users to test our program and do the following ta
 
 1. We asked 20 users to try and run our software.
 
+== List of Some Users ==
+
+For privacy reasons we put their initials only
+
+=== J.C (Elementary Student) ===
+  * *Age:* 10
+  * *Gender:* Female
+  * *Education:* Grade 4 Elementary School.
+  * *Experience:* Familiar with a simple chat program.
+  * *Expertise:*
+    * Operate computer equipment. 
+  * *Goal:* 
+    *Wants to communicate with her friends online. 
+    *Wants to learn new words or proper spelling to words through the spellcheck function.
+    *Wants to use the cool fonts and emoticons that she can use in her chats.
+  * *Assumptions:* 
+    * Ability to operate basic applications on her personal computer in Windows OS. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a password.
+    * Has a home network connection available.
+
+=== L.L (University Student) ===
+  * *Age:* 19
+  * *Gender:* Female
+  * *Education:* First Year Computing Science student
+  * *Experience:* Familiar with Windows Live Messenger.
+  * *Expertise:* 
+    * Operate and maintain computer equipment. 
+    * Ability to customize systems according to her specific needs. 
+  * *Goal:* 
+    * Wants to communicate with her friends effortlessly and effectively. 
+    * Does not want to spend the time to open multiple programs to track down her friends. 
+    * Wants to use the search function to find her contacts or important details from previous conversations. 
+    * Wants to use a simple and clean user interface to boost her productivity.
+  * *Assumptions:* 
+    * Ability to operate basic applications on her personal computer in Windows OS. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a password.
+    * Knowledgeable about how to search for information using a keyword.
+    * Has a home network connection available.
+
+=== A.B (Teaching Assistant) ===
+  * *Age:* 27
+  * *Gender:* Male
+  * *Education:* Master's Degree in Computer Science.
+  * *Experience:* Familiar with many different chat programs.
+  * *Expertise:* 
+    * Operate and repair computer equipment. 
+    * Ability to write and test computer programs in major programming languages. 
+    * Four years troubleshooting experience and extensive knowledge of web server and database.
+  * *Goal:* 
+    * Wants to maintain and update programs. 
+    * Wants to rely on multiple-network functionality.
+    * Does not want to spend the time to open multiple programs to track down his friends. 
+    * Wants to employ chatbot to send different messages to his different groups of contacts while he is away.
+    * Wants to use slash-commands to boost his messaging experience.
+  * *Assumptions:* 
+    * Ability to operate most of applications on his personal computer in Windows, Linux, and Mac OS. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a secure password.
+    * Knowledgeable about slash-commands in different Operating Systems.
+    * Occasionally busy having TA's office hours during exam periods.
+    * Has a home network connection available.
+
+=== J.O (Third Party Developer) ===
+  * *Age:* 39
+  * *Gender:* Male
+  * *Education:* PhD in Computer Science.
+  * *Experience:* Recently created a new chat client protocol.
+  * *Expertise:* 
+    * Operate and repair computer equipment. 
+    * Ability to write and test computer programs in major programming languages. 
+    * Many experience with software engineering process. 
+    * Three years of experience in web server and database development.
+  * *Goal:* 
+    * Wants to adapt his own existing protocol to plugin to Parrot IM system with minimal modification. 
+    * Wants to expand Parrot IM on multiple-network functionality.
+  * *Assumptions:* 
+    * Ability to operate most of applications on his personal computer in Windows, Linux, and Mac OS. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a secure password.
+    * Knowledgeable about a plug-in to interact with a host application.
+    * Has a home network connection available.
+
+=== L.Q (Grandmother) ===
+  * *Age:* 71
+  * *Gender:* Female
+  * *Education:* Bachelor's Degree in English.
+  * *Experience:* Familiar with a simple chat program.
+  * *Expertise:* 
+    * Operate computer equipment. 
+  * *Goal:* 
+    * Wants to communicate with her grandchildren online. 
+    * Wants to see pictures of her grandchildren.
+    * Wants to use a simple and easy to navigate chat program's interface.
+  * *Assumptions:* 
+    * Ability to operate basic applications on her personal computer in Mac OS X. 
+    * Ability to operate a keyboard and a mouse.
+    * Knowledgeable about how to create an account with a password.
+    * Has a home network connection available.
+
+
 2. We asked them to do the following tasks while one of the team is logged in with cmpt275testing@gmail.com
 
  * a) Create a personal profile
