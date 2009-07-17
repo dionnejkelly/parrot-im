@@ -766,6 +766,16 @@ public class BuddyPanel extends JPanel implements Observer {
                         e.printStackTrace();
                     }
                 }
+                else {
+                	// Rests thread to prevent cpu overload
+                	try {
+                		Thread.currentThread();
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
             }
         }
     }
