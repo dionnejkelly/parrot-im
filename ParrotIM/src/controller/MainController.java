@@ -140,7 +140,9 @@ public class MainController {
 				}
         	}
         }
-        model.getCurrentProfile().setStatus(status);
+        if (!model.getCurrentProfile().getName().equals("Guest")){
+        	model.getCurrentProfile().setStatus(status);
+        }
 
         return;
     }
@@ -194,8 +196,11 @@ public class MainController {
         System.out.println("Which connection = "
                 + connection.getServerType().getServerList().get(0));
         connection.setAvatarPicture(byeArray);
-        model.setAvatarDirectory(model.getCurrentProfile().getName(), url
+        
+        if (!model.getCurrentProfile().getName().equals("Guest")){
+        	model.setAvatarDirectory(model.getCurrentProfile().getName(), url
                 .toString());
+        }
 
         // TODO make a more accurate Model.addFriend
 
@@ -301,8 +306,9 @@ public class MainController {
                 // TODO Throw something back?
             }
         }
-        model.getCurrentProfile().setState(state);
-        
+        if (!model.getCurrentProfile().getName().equals("Guest")){
+        	model.getCurrentProfile().setState(state);
+        }
         return;
     }
 
