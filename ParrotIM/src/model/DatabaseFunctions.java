@@ -69,6 +69,8 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.Random;
 
+import com.itbs.aimcer.bean.Status;
+
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
@@ -554,10 +556,14 @@ public class DatabaseFunctions {
     }
 
     public int getStatus(String profile) throws SQLException {
+    	int status = 0;
         rs = stat.executeQuery("select * from profiles where name='" + profile
                 + "';");
         rs.next();
-        int status = Integer.parseInt(rs.getString("status") + 1) - 1;
+        //Integer.
+        if (rs.getString("status").length() != 0) {
+        	status = Integer.parseInt(rs.getString("status"));
+        }
         System.out.println(status);
 
         rs.close();
