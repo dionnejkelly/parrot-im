@@ -14,7 +14,7 @@
 // * Full license can be found in ParrotIM/LICENSE.txt.
 // */
 //
-//package test.unit;
+package test.unit;
 //
 //import static org.junit.Assert.*;
 //
@@ -30,7 +30,7 @@
 //import org.junit.Before;
 //import org.junit.Test;
 //
-//public class CurrentProfileDataTest {
+public class CurrentProfileDataTest {
 //    private ProfileData cpd1;
 //    private ProfileData cpd2;
 //    private ProfileData cpd3;
@@ -188,4 +188,4 @@
 //
 //        assertTrue(cpd4.removeFriend(expected));
 //    }
-//}
+}

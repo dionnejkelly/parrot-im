@@ -1,4 +1,4 @@
-//package BetaTest;
+package BetaTest;
 //
 //import static org.junit.Assert.*;
 //
@@ -8,7 +8,7 @@
 //import org.junit.Before;
 //import org.junit.Test;
 //
-//public class ProfileOptionsDataTest {
+public class ProfileOptionsDataTest {
 //	private ProfileOptionsData po1;
 //	private ProfileOptionsData po2;
 //	@Before
@@ -102,4 +102,4 @@
 //		assertFalse(po2.isAutoSignInEnabled());
 //	}
 //
-//}
+}
