@@ -55,11 +55,13 @@ public class PersonalProfileTab extends JPanel {
 	private AvatarLabel avatar;
 	
 	//right components
-	private JTextArea personalMessage;
+	public static JTextArea personalMessage;
 	
 	private PmLabel BuddyListPM;
 	private StatusCombo BuddyListStatus;
 	private StatusCombo status;
+	
+	public static boolean isPersonalTabOpened = false;
 	
 	public PersonalProfileTab(MainController core, AccountInfo accInfo){
 		super(false);
@@ -133,7 +135,11 @@ public class PersonalProfileTab extends JPanel {
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.add (leftLayout, BorderLayout.WEST);
 		this.add (rightLayout, BorderLayout.CENTER);
+		
+		isPersonalTabOpened = true;
 	}
+	
+	
 	
 	private class BrowseActionListener implements ActionListener{
 

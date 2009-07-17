@@ -39,6 +39,8 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
+import view.options.PersonalProfileTab;
+
 import controller.MainController;
 
 /**
@@ -54,6 +56,7 @@ public class PmLabel extends JTextField {
      */
     protected MainController core;
 
+    protected JTextField pmLabelTextField;
     /**
      * PmLabel constructor. It takes a MainController object as its argument. It
      * also sets up some settings for the object.
@@ -62,7 +65,7 @@ public class PmLabel extends JTextField {
      */
     public PmLabel(MainController c) {
         core = c;
-
+        this.pmLabelTextField = this;
         // changePM(false);
 
         // Initialize the window without setting the core
@@ -191,14 +194,21 @@ public class PmLabel extends JTextField {
          * committed . It takes a KeyEvent argument
          */
         public void keyPressed(KeyEvent e) {
+        	
+        }
+
+        public void keyReleased(KeyEvent e) {
+        	if (PersonalProfileTab.isPersonalTabOpened) {
+             	PersonalProfileTab.personalMessage.setText(pmLabelTextField.getText());
+            }
+        	 
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 // test printing
                 // System.out.println("Pressed Enter!");
                 label.changePM(false);
+                
+               
             }
-        }
-
-        public void keyReleased(KeyEvent e) {
         }
 
         public void keyTyped(KeyEvent e) {
