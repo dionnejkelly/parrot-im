@@ -45,11 +45,11 @@ h) Select import
 
 i) Select SVN and import repesitory
 
-j) import from the site: https//parrot-im.googlecode.com/svn/trunk
+j) Import from the site: https//parrot-im.googlecode.com/svn/trunk
 
-k) download parrot-im
+k) Download parrot-im
 
-l) run test cases in test, unittest, beta test (anyway I think we need to put everything in one package)
+l) Run test cases in unit test, integration test, and beta test.
 
 *2. Copy paste*
 
@@ -57,9 +57,9 @@ a) Download eclipse 3.4.2
 
 b) Download JUnit 4.0 (include http)
 
-c) Copy test cases into eclipse and run tests
+c) Copy test cases into eclipse and run tests.
 
-All the test cases has successfully passed the test. We test most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
+All the test cases have successfully passed the test. We test most of the code using JUnit but some of the code wasn't tested or the test isn't completed and I include the reason for each one:
 
 *DatabaseFunctions:* We had problems testing it by JUnit, and we couldn't figure out the reason. So, we included database testing in the integration test phase.
 
