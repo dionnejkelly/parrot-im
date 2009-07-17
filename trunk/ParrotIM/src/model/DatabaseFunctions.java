@@ -556,6 +556,7 @@ public class DatabaseFunctions {
     	rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
     	rs.next();
     	int status = Integer.parseInt(rs.getString("status"));
+    	System.out.println(status);
     	
     	rs.close();
     	conn.close();

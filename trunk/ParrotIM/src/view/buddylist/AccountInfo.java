@@ -168,6 +168,8 @@ public class AccountInfo extends JPanel
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		presence = new StatusCombo(chatClient);
+//		System.out.println(model.getCurrentProfile().getName());
+//		System.out.println(model.getStatus(model.getCurrentProfile().getName()));
 		presencePanel = new JPanel();
 		presencePanel.setBackground(Color.DARK_GRAY);
 		presencePanel.add(presence);
