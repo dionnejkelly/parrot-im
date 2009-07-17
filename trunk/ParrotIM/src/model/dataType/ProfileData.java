@@ -238,7 +238,18 @@ public class ProfileData extends Observable {
     }
 
     public void setAutoSignInEnabled(boolean autoSignInEnabled) {
+        DatabaseFunctions db = null;
         this.autoSignInEnabled = autoSignInEnabled;
+
+        try {
+            db = new DatabaseFunctions();
+            db.setAutoSignIn(this.name, this.autoSignInEnabled);
+        } catch (Exception e) {
+            System.err.println("Database--ProfileData error.");
+            e.printStackTrace();
+        }
+
+        return;
     }
 
     // Section
@@ -449,9 +460,8 @@ public class ProfileData extends Observable {
 
         // Add accounts to the profile.
         for (AccountTempData a : accounts) {
-            newAccount =
-                    Model.createAccount(a.getUserID(), a.getPassword(), a
-                            .getServer());
+            newAccount = Model.createAccount(a.getUserID(), a.getPassword(), a
+                    .getServer());
             this.addAccount(newAccount);
         }
 
