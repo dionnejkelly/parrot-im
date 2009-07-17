@@ -473,21 +473,24 @@ public class MainController {
             	System.out.println("Twitter adding a friend...");
             	System.out.println("Twitting = " + userID);
             	
-            	if (isFollowing(userID)) {
+            	
+            	
+            	if (doesExist(userID)) {
             		
-            		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user is already following you.", "Notice", JOptionPane.INFORMATION_MESSAGE);
-            	
+            		if (isFollowing(userID)) {
+                		
+                		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user is already following you.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                	
+                	}
+            		else {
+            			connection.addFriend(userID);
+                        // TODO make a more accurate Model.addFriend
+                        model.addFriend(account.getServer(), userID);
+                        JOptionPane.showMessageDialog(null, "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
+            		}
+            		
             	}
-            	
-            	else if (doesExist(userID)) {
-            		connection.addFriend(userID);
-                    // TODO make a more accurate Model.addFriend
-                    model.addFriend(account.getServer(), userID);
-                    JOptionPane.showMessageDialog(null, "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
-            	}
-            	
-            	
-            	
+        	
             	else {
             		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user does not exist or has been suspended.", "Notice", JOptionPane.INFORMATION_MESSAGE);
             	}
@@ -521,6 +524,9 @@ public class MainController {
                 e.printStackTrace();
             }
             if (removed || friendToRemove.isBlocked()) {
+            	System.out.println("GOOGLETALK removing a friend...");
+            	System.out.println("**************************************************** =============== Twitting = " + friendToRemove.getUserID());
+            	
                 model.removeFriend(friendToRemove);
             }
 
@@ -531,12 +537,13 @@ public class MainController {
         else {
         	// need to check if a user exists or is already being followed
         	System.out.println("Twitter removing a friend...");
-        	System.out.println("=============== Twitting = " + friendToRemove.getUserID());
+        	System.out.println("**************************************************** =============== Twitting = " + friendToRemove.getUserID());
         	
 //        	if (isFollowing(friendToRemove.getUserID())) {
         		try {
-					connection.removeFriend(friendToRemove.getUserID());
+        			removed = connection.removeFriend(friendToRemove.getUserID());
         			if (removed || friendToRemove.isBlocked()) {
+        				System.out.println("***************** &^^^^^^^^^^^^^^^^^^^^^^^^ ==================== Is this called?");
         					model.removeFriend(friendToRemove);
         			}
 				} catch (BadConnectionException e) {
