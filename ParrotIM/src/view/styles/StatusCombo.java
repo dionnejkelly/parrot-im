@@ -25,6 +25,7 @@ package view.styles;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 
@@ -70,7 +71,15 @@ public class StatusCombo extends JComboBox{
 			if (getSelectedIndex() > -1){
 				String userStatus = getSelectedItem().toString();
 				
-				chatClient.setPresence(userStatus);
+				try {
+					chatClient.setPresence(userStatus);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 	}

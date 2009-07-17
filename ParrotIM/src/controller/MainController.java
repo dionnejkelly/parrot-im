@@ -268,9 +268,11 @@ public class MainController {
      * This method actually set presence of the user.
      * 
      * @param presenceStatus
+     * @throws SQLException 
+     * @throws ClassNotFoundException 
      * @throws InterruptedException
      */
-    public void setPresence(String stateString) {
+    public void setPresence(String stateString) throws ClassNotFoundException, SQLException {
         // Iterates over all accounts and sets the state
         // TODO may a user wants to go "invisible" in just one account?
         // TODO handle input from GUI, maybe enum type input?
@@ -278,13 +280,17 @@ public class MainController {
 
         if (stateString.equalsIgnoreCase("Online")) {
             state = UserStateType.ONLINE;
+            model.setStatus(model.getCurrentProfile().getName(), 0);
         } else if (stateString.equalsIgnoreCase("Away")) {
             state = UserStateType.AWAY;
+            model.setStatus(model.getCurrentProfile().getName(), 1);
         } else if (stateString.equalsIgnoreCase("Busy")) {
             state = UserStateType.BUSY;
+            model.setStatus(model.getCurrentProfile().getName(), 2);
         } else {
             // TODO implement me
             state = UserStateType.ONLINE;
+            model.setStatus(model.getCurrentProfile().getName(), 3);
         }
 
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
@@ -296,7 +302,7 @@ public class MainController {
             }
         }
         model.getCurrentProfile().setState(state);
-
+        
         return;
     }
 
