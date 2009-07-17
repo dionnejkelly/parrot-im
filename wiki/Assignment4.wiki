@@ -68,7 +68,9 @@ All the test cases has successfully passed the test. We test most of the code us
 == Reports from JUnit test cases  ==
 
 Here are three examples for result we got from JUnit testing:
-[http://parrot-im.googlecode/files/Untitled.png]
+
+[http://parrot-im.googlecode.com/files/Untitled.png]
+
 The green line indicate and green labels on the methods means that methods,(or when also the test case are labeled green) are successful and have no errors according to test case alogrithms. If the test case are labeled blue this means there are an error according to test case (mostly logical) for example in our DatabasefunctionsTest, it gives failure to some functions eventhough it works in practice (that's why we didn't fully implemented DatabaseFunctionsTest). When methods are labeled red, this means there are an error in processing the function itself (syntax error, initialization error) and complier stops the testing for the method in this case. 
 
 == Integration Testing ==
