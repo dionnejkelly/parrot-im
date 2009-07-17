@@ -91,19 +91,19 @@ In this phase, we tried to make sure that everything works well in practice. Thi
 We acheived the testing by following a simple tasks that users normally do. We put a table that include the procedures, observations on testing the task, and the expected output based on our features document:
 
 || *Task* || *Observation* || *Expected result* ||
-|| Sign in || It takes around 10 s to login || User able to sign in within ()||
-|| Sign out || There was no problem with that || User able to sign out within ()||
-|| Sign out, Sign in again || See know bugs || User able to sign in and out multiple times ||
-|| Add user || Need to be tested || When adding a friend, it takes () ||
-|| Remove user || See posible problems || User have no problem removing a user, and friend will be removed from database ||
-|| Block a friend || See know bugs || Need to be discussed ||
-|| Unblock a friend || See known bugs || You can block, and unblock a friend ||
-|| View Chat log || See known bugs || You can view chatlog, and search conversations ||
-|| Connected friends || Inconsistent number || Number of connected friends should be consistent ||
-|| Change states || There was no problem changing states (check on chatty) || should I delete this column ||
-|| Change avator picture || Need to be tested || ||
-|| Chat with a friend || There was no problem with that || ||
-|| Press Enter to send || It takes around 2 seconds to process that ||  ||
+|| Signing in || It takes around 10 seconds to login. || Users are able to sign in within 8 seconds on any computer of a Pentium 4 class or higher, or around 1 GHz of CPU capability.||
+|| Signing out || Program signs out all users within 1 second. || Users are able to sign out within 1 second.||
+|| Signing out, Signing in again || Users are able to flexibly sign-in and sign-out at any time. || Users are able to sign in and out multiple times. ||
+|| Adding a buddy|| Users are able to add a buddy within 3 seconds. || When adding a buddy, it takes 3 seconds. ||
+|| Removing a buddy|| Users are able to removea user within 2 seconds. || Users have no problem removing a buddy, and the buddy will be removed from the database. ||
+|| Blocking a buddy|| Users can organize the list of blocked buddies by blocking a buddy within 2 seconds.|| Users are able to see the blocked buddies both in the buddy list and the blocked manager.  ||
+|| Unblocking a buddy|| Users are able to unblock a buddy within 2 seconds.|| || Users are able to unblock a buddythrough the buddy list and the blocked manager. ||
+|| Viewing Chat log || Shows the previous chat history organized by users' account. || You can view chatlog, and search conversations. ||
+|| Connected buddies|| Inconsistent number of connected buddies. || Number of connected buddiesshould be displayed consistently. ||
+|| Changing a personal status|| Users are able to change their states effectively. || Users are able to change their states both in the buddylist and the option.||
+|| Changing a personal avator picture || Users are able to change their avatar pictures effectively||  || Users are able to change their avatar pictures both in the buddylist and the option.||
+|| Chating with a friend || Users are able to chat flexibly with a buddy. ||  Users are able to chat flexibly with a buddy in a chat or conference room. ||
+|| Pressing Enter to send || Sending a message by pressing Enter takes no more than 1 second to process. ||  || Users are able to send a message instantly.
 
 == User Interface Testing ==
 
