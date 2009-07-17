@@ -296,7 +296,7 @@ public class BuddyList extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             new HelpPanel(
-                    "http://sites.google.com/site/parrotimhelp/index");
+                    "http://sites.google.com/site/parrotimhelp/Home");
 
             return;
         }
