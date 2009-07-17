@@ -114,12 +114,12 @@ public class MessageData {
     		boolean bold, boolean italics, boolean underlined, String color) {
         this.fromUser = fromUser;
         this.message = message;
-        this.font = "Arial";
-        this.size = "4";
-        this.bold = false;
-        this.italics = false;
-        this.underlined = false;
-        this.fontColor = "#000000";
+        this.font = font;
+        this.size = size;
+        this.bold = bold;
+        this.italics = italics;
+        this.underlined = underlined;
+        this.fontColor = color;
     }
 
     public MessageData(String fromUser, String message) {
