@@ -16,7 +16,7 @@ Below is the list of features and indications of progress.
 
 [Feature_XMPP XMPP Protocol]: Google Talk and Twitter functionality implemented. Jabber functionality is enabled, but not fully supported yet.
 
-[Feature_Chatbot Chatbot]: To enable or disable Chatbot is in the Contact menu, not in the chatWindow. Implemented. The chatbot currently is able to use either a customized chatbot questions and answers or a set with a list of common phrases to generate responses for. There is no way to customize the messages, yet.
+[Feature_Chatbot Chatbot]: To enable or disable the Chatbot is in the Contact menu, not in the ChatWindow. Implemented. The chatbot currently is able to use either reponse with a customized chatbot questions and answers or repsonse with a list of common phrases. 
 
 [Feature_ProfileSystem Profile System]: Implemented. Can add multiple accounts to the profile. Changes are saved in the database. 
 
