@@ -108,7 +108,7 @@ We acheived the testing by following a simple tasks that users normally do. We p
 || Changing a personal status|| Users are able to change their states effectively. || Users are able to change their states both in the buddylist and the option.||
 || Changing a personal avator picture || Users are able to change their avatar pictures effectively||  || Users are able to change their avatar pictures both in the buddylist and the option.||
 || Chating with a friend || Users are able to chat flexibly with a buddy. ||  Users are able to chat flexibly with a buddy in a chat or conference room. ||
-|| Pressing Enter to send || Sending a message by pressing Enter takes no more than 1 second to process. ||  || Users are able to send a message instantly.
+|| Pressing Enter to send || Sending a message by pressing Enter takes no more than 1 second to process. ||  || Users are able to send a message instantly. ||
 
 
 == User Acceptance Testing ==
