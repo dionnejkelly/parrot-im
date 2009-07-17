@@ -37,7 +37,6 @@ import javax.swing.JPanel;
 import model.Model;
 
 import view.chatwindow.ThemeOptionsComboBox;
-import view.styles.StatusCombo;
 import view.theme.LookAndFeelManager;
 
 import controller.MainController;
