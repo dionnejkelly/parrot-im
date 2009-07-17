@@ -17,6 +17,7 @@ import org.jivesoftware.smack.XMPPException;
 import controller.MainController;
 
 import model.Model;
+import model.dataType.ChatCollectionData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -334,7 +335,7 @@ public class TwitterManager implements GenericConnection {
                                     .getCreatedAt().getTime()) {
                         friendLastUpdates.set(index, messages.get(j)
                                 .getCreatedAt().getTime());
-                        controller.messageReceived(f.getScreenName(),
+                        controller.hiddenMessageReceived(f.getScreenName(),
                                 thisScreenName, "@" + thisScreenName + " "
                                         + messages.get(j).getText());
                     }
@@ -343,7 +344,7 @@ public class TwitterManager implements GenericConnection {
                         .getCreatedAt().getTime()) {
                     friendLastUpdates.set(index, statuses.get(i).getCreatedAt()
                             .getTime());
-                    controller.messageReceived(f.getScreenName(),
+                    controller.hiddenMessageReceived(f.getScreenName(),
                             thisScreenName, statuses.get(i).getText());
                 }
             }

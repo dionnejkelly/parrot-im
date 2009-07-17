@@ -934,6 +934,31 @@ public class MainController {
 
         return;
     }
+    
+    public void hiddenMessageReceived(String fromUserID, String toUserID,
+            String message) {
+        // Used primarily for Twitter login messages/feeds
+        MessageData messageData = null;
+        AccountData account = null;
+        UserData user = null;
+        ChatCollectionData chatCollection = model.getChatCollection();
+        ConversationData conversation = null;
+
+        messageData = new MessageData(fromUserID, message, "font", "4", false,
+                false, false, "#000000");   
+        account = model.findAccountByUserID(toUserID);
+        user = model.findUserByUserID(fromUserID);
+
+        conversation = chatCollection.findSingleByUserID(fromUserID);
+        if (conversation == null) {           
+            // Create the conversation first, and then add
+            conversation = new ConversationData(account, user);
+            chatCollection.addHiddenConversation(conversation);
+        }
+        conversation.addMessage(messageData);
+
+        return;
+    }
 
     public void refreshFriends(GenericConnection connection) {
         AccountData account = null;
