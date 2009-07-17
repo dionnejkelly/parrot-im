@@ -346,7 +346,7 @@ Model's Profile Data
 
 
 
-=================================================================================
+
 
 == Installation of Subclipse ==
 *1. Import from SVN*
@@ -382,25 +382,6 @@ a) Download eclipse 3.4.2
 b) Download JUnit 4.0 (include http)
 
 c) Copy test cases into eclipse and run tests.
-
-
-
-
-Observations on the application entirly:
-
-== Known Bugs and problems ==
-
-*Unblocking*: We didn't implement the feature to unblock a person.
-
-*Delete blocked friend*:
-
-*Chat log search*:
-
-*Buddy list*:
-
-== Possible problems in the application ==
-
-*Sign in, then out*: When you sign in, and out multiple times, sometime you may have a problem signing in and you need to press (sign in) button twice.
 
 
 
