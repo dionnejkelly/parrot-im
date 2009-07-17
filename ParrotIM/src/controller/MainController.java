@@ -299,12 +299,14 @@ public class MainController {
         }
 
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            try {
-                a.getConnection().changeStatus(state,
-                        model.getCurrentProfile().getStatus());
-            } catch (BadConnectionException e) {
-                // TODO Throw something back?
-            }
+        	if (a.getServer() != ServerType.TWITTER){
+	            try {
+	                a.getConnection().changeStatus(state,
+	                        model.getCurrentProfile().getStatus());
+	            } catch (BadConnectionException e) {
+	                // TODO Throw something back?
+	            }
+        	}
         }
         if (!model.getCurrentProfile().getName().equals("Guest")){
         	model.getCurrentProfile().setState(state);
