@@ -36,13 +36,13 @@ import controller.MainController;
 
 public class OptionFrame extends JFrame {
 
-	protected JFrame mainFrame;
+//	protected JFrame mainFrame;
 	
-    public OptionFrame(MainController c, Model model, AccountInfo accInfo, JFrame buddywindow)
+    public OptionFrame(MainController c, Model model, AccountInfo accInfo)
             throws ClassNotFoundException, SQLException {
         this.setTitle("User Preferences");
 
-        this.mainFrame = buddywindow;
+//        this.mainFrame = buddywindow;
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         OptionPanel mainPanel =
@@ -56,7 +56,7 @@ public class OptionFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-        this.addWindowListener(new PopupWindowListener(this.mainFrame, this));
+//        this.addWindowListener(new PopupWindowListener(this.mainFrame, this));
     }
 
 }
