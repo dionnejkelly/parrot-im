@@ -118,8 +118,8 @@ public class BuddyList extends JFrame {
         	JTabbedPane contactList = new JTabbedPane();
         	contactList.addTab("IM", new ImageIcon(this.getClass().getResource(
     		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel, "Instant Messaging Contact List");
-        	//contactList.addTab("Twitter Feed", new ImageIcon(this.getClass().getResource(
-        	//"/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this,mainListPanel), "Twitter Live Feed");
+        	contactList.addTab("Twitter", new ImageIcon(this.getClass().getResource(
+        	"/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this,mainListPanel), "Twitter Feed");
         	buddylistPanel.add(contactList, BorderLayout.CENTER);
         	
         	contactList.addChangeListener(new ChangeListener(){
