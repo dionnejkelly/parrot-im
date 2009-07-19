@@ -232,18 +232,29 @@ public abstract class PersonData extends Observable {
 
     public abstract ServerType getServer();
 
+
+    public static String delimitUserBack(String from, char character) {
+        String subString = from.substring(from.indexOf(character) + 1);
+
+        return subString;
+    }
+
+    public static String delimitUserFront(String from, char character) {
+        String subString = from.substring(0, from.indexOf(character));
+
+        return subString;
+    }
+    
     /**
      * Converts the user to a String, returning the userID.
      * 
      * @return The string representation for a user. We have chosen the userID
      *         to be returned by default.
      */
-    @Override
     public String toString() {
         return this.userID;
     }
 
-    @Override
     public int hashCode() {
         int hash = 7;
 

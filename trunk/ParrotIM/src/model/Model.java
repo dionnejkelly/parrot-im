@@ -51,7 +51,6 @@ package model;
 import java.util.*;
 import java.sql.*;
 
-
 import controller.services.GenericConnection;
 
 import model.dataType.AccountData;
@@ -62,6 +61,7 @@ import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.ICQAccountData;
 import model.dataType.JabberAccountData;
+import model.dataType.PersonData;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
 import model.dataType.GoogleTalkUserData;
@@ -89,11 +89,10 @@ import model.enumerations.UpdatedType;
  */
 public class Model extends Observable {
 
-	private CustomizedChatbotModel chatbotModel;
+    private CustomizedChatbotModel chatbotModel;
     // Section
     // I - Data Members
 
-	
     private ChatCollectionData chatCollection;
 
     /**
@@ -121,7 +120,7 @@ public class Model extends Observable {
     public Model() {
         initializeAllVariables();
     }
-  
+
     /**
      * Clears current profile.
      * 
@@ -138,10 +137,10 @@ public class Model extends Observable {
         for (ProfileData p : this.profileCollection.getProfiles()) {
             p.loadAccounts();
         }
-        
+
         return;
     }
-    
+
     /**
      * Gets the profile collection to provide access to all profiles and
      * accounts.
@@ -153,7 +152,7 @@ public class Model extends Observable {
     public ProfileCollectionData getProfileCollection() {
         return this.profileCollection;
     }
-    
+
     public ChatCollectionData getChatCollection() {
         return this.chatCollection;
     }
@@ -584,13 +583,13 @@ public class Model extends Observable {
             if (account == null) {
                 server = ServerType.GOOGLE_TALK;
                 account = getCurrentProfile().getAccountFromServer(server);
-                
+
                 if (account == null) {
-                	server = ServerType.TWITTER;
+                    server = ServerType.TWITTER;
                     account = getCurrentProfile().getAccountFromServer(server);
                 }
             }
-            
+
         }
 
         if (server == ServerType.GOOGLE_TALK) {
@@ -598,9 +597,9 @@ public class Model extends Observable {
         } else if (server == ServerType.JABBER) {
             userToAdd = new JabberUserData(accountName);
         }
-        
+
         else if (server == ServerType.TWITTER) {
-        	userToAdd = new TwitterUserData(accountName);
+            userToAdd = new TwitterUserData(accountName);
         }
 
         account.addFriend(userToAdd);
@@ -929,8 +928,8 @@ public class Model extends Observable {
      * @return Vector<String> representation of the buddy log list.
      */
 
-    public Vector<String> getBuddyLogList(String profile, String search) throws SQLException,
-            ClassNotFoundException {
+    public Vector<String> getBuddyLogList(String profile, String search)
+            throws SQLException, ClassNotFoundException {
         // returns list of buddies (that have chat log)
         // We might need to consider the case in which the same
         // user is on multiple accounts. With this scheme, the
@@ -954,7 +953,8 @@ public class Model extends Observable {
      * @return Vector<String> representation of the buddy date list.
      */
 
-    public Vector<String> getBuddyDateList(String profile, String buddyname, String search) {
+    public Vector<String> getBuddyDateList(String profile, String buddyname,
+            String search) {
         // returns history date list
         Vector<String> chats = null;
 
@@ -991,10 +991,10 @@ public class Model extends Observable {
         try {
             for (AccountData account : this.getCurrentProfile()
                     .getAccountData()) {
-            	db = new DatabaseFunctions();
+                db = new DatabaseFunctions();
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-            		messages.addAll(db.getMessageFromDate(account.getUserID(),
+                messages.addAll(db.getMessageFromDate(account.getUserID(),
                         buddyname, date, search));
             }
         } catch (SQLException e) {
@@ -1067,6 +1067,41 @@ public class Model extends Observable {
     }
 
     public static AccountData createAccount(String userID, String password,
+            ServerType server, String serverAddress) {
+        AccountData account = null;
+
+        if (userID.contains("@")) {
+            userID = PersonData.delimitUserFront(userID, '@');
+        }
+        userID = userID + "@" + serverAddress;
+
+        switch (server) {
+        case GOOGLE_TALK:
+            account = new GoogleTalkAccountData(userID, password);
+            break;
+        case TWITTER:
+            account = new TwitterAccountData(userID, password);
+            break;
+        case JABBER:
+            account = new JabberAccountData(userID, password);
+            break;
+        case MSN:
+            // account = new MSNAccountData(userID, password);
+            break;
+        case ICQ:
+            account = new ICQAccountData(userID, password);
+            break;
+        case AIM:
+            // account = new AIMAccountData(userID, password);
+            break;
+        default:
+            break;
+        }
+
+        return account;
+    }
+
+    public static AccountData createAccount(String userID, String password,
             ServerType server) {
         AccountData account = null;
 
@@ -1095,7 +1130,7 @@ public class Model extends Observable {
 
         return account;
     }
-	
+
     public void addQuestion(String question) throws ClassNotFoundException,
             SQLException {
         DatabaseFunctions db = new DatabaseFunctions();
@@ -1180,29 +1215,37 @@ public class Model extends Observable {
         DatabaseFunctions db = new DatabaseFunctions();
         return db.getAvatarDirectory(profile);
     }
-    public void setStatusMessage(String profile, String statusMessage) 
-	throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.setStatusMessage(profile, statusMessage);
+
+    public void setStatusMessage(String profile, String statusMessage)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.setStatusMessage(profile, statusMessage);
     }
-    public String getStatusMessage(String profile) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getStatusMessage(profile);
+
+    public String getStatusMessage(String profile)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getStatusMessage(profile);
     }
-    public void setStatus(String profile, int status) 
-	throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	db.setStatus(profile, status);
+
+    public void setStatus(String profile, int status)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.setStatus(profile, status);
     }
-    public int getStatus(String profile) throws ClassNotFoundException, SQLException {
-    	DatabaseFunctions db = new DatabaseFunctions();
-    	return db.getStatus(profile);
+
+    public int getStatus(String profile) throws ClassNotFoundException,
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getStatus(profile);
     }
-    
-    public void initiateChatbotModel() throws ClassNotFoundException, SQLException{
-    	chatbotModel = new CustomizedChatbotModel(this);
+
+    public void initiateChatbotModel() throws ClassNotFoundException,
+            SQLException {
+        chatbotModel = new CustomizedChatbotModel(this);
     }
-    public CustomizedChatbotModel getCustomizedChatbotModel(){
-    	return chatbotModel;
+
+    public CustomizedChatbotModel getCustomizedChatbotModel() {
+        return chatbotModel;
     }
 }

@@ -309,10 +309,12 @@ public class BuddyPanel extends JPanel implements Observer {
                 group = 0;
             } else if (current.getServer() == ServerType.TWITTER) {
                 group = 1;
+            } else if (current.getServer() == ServerType.JABBER) {
+                group = 3;
             } else if (current.getServer() == ServerType.ICQ) {
                 group = 4;
             }
-
+            
             for (int j = 0; j < buddyArray.size() && !found; j++) {
                 if (current.compareTo(buddyArray.get(group).get(j)) < 0) {
                     // Means that the out-of-order user is more online
@@ -361,6 +363,10 @@ public class BuddyPanel extends JPanel implements Observer {
                 buddyArray.get(1).add(u);
                 boxes[1].add(FriendItem(u));
                 buddyListPane.addElement(1, tempPanel);
+            } else if (u.getServer() == ServerType.JABBER) {
+                buddyArray.get(3).add(u);
+                boxes[3].add(FriendItem(u));
+                buddyListPane.addElement(3, tempPanel);
             } else if (u.getServer() == ServerType.ICQ) {
                 buddyArray.get(4).add(u);
                 boxes[4].add(FriendItem(u));
