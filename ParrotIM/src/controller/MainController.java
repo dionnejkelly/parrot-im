@@ -98,7 +98,7 @@ public class MainController {
     private int countRoom = 0;
 
     private DecimalFormat progressBar;
-    
+
     /**
      * This is the constructor of Xmpp.
      * 
@@ -124,40 +124,42 @@ public class MainController {
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-        	if (a.getServer() != ServerType.TWITTER){
-	            try {
-	                a.getConnection().changeStatus(
-	                        model.getCurrentProfile().getState(), status);
-	                model.setStatusMessage(model.getCurrentProfile().getName(), status);
-	            } catch (BadConnectionException e) {
-	                // TODO Throw something back?
-	            } catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-        	} else {
-        		if (changeTwitter){
-        			try {
-    	                a.getConnection().changeStatus(
-    	                        model.getCurrentProfile().getState(), status);
-    	                model.setStatusMessage(model.getCurrentProfile().getName(), status);
-    	            } catch (BadConnectionException e) {
-    	                // TODO Throw something back?
-    	            } catch (ClassNotFoundException e) {
-    					// TODO Auto-generated catch block
-    					e.printStackTrace();
-    				} catch (SQLException e) {
-    					// TODO Auto-generated catch block
-    					e.printStackTrace();
-    				}
-        		}
-        	}
+            if (a.getServer() != ServerType.TWITTER) {
+                try {
+                    a.getConnection().changeStatus(
+                            model.getCurrentProfile().getState(), status);
+                    model.setStatusMessage(model.getCurrentProfile().getName(),
+                            status);
+                } catch (BadConnectionException e) {
+                    // TODO Throw something back?
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } else {
+                if (changeTwitter) {
+                    try {
+                        a.getConnection().changeStatus(
+                                model.getCurrentProfile().getState(), status);
+                        model.setStatusMessage(model.getCurrentProfile()
+                                .getName(), status);
+                    } catch (BadConnectionException e) {
+                        // TODO Throw something back?
+                    } catch (ClassNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
-        if (!model.getCurrentProfile().getName().equals("Guest")){
-        	model.getCurrentProfile().setStatus(status);
+        if (!model.getCurrentProfile().getName().equals("Guest")) {
+            model.getCurrentProfile().setStatus(status);
         }
 
         return;
@@ -177,8 +179,9 @@ public class MainController {
             avatarPicture = connection.getAvatarPicture(user.getUserID());
         } catch (Exception e) {
             // (May be called if account is null... think: multi user chat)
-            avatarPicture = new ImageIcon(this.getClass().getResource(
-                    "/images/chatwindow/personal.png"));
+            avatarPicture =
+                    new ImageIcon(this.getClass().getResource(
+                            "/images/chatwindow/personal.png"));
         }
 
         return avatarPicture;
@@ -212,10 +215,10 @@ public class MainController {
         System.out.println("Which connection = "
                 + connection.getServerType().getServerList().get(0));
         connection.setAvatarPicture(byeArray);
-        
-        if (!model.getCurrentProfile().getName().equals("Guest")){
-        	model.setAvatarDirectory(model.getCurrentProfile().getName(), url
-                .toString());
+
+        if (!model.getCurrentProfile().getName().equals("Guest")) {
+            model.setAvatarDirectory(model.getCurrentProfile().getName(), url
+                    .toString());
         }
 
         // TODO make a more accurate Model.addFriend
@@ -235,8 +238,9 @@ public class MainController {
         int resizeHeight = imageIconResize.getIconHeight();
 
         Panel p = new Panel();
-        BufferedImage bi = new BufferedImage(resizeWidth, resizeHeight,
-                BufferedImage.TYPE_INT_RGB);
+        BufferedImage bi =
+                new BufferedImage(resizeWidth, resizeHeight,
+                        BufferedImage.TYPE_INT_RGB);
 
         Graphics2D big = bi.createGraphics();
         big.drawImage(imageIconResize.getImage(), 0, 0, p);
@@ -289,11 +293,12 @@ public class MainController {
      * This method actually set presence of the user.
      * 
      * @param presenceStatus
-     * @throws SQLException 
-     * @throws ClassNotFoundException 
+     * @throws SQLException
+     * @throws ClassNotFoundException
      * @throws InterruptedException
      */
-    public void setPresence(String stateString) throws ClassNotFoundException, SQLException {
+    public void setPresence(String stateString) throws ClassNotFoundException,
+            SQLException {
         // Iterates over all accounts and sets the state
         // TODO may a user wants to go "invisible" in just one account?
         // TODO handle input from GUI, maybe enum type input?
@@ -315,17 +320,17 @@ public class MainController {
         }
 
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-        	if (a.getServer() != ServerType.TWITTER){
-	            try {
-	                a.getConnection().changeStatus(state,
-	                        model.getCurrentProfile().getStatus());
-	            } catch (BadConnectionException e) {
-	                // TODO Throw something back?
-	            }
-        	}
+            if (a.getServer() != ServerType.TWITTER) {
+                try {
+                    a.getConnection().changeStatus(state,
+                            model.getCurrentProfile().getStatus());
+                } catch (BadConnectionException e) {
+                    // TODO Throw something back?
+                }
+            }
         }
-        if (!model.getCurrentProfile().getName().equals("Guest")){
-        	model.getCurrentProfile().setState(state);
+        if (!model.getCurrentProfile().getName().equals("Guest")) {
+            model.getCurrentProfile().setState(state);
         }
         return;
     }
@@ -343,7 +348,6 @@ public class MainController {
     public void login(AccountData account) throws BadConnectionException {
         GenericConnection connection = null;
         MainController controller = this;
-        int port = 5223;
 
         // Determine which type of connection the account requires, and add it
         if (account instanceof GoogleTalkAccountData) {
@@ -364,23 +368,23 @@ public class MainController {
 
         // Set up friends' user data
         this.populateBuddyList(account);
-        
-        //set up chatbot
-		try {
-			model.initiateChatbotModel();
-			chatbot = new Chatbot(model);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//	catch (Exception e){
-//		
-//		//INVESTIGATE: getQuestions in model
-//		this.chatbot = new Chatbot();
-//	}
+
+        // set up chatbot
+        try {
+            model.initiateChatbotModel();
+            chatbot = new Chatbot(model);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // catch (Exception e){
+        //		
+        // //INVESTIGATE: getQuestions in model
+        // this.chatbot = new Chatbot();
+        // }
         return;
     }
 
@@ -392,20 +396,35 @@ public class MainController {
      */
     public void loginProfile(ProfileData profile) throws BadConnectionException {
         model.getProfileCollection().setActiveProfile(profile);
-        System.out.println("we're here!");
         // Log-in account by account
         for (AccountData a : profile.getAccountData()) {
-            System.out.println("we're here2!");
             login(a);
         }
 
         return;
     }
 
+    private String delimitUserBack(String from, char character) {
+        String subString = from.substring(from.indexOf(character) + 1);
+
+        return subString;
+    }
+
+    private String delimitUserFront(String from, char character) {
+        String subString = from.substring(0, from.indexOf(character));
+
+        return subString;
+    }
+
     public void loginAsGuest(ServerType server, String userID, String password,
             String serverAddress) throws BadConnectionException {
         ProfileData createdProfile = null;
         AccountData createdAccount = null;
+
+        if (userID.contains("@")) {
+            userID = delimitUserFront(userID, '@');
+        }
+        userID = userID + "@" + serverAddress;
 
         createdProfile = new ProfileData("Guest");
         createdProfile.setGuestAccount(true);
@@ -441,7 +460,6 @@ public class MainController {
 
         return;
     }
-    
 
     /**
      * This method is used to add a friend to the friend list.
@@ -458,45 +476,55 @@ public class MainController {
             // connection should be found from account!!
             account = model.getCurrentProfile().getAccountData().get(0);
             connection = account.getConnection();
-            
+
             // make sure users are not using Twitter and trying to add users
             if (connection.getServerType() != ServerType.TWITTER) {
-            	 connection.addFriend(userID);
-                 // TODO make a more accurate Model.addFriend
-                 model.addFriend(account.getServer(), userID);
-                 JOptionPane.showMessageDialog(null, "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
+                connection.addFriend(userID);
+                // TODO make a more accurate Model.addFriend
+                model.addFriend(account.getServer(), userID);
+                JOptionPane
+                        .showMessageDialog(null,
+                                "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
             }
-            
+
             // it must be Twitter
             else {
-            	// need to check if a user exists or is already being followed
-            	System.out.println("Twitter adding a friend...");
-            	System.out.println("Twitting = " + userID);
-            	
-            	
-            	
-            	if (doesExist(userID)) {
-            		
-            		if (isFollowing(userID)) {
-                		
-                		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user is already following you.", "Notice", JOptionPane.INFORMATION_MESSAGE);
-                	
-                	}
-            		else {
-            			connection.addFriend(userID);
+                // need to check if a user exists or is already being followed
+                System.out.println("Twitter adding a friend...");
+                System.out.println("Twitting = " + userID);
+
+                if (doesExist(userID)) {
+
+                    if (isFollowing(userID)) {
+
+                        JOptionPane
+                                .showMessageDialog(
+                                        null,
+                                        "Sorry could not add the user because the user is already following you.",
+                                        "Notice",
+                                        JOptionPane.INFORMATION_MESSAGE);
+
+                    } else {
+                        connection.addFriend(userID);
                         // TODO make a more accurate Model.addFriend
                         model.addFriend(account.getServer(), userID);
-                        JOptionPane.showMessageDialog(null, "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
-            		}
-            		
-            	}
-        	
-            	else {
-            		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user does not exist or has been suspended.", "Notice", JOptionPane.INFORMATION_MESSAGE);
-            	}
-            	
+                        JOptionPane
+                                .showMessageDialog(null,
+                                        "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
+                    }
+
+                }
+
+                else {
+                    JOptionPane
+                            .showMessageDialog(
+                                    null,
+                                    "Sorry could not add the user because the user does not exist or has been suspended.",
+                                    "Notice", JOptionPane.INFORMATION_MESSAGE);
+                }
+
             }
-           
+
         } catch (BadConnectionException e) {
             // TODO throw another exception to prompt for re-entry
             e.printStackTrace();
@@ -504,7 +532,7 @@ public class MainController {
 
         return;
     }
-    
+
     /**
      * This method is used to remove a friend to the friend list.
      * 
@@ -515,87 +543,88 @@ public class MainController {
         GenericConnection connection = null;
 
         connection = model.findAccountByFriend(friendToRemove).getConnection();
-        
+
         if (connection.getServerType() != ServerType.TWITTER) {
-        	try {
+            try {
                 removed = connection.removeFriend(friendToRemove.getUserID());
             } catch (BadConnectionException e) {
                 // TODO Make the GUI know the friend doesn't exist?
                 e.printStackTrace();
             }
             if (removed || friendToRemove.isBlocked()) {
-            	System.out.println("GOOGLETALK removing a friend...");
-            	System.out.println("**************************************************** =============== Twitting = " + friendToRemove.getUserID());
-            	
+                System.out.println("GOOGLETALK removing a friend...");
+                System.out
+                        .println("**************************************************** =============== Twitting = "
+                                + friendToRemove.getUserID());
+
                 model.removeFriend(friendToRemove);
             }
 
             return;
         }
-        
-     // it must be Twitter
+
+        // it must be Twitter
         else {
-        	// need to check if a user exists or is already being followed
-        	System.out.println("Twitter removing a friend...");
-        	System.out.println("**************************************************** =============== Twitting = " + friendToRemove.getUserID());
-        	
-//        	if (isFollowing(friendToRemove.getUserID())) {
-        		try {
-        			removed = connection.removeFriend(friendToRemove.getUserID());
-        			if (removed || friendToRemove.isBlocked()) {
-        				System.out.println("***************** &^^^^^^^^^^^^^^^^^^^^^^^^ ==================== Is this called?");
-        					model.removeFriend(friendToRemove);
-        			}
-				} catch (BadConnectionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//        		
-//        	
-//        	}
-//        
-//        	
-//        	else {
-//        		JOptionPane.showMessageDialog(null, "Sorry could not add the user because the user does not exist or has been suspended.", "Notice", JOptionPane.INFORMATION_MESSAGE);
-//        	}
-        	
-        	
-        	
+            // need to check if a user exists or is already being followed
+            System.out.println("Twitter removing a friend...");
+            System.out
+                    .println("**************************************************** =============== Twitting = "
+                            + friendToRemove.getUserID());
+
+            // if (isFollowing(friendToRemove.getUserID())) {
+            try {
+                removed = connection.removeFriend(friendToRemove.getUserID());
+                if (removed || friendToRemove.isBlocked()) {
+                    System.out
+                            .println("***************** &^^^^^^^^^^^^^^^^^^^^^^^^ ==================== Is this called?");
+                    model.removeFriend(friendToRemove);
+                }
+            } catch (BadConnectionException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            //        		
+            //        	
+            // }
+            //        
+            //        	
+            // else {
+            // JOptionPane.showMessageDialog(null,
+            // "Sorry could not add the user because the user does not exist or has been suspended.",
+            // "Notice", JOptionPane.INFORMATION_MESSAGE);
+            // }
+
         }
-        
-        
-        
+
     }
-    
+
     public boolean isFollowing(String userID) {
-    	AccountData account = null; // Should be passed in!!
+        AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
 
-        
-            // connection should be found from account!!
+        // connection should be found from account!!
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
-        
+
         return connection.isFollowing(userID);
     }
+
     public boolean doesExist(String userID) {
-    	AccountData account = null; // Should be passed in!!
+        AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
 
-        
-            // connection should be found from account!!
+        // connection should be found from account!!
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
-        
+
         return connection.doesExist(userID);
     }
-    
-    public void modelAddFriend(String userID) {
-    	AccountData account = account = model.getCurrentProfile().getAccountData().get(0);
-    	model.addFriend(account.getServer(), userID);
-    }
 
-   
+    public void modelAddFriend(String userID) {
+        AccountData account =
+                account = model.getCurrentProfile().getAccountData().get(0);
+        model.addFriend(account.getServer(), userID);
+    }
 
     /**
      * This method is used to block a friend to the friend list.
@@ -764,9 +793,9 @@ public class MainController {
         try {
             if (model.getActiveConversation() != null) {
                 if (model.getActiveConversation().getUser() != null) {
-                    GenericConnection connection = model
-                            .getActiveConversation().getAccount()
-                            .getConnection();
+                    GenericConnection connection =
+                            model.getActiveConversation().getAccount()
+                                    .getConnection();
                     connection.setTypingState(state, model
                             .getActiveConversation().getUser().getUserID());
                 }
@@ -843,8 +872,9 @@ public class MainController {
         fromUser = conversation.getAccount().getUserID();
         to = conversation.getUser().getUserID();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(fromUser, messageString, font, size, bold,
+                        italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -876,13 +906,15 @@ public class MainController {
         fromUser = conversation.getAccount().getUserID();
 
         to = conversation.getUser().getUserID();
-        System.out.println("---------------------------------------------------- Who am I sending it to = " + to);
+        System.out
+                .println("---------------------------------------------------- Who am I sending it to = "
+                        + to);
 
         to = conversation.getUser().getUserID();
 
-
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(fromUser, messageString, font, size, bold,
+                        italics, underlined, color);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -1031,12 +1063,13 @@ public class MainController {
         MessageData messageData = null;
         AccountData account = null;
 
-        messageData = new MessageData(fromUserID, message, "font", "4", false,
-                false, false, "#000000");
+        messageData =
+                new MessageData(fromUserID, message, "font", "4", false, false,
+                        false, "#000000");
         account = model.findAccountByUserID(toUserID);
 
-        MusicPlayer receiveMusic = new MusicPlayer(
-                "/audio/message/receiveMessage.wav", model);
+        MusicPlayer receiveMusic =
+                new MusicPlayer("/audio/message/receiveMessage.wav", model);
         model.receiveMessage(account, messageData);
 
         // Automatically add chatbot reply, if enabled
@@ -1057,7 +1090,7 @@ public class MainController {
 
         return;
     }
-    
+
     public void hiddenMessageReceived(String fromUserID, String toUserID,
             String message) {
         // Used primarily for Twitter login messages/feeds
@@ -1067,13 +1100,14 @@ public class MainController {
         ChatCollectionData chatCollection = model.getChatCollection();
         ConversationData conversation = null;
 
-        messageData = new MessageData(fromUserID, message, "font", "4", false,
-                false, false, "#000000");   
+        messageData =
+                new MessageData(fromUserID, message, "font", "4", false, false,
+                        false, "#000000");
         account = model.findAccountByUserID(toUserID);
         user = model.findUserByUserID(fromUserID);
 
         conversation = chatCollection.findSingleByUserID(fromUserID);
-        if (conversation == null) {           
+        if (conversation == null) {
             // Create the conversation first, and then add
             conversation = new ConversationData(account, user);
             chatCollection.addHiddenConversation(conversation);
@@ -1111,82 +1145,83 @@ public class MainController {
     }
 
     public void sendFile() {
-    	
-    	 AccountData account = null; // Should be passed in!!
-         Conversation conversation = null;
 
-         GenericConnection connection = null;
+        AccountData account = null; // Should be passed in!!
+        Conversation conversation = null;
 
-         // Default to sending to the active user
-         conversation = model.getActiveConversation();
+        GenericConnection connection = null;
 
+        // Default to sending to the active user
+        conversation = model.getActiveConversation();
 
         try {
-        	 String to = conversation.getUser().getUserID();
-             
-        	    
-             if (isValidUserID(to)) {
-             	  // connection should be found from account!!
-                 account = model.getCurrentProfile().getAccountData().get(0);
-                 connection = account.getConnection();
-                 System.out.println("Start Transfering File... " + to);
-            		
-             
-             	JFileChooser fileChooser = new JFileChooser();
-         		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-         		fileChooser.setMultiSelectionEnabled(false);
-         		
-             	int fileConfirmation = fileChooser.showOpenDialog(null);
-             	
-             	if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
-             	
-             		File selectedFile = fileChooser.getSelectedFile();
+            String to = conversation.getUser().getUserID();
 
-             		 
-      
-             		 long fileSize = selectedFile.length() / 1000;
-             		System.out.println("The file size = " + fileSize + " KB");
-             		
-             		if (fileSize < 64) {
-             			ProgressMonitorScreen progress = new ProgressMonitorScreen();
-                 		try {
-             			String filePath = fileChooser.getSelectedFile().getPath();
-     					connection.sendFile(to, filePath, progress);
-                 		} catch (XMPPException e) {
-     					// TODO Auto-generated catch block
-     					e.printStackTrace();
-                 		}
-             			
-             		}
-             		
-             		else {
-             			JOptionPane.showMessageDialog(null, "Please choose a file that does not exceed more than 60 KB.",
-                                 "Failed", JOptionPane.ERROR_MESSAGE);
-             		}
+            if (isValidUserID(to)) {
+                // connection should be found from account!!
+                account = model.getCurrentProfile().getAccountData().get(0);
+                connection = account.getConnection();
+                System.out.println("Start Transfering File... " + to);
 
-     				
-             	}
-                
-             }
-             
-             else {
-             	JOptionPane.showMessageDialog(null, "Cannot send a file because " + to + " does not support file receiving.",
-                         "Failed", JOptionPane.ERROR_MESSAGE);
-             }
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileChooser.setMultiSelectionEnabled(false);
+
+                int fileConfirmation = fileChooser.showOpenDialog(null);
+
+                if (fileConfirmation == JFileChooser.APPROVE_OPTION) {
+
+                    File selectedFile = fileChooser.getSelectedFile();
+
+                    long fileSize = selectedFile.length() / 1000;
+                    System.out.println("The file size = " + fileSize + " KB");
+
+                    if (fileSize < 64) {
+                        ProgressMonitorScreen progress =
+                                new ProgressMonitorScreen();
+                        try {
+                            String filePath =
+                                    fileChooser.getSelectedFile().getPath();
+                            connection.sendFile(to, filePath, progress);
+                        } catch (XMPPException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    else {
+                        JOptionPane
+                                .showMessageDialog(
+                                        null,
+                                        "Please choose a file that does not exceed more than 60 KB.",
+                                        "Failed", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+
+            }
+
+            else {
+                JOptionPane.showMessageDialog(null,
+                        "Cannot send a file because " + to
+                                + " does not support file receiving.",
+                        "Failed", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
+
         catch (NullPointerException e) {
-        	JOptionPane.showMessageDialog(null, "Failed to send a file because it is either:\n" + "a) A user does not support file receiving.\n" + "b) A user is not using an XMPP protocol.\n" +"c) Conference chat room does not support file receiving.",
-                    "Failed", JOptionPane.ERROR_MESSAGE);
+            JOptionPane
+                    .showMessageDialog(
+                            null,
+                            "Failed to send a file because it is either:\n"
+                                    + "a) A user does not support file receiving.\n"
+                                    + "b) A user is not using an XMPP protocol.\n"
+                                    + "c) Conference chat room does not support file receiving.",
+                            "Failed", JOptionPane.ERROR_MESSAGE);
         }
-       
-        
-       
-        
+
     }
-    
-  
-	
 
     public boolean isValidUserID(String userID) {
         AccountData account = null; // Should be passed in!!
@@ -1216,11 +1251,11 @@ public class MainController {
         connection = account.getConnection();
 
         try {
-			connection.createRoom(groupRoom);
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            connection.createRoom(groupRoom);
+        } catch (XMPPException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         multiConversation = new MultiConversationData(groupRoom, account);
         model.getChatCollection().addConversation(multiConversation);
@@ -1252,72 +1287,71 @@ public class MainController {
         availableRoom.add(roomName);
         countRoom++;
     }
-    
+
     public boolean isConferenceChat() {
-    	  AccountData account = null; // Should be passed in!!
-          GenericConnection connection = null;
-
-          // connection should be found from account!!
-          account = model.getCurrentProfile().getAccountData().get(0);
-          connection = account.getConnection();
-          
-          return connection.isConferenceChat();
-    }
-    
-    public void sendMultMessage(String message, String roomName, AccountData account) throws BadConnectionException {
-    	 ConversationData conversation = null;
-         MessageData messageObject = null;
-         String fromUser = null;
-         UserData toUser = null;
-         String font = "Arial"; // temp values
-         String size = "4";
-         boolean bold = false;
-         boolean italics = false;
-         boolean underlined = false;
-         String color = "#000000";
-         GenericConnection connection = null;
-
-         toUser = model.findUserByUserID(roomName);
-         conversation = model.findConversation(account, toUser);
-
-         if (conversation == null) {
-             model.startConversation(account, toUser);
-             conversation = model.findConversation(account, toUser);
-         }
-         connection = conversation.getAccount().getConnection();
-
-         fromUser = conversation.getAccount().getUserID();
-         roomName = conversation.getUser().getUserID();
-
-         messageObject = new MessageData(fromUser, message, font, size,
-                 bold, italics, underlined, color);
-
-         connection.sendMultMessage(message, roomName);
-         model.sendMessage(conversation, messageObject);
-
-         
-        
-        
-        return;
-    	
-    }
-    
-    public void sendMultMessage(String message, String roomName) throws BadConnectionException {
-    	AccountData account = null; // Should be passed in!!
+        AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
 
         // connection should be found from account!!
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
-        
-        connection.sendMultMessage(message, roomName);
-        
-        
+
+        return connection.isConferenceChat();
     }
-    
-    public void sendMultMessage(String messageString, String roomName, String font, String size,
-            boolean bold, boolean italics, boolean underlined, String color)
+
+    public void sendMultMessage(String message, String roomName,
+            AccountData account) throws BadConnectionException {
+        ConversationData conversation = null;
+        MessageData messageObject = null;
+        String fromUser = null;
+        UserData toUser = null;
+        String font = "Arial"; // temp values
+        String size = "4";
+        boolean bold = false;
+        boolean italics = false;
+        boolean underlined = false;
+        String color = "#000000";
+        GenericConnection connection = null;
+
+        toUser = model.findUserByUserID(roomName);
+        conversation = model.findConversation(account, toUser);
+
+        if (conversation == null) {
+            model.startConversation(account, toUser);
+            conversation = model.findConversation(account, toUser);
+        }
+        connection = conversation.getAccount().getConnection();
+
+        fromUser = conversation.getAccount().getUserID();
+        roomName = conversation.getUser().getUserID();
+
+        messageObject =
+                new MessageData(fromUser, message, font, size, bold, italics,
+                        underlined, color);
+
+        connection.sendMultMessage(message, roomName);
+        model.sendMessage(conversation, messageObject);
+
+        return;
+
+    }
+
+    public void sendMultMessage(String message, String roomName)
             throws BadConnectionException {
+        AccountData account = null; // Should be passed in!!
+        GenericConnection connection = null;
+
+        // connection should be found from account!!
+        account = model.getCurrentProfile().getAccountData().get(0);
+        connection = account.getConnection();
+
+        connection.sendMultMessage(message, roomName);
+
+    }
+
+    public void sendMultMessage(String messageString, String roomName,
+            String font, String size, boolean bold, boolean italics,
+            boolean underlined, String color) throws BadConnectionException {
         String to = null;
         MessageData messageObject = null;
         MultiConversationData conversation = null;
@@ -1328,19 +1362,23 @@ public class MainController {
         // Default to sending to the active user
         chatCollection = model.getChatCollection();
         try {
-            conversation = (MultiConversationData) chatCollection.getActiveConversation();
+            conversation =
+                    (MultiConversationData) chatCollection
+                            .getActiveConversation();
         } catch (ClassCastException e) {
-            System.err.println("sendMultMessage took in a single conversation. Oops?");
+            System.err
+                    .println("sendMultMessage took in a single conversation. Oops?");
             e.printStackTrace();
             throw new IllegalArgumentException();
         }
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
-        //to = conversation.getUser().getUserID();
+        // to = conversation.getUser().getUserID();
 
-        messageObject = new MessageData(fromUser, messageString, font, size,
-                bold, italics, underlined, color);
+        messageObject =
+                new MessageData(fromUser, messageString, font, size, bold,
+                        italics, underlined, color);
 
         sendMultMessage(messageString, roomName);
         if (chatCollection.isHidden(conversation)) {

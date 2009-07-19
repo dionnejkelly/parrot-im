@@ -113,6 +113,10 @@ public class JabberManager implements GenericConnection {
                         this.domain);
         config.setSocketFactory(SSLSocketFactory.getDefault());
 
+        System.out.println("userID: " + userID);
+        System.out.println("server " + server);
+        System.out.println("domain " + domain);
+        
         connection = new XMPPConnection(config);
         try {
             connection.connect();
