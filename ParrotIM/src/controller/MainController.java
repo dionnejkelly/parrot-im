@@ -66,6 +66,7 @@ import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
 import model.dataType.MultiConversationData;
+import model.dataType.PersonData;
 import model.dataType.ProfileData;
 import model.dataType.TwitterAccountData;
 import model.dataType.TwitterUserData;
@@ -404,27 +405,10 @@ public class MainController {
         return;
     }
 
-    private String delimitUserBack(String from, char character) {
-        String subString = from.substring(from.indexOf(character) + 1);
-
-        return subString;
-    }
-
-    private String delimitUserFront(String from, char character) {
-        String subString = from.substring(0, from.indexOf(character));
-
-        return subString;
-    }
-
     public void loginAsGuest(ServerType server, String userID, String password,
             String serverAddress) throws BadConnectionException {
         ProfileData createdProfile = null;
         AccountData createdAccount = null;
-
-        if (userID.contains("@")) {
-            userID = delimitUserFront(userID, '@');
-        }
-        userID = userID + "@" + serverAddress;
 
         createdProfile = new ProfileData("Guest");
         createdProfile.setGuestAccount(true);
@@ -432,7 +416,7 @@ public class MainController {
         model.getProfileCollection().addProfile(createdProfile);
         model.getProfileCollection().setActiveProfile(createdProfile);
 
-        createdAccount = Model.createAccount(userID, password, server);
+        createdAccount = Model.createAccount(userID, password, server, serverAddress);
         createdProfile.addAccount(createdAccount);
 
         login(createdAccount);

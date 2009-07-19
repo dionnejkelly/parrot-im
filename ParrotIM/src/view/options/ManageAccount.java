@@ -94,17 +94,22 @@ public class ManageAccount extends JPanel implements Observer {
         leftPanel.setLayout(new BorderLayout());
 
         // saved account list
-        accList = new JList(new Vector<AccountData>(profile.getAccountData())){
-        	public String getToolTipText(MouseEvent e) {
-        		int index = locationToIndex(e.getPoint());
-        		if (-1 < index) {
-        			String item = "<html>Account Type: " + profile.getAccountData().get(index).getServer().toString()
-        			+ "<br>UserID: " + profile.getAccountData().get(index).getUserID();
-        			return item;
-        		} else {
-        			return null;
-        		}
-        	}
+        accList = new JList(new Vector<AccountData>(profile.getAccountData())) {
+            public String getToolTipText(MouseEvent e) {
+                int index = locationToIndex(e.getPoint());
+                if (-1 < index) {
+                    String item =
+                            "<html>Account Type: "
+                                    + profile.getAccountData().get(index)
+                                            .getServer().toString()
+                                    + "<br>UserID: "
+                                    + profile.getAccountData().get(index)
+                                            .getUserID();
+                    return item;
+                } else {
+                    return null;
+                }
+            }
         };
         accList.addListSelectionListener(new accListSelectionListener());
         accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -116,21 +121,22 @@ public class ManageAccount extends JPanel implements Observer {
         });
 
         JScrollPane listScroller = new JScrollPane(accList);
-        
-        
+
         listScroller.setPreferredSize(new Dimension(180, 185));
         listScroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         // add button
-        addButton = new JButton("Add", new ImageIcon(this.getClass().getResource(
-        "/images/mainwindow/add.png")));
+        addButton =
+                new JButton("Add", new ImageIcon(this.getClass().getResource(
+                        "/images/mainwindow/add.png")));
         addButton.setEnabled(false);
         addButton.addActionListener(new addActionListener());
 
         // remove button
-        removeButton = new JButton("Remove",  new ImageIcon(this.getClass().getResource(
-        "/images/mainwindow/remove.png")));
+        removeButton =
+                new JButton("Remove", new ImageIcon(this.getClass()
+                        .getResource("/images/mainwindow/remove.png")));
         removeButton.setEnabled(false);
         removeButton.addActionListener(new removeActionListener());
 
@@ -172,8 +178,7 @@ public class ManageAccount extends JPanel implements Observer {
         jabberServerLabel.setForeground(Color.red.darker());
         JPanel jabberServerLabelPanel = new JPanel();
         jabberServerLabelPanel.setLayout(new BorderLayout());
-        jabberServerLabelPanel.add(jabberServerLabel,
-                BorderLayout.NORTH);
+        jabberServerLabelPanel.add(jabberServerLabel, BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
@@ -217,8 +222,6 @@ public class ManageAccount extends JPanel implements Observer {
         add(rightPanel, BorderLayout.EAST);
     }
 
-    
-
     public void update(Observable arg0, Object o) {
         accList.setListData(new Vector<AccountData>(profile.getAccountData()));
         accList.updateUI();
@@ -239,46 +242,61 @@ public class ManageAccount extends JPanel implements Observer {
         }
     }
 
-    private class addActionListener implements ActionListener{
+    private class addActionListener implements ActionListener {
 
-		public void actionPerformed(ActionEvent arg0) {
-			if ((ServerType) server.getSelectedItem() == ServerType.GOOGLE_TALK ||
-	    			(ServerType) server.getSelectedItem() == ServerType.TWITTER) {
-	    		
-	    		 if (UNField.getText().length() != 0
-	    	                && pwdField.getPassword().length != 0) {
-	    	            // search if it exists or not
-	    	            // TODO: newACC is supposed to be an Object that includes server,
-	    	            // username, password
-	    			 
-	    			 
-	    			 //FOR BETA: we only support one account per server
-	    			 if (profile.getAccountFromServer((ServerType)server.getSelectedItem()) != null){
-	    				//AccountData is not null: account of the selected serverType is stored
-	    				 String resultMessage =
-	    		                "We are only supporting one account per server for the beta version. \n" +
-	    		                "Sorry for the inconvenience.";
-	    		        JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
-	    			 } else {
-	    				//AccountData is null: account of the selected serverType is not yet stored
-		    	         profile.addAccount(Model.createAccount(UNField.getText(),
-		    	                        String.copyValueOf(pwdField.getPassword()),
-		    	                        (ServerType) server.getSelectedItem()));
-	    			 }
-	    	         UNField.setText("");
-	    	         pwdField.setText("");
-	    	         addButton.setEnabled(false);
-	    		 }		
-	    	
-			}else {
-	    		String resultMessage =
-	                "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
-	        JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
-	    	}
-		}
-    	
+        public void actionPerformed(ActionEvent arg0) {
+            // if ((ServerType) server.getSelectedItem() ==
+            // ServerType.GOOGLE_TALK
+            // || (ServerType) server.getSelectedItem() == ServerType.TWITTER) {
+
+            if (UNField.getText().length() != 0
+                    && pwdField.getPassword().length != 0) {
+                // search if it exists or not
+                // TODO: newACC is supposed to be an Object that includes
+                // server,
+                // username, password
+
+                // FOR BETA: we only support one account per server
+                if (profile.getAccountFromServer((ServerType) server
+                        .getSelectedItem()) != null) {
+                    // AccountData is not null: account of the selected
+                    // serverType is stored
+                    String resultMessage =
+                            "We are only supporting one account per server for the beta version. \n"
+                                    + "Sorry for the inconvenience.";
+                    JOptionPane.showMessageDialog(null, resultMessage,
+                            "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    // AccountData is null: account of the selected
+                    // serverType is not yet stored
+                    if ((ServerType) server.getSelectedItem() == ServerType.JABBER) {
+                        profile.addAccount(Model.createAccount(UNField
+                                .getText(), String.copyValueOf(pwdField
+                                .getPassword()), (ServerType) server
+                                .getSelectedItem(), jabberServer.getText()));
+                        
+                    } else {
+                        profile.addAccount(Model.createAccount(UNField
+                                .getText(), String.copyValueOf(pwdField
+                                .getPassword()), (ServerType) server
+                                .getSelectedItem()));
+                    }
+                }
+                UNField.setText("");
+                pwdField.setText("");
+                addButton.setEnabled(false);
+            }
+
+            // } else {
+            // String resultMessage =
+            // "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
+            // JOptionPane.showMessageDialog(null, resultMessage,
+            // "Information", JOptionPane.INFORMATION_MESSAGE);
+            // }
+        }
+
     }
-    
+
     private class removeActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             int selected = accList.getSelectedIndex();
