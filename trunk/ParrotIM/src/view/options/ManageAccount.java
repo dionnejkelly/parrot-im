@@ -232,7 +232,7 @@ public class ManageAccount extends GPanel implements Observer {
         setupPanel.add(passwordPanel);
 
         // adding to rightPanel
-        rightPanel.setPreferredSize(new Dimension(260, 400));
+        rightPanel.setPreferredSize(new Dimension(270, 400));
         rightPanel.add(setupPanel, BorderLayout.NORTH);
 
         // add to account manager pop up main panel
