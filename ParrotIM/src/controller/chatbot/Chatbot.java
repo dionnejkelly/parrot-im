@@ -20,7 +20,6 @@ import java.util.*;
 
 
 import model.Model;
-import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
 
 
