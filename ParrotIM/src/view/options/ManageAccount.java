@@ -56,6 +56,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import view.styles.GPanel;
+
 import controller.MainController;
 
 import model.Model;
@@ -64,7 +66,7 @@ import model.dataType.ProfileData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 
-public class ManageAccount extends JPanel implements Observer {
+public class ManageAccount extends GPanel implements Observer {
     private ProfileData profile;
     private JList accList;
     private JTextField UNField;
@@ -80,7 +82,7 @@ public class ManageAccount extends JPanel implements Observer {
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.profile = profile;
         this.profile.addObserver(this);
-        this.setBackground(new Color(12, 69, 91));
+        this.setGradientColors(new Color(12, 69, 91), new Color(87, 166, 196));
 
         // set main panel
         setLayout(new BorderLayout());
@@ -163,7 +165,7 @@ public class ManageAccount extends JPanel implements Observer {
         // setting right panel
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BorderLayout());
-        rightPanel.setBackground(new Color(12, 69, 91));
+        rightPanel.setOpaque(false);
         // select server
         server = new JComboBox(ServerType.getServerList());
         server.setPreferredSize(new Dimension(180, 30));
