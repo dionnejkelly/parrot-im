@@ -557,6 +557,13 @@ public class Chatbot {
 
                 String response = "";
                 
+                //prioritize the previous one
+                response = customizedAnswer;
+                
+                if (response.length()>0)
+                	return response;
+                
+                //not found, switch of default
                 if(null_input())
                 {
                         handle_event("NULL INPUT**");
@@ -575,12 +582,12 @@ public class Chatbot {
                 }
 
 
-                if(!bot_understand())
-                {
-                        handle_event("BOT DONT UNDERSTAND**");
-                        // get it from a customized list
-                        response = customizedAnswer;
-                }
+//                if(!bot_understand())
+//                {
+//                        handle_event("BOT DONT UNDERSTAND**");
+//                        // get it from a customized list
+//                        response = customizedAnswer;
+//                }
                 
                 if(respList.size() > 0) 
                 {
@@ -1277,8 +1284,9 @@ public class Chatbot {
 	    			}
 	    		}
     		}
-    		Collections.shuffle(noMatchCase);
-			return noMatchCase.get(0);
+    		return "";
+//    		Collections.shuffle(noMatchCase);
+//			return noMatchCase.get(0);
     	}
     	
     	
