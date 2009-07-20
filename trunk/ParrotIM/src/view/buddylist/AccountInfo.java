@@ -134,7 +134,7 @@ public class AccountInfo extends GPanel
 	{
 	    this.model = model;
 	    this.chatClient = c;
-	    setGradientColors(colors.PRIMARY_COLOR_MED, colors.PRIMARY_COLOR_LT);
+	    setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
 		setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
 		setLayout(new BorderLayout());
 		

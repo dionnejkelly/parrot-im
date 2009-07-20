@@ -39,7 +39,7 @@ public class ParrotIM {
 
         if (lcOSName.startsWith("mac"))
             System.setProperty("apple.laf.useScreenMenuBar", "true");
-
+        
         // XMPPConnection.DEBUG_ENABLED = true;
 
         return;

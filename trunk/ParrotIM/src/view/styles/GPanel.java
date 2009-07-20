@@ -27,30 +27,27 @@ public class GPanel extends JPanel{
 	
 	protected void paintComponent( Graphics g ) 
 	{
-		//calls to the supre class
-	    if ( !isOpaque( ) )
+		//calls to the super class
+	    if (!isOpaque())
 	    {
-	        super.paintComponent( g );
+	        super.paintComponent(g);
 	        return;
 	    }
 	 
 	    Graphics2D g2d = (Graphics2D)g;
 	    
-	    //paints custom background
-	    int w = getWidth( );
-	    int h = getHeight( );
+	    int h = getHeight();
 	     
 	    // Paint a gradient from top to bottom
-	    GradientPaint gp = new GradientPaint(
-	        0, 0, color1,
-	        0, h, color2 );
+	    GradientPaint gpaint = new GradientPaint(
+	        0, 0, color1, 0, h, color2);
 
-	    g2d.setPaint( gp );
-	    g2d.fillRect( 0, 0, w, h );
+	    g2d.setPaint(gpaint);
+	    g2d.fillRect(0, 0, getWidth(), h);
 	    
 	    //calls to the super class
-	    setOpaque( false );
-	    super.paintComponent( g );
-	    setOpaque( true );
+	    setOpaque(false);
+	    super.paintComponent(g);
+	    setOpaque(true);
 	}
 }
