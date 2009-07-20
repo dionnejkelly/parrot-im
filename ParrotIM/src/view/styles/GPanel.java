@@ -19,10 +19,15 @@ import javax.swing.JPanel;
 public class GPanel extends JPanel{
 	public static WindowColors colors = new WindowColors();
 	private Color color1, color2;
+	private int startPosition = 0;
 	
 	public void setGradientColors(Color color1, Color color2){
 		this.color1 = color1;
 		this.color2 = color2;
+	}
+	
+	public void setStartPosition(int start){
+		startPosition = start;
 	}
 	
 	protected void paintComponent( Graphics g ) 
@@ -43,7 +48,7 @@ public class GPanel extends JPanel{
 	        0, 0, color1, 0, h, color2);
 
 	    g2d.setPaint(gpaint);
-	    g2d.fillRect(0, 0, getWidth(), h);
+	    g2d.fillRect(0, startPosition, getWidth(), h);
 	    
 	    //calls to the super class
 	    setOpaque(false);

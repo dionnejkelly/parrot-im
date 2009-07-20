@@ -38,6 +38,7 @@ import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
 import view.options.GroupChatConfigurationFrame;
 import view.options.MusicPlayer;
+import view.styles.GPanel;
 import view.styles.GroupedListPane;
 import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
@@ -53,7 +54,7 @@ import model.enumerations.UserStateType;
 /**
  * TwitterPanel display Twitter feeds and status panels for Parrot IM users.
  */
-public class TwitterPanel extends JPanel implements Observer {
+public class TwitterPanel extends GPanel implements Observer {
     /*
      * TODO: BUDDY PANEL HAS Center: Buddy List South: Buddy Options
      */
@@ -150,7 +151,8 @@ public class TwitterPanel extends JPanel implements Observer {
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-
+        setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        
         this.chatClient = c;
         this.model = model;
         this.chat = null;
@@ -199,6 +201,7 @@ public class TwitterPanel extends JPanel implements Observer {
     	for(UserData user : model.getCurrentProfile().getAllFriends()){
     		if(user.getServer() == ServerType.TWITTER){
     			buddyListPane.addElement(0, user.getStatus(), null);
+    			buddyListPane.addElement(1, user.getNickname(), null);
     		}
     	}
     }
