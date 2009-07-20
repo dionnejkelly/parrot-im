@@ -40,6 +40,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.util.StringUtils;
 
 import model.Model;
 import model.dataType.tempData.FriendTempData;
@@ -284,13 +285,17 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 	      public void instantMessageReceived( SwitchboardSession ss,
 	          MsnFriend friend, MimeMessage mime )
 	      {
-	          System.out.println("From: " + friend.getLoginName());
-	          System.out.println("Message: " + mime.getMessage());
+	          String fromUserID = friend.getLoginName();
+	          String message = mime.getMessage();
+	          String toUserID = connection.getLoginName();
+	          
+	          System.out.println("From: " + fromUserID);
+	          System.out.println("Message: " + message);
 	          
 	          System.out.println("Session ID: " + ss.getSessionId());
-	          
-	        
-	     
+	                if (message != null) {
+	                    controller.messageReceived(fromUserID, toUserID, message);
+	                }
 	      }
 	      
 	      public void userOnline(MsnFriend friend) {
