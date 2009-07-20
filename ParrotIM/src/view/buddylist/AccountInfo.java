@@ -58,6 +58,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -146,13 +147,6 @@ public class AccountInfo extends GPanel
 			e1.printStackTrace();
 		}
 		
-		//name, status message (personal message) and status
-		JPanel textInfo = new JPanel();
-		//GridLayout infoLayout = new GridLayout (2,1);
-		//infoLayout.setVgap(2);
-		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
-		textInfo.setLayout(new BorderLayout());
-		textInfo.setBackground(colors.PRIMARY_COLOR_MED);
 		
 		JLabel name = new JLabel(model.getCurrentProfile().getName());
 		name.setFont(new Font("Arial", Font.BOLD, 17));
@@ -173,25 +167,29 @@ public class AccountInfo extends GPanel
 			statusMessage.setText(twitterMan.getMyRecentStatus());
 		}
 		statusMessage.changePM(false, false);
+		presence = new StatusCombo(chatClient);
+		presence.setForeground(new Color(38, 112, 140));
+		//presence.setBackground(new Color(224, 224, 224));
+		if (!model.getCurrentProfile().getName().equals("Guest")){
+			presence.setSelectedIndex(model.getStatus(model.getCurrentProfile().getName()));
+		}
 		
-		
-		textInfo.add(name,BorderLayout.NORTH);
-		textInfo.add(statusMessage,BorderLayout.CENTER);
-		// new Listener
+		//name, status message (personal message) and status
+		JPanel textInfo = new JPanel();
+		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
+		textInfo.setLayout(new BoxLayout(textInfo, BoxLayout.Y_AXIS));
+		textInfo.setBackground(colors.PRIMARY_COLOR_MED);
+		textInfo.add(name);
+		textInfo.add(statusMessage);
 		
 		//combobox to change presence
 		JPanel info = new JPanel ();
 		info.setBackground(colors.PRIMARY_COLOR_MED);
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
-		presence = new StatusCombo(chatClient);
-		presence.setForeground(new Color(38, 112, 140));
-		//presence.setBackground(new Color(224, 224, 224));
-//		System.out.println(model.getCurrentProfile().getName());
-		if (!model.getCurrentProfile().getName().equals("Guest")){
-			presence.setSelectedIndex(model.getStatus(model.getCurrentProfile().getName()));
-		}
+
 		presencePanel = new JPanel();
+		presencePanel.setOpaque(true);
 		presencePanel.setBackground(colors.PRIMARY_COLOR_MED);
 		presencePanel.add(presence);
 		
@@ -200,7 +198,6 @@ public class AccountInfo extends GPanel
 		
 		add(avatarDisplay, BorderLayout.WEST);
 		add(info, BorderLayout.CENTER);
-		
 		this.addMouseListener(new statusMouseListener());
 	}
    
