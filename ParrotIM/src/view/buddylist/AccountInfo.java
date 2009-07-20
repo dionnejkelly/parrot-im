@@ -52,6 +52,7 @@ package view.buddylist;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -150,11 +151,11 @@ public class AccountInfo extends JPanel
 		//infoLayout.setVgap(2);
 		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
 		textInfo.setLayout(new BorderLayout());
-		textInfo.setBackground(Color.DARK_GRAY);
-			
+		textInfo.setBackground(new Color(4, 46, 80));
 		
 		JLabel name = new JLabel(model.getCurrentProfile().getName());
-		name.setForeground(Color.WHITE);
+		name.setFont(new Font("Arial", Font.BOLD, 17));
+		name.setForeground(new Color(144, 185, 219).brighter().brighter());
 		//name.setSize(50, 10);
 		
 		// Allowing users to change their status.
@@ -180,7 +181,7 @@ public class AccountInfo extends JPanel
 		
 		//combobox to change presence
 		JPanel info = new JPanel ();
-		info.setBackground(Color.DARK_GRAY);
+		info.setBackground(new Color(4, 46, 80));
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		presence = new StatusCombo(chatClient);
@@ -189,7 +190,7 @@ public class AccountInfo extends JPanel
 			presence.setSelectedIndex(model.getStatus(model.getCurrentProfile().getName()));
 		}
 		presencePanel = new JPanel();
-		presencePanel.setBackground(Color.DARK_GRAY);
+		presencePanel.setBackground(new Color(4, 46, 80));
 		presencePanel.add(presence);
 		
 		info.add(textInfo, BorderLayout.NORTH);
