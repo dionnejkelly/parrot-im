@@ -39,11 +39,18 @@ public class GroupedListPane extends JPanel {
     }
 
     public void addGroup(String name, ImageIcon img) {
+    	//Panel Settings
         JPanel newPanel = new JPanel();
         newPanel.setLayout(new BorderLayout());
-        newPanel.setBackground(new Color(23, 111, 149));
+        newPanel.setBackground(new Color(136, 235, 93));
+        
+        //imageLabel
         newPanel.add(new JLabel(img), BorderLayout.WEST);
-        newPanel.add(new JLabel(name), BorderLayout.CENTER);
+        
+        //textLabel
+        JLabel textLabel = new JLabel(name);
+        textLabel.setForeground(new Color(42, 124, 7));
+        newPanel.add(textLabel, BorderLayout.CENTER);
 
         arrowPanel = new JLabel(arrowIconDown);
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
