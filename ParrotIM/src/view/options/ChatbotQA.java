@@ -1,6 +1,7 @@
 package view.options;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -26,11 +27,12 @@ import javax.swing.event.ListSelectionListener;
 
 import model.dataType.ChatbotQADataType;
 
+import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
 public class ChatbotQA extends JFrame{
 	private ChatbotQADataType QAObject;
-	private JPanel mainPanel;
+	private GPanel mainPanel;
 	private JFrame manageQAFrame;
 	
 	private JList QList;
@@ -94,6 +96,7 @@ public class ChatbotQA extends JFrame{
 		JPanel questionPanel = new JPanel();
 		questionPanel.setAlignmentX(LEFT_ALIGNMENT);
 		questionPanel.setLayout(new BorderLayout());
+		questionPanel.setOpaque(false);
 		questionPanel.add(questionLabel, BorderLayout.NORTH);
 		questionPanel.add(QListScroll, BorderLayout.CENTER);
 		questionPanel.add(QButtonsPanel, BorderLayout.SOUTH);
@@ -113,22 +116,25 @@ public class ChatbotQA extends JFrame{
 		JPanel AButtonsPanel = new JPanel();
 		AButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
 		AButtonsPanel.setLayout(new BoxLayout(AButtonsPanel, BoxLayout.X_AXIS));
+		AButtonsPanel.setOpaque(false);
 		AButtonsPanel.add(addA);
 		AButtonsPanel.add(removeA);
 		
 		JPanel answerPanel = new JPanel();
 		answerPanel.setAlignmentX(LEFT_ALIGNMENT);
 		answerPanel.setLayout(new BorderLayout());
+		answerPanel.setOpaque(false);
 		answerPanel.add(answerLabel, BorderLayout.NORTH);
 		answerPanel.add(AListScroll, BorderLayout.CENTER);
 		answerPanel.add(AButtonsPanel, BorderLayout.SOUTH);
 		
 		/*WRAP UP*/
-		mainPanel = new JPanel();
+		mainPanel = new GPanel();
 		GridLayout mainLayout = new GridLayout(2,1);
 		mainLayout.setVgap(10);
 		mainPanel.setLayout(mainLayout);
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+		mainPanel.setGradientColors(mainPanel.colors.SECONDARY_COLOR_LT, Color.WHITE);
 		mainPanel.setAlignmentX(LEFT_ALIGNMENT);
 		mainPanel.add(questionPanel);
 		mainPanel.add(answerPanel);
