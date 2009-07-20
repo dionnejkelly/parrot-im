@@ -71,13 +71,14 @@ import controller.MainController;
 import controller.services.TwitterManager;
 
 import view.styles.AvatarLabel;
+import view.styles.GPanel;
 import view.styles.StatusCombo;
 import view.styles.PmLabel;
 
 /**
  * accountInfo display user name, avatar picture, account information for Parrot IM users.
  */
-public class AccountInfo extends JPanel
+public class AccountInfo extends GPanel
 {
 	/* TODO AccInfo has:
 	 * WEST -- Avatar (and avatar settings)
@@ -133,7 +134,7 @@ public class AccountInfo extends JPanel
 	{
 	    this.model = model;
 	    this.chatClient = c;
-	    setBackground(new Color(155, 195, 210));
+	    setGradientColors(colors.PRIMARY_COLOR_MED, colors.PRIMARY_COLOR_LT);
 		setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
 		setLayout(new BorderLayout());
 		
@@ -151,7 +152,7 @@ public class AccountInfo extends JPanel
 		//infoLayout.setVgap(2);
 		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
 		textInfo.setLayout(new BorderLayout());
-		textInfo.setBackground(new Color(87, 166, 196));
+		textInfo.setBackground(colors.PRIMARY_COLOR_MED);
 		
 		JLabel name = new JLabel(model.getCurrentProfile().getName());
 		name.setFont(new Font("Arial", Font.BOLD, 17));
@@ -160,7 +161,7 @@ public class AccountInfo extends JPanel
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
 		statusMessage.setFont(new Font("Arial", Font.BOLD, 15));
-		statusMessage.setForeground(new Color(38, 112, 140));
+		statusMessage.setForeground(colors.PRIMARY_COLOR_DARK);
 		if (!model.getCurrentProfile().getName().equals("Guest")){
 			statusMessage.setText(model.getStatusMessage(model.getCurrentProfile().getName()));
 		}
@@ -180,7 +181,7 @@ public class AccountInfo extends JPanel
 		
 		//combobox to change presence
 		JPanel info = new JPanel ();
-		info.setBackground(new Color(87, 166, 196));
+		info.setBackground(colors.PRIMARY_COLOR_MED);
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		presence = new StatusCombo(chatClient);
@@ -191,7 +192,7 @@ public class AccountInfo extends JPanel
 			presence.setSelectedIndex(model.getStatus(model.getCurrentProfile().getName()));
 		}
 		presencePanel = new JPanel();
-		presencePanel.setBackground(new Color(87, 166, 196));
+		presencePanel.setBackground(colors.PRIMARY_COLOR_MED);
 		presencePanel.add(presence);
 		
 		info.add(textInfo, BorderLayout.NORTH);

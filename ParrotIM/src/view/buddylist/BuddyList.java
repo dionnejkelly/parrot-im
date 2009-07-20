@@ -27,6 +27,7 @@ import view.mainwindow.AboutFrame;
 import view.options.BugReportFrame;
 import view.options.MusicPlayer;
 import view.options.OptionFrame;
+import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
 import view.chatLog.ChatLogFrame;
