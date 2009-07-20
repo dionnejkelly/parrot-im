@@ -30,7 +30,7 @@ public class SlashCommand {
 			hasSetPresence = true;
 		} else if (token.compareToIgnoreCase("/busy")==0) {
 			hasSetPresence = true;
-		} else if (token.compareToIgnoreCase("/chatty")==0) {
+		} else if (token.compareToIgnoreCase("/offline")==0) {
 			hasSetPresence = true;
 		}  
 		
@@ -80,7 +80,7 @@ public class SlashCommand {
 		System.out.println();
 		System.out.println("/busy " + cmd.isSlashCommand("/busy"));
 		System.out.println();
-		System.out.println("/chatty " + cmd.isSlashCommand("/chatty"));
+		System.out.println("/chatty " + cmd.isSlashCommand("/offline"));
 		System.out.println();
 		System.out.println("/bored " + cmd.isSlashCommand("/bored"));
 		System.out.println();
