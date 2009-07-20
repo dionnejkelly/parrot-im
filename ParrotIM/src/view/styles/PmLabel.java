@@ -75,7 +75,7 @@ public class PmLabel extends JTextField {
         this.setOpaque(false);
         this.setText("(Type your status message)");
 
-        this.setForeground(Color.CYAN);
+        this.setForeground(new Color(230, 243, 255));
         this.setToolTipText("Click to edit your personal message");
         this.addMouseListener(new labelMouseListener(this));
         this.addKeyListener(new labelKeyListener(this));
@@ -97,7 +97,8 @@ public class PmLabel extends JTextField {
                 this.setText("");
             }
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            this.setBackground(Color.WHITE);
+            this.setForeground(new Color(0, 42, 77));
+            this.setBackground(new Color(230, 243, 255));
             this.setEditable(true);
             this.setOpaque(true);
 
@@ -106,8 +107,8 @@ public class PmLabel extends JTextField {
             this.setBorder(null);
             this.setText(this.getText());
             this.setOpaque(false);
-
-            this.setForeground(Color.CYAN);
+            
+            this.setForeground(new Color(230, 243, 255));
             // send status to core
 
             if (this.getText() == null || this.getText().length() == 0
@@ -139,7 +140,6 @@ public class PmLabel extends JTextField {
          */
         public labelMouseListener(PmLabel lbl) {
             label = lbl;
-            // label.setForeground(Color.BLACK);
         }
 
         /**
@@ -157,7 +157,7 @@ public class PmLabel extends JTextField {
          * takes a MouseEvent argument
          */
         public void mouseEntered(MouseEvent e) {
-            label.setForeground(Color.BLUE);
+            label.setForeground(new Color(128, 197, 255));
         }
 
         /**
@@ -166,7 +166,7 @@ public class PmLabel extends JTextField {
          */
         public void mouseExited(MouseEvent e) {
             if (!label.isEditable()) {
-                label.setForeground(Color.CYAN);
+                label.setForeground(new Color(230, 243, 255));
             }
         }
 

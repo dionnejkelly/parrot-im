@@ -133,7 +133,7 @@ public class AccountInfo extends JPanel
 	{
 	    this.model = model;
 	    this.chatClient = c;
-	    setBackground(new Color(4, 46, 80));
+	    setBackground(new Color(155, 195, 210));
 		setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
 		setLayout(new BorderLayout());
 		
@@ -151,16 +151,16 @@ public class AccountInfo extends JPanel
 		//infoLayout.setVgap(2);
 		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
 		textInfo.setLayout(new BorderLayout());
-		textInfo.setBackground(new Color(4, 46, 80));
+		textInfo.setBackground(new Color(87, 166, 196));
 		
 		JLabel name = new JLabel(model.getCurrentProfile().getName());
 		name.setFont(new Font("Arial", Font.BOLD, 17));
-		name.setForeground(new Color(144, 185, 219).brighter().brighter());
-		//name.setSize(50, 10);
+		name.setForeground(Color.white);
 		
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
-		statusMessage.setForeground(Color.CYAN);
+		statusMessage.setFont(new Font("Arial", Font.BOLD, 15));
+		statusMessage.setForeground(new Color(87, 166, 196));
 		if (!model.getCurrentProfile().getName().equals("Guest")){
 			statusMessage.setText(model.getStatusMessage(model.getCurrentProfile().getName()));
 		}
@@ -171,7 +171,6 @@ public class AccountInfo extends JPanel
 		
 			statusMessage.setText(twitterMan.getMyRecentStatus());
 		}
-
 		statusMessage.changePM(false, false);
 		
 		
@@ -181,16 +180,18 @@ public class AccountInfo extends JPanel
 		
 		//combobox to change presence
 		JPanel info = new JPanel ();
-		info.setBackground(new Color(4, 46, 80));
+		info.setBackground(new Color(87, 166, 196));
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		presence = new StatusCombo(chatClient);
+		presence.setForeground(new Color(23, 77, 0));
+		presence.setBackground(new Color(237, 255, 230));
 //		System.out.println(model.getCurrentProfile().getName());
 		if (!model.getCurrentProfile().getName().equals("Guest")){
 			presence.setSelectedIndex(model.getStatus(model.getCurrentProfile().getName()));
 		}
 		presencePanel = new JPanel();
-		presencePanel.setBackground(new Color(4, 46, 80));
+		presencePanel.setBackground(new Color(87, 166, 196));
 		presencePanel.add(presence);
 		
 		info.add(textInfo, BorderLayout.NORTH);

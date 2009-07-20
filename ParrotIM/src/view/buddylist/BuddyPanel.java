@@ -164,7 +164,8 @@ public class BuddyPanel extends JPanel implements Observer {
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-
+        setBackground(new Color(224, 224, 224));
+        
         this.chatClient = c;
         this.model = model;
         this.chat = chat;
