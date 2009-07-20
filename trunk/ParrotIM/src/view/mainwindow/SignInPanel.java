@@ -191,7 +191,7 @@ public class SignInPanel extends GPanel implements Observer {
         setLayout(new BorderLayout());
         manageAccountPanel();        
 
-        this.setGradientColors(new Color(87, 166, 196), Color.WHITE);
+        this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
         
         misc = new MiscPanel();
         misc.setOpaque(false);
