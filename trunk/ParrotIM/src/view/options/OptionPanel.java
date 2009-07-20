@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import view.buddylist.AccountInfo;
+import view.styles.GPanel;
 
 import model.Model;
 import model.dataType.ProfileData;
