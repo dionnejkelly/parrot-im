@@ -144,6 +144,7 @@ public class ManageAccount extends JPanel implements Observer {
 
         // add-remove button panel
         JPanel addremovePanel = new JPanel();
+        addremovePanel.setBackground(new Color(238, 222, 136));
         addremovePanel.add(addButton);
         addremovePanel.add(removeButton);
 
@@ -162,6 +163,7 @@ public class ManageAccount extends JPanel implements Observer {
         // setting right panel
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BorderLayout());
+        rightPanel.setBackground(new Color(12, 69, 91));
         // select server
         server = new JComboBox(ServerType.getServerList());
         server.setPreferredSize(new Dimension(180, 30));
@@ -174,42 +176,51 @@ public class ManageAccount extends JPanel implements Observer {
         jabberServer.setToolTipText("specify jabber server");
         JPanel jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
+        jabberServerPanel.setBackground(new Color(12, 69, 91));
         jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
         // label
         JLabel jabberServerLabel = new JLabel("Jabber server:  ");
-        jabberServerLabel.setForeground(Color.red.darker());
+        jabberServerLabel.setForeground(new Color(145, 124, 17).darker().darker());
         JPanel jabberServerLabelPanel = new JPanel();
         jabberServerLabelPanel.setLayout(new BorderLayout());
+        jabberServerLabelPanel.setBackground(new Color(238, 222, 136));
         jabberServerLabelPanel.add(jabberServerLabel, BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
         serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+        serverPanel.setBackground(new Color(238, 222, 136));
         serverPanel.add(jabberServerLabelPanel, BorderLayout.WEST);
         serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
 
         // set username
         JPanel usernamePanel = new JPanel();
+        usernamePanel.setBackground(new Color(238, 222, 136));
         UNField = new JTextField();
         UNField.addKeyListener(keyListener);
         UNField.setPreferredSize(new Dimension(160, 20));
         JLabel UNLabel = new JLabel("Username:     ");
-        UNLabel.setForeground(Color.red.darker());
+        UNLabel.setBackground(new Color(238, 222, 136));
+        UNLabel.setForeground(new Color(145, 124, 17).darker().darker());
         usernamePanel.add(UNLabel);
         usernamePanel.add(UNField);
         usernamePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         // set password
         JPanel passwordPanel = new JPanel();
+        passwordPanel.setBackground(new Color(238, 222, 136));
         pwdField = new JPasswordField();
         pwdField.addKeyListener(keyListener);
         pwdField.setPreferredSize(new Dimension(160, 20));
         JLabel pwdLabel = new JLabel("Password:      ");
-        pwdLabel.setForeground(Color.red.darker());
+        pwdLabel.setBackground(new Color(238, 222, 136));
+        pwdLabel.setForeground(new Color(145, 124, 17).darker().darker());
         passwordPanel.add(pwdLabel);
         passwordPanel.add(pwdField);
 
         // account setup Panel
         JPanel setupPanel = new JPanel();
+        setupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        setupPanel.setBackground(new Color(238, 222, 136));
         setupPanel.setLayout(new BoxLayout(setupPanel, BoxLayout.Y_AXIS));
         setupPanel.add(server);
         setupPanel.add(serverPanel);
