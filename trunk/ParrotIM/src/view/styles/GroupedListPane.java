@@ -41,9 +41,9 @@ public class GroupedListPane extends JPanel {
 
     public void addGroup(String name, ImageIcon img) {
     	//Panel Settings
-        JPanel newPanel = new JPanel();
+        GPanel newPanel = new GPanel();
+        newPanel.setGradientColors(newPanel.colors.TERTIARY_COLOR_MED, newPanel.colors.TERTIARY_COLOR_LT);
         newPanel.setLayout(new BorderLayout());
-        newPanel.setBackground(colors.TERTIARY_COLOR_MED);
         
         //imageLabel
         newPanel.add(new JLabel(img), BorderLayout.WEST);

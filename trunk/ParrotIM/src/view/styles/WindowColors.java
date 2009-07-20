@@ -23,6 +23,6 @@ public class WindowColors {
 	public Color SECONDARY_COLOR_DARK = new Color(145, 124, 17).darker().darker();
 	
 	public Color TERTIARY_COLOR_MED = new Color(136, 235, 93);
-	public Color TERTIARY_COLOR_LT = new Color(136, 235, 93);
+	public Color TERTIARY_COLOR_LT = new Color(136, 235, 93).brighter();
 	public Color TERTIARY_COLOR_DARK = new Color(42, 124, 7);
 }
