@@ -80,6 +80,7 @@ public class ManageAccount extends JPanel implements Observer {
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.profile = profile;
         this.profile.addObserver(this);
+        this.setBackground(new Color(12, 69, 91));
 
         // set main panel
         setLayout(new BorderLayout());
@@ -92,7 +93,8 @@ public class ManageAccount extends JPanel implements Observer {
     private void leftPanelMAN() {
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout());
-
+        leftPanel.setBackground(new Color(12, 69, 91));
+        
         // saved account list
         accList = new JList(new Vector<AccountData>(profile.getAccountData())) {
             public String getToolTipText(MouseEvent e) {
