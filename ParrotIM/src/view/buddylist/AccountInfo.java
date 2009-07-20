@@ -132,7 +132,7 @@ public class AccountInfo extends JPanel
 	{
 	    this.model = model;
 	    this.chatClient = c;
-	    setBackground(Color.DARK_GRAY);
+	    setBackground(new Color(4, 46, 80));
 		setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
 		setLayout(new BorderLayout());
 		
