@@ -1,5 +1,6 @@
 package controller.slashCommand;
 
+import java.sql.SQLException;
 import java.util.StringTokenizer;
 
 import controller.MainController;
@@ -21,20 +22,32 @@ public class SlashCommand {
 		if (tokenizer.countTokens()<=0) return false;
 		
 		String token = tokenizer.nextToken();
-		
+		boolean isCommand = false;
 		if (token.charAt(0) == '/'){
 			if (token.compareToIgnoreCase("/online")==0) {
-				return true;
+				isCommand = true;
 			} else if (token.compareToIgnoreCase("/away")==0) {
-				return true;
+				isCommand = true;
 			} else if (token.compareToIgnoreCase("/busy")==0) {
-				return true;
+				isCommand = true;
 			} else if (token.compareToIgnoreCase("/chatty")==0) {
-				return true;
+				isCommand = true;
 			} 
 		} 
 		
-		return false;
+		if (isCommand){ //set up the status
+			try {
+				controller.setPresence(token.substring(1,token.length()));
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} 
+		
+		return isCommand;
 	}
 
 	public static void main (String[] args){
