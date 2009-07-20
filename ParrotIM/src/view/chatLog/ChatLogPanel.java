@@ -182,15 +182,19 @@ public class ChatLogPanel extends GPanel {
         logPane = new JSplitPane();
         logPane.setBorder(null);
         logPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        //logPane.setGradientColors(Color.BLACK, Color.WHITE);
+        logPane.setBackground(Color.BLACK);
         logPane.setDividerLocation(140);
         logPane.setTopComponent(datesScroll);
         logPane.setBottomComponent(chatlog);
+        logPane.setDividerSize(5);
 
         JSplitPane chatlogPane = new JSplitPane();
         chatlogPane.setBorder(BorderFactory.createEmptyBorder());
         chatlogPane.setLeftComponent(buddyList);
         chatlogPane.setRightComponent(logPane);
         chatlogPane.setDividerLocation(200);
+        chatlogPane.setDividerSize(5);
 
         /*SEARCH BAR*/
         searchField = new JTextField();
