@@ -160,7 +160,7 @@ public class AccountInfo extends JPanel
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
 		statusMessage.setFont(new Font("Arial", Font.BOLD, 15));
-		statusMessage.setForeground(new Color(87, 166, 196));
+		statusMessage.setForeground(new Color(38, 112, 140));
 		if (!model.getCurrentProfile().getName().equals("Guest")){
 			statusMessage.setText(model.getStatusMessage(model.getCurrentProfile().getName()));
 		}
@@ -184,8 +184,8 @@ public class AccountInfo extends JPanel
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		presence = new StatusCombo(chatClient);
-		presence.setForeground(new Color(23, 77, 0));
-		presence.setBackground(new Color(237, 255, 230));
+		presence.setForeground(new Color(38, 112, 140));
+		//presence.setBackground(new Color(224, 224, 224));
 //		System.out.println(model.getCurrentProfile().getName());
 		if (!model.getCurrentProfile().getName().equals("Guest")){
 			presence.setSelectedIndex(model.getStatus(model.getCurrentProfile().getName()));
