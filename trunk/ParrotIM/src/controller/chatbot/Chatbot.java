@@ -90,7 +90,7 @@ public class Chatbot {
      /**
       *  Collection of respond list.
      */  
-     private Vector<String> noMatchCase = new Vector<String>();
+//     private Vector<String> noMatchCase = new Vector<String>();
      private Vector<String>  respList = new Vector<String>(userMaxResp);
         
      
@@ -1150,7 +1150,8 @@ public class Chatbot {
                 return temp.toString();
                 
             }
-            Collections.shuffle(noMatchCase);
+//            Collections.shuffle(noMatchCase);
+//            return noMatchCase.get(0);
             return "";
                 
         }
@@ -1300,13 +1301,13 @@ public class Chatbot {
     	
     	public Chatbot(Model model) {
     		this.model = model;
-    		populateNoMatchCase();
+//    		populateNoMatchCase();
     	}
     	
-    	private void populateNoMatchCase(){
-    		noMatchCase.add("I don't understand what you mean");
-    		noMatchCase.add("What are you trying to say?");
-    		noMatchCase.add("Hmmm....");
-    		noMatchCase.add("Err....");
-    	}
+//    	private void populateNoMatchCase(){
+//    		noMatchCase.add("I don't understand what you mean");
+//    		noMatchCase.add("What are you trying to say?");
+//    		noMatchCase.add("Hmmm....");
+//    		noMatchCase.add("Err....");
+//    	}
 }
