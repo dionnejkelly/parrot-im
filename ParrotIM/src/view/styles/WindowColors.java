@@ -13,15 +13,15 @@ import java.awt.Color;
  *
  */
 public class WindowColors {
-	public final Color PRIMARY_COLOR_MED = new Color(87, 166, 196);
-	public final Color PRIMARY_COLOR_LT = new Color(244, 244, 244);
-	public final Color PRIMARY_COLOR_DARK = new Color(12, 69, 91);
+	public Color PRIMARY_COLOR_MED = new Color(87, 166, 196);
+	public Color PRIMARY_COLOR_LT = new Color(244, 244, 244);
+	public Color PRIMARY_COLOR_DARK = new Color(12, 69, 91);
 	
-	public final Color SECONDARY_COLOR_MED = new Color(233, 195, 53);
-	public final Color SECONDARY_COLOR_LT = new Color(238, 222, 136);
-	public final Color SECONDARY_COLOR_DARK = new Color(145, 124, 17).darker().darker();
+	public Color SECONDARY_COLOR_MED = new Color(233, 195, 53);
+	public Color SECONDARY_COLOR_LT = new Color(238, 222, 136);
+	public Color SECONDARY_COLOR_DARK = new Color(145, 124, 17).darker().darker();
 	
-	public final Color TERTIARY_COLOR_MED = new Color(136, 235, 93);
-	public final Color TERTIARY_COLOR_LT = new Color(136, 235, 93);
-	public final Color TERTIARY_COLOR_DARK = new Color(42, 124, 7);
+	public Color TERTIARY_COLOR_MED = new Color(136, 235, 93);
+	public Color TERTIARY_COLOR_LT = new Color(136, 235, 93);
+	public Color TERTIARY_COLOR_DARK = new Color(42, 124, 7);
 }
