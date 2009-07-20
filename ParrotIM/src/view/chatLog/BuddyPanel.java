@@ -23,6 +23,7 @@
 package view.chatLog;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -32,6 +33,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+
+import view.styles.GPanel;
 
 import model.Model;
 
@@ -55,8 +58,7 @@ public class BuddyPanel extends JPanel {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public BuddyPanel(Model model, String profile) throws SQLException, ClassNotFoundException {
-
+    public BuddyPanel(Model model, String profile) throws SQLException, ClassNotFoundException {    	
         // list of buddies who has logged chat
         buddyList = new JList(model.getBuddyLogList(profile, ""));
         buddyList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

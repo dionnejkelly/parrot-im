@@ -33,6 +33,7 @@
 package view.chatLog;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -56,6 +57,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import view.styles.GPanel;
 import view.styles.TextListCellRenderer;
 
 import model.DatabaseFunctions;
@@ -67,7 +69,7 @@ import model.dataType.tempData.ChatLogMessageTempData;
  * 
  * This class inherits JSplitPane methods and variables.
  */
-public class ChatLogPanel extends JPanel {
+public class ChatLogPanel extends GPanel {
 	private String searchKey = "";
 	/** 
 	 * profile describes the name of the currently used profile. 
@@ -145,6 +147,7 @@ public class ChatLogPanel extends JPanel {
 
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
 
         /*CHATLOG SPLIT PANE*/
         
