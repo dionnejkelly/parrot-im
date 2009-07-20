@@ -19,7 +19,7 @@ import javax.swing.ScrollPaneConstants;
 
 import view.chatwindow.UserDataWrapper;
 
-public class CustomListPane extends JPanel {
+public class CustomListPane extends GPanel {
     private ArrayList<String> nicknames = new ArrayList<String>();
     private ArrayList<UserDataWrapper> userWrappers = new ArrayList<UserDataWrapper>();
     private ArrayList<JPanel> userPanels;
@@ -29,7 +29,7 @@ public class CustomListPane extends JPanel {
     private int lastSelected = 0;
 
     public CustomListPane() {
-        setBackground(Color.WHITE);
+        setGradientColors(Color.WHITE, Color.WHITE);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
 
@@ -42,8 +42,9 @@ public class CustomListPane extends JPanel {
     private JPanel friendPanel(String nickname, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
-        friendPanel.setBackground(Color.WHITE);
-
+        //friendPanel.setBackground(Color.WHITE);
+        friendPanel.setOpaque(false);
+        
         if (icon == null) {
             icon = defaultIcon;
         }
@@ -59,7 +60,8 @@ public class CustomListPane extends JPanel {
     private JPanel friendPanel(UserDataWrapper user, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
-        friendPanel.setBackground(Color.WHITE);
+        //friendPanel.setBackground(Color.WHITE);
+        friendPanel.setOpaque(false);
 
         if (icon == null) {
             icon = defaultIcon;
@@ -125,6 +127,7 @@ public class CustomListPane extends JPanel {
         nicknames.add(nickname);
         userWrappers.add(userWrapper);
         JPanel panel = friendPanel(userWrapper, img);
+        panel.setOpaque(false);
         userPanels.add(panel);
 
         boxes[0].add(panel);
@@ -156,7 +159,9 @@ public class CustomListPane extends JPanel {
 
     public void addElement(String nickname, ImageIcon img) {
         nicknames.add(nickname);
-        boxes[0].add(friendPanel(nickname, img));
+        JPanel panel = friendPanel(nickname, img);
+        panel.setOpaque(false);
+        boxes[0].add(panel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(new SelectListener());
         updateUI();

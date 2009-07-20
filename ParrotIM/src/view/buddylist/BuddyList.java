@@ -104,6 +104,7 @@ public class BuddyList extends JFrame {
         JPanel buddylistPanel = new JPanel();
         buddylistPanel.setLayout(new BorderLayout());
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
+        buddylistPanel.setBackground(Color.WHITE);
 
         // INSIDE PANEL
         try {

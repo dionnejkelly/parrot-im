@@ -103,7 +103,7 @@ public class AboutFrame extends JFrame {
         infoLabelAll.add(informations, BorderLayout.NORTH);
 
         // setting aboutPanel
-        GPanel aboutPanel = new GPanel();
+        final GPanel aboutPanel = new GPanel();
         aboutPanel.setLayout(new BorderLayout());
         aboutPanel.setGradientColors(aboutPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
         aboutPanel.setBorder(BorderFactory
