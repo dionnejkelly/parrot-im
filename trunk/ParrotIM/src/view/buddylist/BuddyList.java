@@ -140,6 +140,7 @@ public class BuddyList extends JFrame {
         	buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
         }
 
+        buddylistPanel.setStartPosition(92);
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);
         

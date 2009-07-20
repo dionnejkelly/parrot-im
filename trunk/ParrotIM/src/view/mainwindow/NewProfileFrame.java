@@ -80,7 +80,6 @@ public class NewProfileFrame extends JFrame {
         profileName.setPreferredSize(new Dimension(280, 20));
         profileName.addKeyListener(new profileNameKeyListener());
         JLabel profileLabel = new JLabel("Profile Name: ");
-        profileLabel.setForeground(Color.red.darker());
         JPanel profilePanel = new JPanel();
         profilePanel.setOpaque(false);
         profilePanel.add(profileLabel);
@@ -96,6 +95,7 @@ public class NewProfileFrame extends JFrame {
 
         autoSigninCheck = new JCheckBox("Auto Signin");
         autoSigninCheck.setPreferredSize(new Dimension(330, 20));
+        autoSigninCheck.setOpaque(false);
         JPanel autoSigninPanel = new JPanel();
         autoSigninPanel.setAlignmentX(LEFT_ALIGNMENT);
         autoSigninPanel.add(autoSigninCheck);
