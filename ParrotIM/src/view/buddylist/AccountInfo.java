@@ -155,7 +155,7 @@ public class AccountInfo extends GPanel
 		// Allowing users to change their status.
 		statusMessage = new PmLabel(c);
 		statusMessage.setFont(new Font("Arial", Font.BOLD, 15));
-		statusMessage.setForeground(colors.PRIMARY_COLOR_DARK);
+		statusMessage.setOpaque(false);
 		if (!model.getCurrentProfile().getName().equals("Guest")){
 			statusMessage.setText(model.getStatusMessage(model.getCurrentProfile().getName()));
 		}
@@ -178,19 +178,18 @@ public class AccountInfo extends GPanel
 		JPanel textInfo = new JPanel();
 		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
 		textInfo.setLayout(new BoxLayout(textInfo, BoxLayout.Y_AXIS));
-		textInfo.setBackground(colors.PRIMARY_COLOR_MED);
+		textInfo.setOpaque(false);
 		textInfo.add(name);
 		textInfo.add(statusMessage);
 		
 		//combobox to change presence
 		JPanel info = new JPanel ();
-		info.setBackground(colors.PRIMARY_COLOR_MED);
+		info.setOpaque(false);
 		info.setLayout(new BorderLayout ());
 		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 
 		presencePanel = new JPanel();
-		presencePanel.setOpaque(true);
-		presencePanel.setBackground(colors.PRIMARY_COLOR_MED);
+		presencePanel.setOpaque(false);
 		presencePanel.add(presence);
 		
 		info.add(textInfo, BorderLayout.NORTH);
