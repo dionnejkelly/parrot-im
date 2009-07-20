@@ -40,7 +40,7 @@ import controller.MainController;
 public class OptionPanel extends JPanel{
 	
 	public OptionPanel
-		(MainController c, Model model, JFrame mainframe, ProfileData profile, AccountInfo accInfo) 
+		(MainController c, Model model, JFrame optionframe, ProfileData profile, AccountInfo accInfo) 
 									throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
@@ -54,8 +54,8 @@ public class OptionPanel extends JPanel{
 		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
 		tabbedOptions.addTab("Personal Profile", personalProfile);
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(profile));
-		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, mainframe, model));
-		tabbedOptions.addTab("Preference", new PreferencePanel(c, mainframe, model));
+		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, optionframe, model));
+		tabbedOptions.addTab("Preference", new PreferencePanel(c, optionframe, model));
 		//setting layout
 		this.add(tabbedOptions);
 	}

@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
@@ -29,7 +31,7 @@ import view.styles.PopupWindowListener;
 public class ChatbotQA extends JFrame{
 	private ChatbotQADataType QAObject;
 	private JPanel mainPanel;
-	private JFrame mainFrame;
+	private JFrame manageQAFrame;
 	
 	private JList QList;
 	private JButton addQ;
@@ -45,7 +47,7 @@ public class ChatbotQA extends JFrame{
 	 * @param edit
 	 * */
 	public ChatbotQA(ChatbotQADataType QAObject, boolean add){
-		mainFrame = this;
+		manageQAFrame = this;
 		this.QAObject = QAObject;
 		
 		if(add){ //QAObject is empty
@@ -163,7 +165,7 @@ public class ChatbotQA extends JFrame{
 			// TODO Auto-generated method stub
 			//execute JDialog
 			JFrame popupOption = new addNewQAFrame(mode);
-			popupOption.addWindowListener(new PopupWindowListener(mainFrame, popupOption));
+			popupOption.addWindowListener(new PopupWindowListener(manageQAFrame, popupOption));
 		}
 	}
 	
@@ -236,14 +238,27 @@ public class ChatbotQA extends JFrame{
 			addNewQAPanel.add(field);
 			addNewQAPanel.add(buttonPanel);
 
+//			this.addWindowListener(new newQAWindowListener());
 			this.getContentPane().add(addNewQAPanel);
-			this.setLocationRelativeTo(mainFrame);
+			this.setLocationRelativeTo(manageQAFrame);
 			this.setResizable(false);
 			this.setPreferredSize(new Dimension (300,150));
 			this.pack();
 			this.setVisible(true);
 			this.setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 		}
+//		private class newQAWindowListener implements WindowListener {
+//
+//			public void windowActivated(WindowEvent e) {}
+//			public void windowClosed(WindowEvent e) {
+//			}
+//			public void windowClosing(WindowEvent e) {}
+//			public void windowDeactivated(WindowEvent e) {}
+//			public void windowDeiconified(WindowEvent e) {}
+//			public void windowIconified(WindowEvent e) {}
+//			public void windowOpened(WindowEvent e) {}
+			
+//		}
 		private class cancelActionListener implements ActionListener{
 			
 			public void actionPerformed(ActionEvent e) {
