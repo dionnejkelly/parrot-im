@@ -37,16 +37,18 @@ import javax.swing.JPanel;
 import model.Model;
 
 import view.chatwindow.ThemeOptionsComboBox;
+import view.styles.GPanel;
+import view.styles.WindowColors;
 import view.theme.LookAndFeelManager;
 
 import controller.MainController;
 
-public class PreferencePanel extends JPanel {
+public class PreferencePanel extends GPanel {
     private ThemeOptionsComboBox themeMenu;
 
     public PreferencePanel(MainController c, JFrame mainframe, Model model)
             throws ClassNotFoundException, SQLException {
-    	this.setBackground(new Color(12, 69, 91));
+    	this.setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
     	
         /* THEME SELECTOR */
         themeMenu = new ThemeOptionsComboBox();
@@ -56,12 +58,12 @@ public class PreferencePanel extends JPanel {
         themeMenu.setAutoscrolls(true);
         themeMenu.addActionListener(new ThemeMenuListener());
         JLabel themeLabel = new JLabel("Status: ");
-        themeLabel.setForeground(new Color(145, 124, 17).darker().darker());
+        themeLabel.setForeground(colors.SECONDARY_COLOR_DARK);
         JPanel themePanel = new JPanel();
         themePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         themePanel.setAlignmentX(LEFT_ALIGNMENT);
         themePanel.setLayout(new BoxLayout(themePanel, BoxLayout.X_AXIS));
-        themePanel.setBackground(new Color(238, 222, 136));
+        themePanel.setBackground(colors.SECONDARY_COLOR_LT);
         themePanel.add(themeLabel);
         themePanel.add(themeMenu);
         

@@ -47,10 +47,11 @@ import controller.MainController;
 
 import view.buddylist.AccountInfo;
 import view.styles.AvatarLabel;
+import view.styles.GPanel;
 import view.styles.PmLabel;
 import view.styles.StatusCombo;
 
-public class PersonalProfileTab extends JPanel {
+public class PersonalProfileTab extends GPanel {
 	//left components
 	private AvatarLabel avatar;
 	
@@ -64,11 +65,10 @@ public class PersonalProfileTab extends JPanel {
 	public static boolean isPersonalTabOpened = false;
 	
 	public PersonalProfileTab(MainController core, AccountInfo accInfo){
-		super(false);
+		//super(false);
 		this.BuddyListStatus = accInfo.presence;
         this.BuddyListPM = accInfo.statusMessage;
-        
-        this.setBackground(new Color(12, 69, 91));
+        this.setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
         
 		/*LEFT COMPONENTS*/
 		//avatar
@@ -77,13 +77,13 @@ public class PersonalProfileTab extends JPanel {
 		JButton browseButton = new JButton("Browse");
 		browseButton.addActionListener(new BrowseActionListener());
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(new Color(12, 69, 91));
+		buttonPanel.setOpaque(false);
 		buttonPanel.add(browseButton);
 		
 		JPanel avatarPanel = new JPanel();
 		avatarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 		avatarPanel.setLayout(new BorderLayout());
-		avatarPanel.setBackground(new Color(12, 69, 91));
+		avatarPanel.setOpaque(false);
 		avatarPanel.add(avatar, BorderLayout.NORTH);
 		avatarPanel.add(buttonPanel, BorderLayout.CENTER);
 		
@@ -91,7 +91,7 @@ public class PersonalProfileTab extends JPanel {
 		JPanel leftLayout = new JPanel();
 		leftLayout.setLayout(new BorderLayout());
 		leftLayout.add(avatarPanel, BorderLayout.WEST);
-		leftLayout.setBackground(new Color(12, 69, 91));
+		leftLayout.setOpaque(false);
 		leftLayout.add(new JSeparator(SwingConstants.VERTICAL), BorderLayout.CENTER);
 		
 		/*RIGHT COMPONENTS*/
@@ -106,10 +106,10 @@ public class PersonalProfileTab extends JPanel {
         
 		JPanel pmPanel = new JPanel();
 		pmPanel.setLayout(new BorderLayout());
-		pmPanel.setBackground(new Color(238, 222, 136));
+		pmPanel.setOpaque(false);
 		pmPanel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 		JLabel personalMessage = new JLabel("Personal Message:");
-		personalMessage.setForeground(new Color(145, 124, 17).darker().darker());
+		personalMessage.setForeground(colors.SECONDARY_COLOR_DARK);
 		pmPanel.add (personalMessage, BorderLayout.NORTH);
 		pmPanel.add (pmScroll, BorderLayout.CENTER);
         
@@ -122,9 +122,9 @@ public class PersonalProfileTab extends JPanel {
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
-        statusPanel.setBackground(new Color(238, 222, 136));
+        statusPanel.setOpaque(false);
         JLabel personalStatus = new JLabel("Status: ");
-        personalStatus.setForeground(new Color(145, 124, 17).darker().darker());
+        personalStatus.setForeground(colors.SECONDARY_COLOR_DARK);
         statusPanel.add(personalStatus);
         statusPanel.add(status);
         
@@ -132,14 +132,14 @@ public class PersonalProfileTab extends JPanel {
         JPanel topRightLayout = new JPanel();
         topRightLayout.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         topRightLayout.setLayout(new BorderLayout());
-        topRightLayout.setBackground(new Color(12, 69, 91));
+        topRightLayout.setOpaque(false);
         topRightLayout.add (pmPanel, BorderLayout.NORTH);
 		topRightLayout.add (statusPanel, BorderLayout.CENTER);
 		
         //set right layout
         JPanel rightLayout = new JPanel();
         rightLayout.setLayout(new BorderLayout());
-        rightLayout.setBackground(new Color(12, 69, 91));
+        rightLayout.setBackground(colors.SECONDARY_COLOR_LT);
         rightLayout.add (topRightLayout, BorderLayout.NORTH);
 		
         /*SET LAYOUT*/
