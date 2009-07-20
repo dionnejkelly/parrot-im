@@ -101,10 +101,10 @@ public class BuddyList extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
-        JPanel buddylistPanel = new JPanel();
+        GPanel buddylistPanel = new GPanel();
         buddylistPanel.setLayout(new BorderLayout());
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
-        buddylistPanel.setBackground(Color.WHITE);
+        buddylistPanel.setGradientColors(buddylistPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
 
         // INSIDE PANEL
         try {
