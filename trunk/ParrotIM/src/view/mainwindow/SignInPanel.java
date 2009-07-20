@@ -51,6 +51,7 @@
 package view.mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -84,6 +85,7 @@ import model.dataType.ProfileData;
 import controller.MainController;
 import controller.services.BadConnectionException;
 
+import view.styles.GPanel;
 import view.styles.LinkLabel;
 import view.styles.PopupWindowListener;
 
@@ -94,7 +96,7 @@ import view.buddylist.BuddyList;
  * 
  * This class inherits JPanel methods and variables.
  */
-public class SignInPanel extends JPanel implements Observer {
+public class SignInPanel extends GPanel implements Observer {
     /**
      * core is a MainController object. It helps the user to create a new
      * profile and login using the existing account.
@@ -184,11 +186,16 @@ public class SignInPanel extends JPanel implements Observer {
         this.profiles = model.getProfileCollection();
         this.profiles.addObserver(this);
         header = new HeaderPanel();
+        header.setOpaque(false);
 
         setLayout(new BorderLayout());
         manageAccountPanel();        
 
+        this.setGradientColors(new Color(87, 166, 196), Color.WHITE);
+        
         misc = new MiscPanel();
+        misc.setOpaque(false);
+        
         add(header, BorderLayout.NORTH);
         add(misc, BorderLayout.SOUTH);
     }
@@ -203,6 +210,7 @@ public class SignInPanel extends JPanel implements Observer {
      */
     private void manageAccountPanel() {
         accPanel = new JPanel();
+        accPanel.setOpaque(false);
         FlowLayout accLayout = new FlowLayout();
         accLayout.setAlignment(FlowLayout.CENTER);
         accPanel.setLayout(accLayout);
@@ -222,6 +230,7 @@ public class SignInPanel extends JPanel implements Observer {
         
         // connect button
         JPanel connectPanel = new JPanel();
+        connectPanel.setOpaque(false);
         connectButton = new JButton("Sign In");
         connectButton.setMnemonic(KeyEvent.VK_S);
         connectButton.setEnabled(false);
@@ -231,6 +240,7 @@ public class SignInPanel extends JPanel implements Observer {
 
         // accOPTPanel (part of accPanel)
         JPanel accOptPanel = new JPanel();
+        accOptPanel.setOpaque(false);
         accOptPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
         accOptPanel.setLayout(new BoxLayout(accOptPanel, BoxLayout.Y_AXIS));
 
@@ -259,6 +269,7 @@ public class SignInPanel extends JPanel implements Observer {
         accOptPanel.add(guestAccount);
 
         JPanel panel = new JPanel();
+        panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
         panel.add(account_select, BorderLayout.NORTH);
         panel.add(accOptPanel, BorderLayout.CENTER);
