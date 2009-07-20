@@ -191,6 +191,18 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     	return userID.getFormattedFriendlyName();
     }
     
+    public void login(String userID, String password)
+        throws BadConnectionException {
+        try { 
+            this.connect(userID, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+        
+        return;
+    }
+    
     public void connect(String userID, String password) throws Exception {
         try {
             super.connect();
@@ -232,6 +244,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     	
     	ArrayList<String> buddies = new ArrayList<String>();
     	
+    	System.out.println(connection);
     	int target = connection.getBuddyGroup().getAllowList().size();
     	
    	 	int count = 0;
@@ -992,14 +1005,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 		return false;
 	}
 
-	public void login(String userID, String password)
-			throws BadConnectionException {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
-
 	public UserStateType retrieveState(String userID)
 			throws BadConnectionException {
 		// TODO Auto-generated method stub

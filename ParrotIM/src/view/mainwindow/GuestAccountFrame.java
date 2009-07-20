@@ -142,8 +142,9 @@ public class GuestAccountFrame extends JFrame {
         // select server
         GPanel GALPanel = new GPanel();
         GALPanel.setLayout(new BorderLayout());
-        GALPanel.setGradientColors(GALPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
-        
+        GALPanel.setGradientColors(GALPanel.colors.PRIMARY_COLOR_MED,
+                Color.WHITE);
+
         // select server
         server = new JComboBox(model.getServerList());
         server.setPreferredSize(new Dimension(200, 30));
@@ -226,7 +227,8 @@ public class GuestAccountFrame extends JFrame {
     /**
      * This method is called when the guest login into parrot-im. The user will
      * allow to login to Google talk account only.
-     * @throws ClassNotFoundException 
+     * 
+     * @throws ClassNotFoundException
      */
     private void signIn_ActionPerformed() throws ClassNotFoundException {
         ServerType serverType = (ServerType) server.getSelectedItem();
@@ -235,11 +237,13 @@ public class GuestAccountFrame extends JFrame {
 
         try {
             if (serverType == ServerType.GOOGLE_TALK
-                    || serverType == ServerType.TWITTER) {
-                
-            	// depends on the ICQManager implementation
-            	//  || serverType == ServerType.ICQ
-                //  || serverType == ServerType.AIM) {
+                    || serverType == ServerType.TWITTER
+                    || serverType == ServerType.MSN
+                    || serverType == ServerType.ICQ) {
+
+                // depends on the ICQManager implementation
+                // || serverType == ServerType.ICQ
+                // || serverType == ServerType.AIM) {
 
                 core.loginAsGuest(serverType, username, password);
             } else if (serverType == ServerType.JABBER) {
@@ -248,10 +252,13 @@ public class GuestAccountFrame extends JFrame {
             } else {
                 String resultMessage =
                         "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
-                JOptionPane.showMessageDialog(null, resultMessage, "Information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, resultMessage,
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
                 throw new BadConnectionException();
             }
-            new BuddyList(core, model, mainFrame.getLocation());// pops buddylist window
+            new BuddyList(core, model, mainFrame.getLocation());// pops
+                                                                // buddylist
+                                                                // window
             mainFrame.dispose(); // TODO: consider if the sign in fails
         } catch (BadConnectionException e1) {
             // e1.printStackTrace();
@@ -305,11 +312,11 @@ public class GuestAccountFrame extends JFrame {
                     && PwdFieldGuest.getPassword().length != 0) {
                 setVisible(false);
                 try {
-					signIn_ActionPerformed();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                    signIn_ActionPerformed();
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
 
             else {
