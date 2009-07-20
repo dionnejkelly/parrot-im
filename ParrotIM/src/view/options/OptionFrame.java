@@ -21,6 +21,7 @@
 
 package view.options;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
@@ -41,6 +42,7 @@ public class OptionFrame extends JFrame {
     public OptionFrame(MainController c, Model model, AccountInfo accInfo)
             throws ClassNotFoundException, SQLException {
         this.setTitle("User Preferences");
+        this.setBackground(new Color(244, 244, 244));
 
 //        this.mainFrame = buddywindow;
         

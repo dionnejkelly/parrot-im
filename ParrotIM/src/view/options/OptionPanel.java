@@ -22,6 +22,7 @@
 package view.options;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
@@ -44,6 +45,11 @@ public class OptionPanel extends JPanel{
 		
 		//tabbed options
 		JTabbedPane tabbedOptions = new JTabbedPane(JTabbedPane.TOP);
+		
+		//tab color settings
+		tabbedOptions.setForeground(Color.WHITE);
+		tabbedOptions.setBackground(new Color(87, 166, 196).darker());
+		
 		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
 		tabbedOptions.addTab("Personal Profile", personalProfile);
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(profile));

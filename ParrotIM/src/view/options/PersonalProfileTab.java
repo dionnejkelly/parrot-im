@@ -68,6 +68,8 @@ public class PersonalProfileTab extends JPanel {
 		this.BuddyListStatus = accInfo.presence;
         this.BuddyListPM = accInfo.statusMessage;
         
+        this.setBackground(new Color(12, 69, 91));
+        
 		/*LEFT COMPONENTS*/
 		//avatar
 		avatar = new AvatarLabel(core, accInfo.avatarDisplay, 100);
@@ -75,11 +77,13 @@ public class PersonalProfileTab extends JPanel {
 		JButton browseButton = new JButton("Browse");
 		browseButton.addActionListener(new BrowseActionListener());
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(new Color(12, 69, 91));
 		buttonPanel.add(browseButton);
 		
 		JPanel avatarPanel = new JPanel();
 		avatarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 		avatarPanel.setLayout(new BorderLayout());
+		avatarPanel.setBackground(new Color(12, 69, 91));
 		avatarPanel.add(avatar, BorderLayout.NORTH);
 		avatarPanel.add(buttonPanel, BorderLayout.CENTER);
 		
@@ -87,6 +91,7 @@ public class PersonalProfileTab extends JPanel {
 		JPanel leftLayout = new JPanel();
 		leftLayout.setLayout(new BorderLayout());
 		leftLayout.add(avatarPanel, BorderLayout.WEST);
+		leftLayout.setBackground(new Color(12, 69, 91));
 		leftLayout.add(new JSeparator(SwingConstants.VERTICAL), BorderLayout.CENTER);
 		
 		/*RIGHT COMPONENTS*/
@@ -98,10 +103,13 @@ public class PersonalProfileTab extends JPanel {
         JScrollPane pmScroll = new JScrollPane(personalMessage);
         pmScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         pmScroll.setPreferredSize(new Dimension(pmScroll.getWidth(), 150));
+        
 		JPanel pmPanel = new JPanel();
 		pmPanel.setLayout(new BorderLayout());
+		pmPanel.setBackground(new Color(238, 222, 136));
+		pmPanel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 		JLabel personalMessage = new JLabel("Personal Message:");
-		personalMessage.setForeground(Color.red.darker());
+		personalMessage.setForeground(new Color(145, 124, 17).darker().darker());
 		pmPanel.add (personalMessage, BorderLayout.NORTH);
 		pmPanel.add (pmScroll, BorderLayout.CENTER);
         
@@ -110,11 +118,13 @@ public class PersonalProfileTab extends JPanel {
         status.setMaximumSize(new Dimension(200, 30));
         status.setSelectedIndex(BuddyListStatus.getSelectedIndex());
         status.addItemListener(new statusItemListener());
+        
         JPanel statusPanel = new JPanel();
-        statusPanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
+        statusPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+        statusPanel.setBackground(new Color(238, 222, 136));
         JLabel personalStatus = new JLabel("Status: ");
-        personalStatus.setForeground(Color.red.darker());
+        personalStatus.setForeground(new Color(145, 124, 17).darker().darker());
         statusPanel.add(personalStatus);
         statusPanel.add(status);
         
@@ -122,12 +132,14 @@ public class PersonalProfileTab extends JPanel {
         JPanel topRightLayout = new JPanel();
         topRightLayout.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         topRightLayout.setLayout(new BorderLayout());
+        topRightLayout.setBackground(new Color(12, 69, 91));
         topRightLayout.add (pmPanel, BorderLayout.NORTH);
 		topRightLayout.add (statusPanel, BorderLayout.CENTER);
 		
         //set right layout
         JPanel rightLayout = new JPanel();
         rightLayout.setLayout(new BorderLayout());
+        rightLayout.setBackground(new Color(12, 69, 91));
         rightLayout.add (topRightLayout, BorderLayout.NORTH);
 		
         /*SET LAYOUT*/

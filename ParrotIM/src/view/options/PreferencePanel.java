@@ -46,7 +46,8 @@ public class PreferencePanel extends JPanel {
 
     public PreferencePanel(MainController c, JFrame mainframe, Model model)
             throws ClassNotFoundException, SQLException {
-        
+    	this.setBackground(new Color(12, 69, 91));
+    	
         /* THEME SELECTOR */
         themeMenu = new ThemeOptionsComboBox();
         themeMenu.setMaximumSize(new Dimension(200, 30));
@@ -55,16 +56,17 @@ public class PreferencePanel extends JPanel {
         themeMenu.setAutoscrolls(true);
         themeMenu.addActionListener(new ThemeMenuListener());
         JLabel themeLabel = new JLabel("Status: ");
-        themeLabel.setForeground(Color.red.darker());
+        themeLabel.setForeground(new Color(145, 124, 17).darker().darker());
         JPanel themePanel = new JPanel();
-        themePanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
+        themePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         themePanel.setAlignmentX(LEFT_ALIGNMENT);
         themePanel.setLayout(new BoxLayout(themePanel, BoxLayout.X_AXIS));
+        themePanel.setBackground(new Color(238, 222, 136));
         themePanel.add(themeLabel);
         themePanel.add(themeMenu);
         
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 225));
         this.add(themePanel, BorderLayout.NORTH);
        
     }

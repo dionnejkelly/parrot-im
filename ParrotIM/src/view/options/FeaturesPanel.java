@@ -73,6 +73,7 @@ public class FeaturesPanel extends JPanel {
 
     public FeaturesPanel(MainController c, JFrame mainframe, Model model)
             throws ClassNotFoundException, SQLException {
+    	this.setBackground(new Color(12, 69, 91));
         this.model = model;
         chatBotModel = model.getCustomizedChatbotModel();
 
@@ -88,17 +89,19 @@ public class FeaturesPanel extends JPanel {
         System.out.println("=================================");
         
         if (model.getCurrentProfile().isChatbotEnabled()) {
-        	 chatbotCheck = new JCheckBox("Enable ChatBot",  new ImageIcon(this.getClass().getResource(
+        	 chatbotCheck = new JCheckBox("Toggle ChatBot",  new ImageIcon(this.getClass().getResource(
              "/images/menu/monitor_add.png")));
              
         }
         
         else {
-        	chatbotCheck = new JCheckBox("Enable ChatBot",  new ImageIcon(this.getClass().getResource(
+        	chatbotCheck = new JCheckBox("Toggle ChatBot",  new ImageIcon(this.getClass().getResource(
             "/images/menu/monitor_delete.png")));
         }
         
-        chatbotCheck.setForeground(Color.red.darker());
+        chatbotCheck.setBackground(new Color(238, 222, 136));
+        chatbotCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        chatbotCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,101));
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addItemListener(new chatbotListener());
 
@@ -122,6 +125,7 @@ public class FeaturesPanel extends JPanel {
         setEnabledChatbotButtons(false);
 
         JPanel chatbotButtonsPanel = new JPanel();
+        chatbotButtonsPanel.setBackground(new Color(238, 222, 136).brighter());
         chatbotButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatbotButtonsPanel.setLayout(new BoxLayout(chatbotButtonsPanel,
                 BoxLayout.X_AXIS));
@@ -130,6 +134,7 @@ public class FeaturesPanel extends JPanel {
         chatbotButtonsPanel.add(chatbotRemoveButton);
 
         chatbotOptions = new JPanel();
+        chatbotOptions.setBackground(new Color(238, 222, 136).brighter());
         chatbotOptions.setAlignmentX(LEFT_ALIGNMENT);
         chatbotOptions.add(chatbotListScroll);
         chatbotOptions.add(chatbotButtonsPanel);
@@ -139,6 +144,7 @@ public class FeaturesPanel extends JPanel {
         	chatbotOptions.setVisible(false);
 
         JPanel chatbotPanel = new JPanel();
+        chatbotPanel.setBackground(new Color(238, 222, 136).brighter());
         chatbotPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatbotPanel.setLayout(new BoxLayout(chatbotPanel, BoxLayout.Y_AXIS));
         chatbotPanel.add(chatbotCheck);
@@ -146,59 +152,62 @@ public class FeaturesPanel extends JPanel {
 
         /* SOUND NOTIFICATION */
         if (model.getCurrentProfile().isSoundsEnabled()) {
-        	 soundCheck = new JCheckBox("Enable Sound Notification",  new ImageIcon(this.getClass().getResource(
+        	 soundCheck = new JCheckBox("Toggle Sound Notification",  new ImageIcon(this.getClass().getResource(
              "/images/menu/sound.png")));
             
        }
        
        else {
-    	   soundCheck = new JCheckBox("Enable Sound Notification",  new ImageIcon(this.getClass().getResource(
+    	   soundCheck = new JCheckBox("Toggle Sound Notification",  new ImageIcon(this.getClass().getResource(
            "/images/menu/sound_mute.png")));
        }
         
-       
-        soundCheck.setForeground(Color.red.darker());
+        soundCheck.setBackground(new Color(238, 222, 136));
+        soundCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        soundCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,43));
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
 
         /* CHATLOG */
         if (model.getCurrentProfile().isChatLogEnabled()) {
-        	 chatLogCheck = new JCheckBox("Enable Chat Log",  new ImageIcon(this.getClass().getResource(
+        	 chatLogCheck = new JCheckBox("Toggle Chat Log",  new ImageIcon(this.getClass().getResource(
              "/images/menu/note_add.png")));
             
        }
        
        else {
-    	   chatLogCheck = new JCheckBox("Enable Chat Log",  new ImageIcon(this.getClass().getResource(
+    	   chatLogCheck = new JCheckBox("Toggle Chat Log",  new ImageIcon(this.getClass().getResource(
            "/images/menu/note_delete.png")));
        }
         
-       
-        chatLogCheck.setForeground(Color.red.darker());
+        chatLogCheck.setBackground(new Color(238, 222, 136));
+        chatLogCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        chatLogCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,96));
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
         
         /* CHAT WINDOW HISTORY */
         if (model.getCurrentProfile().isChatWindowHistoryEnabled()) {
         	chatWindowHistoryCheck =
-                new JCheckBox("Enable Chat Window History",  new ImageIcon(this.getClass().getResource(
+                new JCheckBox("Toggle Chat Window History",  new ImageIcon(this.getClass().getResource(
                 "/images/menu/application_form_add.png")));
-           
+            
         }
       
         else {
         	chatWindowHistoryCheck =
-                new JCheckBox("Enable Chat Window History",  new ImageIcon(this.getClass().getResource(
+                new JCheckBox("Toggle Chat Window History",  new ImageIcon(this.getClass().getResource(
                 "/images/menu/application_form_delete.png")));
         }
         
-        
-        chatWindowHistoryCheck.setForeground(Color.red.darker());
+        chatWindowHistoryCheck.setBackground(new Color(238, 222, 136));
+        chatWindowHistoryCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        chatWindowHistoryCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,28));
         chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
         chatWindowHistoryCheck
                 .addItemListener(new chatWindowHistoryListener());
-
+        
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.add(chatbotPanel);
