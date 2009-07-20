@@ -31,6 +31,7 @@ import javax.swing.JTabbedPane;
 
 import view.buddylist.AccountInfo;
 import view.styles.GPanel;
+import view.styles.WindowColors;
 
 import model.Model;
 import model.dataType.ProfileData;
@@ -38,6 +39,7 @@ import model.dataType.ProfileData;
 import controller.MainController;
 
 public class OptionPanel extends JPanel{
+	public WindowColors colors = new WindowColors();
 	
 	public OptionPanel
 		(MainController c, Model model, JFrame optionframe, ProfileData profile, AccountInfo accInfo) 
@@ -49,7 +51,7 @@ public class OptionPanel extends JPanel{
 		
 		//tab color settings
 		tabbedOptions.setForeground(Color.WHITE);
-		tabbedOptions.setBackground(new Color(87, 166, 196).darker());
+		tabbedOptions.setBackground(colors.PRIMARY_COLOR_DARK);
 		
 		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
 		tabbedOptions.addTab("Personal Profile", personalProfile);
