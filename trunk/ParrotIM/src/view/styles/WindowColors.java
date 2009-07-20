@@ -5,7 +5,7 @@ import java.awt.Color;
 /**
  * 
  * This window colours class sets the standard colours to be
- * user throughout the program as global variables. This
+ * used throughout the program as global variables. This
  * will allow simple adjustments of window colours by only
  * modifying this one class
  * 
