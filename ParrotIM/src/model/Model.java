@@ -1070,10 +1070,10 @@ public class Model extends Observable {
             ServerType server, String serverAddress) {
         AccountData account = null;
 
-        if (userID.contains("@")) {
+        if (userID.contains("@") && server == ServerType.JABBER) {
             userID = PersonData.delimitUserFront(userID, '@');
-        }
-        userID = userID + "@" + serverAddress;
+            userID = userID + "@" + serverAddress;
+        }        
 
         switch (server) {
         case GOOGLE_TALK:

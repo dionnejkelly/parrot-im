@@ -385,6 +385,8 @@ public class GoogleTalkManager implements GenericConnection {
         config = new ConnectionConfiguration(GOOGLE_SERVER, GOOGLE_PORT,
                 GOOGLE_DOMAIN);
         config.setSocketFactory(SSLSocketFactory.getDefault());
+        
+        System.out.println("userid = " + userID);
 
         connection = new XMPPConnection(config);
         try {
