@@ -68,7 +68,6 @@ import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 
 public class ManageAccount extends GPanel implements Observer {
-	private WindowColors colors = new WindowColors();
     private ProfileData profile;
     private JList accList;
     private JTextField UNField;

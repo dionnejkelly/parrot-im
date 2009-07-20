@@ -17,6 +17,7 @@ import javax.swing.JPanel;
  *
  */
 public class GPanel extends JPanel{
+	public static WindowColors colors = new WindowColors();
 	private Color color1, color2;
 	
 	public void setGradientColors(Color color1, Color color2){
