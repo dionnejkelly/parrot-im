@@ -18,6 +18,7 @@
 package view.mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -28,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import view.styles.GPanel;
 import view.styles.PopupEnableMainWindowListener;
 
 import model.Model;
@@ -61,6 +63,7 @@ public class AboutFrame extends JFrame {
         JPanel topPanel = new JPanel();
         topPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         topPanel.setLayout(new BorderLayout());
+        topPanel.setOpaque(false);
         JLabel avatarDisplay = new JLabel();
         avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
         ImageIcon avatar =
@@ -70,6 +73,7 @@ public class AboutFrame extends JFrame {
         topPanel.add(avatarDisplay, BorderLayout.NORTH);
 
         JLabel parrotLabel = new JLabel("(c) Pirate Captains 2009");
+        parrotLabel.setOpaque(false);
         parrotLabel.setHorizontalAlignment(SwingConstants.CENTER);
         topPanel.add(parrotLabel, BorderLayout.CENTER);
 
@@ -84,6 +88,7 @@ public class AboutFrame extends JFrame {
                         "Wei Zhang" };
         GridLayout infoLayout = new GridLayout(infoArray.length, 1);
         informations.setLayout(infoLayout);
+        informations.setOpaque(false);
         // infoLayout.setVgap(3);
 
         for (int pos = 0; pos < infoArray.length; pos++) {
@@ -94,11 +99,13 @@ public class AboutFrame extends JFrame {
 
         JPanel infoLabelAll = new JPanel();
         infoLabelAll.setLayout(new BorderLayout());
+        infoLabelAll.setOpaque(false);
         infoLabelAll.add(informations, BorderLayout.NORTH);
 
         // setting aboutPanel
-        JPanel aboutPanel = new JPanel();
+        GPanel aboutPanel = new GPanel();
         aboutPanel.setLayout(new BorderLayout());
+        aboutPanel.setGradientColors(aboutPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
         aboutPanel.setBorder(BorderFactory
                 .createEmptyBorder(20, 10, 20, 10));
         aboutPanel.add(topPanel, BorderLayout.NORTH);
