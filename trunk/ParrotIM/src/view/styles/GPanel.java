@@ -7,6 +7,15 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+/**
+ * 
+ * GPanel is a special type of JPanel. The only difference between
+ * a GPanel and a JPanel is that a GPanel can have a vertical
+ * gradient background.
+ * 
+ * @author Jordan Fox
+ *
+ */
 public class GPanel extends JPanel{
 	private Color color1, color2;
 	

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 public class GroupedListPane extends JPanel {
     Box boxes[] = new Box[1];
+    private WindowColors colors;
     private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
     private ImageIcon arrowIconUp =
             new ImageIcon(this.getClass().getResource(
@@ -42,14 +43,15 @@ public class GroupedListPane extends JPanel {
     	//Panel Settings
         JPanel newPanel = new JPanel();
         newPanel.setLayout(new BorderLayout());
-        newPanel.setBackground(new Color(136, 235, 93));
+        newPanel.setBackground(colors.TERTIARY_COLOR_MED);
         
         //imageLabel
         newPanel.add(new JLabel(img), BorderLayout.WEST);
         
         //textLabel
         JLabel textLabel = new JLabel(name);
-        textLabel.setForeground(new Color(42, 124, 7));
+        
+        textLabel.setForeground(colors.TERTIARY_COLOR_DARK);
         newPanel.add(textLabel, BorderLayout.CENTER);
 
         arrowPanel = new JLabel(arrowIconDown);
@@ -66,7 +68,7 @@ public class GroupedListPane extends JPanel {
     public void addGroupTop(String name) {
         JPanel newPanel = new JPanel();
         newPanel.add(new JLabel(name));
-        newPanel.setBackground(Color.green.brighter());
+        newPanel.setBackground(colors.TERTIARY_COLOR_MED);
 
         CustomListPane collapsableListPane = new CustomListPane();
         groups.add(0, collapsableListPane);
