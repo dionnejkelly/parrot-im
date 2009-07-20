@@ -48,11 +48,13 @@ import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
 
 import view.buddylist.BuddyList;
+import view.styles.GPanel;
 import view.styles.PopupWindowListener;
+import view.styles.WindowColors;
 
 import controller.MainController;
 
-public class FeaturesPanel extends JPanel {
+public class FeaturesPanel extends GPanel {
 	
     private CustomizedChatbotModel chatBotModel;
 
@@ -73,7 +75,7 @@ public class FeaturesPanel extends JPanel {
 
     public FeaturesPanel(MainController c, JFrame optionframe, Model model)
             throws ClassNotFoundException, SQLException {
-    	this.setBackground(new Color(12, 69, 91));
+    	this.setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
         this.model = model;
         chatBotModel = model.getCustomizedChatbotModel();
 
@@ -99,8 +101,8 @@ public class FeaturesPanel extends JPanel {
             "/images/menu/monitor_delete.png")));
         }
         
-        chatbotCheck.setBackground(new Color(238, 222, 136));
-        chatbotCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        chatbotCheck.setBackground(colors.SECONDARY_COLOR_LT);
+        chatbotCheck.setForeground(colors.SECONDARY_COLOR_DARK);
         chatbotCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,101));
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addItemListener(new chatbotListener());
@@ -125,7 +127,7 @@ public class FeaturesPanel extends JPanel {
         setEnabledChatbotButtons(false);
 
         JPanel chatbotButtonsPanel = new JPanel();
-        chatbotButtonsPanel.setBackground(new Color(238, 222, 136).brighter());
+        chatbotButtonsPanel.setBackground(colors.SECONDARY_COLOR_LT2);
         chatbotButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatbotButtonsPanel.setLayout(new BoxLayout(chatbotButtonsPanel,
                 BoxLayout.X_AXIS));
@@ -134,7 +136,7 @@ public class FeaturesPanel extends JPanel {
         chatbotButtonsPanel.add(chatbotRemoveButton);
 
         chatbotOptions = new JPanel();
-        chatbotOptions.setBackground(new Color(238, 222, 136).brighter());
+        chatbotOptions.setBackground(colors.SECONDARY_COLOR_LT2);
         chatbotOptions.setAlignmentX(LEFT_ALIGNMENT);
         chatbotOptions.add(chatbotListScroll);
         chatbotOptions.add(chatbotButtonsPanel);
@@ -144,7 +146,7 @@ public class FeaturesPanel extends JPanel {
         	chatbotOptions.setVisible(false);
 
         JPanel chatbotPanel = new JPanel();
-        chatbotPanel.setBackground(new Color(238, 222, 136).brighter());
+        chatbotPanel.setBackground(colors.SECONDARY_COLOR_LT2);
         chatbotPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatbotPanel.setLayout(new BoxLayout(chatbotPanel, BoxLayout.Y_AXIS));
         chatbotPanel.add(chatbotCheck);
@@ -162,8 +164,8 @@ public class FeaturesPanel extends JPanel {
            "/images/menu/sound_mute.png")));
        }
         
-        soundCheck.setBackground(new Color(238, 222, 136));
-        soundCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        soundCheck.setBackground(colors.SECONDARY_COLOR_LT);
+        soundCheck.setForeground(colors.SECONDARY_COLOR_DARK);
         soundCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,43));
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
@@ -180,8 +182,8 @@ public class FeaturesPanel extends JPanel {
            "/images/menu/note_delete.png")));
        }
         
-        chatLogCheck.setBackground(new Color(238, 222, 136));
-        chatLogCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        chatLogCheck.setBackground(colors.SECONDARY_COLOR_LT);
+        chatLogCheck.setForeground(colors.SECONDARY_COLOR_DARK);
         chatLogCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,96));
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
@@ -200,8 +202,8 @@ public class FeaturesPanel extends JPanel {
                 "/images/menu/application_form_delete.png")));
         }
         
-        chatWindowHistoryCheck.setBackground(new Color(238, 222, 136));
-        chatWindowHistoryCheck.setForeground(new Color(145, 124, 17).darker().darker());
+        chatWindowHistoryCheck.setBackground(colors.SECONDARY_COLOR_LT);
+        chatWindowHistoryCheck.setForeground(colors.SECONDARY_COLOR_DARK);
         chatWindowHistoryCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,28));
         chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
