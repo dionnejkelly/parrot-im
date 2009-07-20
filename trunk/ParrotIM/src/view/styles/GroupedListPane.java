@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 public class GroupedListPane extends JPanel {
     Box boxes[] = new Box[1];
-    private WindowColors colors;
+    private WindowColors colors = new WindowColors();
     private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
     private ImageIcon arrowIconUp =
             new ImageIcon(this.getClass().getResource(
