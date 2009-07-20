@@ -32,6 +32,7 @@
 package view.mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,6 +58,7 @@ import controller.MainController;
 import controller.services.BadConnectionException;
 
 import view.buddylist.BuddyList;
+import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
 /**
@@ -138,8 +140,10 @@ public class GuestAccountFrame extends JFrame {
                 .getImage());
 
         // select server
-        JPanel GALPanel = new JPanel();
+        GPanel GALPanel = new GPanel();
         GALPanel.setLayout(new BorderLayout());
+        GALPanel.setGradientColors(GALPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
+        
         // select server
         server = new JComboBox(model.getServerList());
         server.setPreferredSize(new Dimension(200, 30));
@@ -155,24 +159,28 @@ public class GuestAccountFrame extends JFrame {
         // label
         JPanel jabberServerLabel = new JPanel();
         jabberServerLabel.setLayout(new BorderLayout());
+        jabberServerLabel.setOpaque(false);
         jabberServerLabel.add(new JLabel("Jabber server:  "),
                 BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
         serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
+        serverPanel.setOpaque(false);
         serverPanel.add(jabberServerLabel, BorderLayout.WEST);
         serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
 
         // set username
         JPanel usernamePanel = new JPanel();
         usernamePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        usernamePanel.setOpaque(false);
         UNFieldGuest = new JTextField();
         UNFieldGuest.setPreferredSize(new Dimension(180, 20));
         usernamePanel.add(new JLabel("Username:     "));
         usernamePanel.add(UNFieldGuest);
         // set password
         JPanel passwordPanel = new JPanel();
+        passwordPanel.setOpaque(false);
         PwdFieldGuest = new JPasswordField();
         PwdFieldGuest.setPreferredSize(new Dimension(180, 20));
         passwordPanel.add(new JLabel("Password:      "));
@@ -180,6 +188,7 @@ public class GuestAccountFrame extends JFrame {
 
         // account setup Panel
         JPanel setupPanel = new JPanel();
+        setupPanel.setOpaque(false);
         setupPanel.setLayout(new BoxLayout(setupPanel, BoxLayout.Y_AXIS));
         setupPanel.add(server);
         setupPanel.add(serverPanel);
@@ -192,6 +201,7 @@ public class GuestAccountFrame extends JFrame {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setOpaque(false);
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 90, 0, 0));
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         buttonsPanel.add(okButton);
