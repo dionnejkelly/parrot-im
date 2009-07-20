@@ -48,15 +48,15 @@ import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
 
 import view.buddylist.BuddyList;
-import view.chatwindow.ThemeOptionsComboBox;
 import view.styles.PopupWindowListener;
 
 import controller.MainController;
 
 public class FeaturesPanel extends JPanel {
+	
     private CustomizedChatbotModel chatBotModel;
 
-    private JFrame mainframe;
+    private JFrame optionframe;
 
     private JCheckBox chatbotCheck;
     private JCheckBox soundCheck;
@@ -71,14 +71,14 @@ public class FeaturesPanel extends JPanel {
 
     private Model model;
 
-    public FeaturesPanel(MainController c, JFrame mainframe, Model model)
+    public FeaturesPanel(MainController c, JFrame optionframe, Model model)
             throws ClassNotFoundException, SQLException {
     	this.setBackground(new Color(12, 69, 91));
         this.model = model;
         chatBotModel = model.getCustomizedChatbotModel();
 
 //        chatBotModel = new CustomizedChatbotModel(this.model);
-        this.mainframe = mainframe;
+        this.optionframe = optionframe;
 
         /* CHATBOT */
         
@@ -285,7 +285,7 @@ public class FeaturesPanel extends JPanel {
                                 .getSelectedIndex()), false);
             }
             addChatbotOptions.addWindowListener(new PopupWindowListener(
-                    mainframe, addChatbotOptions));
+                    optionframe, addChatbotOptions));
             addChatbotOptions
                     .addWindowListener(new chatbotPopupWindowListener());
         }
@@ -303,7 +303,7 @@ public class FeaturesPanel extends JPanel {
                     ChatbotQADataType QAObject =
                             addChatbotOptions.getQAObject();
 
-                    if (!QAObject.isEmpty()) {
+//                    if (!QAObject.isEmpty()) {
                         try {
                             chatBotModel.addQA(QAObject);
                         } catch (ClassNotFoundException e1) {
@@ -313,7 +313,7 @@ public class FeaturesPanel extends JPanel {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
-                    }
+//                    }
                 }
 
                 chatbotList.setListData(chatBotModel.getQAList());

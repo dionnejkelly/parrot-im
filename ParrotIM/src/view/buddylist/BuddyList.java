@@ -27,6 +27,7 @@ import view.mainwindow.AboutFrame;
 import view.options.BugReportFrame;
 import view.options.MusicPlayer;
 import view.options.OptionFrame;
+import view.styles.PopupWindowListener;
 
 import view.chatLog.ChatLogFrame;
 import view.chatwindow.ChatWindow;
@@ -379,7 +380,8 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
         	if (options==null){
 	            try {
-	                options = new OptionFrame(controller, model, accountInfo);
+	            	options = new OptionFrame(controller, model, accountInfo);
+//	                options.addWindowListener(new PopupWindowListener(buddywindow, options));
 	                options.addWindowListener(new OptionsWindowListener());
 	            } catch (ClassNotFoundException e1) {
 	                e1.printStackTrace();

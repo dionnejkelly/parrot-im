@@ -29,7 +29,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import view.buddylist.AccountInfo;
-import view.styles.PopupWindowListener;
 
 import model.Model;
 
@@ -58,7 +57,7 @@ public class OptionFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-//        this.addWindowListener(new PopupWindowListener(this.mainFrame, this));
+
     }
 
 }
