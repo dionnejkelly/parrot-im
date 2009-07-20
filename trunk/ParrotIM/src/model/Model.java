@@ -61,6 +61,7 @@ import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.ICQAccountData;
 import model.dataType.JabberAccountData;
+import model.dataType.MSNAccountData;
 import model.dataType.PersonData;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
@@ -1086,7 +1087,7 @@ public class Model extends Observable {
             account = new JabberAccountData(userID, password);
             break;
         case MSN:
-            // account = new MSNAccountData(userID, password);
+            account = new MSNAccountData(userID, password);
             break;
         case ICQ:
             account = new ICQAccountData(userID, password);
@@ -1116,7 +1117,7 @@ public class Model extends Observable {
             account = new JabberAccountData(userID, password);
             break;
         case MSN:
-            // account = new MSNAccountData(userID, password);
+            account = new MSNAccountData(userID, password);
             break;
         case ICQ:
             account = new ICQAccountData(userID, password);

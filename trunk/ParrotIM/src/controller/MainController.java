@@ -51,6 +51,7 @@ import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
 import controller.services.ICQManager;
 import controller.services.JabberManager;
+import controller.services.MSNManager;
 import controller.services.TwitterManager;
 
 import model.Model;
@@ -64,6 +65,8 @@ import model.dataType.ICQAccountData;
 import model.dataType.ICQUserData;
 import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
+import model.dataType.MSNAccountData;
+import model.dataType.MSNUserData;
 import model.dataType.MessageData;
 import model.dataType.MultiConversationData;
 import model.dataType.PersonData;
@@ -358,6 +361,8 @@ public class MainController {
             connection = new JabberManager(controller, model);
         } else if (account instanceof TwitterAccountData) {
             connection = new TwitterManager(controller, model);
+        } else if (account instanceof MSNAccountData) {
+            connection = new MSNManager(controller, model);
         } else if (account instanceof ICQAccountData) {
             connection = new ICQManager(controller, model);
         } else {
@@ -416,7 +421,8 @@ public class MainController {
         model.getProfileCollection().addProfile(createdProfile);
         model.getProfileCollection().setActiveProfile(createdProfile);
 
-        createdAccount = Model.createAccount(userID, password, server, serverAddress);
+        createdAccount =
+                Model.createAccount(userID, password, server, serverAddress);
         createdProfile.addAccount(createdAccount);
 
         login(createdAccount);
@@ -704,6 +710,9 @@ public class MainController {
                 user.setNickname(f.getNickname());
             } else if (account.getServer() == ServerType.TWITTER) {
                 user = new TwitterUserData(userID);
+                user.setNickname(f.getNickname());
+            } else if (account.getServer() == ServerType.MSN) {
+                user = new MSNUserData(userID);
                 user.setNickname(f.getNickname());
             } else if (account.getServer() == ServerType.ICQ) {
                 user = new ICQUserData(userID);

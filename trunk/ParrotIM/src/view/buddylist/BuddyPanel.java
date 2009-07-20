@@ -314,6 +314,8 @@ public class BuddyPanel extends GPanel implements Observer {
                 group = 3;
             } else if (current.getServer() == ServerType.ICQ) {
                 group = 4;
+            } else if (current.getServer() == ServerType.MSN) {
+                group = 5;
             }
             
             for (int j = 0; j < buddyArray.size() && !found; j++) {
