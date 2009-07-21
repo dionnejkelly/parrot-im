@@ -30,7 +30,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import view.buddylist.AccountInfo;
-import view.styles.GPanel;
 import view.styles.WindowColors;
 
 import model.Model;
@@ -42,10 +41,11 @@ public class OptionPanel extends JPanel{
 	public WindowColors colors = new WindowColors();
 	
 	public OptionPanel
-		(MainController c, Model model, JFrame optionframe, ProfileData profile, AccountInfo accInfo) 
+		(MainController c, Model model, JFrame optionframe, AccountInfo accInfo) 
 									throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
+		ProfileData profile = model.getCurrentProfile();
 		//tabbed options
 		JTabbedPane tabbedOptions = new JTabbedPane(JTabbedPane.TOP);
 		
