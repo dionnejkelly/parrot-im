@@ -38,6 +38,7 @@ import model.dataType.ProfileData;
 import controller.MainController;
 
 public class OptionPanel extends JPanel{
+	private PersonalProfileTab personalProfile;
 	public WindowColors colors = new WindowColors();
 	
 	public OptionPanel
@@ -53,7 +54,7 @@ public class OptionPanel extends JPanel{
 		tabbedOptions.setForeground(Color.WHITE);
 		tabbedOptions.setBackground(colors.PRIMARY_COLOR_DARK);
 		
-		PersonalProfileTab personalProfile = new PersonalProfileTab(c,accInfo);
+		personalProfile = new PersonalProfileTab(c,accInfo);
 		tabbedOptions.addTab("Personal Profile", personalProfile);
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(profile));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, optionframe, model));
@@ -61,5 +62,7 @@ public class OptionPanel extends JPanel{
 		//setting layout
 		this.add(tabbedOptions);
 	}
-
+	protected void updatePersonalProfileTab(){
+		personalProfile.updateStatus();
+	}
 }

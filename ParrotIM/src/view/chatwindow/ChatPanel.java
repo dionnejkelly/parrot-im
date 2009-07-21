@@ -73,7 +73,7 @@ public class ChatPanel extends JPanel {
     /** Allows users to type messages in the JTextArea. */
 
     private JTextArea txt1;
-    private JFrame buddyFrame;
+    private BuddyList buddyFrame;
     private AccountInfo accinfo;
     /** Allows users to see the messages in the DisplayPanel. */
 
@@ -342,6 +342,9 @@ public class ChatPanel extends JPanel {
         		} else {
         			System.out.println("ACCINFO NULL!!! *cries*");
         		}
+        		if (buddyFrame.optionIsVisible())
+        			buddyFrame.getOptions().updateProfile();
+        		
         	} else{
   
         	

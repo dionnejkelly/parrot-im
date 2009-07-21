@@ -35,18 +35,15 @@ import model.Model;
 import controller.MainController;
 
 public class OptionFrame extends JFrame {
-
-//	protected JFrame mainFrame;
+	private OptionPanel mainPanel;
 	
     public OptionFrame(MainController c, Model model, AccountInfo accInfo)
             throws ClassNotFoundException, SQLException {
         this.setTitle("User Preferences");
         this.setBackground(new Color(244, 244, 244));
-
-//        this.mainFrame = buddywindow;
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        OptionPanel mainPanel = new OptionPanel(c, model, this, accInfo);
+        mainPanel = new OptionPanel(c, model, this, accInfo);
         getContentPane().add(mainPanel);
         setPreferredSize(new Dimension(520, 300));
         pack();
@@ -58,4 +55,7 @@ public class OptionFrame extends JFrame {
 
     }
 
+    public void updateProfile(){
+    	mainPanel.updatePersonalProfileTab();
+    }
 }
