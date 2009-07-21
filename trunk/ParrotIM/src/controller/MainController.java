@@ -968,6 +968,11 @@ public class MainController {
                         .setMinutesSinceUpdate(((TwitterManager) connection)
                                 .getMinutesSinceStatusChange(userID));
             }
+            
+            else {
+            	userToUpdate.setState(((MSNManager) connection)
+                        .retrieveState(userID));
+            }
         } catch (BadConnectionException e) {
             status = "(loading...)";
         }
