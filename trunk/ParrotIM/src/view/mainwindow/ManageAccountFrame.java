@@ -78,7 +78,7 @@ public class ManageAccountFrame extends JFrame {
         JPanel donePanel = new JPanel ();
         donePanel.setOpaque (false);
         donePanel.add(doneButton);
-        accountPanel.getRightPanel().add(donePanel);
+        accountPanel.getRightPanel().add(donePanel, BorderLayout.SOUTH);
         
         pack();
         setVisible(true);
