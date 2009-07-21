@@ -31,7 +31,13 @@ public enum UserStateType {
     
     NOT_BE_DISTURBED("not to be disturbed"),
     
-    INVISIBLE("Invisibled");
+    INVISIBLE("Invisibled"), 
+    
+    BRB("Be right back"), 
+    
+    PHONE("On the phone"), 
+    
+    LUNCH("Lunch");
 
     /**
      * The name of the enumerated type for GUI output.

@@ -307,7 +307,7 @@ public class MainController {
         // TODO may a user wants to go "invisible" in just one account?
         // TODO handle input from GUI, maybe enum type input?
         UserStateType state = null;
-
+       
         if (stateString.equalsIgnoreCase("Online")) {
             state = UserStateType.ONLINE;
             model.setStatus(model.getCurrentProfile().getName(), 0);
@@ -317,10 +317,21 @@ public class MainController {
         } else if (stateString.equalsIgnoreCase("Busy")) {
             state = UserStateType.BUSY;
             model.setStatus(model.getCurrentProfile().getName(), 2);
-        } else {
+        } else if (stateString.equalsIgnoreCase("On the phone")) {
+            state = UserStateType.PHONE;
+            model.setStatus(model.getCurrentProfile().getName(), 3);
+        } else if (stateString.equalsIgnoreCase("Lunch")) {
+            state = UserStateType.LUNCH;
+            model.setStatus(model.getCurrentProfile().getName(), 4);
+        } else if (stateString.equalsIgnoreCase("Be right back")) {
+            state = UserStateType.BRB;
+            model.setStatus(model.getCurrentProfile().getName(), 5);
+        }
+        
+        else {
             // TODO implement me
             state = UserStateType.ONLINE;
-            model.setStatus(model.getCurrentProfile().getName(), 3);
+            model.setStatus(model.getCurrentProfile().getName(), 0);
         }
 
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
