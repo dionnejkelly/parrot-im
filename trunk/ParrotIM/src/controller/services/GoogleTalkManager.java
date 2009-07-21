@@ -781,7 +781,6 @@ public class GoogleTalkManager implements GenericConnection {
 
         presence.setStatus(status);
         connection.sendPacket(presence);
-
         return;
     }
 

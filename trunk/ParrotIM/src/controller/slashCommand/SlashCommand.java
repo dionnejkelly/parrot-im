@@ -26,6 +26,7 @@ public class SlashCommand {
 		
 		if (token.compareToIgnoreCase("/online")==0) {
 			hasSetPresence = true;
+			
 		} else if (token.compareToIgnoreCase("/away")==0) {
 			hasSetPresence = true;
 		} else if (token.compareToIgnoreCase("/busy")==0) {
@@ -41,22 +42,22 @@ public class SlashCommand {
 				//eg. /away I am away
 				//		new presence: away
 				//		new status msg: I am away
-//				try {
-//					controller.setPresence(token.substring(1,token.length()));
+				try {
+					controller.setPresence(token.substring(1,token.length()));
 					
 					if (tokenizer.countTokens() > 0){
 						// will be used to set the status message
 						System.out.println("status msg: " + str.substring(token.length()+1));
-//						controller.setStatus(str.substring(token.length()+1), false);
+						controller.setStatus(str.substring(token.length()+1), false);
 					}
 					
-//				} catch (ClassNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 				System.out.println("status msg: " + str.substring(1));
 			}
