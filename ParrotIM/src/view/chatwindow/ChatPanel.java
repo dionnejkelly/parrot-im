@@ -29,6 +29,7 @@ import view.styles.PopupWindowListener; //import view.theme.LookAndFeelManager;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
+import controller.slashCommand.SlashCommand;
 import controller.spellcheck.SpellCheck;
 
 import model.*;
@@ -92,6 +93,9 @@ public class ChatPanel extends JPanel {
 
     private JButton groupChatButton;
 
+    
+    private SlashCommand slashCommand;
+    
     /**
      * This is the constructor of the ChatPanel.
      * 
@@ -323,43 +327,53 @@ public class ChatPanel extends JPanel {
 
         if (msg != null && msg.length() > 0) {
             // if (c.isConferenceChat()) {
-            if (model.getChatCollection().activeIsMulti()) {
-                // we need to know which room is selected in the Chat Side Panel
-                // for now I'll assume it only sends to the room
-                // "Parrot0@conference.jabber.org"
-                // as a Proof of concept
-
-                try {
-                    c.sendMultMessage(msg, ((MultiConversationData) model
-                            .getChatCollection().getActiveConversation())
-                            .getRoomName(), fontSelect.getSelectedItem()
-                            .toString(), fontSizemodel.getValue().toString(),
-                            bold, italics, underlined, "#000000");
-                    // c.sendMultMessage(msg, "Parrot0@conference.jabber.org");
-                } catch (BadConnectionException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            } else { // Single Conversation
-                System.out.println(msg);
-                System.out.println(msg.length());
-                try {
-                    if (oldContentPane == null) {
-                        c.sendMessage(msg, fontSelect.getSelectedItem()
-                                .toString(), fontSizemodel.getValue()
-                                .toString(), bold, italics, underlined,
-                                "#000000");
-                    } else {
-                        c.sendMessage(msg, fontSelect.getSelectedItem()
-                                .toString(), fontSizemodel.getValue()
-                                .toString(), bold, italics, underlined,
-                                oldContentPane.hexColor);
-                    }
-
-                } catch (BadConnectionException e) {
-                    e.printStackTrace();
-                    System.out.println("failed in sending text");
-                }
+        	
+        	slashCommand = new SlashCommand(c);
+        	
+        	System.out.println("********************************************* The text area = " + txt1.getText());
+        	
+        	if (!slashCommand.isSlashCommand(msg)) {
+        		
+  
+        	
+	            if (model.getChatCollection().activeIsMulti()) {
+	                // we need to know which room is selected in the Chat Side Panel
+	                // for now I'll assume it only sends to the room
+	                // "Parrot0@conference.jabber.org"
+	                // as a Proof of concept
+	
+	                try {
+	                    c.sendMultMessage(msg, ((MultiConversationData) model
+	                            .getChatCollection().getActiveConversation())
+	                            .getRoomName(), fontSelect.getSelectedItem()
+	                            .toString(), fontSizemodel.getValue().toString(),
+	                            bold, italics, underlined, "#000000");
+	                    // c.sendMultMessage(msg, "Parrot0@conference.jabber.org");
+	                } catch (BadConnectionException e) {
+	                    // TODO Auto-generated catch block
+	                    e.printStackTrace();
+	                }
+	            } else { // Single Conversation
+	                System.out.println(msg);
+	                System.out.println(msg.length());
+	                try {
+	                    if (oldContentPane == null) {
+	                        c.sendMessage(msg, fontSelect.getSelectedItem()
+	                                .toString(), fontSizemodel.getValue()
+	                                .toString(), bold, italics, underlined,
+	                                "#000000");
+	                    } else {
+	                        c.sendMessage(msg, fontSelect.getSelectedItem()
+	                                .toString(), fontSizemodel.getValue()
+	                                .toString(), bold, italics, underlined,
+	                                oldContentPane.hexColor);
+	                    }
+	
+	                } catch (BadConnectionException e) {
+	                    e.printStackTrace();
+	                    System.out.println("failed in sending text");
+	                }
+	            }
             }
             txt1.setText("");
         }
@@ -486,7 +500,12 @@ public class ChatPanel extends JPanel {
      */
     public class SendButtonPressed implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            sendMessage();
+        	
+        	
+        		sendMessage();
+
+        	
+            
         }
     }
 
@@ -535,7 +554,8 @@ public class ChatPanel extends JPanel {
          */
 
         public void keyReleased(KeyEvent e) {
-
+        	
+        	
             if (!shiftPressed && e.getKeyCode() == e.VK_ENTER
                     && sendButton.isEnabled()) {
                 System.out
