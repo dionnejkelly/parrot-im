@@ -46,9 +46,7 @@ public class OptionFrame extends JFrame {
 //        this.mainFrame = buddywindow;
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        OptionPanel mainPanel =
-                new OptionPanel(c, model, this, model.getCurrentProfile(),
-                        accInfo);
+        OptionPanel mainPanel = new OptionPanel(c, model, this, accInfo);
         getContentPane().add(mainPanel);
         setPreferredSize(new Dimension(520, 300));
         pack();
