@@ -51,6 +51,8 @@ public class SidePanel extends JPanel implements Observer {
 
     private CustomListPane listPane;
 
+    private JPopupMenu rightClickMenu;
+    
     /**
      * Maintains the Parrot IM XMPP Protocol.
      */
@@ -83,6 +85,14 @@ public class SidePanel extends JPanel implements Observer {
 
         // List preferences
         listPane = new CustomListPane();
+        
+        // rightclick menu
+        rightClickMenu = new JPopupMenu();
+		
+		JMenuItem menuItem4 = new JMenuItem("Remove Conversation", new ImageIcon(this
+                .getClass().getResource("/images/buddylist/delete_user.png")));
+		
+        rightClickMenu.add(menuItem4);
 
         this.add(listPane.getWithScroller(), BorderLayout.CENTER);
     }
@@ -194,12 +204,20 @@ public class SidePanel extends JPanel implements Observer {
          * @param event
          */
         public void mousePressed(MouseEvent event) {
+        	if(event.getButton() == event.BUTTON1){
+        		System.out.println("left clicked");
             controller.setTypingState(1); // set to the default typing state
                                           // before
+            rightClickMenu.setVisible(false);
             // switching
             controller.changeConversation(listPane.getUserWrapper(
                     listPane.getClickedIndex()).getConversation());
-
+        	}else if(event.getButton() == event.BUTTON3){
+        		System.out.println("right clicked");
+                
+                //rightClickMenu.setVisible(true);
+                rightClickMenu.show(listPane, event.getX(), event.getY());
+        	}
             return;
         }
 
@@ -207,6 +225,7 @@ public class SidePanel extends JPanel implements Observer {
          * Unimplemented MouseListener Methods
          */
         public void mouseEntered(MouseEvent event) {
+        	
         }
 
         public void mouseExited(MouseEvent event) {
