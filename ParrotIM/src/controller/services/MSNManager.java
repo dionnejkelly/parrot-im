@@ -63,6 +63,8 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     
     private MainController controller;
     
+    private BuddyList buddyList;
+    
     private Model model;
     /**
      * Non-blocking call.
@@ -147,7 +149,8 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     }
     
     public MsnFriend msnFriend(String userID) {
-    	return connection.getBuddyGroup().getForwardList().get(userID);	
+    	
+    	return buddyList.get(userID);	
     }
     
     public MSNManager(MainController control, Model model) {
@@ -209,7 +212,11 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 
     public String getUserStatus(MsnFriend userID) {
     	
-    	return userID.getStatus();
+    	if (connection.isLoggedIn()) {
+    		return userID.getStatus();
+    	}
+    	
+    	return "Offline";
     }
     
     public String getUserFriendlyName(String userID) {
@@ -224,17 +231,14 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     
     public void login(String userID, String password)
         throws BadConnectionException {
-        try { 
-            this.connect(userID, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new BadConnectionException();
-        }
+        
+        this.connect(userID, password);
+       
         
         return;
     }
     
-    public void connect(String userID, String password) throws Exception {
+    public void connect(String userID, String password) throws BadConnectionException {
         try {
             super.connect();
             sessions.clear();
@@ -242,19 +246,25 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 
             connection = new MSNMessenger(userID, password);
      
+            connection.login(userID, password);
+            
             connection.addMsnListener(new ConnectionListener());
 //        connection.setInitialStatus(UserStatus.INVISIBLE); // todo switch to this when working
             connection.setInitialStatus(UserStatus.ONLINE);
 
-            connection.login(userID, password);
+//            connection.login(userID, password);
             
+            buddyList = connection.getBuddyGroup().getForwardList();
             //contacts = getContactFactory();
             
             
-        } catch (Exception e) {
+        } catch (BadConnectionException e) {
             notifyConnectionFailed(e.getMessage());
             throw e;
-        }
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     
@@ -286,12 +296,13 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
    	 
         while (count < target) {
         	
-            System.out.println("MSN Type = " + connection.getBuddyGroup().getAllowList().get(count));
-            System.out.println("Friends = " + connection.getBuddyGroup().getAllowList().get(count).getLoginName());
+          //  System.out.println("MSN Type = " + connection.getBuddyGroup().getAllowList().get(count));
+          //  System.out.println("Friends = " + connection.getBuddyGroup().getAllowList().get(count).getLoginName());
             msnFriendLoginName = connection.getBuddyGroup().getAllowList().get(count).getLoginName();
-            msnFriend = connection.getBuddyGroup().getAllowList().get(count);
+            System.out.println("MSN Friend = " + msnFriendLoginName);
+            msnFriend = msnFriend(msnFriendLoginName);
             buddies.add(connection.getBuddyGroup().getAllowList().get(count).getLoginName());
-            
+            System.out.println("*** Status = " + getUserStatus(msnFriend));
             localFriends.add(new FriendTempData(msnFriendLoginName, msnFriendLoginName, getUserStatus(msnFriend),
                   UserStateType.OFFLINE, false));
             		
