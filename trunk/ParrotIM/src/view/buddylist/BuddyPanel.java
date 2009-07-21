@@ -199,28 +199,28 @@ public class BuddyPanel extends GPanel implements Observer {
             boxes[i] = Box.createVerticalBox();
         }
 
-        ImageIcon googleTalkImage = new ImageIcon(
+        ImageIcon userOnlineImage = new ImageIcon(
                 this
                         .getClass()
                         .getResource(
-                                "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png"));
-        ImageIcon aimImage = new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/statusIcons/AIM/AIM-AvailableSM.png"));
-        ImageIcon jabberImage = new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/statusIcons/Jabber/Jabber-AvailableSM.png"));
-        ImageIcon icqImage = new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png"));
-        ImageIcon msnImage = new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png"));
-        ImageIcon twitterImage = new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/twitter_logo.png"));
+                                "/images/status/user_green.png"));
+        ImageIcon userOfflineImage = new ImageIcon(this.getClass().getResource(
+                "/images/status/user_red.png"));
+        ImageIcon userBlockImage = new ImageIcon(this.getClass().getResource(
+                "/images/status/user_gray.png"));
+//        ImageIcon icqImage = new ImageIcon(this.getClass().getResource(
+//                "/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png"));
+//        ImageIcon msnImage = new ImageIcon(this.getClass().getResource(
+//                "/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png"));
+        ImageIcon userAwayImage = new ImageIcon(this.getClass().getResource(
+                "/images/status/user_orange.png"));
 
         buddyListPane.addGroup("     Online     "
                 + UserData.getCountOnline() + "/" + buddies.size(),
-                googleTalkImage);
-        buddyListPane.addGroup("     Away/Busy", twitterImage);
-        buddyListPane.addGroup("     Offline", aimImage);
-        buddyListPane.addGroup("     Blocked", jabberImage);
+                userOnlineImage);
+        buddyListPane.addGroup("     Away/Busy     " + UserData.getCountAway() + "/" + buddies.size(), userAwayImage);
+        buddyListPane.addGroup("     Offline     " + UserData.getCountOffline() + "/" + buddies.size(), userOfflineImage);
+        buddyListPane.addGroup("     Blocked     " + UserData.getCountBlock() + "/" + buddies.size(), userBlockImage);
 
         pictureUpdateThread = new PictureUpdateThread();
         pictureUpdateThread.start();

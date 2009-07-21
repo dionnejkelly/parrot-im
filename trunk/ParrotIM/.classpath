@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/smack.jar"/>
-	<classpathentry kind="lib" path="lib/smackx.jar"/>
-	<classpathentry kind="lib" path="lib/sqlitejdbc-v054.jar"/>
-	<classpathentry kind="lib" path="lib/smack_3_1_0/smackx-debug.jar"/>
-	<classpathentry kind="lib" path="lib/smack_3_1_0/smackx-jingle.jar"/>
-	<classpathentry kind="lib" path="lib/jtwitter.jar"/>
-	<classpathentry kind="lib" path="lib/jortho.jar"/>
-	<classpathentry kind="lib" path="lib/activation.jar"/>
-	<classpathentry kind="lib" path="lib/mail.jar"/>
-	<classpathentry kind="lib" path="lib/jclaim.jar"/>
-	<classpathentry kind="lib" path="lib/jsocks.jar"/>
-	<classpathentry kind="lib" path="lib/msnm.jar"/>
-	<classpathentry kind="lib" path="lib/joscar-client.jar"/>
-	<classpathentry kind="lib" path="lib/joscar-common.jar"/>
-	<classpathentry kind="lib" path="lib/joscar-protocol.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="lib" path="lib/smack.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/smackx.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/sqlitejdbc-v054.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/smack_3_1_0/smackx-debug.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/smack_3_1_0/smackx-jingle.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jtwitter.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jortho.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jclaim.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsocks.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/msnm.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-common.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-protocol.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
