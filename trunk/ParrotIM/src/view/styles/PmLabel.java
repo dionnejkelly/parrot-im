@@ -207,8 +207,6 @@ public class PmLabel extends JTextField {
             }
         	 
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                // test printing
-                // System.out.println("Pressed Enter!");
                 label.changePM(false, true);
                 
                
