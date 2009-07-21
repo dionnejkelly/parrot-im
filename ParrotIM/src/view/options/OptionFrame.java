@@ -50,7 +50,7 @@ public class OptionFrame extends JFrame {
                 new OptionPanel(c, model, this, model.getCurrentProfile(),
                         accInfo);
         getContentPane().add(mainPanel);
-        setPreferredSize(new Dimension(500, 300));
+        setPreferredSize(new Dimension(520, 300));
         pack();
 
         setResizable(false);
