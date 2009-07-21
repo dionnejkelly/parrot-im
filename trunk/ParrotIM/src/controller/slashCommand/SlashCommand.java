@@ -8,7 +8,6 @@ import controller.MainController;
 public class SlashCommand {
 	
 	private MainController controller;
-	
 	public SlashCommand(){ //for testing
 	}
 	
@@ -60,31 +59,11 @@ public class SlashCommand {
 				}
 			} else {
 				System.out.println("status msg: " + str.substring(1));
+				controller.setStatus(str.substring(1), false);
 			}
 //		}
 		
 		
 		return true;
-	}
-
-	public static void main (String[] args){
-		SlashCommand cmd = new SlashCommand();
-		System.out.println(" " + cmd.isSlashCommand(""));
-		System.out.println();
-		System.out.println("blah blah " + cmd.isSlashCommand("blah blah"));
-		System.out.println();
-		System.out.println("/ " + cmd.isSlashCommand("/"));
-		System.out.println();
-		System.out.println("/online " + cmd.isSlashCommand("/online"));
-		System.out.println();
-		System.out.println("/away " + cmd.isSlashCommand("/away"));
-		System.out.println();
-		System.out.println("/busy " + cmd.isSlashCommand("/busy"));
-		System.out.println();
-		System.out.println("/chatty " + cmd.isSlashCommand("/offline"));
-		System.out.println();
-		System.out.println("/bored " + cmd.isSlashCommand("/bored"));
-		System.out.println();
-		System.out.println("/online hello world " + cmd.isSlashCommand("/online hello world"));
 	}
 }

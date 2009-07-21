@@ -122,10 +122,6 @@ public class PmLabel extends JTextField {
         }
     }
 
-    public void setText(String t){
-    	super.setText(t);
-    	System.out.println(this.getText());
-    }
     /**
      * Sets the behaviour with regard of mouse input and position.
      * 
@@ -208,8 +204,6 @@ public class PmLabel extends JTextField {
         	 
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 label.changePM(false, true);
-                
-               
             }
         }
 
