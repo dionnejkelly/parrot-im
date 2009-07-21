@@ -981,7 +981,8 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 
 	public ImageIcon getAvatarPicture(String userID) throws XMPPException {
 		// TODO Auto-generated method stub
-		return null;
+		return new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/statusIcons/MSN/MSN-Available.png"));
 	}
 
 	public ServerType getServerType() {
