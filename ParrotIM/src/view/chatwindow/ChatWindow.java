@@ -17,6 +17,7 @@ import controller.MainController;
 import java.util.Observable;
 import java.util.Observer;
 
+import view.buddylist.BuddyList;
 import view.styles.ChatWindowListener;
 
 import model.Model;
@@ -51,7 +52,7 @@ public class ChatWindow extends JFrame implements Observer {
      * @param c
      * @param model
      */
-    public ChatWindow(MainController c, Model model, JFrame buddyFrame) {
+    public ChatWindow(MainController c, Model model, BuddyList buddyFrame) {
         super("Chat Window");
 
         model.addObserver(this);

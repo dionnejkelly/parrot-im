@@ -9,7 +9,6 @@ package view.buddylist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,7 +24,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -43,7 +41,6 @@ import controller.MainController;
 
 import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
-import view.options.BugReportFrame;
 import view.options.GroupChatConfigurationFrame;
 import view.options.MusicPlayer;
 import view.styles.GPanel;
@@ -52,7 +49,6 @@ import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
 
 import model.Model;
-import model.dataType.TwitterUserData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;

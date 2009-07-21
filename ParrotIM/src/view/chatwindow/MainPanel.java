@@ -17,6 +17,7 @@ import java.util.Observer;
 
 import javax.swing.*;
 
+import view.buddylist.BuddyList;
 import view.mainwindow.AboutFrame;
 import view.mainwindow.HelpPanel;
 import view.styles.CustomSplitPane;
@@ -52,7 +53,7 @@ public class MainPanel extends JPanel implements Observer {
      * @param model
      * @param chatFrame
      */
-    public MainPanel(MainController c, Model model, JFrame chatFrame, JFrame buddyFrame) {
+    public MainPanel(MainController c, Model model, JFrame chatFrame, BuddyList buddyFrame) {
 
     	this.chatFrame = chatFrame;
         this.model = model;

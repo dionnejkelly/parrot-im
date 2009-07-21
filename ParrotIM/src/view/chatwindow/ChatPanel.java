@@ -24,6 +24,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
 
+import view.buddylist.BuddyList;
+import view.buddylist.AccountInfo;
 import view.options.GroupChatConfigurationFrame;
 import view.styles.PopupWindowListener; //import view.theme.LookAndFeelManager;
 
@@ -72,6 +74,7 @@ public class ChatPanel extends JPanel {
 
     private JTextArea txt1;
     private JFrame buddyFrame;
+    private AccountInfo accinfo;
     /** Allows users to see the messages in the DisplayPanel. */
 
     private DisplayPanel displayPanel;
@@ -103,8 +106,9 @@ public class ChatPanel extends JPanel {
      * @param model
      */
 
-    public ChatPanel(MainController c, Model model, JFrame chatFrame, JFrame buddyFrame) {
+    public ChatPanel(MainController c, Model model, JFrame chatFrame, BuddyList buddyFrame) {
         setLayout(new BorderLayout());
+        this.accinfo = buddyFrame.getAccountInfo();
         this.chatFrame = chatFrame;
         this.buddyFrame = buddyFrame;
 
@@ -331,9 +335,14 @@ public class ChatPanel extends JPanel {
         	slashCommand = new SlashCommand(c);
         	
         	System.out.println("********************************************* The text area = " + txt1.getText());
-        	
-        	if (!slashCommand.isSlashCommand(msg)) {
-        		
+        	if (slashCommand.isSlashCommand(msg)) {
+        		if (accinfo!=null){
+	        		accinfo.statusMessage.setText(model.getCurrentProfile().getStatus());
+	        		accinfo.presence.setSelectedIndex(model.getCurrentProfile().getState().ordinal());
+        		} else {
+        			System.out.println("ACCINFO NULL!!! *cries*");
+        		}
+        	} else{
   
         	
 	            if (model.getChatCollection().activeIsMulti()) {

@@ -28,7 +28,6 @@ import view.options.BugReportFrame;
 import view.options.MusicPlayer;
 import view.options.OptionFrame;
 import view.styles.GPanel;
-import view.styles.PopupWindowListener;
 
 import view.chatLog.ChatLogFrame;
 import view.chatwindow.ChatWindow;
@@ -90,6 +89,14 @@ public class BuddyList extends JFrame {
         this.model = model;
         this.controller = c;
         
+        // INSIDE PANEL
+        try {
+			accountInfo = new AccountInfo(c, model);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
         // Create chat window
         this.chat = new ChatWindow(c, model, this);
         
@@ -106,13 +113,7 @@ public class BuddyList extends JFrame {
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
         buddylistPanel.setGradientColors(buddylistPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
 
-        // INSIDE PANEL
-        try {
-			accountInfo = new AccountInfo(c, model);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
         BuddyPanel mainListPanel = new BuddyPanel(c, model, this, chat);
         //JPanel twitterPanel = new TwitterPanel(c,model,this);
         
@@ -276,6 +277,9 @@ public class BuddyList extends JFrame {
         return menuBar;
     }
 
+    public AccountInfo getAccountInfo(){
+    	return accountInfo;
+    }
     /**
      * about listener
      * 
