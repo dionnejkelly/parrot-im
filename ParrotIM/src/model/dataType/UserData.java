@@ -63,6 +63,12 @@ public abstract class UserData extends PersonData implements Comparable {
 
     private static int countOnline = 0;
     
+    private static int countOffline = 0;
+    
+    private static int countAway = 0;
+    
+    private static int countBlock = 0;
+    
     private static Vector<String> onlineBuddy = new Vector<String>();
 
     // Section II
@@ -265,13 +271,25 @@ public abstract class UserData extends PersonData implements Comparable {
         onlineBuddy = new Vector<String>();
         
         for (UserData user : friends) {
-            if (user.getState() == UserStateType.ONLINE
-                    || user.getState() == UserStateType.AWAY
-                    || user.getState() == UserStateType.BUSY) {
+            if (user.getState() == UserStateType.ONLINE) {
                 countOnline++;
                 
                 // puts online/away/busy users into the Vector<String> list
                 onlineBuddy.add(user.getUserID());
+            }
+            
+            else if (user.getState() == UserStateType.AWAY
+                    || user.getState() == UserStateType.BUSY) {
+            	countAway++;
+            	onlineBuddy.add(user.getUserID());
+            }
+            
+            else if (user.getState() == UserStateType.OFFLINE) {
+            	countOffline++;
+            }
+            
+            else {
+            	countBlock++;
             }
         }
 
@@ -280,6 +298,18 @@ public abstract class UserData extends PersonData implements Comparable {
 
     public static int getCountOnline() {
         return countOnline;
+    }
+    
+    public static int getCountOffline() {
+        return countOffline;
+    }
+    
+    public static int getCountAway() {
+        return countAway;
+    }
+    
+    public static int getCountBlock() {
+        return countBlock;
     }
     
     public static Vector<String> getOnlineBuddy() {
