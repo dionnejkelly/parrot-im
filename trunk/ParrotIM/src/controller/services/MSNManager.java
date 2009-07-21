@@ -40,6 +40,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.util.StringUtils;
 
 import model.Model;
@@ -67,60 +68,62 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
      * @throws Exception 
      */
     
-    public static void main(String[] args) throws Exception {
-    	MSNManager msn = new MSNManager();
-    	msn.connect("cmpt275testing@hotmail.com","abcdefghi");
-    	
-    	
-    	msn.retrieveFriendList();
-    	System.out.println(">");
-		Scanner optionScanner = new Scanner(System.in);
-		String option = optionScanner.nextLine();
-		
-		while((option).equals("1"))
-		{
-			
-				System.out.println("Type your message to littletomato89@gmail.com:");
-				Scanner msgInput = new Scanner(System.in);
-				String msg = msgInput.nextLine();
-				
-				
-				//msn.removeFriend(msg);
-				//msn.getBuddies();
-				System.out.println("=====================");
-				//System.out.println("User status = " + msn.getUserStatus("littletomato89@hotmail.com"));
-				msn.sendMessage("littletomato89@hotmail.com", msg);
-//				if (msg.equals("1")) {
-//					msn.setAway(true);
-//				}
+//    public static void main(String[] args) throws Exception {
+//    	MSNManager msn = new MSNManager();
+//    	msn.connect("cmpt275testing@hotmail.com","abcdefghi");
+//    	
+//    
+//    	msn.retrieveFriendList();
+//    	System.out.println(">");
+//		Scanner optionScanner = new Scanner(System.in);
+//		String option = optionScanner.nextLine();
+//		
+//		while((option).equals("1"))
+//		{
+//			
+//				System.out.println("Type your message to littletomato89@gmail.com:");
+//				Scanner msgInput = new Scanner(System.in);
+//				String msg = msgInput.nextLine();
 //				
-//				if (msg.equals("2")) {
-//					msn.setBRB(true);
-//				}
 //				
-//				if (msg.equals("3")) {
-//					msn.setBusy(true);
-//				}
+//				//msn.removeFriend(msg);
+//				//msn.getBuddies();
+//				System.out.println("=====================");
+//				//System.out.println("User status = " + msn.getUserStatus("littletomato89@hotmail.com"));
+//			
+//				msn.setPresence(msg);
+//				//msn.sendMessage("littletomato89@hotmail.com", msg);
+////				if (msg.equals("1")) {
+////					msn.setAway(true);
+////				}
+////				
+////				if (msg.equals("2")) {
+////					msn.setBRB(true);
+////				}
+////				
+////				if (msg.equals("3")) {
+////					msn.setBusy(true);
+////				}
+////				
+////				if (msg.equals("4")) {
+////					msn.setIdle(true);
+////				}
+////				
+////				if (msg.equals("5")) {
+////					msn.setLunch(true);
+////				}
+////				
+////				if (msg.equals("6")) {
+////					msn.setPhone(true);
+////				}
+////				
+//				System.out.println("My status = " + msn.getMyStatus());
 //				
-//				if (msg.equals("4")) {
-//					msn.setIdle(true);
-//				}
 //				
-//				if (msg.equals("5")) {
-//					msn.setLunch(true);
-//				}
-//				
-//				if (msg.equals("6")) {
-//					msn.setPhone(true);
-//				}
-//				
-				System.out.println("My status = " + msn.getMyStatus());
-				
-				
-			
-		}
-//	
-    }
+//			
+//		}
+////	
+//    }
     
     public MSNManager() {
     	
@@ -157,21 +160,27 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     	
     	mimeMsg.setKind(2);
     	
+    	
     	if (session == null) {
     		try {
 				connection.sendMessage(userID, mimeMsg, getSession(userID).getSessionId());
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
     	
-    	try {
-			connection.sendMessage(userID, mimeMsg, session.getSessionId());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	else {
+    		try {
+    			connection.sendMessage(userID, mimeMsg, session.getSessionId());
+    			
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}
+    	
     }
     
     
@@ -759,6 +768,22 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     public String getMyStatus() {
     	return connection.getMyStatus();
     }
+    
+    /**
+     * Sets the online flag.
+     *
+     * @param away true if so
+     */
+    public void setOnline(boolean away) {
+        if (connection != null)
+            try {
+                connection.setMyStatus(away?UserStatus.ONLINE:UserStatus.ONLINE);
+            } catch (IOException e) {
+                log.log(Level.SEVERE, "Failed to set status", e);
+            }
+        super.setAway(away);
+    }
+    
     /**
      * Sets the away flag.
      *
@@ -960,7 +985,45 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 
 	public void changeStatus(UserStateType state, String status)
 			throws BadConnectionException {
-		// TODO Auto-generated method stub
+		
+			
+			System.out.println("Status = " + status);
+			System.out.println("State = " + state);
+			
+			if (connection.isLoggedIn()) {
+				try {
+					setPresence(status);
+					if (state == UserStateType.ONLINE) {
+			            setOnline(true);
+			        } else if (state == UserStateType.AWAY) {
+			        	 setAway(true);
+			        } else if (state == UserStateType.BUSY) {
+			        	 setBusy(true);
+			        } 
+			        else if (state == UserStateType.BRB) {
+			        	setBRB(true);
+			        }
+				 
+			        else if (state == UserStateType.PHONE) {
+			        	setPhone(true);
+			        }
+				 
+			        else if (state == UserStateType.LUNCH) {
+			        	setLunch(true);
+			        }
+			        else {
+			        	 setIdle(true);
+			        }
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				 
+				
+			}
+
+
 		
 	}
 

@@ -29,12 +29,12 @@ public enum StatusType {
 	
 	// Section
     // I - Enumerated Types
-    AVAILABLE("Available"), AWAY("Away"), BUSY("Busy"), CHATTY("Chatty");
+    AVAILABLE("Available"), AWAY("Away"), BUSY("Busy"), PHONE("On the phone"), LUNCH("Lunch"), BRB("Be right back");
 
     // Section
     // II - Constants
 
-    private static final int TOTAL_VALUES = 4;
+    private static final int TOTAL_VALUES = 6;
 
     // Section
     // III - Data Members
