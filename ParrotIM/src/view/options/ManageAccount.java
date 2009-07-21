@@ -233,9 +233,10 @@ public class ManageAccount extends GPanel implements Observer {
 
         //setting right panel
         rightPanel = new JPanel();
+        rightPanel.setLayout(new BorderLayout());
         rightPanel.setOpaque(false);
         rightPanel.setPreferredSize(new Dimension(270, 400));
-        rightPanel.add(setupPanel);
+        rightPanel.add(setupPanel, BorderLayout.NORTH);
 
         // add to account manager pop up main panel
         add(rightPanel, BorderLayout.EAST);
