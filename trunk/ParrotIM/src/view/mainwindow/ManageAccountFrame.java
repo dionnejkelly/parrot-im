@@ -46,10 +46,12 @@
 
 package view.mainwindow;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -65,11 +67,19 @@ public class ManageAccountFrame extends JFrame {
 
         setTitle(profile + "\'s Account Manager");
         setLocationRelativeTo(null);
-        setPreferredSize(new Dimension(530, 300));
+        setPreferredSize(new Dimension(530, 270));
         setResizable(false);
-        JPanel accountPanel = new ManageAccount(profile);
+        ManageAccount accountPanel = new ManageAccount(profile);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(accountPanel);
+        
+        //DONE BUTTON
+        JButton doneButton = new JButton ("Done");
+        JPanel donePanel = new JPanel ();
+        donePanel.setOpaque (false);
+        donePanel.add(doneButton);
+        accountPanel.getRightPanel().add(donePanel);
+        
         pack();
         setVisible(true);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());

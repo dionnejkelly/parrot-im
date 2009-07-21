@@ -74,6 +74,7 @@ public class ManageAccount extends GPanel implements Observer {
     private JPasswordField pwdField;
     private JComboBox server;
     private JButton addButton;
+    private JPanel rightPanel;
 
     protected JPanel serverPanel;
     protected JTextField jabberServer;
@@ -95,10 +96,6 @@ public class ManageAccount extends GPanel implements Observer {
     }
 
     private void leftPanelMAN() {
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new BorderLayout());
-        leftPanel.setBackground(colors.SECONDARY_COLOR_LT);
-        
         // saved account list
         accList = new JList(new Vector<AccountData>(profile.getAccountData())) {
             public String getToolTipText(MouseEvent e) {
@@ -148,26 +145,29 @@ public class ManageAccount extends GPanel implements Observer {
 
         // add-remove button panel
         JPanel addremovePanel = new JPanel();
+        addremovePanel.setOpaque(false);
         addremovePanel.setBackground(colors.SECONDARY_COLOR_LT);
         addremovePanel.add(addButton);
         addremovePanel.add(removeButton);
 
-        // add to leftpanel
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BorderLayout());
+        leftPanel.setBackground(colors.SECONDARY_COLOR_LT);
         leftPanel.add(listScroller, BorderLayout.NORTH);
         leftPanel.add(addremovePanel, BorderLayout.SOUTH);
 
         // add to account manager pop up main panel
         this.add(leftPanel, BorderLayout.WEST);
     }
-
+    
+    public JPanel getRightPanel(){
+    	return rightPanel;
+    }
+    
     private void rightPanelMAN() {
 
         ProfileKeyListener keyListener = new ProfileKeyListener();
 
-        // setting right panel
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BorderLayout());
-        rightPanel.setOpaque(false);
         // select server
         server = new JComboBox(ServerType.getServerList());
         server.setPreferredSize(new Dimension(180, 30));
@@ -176,7 +176,7 @@ public class ManageAccount extends GPanel implements Observer {
         // textfield
         jabberServer = new JTextField();
         jabberServer.addKeyListener(keyListener);
-        jabberServer.setPreferredSize(new Dimension(180, 20));
+//        jabberServer.setPreferredSize(new Dimension(180, 20));
         jabberServer.setToolTipText("specify jabber server");
         JPanel jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
@@ -192,7 +192,7 @@ public class ManageAccount extends GPanel implements Observer {
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
-        serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
+        serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
         serverPanel.setBackground(colors.SECONDARY_COLOR_LT);
         serverPanel.add(jabberServerLabelPanel, BorderLayout.WEST);
         serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
@@ -231,9 +231,11 @@ public class ManageAccount extends GPanel implements Observer {
         setupPanel.add(usernamePanel);
         setupPanel.add(passwordPanel);
 
-        // adding to rightPanel
+        //setting right panel
+        rightPanel = new JPanel();
+        rightPanel.setOpaque(false);
         rightPanel.setPreferredSize(new Dimension(270, 400));
-        rightPanel.add(setupPanel, BorderLayout.NORTH);
+        rightPanel.add(setupPanel);
 
         // add to account manager pop up main panel
         add(rightPanel, BorderLayout.EAST);
