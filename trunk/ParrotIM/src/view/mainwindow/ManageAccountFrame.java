@@ -48,6 +48,8 @@ package view.mainwindow;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -60,9 +62,9 @@ import view.options.ManageAccount;
 import model.dataType.ProfileData;
 
 public class ManageAccountFrame extends JFrame {
-
+	JFrame manageaccount;
     public ManageAccountFrame(ProfileData profile) {
-
+    	manageaccount = this;
         setLocationRelativeTo(null);
 
         setTitle(profile + "\'s Account Manager");
@@ -75,6 +77,7 @@ public class ManageAccountFrame extends JFrame {
         
         //DONE BUTTON
         JButton doneButton = new JButton ("Done");
+        doneButton.addActionListener(new doneActionListener());
         JPanel donePanel = new JPanel ();
         donePanel.setOpaque (false);
         donePanel.add(doneButton);
@@ -83,6 +86,13 @@ public class ManageAccountFrame extends JFrame {
         pack();
         setVisible(true);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-        
+    }
+    
+    private class doneActionListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			manageaccount.dispose();
+		}
+    	
     }
 }
