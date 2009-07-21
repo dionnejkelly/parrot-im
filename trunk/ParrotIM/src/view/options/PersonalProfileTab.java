@@ -22,7 +22,6 @@
 package view.options;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -152,7 +151,10 @@ public class PersonalProfileTab extends GPanel {
 		isPersonalTabOpened = true;
 	}
 	
-	
+	public void updateStatus(){
+		personalMessage.setText(BuddyListPM.getText());
+		status.setSelectedIndex(BuddyListStatus.getSelectedIndex());
+	}
 	
 	private class BrowseActionListener implements ActionListener{
 

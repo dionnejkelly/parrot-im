@@ -280,6 +280,13 @@ public class BuddyList extends JFrame {
     public AccountInfo getAccountInfo(){
     	return accountInfo;
     }
+    
+    public OptionFrame getOptions(){
+    	return options;
+    }
+    public boolean optionIsVisible(){
+    	return options != null;
+    }
     /**
      * about listener
      * 
