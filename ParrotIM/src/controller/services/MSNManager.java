@@ -41,6 +41,7 @@ import javax.swing.ImageIcon;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
 
 import model.Model;
@@ -78,20 +79,21 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 //		Scanner optionScanner = new Scanner(System.in);
 //		String option = optionScanner.nextLine();
 //		
+//		MsnFriend friend = msn.msnFriend("littletomato89@hotmail.com"); 
 //		while((option).equals("1"))
 //		{
 //			
-//				System.out.println("Type your message to littletomato89@gmail.com:");
+//				System.out.println("Type your message to littletomato89@gmail.com: " + msn.getUserStatus(friend));
 //				Scanner msgInput = new Scanner(System.in);
 //				String msg = msgInput.nextLine();
 //				
 //				
 //				//msn.removeFriend(msg);
 //				//msn.getBuddies();
-//				System.out.println("=====================");
+//				//System.out.println("=====================");
 //				//System.out.println("User status = " + msn.getUserStatus("littletomato89@hotmail.com"));
 //			
-//				msn.setPresence(msg);
+//				//msn.setPresence(msg);
 //				//msn.sendMessage("littletomato89@hotmail.com", msg);
 ////				if (msg.equals("1")) {
 ////					msn.setAway(true);
@@ -117,7 +119,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 ////					msn.setPhone(true);
 ////				}
 ////				
-//				System.out.println("My status = " + msn.getMyStatus());
+//				//System.out.println("My status = " + msn.getMyStatus());
 //				
 //				
 //			
@@ -127,6 +129,25 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     
     public MSNManager() {
     	
+    }
+    
+    public void buddyListModified() {
+        BuddyList blist = connection.getBuddyGroup().getForwardList();
+        for (int i = 0; i < blist.size(); i++) {
+            MsnFriend friend = blist.get(i);
+            //System.out.println("Users = " + getUserStatus(friend));
+            
+            System.out.println("buddies = " + friend.getLoginName());
+            
+        }
+        
+        
+        
+        
+    }
+    
+    public MsnFriend msnFriend(String userID) {
+    	return connection.getBuddyGroup().getForwardList().get(userID);	
     }
     
     public MSNManager(MainController control, Model model) {
@@ -324,10 +345,12 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 //	          } else {
 //	              log.fine("got MSN contact status w/o it being in the list");
 //	          }
+	          controller.friendUpdated(genericConnection, user);
 	      }
 	      
 	        public void userOffline(String loginName) {
 	            System.out.println("Offline: " + loginName);
+	            controller.friendUpdated(genericConnection, loginName);
 	        }
 	        
 	        public void filePosted(SwitchboardSession ss, int cookie, String filename, int filesize) {
@@ -1077,8 +1100,38 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 	
 	public UserStateType retrieveState(String userID)
 			throws BadConnectionException {
-		// TODO Auto-generated method stub
-		return null;
+		MsnFriend friend = msnFriend(userID);
+		
+		  UserStateType userState = UserStateType.OFFLINE; // default return value
+	       
+
+	     
+		  if (connection.isLoggedIn()) {
+			  String userStateFromServer = getUserStatus(friend);
+
+	            if (userStateFromServer.equals("BSY")) {
+	                userState = UserStateType.BUSY;
+	            } else if (userStateFromServer.equals("AWY")) {
+	                userState = UserStateType.AWAY;
+	            } else if (userStateFromServer.equals("NLN")) {
+	                userState = UserStateType.ONLINE;
+	            } else if (userStateFromServer.equals("BRB")) {
+	            	userState = UserStateType.BRB;
+	            } else if (userStateFromServer.equals("PHN")) {
+	            	userState = UserStateType.PHONE;
+	            } else if (userStateFromServer.equals("LUN")) {
+	            	userState = UserStateType.LUNCH;
+	            }
+	            
+	            else { // user is offline
+	                userState = UserStateType.OFFLINE;
+	            }
+		  }
+	      
+	      
+	      return userState;
+	        
+	
 	}
 
 	public String retrieveStatus(String userID) throws BadConnectionException {
