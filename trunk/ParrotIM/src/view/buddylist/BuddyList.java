@@ -284,7 +284,7 @@ public class BuddyList extends JFrame {
     public OptionFrame getOptions(){
     	return options;
     }
-    public boolean optionIsVisible(){
+    public boolean optionsIsVisible(){
     	return options != null;
     }
     /**
@@ -392,7 +392,7 @@ public class BuddyList extends JFrame {
          * )
          */
         public void actionPerformed(ActionEvent e) {
-        	if (options==null){
+        	if (!optionsIsVisible()){
 	            try {
 	            	options = new OptionFrame(controller, model, accountInfo);
 //	                options.addWindowListener(new PopupWindowListener(buddywindow, options));

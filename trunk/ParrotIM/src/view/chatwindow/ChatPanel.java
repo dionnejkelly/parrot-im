@@ -342,7 +342,7 @@ public class ChatPanel extends JPanel {
         		} else {
         			System.out.println("ACCINFO NULL!!! *cries*");
         		}
-        		if (buddyFrame.optionIsVisible())
+        		if (buddyFrame.optionsIsVisible())
         			buddyFrame.getOptions().updateProfile();
         		
         	} else{
