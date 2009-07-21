@@ -38,7 +38,9 @@ public class FriendWrapper implements Observer {
 
         if (user.isBlocked()) {
             labelColor = Color.LIGHT_GRAY.darker();
-        } else if (user instanceof TwitterUserData) {
+        } 
+        
+        else if (user instanceof TwitterUserData) {
             minutesSinceUpdate =
                     ((TwitterUserData) user).getMinutesSinceUpdate();
             if (minutesSinceUpdate < 60) {
@@ -54,7 +56,10 @@ public class FriendWrapper implements Observer {
             labelColor = Color.ORANGE.darker();
         } else if (user.getState() == UserStateType.AWAY) {
             labelColor = Color.ORANGE.darker();
-        } else {
+        } else if (user.getState() == UserStateType.BRB || user.getState() == UserStateType.PHONE || user.getState() == UserStateType.LUNCH) {
+        	labelColor = Color.CYAN.darker();
+        } 
+        else {
             labelColor = Color.RED.darker();
         }
 

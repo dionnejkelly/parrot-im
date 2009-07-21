@@ -279,7 +279,10 @@ public abstract class UserData extends PersonData implements Comparable {
             }
             
             else if (user.getState() == UserStateType.AWAY
-                    || user.getState() == UserStateType.BUSY) {
+                    || user.getState() == UserStateType.BUSY
+                    || user.getState() == UserStateType.BRB
+                    || user.getState() == UserStateType.PHONE
+                    || user.getState() == UserStateType.LUNCH) {
             	countAway++;
             	onlineBuddy.add(user.getUserID());
             }
@@ -338,7 +341,14 @@ public abstract class UserData extends PersonData implements Comparable {
             howAvailable = 3;
         } else if (this.getState() == UserStateType.AWAY) {
             howAvailable = 3;
-        } else {
+        } else if (this.getState() == UserStateType.PHONE) {
+        	howAvailable = 3;
+        } else if (this.getState() == UserStateType.BRB) {
+        	howAvailable = 3;
+        } else if (this.getState() == UserStateType.LUNCH) {
+        	howAvailable = 3;
+        }
+        else {
             howAvailable = 2;
         }
 
