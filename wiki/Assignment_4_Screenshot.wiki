@@ -6,12 +6,13 @@
 
 = Details =
 
-*Login Windows:
+==Login Windows:==
 
 http://parrot-im.googlecode.com/files/loginPage.jpg
+http://parrot-im.googlecode.com/files/Login.jpg
 
 
-*Create account into profile:
+==Create account into profile:==
 
 http://parrot-im.googlecode.com/files/createNewProfile.jpg
 http://parrot-im.googlecode.com/files/createNewProfile2.jpg
@@ -27,16 +28,37 @@ http://parrot-im.googlecode.com/files/createNewProfile5.jpg
 
   * Account Manager & Remove Account are not implement in this version yet.
 
-Guest Login:
+==Guest Login:==
 
 http://parrot-im.googlecode.com/files/LoginGuest.jpg
 http://parrot-im.googlecode.com/files/LoginGuest2.jpg
 http://parrot-im.googlecode.com/files/LoginGuest3.jpg
 
-*Buddy list:
+==Buddy list:==
 
 http://parrot-im.googlecode.com/files/BuddyList.jpg
 
-*Chat Window:
+==Chat Window:==
 
 http://parrot-im.googlecode.com/files/ChatWindow2.jpg
+
+=== _Add / Delete / Block function:_===
+at this stage, we implement add/delete/block function in Parrot-IM.
+
+User can modify their Buddy list by clicking icons http://parrot-im.googlecode.com/files/adduserIcon.jpg
+http://parrot-im.googlecode.com/files/deleteuserIcon.jpg
+http://parrot-im.googlecode.com/files/blockuserIcon.jpg
+
+=== _Chat Log window:_===
+
+=== _Avatar Picture:_===
+
+=== _Options window (user preference):_===
+
+=== _Add / Delete / Block function:_===
+
+==Sign out  and exit:==
+different with previous version, we move sign out under "Account menu".
+
+http://parrot-im.googlecode.com/files/exit3.jpg
+http://parrot-im.googlecode.com/files/logout.jpg
