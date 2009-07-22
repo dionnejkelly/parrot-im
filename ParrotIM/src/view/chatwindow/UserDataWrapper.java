@@ -9,6 +9,7 @@ import model.Model;
 import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.MultiConversationData;
+import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
@@ -47,14 +48,21 @@ public class UserDataWrapper implements Observer {
     		statePath = "images/status/user_grey.png";
     	}
     	
+    	String serverPath = "";
+    	if(this.conversation.getUser().getServer() == ServerType.GOOGLE_TALK){
+    		serverPath = "images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png";
+    	}else if(this.conversation.getUser().getServer() == ServerType.MSN){
+    		serverPath = "images/buddylist/statusIcons/MSN/MSN-Available.png";
+    	}
+    	
     	String profileText = "<html>" + this.conversation.getUser().getNickname() + "(" 
     						+ this.conversation.getUser().getUserID() + ") <br>"
     						+ this.conversation.getUser().getStatus() + "<br>"
     						+ "<img src=\"" 
     						+ getClass().getClassLoader().getResource(statePath) + "\">"
-    						+ "<img src=\"" 
+    						+ "<img width=\"22\" height=\"22\" src=\"" 
     						+ getClass().getClassLoader()
-    						.getResource("images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png") + "\">"
+    						.getResource(serverPath) + "\">"
     						+ "<hr>" + "(Right-click for more options)";
     	this.labelRepresentation.setToolTipText(profileText);
         return this.labelRepresentation;
