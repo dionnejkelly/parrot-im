@@ -159,7 +159,7 @@ public class BlockManager extends JFrame implements Observer {
         setLocation(100, 100);
         setPreferredSize(new Dimension(510, 360));
         setResizable(false);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon("src/images/buddylist/block_user.png").getImage());
 
         // set main panel
         accMANPanel = new GPanel();
@@ -212,7 +212,7 @@ public class BlockManager extends JFrame implements Observer {
         addremovePanel.setOpaque(false);
 
         JButton blockButton = new JButton("Block", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_cancel.png")));
+                .getResource("/images/buddylist/block_user.png")));
         blockButton.setPreferredSize(new Dimension(120, 25));
         // Removing Padding from buttons so text can be displayed properly
         Insets buttonInset = new Insets(0, 0, 0, 0);
@@ -361,7 +361,7 @@ public class BlockManager extends JFrame implements Observer {
 
         Insets buttonInset = new Insets(0, 0, 0, 0);
         JButton unBlockButton = new JButton("Unblock", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_ok.png")));
+                .getResource("/images/buddylist/unblock_user.png")));
         unBlockButton.setPreferredSize(new Dimension(120, 25));
         unBlockButton.setMargin(buttonInset);
 
