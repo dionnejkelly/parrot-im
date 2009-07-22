@@ -1,6 +1,12 @@
 package view.styles;
 
 import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Window;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * 
@@ -25,4 +31,21 @@ public class WindowColors {
 	public static Color TERTIARY_COLOR_MED = new Color(136, 235, 93);
 	public static Color TERTIARY_COLOR_LT = new Color(136, 235, 93).brighter();
 	public static Color TERTIARY_COLOR_DARK = new Color(42, 124, 7);
+	
+	public void updateColors(){
+		try{
+            // Update all existing frames
+            Frame[] existingFrames = JFrame.getFrames();
+            for (Frame frame : existingFrames) {
+                SwingUtilities.updateComponentTreeUI(frame);
+                Window[] windows = frame.getOwnedWindows();
+                for (Window window : windows) {
+                    SwingUtilities.updateComponentTreeUI(window);
+                    window.validate();
+                }
+            }
+        } catch(Exception ex) {
+            
+        }
+	}
 }
