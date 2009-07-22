@@ -25,3 +25,10 @@ http://parrot-im.googlecode.com/files/buddy%20list.jpg
 ==Chat Window:==
 
 http://parrot-im.googlecode.com/files/chatwindow.jpg
+
+==Sign out and exit:==
+
+user can choose sign out  or exit from Parrot-IM under "Home menu"
+
+http://parrot-im.googlecode.com/files/signOut.jpg
+http://parrot-im.googlecode.com/files/exit.jpg
