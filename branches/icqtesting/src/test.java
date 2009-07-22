@@ -13,7 +13,9 @@ public class test {
 			icqConnection i = new icqConnection();
 			i.login("595683137", "testicq", "login.messaging.aol.com", 5190);
 			i.getBuddyList();
-			i.sendMessage("595605824","Hi");//It works
+			//i.sendMessage("597256321","Hi");
+			i.addFriends("597256321");
+			//i.sendMessage("597256321","Hi");
 	}
 
 }
