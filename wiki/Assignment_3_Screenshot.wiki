@@ -8,8 +8,7 @@
 
 Login Windows:
 
-http://parrot-im.googlecode.com/files/login.jpg
-http://parrot-im.googlecode.com/files/connectguestaccount.jpg
+http://parrot-im.googlecode.com/files/login.jpg http://parrot-im.googlecode.com/files/connectguestaccount.jpg
 
 Create and manage account windows:
 
