@@ -233,7 +233,7 @@ public class GuestAccountFrame extends JFrame {
     private void signIn_ActionPerformed() throws ClassNotFoundException {
         ServerType serverType = (ServerType) server.getSelectedItem();
         String username = UNFieldGuest.getText();
-        String password = password(PwdFieldGuest.getPassword());
+        String password = String.copyValueOf(PwdFieldGuest.getPassword());
 
         try {
             if (serverType == ServerType.GOOGLE_TALK
@@ -267,23 +267,6 @@ public class GuestAccountFrame extends JFrame {
             System.out.println("sign in failed!");
 
         }
-
-    }
-
-    /**
-     * This method is used to get the String of password from the user.
-     * 
-     * @param pass
-     * @return the string of password
-     */
-    private String password(char[] pass) {
-        String str = new String();
-        str = "";
-
-        for (int i = 0; i < pass.length; i++) {
-            str += pass[i];
-        }
-        return str;
 
     }
 

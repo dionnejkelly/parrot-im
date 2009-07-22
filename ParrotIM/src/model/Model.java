@@ -1249,4 +1249,5 @@ public class Model extends Observable {
     public CustomizedChatbotModel getCustomizedChatbotModel() {
         return chatbotModel;
     }
+
 }
