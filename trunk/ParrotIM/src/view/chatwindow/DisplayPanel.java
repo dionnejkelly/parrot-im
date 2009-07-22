@@ -196,9 +196,17 @@ public class DisplayPanel extends JPanel implements Observer {
             txtPane.setText(model.getActiveConversation().displayMessages());
 
             if (chatCollection.getActiveConversation() instanceof ConversationData) {
-                title.setText(model.getActiveConversation().getUser()
-                        .getNickname());
-
+            	//A blank space is add to the start of each name because otherwise
+            	//the first letter may look cutoff for some names.
+            	if(model.getActiveConversation().getUser()
+                        .getNickname().length() > 0){
+	                title.setText("  " + model.getActiveConversation().getUser()
+	                        .getNickname());
+            	}else{
+            		title.setText("  " + model.getActiveConversation().getUser()
+	                        .getUserID());
+            	}
+            	
                 // VCard vcard = new VCard();
                 // vcard.load(connection,model.getActiveConversation().getUser().getUserID());
 
