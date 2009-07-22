@@ -1258,5 +1258,16 @@ public class Model extends Observable {
     public CustomizedChatbotModel getCustomizedChatbotModel() {
         return chatbotModel;
     }
+    public String getEmailNotification()
+    	throws ClassNotFoundException, SQLException {
+	DatabaseFunctions db = new DatabaseFunctions();
+	return db.getEmailNotification(this.getCurrentProfile().getName());
+}
+
+public void setEmailNotification(String emailNotification)
+    	throws ClassNotFoundException, SQLException {
+	DatabaseFunctions db = new DatabaseFunctions();
+	db.setEmailNotification(this.getCurrentProfile().getName(), emailNotification);
+}
 
 }
