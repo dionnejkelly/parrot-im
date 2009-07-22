@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 
+import net.kano.joustsim.oscar.oscar.service.ssi.Group;
 import net.kano.joscar.JoscarTools;
 import net.kano.joscar.logging.Logger;
 import net.kano.joscar.net.ClientConn;
@@ -45,6 +46,7 @@ import net.kano.joustsim.oscar.oscar.service.icbm.SimpleMessage;
 import net.kano.joustsim.oscar.oscar.service.icbm.TypingInfo;
 import net.kano.joustsim.oscar.oscar.service.icbm.TypingListener;
 import net.kano.joustsim.oscar.oscar.service.icbm.TypingState;
+import net.kano.joustsim.oscar.oscar.service.ssi.AddMutableGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
@@ -405,6 +407,43 @@ public class icqConnection {
 		SimpleMessage outgoingMessage = new SimpleMessage(message);
 		conversation.sendMessage(outgoingMessage);
 	}
+	public void addFriends(String name){
+		
+		String GroupName;
+		GroupName="General";
+        net.kano.joustsim.oscar.oscar.service.ssi.Group g;
+		if(connection.getSsiService().getBuddyList().getGroups()==null)
+		     {
+			     connection.getSsiService().getBuddyList().addGroup(GroupName);
+			     g=connection.getSsiService().getBuddyList().getGroups().get(0);
+			     ((MutableGroup)g).addBuddy(name);
+		     }
+		else
+		{
+			 g=connection.getSsiService().getBuddyList().getGroups().get(0);
+		     ((MutableGroup)g).addBuddy(name);
+		}
+		
+        /*if (aimGroup == null) {
+            addContactGroup(group);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {// no need
+            }
+            aimGroup = findGroup(group);
+        }
+        if (aimGroup == null) { // still null?
+            notifyErrorOccured("Failed to create the group.  Try again.", null);
+            return;
+        }
+        if (aimGroup instanceof MutableGroup) {
+            ((MutableGroup) aimGroup).addBuddy(name);
+        } else {
+            notifyErrorOccured("This is a special group. Can not add contacts.", null);
+        }*/
+        
+    }
+
 	 /*public String retrieveStatus(String userID)
 	 {
 		 String actualStatus="";
