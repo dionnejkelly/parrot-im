@@ -120,9 +120,11 @@ public class BugReportFrame extends JFrame{
 		JScrollPane QListScroll = new JScrollPane (messageText);
 		QListScroll.setPreferredSize(new Dimension(362, 180));
 		
-		sendButton = new JButton ("Send");
+		sendButton = new JButton ("Send", new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/email_go.png")));
 		sendButton.addActionListener(new sendActionListener());
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Cancel", new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/email_delete.png")));
 		cancelButton.addActionListener(new cancelActionListener());
 		sendButton.setEnabled(false);
 		
