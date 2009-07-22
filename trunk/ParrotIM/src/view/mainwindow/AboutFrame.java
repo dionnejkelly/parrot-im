@@ -47,7 +47,6 @@ public class AboutFrame extends JFrame {
      * is opened or not).
      */
     Model model;
-
     /**
      * aboutFrame constructor. This window describes about ParrotIM
      */

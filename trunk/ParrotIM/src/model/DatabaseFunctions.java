@@ -158,7 +158,7 @@ public class DatabaseFunctions {
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile, chatWindowHistory, "
                 + "autoSignIn, chatLog, sounds, chatbot, avatarDirectory, "
-                + "statusMessage, status);");
+                + "statusMessage, status, emailNotification);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
         stat.executeUpdate("create table if not exists chatBotQuestions "
@@ -209,7 +209,28 @@ public class DatabaseFunctions {
         conn.close();
         return;
     }
+    /**
+     *  Replace all instances of a String in a String.
+     *   @param  s  String to alter.
+     *   @param  f  String to look for.
+     *   @param  r  String to replace it with, or null to just remove it.
+     */  
 
+    public String replace( String s, String f, String r )
+    {
+       if (s == null)  return s;
+       if (f == null)  return s;
+       if (r == null)  r = "";
+
+       int index01 = s.indexOf( f );
+       while (index01 != -1)
+       {
+          s = s.substring(0,index01) + r + s.substring(index01+f.length());
+          index01 += r.length();
+          index01 = s.indexOf( f, index01 );
+       }
+       return s;
+    }
     // Section
     // VI - Chat manipulation
 
@@ -262,6 +283,8 @@ public class DatabaseFunctions {
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
+        searched = this.replace(searched, "'", "");
+        System.out.println(searched);
         r3 = stat.executeQuery("select * from people where profile='" + profile
                 + "';");
         while (r3.next()) {
@@ -301,6 +324,7 @@ public class DatabaseFunctions {
     public Vector<String> getChatDatesFromName(String profile,
             String buddyname, String searched) throws SQLException {
         Vector<String> accountList = new Vector<String>();
+        searched = this.replace(searched, "'", "");
         stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where profile = '"
                 + profile + "' AND (toUser='" + buddyname + "' OR fromUser='"
@@ -334,7 +358,7 @@ public class DatabaseFunctions {
             throws SQLException {
         ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
-
+        searched = this.replace(searched, "'", "");
         rs = stat
                 .executeQuery("select * from chatLog where (toUser='"
                         + buddyname + "' AND fromUser='" + username
@@ -356,7 +380,6 @@ public class DatabaseFunctions {
 
         return messageList;
     }
-
     // Section
     // VII - Profile Manipulation
 
@@ -381,7 +404,7 @@ public class DatabaseFunctions {
         String chatbot = isChatbot ? YES : NO;
 
         prep = conn.prepareStatement("insert into profiles values "
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, name);
@@ -395,6 +418,7 @@ public class DatabaseFunctions {
         prep.setString(9, "");
         prep.setString(10, "");
         prep.setString(11, "");
+        prep.setString(12, "Y");
         prep.executeUpdate();
 
         conn.commit();
@@ -528,6 +552,28 @@ public class DatabaseFunctions {
             return directory;
         }
     }
+    // String emailNotification should be a String.
+    public void setEmailNotification(String profile, String emailNotification)
+    throws SQLException {
+    	System.out.println("this is" + emailNotification);
+	// TODO: change so that it will return null if the avatar is not set
+	stat.executeUpdate("update profiles set emailNotification = '"
+			+ emailNotification + "'  where name='" + profile + "'");
+	conn.close();
+	}
+	
+	public String getEmailNotification(String profile) throws SQLException {
+	String emailNotification = "";
+	rs = stat.executeQuery("select * from profiles where name='" + profile
+	        + "';");
+	if (rs.next()) {
+	    emailNotification = rs.getString("emailNotification");
+	}
+	rs.close();
+	conn.close();
+	return emailNotification;
+	
+}
 
     public void setStatusMessage(String profile, String statusMessage)
             throws SQLException {
