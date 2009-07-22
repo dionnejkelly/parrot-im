@@ -27,6 +27,7 @@ import javax.swing.filechooser.FileFilter;
 import view.buddylist.BuddyList;
 import view.buddylist.AccountInfo;
 import view.options.GroupChatConfigurationFrame;
+import view.styles.GPanel;
 import view.styles.PopupWindowListener; //import view.theme.LookAndFeelManager;
 
 import controller.MainController;
@@ -44,7 +45,7 @@ import model.dataType.MultiConversationData;
  * This object inherits from JPanel
  */
 
-public class ChatPanel extends JPanel {
+public class ChatPanel extends GPanel {
 
     /**
      * Model stores the needed data of the system. It also connects it with
@@ -115,6 +116,9 @@ public class ChatPanel extends JPanel {
         this.model = model;
         this.c = c;
 
+        setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 3));
+        
         bold = false;
         italics = false;
         underlined = false;
