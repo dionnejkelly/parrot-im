@@ -252,8 +252,8 @@ public class BuddyPanel extends GPanel implements Observer {
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
-        scroller
-                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller.getVerticalScrollBar().setUnitIncrement(16);
         options = OptionsBar();
 
         add(scroller, BorderLayout.CENTER);
