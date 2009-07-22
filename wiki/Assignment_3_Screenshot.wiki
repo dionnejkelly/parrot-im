@@ -9,9 +9,13 @@
 Login Windows:
 
 http://parrot-im.googlecode.com/files/login.jpg
+http://parrot-im.googlecode.com/files/connectguestaccount.jpg
 
 Create and manage account windows:
 
 http://parrot-im.googlecode.com/files/create%20new%20profile.jpg
-
 http://parrot-im.googlecode.com/files/add%20new%20account.jpg
+
+Buddy list:
+
+http://parrot-im.googlecode.com/files/buddy%20list.jpg
