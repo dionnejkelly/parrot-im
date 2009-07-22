@@ -7,8 +7,8 @@
 
 = Details =
 
-  *[Assignment_3_Screenshot    Assignment 3]
+  * [Assignment_3_Screenshot    Assignment 3]
 
-  *[Assignment_4_Screenshot    Assignment 4]
+  * [Assignment_4_Screenshot    Assignment 4]
 
 Assignment 5
