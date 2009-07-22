@@ -6,15 +6,22 @@
 
 = Details =
 
-Login Windows:
+*Login Windows:
 
-http://parrot-im.googlecode.com/files/login.jpg http://parrot-im.googlecode.com/files/connectguestaccount.jpg
+http://parrot-im.googlecode.com/files/login.jpg 
 
-Create and manage account windows:
+http://parrot-im.googlecode.com/files/connectguestaccount.jpg
+
+*Create and manage account windows:
 
 http://parrot-im.googlecode.com/files/create%20new%20profile.jpg
+
 http://parrot-im.googlecode.com/files/add%20new%20account.jpg
 
-Buddy list:
+*Buddy list:
 
 http://parrot-im.googlecode.com/files/buddy%20list.jpg
+
+*Chat Window:
+
+http://parrot-im.googlecode.com/files/chatwindow.jpg
