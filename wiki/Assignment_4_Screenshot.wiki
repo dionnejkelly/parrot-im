@@ -112,7 +112,7 @@ we implement sound notification in this version.
 http://parrot-im.googlecode.com/files/enableSooundEffect.jpg
 
 
-==Sign out  and exit:==
+==Sign out and Exit:==
 different with previous version, we move sign out under "Account menu".
 
 http://parrot-im.googlecode.com/files/exit3.jpg
