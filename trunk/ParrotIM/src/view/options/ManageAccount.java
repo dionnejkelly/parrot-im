@@ -265,16 +265,9 @@ public class ManageAccount extends GPanel implements Observer {
     private class addActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent arg0) {
-            // if ((ServerType) server.getSelectedItem() ==
-            // ServerType.GOOGLE_TALK
-            // || (ServerType) server.getSelectedItem() == ServerType.TWITTER) {
 
             if (UNField.getText().length() != 0
                     && pwdField.getPassword().length != 0) {
-                // search if it exists or not
-                // TODO: newACC is supposed to be an Object that includes
-                // server,
-                // username, password
 
                 // FOR BETA: we only support one account per server
                 if (profile.getAccountFromServer((ServerType) server
@@ -358,20 +351,7 @@ public class ManageAccount extends GPanel implements Observer {
 
         }
 
-        public void keyTyped(KeyEvent e) {
-            // if (UNField.getText().length() > 0 &&
-            // pwdField.getPassword().length > 0){
-            // if (server.getSelectedIndex() > 0)
-            // addButton.setEnabled(true);
-            // else{
-            // if ( jabberServer.getText().length() > 0 )
-            // addButton.setEnabled(true);
-            // else
-            // addButton.setEnabled(false);
-            // }
-            // } else
-            // addButton.setEnabled(false);
-        }
+        public void keyTyped(KeyEvent e) {}
 
     }
 }
