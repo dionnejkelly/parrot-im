@@ -9,3 +9,6 @@
 Login Windows:
 
 http://parrot-im.googlecode.com/files/loginPage.jpg
+http://parrot-im.googlecode.com/files/loginWindow.jpg
+
+Create account:
