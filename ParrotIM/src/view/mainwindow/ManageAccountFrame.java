@@ -69,7 +69,15 @@ public class ManageAccountFrame extends JFrame {
 
         setTitle(profile + "\'s Account Manager");
         setLocationRelativeTo(null);
-        setPreferredSize(new Dimension(530, 300));
+        
+        //mac/linux 
+        String lcOSName = System.getProperty("os.name").toLowerCase();
+
+        if (lcOSName.startsWith("win"))
+            setPreferredSize(new Dimension(530, 300));
+        else
+        	setPreferredSize(new Dimension(530, 270));
+        
         setResizable(false);
         ManageAccount accountPanel = new ManageAccount(profile);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
