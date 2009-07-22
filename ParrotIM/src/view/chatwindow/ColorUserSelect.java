@@ -28,6 +28,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
@@ -109,7 +110,8 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
          buttonPanel.setLayout(buttonsLayout);
          buttonPanel.setPreferredSize(new Dimension(170, 35));
          
-         JButton okButton = new JButton("DONE");
+         JButton okButton = new JButton("DONE", new ImageIcon(this.getClass()
+                 .getResource("/images/buddylist/button_ok.png")));
          
          okButton.addActionListener(new okButtonListener());
          
