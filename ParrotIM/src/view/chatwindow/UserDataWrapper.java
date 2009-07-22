@@ -45,7 +45,12 @@ public class UserDataWrapper implements Observer {
                     + ") ";
         }
         if (this.conversation instanceof ConversationData) {
-            message += this.conversation.getUser().getUserID();
+        	if(this.conversation.getUser().getUserID().length() <= 12){
+        		message += this.conversation.getUser().getUserID();
+        	}else{
+        		message += this.conversation.getUser().getUserID().substring(0, 12);
+        		message += "...";
+        	}
             
             String typingState = this.conversation.getUser().getTypingState();
             if (!typingState.equals("")) {
