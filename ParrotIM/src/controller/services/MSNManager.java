@@ -48,6 +48,7 @@ import org.jivesoftware.smack.util.StringUtils;
 import model.Model;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
+import model.enumerations.TypingStateType;
 import model.enumerations.UserStateType;
 
 
@@ -83,7 +84,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 		while((option).equals("1"))
 		{
 			
-				System.out.println("Type your message to littletomato89@gmail.com:");
+				System.out.println("Type your message to parrotim.test@gmail.com:");
 				Scanner msgInput = new Scanner(System.in);
 				String msg = msgInput.nextLine();
 				
@@ -93,8 +94,8 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 				System.out.println("=====================");
 				//System.out.println("User status = " + msn.getUserStatus("littletomato89@hotmail.com"));
 			
-				msn.setPresence(msg);
-				//msn.sendMessage("littletomato89@hotmail.com", msg);
+				//msn.setPresence(msg);
+				msn.sendMessage("parrotim.test@hotmail.com", msg);
 //				if (msg.equals("1")) {
 //					msn.setAway(true);
 //				}
@@ -156,32 +157,53 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 		}
     	return true;
     }
-    
+       
     public void sendMessage(String userID, String message) throws BadConnectionException {
     	MimeMessage mimeMsg = new MimeMessage(message);
     	
     	mimeMsg.setKind(2);
     	
     	
-    	if (session == null) {
-    		try {
-				connection.sendMessage(userID, mimeMsg, getSession(userID).getSessionId());
+			try {
+				session = getSession(userID);
+				if (session != null) {
+					connection.sendMessage(userID, mimeMsg, session.getSessionId());
+				}
 				
+				else {
+					controller.messageReceived(userID,
+							connection.getLoginName(),
+		                    " is offline right now.");
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	}
+			
+			
+			
+		
     	
-    	else {
-    		try {
-    			connection.sendMessage(userID, mimeMsg, session.getSessionId());
-    			
-    		} catch (IOException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    	}
+    	
+//    	if (session == null) {
+//    		try {
+//				connection.sendMessage(userID, mimeMsg, getSession(userID).getSessionId());
+//				
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//    	}
+//    	
+//    	else {
+//    		try {
+//    			connection.sendMessage(userID, mimeMsg, session.getSessionId());
+//    			
+//    		} catch (IOException e) {
+//    			// TODO Auto-generated catch block
+//    			e.printStackTrace();
+//    		}
+//    	}
     	
     }
     
@@ -292,6 +314,9 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     	public void progressTyping( SwitchboardSession ss, MsnFriend friend, String typingUser )
 	      {
 	          System.out.println(friend.getLoginName() + " is Typing...");
+	          TypingStateType typingState = TypingStateType.ACTIVE;
+	          
+	          controller.typingStateUpdated(genericConnection, typingState, friend.getLoginName());
 	      }
 	      public void instantMessageReceived( SwitchboardSession ss,
 	          MsnFriend friend, MimeMessage mime )
@@ -393,20 +418,24 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
         System.out.println("User: " + connection.getLoginName());
         int option;
         
-        if (unread > 1) {
-        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-        else {
-        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread email.\nWould you like to read this email right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-        
-        if (option == JOptionPane.OK_OPTION) {
-        	HelpPanel openEmail = new HelpPanel("http://www.hotmail.com");
-        }
+//        if (unread > 1) {
+//        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+//        }
+//        
+//        else {
+//        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread email.\nWould you like to read this email right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+//        }
+//        
+//        
+//        if (option == JOptionPane.OK_OPTION) {
+//        	HelpPanel openEmail = new HelpPanel("http://www.hotmail.com");
+//        }
         
     }
+      
+    public void addFailed(int errorCode) {
+    notifyErrorOccured("Failed to add.  Error code " + errorCode, null);            
+}
 	        
 	        
     	
