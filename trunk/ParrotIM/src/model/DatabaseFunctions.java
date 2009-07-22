@@ -272,9 +272,13 @@ public class DatabaseFunctions {
                 + " OR fromUser LIKE '%" + searched + "%' OR"
                 + " toUser LIKE '%" + searched + "%');");
         while (rs.next()) {
-            if (!accountList.contains(rs.getString("toUser"))) {
-                if (!profilesAccountList.contains(rs.getString("toUser"))) {
-                    accountList.add(rs.getString("toUser"));
+            if (!accountList.contains(rs.getString("toUser")) && 
+            		!accountList.contains(rs.getString("fromUser"))) {
+                if (profilesAccountList.contains(rs.getString("toUser"))) {
+                    accountList.add(rs.getString("fromUser"));
+                }
+                else {
+                accountList.add(rs.getString("toUser"));
                 }
             }
         }
