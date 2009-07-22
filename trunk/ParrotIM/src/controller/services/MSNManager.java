@@ -391,8 +391,16 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
         String text = "Unread Email Count: " + unread;
         System.out.println(text);
         System.out.println("User: " + connection.getLoginName());
+        int option;
         
-        int option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+        if (unread > 1) {
+        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        else {
+        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread email.\nWould you like to read this email right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
         
         if (option == JOptionPane.OK_OPTION) {
         	HelpPanel openEmail = new HelpPanel("http://www.hotmail.com");
