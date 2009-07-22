@@ -62,6 +62,10 @@ public class FeaturesPanel extends GPanel {
 
     private JCheckBox chatbotCheck;
     private JCheckBox soundCheck;
+    
+    private JCheckBox spellingCheck;
+    
+    private JCheckBox emailCheck;
     private JCheckBox chatLogCheck;
     private JCheckBox chatWindowHistoryCheck;
 
@@ -173,6 +177,25 @@ public class FeaturesPanel extends GPanel {
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
 
+        /* EMAIL NOTIFICATION */
+        if (model.getCurrentProfile().isSoundsEnabled()) {
+       	 emailCheck = new JCheckBox("Toggle Sound Notification",  new ImageIcon(this.getClass().getResource(
+            "/images/menu/email_add.png")));
+           
+      }
+      
+      else {
+    	  emailCheck = new JCheckBox("Toggle Email Notification",  new ImageIcon(this.getClass().getResource(
+          "/images/menu/email_delete.png")));
+      }
+       
+        emailCheck.setBackground(colors.SECONDARY_COLOR_LT);
+        emailCheck.setForeground(colors.SECONDARY_COLOR_DARK);
+        emailCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,43));
+        emailCheck.setSelected(model.getCurrentProfile().isEmailEnabled());
+        emailCheck.addItemListener(new emailListener());
+       
+        
         /* CHATLOG */
         if (model.getCurrentProfile().isChatLogEnabled()) {
         	 chatLogCheck = new JCheckBox("Toggle Chat Log",  new ImageIcon(this.getClass().getResource(
@@ -217,6 +240,7 @@ public class FeaturesPanel extends GPanel {
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.add(chatbotPanel);
         this.add(soundCheck);
+        this.add(emailCheck);
         this.add(chatLogCheck);
         this.add(chatWindowHistoryCheck);
        
@@ -361,6 +385,24 @@ public class FeaturesPanel extends GPanel {
                 setEnabledChatbotButtons(false);
             }
         }
+    }
+    
+    private class emailListener implements ItemListener {
+    	
+    	public void itemStateChanged(ItemEvent event) {
+			if (event.getStateChange() == ItemEvent.SELECTED) {
+                model.getCurrentProfile().setEmailEnabled(true);
+                emailCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/email_add.png")));
+            } else {
+                model.getCurrentProfile().setEmailEnabled(false);
+                emailCheck.setIcon( new ImageIcon(this.getClass().getResource(
+                "/images/menu/email_delete.png")));
+            }
+			
+			
+			
+		}
     }
 
     private class soundListener implements ItemListener {
