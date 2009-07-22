@@ -57,7 +57,7 @@ public class PreferencePanel extends GPanel {
         themeMenu.setMaximumSize(new Dimension(200,30));
         themeMenu.setAutoscrolls(true);
         themeMenu.addActionListener(new ThemeMenuListener());
-        JLabel themeLabel = new JLabel("Status: ");
+        JLabel themeLabel = new JLabel("Theme: ");
         themeLabel.setForeground(colors.SECONDARY_COLOR_DARK);
         JPanel themePanel = new JPanel();
         themePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
