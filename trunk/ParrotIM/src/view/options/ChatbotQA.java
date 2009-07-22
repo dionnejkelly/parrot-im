@@ -134,7 +134,7 @@ public class ChatbotQA extends JFrame{
 		mainLayout.setVgap(10);
 		mainPanel.setLayout(mainLayout);
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		mainPanel.setGradientColors(mainPanel.colors.SECONDARY_COLOR_LT, Color.WHITE);
+		mainPanel.setGradientColors(mainPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
 		mainPanel.setAlignmentX(LEFT_ALIGNMENT);
 		mainPanel.add(questionPanel);
 		mainPanel.add(answerPanel);

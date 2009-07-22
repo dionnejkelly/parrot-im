@@ -75,7 +75,7 @@ public class FeaturesPanel extends GPanel {
 
     public FeaturesPanel(MainController c, JFrame optionframe, Model model)
             throws ClassNotFoundException, SQLException {
-    	this.setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
+    	this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
         this.model = model;
         chatBotModel = model.getCustomizedChatbotModel();
 

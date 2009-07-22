@@ -22,6 +22,7 @@
 package view.options;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,7 +69,7 @@ public class PersonalProfileTab extends GPanel {
 		//super(false);
 		this.BuddyListStatus = accInfo.presence;
         this.BuddyListPM = accInfo.statusMessage;
-        this.setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
+        this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
         
 		/*LEFT COMPONENTS*/
 		//avatar
