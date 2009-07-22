@@ -10,6 +10,7 @@ import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.MultiConversationData;
 import model.enumerations.UpdatedType;
+import model.enumerations.UserStateType;
 
 public class UserDataWrapper implements Observer {
 
@@ -34,12 +35,27 @@ public class UserDataWrapper implements Observer {
     }
 
     public JLabel getLabelRepresentation() {
-    	String profileText = this.conversation.getUser().getNickname() + "(" 
-    						+ this.conversation.getUser().getUserID() + ")";
-    						//+ "Status: " + this.conversation.getUser().getStatus() + "\n"
-    						//+ "Server: " + this.conversation.getUser().getServer() + "\n"
-    						//+ "------------------------------\n"
-    						//+ "(Right-click for more options)";
+    	String statePath = "";
+    	if(this.conversation.getUser().getState() == UserStateType.ONLINE){
+    		statePath = "images/status/user_green.png";
+    	}else if(this.conversation.getUser().getState() == UserStateType.BUSY ||
+    			this.conversation.getUser().getState() == UserStateType.AWAY){
+    		statePath = "images/status/user_orange.png";
+    	}else if(this.conversation.getUser().getState() == UserStateType.OFFLINE){
+    		statePath = "images/status/user_red.png";
+    	}else if(this.conversation.getUser().isBlocked()){
+    		statePath = "images/status/user_grey.png";
+    	}
+    	
+    	String profileText = "<html>" + this.conversation.getUser().getNickname() + "(" 
+    						+ this.conversation.getUser().getUserID() + ") <br>"
+    						+ this.conversation.getUser().getStatus() + "<br>"
+    						+ "<img src=\"" 
+    						+ getClass().getClassLoader().getResource(statePath) + "\">"
+    						+ "<img src=\"" 
+    						+ getClass().getClassLoader()
+    						.getResource("images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png") + "\">"
+    						+ "<hr>" + "(Right-click for more options)";
     	this.labelRepresentation.setToolTipText(profileText);
         return this.labelRepresentation;
     }
