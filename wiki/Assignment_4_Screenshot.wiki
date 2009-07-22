@@ -12,4 +12,9 @@ http://parrot-im.googlecode.com/files/loginPage.jpg
 
 
 Create account:
+
 http://parrot-im.googlecode.com/files/createNewProfile.jpg
+http://parrot-im.googlecode.com/files/createNewProfile2.jpg
+http://parrot-im.googlecode.com/files/createNewProfile3.jpg
+http://parrot-im.googlecode.com/files/createNewProfile4.jpg
+http://parrot-im.googlecode.com/files/createNewProfile5.jpg
