@@ -62,13 +62,13 @@ public abstract class UserData extends PersonData implements Comparable {
     protected boolean blocked;
 
     private static int countOnline = 0;
-    
+
     private static int countOffline = 0;
-    
+
     private static int countAway = 0;
-    
+
     private static int countBlock = 0;
-    
+
     private static Vector<String> onlineBuddy = new Vector<String>();
 
     // Section II
@@ -269,27 +269,27 @@ public abstract class UserData extends PersonData implements Comparable {
 
         countOnline = 0;
         onlineBuddy = new Vector<String>();
-        
+
         for (UserData user : friends) {
             if (user.getState() == UserStateType.ONLINE) {
                 countOnline++;
-                
+
                 // puts online/away/busy users into the Vector<String> list
                 onlineBuddy.add(user.getUserID());
             }
-            
+
             else if (user.getState() == UserStateType.AWAY
                     || user.getState() == UserStateType.BUSY) {
-            	countAway++;
-            	onlineBuddy.add(user.getUserID());
+                countAway++;
+                onlineBuddy.add(user.getUserID());
             }
-            
+
             else if (user.getState() == UserStateType.OFFLINE) {
-            	countOffline++;
+                countOffline++;
             }
-            
+
             else {
-            	countBlock++;
+                countBlock++;
             }
         }
 
@@ -299,21 +299,21 @@ public abstract class UserData extends PersonData implements Comparable {
     public static int getCountOnline() {
         return countOnline;
     }
-    
+
     public static int getCountOffline() {
         return countOffline;
     }
-    
+
     public static int getCountAway() {
         return countAway;
     }
-    
+
     public static int getCountBlock() {
         return countBlock;
     }
-    
+
     public static Vector<String> getOnlineBuddy() {
-    	return onlineBuddy;
+        return onlineBuddy;
     }
 
     public int getAvailability() {
@@ -358,8 +358,7 @@ public abstract class UserData extends PersonData implements Comparable {
         if (this.getAvailability() == otherUser.getAvailability()) {
             // Equal availability, check alpha
             toReturn =
-                    this.toString().compareToIgnoreCase(
-                            otherUser.toString());
+                    this.toString().compareToIgnoreCase(otherUser.toString());
         } else if (this.getAvailability() > otherUser.getAvailability()) {
             // this is more online than parameter
             toReturn = -1;
@@ -394,6 +393,36 @@ public abstract class UserData extends PersonData implements Comparable {
                 }
                 unsorted.remove(candidate);
                 friends.add(candidate);
+                candidate = null;
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Null unsorted getting passed in.");
+            e.printStackTrace();
+            friends.clear();
+        }
+
+        return friends;
+    }
+
+    public static ArrayList<UserData> cullByStringMatch(
+            ArrayList<UserData> unsorted, String match) {
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+        UserData candidate = null;
+
+        try {
+            for (UserData user : unsorted) {
+                if (user.getNickname().matches(".*" + match + ".*")) {
+                    candidate = user;
+                } else if (user.getUserID().matches(".*" + match + ".*")) {
+                    candidate = user;
+                } else if (user.getStatus().matches(".*" + match + ".*")) {
+                    candidate = user;
+                } else {
+                    // do nothing, next iteration please
+                }
+                if (candidate != null) {
+                    friends.add(candidate);
+                }
                 candidate = null;
             }
         } catch (NullPointerException e) {

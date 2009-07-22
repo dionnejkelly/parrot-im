@@ -791,6 +791,7 @@ public class BuddyPanel extends GPanel implements Observer {
         buddies = model.getCurrentProfile().getAllFriends();
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
+        
         // buddyListPane.removeAllElements(0);
 
         // Now check to see if there is a search going on
@@ -942,14 +943,14 @@ public class BuddyPanel extends GPanel implements Observer {
         public void keyReleased(KeyEvent e) {
             if (search.getText().length() < 1) {
                 searchEnabled = false;
-                boxes[0].getComponent(0).setBackground(Color.WHITE);
+                //boxes[0].getComponent(0).setBackground(Color.WHITE);
                 refreshBuddyList();
             } else { // we have text! search!
                 searchEnabled = true;
 
                 refreshBuddyList();
-                boxes[0].getComponent(0)
-                        .setBackground(new Color(145, 200, 200));
+                //boxes[0].getComponent(0)
+                //        .setBackground(new Color(145, 200, 200));
 
             }
 
@@ -967,7 +968,8 @@ public class BuddyPanel extends GPanel implements Observer {
     }
 
     private void searchBuddies() {
-        buddies = UserData.sortByStringMatch(buddies, search.getText());
+        //buddies = UserData.sortByStringMatch(buddies, search.getText());
+        buddies = UserData.cullByStringMatch(buddies, search.getText());
 
         return;
     }
