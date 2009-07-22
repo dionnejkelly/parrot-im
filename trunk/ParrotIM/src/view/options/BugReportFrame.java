@@ -1,6 +1,7 @@
 package view.options;
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import view.styles.GPanel;
 import view.styles.PopupEnableMainWindowListener;
 
 import model.Model;
@@ -39,7 +41,7 @@ public class BugReportFrame extends JFrame{
      */
     protected Model model;
     
-	private JPanel mainPanel;
+	private GPanel mainPanel;
 	private JFrame mainFrame;
 	
 	private JButton sendButton;
@@ -99,7 +101,7 @@ public class BugReportFrame extends JFrame{
 		
 		Dimension preferredDimension = new Dimension (400,20);
 		Border preferredBorder = BorderFactory.createEmptyBorder(0,20,0,20);
-		questionLabel = new JLabel("<html>To: <FONT COLOR=GRAY>" + messageTo +"</FONT></html>", JLabel.LEFT);
+		questionLabel = new JLabel("<html>To: <FONT COLOR=WHITE>" + messageTo +"</FONT></html>", JLabel.LEFT);
 		questionLabel.setPreferredSize(new Dimension(400,40));
 		questionLabel.setBorder(BorderFactory.createEmptyBorder(15,20,0,20));
 		subjectLabel = new JLabel("Title: " , JLabel.LEFT);
@@ -139,11 +141,15 @@ public class BugReportFrame extends JFrame{
 		minorImpact = new JRadioButton("Minor");
 		noImpact = new JRadioButton("No Impact");
 		
+		criticalImpact.setOpaque(false);
+		majorImpact.setOpaque(false);
+		minorImpact.setOpaque(false);
+		noImpact.setOpaque(false);
+		
 		criticalImpact.setActionCommand("Critical");
 		majorImpact.setActionCommand("Major");
 		minorImpact.setActionCommand("Minor");
 		noImpact.setActionCommand("No Impact");
-
 		
 		StyleListener listener = new StyleListener();
 		
@@ -154,6 +160,7 @@ public class BugReportFrame extends JFrame{
 		
 		
 		JPanel frequencyPanel = new JPanel();
+		frequencyPanel.setOpaque(false);
 		frequencyPanel.add(frequency);
 		
 		 //Group the radio buttons.
@@ -166,13 +173,15 @@ public class BugReportFrame extends JFrame{
 	    
 	    
 		JPanel severityPanel = new JPanel();
-	
+		severityPanel.setOpaque(false);
+		
 		severityPanel.add(criticalImpact);
 		severityPanel.add(majorImpact);
 		severityPanel.add(minorImpact);
 		severityPanel.add(noImpact);
 		
 		JPanel QButtonsPanel = new JPanel();
+		QButtonsPanel.setOpaque(false);
 		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
 		QButtonsPanel.setLayout(new BoxLayout(QButtonsPanel, BoxLayout.X_AXIS));
 		QButtonsPanel.add(sendButton);
@@ -180,7 +189,8 @@ public class BugReportFrame extends JFrame{
 		
 		
 		/*WRAP UP*/
-		mainPanel = new JPanel();
+		mainPanel = new GPanel();
+		mainPanel.setGradientColors(mainPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
 		mainPanel.add(questionLabel);
 //		mainPanel.add(questionText, BorderLayout.AFTER_LINE_ENDS);
 		mainPanel.add(subjectLabel);
