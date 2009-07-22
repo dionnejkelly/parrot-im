@@ -82,9 +82,11 @@ public class ChatbotQA extends JFrame{
 		JScrollPane QListScroll = new JScrollPane (QList);
 		QListScroll.setPreferredSize(new Dimension(450, 100));
 		
-		addQ = new JButton ("Add");
+		addQ = new JButton ("Add", new ImageIcon(this.getClass()
+                .getResource("/images/chatbot/pencil.png")));
 		addQ.addActionListener(new addActionListener('Q'));
-		removeQ = new JButton("Remove");
+		removeQ = new JButton("Remove", new ImageIcon(this.getClass()
+                .getResource("/images/chatbot/eraser.png")));
 		removeQ.addActionListener(new removeActionListener('Q'));
 		removeQ.setEnabled(false);
 		JPanel QButtonsPanel = new JPanel();
@@ -109,9 +111,11 @@ public class ChatbotQA extends JFrame{
 		JScrollPane AListScroll = new JScrollPane (AList);
 		AListScroll.setPreferredSize(new Dimension(450, 100));
 		
-		addA = new JButton ("Add");
+		addA = new JButton ("Add", new ImageIcon(this.getClass()
+                .getResource("/images/chatbot/pencil.png")));
 		addA.addActionListener(new addActionListener('A'));
-		removeA = new JButton("Remove");
+		removeA = new JButton("Remove", new ImageIcon(this.getClass()
+                .getResource("/images/chatbot/eraser.png")));
 		removeA.addActionListener(new removeActionListener('A'));
 		removeA.setEnabled(false);
 		JPanel AButtonsPanel = new JPanel();
@@ -230,10 +234,12 @@ public class ChatbotQA extends JFrame{
 			field.addKeyListener (new newQAfieldKeyListener());
 			field.setPreferredSize(new Dimension(260, 20));
 			
-			okButton = new JButton ("OK");
+			okButton = new JButton ("OK", new ImageIcon(this.getClass()
+	                .getResource("/images/buddylist/button_ok.png")));
 			okButton.addActionListener(new okActionListener(mode));
 			okButton.setEnabled(false);
-			JButton cancelButton = new JButton ("Cancel");
+			JButton cancelButton = new JButton ("Cancel", new ImageIcon(this.getClass()
+	                .getResource("/images/mainwindow/cancel.png")));
 			cancelButton.addActionListener(new cancelActionListener());
 			JPanel buttonPanel = new JPanel ();
 			buttonPanel.add(okButton);

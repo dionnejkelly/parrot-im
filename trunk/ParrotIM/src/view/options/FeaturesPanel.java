@@ -115,13 +115,16 @@ public class FeaturesPanel extends GPanel {
         chatbotListScroll.setPreferredSize(new Dimension(400, 80));
 
         // chatbot buttons
-        chatbotAddButton = new JButton("Add");
+        chatbotAddButton = new JButton("Add", new ImageIcon(this.getClass()
+                .getResource("/images/chatbot/pencil.png")));
         chatbotAddButton
                 .addActionListener(new chatbotManageButtonActionListener('A'));
-        chatbotEditButton = new JButton("Edit");
+        chatbotEditButton = new JButton("Edit", new ImageIcon(this.getClass()
+                .getResource("/images/chatbot/edit.png")));
         chatbotEditButton
                 .addActionListener(new chatbotManageButtonActionListener('E'));
-        chatbotRemoveButton = new JButton("Remove");
+        chatbotRemoveButton = new JButton("Remove", new ImageIcon(this.getClass()
+                .getResource("/images/chatbot/eraser.png")));
         chatbotRemoveButton
                 .addActionListener(new chatbotRemoveButtonActionListener());
         setEnabledChatbotButtons(false);

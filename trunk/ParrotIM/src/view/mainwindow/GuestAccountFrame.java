@@ -197,9 +197,11 @@ public class GuestAccountFrame extends JFrame {
         setupPanel.add(passwordPanel);
 
         /* BOTTOM PART: OK + CANCEL BUTTONs */
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton("OK", new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/button_ok.png")));
         okButton.addActionListener(new okButtonActionListener());
-        JButton cancelButton = new JButton("Cancel");
+        JButton cancelButton = new JButton("Cancel", new ImageIcon(this.getClass()
+                .getResource("/images/mainwindow/cancel.png")));
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
