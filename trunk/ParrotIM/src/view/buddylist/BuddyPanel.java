@@ -232,7 +232,7 @@ public class BuddyPanel extends GPanel implements Observer {
         menuItem3 = new JMenuItem("Remove Friend", new ImageIcon(this
                 .getClass().getResource("/images/buddylist/delete_user.png")));
         menuItem4 = new JMenuItem("Block Friend", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_cancel.png")));
+                .getResource("/images/buddylist/block_user.png")));
         menuItem5 = new JMenuItem("View Profile", new ImageIcon(this.getClass()
                 .getResource("/images/popup/pictures.png")));
 
@@ -413,7 +413,7 @@ public class BuddyPanel extends GPanel implements Observer {
         removeF.setToolTipText("Remove a friend");
 
         JButton blockF = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/button_cancel.png")));
+                "/images/buddylist/block_user.png")));
         blockF.setToolTipText("Block a friend");
 
         searchButton = new JButton(new ImageIcon(this.getClass().getResource(
@@ -880,7 +880,7 @@ public class BuddyPanel extends GPanel implements Observer {
                                                 this
                                                         .getClass()
                                                         .getResource(
-                                                                "/images/buddylist/button_ok.png")));
+                                                                "/images/buddylist/unblock_user.png")));
                             } else { // is not blocked; block it
                                 menuItem4.setText("Block Friend");
                                 menuItem4
@@ -888,7 +888,7 @@ public class BuddyPanel extends GPanel implements Observer {
                                                 this
                                                         .getClass()
                                                         .getResource(
-                                                                "/images/buddylist/button_cancel.png")));
+                                                                "/images/buddylist/block_user.png")));
                             }
                         }
                     }
