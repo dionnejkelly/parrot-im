@@ -76,7 +76,8 @@ public class ManageAccountFrame extends JFrame {
         getContentPane().add(accountPanel);
         
         //DONE BUTTON
-        JButton doneButton = new JButton ("Done");
+        JButton doneButton = new JButton ("Done", new ImageIcon(this.getClass()
+                .getResource("/images/menu/tick.png")));
         doneButton.addActionListener(new doneActionListener());
         JPanel donePanel = new JPanel ();
         donePanel.setOpaque (false);
