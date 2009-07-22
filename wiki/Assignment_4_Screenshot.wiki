@@ -51,11 +51,70 @@ http://parrot-im.googlecode.com/files/blockuserIcon.jpg
 
 === _Chat Log window:_===
 
+http://parrot-im.googlecode.com/files/viewconversation.jpg
+http://parrot-im.googlecode.com/files/viewconversation2.jpg
 === _Avatar Picture:_===
+
+http://parrot-im.googlecode.com/files/avatarPicture.jpg
+
+http://parrot-im.googlecode.com/files/avatarPicture3.jpg
+
+=== _Status:_===
+
+http://parrot-im.googlecode.com/files/status.jpg
 
 === _Options window (user preference):_===
 
-=== _Add / Delete / Block function:_===
+http://parrot-im.googlecode.com/files/parrotPresference.jpg
+
+
+  *Personal Profile
+
+   In this section you can modify :
+
+   -your personal message.
+
+   -your status.
+
+   -your avatar picture.
+
+http://parrot-im.googlecode.com/files/personalProfile2.jpg
+
+  *Manage Accounts
+
+   you can modify all your chatty account in this section:
+
+   -Add new Account
+
+   -Remove old Account
+
+   -Edit Account
+
+http://parrot-im.googlecode.com/files/manageAccount2.jpg
+
+  *Features Settings
+
+   In this section, you can:
+
+   -Enable ChatBot
+
+   -Enable Sound Notification
+
+   -Enable ChatLog
+
+http://parrot-im.googlecode.com/files/featureSetting3.jpg
+
+  *Preference
+
+   -in this section you can chage your Parrot-IM skin
+
+http://parrot-im.googlecode.com/files/Preference1.jpg
+
+==Sound notification:==
+we implement sound notification in this version.
+
+http://parrot-im.googlecode.com/files/enableSooundEffect.jpg
+
 
 ==Sign out  and exit:==
 different with previous version, we move sign out under "Account menu".
