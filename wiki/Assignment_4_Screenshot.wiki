@@ -68,7 +68,7 @@ http://parrot-im.googlecode.com/files/status.jpg
 http://parrot-im.googlecode.com/files/parrotPresference.jpg
 
 
-  *Personal Profile
+  * Personal Profile
 
    In this section you can modify :
 
@@ -80,9 +80,7 @@ http://parrot-im.googlecode.com/files/parrotPresference.jpg
 
 http://parrot-im.googlecode.com/files/personalProfile2.jpg
 
-  *Manage Accounts
-
-   you can modify all your chatty account in this section:
+  * Manage Accounts
 
    -Add new Account
 
@@ -92,9 +90,7 @@ http://parrot-im.googlecode.com/files/personalProfile2.jpg
 
 http://parrot-im.googlecode.com/files/manageAccount2.jpg
 
-  *Features Settings
-
-   In this section, you can:
+  * Features Settings
 
    -Enable ChatBot
 
@@ -104,9 +100,9 @@ http://parrot-im.googlecode.com/files/manageAccount2.jpg
 
 http://parrot-im.googlecode.com/files/featureSetting3.jpg
 
-  *Preference
+  * Preference
 
-   -in this section you can chage your Parrot-IM skin
+   -Parrot-IM skin
 
 http://parrot-im.googlecode.com/files/Preference1.jpg
 
