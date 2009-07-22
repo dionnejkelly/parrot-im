@@ -22,6 +22,7 @@ import rath.msnm.ftp.VolatileDownloader;
 import rath.msnm.ftp.VolatileTransferServer;
 import rath.msnm.msg.MimeMessage;
 import rath.msnm.msg.OutgoingMessage;
+import view.mainwindow.HelpPanel;
 import view.styles.ProgressMonitorScreen;
 import winterwell.jtwitter.Twitter;
 
@@ -38,6 +39,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Presence;
@@ -448,18 +450,18 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
         
         int option;
         
-//        if (unread > 1) {
-//        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
-//        }
-//        
-//        else {
-//        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread email.\nWould you like to read this email right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
-//        }
-//        
-//        
-//        if (option == JOptionPane.OK_OPTION) {
-//        	HelpPanel openEmail = new HelpPanel("http://www.hotmail.com");
-//        }
+        if (unread > 1) {
+        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        else {
+        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread email.\nWould you like to read this email right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+        if (option == JOptionPane.OK_OPTION) {
+        	HelpPanel openEmail = new HelpPanel("http://www.hotmail.com");
+        }
         
     }
     
