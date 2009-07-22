@@ -17,6 +17,7 @@
 package view.blockManager;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -35,6 +36,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,6 +45,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import view.styles.GPanel;
 
 import controller.MainController;
 
@@ -75,7 +79,7 @@ public class BlockManager extends JFrame implements Observer {
      * The Block Manager main panel.
      */
 
-    private JPanel accMANPanel;
+    private GPanel accMANPanel;
 
     /**
      * Holds the integrity of our database.
@@ -153,13 +157,14 @@ public class BlockManager extends JFrame implements Observer {
 
         setTitle("Block Manager");
         setLocation(100, 100);
-        setPreferredSize(new Dimension(500, 350));
+        setPreferredSize(new Dimension(510, 360));
         setResizable(false);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
 
         // set main panel
-        accMANPanel = new JPanel();
+        accMANPanel = new GPanel();
         accMANPanel.setLayout(new BorderLayout());
+        accMANPanel.setGradientColors(accMANPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
         // accMANPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20,
         // 30));
         // manage account panel
@@ -180,7 +185,10 @@ public class BlockManager extends JFrame implements Observer {
 
     private void leftPanelManager() {
         JPanel leftPanel = new JPanel();
+        leftPanel.setBorder(BorderFactory
+				.createEmptyBorder(5, 5, 5, 5));
         leftPanel.setLayout(new BorderLayout());
+        leftPanel.setOpaque(false);
 
         // saved account list
         usersBuddyListModel = new DefaultListModel();
@@ -201,6 +209,7 @@ public class BlockManager extends JFrame implements Observer {
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         // add-remove button panel
         JPanel addremovePanel = new JPanel();
+        addremovePanel.setOpaque(false);
 
         JButton blockButton = new JButton("Block");
         blockButton.setPreferredSize(new Dimension(120, 25));
@@ -214,15 +223,9 @@ public class BlockManager extends JFrame implements Observer {
         addremovePanel.add(blockButton);
 
         // add to leftpanel
-        leftPanel.add(listScroller, BorderLayout.NORTH);
+        leftPanel.add(new JLabel("Parrot IM Users"), BorderLayout.NORTH);
+        leftPanel.add(listScroller, BorderLayout.CENTER);
         leftPanel.add(addremovePanel, BorderLayout.SOUTH);
-        TitledBorder profTitle;
-        profTitle =
-                BorderFactory.createTitledBorder(
-                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-                        "Parrot IM Users");
-        profTitle.setTitleJustification(TitledBorder.CENTER);
-        leftPanel.setBorder(profTitle);
 
         // add to account manager pop up main panel
         accMANPanel.add(leftPanel, BorderLayout.WEST);
@@ -320,12 +323,16 @@ public class BlockManager extends JFrame implements Observer {
     private void rightPanelManager() {
         // setting right panel
         JPanel rightPanel = new JPanel();
+        rightPanel.setBorder(BorderFactory
+        					.createEmptyBorder(5, 5, 5, 5));
         rightPanel.setLayout(new BorderLayout());
+        rightPanel.setOpaque(false);
 
         /* TOP PART */
         // List of accounts on the profile
         JPanel topRight = new JPanel();
         topRight.setLayout(new BorderLayout());
+        topRight.setOpaque(false);
         // bannedAccountList = bannedUsersList.getBannedUserList();
 
         blockedBuddyListModel = new DefaultListModel();
@@ -347,6 +354,7 @@ public class BlockManager extends JFrame implements Observer {
 
         JPanel addRemoveAcctPanel = new JPanel();
         addRemoveAcctPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        addRemoveAcctPanel.setOpaque(false);
         // addRemoveAcctPanel.setBorder(BorderFactory.createEmptyBorder(5, 12,
         // 0, 12));
 
@@ -361,17 +369,11 @@ public class BlockManager extends JFrame implements Observer {
         // Piece together Right Side Panel and Add Border
         topRight.add(acctListScroller, BorderLayout.NORTH);
         topRight.add(addRemoveAcctPanel, BorderLayout.CENTER);
-        TitledBorder acctTitle;
-        acctTitle =
-                BorderFactory.createTitledBorder(
-                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-                        "Blocked Parrot IM Accounts");
-        acctTitle.setTitleJustification(TitledBorder.CENTER);
-        topRight.setBorder(acctTitle);
 
         /* BOTTOM PART : OK and Cancel Button */
         // set ok-cancel button
         JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setOpaque(false);
         buttonsPanel
                 .setBorder(BorderFactory.createEmptyBorder(10, 120, 10, 10));
         GridLayout buttonsLayout = new GridLayout(1, 2);
@@ -389,6 +391,7 @@ public class BlockManager extends JFrame implements Observer {
         buttonsPanel.add(cancelButton);
 
         // adding to rightPanel
+        rightPanel.add(new JLabel("Blocked Parrot IM Accounts"), BorderLayout.NORTH);
         rightPanel.add(topRight, BorderLayout.CENTER);
         rightPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
