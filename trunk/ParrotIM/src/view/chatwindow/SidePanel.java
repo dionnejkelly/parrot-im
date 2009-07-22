@@ -16,6 +16,7 @@ import javax.swing.*;
 import org.jivesoftware.smack.XMPPException;
 
 import view.styles.CustomListPane;
+import view.styles.GPanel;
 
 import controller.MainController;
 
@@ -35,7 +36,7 @@ import java.util.*;
  * This object inherits from JPanel
  */
 
-public class SidePanel extends JPanel implements Observer {
+public class SidePanel extends GPanel implements Observer {
 
     // private JPanel chattingWith;
     // private Box boxes[] = new Box[1];
@@ -81,10 +82,11 @@ public class SidePanel extends JPanel implements Observer {
         // Panel Properties
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(150, 500));
-        setBackground(Color.WHITE);
-
+        setGradientColors(Color.BLACK, Color.WHITE);
+        
         // List preferences
         listPane = new CustomListPane();
+        listPane.setGradientColors(listPane.colors.PRIMARY_COLOR_MED, Color.WHITE);
         
         // rightclick menu
         rightClickMenu = new JPopupMenu();

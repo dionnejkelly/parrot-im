@@ -32,7 +32,8 @@ public class CustomListPane extends GPanel {
         setGradientColors(Color.WHITE, Color.WHITE);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
-
+        //setOpaque(false);
+        
         userPanels = new ArrayList<JPanel>();
         boxes[0] = Box.createVerticalBox();
 
@@ -52,7 +53,9 @@ public class CustomListPane extends GPanel {
         img = img.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
         ImageIcon newIcon = new ImageIcon(img);
 
-        friendPanel.add(new JLabel(newIcon), BorderLayout.WEST);
+        JLabel IconLabel = new JLabel(newIcon);
+        IconLabel.setOpaque(false);
+        friendPanel.add(IconLabel, BorderLayout.WEST);
         friendPanel.add(new JLabel(" " + nickname), BorderLayout.CENTER);
         return friendPanel;
     }
@@ -60,8 +63,7 @@ public class CustomListPane extends GPanel {
     private JPanel friendPanel(UserDataWrapper user, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
-        //friendPanel.setBackground(Color.WHITE);
-        friendPanel.setOpaque(false);
+        //friendPanel.setOpaque(false);
 
         if (icon == null) {
             icon = defaultIcon;
@@ -70,9 +72,14 @@ public class CustomListPane extends GPanel {
         img = img.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
         ImageIcon newIcon = new ImageIcon(img);
 
-        friendPanel.add(new JLabel(newIcon), BorderLayout.WEST);
-        friendPanel.add(user.getLabelRepresentation(), BorderLayout.CENTER);
+        JLabel imageLabel = new JLabel(newIcon);
+        JLabel usernameLabel = new JLabel(user.toString());
+        
+        friendPanel.add(imageLabel, BorderLayout.WEST);
+        friendPanel.add(usernameLabel, BorderLayout.CENTER);
 
+        friendPanel.setToolTipText(user.getToolTipText());
+        
         return friendPanel;
     }
 
@@ -106,6 +113,7 @@ public class CustomListPane extends GPanel {
     }
 
     public void addElement(JPanel externalFriendPanel) {
+    	externalFriendPanel.setOpaque(false);
         userPanels.add(externalFriendPanel);
         boxes[0].add(externalFriendPanel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
@@ -115,6 +123,7 @@ public class CustomListPane extends GPanel {
     }
 
     public void addElement(JPanel externalFriendPanel, int index) {
+    	externalFriendPanel.setOpaque(false);
         userPanels.add(externalFriendPanel);
         boxes[0].add(externalFriendPanel, index);
         boxes[0].getComponent(index).addMouseListener(new SelectListener());
@@ -124,6 +133,7 @@ public class CustomListPane extends GPanel {
 
     public void addElement(String nickname, ImageIcon img,
             UserDataWrapper userWrapper, MouseListener externalListener) {
+    	System.out.println("SidePanel:" + nickname);
         nicknames.add(nickname);
         userWrappers.add(userWrapper);
         JPanel panel = friendPanel(userWrapper, img);
@@ -227,6 +237,7 @@ public class CustomListPane extends GPanel {
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
                     boxes[0].getComponent(i).setBackground(
                             new Color(225, 247, 247));
+                    userPanels.get(i).setOpaque(true);
                     lastSelected = i;
                 }
             }
@@ -237,6 +248,7 @@ public class CustomListPane extends GPanel {
          */
         public void mouseExited(MouseEvent event) {
             boxes[0].getComponent(lastSelected).setBackground(Color.WHITE);
+            userPanels.get(lastSelected).setOpaque(false);
         }
 
         /**

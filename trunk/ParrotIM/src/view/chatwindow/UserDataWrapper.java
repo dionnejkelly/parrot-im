@@ -34,8 +34,9 @@ public class UserDataWrapper implements Observer {
     public Conversation getConversation() {
         return this.conversation;
     }
-
-    public JLabel getLabelRepresentation() {
+    
+    public String getToolTipText(){
+    	//The tool tip text for the sidepanel in the chatwindow
     	String statePath = "";
     	if(this.conversation.getUser().getState() == UserStateType.ONLINE){
     		statePath = "images/status/user_green.png";
@@ -64,7 +65,10 @@ public class UserDataWrapper implements Observer {
     						+ getClass().getClassLoader()
     						.getResource(serverPath) + "\">"
     						+ "<hr>" + "(Right-click for more options)";
-    	this.labelRepresentation.setToolTipText(profileText);
+    	return profileText;
+    }
+
+    public JLabel getLabelRepresentation() {
         return this.labelRepresentation;
     }
 
