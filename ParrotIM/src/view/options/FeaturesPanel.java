@@ -178,8 +178,8 @@ public class FeaturesPanel extends GPanel {
         soundCheck.addItemListener(new soundListener());
 
         /* EMAIL NOTIFICATION */
-        if (model.getCurrentProfile().isSoundsEnabled()) {
-       	 emailCheck = new JCheckBox("Toggle Sound Notification",  new ImageIcon(this.getClass().getResource(
+        if (model.getCurrentProfile().isEmailEnabled()) {
+       	 emailCheck = new JCheckBox("Toggle Email Notification",  new ImageIcon(this.getClass().getResource(
             "/images/menu/email_add.png")));
            
       }
