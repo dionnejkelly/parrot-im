@@ -302,17 +302,14 @@ public class BuddyPanel extends GPanel implements Observer {
         for (int i = 0; i < outOfOrderBuddyArray.size(); i++) {
             found = false;
             current = outOfOrderBuddyArray.get(i);
-            if (current.getServer() == ServerType.GOOGLE_TALK) {
-                group = 0;
-            } else if (current.getServer() == ServerType.TWITTER) {
-                group = 1;
-            } else if (current.getServer() == ServerType.JABBER) {
+            if (current.isBlocked()) {
                 group = 3;
-            } else if (current.getServer() == ServerType.ICQ) {
-                group = 4;
-            } else if (current.getServer() == ServerType.MSN) {
+            } else if (current.getState() == UserStateType.ONLINE) {
+                group = 0;
+            } else if (current.getState() == UserStateType.OFFLINE) {
                 group = 2;
-            }
+            } else
+            	group = 1;
             
             for (int j = 0; j < buddyArray.size() && !found; j++) {
                 if (current.compareTo(buddyArray.get(group).get(j)) < 0) {
@@ -813,6 +810,7 @@ public class BuddyPanel extends GPanel implements Observer {
         // Only repopulate if count changed
         if (guiFriendCount != buddies.size()) {
             this.listRepopulate();
+            System.out.println("ZOMG WTF REFRESHED FOR NO REASON");
         } else {
             // Simply reorder, if not changed
             this.reorderFriends();

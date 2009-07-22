@@ -199,11 +199,9 @@ public class TwitterPanel extends GPanel implements Observer {
     public void listRepopulate(){
     	model.getCurrentProfile().getAllFriends().get(1).getNickname();
     	
-    	for(UserData user : model.getCurrentProfile().getAllFriends()){
-    		if(user.getServer() == ServerType.TWITTER){
+    	for(UserData user : model.getCurrentProfile().getTwitterFriends()){
     			buddyListPane.addElement(1, user.getNickname(), null);
-    		}
-    	}
+    			}
     	try {
 			for(UserData user : model.getCurrentProfile().getTweets())
 				buddyListPane.addElement(0,user.getNickname() + " - " + user.getStatus(), null);
