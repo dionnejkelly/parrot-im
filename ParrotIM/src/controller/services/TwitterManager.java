@@ -201,12 +201,31 @@ public class TwitterManager implements GenericConnection {
         }
 
         for (Twitter.User f : friends) {
-            localFriends.add(new FriendTempData(f.getScreenName(), f
+            localFriends.add(new FriendTempData(new Long(f.getId()).toString(), f
                     .getScreenName(), f.getStatus().getText(),
                     UserStateType.OFFLINE, false));
         }
 
         return localFriends;
+    }
+    
+    public ArrayList<FriendTempData> retrieveRecentTweets() throws BadConnectionException {
+    	List<Twitter.Status> tweets = null;
+    	ArrayList<FriendTempData> recentTweets = null;
+    	
+    	recentTweets = new ArrayList<FriendTempData>();
+    	try {
+    		tweets = twitter.getFriendsTimeline();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BadConnectionException();
+        }
+
+    	for (Twitter.Status s : tweets) {
+    		recentTweets.add(new FriendTempData(s.user.getName(),s.user.getScreenName(),
+    				s.getText(),UserStateType.OFFLINE,false));
+    	}
+    	return recentTweets;
     }
 
     public UserStateType retrieveState(String userID) {
@@ -297,17 +316,18 @@ public class TwitterManager implements GenericConnection {
 
             while (true) {
             	
-            	
-                controller.refreshFriends(genericConnection);
+				try {
+					Thread.currentThread();
+					Thread.sleep(30000);
+					controller.refreshFriends(genericConnection);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  // Delay for 30 seconds
+                
 
                 if (twitter != null) {
                     updateLocalFriendList();
-                }
-                try {
-                    sleep(30000); // Delay for 30 seconds
-                } catch (InterruptedException e) {
-                    System.err.println("Threading error");
-                    e.printStackTrace();
                 }
             }
         }
@@ -330,7 +350,7 @@ public class TwitterManager implements GenericConnection {
             e.printStackTrace();
         }
 
-        messages = twitter.getDirectMessages();
+       // messages = twitter.getDirectMessages();
 
         for (Twitter.User f : friends) {
 
@@ -348,7 +368,7 @@ public class TwitterManager implements GenericConnection {
                 index = friendList.size() - 1;
             }
 
-            statuses = twitter.getUserTimeline(f.getScreenName());
+           /* statuses = twitter.getUserTimeline(f.getScreenName());
             for (int i = statuses.size() - 1; i >= 0; i--) {
                 for (int j = messages.size() - 1; j >= 0
                         && messages.get(j).getCreatedAt().compareTo(
@@ -371,7 +391,7 @@ public class TwitterManager implements GenericConnection {
                     controller.hiddenMessageReceived(f.getScreenName(),
                             thisScreenName, statuses.get(i).getText());
                 }
-            }
+            }*/
         }
 
         return;

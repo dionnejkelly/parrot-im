@@ -38,6 +38,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import controller.services.BadConnectionException;
+
 import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.tempData.AccountTempData;
@@ -410,6 +412,15 @@ public class ProfileData extends Observable {
             }
         }
         return friends;
+    }
+    
+    public ArrayList<UserData> getTweets() throws BadConnectionException {
+        ArrayList<UserData> tweets = new ArrayList<UserData>();
+        AccountData temp = this.getAccountFromServer(ServerType.TWITTER);
+        if (temp != null && temp instanceof TwitterAccountData)
+        	return temp.getTweets();
+        else
+        	return null;
     }
 
     /**

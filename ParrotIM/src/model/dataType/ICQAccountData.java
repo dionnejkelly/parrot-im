@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.ICQManager;
 
@@ -132,4 +133,9 @@ public class ICQAccountData extends AccountData implements ICQPerson {
     public ServerType getServer() {
         return ServerType.ICQ;
     }
+
+	@Override
+	public ArrayList<UserData> getTweets() throws BadConnectionException {
+		return null;
+	}
 }

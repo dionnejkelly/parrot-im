@@ -41,6 +41,7 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 
 import model.enumerations.ServerType;
@@ -151,6 +152,8 @@ public abstract class AccountData extends PersonData {
      * @return An ArrayList of all friends in UserData objects.
      */
     public abstract ArrayList<UserData> getFriends();
+    
+    public abstract ArrayList<UserData> getTweets() throws BadConnectionException;
 
     /**
      * Checks whether a friend is in the list or not.

@@ -33,6 +33,7 @@ import javax.swing.ScrollPaneConstants;
 import org.jivesoftware.smack.XMPPException;
 
 import controller.MainController;
+import controller.services.BadConnectionException;
 
 import view.blockManager.BlockManager;
 import view.mainwindow.HelpPanel;
@@ -200,10 +201,16 @@ public class TwitterPanel extends GPanel implements Observer {
     	
     	for(UserData user : model.getCurrentProfile().getAllFriends()){
     		if(user.getServer() == ServerType.TWITTER){
-    			buddyListPane.addElement(0, user.getStatus(), null);
     			buddyListPane.addElement(1, user.getNickname(), null);
     		}
     	}
+    	try {
+			for(UserData user : model.getCurrentProfile().getTweets())
+				buddyListPane.addElement(0,user.getNickname() + " - " + user.getStatus(), null);
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 	public void update(Observable arg0, Object arg1) {

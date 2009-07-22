@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.MSNManager;
 
@@ -143,4 +144,9 @@ public class MSNAccountData extends AccountData implements MSNPerson {
     public ServerType getServer() {
         return ServerType.MSN;
     }
+
+	@Override
+	public ArrayList<UserData> getTweets() throws BadConnectionException {
+		return null;
+	}
 }

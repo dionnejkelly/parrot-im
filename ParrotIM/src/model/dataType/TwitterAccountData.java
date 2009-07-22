@@ -2,8 +2,10 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
 import controller.services.JabberManager;
@@ -48,6 +50,14 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
         genericFriends.addAll(this.friends);
 
         return genericFriends;
+    }
+    
+    public ArrayList<UserData> getTweets() throws BadConnectionException {
+    	ArrayList<UserData> tweets = new ArrayList<UserData>();
+    	for (FriendTempData temp : connection.retrieveRecentTweets()){
+    		tweets.add(new TwitterUserData(temp.getNickname(),temp.getStatus()));
+    	}
+    	return tweets;
     }
 
     /**
