@@ -18,7 +18,3 @@ http://parrot-im.googlecode.com/files/add%20new%20account.jpg
 Buddy list:
 
 http://parrot-im.googlecode.com/files/buddy%20list.jpg
-
-Right click menu:
-
-http://parrot-im.googlecode.com/files/rightClickMenu.jpg
