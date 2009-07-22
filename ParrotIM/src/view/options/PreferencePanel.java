@@ -48,7 +48,7 @@ public class PreferencePanel extends GPanel {
 
     public PreferencePanel(MainController c, JFrame mainframe, Model model)
             throws ClassNotFoundException, SQLException {
-    	this.setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
+    	this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
     	
         /* THEME SELECTOR */
         themeMenu = new ThemeOptionsComboBox();
