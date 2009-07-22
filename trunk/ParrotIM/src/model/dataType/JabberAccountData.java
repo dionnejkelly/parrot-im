@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
 import controller.services.JabberManager;
@@ -132,4 +133,9 @@ public class JabberAccountData extends AccountData implements JabberPerson {
     public ServerType getServer() {
         return ServerType.JABBER;
     }
+
+	@Override
+	public ArrayList<UserData> getTweets() throws BadConnectionException {
+		return null;
+	}
 }

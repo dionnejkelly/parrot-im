@@ -2,6 +2,7 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
 
@@ -134,4 +135,9 @@ public class GoogleTalkAccountData extends AccountData implements
     public ServerType getServer() {
         return ServerType.GOOGLE_TALK;
     }
+
+	@Override
+	public ArrayList<UserData> getTweets() throws BadConnectionException {
+		return null;
+	}
 }
