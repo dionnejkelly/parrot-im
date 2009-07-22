@@ -76,6 +76,8 @@ public class ProfileData extends Observable {
     private boolean chatLogEnabled;
 
     private boolean soundsEnabled;
+    
+    private boolean emailEnabled;
 
     /**
      * Determines whether chatbot is on or not. Defaults to off.
@@ -99,6 +101,7 @@ public class ProfileData extends Observable {
         this.chatLogEnabled = true;
         this.soundsEnabled = true;
         this.chatbotEnabled = false;
+        this.emailEnabled = true;
     }
 
     /**
@@ -117,6 +120,7 @@ public class ProfileData extends Observable {
         this.chatLogEnabled = chatLogEnabled;
         this.soundsEnabled = soundsEnabled;
         this.chatbotEnabled = chatbotEnabled;
+        this.emailEnabled = true;
     }
 
     // Section:
@@ -508,5 +512,22 @@ public class ProfileData extends Observable {
 
         return areEqual;
     }
+    
+    /**
+     * Sets email notification. This variable should be checked whenever a new email
+     * notification is receieved to determine whether the program display it.
+     * 
+     * @param chatbotEnabled
+     */
+    public void setEmailEnabled(boolean emailEnabled) {
+        this.emailEnabled = emailEnabled;
+
+        return;
+    }
+
+	public boolean isEmailEnabled() {
+		
+		return this.emailEnabled;
+	}
 
 }
