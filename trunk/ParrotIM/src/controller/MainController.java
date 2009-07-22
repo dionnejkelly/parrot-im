@@ -33,8 +33,6 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
 
@@ -69,7 +67,6 @@ import model.dataType.MSNAccountData;
 import model.dataType.MSNUserData;
 import model.dataType.MessageData;
 import model.dataType.MultiConversationData;
-import model.dataType.PersonData;
 import model.dataType.ProfileData;
 import model.dataType.TwitterAccountData;
 import model.dataType.TwitterUserData;
@@ -275,23 +272,6 @@ public class MainController {
         // TODO make a more accurate Model.addFriend
 
     }
-
-    // public void setAvatarPicture(URL url) throws XMPPException {
-    // // TODO create an account selection GUI
-    // AccountData account = null; // Should be passed in!!
-    // GenericConnection connection = null;
-    //
-    // // connection should be found from account!!
-    // account = model.getCurrentProfile().getAccountData().get(0);
-    // connection = account.getConnection();
-    //
-    // System.out.println("Which connection = "
-    // + connection.getServerType().getServerList().get(0));
-    // connection.setAvatarPicture(url);
-    //
-    // // TODO make a more accurate Model.addFriend
-    //
-    // }
 
     /**
      * This method actually set presence of the user.
@@ -622,8 +602,7 @@ public class MainController {
     }
 
     public void modelAddFriend(String userID) {
-        AccountData account =
-                account = model.getCurrentProfile().getAccountData().get(0);
+        AccountData account = model.getCurrentProfile().getAccountData().get(0);
         model.addFriend(account.getServer(), userID);
     }
 
