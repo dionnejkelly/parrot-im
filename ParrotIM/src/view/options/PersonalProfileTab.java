@@ -33,6 +33,7 @@ import java.net.MalformedURLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -73,7 +74,8 @@ public class PersonalProfileTab extends GPanel {
 		//avatar
 		avatar = new AvatarLabel(core, accInfo.avatarDisplay, 100);
 		//browse button
-		JButton browseButton = new JButton("Browse");
+		JButton browseButton = new JButton("Browse", new ImageIcon(this.getClass()
+                .getResource("/images/menu/find.png")));
 		browseButton.addActionListener(new BrowseActionListener());
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setOpaque(false);
