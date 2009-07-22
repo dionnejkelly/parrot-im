@@ -88,6 +88,7 @@ public class ChatbotQA extends JFrame{
 		removeQ.addActionListener(new removeActionListener('Q'));
 		removeQ.setEnabled(false);
 		JPanel QButtonsPanel = new JPanel();
+		QButtonsPanel.setOpaque(false);
 		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
 		QButtonsPanel.setLayout(new BoxLayout(QButtonsPanel, BoxLayout.X_AXIS));
 		QButtonsPanel.add(addQ);
