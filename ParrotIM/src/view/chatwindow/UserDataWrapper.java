@@ -34,6 +34,13 @@ public class UserDataWrapper implements Observer {
     }
 
     public JLabel getLabelRepresentation() {
+    	String profileText = this.conversation.getUser().getNickname() + "(" 
+    						+ this.conversation.getUser().getUserID() + ")";
+    						//+ "Status: " + this.conversation.getUser().getStatus() + "\n"
+    						//+ "Server: " + this.conversation.getUser().getServer() + "\n"
+    						//+ "------------------------------\n"
+    						//+ "(Right-click for more options)";
+    	this.labelRepresentation.setToolTipText(profileText);
         return this.labelRepresentation;
     }
 
@@ -45,10 +52,14 @@ public class UserDataWrapper implements Observer {
                     + ") ";
         }
         if (this.conversation instanceof ConversationData) {
-        	if(this.conversation.getUser().getUserID().length() <= 12){
-        		message += this.conversation.getUser().getUserID();
+        	String displayedName = this.conversation.getUser().getNickname();
+        	if(displayedName == null || displayedName.trim().equals("")){
+        		displayedName = this.conversation.getUser().getUserID();
+        	}
+        	if(displayedName.length() <= 13){
+        		message += displayedName;
         	}else{
-        		message += this.conversation.getUser().getUserID().substring(0, 12);
+        		message += displayedName.substring(0, 13);
         		message += "...";
         	}
             
@@ -60,7 +71,6 @@ public class UserDataWrapper implements Observer {
         } else if (this.conversation instanceof MultiConversationData) {
             message += ((MultiConversationData) this.conversation).getRoomName();
         }     
-
         return message;
     }
 
