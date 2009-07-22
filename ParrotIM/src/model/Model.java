@@ -49,6 +49,7 @@
 package model;
 
 import java.util.*;
+import java.awt.Color;
 import java.sql.*;
 
 import controller.services.GenericConnection;
@@ -109,6 +110,8 @@ public class Model extends Observable {
     public boolean bugReportWindowOpen;
     public boolean aboutWindowOpen;
     public boolean groupChatWindowOpen;
+    
+    public Color primaryColor = new Color(87, 166, 196);
 
     // Section
     // II - Constructors
@@ -305,6 +308,12 @@ public class Model extends Observable {
         setChanged();
         notifyObservers(UpdatedType.CHATNOTSIDEPANEL);
         return;
+    }
+    
+    public void updateColors(){
+    	System.out.println("updateCalled");
+    	setChanged();
+    	notifyObservers(UpdatedType.COLOR);
     }
 
     /**

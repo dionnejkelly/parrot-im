@@ -14,11 +14,13 @@ import javax.swing.JPanel;
 
 import controller.MainController;
 
+import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
 import view.buddylist.BuddyList;
 import view.styles.ChatWindowListener;
+import view.styles.GPanel;
 
 import model.Model;
 import model.enumerations.UpdatedType;
@@ -34,7 +36,7 @@ public class ChatWindow extends JFrame implements Observer {
 
     /** A main panel. */
 
-    private JPanel main;
+    private MainPanel main;
 
     /**
      * Model stores the needed data of the system. It also connects it with
@@ -112,6 +114,10 @@ public class ChatWindow extends JFrame implements Observer {
             if (model.numberOfConversations() > 0 && !this.isVisible()) {
                 this.setVisible(true);
             }
+        }else if(arg == UpdatedType.COLOR){
+        	main.side.listPane.setGradientColors(Color.BLACK, Color.WHITE);
+        	main.chat.setGradientColors(Color.BLACK, Color.WHITE);
+        	main.updateUI();
         }
         return;
     }

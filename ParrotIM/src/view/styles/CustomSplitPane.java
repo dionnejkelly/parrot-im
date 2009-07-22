@@ -29,6 +29,7 @@ public class CustomSplitPane extends JPanel {
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BorderLayout());
 		resizeButton = new JButton(leftArrow);
+		buttonPanel.setOpaque(false);
 		resizeButton.setToolTipText("Click to hide Side Panel");
 		resizeButton.setPreferredSize(new Dimension(15,5));
 		buttonPanel.add(resizeButton, BorderLayout.WEST);

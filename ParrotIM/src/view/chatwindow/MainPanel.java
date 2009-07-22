@@ -21,6 +21,7 @@ import view.buddylist.BuddyList;
 import view.mainwindow.AboutFrame;
 import view.mainwindow.HelpPanel;
 import view.styles.CustomSplitPane;
+import view.styles.GPanel;
 
 import controller.MainController;
 
@@ -37,7 +38,8 @@ public class MainPanel extends JPanel implements Observer {
 	protected JFrame chatFrame;
 	
     /** JPanel for side and chat data type. */
-    private JPanel side, chat;
+    public SidePanel side; 
+    public GPanel chat;
 
     /**
      * Model stores the needed data of the system. It also connects it with

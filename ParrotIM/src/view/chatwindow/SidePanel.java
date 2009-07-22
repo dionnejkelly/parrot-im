@@ -50,7 +50,7 @@ public class SidePanel extends GPanel implements Observer {
 
     /** The List Pane that stores the users you are currently talking to */
 
-    private CustomListPane listPane;
+    public CustomListPane listPane;
 
     private JPopupMenu rightClickMenu;
     

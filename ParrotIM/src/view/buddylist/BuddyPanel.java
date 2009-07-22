@@ -777,6 +777,9 @@ public class BuddyPanel extends GPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.BUDDY) {
             this.refreshBuddyList();
+        }else if(arg == UpdatedType.COLOR){
+        	setGradientColors(Color.BLACK, Color.WHITE);
+        	updateUI();
         }
 
         return;
