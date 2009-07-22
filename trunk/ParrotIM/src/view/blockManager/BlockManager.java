@@ -383,14 +383,15 @@ public class BlockManager extends JFrame implements Observer {
         buttonsPanel.setLayout(buttonsLayout);
 
         // OK and CANCEL Buttons
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton("Done", new ImageIcon(this.getClass()
+                .getResource("/images/buddylist/button_ok.png")));
         buttonsPanel.add(okButton);
-        JButton cancelButton = new JButton("Cancel");
+//        JButton cancelButton = new JButton("Cancel");
 
         okButton.addMouseListener(new okCancelButtonListener());
-        cancelButton.addMouseListener(new okCancelButtonListener());
+       // cancelButton.addMouseListener(new okCancelButtonListener());
 
-        buttonsPanel.add(cancelButton);
+      //  buttonsPanel.add(cancelButton);
 
         // adding to rightPanel
         rightPanel.add(new JLabel("Blocked Parrot IM Accounts"), BorderLayout.NORTH);
