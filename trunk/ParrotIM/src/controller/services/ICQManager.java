@@ -5,6 +5,10 @@ package controller.services;
 
 
 
+
+
+
+
 import java.io.File;
 import java.net.URL;
 import java.util.*;
@@ -64,6 +68,7 @@ import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
+
 public class ICQManager implements GenericConnection {
 	private static final String ICQ_SERVER = "login.messaging.aol.com";
     private static final int ICQ_PORT = 5190;
@@ -85,6 +90,28 @@ public class ICQManager implements GenericConnection {
 	
 	private IcbmListener lastIcbmListener;
     
+	public static void main(String[] args) {
+		ICQManager i = new ICQManager(null, null);
+		try {
+			i.login("595683137", "testicq");
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			i.retrieveFriendList();
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			i.sendMessage("388832704","Hi");
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//It works
+}
+	
 	public ICQManager(MainController controller, Model model){
 		this.controller = controller;
 		this.model = model;
