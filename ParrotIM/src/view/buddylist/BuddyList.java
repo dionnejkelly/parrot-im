@@ -65,9 +65,9 @@ public class BuddyList extends JFrame {
      */
     protected JFrame buddywindow;
 
-    public static JCheckBoxMenuItem chatbotEnabler;
-    
-    public static JCheckBoxMenuItem chatLogEnabler;
+//    public static JCheckBoxMenuItem chatbotEnabler;
+//    
+//    public static JCheckBoxMenuItem chatLogEnabler;
 
     private AccountInfo accountInfo;
 
@@ -115,8 +115,7 @@ public class BuddyList extends JFrame {
 
 
         BuddyPanel mainListPanel = new BuddyPanel(c, model, this, chat);
-        //JPanel twitterPanel = new TwitterPanel(c,model,this);
-        
+
         //If twitter exists, make tabbed buddy frame ; add to buddylistpanel
         if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null){
         	JTabbedPane contactList = new JTabbedPane();
@@ -165,12 +164,12 @@ public class BuddyList extends JFrame {
      */
     public JMenuBar createMenu() {
         JMenuBar menuBar;
-        JMenu fileMenu, acctsMenu, contactMenu, optionsMenu, helpMenu;
-        JMenuItem menuItem;
+        JMenu fileMenu, contactMenu, optionsMenu, helpMenu;
 
         // Create the menu bar.
         menuBar = new JMenuBar();
 
+        //FILE//
         //Mac already has a File menu, create this only on PC/Linux
         String lcOSName = System.getProperty("os.name").toLowerCase();
         if (!(lcOSName.startsWith("mac"))) {
@@ -180,30 +179,17 @@ public class BuddyList extends JFrame {
        
             JMenuItem exitItem1 = new JMenuItem("Exit",  new ImageIcon(this.getClass().getResource(
             "/images/menu/stop.png")));
-            //KeyEvent.VK_N
             fileMenu.add(exitItem1);
             exitItem1.addActionListener(new exitActionListener());
         }
 
-        /*
-         * acctsMenu = new JMenu("Accounts");
-         * acctsMenu.setMnemonic(KeyEvent.VK_A); menuBar.add(acctsMenu);
-         * JMenuItem accountsItem1 = new JMenuItem("Edit Accounts",
-         * KeyEvent.VK_E); acctsMenu.add(accountsItem1);
-         */
-
+        //ACCOUNTS//
         contactMenu = new JMenu("Accounts");
         contactMenu.setMnemonic(KeyEvent.VK_C);
-        JMenuItem viewChatLog = new JMenuItem("View Chat Log", new ImageIcon(this.getClass().getResource(
-        "/images/menu/note.png")));
-        // KeyEvent.VK_D
-        viewChatLog.addActionListener(new chatLogListener());
-        contactMenu.add(viewChatLog);
         
         contactMenu.addSeparator();
         JMenuItem logoutItem = new JMenuItem("Log off All Accounts",  new ImageIcon(this.getClass().getResource(
         "/images/menu/sign_out.png")));
-        // KeyEvent.VK_L
         logoutItem.addActionListener(new signoutActionListener());
         contactMenu.add(logoutItem);
         menuBar.add(contactMenu);
@@ -212,48 +198,19 @@ public class BuddyList extends JFrame {
         optionsMenu.setMnemonic(KeyEvent.VK_O);
         menuBar.add(optionsMenu);
         
+        //OPTIONS//
         JMenuItem optionsItem1 =
                 new JMenuItem("Parrot Preferences",  new ImageIcon(this.getClass().getResource(
                 "/images/menu/tick.png")));
-        // KeyEvent.VK_P
         optionsItem1.addActionListener(new optionListener());
         optionsMenu.add(optionsItem1);
         
-        if (model.getCurrentProfile().isChatbotEnabled()) {
-        	this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled", new ImageIcon(this.getClass().getResource(
-            "/images/menu/monitor_add.png")));
-            
-       }
-       
-       else {
-    	   this.chatbotEnabler = new JCheckBoxMenuItem("Chatbot Enabled", new ImageIcon(this.getClass().getResource(
-           "/images/menu/monitor_delete.png")));
-       }
-
-        chatbotEnabler.setMnemonic(KeyEvent.VK_B);
-        chatbotEnabler.setSelected(model.getCurrentProfile().isChatbotEnabled());
-        chatbotEnabler.addItemListener(new ChatbotToggleListener());
-        optionsMenu.add(chatbotEnabler);
-
-        if (model.getCurrentProfile().isChatLogEnabled()) {
-        	this.chatLogEnabler =
-                new JCheckBoxMenuItem("Chat Log Enabled", new ImageIcon(this.getClass().getResource(
-                "/images/menu/note_add.png")));
-            
-       }
-       
-       else {
-    	   this.chatLogEnabler =
-               new JCheckBoxMenuItem("Chat Log Enabled", new ImageIcon(this.getClass().getResource(
-               "/images/menu/note_delete.png")));
-       }
+        JMenuItem viewChatLog = new JMenuItem("View Chat Log", new ImageIcon(this.getClass().getResource(
+        "/images/menu/note.png")));
+        viewChatLog.addActionListener(new chatLogListener());
+        optionsMenu.add(viewChatLog);
         
-        
-        chatLogEnabler.setMnemonic(KeyEvent.VK_E);
-        chatLogEnabler.setSelected(model.getCurrentProfile().isChatLogEnabled());
-        chatLogEnabler.addItemListener(new ChatLogToggleListener());
-        optionsMenu.add(chatLogEnabler);
-
+        //HELP//
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic(KeyEvent.VK_H);
         menuBar.add(helpMenu);
@@ -427,65 +384,6 @@ public class BuddyList extends JFrame {
 		public void windowOpened(WindowEvent e) {}
 		
 	}
-    /**
-     * Listens for the Chatbot toggle
-     * 
-     */
-    private class ChatbotToggleListener implements ItemListener {
-        /**
-         * Listens for the user's event.
-         * 
-         * @param e
-         */
-
-
-		public void itemStateChanged(ItemEvent event) {
-			
-
-            if (event.getStateChange() == ItemEvent.DESELECTED) {
-            	model.getCurrentProfile().setChatbotEnabled(false);
-            	chatbotEnabler.setIcon(new ImageIcon(this.getClass().getResource(
-                "/images/menu/monitor_delete.png")));
-            }
-            	
-            else  {
-            	model.getCurrentProfile().setChatbotEnabled(true);
-            	chatbotEnabler.setIcon(new ImageIcon(this.getClass().getResource(
-                "/images/menu/monitor_add.png")));
-            }
-            	
-            return;
-			
-		}
-    }
-
-    private class ChatLogToggleListener implements ItemListener  {
-        /**
-         * Listens for the user's event.
-         * 
-         * @param e
-         */
-       
-
-		public void itemStateChanged(ItemEvent event) {
-			if (event.getStateChange() == ItemEvent.DESELECTED) {
-				model.getCurrentProfile().setChatLogEnabled(false);
-        		chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
-                "/images/menu/note_delete.png")));
-            }
-		
-            else {
-            	model.getCurrentProfile().setChatLogEnabled(true);
-            	chatLogEnabler.setIcon(new ImageIcon(this.getClass().getResource(
-                "/images/menu/note_add.png")));
-            	
-            }
-            	
-
-            return;
-			
-		}
-    }
 
     /**
      * Listens for the exit action.
