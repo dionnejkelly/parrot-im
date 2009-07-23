@@ -47,10 +47,8 @@ import model.Model;
 import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
 
-import view.buddylist.BuddyList;
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
-import view.styles.WindowColors;
 
 import controller.MainController;
 
@@ -63,7 +61,7 @@ public class FeaturesPanel extends GPanel {
     private JCheckBox chatbotCheck;
     private JCheckBox soundCheck;
     
-    private JCheckBox spellingCheck;
+//    private JCheckBox spellingCheck;
     
     private JCheckBox emailCheck;
     private JCheckBox chatLogCheck;
@@ -257,20 +255,20 @@ public class FeaturesPanel extends GPanel {
 		public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.SELECTED) {
                 model.getCurrentProfile().setChatbotEnabled(true);
-                BuddyList.chatbotEnabler.setSelected(true);
+//                BuddyList.chatbotEnabler.setSelected(true);
                 chatbotOptions.setVisible(true);
                 chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/monitor_add.png")));
-                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/monitor_add.png")));
+//                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
+//                "/images/menu/monitor_add.png")));
             } else {
                 model.getCurrentProfile().setChatbotEnabled(false);
                 chatbotOptions.setVisible(false);
-                BuddyList.chatbotEnabler.setSelected(false);
+//                BuddyList.chatbotEnabler.setSelected(false);
                 chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/monitor_delete.png")));
-                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/monitor_delete.png")));
+//                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
+//                "/images/menu/monitor_delete.png")));
                 
             }
             
@@ -428,18 +426,18 @@ public class FeaturesPanel extends GPanel {
     	public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.SELECTED) {
 				 model.getCurrentProfile().setChatLogEnabled(true);
-				 BuddyList.chatLogEnabler.setSelected(true);
+//				 BuddyList.chatLogEnabler.setSelected(true);
 				 chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
 	                "/images/menu/note_add.png")));
-				 BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-	                "/images/menu/note_add.png")));
+//				 BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
+//	                "/images/menu/note_add.png")));
             } else {
             	model.getCurrentProfile().setChatLogEnabled(false);
-            	BuddyList.chatLogEnabler.setSelected(false);
+//            	BuddyList.chatLogEnabler.setSelected(false);
             	chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_delete.png")));
-            	BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/note_delete.png")));
+//            	BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
+//                "/images/menu/note_delete.png")));
             }
 			
 			   System.out.println("=================================");
