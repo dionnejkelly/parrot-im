@@ -24,7 +24,8 @@ public class SlashCommandTest {
 		try {
 			c.loginAsGuest(ServerType.GOOGLE_TALK, "cmpt275testing@gmail.com", "abcdefghi");
 			
-			SlashCommand cmd = new SlashCommand (c);
+			//SlashCommand cmd = new SlashCommand (c);
+			sc1 = new SlashCommand(c);
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,18 +38,14 @@ public class SlashCommandTest {
 		sc2 = null;
 	}
 
-	@Test
-	public void testSlashCommand() {
-		// Constructor not implemented yet
-		fail("Not yet implemented");
-	}
-
+	
+/*
 	@Test
 	public void testSlashCommandMainController() {
 		// Later on will be implemented
 		fail("Not yet implemented");
 	}
-
+*/
 	@Test
 	public void testIsSlashCommand() {
 		assertFalse(sc1.isSlashCommand("Hello"));
@@ -56,7 +53,14 @@ public class SlashCommandTest {
 		assertTrue(sc1.isSlashCommand("/online"));
 		assertTrue(sc1.isSlashCommand("/ONLINE"));
 		assertTrue(sc1.isSlashCommand("/busy"));
-		assertTrue(sc1.isSlashCommand("/away from home"));
+		assertFalse(sc1.isSlashCommand("/rakan"));
+		assertTrue(sc1.isSlashCommand("/not available"));
+		assertFalse(sc1.isSlashCommand("/Not me"));
+		assertTrue(sc1.isSlashCommand("/be right back"));
+		assertFalse(sc1.isSlashCommand("/Rakan Mohammed Alkheliwi"));
+		assertFalse(sc1.isSlashCommand("/away from home")); // It returns true
+		assertTrue(sc1.isSlashCommand("/not to be disturbed"));
+		assertFalse(sc1.isSlashCommand("/should this be true"));
 		assertTrue(sc1.isSlashCommand("/"));
 		assertTrue(sc1.isSlashCommand("/bored"));
 		assertFalse(sc1.isSlashCommand("online/"));
