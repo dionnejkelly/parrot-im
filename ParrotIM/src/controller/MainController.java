@@ -288,13 +288,16 @@ public class MainController {
         // TODO handle input from GUI, maybe enum type input?
         UserStateType state = null;
        
-        if (stateString.equalsIgnoreCase("Online")) {
+        if (stateString.equalsIgnoreCase("Online") ||
+        		stateString.equalsIgnoreCase("Available")) {
             state = UserStateType.ONLINE;
             model.setStatus(model.getCurrentProfile().getName(), 0);
-        } else if (stateString.equalsIgnoreCase("Away")) {
+        } else if (stateString.equalsIgnoreCase("Away") ||
+        		stateString.equalsIgnoreCase(UserStateType.NOT_AVAILABLE.toString())) {
             state = UserStateType.AWAY;
             model.setStatus(model.getCurrentProfile().getName(), 1);
-        } else if (stateString.equalsIgnoreCase("Busy")) {
+        } else if (stateString.equalsIgnoreCase("Busy") ||
+        		stateString.equalsIgnoreCase(UserStateType.NOT_BE_DISTURBED.toString())) {
             state = UserStateType.BUSY;
             model.setStatus(model.getCurrentProfile().getName(), 2);
         } else if (stateString.equalsIgnoreCase("On the phone")) {
@@ -303,13 +306,14 @@ public class MainController {
         } else if (stateString.equalsIgnoreCase("Lunch")) {
             state = UserStateType.LUNCH;
             model.setStatus(model.getCurrentProfile().getName(), 4);
-        } else if (stateString.equalsIgnoreCase("Be right back")) {
+        } else if (stateString.equalsIgnoreCase("Be right back") ||
+        		stateString.equalsIgnoreCase("brb")) {
             state = UserStateType.BRB;
             model.setStatus(model.getCurrentProfile().getName(), 5);
         }
         
         else {
-            // TODO implement me
+            // TODO implement me : OFFLINE AND INVISIBLE
             state = UserStateType.ONLINE;
             model.setStatus(model.getCurrentProfile().getName(), 0);
         }

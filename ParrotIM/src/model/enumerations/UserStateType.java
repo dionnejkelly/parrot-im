@@ -27,7 +27,7 @@ public enum UserStateType {
 
     OFFLINE("Offline"),
     
-    NOT_AVAILABLE("not avalable"),
+    NOT_AVAILABLE("not available"),
     
     NOT_BE_DISTURBED("not to be disturbed"),
     

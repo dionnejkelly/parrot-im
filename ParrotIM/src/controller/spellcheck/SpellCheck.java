@@ -7,8 +7,6 @@ package controller.spellcheck;
 
 import javax.swing.JTextArea;
 
-import view.chatwindow.ChatPanel.TextBoxListener;
-
 import com.inet.jortho.FileUserDictionary;
 import com.inet.jortho.SpellChecker;
 

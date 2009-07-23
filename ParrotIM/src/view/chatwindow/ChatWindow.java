@@ -10,7 +10,6 @@ package view.chatwindow;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import controller.MainController;
 
@@ -20,7 +19,6 @@ import java.util.Observer;
 
 import view.buddylist.BuddyList;
 import view.styles.ChatWindowListener;
-import view.styles.GPanel;
 
 import model.Model;
 import model.enumerations.UpdatedType;
