@@ -113,8 +113,8 @@ public class ChatWindow extends JFrame implements Observer {
                 this.setVisible(true);
             }
         }else if(arg == UpdatedType.COLOR){
-        	main.side.listPane.setGradientColors(Color.BLACK, Color.WHITE);
-        	main.chat.setGradientColors(Color.BLACK, Color.WHITE);
+        	main.side.listPane.setGradientColors(model.primaryColor, model.secondaryColor);
+        	main.chat.setGradientColors(model.primaryColor, model.secondaryColor);
         	main.updateUI();
         }
         return;
