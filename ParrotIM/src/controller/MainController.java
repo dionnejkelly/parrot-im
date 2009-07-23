@@ -314,8 +314,8 @@ public class MainController {
         
         else {
             // TODO implement me : OFFLINE AND INVISIBLE
-            state = UserStateType.ONLINE;
-            model.setStatus(model.getCurrentProfile().getName(), 0);
+            state = UserStateType.INVISIBLE;
+            model.setStatus(model.getCurrentProfile().getName(), 6);
         }
 
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
