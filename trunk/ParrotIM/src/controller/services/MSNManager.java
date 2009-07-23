@@ -932,6 +932,21 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     }
     
     /**
+     * Sets the offline flag.
+     *
+     * @param phone true if so
+     */
+    public void setInvisible(boolean offline) {
+        if (connection != null)
+            try {
+                connection.setMyStatus(offline?UserStatus.INVISIBLE:UserStatus.ONLINE);
+            } catch (IOException e) {
+                log.log(Level.SEVERE, "Failed to set status", e);
+            }
+        super.setAway(offline);
+    }
+    
+    /**
      * Sets the away flag.
      *
      * @param phone true if so
@@ -1082,6 +1097,10 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 				 
 			        else if (state == UserStateType.LUNCH) {
 			        	setLunch(true);
+			        }
+					
+			        else if (state == UserStateType.INVISIBLE) {
+			        	setInvisible(true);
 			        }
 			        else {
 			        	 setIdle(true);
