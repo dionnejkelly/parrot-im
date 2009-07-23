@@ -31,7 +31,7 @@ public enum UserStateType {
     
     NOT_BE_DISTURBED("not to be disturbed"),
     
-    INVISIBLE("Invisibled"), 
+    INVISIBLE("Invisible"), 
     
     BRB("Be right back"), 
     
