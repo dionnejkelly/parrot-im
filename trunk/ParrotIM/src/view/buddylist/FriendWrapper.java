@@ -54,7 +54,13 @@ public class FriendWrapper implements Observer {
             labelColor = Color.ORANGE.darker();
         } else if (user.getState() == UserStateType.AWAY) {
             labelColor = Color.ORANGE.darker();
-        } else {
+
+        } else if (user.getState() == UserStateType.BRB || user.getState() == UserStateType.PHONE || user.getState() == UserStateType.LUNCH) {
+        	labelColor = Color.CYAN.darker();
+        } 
+        // revive me
+        else {
+
             labelColor = Color.RED.darker();
         }
 
