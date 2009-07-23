@@ -111,7 +111,11 @@ public class Model extends Observable {
     public boolean aboutWindowOpen;
     public boolean groupChatWindowOpen;
     
+    // These are the defualt colors
+    public Color primaryDark = new Color(12, 69, 91);
     public Color primaryColor = new Color(87, 166, 196);
+    public Color secondaryColor = Color.white;
+    public Color tertiaryColor = new Color(136, 235, 93);
 
     // Section
     // II - Constructors

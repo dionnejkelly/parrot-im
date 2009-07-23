@@ -621,7 +621,8 @@ public class BuddyPanel extends GPanel implements Observer {
             }
 
             else {
-                String redundancy = "Argh, the friend's email address you have provided is already an existing contact. Please provide a non-existing friend's email address.";
+                String redundancy = "Argh, the friend's email address you have provided is already an existing contact. " +
+                		"Please provide a non-existing friend's email address.";
                 JOptionPane.showMessageDialog(null, redundancy);
 
             }
@@ -778,7 +779,7 @@ public class BuddyPanel extends GPanel implements Observer {
         if (arg == UpdatedType.BUDDY) {
             this.refreshBuddyList();
         }else if(arg == UpdatedType.COLOR){
-        	setGradientColors(Color.BLACK, Color.WHITE);
+        	setGradientColors(model.primaryColor, model.secondaryColor);
         	updateUI();
         }
 
