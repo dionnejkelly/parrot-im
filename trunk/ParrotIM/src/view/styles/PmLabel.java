@@ -122,6 +122,15 @@ public class PmLabel extends JTextField {
         }
     }
 
+    public void setTextDisplay(String str){
+    	 if (str == null || str.length() == 0
+                 || str.equals("(Type your status message)")) {
+             this.setText("(Type your status message)");
+    	 }else {
+    		 this.setText(str);
+    	 }
+    }
+    	 
     /**
      * Sets the behaviour with regard of mouse input and position.
      * 

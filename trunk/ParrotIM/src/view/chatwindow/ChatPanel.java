@@ -17,12 +17,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileFilter;
 
 import view.buddylist.BuddyList;
 import view.buddylist.AccountInfo;
@@ -37,6 +35,7 @@ import controller.spellcheck.SpellCheck;
 
 import model.*;
 import model.dataType.MultiConversationData;
+import model.enumerations.UserStateType;
 
 /**
  * The ChatPanel contains the panel that allow users to type messages and set
@@ -340,15 +339,32 @@ public class ChatPanel extends GPanel {
         	
         	System.out.println("********************************************* The text area = " + txt1.getText());
         	if (slashCommand.isSlashCommand(msg)) {
-        		if (accinfo!=null){
-	        		accinfo.statusMessage.setText(model.getCurrentProfile().getStatus());
-	        		accinfo.presence.setSelectedIndex(model.getCurrentProfile().getState().ordinal());
-        		} else {
-        			System.out.println("ACCINFO NULL!!! *cries*");
-        		}
-        		if (buddyFrame.optionsIsVisible())
-        			buddyFrame.getOptions().updateProfile();
-        		
+            	accinfo.statusMessage.setTextDisplay(model.getCurrentProfile().getStatus());
+            	System.out.println(model.getCurrentProfile().getState().toString());
+    	        if (model.getCurrentProfile().getState() == UserStateType.ONLINE ||
+    	        		model.getCurrentProfile().getState() == UserStateType.AWAY ||
+    	        		model.getCurrentProfile().getState() == UserStateType.BUSY) {
+    	        	accinfo.presence.setSelectedIndex(model.getCurrentProfile().getState().ordinal());
+            	} else if (model.getCurrentProfile().getState() == UserStateType.NOT_AVAILABLE){
+            		accinfo.presence.setSelectedIndex(1);
+            	} else if (model.getCurrentProfile().getState() == UserStateType.NOT_BE_DISTURBED){
+            		accinfo.presence.setSelectedIndex(2);
+            	} else if (model.getCurrentProfile().getState() == UserStateType.PHONE){
+            		accinfo.presence.setSelectedIndex(3);
+            	} else if (model.getCurrentProfile().getState() == UserStateType.LUNCH){
+            		accinfo.presence.setSelectedIndex(4);
+            	} else if (model.getCurrentProfile().getState() == UserStateType.BRB) {
+            		accinfo.presence.setSelectedIndex(5);
+            	} else {
+            		accinfo.presence.setSelectedIndex(1);
+            	}
+            	
+//                OFFLINE("Offline"),
+//                INVISIBLE("Invisible"), 
+                
+                
+            	if (buddyFrame.optionsIsVisible())
+            		buddyFrame.getOptions().updateProfile();
         	} else{
   
         	

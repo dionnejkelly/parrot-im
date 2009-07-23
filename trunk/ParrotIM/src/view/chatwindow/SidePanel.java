@@ -23,9 +23,6 @@ import controller.MainController;
 import model.*;
 import model.dataType.ChatCollectionData;
 import model.dataType.Conversation;
-import model.dataType.ConversationData;
-import model.dataType.UserData;
-import model.enumerations.UpdatedType;
 
 import java.util.*;
 

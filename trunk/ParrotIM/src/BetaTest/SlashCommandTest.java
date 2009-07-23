@@ -1,10 +1,15 @@
 package BetaTest;
 import static org.junit.Assert.*;
 
+import model.Model;
+import model.enumerations.ServerType;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.MainController;
+import controller.services.BadConnectionException;
 import controller.slashCommand.SlashCommand;
 
 
@@ -13,7 +18,17 @@ public class SlashCommandTest {
 	private SlashCommand sc2;
 	@Before
 	public void setUp() throws Exception {
-		sc1 = new SlashCommand();
+//		sc1 = new SlashCommand();
+		
+		MainController c = new MainController(new Model());
+		try {
+			c.loginAsGuest(ServerType.GOOGLE_TALK, "cmpt275testing@gmail.com", "abcdefghi");
+			
+			SlashCommand cmd = new SlashCommand (c);
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@After

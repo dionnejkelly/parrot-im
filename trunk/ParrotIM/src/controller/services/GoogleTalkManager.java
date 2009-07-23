@@ -772,7 +772,8 @@ public class GoogleTalkManager implements GenericConnection {
         if (state == UserStateType.ONLINE) {
             presence.setMode(Presence.Mode.available);
         } else if (state == UserStateType.AWAY || state == UserStateType.BRB 
-        		|| state == UserStateType.LUNCH) {
+        		|| state == UserStateType.LUNCH ||
+        		state == UserStateType.NOT_AVAILABLE) {
             presence.setMode(Presence.Mode.away);
         } else if (state == UserStateType.BUSY || state == UserStateType.PHONE 
         		|| state == UserStateType.NOT_BE_DISTURBED) {
