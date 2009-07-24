@@ -508,7 +508,7 @@ public class ChatPanel extends GPanel {
         public void actionPerformed(ActionEvent evt) {
 
             JFrame frame = new JFrame("Color Chooser");
-            oldContentPane = new ColorUserSelect(frame, colorButton);
+            oldContentPane = new ColorUserSelect(frame, colorButton, model);
 
             // frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
