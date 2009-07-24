@@ -238,9 +238,7 @@ public class AccountDataTest {
     }
     @Test
     public void testHashcode(){
-    	System.out.println(ad4.hashCode());
     	assertEquals(-170383538,ad4.hashCode());
-    	System.out.println(ad3.hashCode());
     	assertEquals(-1340965975,ad3.hashCode());
     }
 
