@@ -109,7 +109,7 @@ public class ICQManager implements GenericConnection {
 	public static void main(String[] args) {
 		ICQManager i = new ICQManager(null, null);
 		try {
-			i.login("595683137", "testicq");
+			i.login("595605824", "testingicq");
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -466,6 +466,12 @@ public class ICQManager implements GenericConnection {
         
         connectionProperties = new AimConnectionProperties(null, null);
         connectionProperties.setScreenname(screenName);
+        if (password.length()>8){
+        	//icq server doesn't allow password to be more than 8 characters
+        	//but still allow user to have more than 8 characters
+        	//it only takes the first 8 characters
+        	password = password.substring(0, 8);
+        }
         connectionProperties.setPassword(password);
         connectionProperties.setLoginHost(System.getProperty("OSCAR_HOST", ICQ_SERVER));
         connectionProperties.setLoginPort(Integer.getInteger("OSCAR_PORT", ICQ_PORT));
