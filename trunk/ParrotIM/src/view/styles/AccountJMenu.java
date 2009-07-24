@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -25,6 +26,8 @@ public class AccountJMenu extends JMenu{
 	
 	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies){
 		super("GoogleTalk - " + account.getUserID());
+		setIcon(new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")));
 		this.account = account;
 		this.buddies = buddies;
 		controller = c;
@@ -32,11 +35,12 @@ public class AccountJMenu extends JMenu{
 		
 		//SIGN MENU//
 		signMenu= new JMenuItem();
-		signMenu.setText("Sign out");
+		signMenu.setText("Sign In");
+		signMenu.setEnabled(false);
 		
 		signOutMenu= new JMenuItem();
 		signOutMenu.setText("Sign out");
-		signOutMenu.setEnabled(false);
+		signOutMenu.setEnabled(true);
 		
 		JMenuItem addFriendMenu= new JMenuItem("Add a friend");
 //		if (account.isOnline())
@@ -51,6 +55,7 @@ public class AccountJMenu extends JMenu{
 		addFriendMenu.setMnemonic(KeyEvent.VK_A);
 		removeMenu.setMnemonic(KeyEvent.VK_R);
 		signMenu.addActionListener(new SignMenuActionListener());
+		signOutMenu.addActionListener(new SignMenuActionListener());
 		this.add(signMenu);
 		this.add(signOutMenu);
 		this.add(addFriendMenu);
