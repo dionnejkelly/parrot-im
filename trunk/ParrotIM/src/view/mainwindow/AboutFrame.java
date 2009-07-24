@@ -104,7 +104,7 @@ public class AboutFrame extends JFrame {
         // setting aboutPanel
         final GPanel aboutPanel = new GPanel();
         aboutPanel.setLayout(new BorderLayout());
-        aboutPanel.setGradientColors(aboutPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
+        aboutPanel.setGradientColors(model.primaryColor, model.secondaryColor);
         aboutPanel.setBorder(BorderFactory
                 .createEmptyBorder(20, 10, 20, 10));
         aboutPanel.add(topPanel, BorderLayout.NORTH);

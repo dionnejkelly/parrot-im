@@ -138,7 +138,7 @@ public class AccountInfo extends GPanel implements Observer
 	{
 	    this.model = model;
 	    this.chatClient = c;
-	    setGradientColors(model.primaryDark, model.primaryColor);
+	    setGradientColors(Color.BLACK, model.primaryColor);
 		setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
 		setLayout(new BorderLayout());
 		
@@ -201,6 +201,8 @@ public class AccountInfo extends GPanel implements Observer
 		add(avatarDisplay, BorderLayout.WEST);
 		add(info, BorderLayout.CENTER);
 		this.addMouseListener(new statusMouseListener());
+		
+		model.addObserver(this);
 	}
    
 	// Section
@@ -216,9 +218,8 @@ public class AccountInfo extends GPanel implements Observer
 	}
 	
     public void update(Observable o, Object arg) {
-    	System.out.println("updateCalled2");
         if(arg == UpdatedType.COLOR){
-        	setGradientColors(model.primaryDark, model.primaryColor);
+        	setGradientColors(Color.BLACK, model.primaryColor);
         	updateUI();
         }
 
