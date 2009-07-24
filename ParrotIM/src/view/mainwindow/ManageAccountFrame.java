@@ -73,11 +73,8 @@ public class ManageAccountFrame extends JFrame {
         //mac/linux 
         String lcOSName = System.getProperty("os.name").toLowerCase();
 
-        if (lcOSName.startsWith("win"))
-            setPreferredSize(new Dimension(530, 300));
-        else
-        	setPreferredSize(new Dimension(530, 270));
-        
+        setPreferredSize(new Dimension(530, 300));
+
         setResizable(false);
         ManageAccount accountPanel = new ManageAccount(profile, null, null);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -86,10 +83,13 @@ public class ManageAccountFrame extends JFrame {
         //DONE BUTTON
         JButton doneButton = new JButton ("Done", new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/button_ok.png")));
+        doneButton.setAlignmentX(RIGHT_ALIGNMENT);
         doneButton.addActionListener(new doneActionListener());
         JPanel donePanel = new JPanel ();
+        donePanel.setAlignmentX(RIGHT_ALIGNMENT);
+        donePanel.setLayout(new BorderLayout());
         donePanel.setOpaque (false);
-        donePanel.add(doneButton);
+        donePanel.add(doneButton, BorderLayout.EAST);
         accountPanel.getRightPanel().add(donePanel, BorderLayout.SOUTH);
         
         pack();
