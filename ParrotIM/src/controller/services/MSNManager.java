@@ -69,6 +69,10 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     private BuddyList buddyList;
     
     private Model model;
+    
+    private String userID;
+    
+    private String password;
     /**
      * Non-blocking call.
      * @throws Exception 
@@ -166,6 +170,9 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     public void addFriend(String userID) throws BadConnectionException {
     	try {
 			connection.addFriend(userID);
+			connection = new MSNMessenger(this.userID, this.password);
+		        connection.login(this.userID, this.password);
+		     
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,6 +182,9 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     public boolean removeFriend(String userID) throws BadConnectionException {
     	try {
 			connection.removeFriend(userID);
+			connection = new MSNMessenger(this.userID, this.password);
+			connection.login(this.userID, this.password);
+	                
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -262,6 +272,8 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     public void connect(String userID, String password) throws BadConnectionException {
         try {
             super.connect();
+            this.userID = userID;
+            this.password = password;
             sessions.clear();
             notifyConnectionInitiated();
 
