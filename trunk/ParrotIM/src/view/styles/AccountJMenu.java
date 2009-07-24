@@ -97,8 +97,8 @@ public class AccountJMenu extends JMenu{
 
 	}
 	
-	public void connectAccount(boolean b){
-		if (b){ //connecting
+	public void connectAccount(boolean connect){
+		if (connect){ //connecting
 			try {
 				controller.login(account);
 				System.out.println("account is now online");
