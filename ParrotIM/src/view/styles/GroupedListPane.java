@@ -30,6 +30,7 @@ public class GroupedListPane extends JPanel implements Observer {
                     "/images/buddylist/down.png"));
     private ArrayList<JLabel> arrows = new ArrayList<JLabel>();
     private ArrayList<GPanel> gPanels = new ArrayList<GPanel>();
+    private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     JLabel arrowPanel;
     private Model model;
 
@@ -60,8 +61,8 @@ public class GroupedListPane extends JPanel implements Observer {
         
         //textLabel
         JLabel textLabel = new JLabel(name);
-        
-        textLabel.setForeground(colors.TERTIARY_COLOR_DARK);
+        labels.add(textLabel);
+        textLabel.setForeground(model.primaryTextColor);
         newPanel.add(textLabel, BorderLayout.CENTER);
 
         arrowPanel = new JLabel(arrowIconDown);
@@ -78,7 +79,10 @@ public class GroupedListPane extends JPanel implements Observer {
 
     public void addGroupTop(String name) {
         GPanel newPanel = new GPanel();
-        newPanel.add(new JLabel(name));
+        JLabel textLabel = new JLabel(name);
+        textLabel.setForeground(model.primaryTextColor);
+        newPanel.add(textLabel);
+        labels.add(textLabel);
         newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
 
         CustomListPane collapsableListPane = new CustomListPane();
@@ -166,6 +170,10 @@ public class GroupedListPane extends JPanel implements Observer {
 			for(GPanel g : gPanels){
 				g.setGradientColors(model.tertiaryColor, model.tertiaryColor);
 				g.updateUI();
+			}
+			for(JLabel l : labels){
+				l.setForeground(model.primaryTextColor);
+				l.updateUI();
 			}
 		}
 	}
