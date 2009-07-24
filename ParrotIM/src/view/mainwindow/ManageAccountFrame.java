@@ -59,11 +59,12 @@ import javax.swing.JPanel;
 
 import view.options.ManageAccount;
 
+import model.Model;
 import model.dataType.ProfileData;
 
 public class ManageAccountFrame extends JFrame {
 	JFrame manageaccount;
-    public ManageAccountFrame(ProfileData profile) {
+    public ManageAccountFrame(ProfileData profile, Model model) {
     	manageaccount = this;
         setLocationRelativeTo(null);
 
@@ -76,7 +77,7 @@ public class ManageAccountFrame extends JFrame {
         setPreferredSize(new Dimension(530, 300));
 
         setResizable(false);
-        ManageAccount accountPanel = new ManageAccount(profile, null, null);
+        ManageAccount accountPanel = new ManageAccount(profile, null, model);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(accountPanel);
         

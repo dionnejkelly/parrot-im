@@ -374,7 +374,7 @@ public class SignInPanel extends GPanel implements Observer {
                 System.out.println("enabled");
 
                 ManageAccountFrame manageAccount =
-                        new ManageAccountFrame((ProfileData) account_select.getSelectedItem());
+                        new ManageAccountFrame((ProfileData) account_select.getSelectedItem(), model);
                 manageAccount.addWindowListener(new PopupWindowListener(
                         mainFrame, manageAccount));
             }

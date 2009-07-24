@@ -214,7 +214,7 @@ public class NewProfileFrame extends JFrame {
                     newProfile.setAutoSignInEnabled(true);
                 }
 
-                ManageAccountFrame manageAccount = new ManageAccountFrame(newProfile);
+                ManageAccountFrame manageAccount = new ManageAccountFrame(newProfile, model);
                 manageAccount.addWindowListener(new PopupWindowListener(
                         mainFrame, manageAccount));
                 popupFrame.dispose();
