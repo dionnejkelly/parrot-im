@@ -17,6 +17,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -35,6 +37,7 @@ import controller.spellcheck.SpellCheck;
 
 import model.*;
 import model.dataType.MultiConversationData;
+import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
 /**
@@ -44,7 +47,7 @@ import model.enumerations.UserStateType;
  * This object inherits from JPanel
  */
 
-public class ChatPanel extends GPanel {
+public class ChatPanel extends GPanel implements Observer{
 
     /**
      * Model stores the needed data of the system. It also connects it with
@@ -95,8 +98,9 @@ public class ChatPanel extends GPanel {
     private JButton groupChatAddButton;
 
     private JButton groupChatButton;
-
     
+    private GPanel emoticonPanel;
+
     private SlashCommand slashCommand;
     
     /**
@@ -113,9 +117,10 @@ public class ChatPanel extends GPanel {
         this.buddyFrame = buddyFrame;
 
         this.model = model;
+        model.addObserver(this);
         this.c = c;
 
-        setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        setGradientColors(model.primaryColor, model.secondaryColor);
         setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 3));
         
         bold = false;
@@ -220,6 +225,8 @@ public class ChatPanel extends GPanel {
         emoticonChooser.setPreferredSize(new Dimension(200, 260));
         emoticonChooser.setResizable(false);
         emoticonChooser.setLayout(new FlowLayout());
+        emoticonPanel = new GPanel();
+        emoticonPanel.setGradientColors(model.primaryColor, model.secondaryColor);
         String[][] emoticonImages = { { "happy", ":)" }, { "sad", ":(" },
                 { "neutral", ":|" }, { "joy", ":D" }, { "laugh", "XD" },
                 { "cool", "B)" }, { "sick", ":S" }, { "glasses", "8)" },
@@ -242,8 +249,9 @@ public class ChatPanel extends GPanel {
                     emoticonChooser.setVisible(false);
                 }
             });
-            emoticonChooser.add(newButton);
+            emoticonPanel.add(newButton);
         }
+        emoticonChooser.setContentPane(emoticonPanel);
         emoticonChooser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         emoticonChooser.pack();
         emoticonChooser.setIconImage(new ImageIcon(
@@ -747,4 +755,11 @@ public class ChatPanel extends GPanel {
         }
 
     }
+
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			emoticonPanel.setGradientColors(model.primaryColor, model.secondaryColor);
+			emoticonPanel.updateUI();
+		}
+	}
 }
