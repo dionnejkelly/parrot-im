@@ -240,8 +240,7 @@ public class ChatPanel extends GPanel implements Observer{
             newButton.setToolTipText(str[0] + " " + str[1]);
             newButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
-                    txt1
-                            .setText(txt1.getText().substring(0,
+                    txt1.setText(txt1.getText().substring(0,
                                     txt1.getCaretPosition())
                                     + str[1]
                                     + txt1.getText().substring(
