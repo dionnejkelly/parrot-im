@@ -25,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -256,7 +257,7 @@ public class MainController {
 
     }
 
-    public void setAvatarPicture(File file) throws XMPPException {
+    public void setAvatarPicture(File file) throws XMPPException, MalformedURLException, ClassNotFoundException, SQLException {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
@@ -266,8 +267,14 @@ public class MainController {
         connection = account.getConnection();
 
         System.out.println("Which connection = "
-                + connection.getServerType().getServerList().get(0));
+                + connection.getServerType());
+        
+        
         connection.setAvatarPicture(file);
+        
+        if (!model.getCurrentProfile().getName().equals("Guest")) {
+            model.setAvatarDirectory(model.getCurrentProfile().getName(), file.toURL().toString());
+        }
 
         // TODO make a more accurate Model.addFriend
 

@@ -12,16 +12,30 @@ import javax.swing.JOptionPane;
 
 import org.jivesoftware.smack.XMPPException;
 
+import com.itbs.aimcer.commune.ConnectionEventListener;
+
 import net.kano.joscar.ByteBlock;
+import net.kano.joscar.FileWritable;
+import net.kano.joscar.Writable;
+import net.kano.joscar.net.ConnProcessorExceptionEvent;
+import net.kano.joscar.net.ConnProcessorExceptionHandler;
 import net.kano.joscar.rv.RvProcessor;
 import net.kano.joscar.rvcmd.DefaultRvCommandFactory;
 import net.kano.joscar.snac.ClientSnacProcessor;
+import net.kano.joscar.snac.SnacRequestAdapter;
+import net.kano.joscar.snac.SnacRequestListener;
+import net.kano.joscar.snac.SnacRequestSentEvent;
+import net.kano.joscar.snac.SnacRequestTimeoutEvent;
 import net.kano.joscar.snac.SnacResponseEvent;
 import net.kano.joscar.snac.SnacResponseListener;
 import net.kano.joscar.snaccmd.FullUserInfo;
 import net.kano.joscar.snaccmd.auth.AuthCommand;
 import net.kano.joscar.snaccmd.auth.AuthResponse;
+import net.kano.joscar.snaccmd.conn.ServiceRedirect;
+import net.kano.joscar.snaccmd.conn.ServiceRequest;
 import net.kano.joscar.snaccmd.conn.SetExtraInfoCmd;
+import net.kano.joscar.snaccmd.icon.IconCommand;
+import net.kano.joscar.snaccmd.icon.UploadIconCmd;
 import net.kano.joscar.snaccmd.loc.GetInfoCmd;
 import net.kano.joustsim.Screenname;
 import net.kano.joustsim.oscar.AimConnection;
@@ -34,6 +48,8 @@ import net.kano.joustsim.oscar.OpenedServiceListener;
 import net.kano.joustsim.oscar.State;
 import net.kano.joustsim.oscar.StateEvent;
 import net.kano.joustsim.oscar.StateListener;
+import net.kano.joustsim.oscar.oscar.BasicConnection;
+import net.kano.joustsim.oscar.oscar.OscarConnection;
 import net.kano.joustsim.oscar.oscar.service.Service;
 import net.kano.joustsim.oscar.oscar.service.bos.MainBosService;
 import net.kano.joustsim.oscar.oscar.service.buddy.BuddyService;
@@ -87,6 +103,8 @@ public class ICQManager implements GenericConnection {
 	private GenericConnection genericConnection;
 	
 	private IcbmListener lastIcbmListener;
+	
+	private  BasicConnection iconConnection;
     
 	public static void main(String[] args) {
 		ICQManager i = new ICQManager(null, null);
@@ -139,6 +157,7 @@ public class ICQManager implements GenericConnection {
 		 if (connection != null && connection.getInfoService() != null) {
 			 System.out.println("Trying to change the status...");
 			 connection.getBosService().setStatusMessage(status);
+			 connection.getBosService().setStatusMessageSong("¸ô¶ó1", status, "¸ô¶ó3", "¸ô¶ó4");
 		 }
 	 }
 	 
@@ -151,8 +170,16 @@ public class ICQManager implements GenericConnection {
 	 public void setState(long state) {
 		 if (connection != null && connection.getInfoService() != null) {
 			 connection.getBosService().setIcqStatus(state);
+			
 		 }
 	 }
+	 
+//	 public void setIdle(long idle) {
+//		 if (connection != null && connection.getInfoService() != null) {
+//			 Date date = new Date();
+//			 connection.getBosService().setIdleSince(date);
+//		 }
+//	 }
 
 
 	
@@ -214,6 +241,7 @@ public class ICQManager implements GenericConnection {
         setPresence(status);
         setProfile(status);
         setStatus(status);
+        bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
     }
     /**
      * helper method for changeStatus
@@ -313,20 +341,7 @@ public class ICQManager implements GenericConnection {
 
     }
 
-    public ImageIcon getAvatarPicture(String userID) {
-    	BuddyInfo binfo = connection.getBuddyInfoManager().getBuddyInfo(new Screenname(userID));
-        ByteBlock byteBlock = binfo.getIconData();
-        ImageIcon icon = new ImageIcon(this.getClass().getResource(
-        "/images/chatwindow/personal.png"));
-        
-        if (icon != null) {
-        	icon = new ImageIcon(byteBlock.toByteArray());
-        }
-        
-        JOptionPane.showMessageDialog(null, icon);
-        
-        return icon;
-    }
+  
 
     public ServerType getServerType() {
         return ServerType.ICQ;
@@ -338,18 +353,53 @@ public class ICQManager implements GenericConnection {
 		
 	}
 
-	public void setAvatarPicture(byte[] byeArray) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+	 public ImageIcon getAvatarPicture(String userID) {
+	    	BuddyInfo binfo = connection.getBuddyInfoManager().getBuddyInfo(new Screenname(userID));
+	        ByteBlock byteBlock = binfo.getIconData();
+	        ImageIcon icon = new ImageIcon(this.getClass().getResource(
+	        "/images/chatwindow/personal.png"));
+	        
+	        if (icon != null) {
+	        	icon = new ImageIcon(byteBlock.toByteArray());
+	        }
+	        
+	        JOptionPane.showMessageDialog(null, icon);
+	        
+	        return icon;
+	  }
+	  
 
-	public void setAvatarPicture(File file) throws XMPPException {
-		// TODO Auto-generated method stub
+	public void setAvatarPicture(final File file) throws XMPPException {
+		
+		final SnacRequestListener listener = new SnacRequestListener() {
+            public void handleResponse(SnacResponseEvent e) {
+                e.getRequest(); // need to?
+            }
+
+            public void handleSent(SnacRequestSentEvent e) {
+                // great!
+                e.getRequest(); // need to?
+            }
+
+            public void handleTimeout(SnacRequestTimeoutEvent event) {
+//                for (ConnectionEventListener eventHandler : eventHandlers) {
+//                    eventHandler.errorOccured("Timed out trying to set an icon.", null);
+//                }
+            }
+        };
+        
+        iconConnection = new BasicConnection(ICQ_SERVER, ICQ_PORT);
+        iconConnection.sendSnacRequest(new UploadIconCmd(ByteBlock.createByteBlock(
+        		new FileWritable(file.getAbsolutePath()))), listener);
+
+		connection.getMyBuddyIconManager().requestSetIcon(ByteBlock.createByteBlock(
+                new FileWritable(file.getAbsolutePath())));
+		
+		 //connection.getExternalServiceManager().getIconServiceArbiter().uploadIcon(new Writable(""));
 		
 	}
 
 	public void setAvatarPicture(URL url) throws XMPPException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -381,6 +431,8 @@ public class ICQManager implements GenericConnection {
         
         connection.addOpenedServiceListener(new DefaultOpenedServiceListener());
         connection.addStateListener(new DefaultStateListener());
+      
+
         connection.connect();
 
         chkConnection();
@@ -432,7 +484,31 @@ public class ICQManager implements GenericConnection {
         });
     }
 
-
+//    private class SnacRequestAdapterListener extends SnacRequestAdapter {
+//    	public void handleResponse(SnacResponseEvent e) {
+//            try {
+//                if (e.getSnacCommand() instanceof ServiceRedirect) {
+//                    ServiceRedirect sr = (ServiceRedirect) e.getSnacCommand();
+//                    iconConnection = new BasicConnection(sr.getRedirectHost(),
+//                            sr.getRedirectPort() > 0 ? sr.getRedirectPort() : connectionProperties.getLoginPort());
+//                    iconConnection.setCookie(sr.getCookie());
+//                    
+//                    iconConnection.getClientFlapConn().getFlapProcessor().addExceptionHandler(new ConnProcessorExceptionHandler() {
+//                        public void handleException(ConnProcessorExceptionEvent event) {
+//                            event.getException().printStackTrace();
+//                        }
+//
+//						
+//                    });
+//                    iconConnection.connect();
+//                }
+//            } catch (Exception e1) {
+//                
+//            }
+//        }
+//    
+//
+//    }
 
 	/*private methods*/
 	private void chkConnection(){
@@ -600,12 +676,17 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 		}
 		
 	}
+	
+
+	
+	
 	private class DefaultStateListener implements StateListener{
 
 		public void handleStateChange(StateEvent event) {
 			connectionState = event.getNewState();
 			if(connectionState == State.ONLINE){
 				System.out.println("is now online");
+				
 				//System.out.println(connection.getSsiService().getBuddyList().getGroups());
 			}
 			
@@ -674,5 +755,14 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	public void setAvatarPicture(byte[] bytes) throws XMPPException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }
