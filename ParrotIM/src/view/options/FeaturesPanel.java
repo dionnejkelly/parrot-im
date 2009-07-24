@@ -30,6 +30,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -46,13 +48,14 @@ import javax.swing.event.ListSelectionListener;
 import model.Model;
 import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
+import model.enumerations.UpdatedType;
 
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
 import controller.MainController;
 
-public class FeaturesPanel extends GPanel {
+public class FeaturesPanel extends GPanel implements Observer{
 	
     private CustomizedChatbotModel chatBotModel;
 
@@ -77,8 +80,9 @@ public class FeaturesPanel extends GPanel {
 
     public FeaturesPanel(MainController c, JFrame optionframe, Model model)
             throws ClassNotFoundException, SQLException {
-    	this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+    	this.setGradientColors(model.primaryColor, model.secondaryColor);
         this.model = model;
+        model.addObserver(this);
         chatBotModel = model.getCustomizedChatbotModel();
 
 //        chatBotModel = new CustomizedChatbotModel(this.model);
@@ -472,4 +476,10 @@ public class FeaturesPanel extends GPanel {
 		}
     }
 
+	public void update(Observable arg0, Object arg1) {
+		if(arg1 == UpdatedType.COLOR){
+			setGradientColors(model.primaryColor, model.secondaryColor);
+			updateUI();
+		}
+	}
 }
