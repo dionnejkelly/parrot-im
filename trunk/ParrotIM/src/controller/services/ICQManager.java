@@ -203,44 +203,51 @@ public class ICQManager implements GenericConnection {
         MainBosService bos = connection.getBosService();
         long icqState = stateToLong(state);
         bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
-        
-        if (state == UserStateType.ONLINE){
-        	//connection.getInfoService().setAwayMessage(status);
-        	setOnline(true);
+        if (state == UserStateType.INVISIBLE ||state == UserStateType.OFFLINE){
+        	bos.setVisibleStatus(false);
+        }else{
+        	bos.setVisibleStatus(true);
         }
         
-        else if (state == UserStateType.INVISIBLE) {
-        	setOnline(false);
+        if (state == UserStateType.AWAY){
+        	connection.getInfoService().setAwayMessage(status);
         }
-        
-        else if (state == UserStateType.AWAY) {
-        	 setState(1);
-        } 
-        
-        else if (state == UserStateType.BUSY) {
-        	setState(2);
-        } 
-        
-        else if (state == UserStateType.BRB) {
-        	setState(4);
-        }
-	 
-        else if (state == UserStateType.PHONE) {
-        	setState(2);
-        }
-	 
-        else if (state == UserStateType.LUNCH) {
-        	setState(4);
-        }
-        
+//        	//connection.getInfoService().setAwayMessage(status);
+//        	setOnline(true);
+//        }
+//        
+//        else if (state == UserStateType.INVISIBLE) {
+//        	setOnline(false);
+//        }
+//        
+//        else if (state == UserStateType.AWAY) {
+//        	 setState(1);
+//        } 
+//        
+//        else if (state == UserStateType.BUSY) {
+//        	setState(2);
+//        } 
+//        
+//        else if (state == UserStateType.BRB) {
+//        	setState(4);
+//        }
+//	 
+//        else if (state == UserStateType.PHONE) {
+//        	setState(2);
+//        }
+//	 
+//        else if (state == UserStateType.LUNCH) {
+//        	setState(4);
+//        }
+//        
         else{
         	bos.setStatusMessage(status);
         }
         
         
-        setPresence(status);
-        setProfile(status);
-        setStatus(status);
+//        setPresence(status);
+//        setProfile(status);
+//        setStatus(status);
         bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
     }
     /**
