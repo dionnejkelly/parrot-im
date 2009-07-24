@@ -190,7 +190,7 @@ public class BugReportFrame extends JFrame{
 		
 		/*WRAP UP*/
 		mainPanel = new GPanel();
-		mainPanel.setGradientColors(mainPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
+		mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 		mainPanel.add(questionLabel);
 //		mainPanel.add(questionText, BorderLayout.AFTER_LINE_ENDS);
 		mainPanel.add(subjectLabel);
@@ -203,7 +203,6 @@ public class BugReportFrame extends JFrame{
 		mainPanel.add(severityLabel, frequencyPanel.getLayout());
 		mainPanel.add(severityPanel);
 		mainPanel.add(QButtonsPanel);
-//		mainPanel.setBackground(Color.yellow);
 
 	}
 	
