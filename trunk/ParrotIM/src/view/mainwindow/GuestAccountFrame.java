@@ -38,6 +38,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -53,6 +55,7 @@ import javax.swing.JTextField;
 
 import model.Model;
 import model.enumerations.ServerType;
+import model.enumerations.UpdatedType;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
@@ -67,7 +70,7 @@ import view.styles.PopupWindowListener;
  * 
  * This object inherits JFrame variables and methods
  */
-public class GuestAccountFrame extends JFrame {
+public class GuestAccountFrame extends JFrame implements Observer{
 
     protected JTextField jabberServer;
     protected JPanel serverPanel;
@@ -112,6 +115,8 @@ public class GuestAccountFrame extends JFrame {
      * connect to.
      */
     private JComboBox server;
+    
+    private GPanel GALPanel;
 
     /**
      * This is the constructor of the Guest Account frame.
@@ -125,6 +130,7 @@ public class GuestAccountFrame extends JFrame {
             SignInPanel signin) {
         popup = this;
         this.model = model;
+        model.addObserver(this);
         core = c;
         mainFrame = frame;
         setLocationRelativeTo(mainFrame);
@@ -140,10 +146,10 @@ public class GuestAccountFrame extends JFrame {
                 .getImage());
 
         // select server
-        GPanel GALPanel = new GPanel();
+        GALPanel = new GPanel();
         GALPanel.setLayout(new BorderLayout());
-        GALPanel.setGradientColors(GALPanel.colors.PRIMARY_COLOR_MED,
-                Color.WHITE);
+        GALPanel.setGradientColors(model.primaryColor,
+                model.secondaryColor);
 
         // select server
         server = new JComboBox(model.getServerList());
@@ -324,4 +330,12 @@ public class GuestAccountFrame extends JFrame {
             popup.dispose();
         }
     }
+
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			GALPanel.setGradientColors(model.primaryColor,
+	                model.secondaryColor);
+			GALPanel.updateUI();
+		}
+	}
 }

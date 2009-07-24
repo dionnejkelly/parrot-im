@@ -81,6 +81,7 @@ import javax.swing.JPasswordField;
 import model.Model;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
+import model.enumerations.UpdatedType;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
@@ -191,7 +192,7 @@ public class SignInPanel extends GPanel implements Observer {
         setLayout(new BorderLayout());
         manageAccountPanel();        
 
-        this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        this.setGradientColors(model.primaryColor, model.secondaryColor);
         
         misc = new MiscPanel();
         misc.setOpaque(false);
@@ -341,6 +342,11 @@ public class SignInPanel extends GPanel implements Observer {
         // Add the profiles to the list
         for (ProfileData p : profiles.getProfiles()) {
             this.profilesModel.addElement(p);
+        }
+        
+        if(arg == UpdatedType.COLOR){
+        	setGradientColors(model.primaryColor, model.secondaryColor);
+        	updateUI();
         }
 
         return;
