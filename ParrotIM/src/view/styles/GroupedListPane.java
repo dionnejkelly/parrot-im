@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -14,8 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Model;
+import model.enumerations.UpdatedType;
 
-public class GroupedListPane extends JPanel {
+public class GroupedListPane extends JPanel implements Observer {
     Box boxes[] = new Box[1];
     private WindowColors colors = new WindowColors();
     private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
@@ -26,11 +29,13 @@ public class GroupedListPane extends JPanel {
             new ImageIcon(this.getClass().getResource(
                     "/images/buddylist/down.png"));
     private ArrayList<JLabel> arrows = new ArrayList<JLabel>();
+    private ArrayList<GPanel> gPanels = new ArrayList<GPanel>();
     JLabel arrowPanel;
     private Model model;
 
     public GroupedListPane(Model model) {
     	this.model = model;
+    	model.addObserver(this);
     	
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
@@ -61,6 +66,7 @@ public class GroupedListPane extends JPanel {
 
         arrowPanel = new JLabel(arrowIconDown);
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
+        gPanels.add(newPanel);
 
         CustomListPane collapsableListPane = new CustomListPane();
         groups.add(collapsableListPane);
@@ -154,4 +160,13 @@ public class GroupedListPane extends JPanel {
         public void mousePressed(MouseEvent e) {}
         public void mouseReleased(MouseEvent e) {}
     }
+
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			for(GPanel g : gPanels){
+				g.setGradientColors(model.tertiaryColor, model.tertiaryColor);
+				g.updateUI();
+			}
+		}
+	}
 }
