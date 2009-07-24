@@ -164,7 +164,7 @@ public class BlockManager extends JFrame implements Observer {
         // set main panel
         accMANPanel = new GPanel();
         accMANPanel.setLayout(new BorderLayout());
-        accMANPanel.setGradientColors(accMANPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
+        accMANPanel.setGradientColors(model.primaryColor, model.secondaryColor);
         // accMANPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20,
         // 30));
         // manage account panel
@@ -440,8 +440,9 @@ public class BlockManager extends JFrame implements Observer {
             }
             
             return;
-        }
-        
-        
+        }else if(arg == UpdatedType.COLOR){
+        	accMANPanel.setGradientColors(model.primaryColor, model.secondaryColor);
+        	accMANPanel.updateUI();
+        }   
     }
 }
