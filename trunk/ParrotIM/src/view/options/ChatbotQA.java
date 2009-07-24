@@ -36,6 +36,7 @@ import view.styles.PopupWindowListener;
 public class ChatbotQA extends JFrame implements Observer{
 	private ChatbotQADataType QAObject;
 	private GPanel mainPanel;
+	private GPanel addNewQAPanel;
 	private JFrame manageQAFrame;
 	
 	private JList QList;
@@ -232,6 +233,7 @@ public class ChatbotQA extends JFrame implements Observer{
 			
 			/*PROMPT*/
 			JLabel label = new JLabel();
+			label.setOpaque(false);
 			if (mode == 'Q') 
 				label.setText("Please type in your question: ");
 			else if (mode == 'A')
@@ -249,10 +251,12 @@ public class ChatbotQA extends JFrame implements Observer{
 	                .getResource("/images/mainwindow/cancel.png")));
 			cancelButton.addActionListener(new cancelActionListener());
 			JPanel buttonPanel = new JPanel ();
+			buttonPanel.setOpaque(false);
 			buttonPanel.add(okButton);
 			buttonPanel.add(cancelButton);
 			
-			JPanel addNewQAPanel = new JPanel();
+			addNewQAPanel = new GPanel();
+			addNewQAPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 			addNewQAPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 			addNewQAPanel.add(label);
 			addNewQAPanel.add(field);
@@ -334,6 +338,8 @@ public class ChatbotQA extends JFrame implements Observer{
 
 	public void update(Observable arg0, Object arg1) {
 		mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
+		addNewQAPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 		mainPanel.updateUI();
+		addNewQAPanel.updateUI();
 	}
 }
