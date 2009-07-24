@@ -27,6 +27,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -56,6 +57,8 @@ public class PreferencePanel extends GPanel implements Observer {
     private ThemeOptionsComboBox themeMenu;
     private Model model;
     private JFrame colorChooser;
+    private JPanel colorPanel, themePanel, textColorPanel;
+    private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     
     public PreferencePanel(MainController c, JFrame mainframe, final Model model)
             throws ClassNotFoundException, SQLException {
@@ -72,23 +75,31 @@ public class PreferencePanel extends GPanel implements Observer {
         themeMenu.addActionListener(new ThemeMenuListener());
         
         JLabel themeLabel = new JLabel("Theme: ");
-        themeLabel.setForeground(model.tertiaryColor);
+        themeLabel.setForeground(model.primaryTextColor);
         
-        JPanel themePanel = new JPanel();
-        themePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        themePanel = new JPanel();
+        themePanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
         themePanel.setAlignmentX(LEFT_ALIGNMENT);
         themePanel.setBackground(model.tertiaryColor);
         themePanel.add(themeLabel);
         themePanel.add(themeMenu);
         
         /* colorSelection*/
-        JPanel colorPanel = new JPanel();
-        colorPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        colorPanel = new JPanel();
+        colorPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
         colorPanel.setAlignmentX(LEFT_ALIGNMENT);
         colorPanel.setBackground(model.tertiaryColor);
         
-        JLabel colorLabel = new JLabel("Colors:");
-        colorLabel.setForeground(model.tertiaryColor);
+        textColorPanel = new JPanel();
+        textColorPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+        textColorPanel.setAlignmentX(LEFT_ALIGNMENT);
+        textColorPanel.setBackground(model.tertiaryColor);
+        
+        JLabel colorLabel = new JLabel("Window Colors:");
+        colorLabel.setForeground(model.primaryTextColor);
+        
+        JLabel textColorLabel = new JLabel("Text Colors:");
+        textColorLabel.setForeground(model.primaryTextColor);
         
         colorChooser = new JFrame();
         colorChooser.setVisible(false);
@@ -97,12 +108,7 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton.setBackground(model.primaryColor);
         colorButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				colorChooser.setTitle("Primary Window Color");
-				colorChooser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				colorChooser.setContentPane(new ThemeColorChooser(colorChooser, colorButton, model));
-				colorChooser.pack();
-				colorChooser.setVisible(true);
-				colorChooser.setResizable(false);
+				openColorChooser("Primary Window Color", colorButton, model);
 			}
         });
         
@@ -110,12 +116,7 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton2.setBackground(model.secondaryColor);
         colorButton2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				colorChooser.setTitle("Secondary Window Color");
-				colorChooser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				colorChooser.setContentPane(new ThemeColorChooser(colorChooser, colorButton2, model));
-				colorChooser.pack();
-				colorChooser.setVisible(true);
-				colorChooser.setResizable(false);
+				openColorChooser("Secondary Window Color", colorButton2, model);
 			}
         });
         
@@ -123,12 +124,15 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton3.setBackground(model.tertiaryColor);
         colorButton3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				colorChooser.setTitle("Tertiary Window Color");
-				colorChooser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				colorChooser.setContentPane(new ThemeColorChooser(colorChooser, colorButton3, model));
-				colorChooser.pack();
-				colorChooser.setVisible(true);
-				colorChooser.setResizable(false);
+				openColorChooser("Tertiary Window Color", colorButton3, model);
+			}
+        });
+        
+        final JButton textButton = new JButton("1t");
+        textButton.setBackground(model.primaryTextColor);
+        textButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				openColorChooser("Primary Text Color", textButton, model);
 			}
         });
         
@@ -137,11 +141,27 @@ public class PreferencePanel extends GPanel implements Observer {
         colorPanel.add(colorButton2);
         colorPanel.add(colorButton3);
         
+        textColorPanel.add(textColorLabel);
+        textColorPanel.add(textButton);
+        
         model.addObserver(this);
+        labels.add(colorLabel);
+        labels.add(textColorLabel);
+        labels.add(themeLabel);
         
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 225));
         this.add(colorPanel);
+        this.add(textColorPanel);
         this.add(themePanel);
+    }
+    
+    private void openColorChooser(String title, JButton buttonPressed, Model model){
+    	colorChooser.setTitle(title);
+		colorChooser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		colorChooser.setContentPane(new ThemeColorChooser(colorChooser, buttonPressed, model));
+		colorChooser.pack();
+		colorChooser.setVisible(true);
+		colorChooser.setResizable(false);
     }
     
     private class ThemeMenuListener implements ActionListener {
@@ -158,6 +178,12 @@ public class PreferencePanel extends GPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		if(arg == UpdatedType.COLOR){
 			setGradientColors(model.primaryColor, model.secondaryColor);
+			colorPanel.setBackground(model.tertiaryColor);
+			textColorPanel.setBackground(model.tertiaryColor);
+			themePanel.setBackground(model.tertiaryColor);
+			for(JLabel l : labels){
+				l.setForeground(model.primaryTextColor);
+			}
 			this.updateUI();
 		}
 	}
