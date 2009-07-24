@@ -55,7 +55,7 @@ public abstract class PersonData extends Observable {
      */
     private UserStateType state;
     private TypingStateType typingState;
-    
+    private boolean connected;
 
     /**
      * Base constructor. The userID is required since it is needed to log-in and
@@ -69,7 +69,7 @@ public abstract class PersonData extends Observable {
         if (userID == null || userID.length() == 0) {
             throw new IllegalArgumentException();
         }
-        
+        this.connected = false;
         this.userID = userID;
         this.nickname = userID;
         this.status = "";
@@ -113,6 +113,13 @@ public abstract class PersonData extends Observable {
         this.setGroup(group);
     }
     
+    public boolean isConnected(){
+    	return connected;
+    }
+    
+    public void setConnected(boolean b){
+    	connected = b;
+    }
     /**
      * Gets the userID as a String. Cannot be null or empty.
      * 
