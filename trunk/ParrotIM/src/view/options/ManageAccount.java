@@ -99,7 +99,7 @@ public class ManageAccount extends GPanel implements Observer {
         leftPanelMAN();
         rightPanelMAN();
         
-        model.addObserver(this);
+        if (model!=null) model.addObserver(this);
 
     }
 
