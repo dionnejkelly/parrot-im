@@ -411,7 +411,7 @@ public class ProfileData extends Observable {
     public ArrayList<UserData> getAllFriends() {
         ArrayList<UserData> friends = new ArrayList<UserData>();
         for (AccountData account : this.accountData) {
-        	if (account.isOnline()){
+        	if (account.isConnected()){
 	            for (UserData user : account.getFriends()) {
 	            	if (user.getServer() != ServerType.TWITTER)
 	                	friends.add(user);

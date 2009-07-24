@@ -325,11 +325,11 @@ public class ManageAccount extends GPanel implements Observer {
         public void actionPerformed(ActionEvent evt) {
             int selected = accList.getSelectedIndex();
             if (selected >= 0) {
-                profile.removeAccount((AccountData) accList.getSelectedValue());
-                removeButton.setEnabled(false);
                 if (buddyFrame !=null){
                 	buddyFrame.removeAccountJMenu(selected);
                 }
+                profile.removeAccount((AccountData) accList.getSelectedValue());
+                removeButton.setEnabled(false);
             }
         }
     }
