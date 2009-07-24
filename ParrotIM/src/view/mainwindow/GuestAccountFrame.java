@@ -183,14 +183,18 @@ public class GuestAccountFrame extends JFrame implements Observer{
         usernamePanel.setOpaque(false);
         UNFieldGuest = new JTextField();
         UNFieldGuest.setPreferredSize(new Dimension(180, 20));
-        usernamePanel.add(new JLabel("Username:     "));
+        JLabel usernameLabel = new JLabel("Username:     ");
+        usernameLabel.setForeground(model.primaryTextColor);
+        usernamePanel.add(usernameLabel);
         usernamePanel.add(UNFieldGuest);
         // set password
         JPanel passwordPanel = new JPanel();
         passwordPanel.setOpaque(false);
         PwdFieldGuest = new JPasswordField();
         PwdFieldGuest.setPreferredSize(new Dimension(180, 20));
-        passwordPanel.add(new JLabel("Password:      "));
+        JLabel passwordLabel = new JLabel("Password:      ");
+        passwordLabel.setForeground(model.primaryTextColor);
+        passwordPanel.add(passwordLabel);
         passwordPanel.add(PwdFieldGuest);
 
         // account setup Panel
