@@ -35,6 +35,7 @@ import org.jivesoftware.smack.XMPPException;
 import controller.MainController;
 import controller.services.BadConnectionException;
 
+import view.options.MusicPlayer;
 import view.styles.GPanel;
 import view.styles.GroupedListPane;
 import view.chatwindow.ChatWindow;
@@ -109,15 +110,15 @@ public class TwitterPanel extends GPanel implements Observer {
      * selected friend
      */
     UserData selectedFriend;
-    
+
     GroupedListPane buddyListPane;
-    
+
     /**
      * list of buddies
      */
     private ArrayList<UserData> tweets;
     private ArrayList<UserData> buddies;
-    
+
     private ArrayList<ArrayList<UserData>> buddyArray;
 
     private JTextField search;
@@ -129,12 +130,14 @@ public class TwitterPanel extends GPanel implements Observer {
     private JButton googleSearchButton;
 
     private long lastUpdate;
-    
+
     private PictureUpdateThread pictureUpdateThread;
 
     private ArrayList<FriendWrapper> friendWrappers;
 
     private ArrayList<FriendPanel> friendPanels;
+
+    private SelectListener selectListener;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -145,25 +148,26 @@ public class TwitterPanel extends GPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
-    public TwitterPanel(MainController c, Model model, JFrame buddyWindow, BuddyPanel buddyList) {
+    public TwitterPanel(MainController c, Model model, JFrame buddyWindow,
+            BuddyPanel buddyList) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         setGradientColors(model.primaryColor, model.secondaryColor);
-        
+
         this.chatClient = c;
         this.model = model;
         this.chat = null;
         this.searchEnabled = false;
         this.lastUpdate = System.currentTimeMillis();
         this.friendWrappers = new ArrayList<FriendWrapper>();
-        
+        this.selectListener = new SelectListener();
+
         buddyArray = new ArrayList<ArrayList<UserData>>();
         for (int i = 0; i < 2; i++) {
             buddyArray.add(new ArrayList<UserData>());
         }
-
 
         // Test code, make it hide at the start
         // this.chat = new ChatWindow(chatClient, model);
@@ -184,14 +188,12 @@ public class TwitterPanel extends GPanel implements Observer {
         buddyListPane = new GroupedListPane(model);
         buddyListPane.addGroup("     Recent Tweets", twitterImage);
         buddyListPane.addGroup("     Twitter Friends", twitterImage);
-        //buddyListPane.addElement(0, "test", null);
+        // buddyListPane.addElement(0, "test", null);
 
         pictureUpdateThread = new PictureUpdateThread();
         pictureUpdateThread.start();
 
         listRepopulate();
-        
-        
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
@@ -200,20 +202,18 @@ public class TwitterPanel extends GPanel implements Observer {
 
         add(scroller);
     }
-    
-    private void listRepopulate(){
-    	FriendPanel tempPanel = null;
-    	try {
-			tweets = model.getCurrentProfile().getTweets();
-			buddies = model.getCurrentProfile().getTwitterFriends();
-		} catch (BadConnectionException e1) {
-			e1.printStackTrace();
-		}
-		for (ArrayList<UserData> a : buddyArray) {
-            a.clear();
-        }
 
-        for (int i = 0; i < 2; i++) {
+    private void listRepopulate() {
+        FriendPanel tempPanel = null;
+        try {
+            tweets = model.getCurrentProfile().getTweets();
+            buddies = model.getCurrentProfile().getTwitterFriends();
+        } catch (BadConnectionException e1) {
+            e1.printStackTrace();
+        }
+        
+        for (int i = 0; i < boxes.length; i++) {
+            buddyArray.get(i).clear();
             buddyListPane.removeAllElements(i);
             boxes[i].removeAll();
         }
@@ -222,29 +222,36 @@ public class TwitterPanel extends GPanel implements Observer {
         // Compare the model friends with the GUI friends
         for (UserData u : this.tweets) {
             tempPanel = TweetItem(u);
-        	buddyArray.get(0).add(u);
-        	boxes[0].add(TweetItem(u));
-        	buddyListPane.addElement(0, tempPanel);
+            buddyArray.get(0).add(u);
+            boxes[0].add(TweetItem(u));
+            buddyListPane.addElement(0, tempPanel);
         }
         for (UserData u : this.buddies) {
-        	tempPanel = FriendItem(u);
-        	buddyArray.get(1).add(u);
-        	boxes[0].add(FriendItem(u));
-        	buddyListPane.addElement(1, tempPanel);
+            tempPanel = FriendItem(u);
+            buddyArray.get(1).add(u);
+            boxes[1].add(FriendItem(u));
+            buddyListPane.addElement(1, tempPanel);
         }
-    	
-    	/*for(UserData user : model.getCurrentProfile().getTwitterFriends()){
-    			buddyListPane.addElement(1, user.getNickname(), null);
-    			}
-    	try {
-			for(UserData user : model.getCurrentProfile().getTweets())
-				buddyListPane.addElement(0,user.getNickname() + " - " + user.getStatus(), null);
-		} catch (BadConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+
+        // add mouse listeners
+        for (int j = 0; j < 2; j++) {
+            for (int i = 0; i < boxes[j].getComponentCount(); i++) {
+                // System.out.println(boxes[j].getComponentCount() + ":" + i);
+                buddyListPane.addExternalMouseListener(j, i,
+                        this.selectListener);
+            }
+        }
+
+        /*
+         * for(UserData user : model.getCurrentProfile().getTwitterFriends()){
+         * buddyListPane.addElement(1, user.getNickname(), null); } try {
+         * for(UserData user : model.getCurrentProfile().getTweets())
+         * buddyListPane.addElement(0,user.getNickname() + " - " +
+         * user.getStatus(), null); } catch (BadConnectionException e) { // TODO
+         * Auto-generated catch block e.printStackTrace(); }
+         */
     }
-    
+
     /**
      * FriendItem to check friend status.
      * 
@@ -252,8 +259,9 @@ public class TwitterPanel extends GPanel implements Observer {
      * @return friendItem
      */
     public FriendPanel FriendItem(UserData user) {
-        ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
-                "/images/chatwindow/personal.png"));
+        ImageIcon defaultIcon =
+                new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/personal.png"));
         JLabel label = null;
         FriendPanel friendItem = new FriendPanel();
         FriendWrapper tempWrapper = null;
@@ -269,7 +277,7 @@ public class TwitterPanel extends GPanel implements Observer {
                 + "<br> Status:" + user.getState() + "<br>" + user.getServer()
                 + "<hr>" + "Right-click for more options");
 
-        tempWrapper = new FriendWrapper(user,true);
+        tempWrapper = new FriendWrapper(user, true);
         this.friendWrappers.add(tempWrapper);
 
         ImageIcon avatarImage = defaultIcon;
@@ -286,10 +294,11 @@ public class TwitterPanel extends GPanel implements Observer {
 
         return friendItem;
     }
-    
+
     public FriendPanel TweetItem(UserData user) {
-        ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
-                "/images/chatwindow/personal.png"));
+        ImageIcon defaultIcon =
+                new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/personal.png"));
         JLabel label = null;
         FriendPanel friendItem = new FriendPanel();
         FriendWrapper tempWrapper2 = null;
@@ -362,33 +371,144 @@ public class TwitterPanel extends GPanel implements Observer {
                     try {
                         avatarImage = chatClient.getAvatarPicture(user);
                         Image img = avatarImage.getImage();
-                        img = img.getScaledInstance(25, 25,
-                                java.awt.Image.SCALE_SMOOTH);
+                        img =
+                                img.getScaledInstance(25, 25,
+                                        java.awt.Image.SCALE_SMOOTH);
                         ImageIcon newIcon = new ImageIcon(img);
                         label.setIcon(newIcon);
                     } catch (XMPPException e) {
                         System.err.println("Error in picture thread");
                         e.printStackTrace();
                     }
-                }
-                else {
-                	// Rests thread to prevent cpu overload
-                	try {
-                		Thread.currentThread();
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                } else {
+                    // Rests thread to prevent cpu overload
+                    try {
+                        Thread.currentThread();
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         }
     }
 
-	public void update(Observable o, Object arg) {
-		if(arg == UpdatedType.COLOR){
-			setGradientColors(model.primaryColor, model.secondaryColor);
-			updateUI();
-		}
-	}
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.COLOR) {
+            setGradientColors(model.primaryColor, model.secondaryColor);
+            updateUI();
+        }
+    }
+
+    /**
+     * SelectListener, select friend from buddy list.
+     * 
+     */
+    private class SelectListener implements MouseListener {
+        /**
+         * boolean variable, indicate whether selected.
+         */
+        protected boolean selected;
+
+        /**
+         * SelectListener()
+         */
+        public SelectListener() {
+            System.out.println("I am being made!!!!");
+            selected = false;
+        }
+
+        /**
+         * mouseClicked to unhighlight the last selected
+         */
+        public void mouseClicked(MouseEvent event) {
+            for (int j = 0; j < buddyArray.size(); j++) {
+                for (int i = 0; i < boxes[j].getComponentCount(); i++) {
+                    System.out.println("j: " + j + "  and i: " + i);
+                    if (event.getSource().equals(
+                            buddyListPane.getComponent(j, i))) {
+                        if (event.getButton() == event.BUTTON1) {
+                            // Left Click
+                            selected = true;
+
+                            /* Fix this to directly reference the GUI */
+                            selectedFriend = buddyArray.get(j).get(i);
+                            System.out.println(selectedFriend + " in the woooos");
+
+                            if (event.getClickCount() == 2) {
+                                selected = false;
+                                chatClient.startConversation(selectedFriend,
+                                        true);
+                            }
+                        } else if (event.getSource().equals(
+                                buddyListPane.getComponent(j, i))) {
+
+                            // Right Click
+                            rightClickMenu.show(buddyListPane
+                                    .getComponent(j, i), event.getX(), event
+                                    .getY());
+                            // + 25 * i);
+                            selectedName =
+                                    buddyListPane.getComponent(j, i).getName();
+                            selectedFriend = buddyArray.get(j).get(i);
+                            if (selectedFriend.isBlocked()) {
+                                menuItem4.setText("Unblock Friend");
+                                menuItem4
+                                        .setIcon(new ImageIcon(
+                                                this
+                                                        .getClass()
+                                                        .getResource(
+                                                                "/images/buddylist/unblock_user.png")));
+                            } else { // is not blocked; block it
+                                menuItem4.setText("Block Friend");
+                                menuItem4
+                                        .setIcon(new ImageIcon(
+                                                this
+                                                        .getClass()
+                                                        .getResource(
+                                                                "/images/buddylist/block_user.png")));
+                            }
+                        }
+                    }
+                }
+            }
+
+            MusicPlayer highlightMusic =
+                    new MusicPlayer("/audio/buddy/buddyHighlightedSound.wav",
+                            model);
+        }
+
+        // unimplemented mouselistener methods
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        public void mouseExited(MouseEvent event) {
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+    }
+
+    /**
+     * RightCickMenuListener , user right click mouse to do actions.
+     * 
+     */
+    class RightCickMenuListener extends MouseAdapter {
+        public void mousePressed(MouseEvent event) {
+            if (event.getSource().equals(menuItem1)) {
+                /* Is the chat window already open? */
+                chatClient.startConversation(selectedFriend, true);
+            } else if (event.getSource().equals(menuItem2)) {
+                // chat.addToConversation(selectedName);
+                // TODO Group chat not yet implemented.
+            }
+
+        }
+    }
+
+    
 }
