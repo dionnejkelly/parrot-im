@@ -25,9 +25,12 @@ package view.styles;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 import javax.swing.JComboBox;
+
+import view.options.PersonalProfileTab;
 
 import model.enumerations.StatusType;
 
@@ -43,13 +46,16 @@ public class StatusCombo extends JComboBox{
 	 * chatClient is a MainController object. It helps the user to change their status on the server.
 	 */
 	MainController chatClient;
+	private boolean optionStatus;
 	
 	/**
 	 * StatusCombo constructor. It takes a MainController object as its argument.
 	 * It also sets up some settings for the object.
-	 * @param c */
-	public StatusCombo(MainController c){
+	 * @param c 
+	 * @param optionStatus*/
+	public StatusCombo(MainController c, boolean optionStatus){
 		super(StatusType.getStatusList());
+		this.optionStatus = optionStatus;
 		chatClient = c;
 		this.addActionListener(new statusComboListener());
 		this.setMaximumSize(new Dimension(200, 30));
@@ -73,6 +79,11 @@ public class StatusCombo extends JComboBox{
 				
 				try {
 					chatClient.setPresence(userStatus);
+					
+		        	if (PersonalProfileTab.isPersonalTabOpened && !optionStatus) {
+		             	PersonalProfileTab.status.setSelectedIndex(getSelectedIndex());
+		            }
+		        	 
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

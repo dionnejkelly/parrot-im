@@ -63,10 +63,10 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	
 	//right components
 	public static JTextArea personalMessage;
+	public static StatusCombo status;
 	
 	private PmLabel BuddyListPM;
 	private StatusCombo BuddyListStatus;
-	private StatusCombo status;
 	
 	public static boolean isPersonalTabOpened = false;
 	
@@ -124,7 +124,7 @@ public class PersonalProfileTab extends GPanel implements Observer {
 		pmPanel.add (pmScroll, BorderLayout.CENTER);
         
         //status
-        status = new StatusCombo(core);
+        status = new StatusCombo(core, true);
         status.setMaximumSize(new Dimension(200, 30));
         status.setSelectedIndex(BuddyListStatus.getSelectedIndex());
         status.addItemListener(new statusItemListener());
@@ -173,9 +173,7 @@ public class PersonalProfileTab extends GPanel implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				avatar.changeAvatarWindow();
-//				avatar.synchAvatar(BuddyListAvatar);
 			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -192,15 +190,12 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	
 	private class pmKeyListener implements KeyListener{
 
-		//@Override
 		public void keyPressed(KeyEvent arg0) {}
 
-		//@Override
 		public void keyReleased(KeyEvent arg0) {
 			BuddyListPM.setText(personalMessage.getText());
 		}
 
-		//@Override
 		public void keyTyped(KeyEvent arg0) {}
 
 		
