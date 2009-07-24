@@ -123,7 +123,7 @@ public class ICQManager implements GenericConnection {
 		//i.getAvatarPicture("565914305");
 		//i.getAvatarPicture("cmpt275");
 		try {
-			i.changeStatus(UserStateType.BUSY, "lolololol");
+			i.changeStatus(UserStateType.NOT_AVAILABLE, "lolololol");
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,8 +132,12 @@ public class ICQManager implements GenericConnection {
 			System.out.println("Type your state: ");
 			Scanner msgInput = new Scanner(System.in);
 			String msg = msgInput.nextLine();
-			i.setPresence(msg);
-			i.setProfile(msg);
+			try {
+				i.changeStatus(UserStateType.NOT_AVAILABLE, msg);
+			} catch (BadConnectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -207,53 +211,72 @@ public class ICQManager implements GenericConnection {
         chkConnection();
         System.out.println("Passed the check connection test and trying to change the status...");
         MainBosService bos = connection.getBosService();
-        long icqState = stateToLong(state);
-        bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
-//        if (state == UserStateType.INVISIBLE ||state == UserStateType.OFFLINE){
-//        	bos.setVisibleStatus(false);
-//        }else{
-//        	bos.setVisibleStatus(true);
-//        }
         
-//        if (state == UserStateType.AWAY){
-//        	connection.getInfoService().setAwayMessage(status);
-//        	bos.setStatusMessage(status);
+        long icqState = stateToLong(state); 
+        //icqmanager doesn't use an integer to set status
+        //check out the private method called stateToLong , it would convert UserStateType
+        //into a Long value that ICQ server would understand
+        //Not availible state is in there as well
+        
+        
+        
+        
+        if (state == UserStateType.INVISIBLE ||state == UserStateType.OFFLINE){
+        	//make user invisible to other contacts
+        	bos.setVisibleStatus(false);
+        }else{
+        	bos.setVisibleStatus(true);
+        }
+        
+        //setting status message and changing state to away
+        connection.getInfoService().setAwayMessage(status);
+
+        //this one doesn't work for some how
+        bos.setStatusMessage(status);
+        try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //state has to be set after setting away message
+        bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
 //        }
         	//connection.getInfoService().setAwayMessage(status);
         	//setOnline(true);
-        if (state == UserStateType.ONLINE) {
-        	setOnline(true);
-        }
-        
-        else if (state == UserStateType.INVISIBLE ||state == UserStateType.OFFLINE) {
-        	setOnline(false);
-        }
-        
-        else if (state == UserStateType.AWAY) {
-        	 setState(1);
-//        	 connection.getInfoService().setAwayMessage(status);
-//        	 bos.setStatusMessage(status);
-        } 
-        
-        else if (state == UserStateType.BUSY) {
-        	setState(2);
-        } 
-        
-        else if (state == UserStateType.BRB) {
-        	setState(4);
-        }
-	 
-        else if (state == UserStateType.PHONE) {
-        	setState(2);
-        }
-	 
-        else if (state == UserStateType.LUNCH) {
-        	setState(4);
-        }
-        
-        else{
-        	bos.setStatusMessage(status);
-        }
+//        if (state == UserStateType.ONLINE) {
+//        	setOnline(true);
+//        }
+//        
+//        else if (state == UserStateType.INVISIBLE ||state == UserStateType.OFFLINE) {
+//        	setOnline(false);
+//        }
+//        
+//        else if (state == UserStateType.AWAY) {
+//        	 setState(1);
+////        	 connection.getInfoService().setAwayMessage(status);
+////        	 bos.setStatusMessage(status);
+//        } 
+//        
+//        else if (state == UserStateType.BUSY) {
+//        	setState(2);
+//        } 
+//        
+//        else if (state == UserStateType.BRB) {
+//        	setState(4);
+//        }
+//	 
+//        else if (state == UserStateType.PHONE) {
+//        	setState(2);
+//        }
+//	 
+//        else if (state == UserStateType.LUNCH) {
+//        	setState(4);
+//        }
+//        
+//        else{
+//        	bos.setStatusMessage(status);
+//        }
         
         
 //        setPresence(status);
@@ -272,6 +295,7 @@ public class ICQManager implements GenericConnection {
     	}else if(state == UserStateType.AWAY || state == UserStateType.BRB){
     		return FullUserInfo.ICQSTATUS_AWAY;
     	}else if(state == UserStateType.NOT_AVAILABLE){
+    		System.out.println("not availible");
     		return FullUserInfo.ICQSTATUS_NA;
     	}
     	else if(state == UserStateType.BUSY ||state == UserStateType.LUNCH
@@ -588,6 +612,7 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 		}
 		public void gotTypingState(Conversation conversation, TypingInfo typingInfo) {
 			if (typingInfo.getTypingState().equals(TypingState.TYPING)){
+				System.out.println(conversation.getBuddy()+" is typing");
 				controller.setTypingState(2);
 			}else if (typingInfo.getTypingState().equals(TypingState.PAUSED)){
 				controller.setTypingState(5);
@@ -730,6 +755,8 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 							" waiting a few minutes to reconnect - AIM recommends 10 minutes");
 				}else if(errorCode == 28){
 					System.out.println("ERROR Client software is too old to connect");
+				}else{
+					System.out.println(errorCode);
 				}
 			}else{
 				
