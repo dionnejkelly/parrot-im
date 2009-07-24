@@ -290,7 +290,6 @@ public class BuddyPanel extends GPanel implements Observer {
         ArrayList<FriendPanel> outOfOrderPane = null;
         FriendPanel toRemove = null;
         UserData current = null;
-        UserData previous = null;
         boolean found = false;
         int group = 0;
 
@@ -300,17 +299,14 @@ public class BuddyPanel extends GPanel implements Observer {
 
         // Remove all conflicting users
         for (group = 0; group < boxes.length; group++) {
-            for (int i = 1; i < boxes[group].getComponentCount(); i++) {
-                previous =
-                        ((FriendPanel) boxes[group].getComponent(i - 1))
-                                .getWrapper().getUser();
+            for (int i = 0; i < boxes[group].getComponentCount(); i++) {
                 current =
                         ((FriendPanel) boxes[group].getComponent(i))
                                 .getWrapper().getUser();
 
-                if (previous.compareTo(current) > 0) {
-                    // Means that previous is less online... this is bad
+                if (group != this.userToBoxIndex(current)) {
                     toRemove = (FriendPanel) boxes[group].getComponent(i);
+                
                     outOfOrderBoxes.add(toRemove);
                     boxes[group].remove(toRemove);
                     outOfOrderBuddyArray.add(current);
@@ -320,7 +316,6 @@ public class BuddyPanel extends GPanel implements Observer {
                                     .getBoxes().getComponent(i);
                     outOfOrderPane.add(toRemove);
                     buddyListPane.removeElement(group, toRemove);
-                    i--;
                 }
             }
         }
@@ -329,16 +324,9 @@ public class BuddyPanel extends GPanel implements Observer {
         for (int i = 0; i < outOfOrderBuddyArray.size(); i++) {
             found = false;
             current = outOfOrderBuddyArray.get(i);
-            if (current.isBlocked()) {
-                group = 3;
-            } else if (current.getState() == UserStateType.ONLINE) {
-                group = 0;
-            } else if (current.getState() == UserStateType.OFFLINE) {
-                group = 2;
-            } else
-                group = 1;
+            group = this.userToBoxIndex(current);
 
-            for (int j = 0; j < buddyArray.size() && !found; j++) {
+            for (int j = 0; j < buddyArray.get(group).size() && !found; j++) {
                 if (current.compareTo(buddyArray.get(group).get(j)) < 0) {
                     // Means that the out-of-order user is more online
                     // than current... we need to replace!
@@ -361,6 +349,7 @@ public class BuddyPanel extends GPanel implements Observer {
 
     public void listRepopulate() {
         FriendPanel tempPanel = null;
+        int boxIndex = -1;
 
         for (int i = 0; i < 4; i++) {
             buddyListPane.removeAllElements(i);
@@ -377,30 +366,10 @@ public class BuddyPanel extends GPanel implements Observer {
             tempPanel = FriendItem(u);
             this.friendPanels.add(tempPanel); // adds wrapper
             if (!u.getServer().equals(ServerType.TWITTER)) {
-                if (u.isBlocked()) {
-                    // block must be checked first because a blocked user
-                    // also has a status and would be placed in the category
-                    buddyArray.get(3).add(u);
-                    boxes[3].add(FriendItem(u));
-                    buddyListPane.addElement(3, tempPanel);
-                } else if (u.getState() == UserStateType.ONLINE) {
-                    buddyArray.get(0).add(u);
-                    boxes[0].add(FriendItem(u));
-                    buddyListPane.addElement(0, tempPanel);
-                } else if (u.getState() == UserStateType.AWAY
-                        || u.getState() == UserStateType.BUSY) {
-                    buddyArray.get(1).add(u);
-                    boxes[1].add(FriendItem(u));
-                    buddyListPane.addElement(1, tempPanel);
-                } else if (u.getState() == UserStateType.OFFLINE) {
-                    buddyArray.get(2).add(u);
-                    boxes[2].add(FriendItem(u));
-                    buddyListPane.addElement(2, tempPanel);
-                } else {
-                    buddyArray.get(3).add(u);
-                    boxes[3].add(FriendItem(u));
-                    buddyListPane.addElement(3, tempPanel);
-                }
+                boxIndex = this.userToBoxIndex(u);
+                buddyArray.get(boxIndex).add(u);
+                boxes[boxIndex].add(FriendItem(u));
+                buddyListPane.addElement(boxIndex, tempPanel);
             }
         }
 
@@ -413,6 +382,23 @@ public class BuddyPanel extends GPanel implements Observer {
                         new SelectListener());
             }
         }
+    }
+
+    private int userToBoxIndex(UserData user) {
+        int boxIndex = -1;
+
+        if (user.getState() == UserStateType.ONLINE) {
+            boxIndex = 0;
+        } else if (user.getState() == UserStateType.AWAY
+                || user.getState() == UserStateType.BUSY) {
+            boxIndex = 1;
+        } else if (user.getState() == UserStateType.OFFLINE) {
+            boxIndex = 2;
+        } else {
+            boxIndex = 3;
+        }
+
+        return boxIndex;
     }
 
     /**
