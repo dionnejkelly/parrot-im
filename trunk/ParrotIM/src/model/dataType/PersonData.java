@@ -101,6 +101,7 @@ public abstract class PersonData extends Observable {
         this.setNickname(nickname);
         this.setStatus(status);
         this.setState(state);
+        this.typingState = TypingStateType.ACTIVE;
         this.setGroup("");
     }
     
@@ -110,6 +111,7 @@ public abstract class PersonData extends Observable {
         this.setNickname(nickname);
         this.setStatus(status);
         this.setState(state);
+        this.typingState = TypingStateType.ACTIVE;
         this.setGroup(group);
     }
     
@@ -222,7 +224,7 @@ public abstract class PersonData extends Observable {
     }
 
     public void setTypingState(TypingStateType state) {
-        this.typingState = state;
+        this.typingState = state != null ? state : TypingStateType.ACTIVE;
     }
 
     public boolean isDuplicate(PersonData person) {

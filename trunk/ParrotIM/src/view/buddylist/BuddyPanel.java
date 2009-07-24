@@ -67,10 +67,6 @@ public class BuddyPanel extends GPanel implements Observer {
     // Selection
     // I - non-static member
     /**
-     * selectedIndex of Buddylist
-     */
-    protected SelectListener lastSelectedListener;
-    /**
      * select source of Buddylist
      */
     protected Object lastSelectedSource;
@@ -157,6 +153,8 @@ public class BuddyPanel extends GPanel implements Observer {
     private String tempFriendToAdd;
 
     private JFrame buddyPanel;
+    
+    private SelectListener selectListener;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -183,6 +181,7 @@ public class BuddyPanel extends GPanel implements Observer {
         this.lastUpdate = System.currentTimeMillis();
         this.friendWrappers = new ArrayList<FriendWrapper>();
         this.friendPanels = new ArrayList<FriendPanel>();
+        this.selectListener = new SelectListener();
 
         buddyArray = new ArrayList<ArrayList<UserData>>();
         for (int i = 0; i < 6; i++) {
@@ -373,13 +372,12 @@ public class BuddyPanel extends GPanel implements Observer {
             }
         }
 
-        System.out.println("about to add listener");
         // add mouse listeners
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < boxes.length; j++) {
             for (int i = 0; i < boxes[j].getComponentCount(); i++) {
                 // System.out.println(boxes[j].getComponentCount() + ":" + i);
                 buddyListPane.addExternalMouseListener(j, i,
-                        new SelectListener());
+                        this.selectListener);
             }
         }
     }
@@ -879,6 +877,7 @@ public class BuddyPanel extends GPanel implements Observer {
          * SelectListener()
          */
         public SelectListener() {
+            System.out.println("I am being made!!!!");
             selected = false;
         }
 
@@ -894,7 +893,6 @@ public class BuddyPanel extends GPanel implements Observer {
                         if (event.getButton() == event.BUTTON1) {
                             // Left Click
                             selected = true;
-                            lastSelectedListener = this;
 
                             /* Fix this to directly reference the GUI */
                             selectedFriend = buddyArray.get(j).get(i);
