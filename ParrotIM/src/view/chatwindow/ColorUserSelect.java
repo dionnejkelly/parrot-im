@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -38,6 +40,11 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import model.Model;
+import model.enumerations.UpdatedType;
+
+import view.styles.GPanel;
+
 
 /**
  * The ColorUserSelect contains the panel that holds the integrity of the
@@ -47,7 +54,7 @@ import javax.swing.event.ChangeListener;
  */
 
 
-public class ColorUserSelect extends JPanel implements ChangeListener {
+public class ColorUserSelect extends GPanel implements ChangeListener, Observer {
 	
 	
 	/** A chooser GUI.*/
@@ -73,17 +80,23 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     
     private JButton colorButton;
     
+    private Model model;
+    
     /**
      * This is the constructor of the ColorUserSelect.
      */
     
-    public ColorUserSelect(JFrame frame, JButton colorButton) {
+    public ColorUserSelect(JFrame frame, JButton colorButton, Model model) {
     	
-    	super(new BorderLayout());
+    	 super(new BorderLayout());
     	
     	 this.colorButton = colorButton;
-    	
     	 this.mainFrame = frame;
+    	 this.model = model;
+    	 model.addObserver(this);
+    	 
+    	 this.setGradientColors(model.primaryColor, model.secondaryColor);
+    	 
          //Set up the banner at the top of the window
          banner = new JLabel("Welcome to the Parrot IM Color Zone!", JLabel.CENTER);
          banner.setForeground(Color.BLACK);
@@ -93,17 +106,20 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
          banner.setPreferredSize(new Dimension(400, 50));
 
          JPanel bannerPanel = new JPanel(new BorderLayout());
+         bannerPanel.setOpaque(false);
          bannerPanel.add(banner, BorderLayout.CENTER);
          bannerPanel.setBorder(BorderFactory.createTitledBorder("Font Preview"));
 
          //Set up color chooser for setting text color
          colorChooser = new JColorChooser(banner.getForeground());
+         colorChooser.setOpaque(false);
          colorChooser.getSelectionModel().addChangeListener(this);
          colorChooser.setBorder(BorderFactory.createTitledBorder(
                                               "Choose Text Color"));
          colorChooser.setPreviewPanel(banner);
 
          buttonPanel = new JPanel();
+         buttonPanel.setOpaque(false);
          buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 10, 40));
          GridLayout buttonsLayout = new GridLayout(1, 2);
          buttonsLayout.setHgap(5);
@@ -202,4 +218,11 @@ public class ColorUserSelect extends JPanel implements ChangeListener {
     	
     	return "#" + red + green + blue;
     }
+
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			setGradientColors(model.primaryColor, model.secondaryColor);
+			updateUI();
+		}
+	}
 }
