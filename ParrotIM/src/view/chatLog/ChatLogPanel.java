@@ -150,7 +150,7 @@ public class ChatLogPanel extends GPanel implements Observer {
         
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        this.setGradientColors(model.primaryColor, model.secondaryColor);
 
         /*CHATLOG SPLIT PANE*/
         
