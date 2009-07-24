@@ -57,7 +57,7 @@ public class PreferencePanel extends GPanel implements Observer {
     private ThemeOptionsComboBox themeMenu;
     private Model model;
     private JFrame colorChooser;
-    private JPanel colorPanel, themePanel, textColorPanel;
+    private JPanel colorPanel, themePanel, textColorPanel, chatPaneColorPanel;
     private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     
     public PreferencePanel(MainController c, JFrame mainframe, final Model model)
@@ -95,11 +95,19 @@ public class PreferencePanel extends GPanel implements Observer {
         textColorPanel.setAlignmentX(LEFT_ALIGNMENT);
         textColorPanel.setBackground(model.tertiaryColor);
         
+        chatPaneColorPanel = new JPanel();
+        chatPaneColorPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+        chatPaneColorPanel.setAlignmentX(LEFT_ALIGNMENT);
+        chatPaneColorPanel.setBackground(model.tertiaryColor);
+        	
         JLabel colorLabel = new JLabel("Window Colors:");
         colorLabel.setForeground(model.primaryTextColor);
         
-        JLabel textColorLabel = new JLabel("Text Colors:");
+        JLabel textColorLabel = new JLabel("Static Text Color:");
         textColorLabel.setForeground(model.primaryTextColor);
+        
+        JLabel chatPaneColorLabel = new JLabel("Chat Pane Color:");
+        chatPaneColorLabel.setForeground(model.primaryTextColor);
         
         colorChooser = new JFrame();
         colorChooser.setVisible(false);
@@ -136,6 +144,14 @@ public class PreferencePanel extends GPanel implements Observer {
 			}
         });
         
+        final JButton chatButton = new JButton("chat");
+        chatButton.setBackground(model.textPaneColor);
+        chatButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				openColorChooser("Chat Pane Color", chatButton, model);
+			}
+        });
+        
         colorPanel.add(colorLabel);
         colorPanel.add(colorButton);
         colorPanel.add(colorButton2);
@@ -143,15 +159,20 @@ public class PreferencePanel extends GPanel implements Observer {
         
         textColorPanel.add(textColorLabel);
         textColorPanel.add(textButton);
+
+        chatPaneColorPanel.add(chatPaneColorLabel);
+        chatPaneColorPanel.add(chatButton);
         
         model.addObserver(this);
         labels.add(colorLabel);
         labels.add(textColorLabel);
         labels.add(themeLabel);
+        labels.add(chatPaneColorLabel);
         
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 225));
         this.add(colorPanel);
         this.add(textColorPanel);
+        this.add(chatPaneColorPanel);
         this.add(themePanel);
     }
     
