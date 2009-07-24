@@ -55,6 +55,7 @@ import controller.MainController;
 public class PreferencePanel extends GPanel implements Observer {
     private ThemeOptionsComboBox themeMenu;
     private Model model;
+    private JFrame colorChooser;
     
     public PreferencePanel(MainController c, JFrame mainframe, final Model model)
             throws ClassNotFoundException, SQLException {
@@ -71,12 +72,12 @@ public class PreferencePanel extends GPanel implements Observer {
         themeMenu.addActionListener(new ThemeMenuListener());
         
         JLabel themeLabel = new JLabel("Theme: ");
-        themeLabel.setForeground(colors.SECONDARY_COLOR_DARK);
+        themeLabel.setForeground(model.tertiaryColor);
         
         JPanel themePanel = new JPanel();
         themePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         themePanel.setAlignmentX(LEFT_ALIGNMENT);
-        themePanel.setBackground(colors.SECONDARY_COLOR_LT);
+        themePanel.setBackground(model.tertiaryColor);
         themePanel.add(themeLabel);
         themePanel.add(themeMenu);
         
@@ -84,16 +85,18 @@ public class PreferencePanel extends GPanel implements Observer {
         JPanel colorPanel = new JPanel();
         colorPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         colorPanel.setAlignmentX(LEFT_ALIGNMENT);
-        colorPanel.setBackground(colors.SECONDARY_COLOR_LT);
+        colorPanel.setBackground(model.tertiaryColor);
         
         JLabel colorLabel = new JLabel("Colors:");
-        colorLabel.setForeground(colors.SECONDARY_COLOR_DARK);
+        colorLabel.setForeground(model.tertiaryColor);
+        
+        colorChooser = new JFrame();
+        colorChooser.setVisible(false);
         
         final JButton colorButton = new JButton("1");
         colorButton.setBackground(model.primaryColor);
         colorButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				JFrame colorChooser = new JFrame();
 				colorChooser.setTitle("Primary Window Color");
 				colorChooser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				colorChooser.setContentPane(new ThemeColorChooser(colorChooser, colorButton, model));
@@ -107,7 +110,6 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton2.setBackground(model.secondaryColor);
         colorButton2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				JFrame colorChooser = new JFrame();
 				colorChooser.setTitle("Secondary Window Color");
 				colorChooser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				colorChooser.setContentPane(new ThemeColorChooser(colorChooser, colorButton2, model));
@@ -121,7 +123,6 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton3.setBackground(model.tertiaryColor);
         colorButton3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				JFrame colorChooser = new JFrame();
 				colorChooser.setTitle("Tertiary Window Color");
 				colorChooser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				colorChooser.setContentPane(new ThemeColorChooser(colorChooser, colorButton3, model));

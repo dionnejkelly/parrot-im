@@ -126,7 +126,7 @@ public class ThemeColorChooser extends GPanel implements ChangeListener  {
     
     class okButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			mainFrame.dispose();
+			mainFrame.setVisible(false);
 		}
     }
 
