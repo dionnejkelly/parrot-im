@@ -139,6 +139,8 @@ public class ThemeColorChooser extends GPanel implements ChangeListener  {
 			model.tertiaryColor = colorChooser.getColor();
 		}else if(colorButton.getText().equals("1t")){
 			model.primaryTextColor = colorChooser.getColor();
+		}else if(colorButton.getText().equals("chat")){
+			model.textPaneColor = colorChooser.getColor();
 		}
 		
 		colorButton.setBackground(colorChooser.getColor());

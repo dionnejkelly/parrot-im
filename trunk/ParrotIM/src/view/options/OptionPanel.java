@@ -58,7 +58,7 @@ public class OptionPanel extends JPanel {
 		
 		//tab color settings
 		tabbedOptions.setForeground(Color.BLACK);
-		tabbedOptions.setBackground(model.secondaryColor);
+		tabbedOptions.setBackground(Color.WHITE);
 		
 		personalProfile = new PersonalProfileTab(c,buddyFrame.getAccountInfo(), model);
 		tabbedOptions.addTab("Personal Profile", personalProfile);
