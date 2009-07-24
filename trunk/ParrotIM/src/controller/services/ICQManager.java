@@ -26,6 +26,7 @@ import net.kano.joscar.snac.SnacResponseListener;
 import net.kano.joscar.snaccmd.FullUserInfo;
 import net.kano.joscar.snaccmd.auth.AuthCommand;
 import net.kano.joscar.snaccmd.auth.AuthResponse;
+import net.kano.joscar.snaccmd.conn.SetExtraInfoCmd;
 import net.kano.joustsim.Screenname;
 import net.kano.joustsim.oscar.AimConnection;
 import net.kano.joustsim.oscar.AimConnectionProperties;
@@ -37,6 +38,7 @@ import net.kano.joustsim.oscar.State;
 import net.kano.joustsim.oscar.StateEvent;
 import net.kano.joustsim.oscar.StateListener;
 import net.kano.joustsim.oscar.oscar.service.Service;
+import net.kano.joustsim.oscar.oscar.service.bos.MainBosService;
 import net.kano.joustsim.oscar.oscar.service.buddy.BuddyService;
 import net.kano.joustsim.oscar.oscar.service.buddy.BuddyServiceListener;
 import net.kano.joustsim.oscar.oscar.service.icbm.Conversation;
@@ -81,7 +83,7 @@ public class ICQManager implements GenericConnection {
 	
 	private RvProcessor rvProcessor;
 	
-	private State state;
+	private State connectionState;
 	private UserStateType curState;
 	
 	private MainController controller;
@@ -105,7 +107,7 @@ public class ICQManager implements GenericConnection {
 			e.printStackTrace();
 		}
 		try {
-			i.sendMessage("388832704","Hi");
+			i.sendMessage("569540234","Hi");
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,10 +129,40 @@ public class ICQManager implements GenericConnection {
     // @Override
     public void changeStatus(UserStateType state, String status)
             throws BadConnectionException {
-        // TODO Auto-generated method stub
-
+        chkConnection();
+        
+        MainBosService bos = connection.getBosService();
+        long icqState = stateToLong(state);
+        bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
+        
+        if(state == UserStateType.AWAY){
+        	connection.getInfoService().setAwayMessage(status);
+        }else{
+        	bos.setStatusMessage(status);
+        }
     }
-
+    /**
+     * helper method for changeStatus
+     * it converts UserStateType into Joscar specific datatyype
+     * return Online if UserStateType is not stated in if statements
+     */
+    private long stateToLong(UserStateType state){
+    	if(state == UserStateType.ONLINE){
+    		return FullUserInfo.ICQSTATUS_DEFAULT;
+    	}else if(state == UserStateType.AWAY){
+    		return FullUserInfo.ICQSTATUS_AWAY;
+    	}else if(state == UserStateType.NOT_AVAILABLE){
+    		return FullUserInfo.ICQSTATUS_NA;
+    	}
+    	else if(state == UserStateType.BUSY){
+    		return FullUserInfo.ICQSTATUS_OCCUPIED;
+    	}
+    	else if(state == UserStateType.NOT_BE_DISTURBED){
+    		return FullUserInfo.ICQSTATUS_DND;
+    	}
+		return FullUserInfo.ICQSTATUS_DEFAULT;
+    	
+    }
     // @Override
     public void disconnect() {
         // TODO Auto-generated method stub
@@ -159,6 +191,7 @@ public class ICQManager implements GenericConnection {
         	for (Buddy buddy:group.getBuddiesCopy()){
         		userID = buddy.getScreenname().getNormal();
         		System.out.println(userID);
+        		
         		friendToAdd =
                     new FriendTempData(buddy.getScreenname().getNormal(), buddy.getAlias(), this
                             .retrieveStatus(userID),
@@ -173,6 +206,8 @@ public class ICQManager implements GenericConnection {
     // @Override
     public UserStateType retrieveState(String userID)
             throws BadConnectionException {
+//    	StatusResponseRetriever responseRetriever =
+//            new StatusResponseRetriever();
 //    	UserStateType userState = UserStateType.OFFLINE;
 //    	
 //    	Long bitFlag = connection.getBuddyInfoManager()
@@ -254,21 +289,8 @@ public class ICQManager implements GenericConnection {
         connection.addOpenedServiceListener(new DefaultOpenedServiceListener());
         connection.addStateListener(new DefaultStateListener());
         connection.connect();
-        
-        int count = 0;
-        while(state != State.ONLINE && count < TIME_OUT){
-        	//wait until the client is connected and online
-        	try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				//Do nothing
-			}
-			count++;
-        }
-        if(count>=30){
-			System.out.println("Waiting for too long!!");
-			return;
-		}
+
+        chkConnection();
         
         ClientSnacProcessor processor =  connection.getBosService()
         .getOscarConnection().getSnacProcessor();
@@ -287,7 +309,6 @@ public class ICQManager implements GenericConnection {
 
 			public void newConversation(IcbmService service, Conversation conversation) {
 				conversation.addConversationListener(new TypingAdapter());
-				
 			}
 
 			public void sendAutomaticallyFailed(IcbmService arg0, Message arg1,
@@ -303,13 +324,15 @@ public class ICQManager implements GenericConnection {
 
 			public void buddyOffline(BuddyService service, Screenname arg1) {
 				curState = UserStateType.OFFLINE;
-				controller.friendUpdated(genericConnection, arg1.getNormal());
+				System.out.println(curState);
+				controller.friendUpdated(genericConnection, arg1.getFormatted());
 			}
 
 			public void gotBuddyStatus(BuddyService service, Screenname buddy,
 					FullUserInfo info) {
 				curState = longToStatus(info.getIcqStatus());
-				controller.friendUpdated(genericConnection, buddy.getNormal());
+				System.out.println(curState);
+				controller.friendUpdated(genericConnection, buddy.getFormatted());
 				
 			}
         	
@@ -425,26 +448,48 @@ public class ICQManager implements GenericConnection {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	/*private methods*/
+	private void chkConnection(){
+
+        int count = 0;
+        while(connectionState != State.ONLINE && count < TIME_OUT){
+        	//wait until the client is connected and online
+        	try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				//Do nothing
+			}
+			count++;
+        }
+        if(count>=30){
+			System.out.println("Waiting for too long!!");
+			return;
+		}
+	}
 	private UserStateType longToStatus(Long l){
 		//TO DO have to figure out signal value for each state
 		if(l == -1){
 			return UserStateType.OFFLINE;
 		}
+		
 		else if(l==(long)268435457){
+//		else if((l & FullUserInfo.ICQSTATUS_AWAY) != 0){
 			return UserStateType.AWAY;
-		}else if((l & FullUserInfo.ICQSTATUS_INVISIBLE) != 0){
+		}else if((l & FullUserInfo.ICQSTATUS_DND) != 0){
 			return UserStateType.NOT_BE_DISTURBED;
-		}else if(l==(long)268435461){
+//		}else if(l==(long)268435461){
+		}else if((l & FullUserInfo.ICQSTATUS_NA)!=0){
 			return UserStateType.NOT_AVAILABLE;
-		}else if(l==(long)268435473){
+//		}else if(l==(long)268435473){
+		}else if((l & FullUserInfo.ICQSTATUS_OCCUPIED)!=0){
 			return UserStateType.BUSY;
-		}else if(l==(long)268435456){
+		}else if((l & FullUserInfo.ICQSTATUS_FFC)!=0){
+//		}else if(l==(long)268435456){
 			return UserStateType.ONLINE;
 		}else if((l & FullUserInfo.ICQSTATUS_INVISIBLE) != 0){
 			return UserStateType.INVISIBLE;
 		}else{
-			return UserStateType.OFFLINE;
+			return UserStateType.ONLINE;
 		}
 	}
 	/* *********************** Listeners***************************/
@@ -568,8 +613,8 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 	private class DefaultStateListener implements StateListener{
 
 		public void handleStateChange(StateEvent event) {
-			state = event.getNewState();
-			if(state == State.ONLINE){
+			connectionState = event.getNewState();
+			if(connectionState == State.ONLINE){
 				System.out.println("is now online");
 				//System.out.println(connection.getSsiService().getBuddyList().getGroups());
 			}
