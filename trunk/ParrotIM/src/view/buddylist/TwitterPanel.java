@@ -36,6 +36,7 @@ import controller.MainController;
 import controller.services.BadConnectionException;
 
 import view.blockManager.BlockManager;
+import view.buddylist.BuddyPanel.PictureUpdateThread;
 import view.mainwindow.HelpPanel;
 import view.options.GroupChatConfigurationFrame;
 import view.options.MusicPlayer;
@@ -124,7 +125,8 @@ public class TwitterPanel extends GPanel implements Observer {
     /**
      * list of buddies
      */
-    private ArrayList<User> tweets;
+    private ArrayList<UserData> tweets;
+    private ArrayList<UserData> buddies;
     
     private ArrayList<ArrayList<UserData>> buddyArray;
 
@@ -137,6 +139,12 @@ public class TwitterPanel extends GPanel implements Observer {
     private JButton googleSearchButton;
 
     private long lastUpdate;
+    
+    private PictureUpdateThread pictureUpdateThread;
+
+    private ArrayList<FriendWrapper> friendWrappers;
+
+    private ArrayList<FriendPanel> friendPanels;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -159,6 +167,13 @@ public class TwitterPanel extends GPanel implements Observer {
         this.chat = null;
         this.searchEnabled = false;
         this.lastUpdate = System.currentTimeMillis();
+        this.friendWrappers = new ArrayList<FriendWrapper>();
+        
+        buddyArray = new ArrayList<ArrayList<UserData>>();
+        for (int i = 0; i < 2; i++) {
+            buddyArray.add(new ArrayList<UserData>());
+        }
+
 
         // Test code, make it hide at the start
         // this.chat = new ChatWindow(chatClient, model);
@@ -167,9 +182,6 @@ public class TwitterPanel extends GPanel implements Observer {
         tweetList = new JPanel();
         tweetList.setBackground(Color.WHITE);
         tweetList.setLayout(new BorderLayout());
-        
-        // Place all friends from currentProfile into buddy list
-        //tweets = model.getCurrentProfile().getAllFriends();
 
         // add friends to the buddy list
         boxes[0] = Box.createVerticalBox();
@@ -183,10 +195,12 @@ public class TwitterPanel extends GPanel implements Observer {
         buddyListPane.addGroup("     Twitter Friends", twitterImage);
         //buddyListPane.addElement(0, "test", null);
 
-        //pictureUpdateThread = new PictureUpdateThread();
-        //pictureUpdateThread.start();
+        pictureUpdateThread = new PictureUpdateThread();
+        pictureUpdateThread.start();
 
         listRepopulate();
+        
+        
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
@@ -196,10 +210,39 @@ public class TwitterPanel extends GPanel implements Observer {
         add(scroller);
     }
     
-    public void listRepopulate(){
-    	model.getCurrentProfile().getAllFriends().get(1).getNickname();
+    private void listRepopulate(){
+    	FriendPanel tempPanel = null;
+    	try {
+			tweets = model.getCurrentProfile().getTweets();
+			buddies = model.getCurrentProfile().getTwitterFriends();
+		} catch (BadConnectionException e1) {
+			e1.printStackTrace();
+		}
+		for (ArrayList<UserData> a : buddyArray) {
+            a.clear();
+        }
+
+        for (int i = 0; i < 2; i++) {
+            buddyListPane.removeAllElements(i);
+            boxes[i].removeAll();
+        }
+
+        // Create the friend wrapper
+        // Compare the model friends with the GUI friends
+        for (UserData u : this.tweets) {
+            tempPanel = TweetItem(u);
+        	buddyArray.get(0).add(u);
+        	boxes[0].add(TweetItem(u));
+        	buddyListPane.addElement(0, tempPanel);
+        }
+        for (UserData u : this.buddies) {
+        	tempPanel = FriendItem(u);
+        	buddyArray.get(1).add(u);
+        	boxes[0].add(FriendItem(u));
+        	buddyListPane.addElement(1, tempPanel);
+        }
     	
-    	for(UserData user : model.getCurrentProfile().getTwitterFriends()){
+    	/*for(UserData user : model.getCurrentProfile().getTwitterFriends()){
     			buddyListPane.addElement(1, user.getNickname(), null);
     			}
     	try {
@@ -208,7 +251,147 @@ public class TwitterPanel extends GPanel implements Observer {
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+    }
+    
+    /**
+     * FriendItem to check friend status.
+     * 
+     * @param user
+     * @return friendItem
+     */
+    public FriendPanel FriendItem(UserData user) {
+        ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
+                "/images/chatwindow/personal.png"));
+        JLabel label = null;
+        FriendPanel friendItem = new FriendPanel();
+        FriendWrapper tempWrapper = null;
+
+        friendItem.setLayout(new BorderLayout());
+        friendItem.setBackground(Color.WHITE);
+
+        friendItem.setName(user.getNickname());
+
+        // end it
+        friendItem.setToolTipText("<html>  " + user.getNickname() + "("
+                + user.getUserID() + ")" + "<br>" + user.getStatus()
+                + "<br> Status:" + user.getState() + "<br>" + user.getServer()
+                + "<hr>" + "Right-click for more options");
+
+        tempWrapper = new FriendWrapper(user);
+        this.friendWrappers.add(tempWrapper);
+
+        ImageIcon avatarImage = defaultIcon;
+        Image img = avatarImage.getImage();
+        img = img.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon newIcon = new ImageIcon(img);
+        label = new JLabel(newIcon);
+        friendItem.add(label, BorderLayout.WEST);
+        pictureUpdateThread.addUserAndLabel(user, label);
+
+        friendItem.add(tempWrapper.getLabelRepresentation(),
+                BorderLayout.CENTER);
+        friendItem.setWrapper(tempWrapper);
+
+        return friendItem;
+    }
+    
+    public FriendPanel TweetItem(UserData user) {
+        ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
+                "/images/chatwindow/personal.png"));
+        JLabel label = null;
+        FriendPanel friendItem = new FriendPanel();
+        FriendWrapper tempWrapper2 = null;
+
+        friendItem.setLayout(new BorderLayout());
+        friendItem.setBackground(Color.WHITE);
+
+        friendItem.setName(user.getNickname() + " - " + user.getStatus());
+
+        // end it
+        friendItem.setToolTipText("<html>  " + user.getNickname() + "("
+                + user.getUserID() + ")" + "<br>" + user.getStatus()
+                + "<br> Status:" + user.getState() + "<br>" + user.getServer()
+                + "<hr>" + "Right-click for more options");
+
+        tempWrapper2 = new FriendWrapper(user);
+        this.friendWrappers.add(tempWrapper2);
+
+        ImageIcon avatarImage = defaultIcon;
+        Image img = avatarImage.getImage();
+        img = img.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon newIcon = new ImageIcon(img);
+        label = new JLabel(newIcon);
+        friendItem.add(label, BorderLayout.WEST);
+        pictureUpdateThread.addUserAndLabel(user, label);
+
+        friendItem.add(tempWrapper2.getLabelRepresentation(),
+                BorderLayout.CENTER);
+        friendItem.setWrapper(tempWrapper2);
+
+        return friendItem;
+    }
+
+    public class PictureUpdateThread extends Thread {
+        private ArrayList<JLabel> labels;
+        private ArrayList<UserData> users;
+
+        public void addUserAndLabel(UserData user, JLabel label) {
+            if (users != null && labels != null) {
+                users.add(user);
+                labels.add(label);
+            }
+
+            return;
+        }
+
+        public void clearUpdateQueue() {
+            this.users.clear();
+            this.labels.clear();
+
+            return;
+        }
+
+        private boolean more() {
+            return users.size() > 0 && labels.size() > 0;
+        }
+
+        public void run() {
+            this.setName("Picture thread muahha!");
+            users = new ArrayList<UserData>();
+            labels = new ArrayList<JLabel>();
+            UserData user = null;
+            JLabel label = null;
+
+            while (true) {
+                if (more()) {
+                    user = users.remove(0);
+                    label = labels.remove(0);
+                    ImageIcon avatarImage = null;
+                    try {
+                        avatarImage = chatClient.getAvatarPicture(user);
+                        Image img = avatarImage.getImage();
+                        img = img.getScaledInstance(25, 25,
+                                java.awt.Image.SCALE_SMOOTH);
+                        ImageIcon newIcon = new ImageIcon(img);
+                        label.setIcon(newIcon);
+                    } catch (XMPPException e) {
+                        System.err.println("Error in picture thread");
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                	// Rests thread to prevent cpu overload
+                	try {
+                		Thread.currentThread();
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
+            }
+        }
     }
 
 	public void update(Observable arg0, Object arg1) {
