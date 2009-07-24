@@ -40,6 +40,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -63,13 +65,14 @@ import view.styles.TextListCellRenderer;
 import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.tempData.ChatLogMessageTempData;
+import model.enumerations.UpdatedType;
 
 /**
  * Sets the GUI component of ChatLogFrame.
  * 
  * This class inherits JSplitPane methods and variables.
  */
-public class ChatLogPanel extends GPanel {
+public class ChatLogPanel extends GPanel implements Observer {
 	private String searchKey = "";
 	/** 
 	 * profile describes the name of the currently used profile. 
@@ -144,7 +147,7 @@ public class ChatLogPanel extends GPanel {
         this.profile = model.getCurrentProfile().getName();
          db = new DatabaseFunctions();
         
-
+        
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
@@ -215,6 +218,9 @@ public class ChatLogPanel extends GPanel {
         this.setLayout(new BorderLayout());
         this.add(searchBarPanel, BorderLayout.SOUTH);
         this.add(chatlogPane, BorderLayout.CENTER);
+        
+        // this line is important Jordan
+        this.model.addObserver(this);
     }
     
     public void updateBuddyList(){
@@ -379,4 +385,14 @@ public class ChatLogPanel extends GPanel {
 		}
     	
     }
+
+	public void update(Observable arg0, Object arg) {
+		System.out.println("CHAT LOG *************************************** Who are you? " + arg);
+		if(arg == UpdatedType.COLOR){
+        	System.out.println("Jordan I am getting called...");
+        	this.setGradientColors(model.primaryColor, model.secondaryColor);
+        	this.updateUI();
+        }
+		
+	}
 }
