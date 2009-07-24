@@ -578,7 +578,7 @@ public class Model extends Observable {
      *            A string with the account name of the user to add. This method
      *            is responsible to place this user into a UserData object.
      */
-    public void addFriend(ServerType server, String accountName) {
+    public void addFriend(AccountData account, String accountName) {
         /*
          * In future, change ServerType to AccountData... should be passed into
          * the controller. This solution will not work if there are multiple
@@ -586,28 +586,11 @@ public class Model extends Observable {
          */
         FriendTempData friend = null;
         DatabaseFunctions db = null;
-        AccountData account = null;
         UserData userToAdd = null;
+        ServerType server = null;
 
-        account = getCurrentProfile().getAccountFromServer(server);
-
-        // Temp fix for user bug in jabber
-        // Shouldn't actually cycle through all of the accounts
-        if (account == null) {
-            server = ServerType.JABBER;
-            account = getCurrentProfile().getAccountFromServer(server);
-            if (account == null) {
-                server = ServerType.GOOGLE_TALK;
-                account = getCurrentProfile().getAccountFromServer(server);
-
-                if (account == null) {
-                    server = ServerType.TWITTER;
-                    account = getCurrentProfile().getAccountFromServer(server);
-                }
-            }
-
-        }
-
+        server = account.getServer();
+        
         if (server == ServerType.GOOGLE_TALK) {
             userToAdd = new GoogleTalkUserData(accountName);
         } else if (server == ServerType.JABBER) {

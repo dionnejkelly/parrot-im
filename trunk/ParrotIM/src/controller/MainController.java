@@ -21,6 +21,7 @@ package controller;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -469,21 +470,18 @@ public class MainController {
      * @param userID
      */
 
-    public void addFriend(String userID) {
-        // TODO create an account selection GUI
-        AccountData account = null; // Should be passed in!!
+    public void addFriend(AccountData account, String userID) {
         GenericConnection connection = null;
 
         try {
             // connection should be found from account!!
-            account = model.getCurrentProfile().getAccountData().get(0);
             connection = account.getConnection();
 
             // make sure users are not using Twitter and trying to add users
             if (connection.getServerType() != ServerType.TWITTER) {
                 connection.addFriend(userID);
                 // TODO make a more accurate Model.addFriend
-                model.addFriend(account.getServer(), userID);
+                model.addFriend(account, userID);
                 JOptionPane
                         .showMessageDialog(null,
                                 "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
@@ -509,7 +507,7 @@ public class MainController {
                     } else {
                         connection.addFriend(userID);
                         // TODO make a more accurate Model.addFriend
-                        model.addFriend(account.getServer(), userID);
+                        model.addFriend(account, userID);
                         JOptionPane
                                 .showMessageDialog(null,
                                         "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.");
@@ -624,7 +622,7 @@ public class MainController {
 
     public void modelAddFriend(String userID) {
         AccountData account = model.getCurrentProfile().getAccountData().get(0);
-        model.addFriend(account.getServer(), userID);
+        model.addFriend(account, userID);
     }
 
     /**
