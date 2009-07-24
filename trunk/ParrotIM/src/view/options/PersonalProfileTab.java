@@ -72,6 +72,8 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	
 	private Model model;
 	
+	private JLabel personalMessagelabel, personalStatus;
+	
 	public PersonalProfileTab(MainController core, AccountInfo accInfo, Model model){
 		//super(false);
 		this.BuddyListStatus = accInfo.presence;
@@ -118,9 +120,9 @@ public class PersonalProfileTab extends GPanel implements Observer {
 		pmPanel.setLayout(new BorderLayout());
 		pmPanel.setOpaque(false);
 		pmPanel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
-		JLabel personalMessage = new JLabel("Personal Message:");
-		personalMessage.setForeground(colors.SECONDARY_COLOR_DARK);
-		pmPanel.add (personalMessage, BorderLayout.NORTH);
+		personalMessagelabel = new JLabel("Personal Message:");
+		personalMessagelabel.setForeground(model.primaryTextColor);
+		pmPanel.add (personalMessagelabel, BorderLayout.NORTH);
 		pmPanel.add (pmScroll, BorderLayout.CENTER);
         
         //status
@@ -133,8 +135,8 @@ public class PersonalProfileTab extends GPanel implements Observer {
         statusPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
         statusPanel.setOpaque(false);
-        JLabel personalStatus = new JLabel("Status: ");
-        personalStatus.setForeground(colors.SECONDARY_COLOR_DARK);
+        personalStatus = new JLabel("Status: ");
+        personalStatus.setForeground(model.primaryTextColor);
         statusPanel.add(personalStatus);
         statusPanel.add(status);
         
@@ -204,6 +206,8 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		if(arg == UpdatedType.COLOR){
 			setGradientColors(model.primaryColor, model.secondaryColor);
+			personalMessagelabel.setForeground(model.primaryTextColor);
+			personalStatus.setForeground(model.primaryTextColor);
 			this.updateUI();
 		}
 	}
