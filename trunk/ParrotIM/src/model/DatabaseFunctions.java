@@ -283,7 +283,7 @@ public class DatabaseFunctions {
             throws SQLException {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
-        searched = this.replace(searched, "'", "");
+        searched = this.replace(searched, "'", "''");
         System.out.println(searched);
         r3 = stat.executeQuery("select * from people where profile='" + profile
                 + "';");
@@ -324,7 +324,7 @@ public class DatabaseFunctions {
     public Vector<String> getChatDatesFromName(String profile,
             String buddyname, String searched) throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        searched = this.replace(searched, "'", "");
+        searched = this.replace(searched, "'", "''");
         stat = conn.createStatement();
         rs = stat.executeQuery("select * from chatLog where profile = '"
                 + profile + "' AND (toUser='" + buddyname + "' OR fromUser='"
@@ -358,7 +358,7 @@ public class DatabaseFunctions {
             throws SQLException {
         ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
-        searched = this.replace(searched, "'", "");
+        searched = this.replace(searched, "'", "''");
         rs = stat
                 .executeQuery("select * from chatLog where (toUser='"
                         + buddyname + "' AND fromUser='" + username
