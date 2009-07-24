@@ -122,6 +122,12 @@ public class ICQManager implements GenericConnection {
 //		}
 		//i.getAvatarPicture("565914305");
 		//i.getAvatarPicture("cmpt275");
+		try {
+			i.changeStatus(UserStateType.BUSY, "lolololol");
+		} catch (BadConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		while (true) {
 			System.out.println("Type your state: ");
 			Scanner msgInput = new Scanner(System.in);
@@ -209,9 +215,10 @@ public class ICQManager implements GenericConnection {
         	bos.setVisibleStatus(true);
         }
         
-        if (state == UserStateType.AWAY){
+//        if (state == UserStateType.AWAY){
         	connection.getInfoService().setAwayMessage(status);
-        }
+        	bos.setStatusMessage(status);
+//        }
 //        	//connection.getInfoService().setAwayMessage(status);
 //        	setOnline(true);
 //        }
@@ -240,9 +247,9 @@ public class ICQManager implements GenericConnection {
 //        	setState(4);
 //        }
 //        
-        else{
-        	bos.setStatusMessage(status);
-        }
+//        else{
+//        	bos.setStatusMessage(status);
+//        }
         
         
 //        setPresence(status);
@@ -258,12 +265,13 @@ public class ICQManager implements GenericConnection {
     private long stateToLong(UserStateType state){
     	if(state == UserStateType.ONLINE){
     		return FullUserInfo.ICQSTATUS_DEFAULT;
-    	}else if(state == UserStateType.AWAY){
+    	}else if(state == UserStateType.AWAY || state == UserStateType.BRB){
     		return FullUserInfo.ICQSTATUS_AWAY;
     	}else if(state == UserStateType.NOT_AVAILABLE){
     		return FullUserInfo.ICQSTATUS_NA;
     	}
-    	else if(state == UserStateType.BUSY){
+    	else if(state == UserStateType.BUSY ||state == UserStateType.LUNCH
+    			||state == UserStateType.PHONE){
     		return FullUserInfo.ICQSTATUS_OCCUPIED;
     	}
     	else if(state == UserStateType.NOT_BE_DISTURBED){
