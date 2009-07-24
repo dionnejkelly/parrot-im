@@ -72,7 +72,7 @@ public class ThemeColorChooser extends JPanel implements ChangeListener  {
     	super(new BorderLayout());
     	
     	this.model = model;
-    	this.mainFrame = mainFrame;
+    	this.mainFrame = frame;
     	this.colorButton = colorButton;
     	
         //Set up the banner at the top of the window
@@ -121,7 +121,7 @@ public class ThemeColorChooser extends JPanel implements ChangeListener  {
     
     class okButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			//mainFrame.dispose();
+			mainFrame.dispose();
 		}
     }
 
