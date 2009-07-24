@@ -136,7 +136,7 @@ public class PreferencePanel extends GPanel implements Observer {
 			}
         });
         
-        final JButton textButton = new JButton("1t");
+        final JButton textButton = new JButton("text");
         textButton.setBackground(model.primaryTextColor);
         textButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
@@ -202,6 +202,7 @@ public class PreferencePanel extends GPanel implements Observer {
 			colorPanel.setBackground(model.tertiaryColor);
 			textColorPanel.setBackground(model.tertiaryColor);
 			themePanel.setBackground(model.tertiaryColor);
+			chatPaneColorPanel.setBackground(model.tertiaryColor);
 			for(JLabel l : labels){
 				l.setForeground(model.primaryTextColor);
 			}
