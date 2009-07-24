@@ -64,15 +64,13 @@ public class NewProfileFrame extends JFrame {
     private JCheckBox passwordCheck;
     private JPasswordField passwordField;
     private JTextField profileName;
-    private MainController core;
     private JFrame mainFrame;
     private JButton nextButton;
     private JCheckBox autoSigninCheck;
 
-    public NewProfileFrame(Model model, MainController core, JFrame mainFrame) {
+    public NewProfileFrame(Model model,JFrame mainFrame) {
         popupFrame = this;
         this.model = model;
-        this.core = core;
         this.mainFrame = mainFrame;
         this.addWindowListener(new PopupWindowListener(this.mainFrame, this));
 

@@ -405,7 +405,7 @@ public class SignInPanel extends GPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             // TODO: set this
-            new NewProfileFrame(model, core, mainFrame);
+            new NewProfileFrame(model, mainFrame);
             
         }
 
