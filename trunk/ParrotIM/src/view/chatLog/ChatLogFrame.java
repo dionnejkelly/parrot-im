@@ -39,7 +39,7 @@ import model.Model;
  *
  * This class inherits JFrame methods and variables.
  */
-public class ChatLogFrame extends JFrame {
+public class ChatLogFrame extends JFrame{
 	
 	/** model allows the ChatLogFrame to store the state of ChatLogFrame (ie. whether it is opened or not). */
 	Model model;
@@ -62,5 +62,4 @@ public class ChatLogFrame extends JFrame {
         this.setVisible(true); // might want to change this
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
-    
 }

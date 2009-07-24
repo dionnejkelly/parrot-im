@@ -216,6 +216,7 @@ public class AccountInfo extends GPanel implements Observer
 	}
 	
     public void update(Observable o, Object arg) {
+    	System.out.println("updateCalled2");
         if(arg == UpdatedType.COLOR){
         	setGradientColors(model.primaryDark, model.primaryColor);
         	updateUI();
