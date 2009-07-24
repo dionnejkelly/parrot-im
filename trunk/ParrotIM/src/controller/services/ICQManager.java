@@ -1,14 +1,6 @@
 package controller.services;
 
 
-
-
-
-
-
-
-
-
 import java.io.File;
 import java.net.URL;
 import java.util.*;
@@ -165,7 +157,7 @@ public class ICQManager implements GenericConnection {
     }
     // @Override
     public void disconnect() {
-        // TODO Auto-generated method stub
+        connection.disconnect();
 
     }
 
@@ -339,115 +331,8 @@ public class ICQManager implements GenericConnection {
         });
     }
 
-	public String getUserEmailHome() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public String getUserEmailWork() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public String getUserFirstName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserLastName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserMiddleName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserNickName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserOrganization() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserOrganizationUnit() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserPhoneHome() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserPhoneWork() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void load(String userID) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void load() throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserEmailHome(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserEmailWork(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserFirstName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserLastName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserMiddleName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserNickName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserOrganization(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserOrganizationUnit(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserPhoneHome(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserPhoneWork(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
 	/*private methods*/
 	private void chkConnection(){
 
@@ -496,7 +381,11 @@ public class ICQManager implements GenericConnection {
 private class TypingAdapter extends ConversationAdapter implements TypingListener{
 		
 		public void gotMessage(Conversation c, final MessageInfo minfo){
-			controller.messageReceived(c.getBuddy().getNormal(), connection.getLocalPrefs().getScreenname().getNormal()
+			System.out.println("Who are you? " + c.getBuddy().getNormal());
+			System.out.println("To who " + connection.getScreenname().getNormal());
+			System.out.println("Message = " +minfo.getMessage().getMessageBody());
+			//connection.getLocalPrefs().getScreenname().getNormal()
+			controller.messageReceived(c.getBuddy().getNormal(), connection.getScreenname().getNormal()
 					, minfo.getMessage().getMessageBody());
 			String text = minfo.getMessage().getMessageBody();
 			System.out.println(text);
@@ -533,7 +422,7 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			String subscriptionRequest =
                 buddy.getScreenname()
                         + " wants to add you as a friend. Add as a friend?";
-			JOptionPane.showMessageDialog(null, subscriptionRequest);
+			//JOptionPane.showMessageDialog(null, subscriptionRequest);
 			for (Group g:buddy.getBuddyList().getGroups()){
 				for(Buddy b:g.getBuddiesCopy()){
 					System.out.println("badded: "+g.getName()+": "+b.getScreenname().toString());

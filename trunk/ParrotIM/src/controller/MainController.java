@@ -721,7 +721,7 @@ public class MainController {
             } else if (account.getServer() == ServerType.ICQ) {
                 user = new ICQUserData(userID);
                 user.setNickname(f.getNickname());
-                user.setGroup(group);
+                //user.setGroup(group);
             } else { // some other user
                 // TODO implement me!
             }
@@ -960,6 +960,8 @@ public class MainController {
                 ((TwitterUserData) userToUpdate)
                         .setMinutesSinceUpdate(((TwitterManager) connection)
                                 .getMinutesSinceStatusChange(userID));
+            } else if (connection instanceof ICQManager) {
+            	userToUpdate.setState(((ICQManager) connection).retrieveState(userID));	
             }
             
             else {
