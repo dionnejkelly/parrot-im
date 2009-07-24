@@ -73,6 +73,7 @@ public class NewProfileFrame extends JFrame {
         profileName.setPreferredSize(new Dimension(280, 20));
         profileName.addKeyListener(new profileNameKeyListener());
         JLabel profileLabel = new JLabel("Profile Name: ");
+        profileLabel.setForeground(model.primaryTextColor);
         JPanel profilePanel = new JPanel();
         profilePanel.setOpaque(false);
         profilePanel.add(profileLabel);
@@ -80,6 +81,7 @@ public class NewProfileFrame extends JFrame {
 
         /* DEFAULT PROFILE */
         defaultCheck = new JCheckBox("Default Profile");
+        defaultCheck.setForeground(model.primaryTextColor);
         defaultCheck.setPreferredSize(new Dimension(375, 20));
         defaultCheck.setAlignmentX(LEFT_ALIGNMENT);
 //        defaultCheck
@@ -87,6 +89,7 @@ public class NewProfileFrame extends JFrame {
 //                        + "<br>There can only be one Default Profile, checking this will set this profile as the new default");
 
         autoSigninCheck = new JCheckBox("Auto Signin");
+        autoSigninCheck.setForeground(model.primaryTextColor);
         autoSigninCheck.setPreferredSize(new Dimension(330, 20));
         autoSigninCheck.setOpaque(false);
         JPanel autoSigninPanel = new JPanel();
@@ -101,6 +104,7 @@ public class NewProfileFrame extends JFrame {
 
         /* PASSWORD */
         passwordCheck = new JCheckBox("Enable Password (recommended)");
+        passwordCheck.setForeground(model.primaryTextColor);
         passwordCheck.setPreferredSize(new Dimension(375, 20));
         passwordCheck.setAlignmentX(LEFT_ALIGNMENT);
         passwordCheck
