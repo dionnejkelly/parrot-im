@@ -23,6 +23,15 @@ public class FriendWrapper implements Observer {
 
         this.user.addObserver(this);
     }
+    
+    public FriendWrapper(UserData user, boolean twitterFriend) {
+        this.user = user;
+        this.labelRepresentation = new JLabel(this.getUser().getNickname());
+        this.labelRepresentation.setForeground(Color.BLACK);
+
+        this.user.addObserver(this);
+    }
+
 
     public UserData getUser() {
         return this.user;
