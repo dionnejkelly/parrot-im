@@ -1,5 +1,6 @@
 package view.styles;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -21,6 +22,14 @@ public class GPanel extends JPanel{
 	private Color color1, color2;
 	private int startPosition = 0;
 	
+	public GPanel(){
+		super();
+	}
+	
+	public GPanel(BorderLayout borderLayout) {
+		super(borderLayout);
+	}
+
 	public void setGradientColors(Color color1, Color color2){
 		this.color1 = color1;
 		this.color2 = color2;

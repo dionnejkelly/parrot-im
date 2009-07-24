@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -51,12 +52,15 @@ import view.theme.LookAndFeelManager;
 
 import controller.MainController;
 
-public class PreferencePanel extends GPanel {
+public class PreferencePanel extends GPanel implements Observer {
     private ThemeOptionsComboBox themeMenu;
-
+    private Model model;
+    
     public PreferencePanel(MainController c, JFrame mainframe, final Model model)
             throws ClassNotFoundException, SQLException {
-    	this.setGradientColors(model.primaryColor, model.secondaryColor);
+    	setGradientColors(model.primaryColor, model.secondaryColor);
+    	
+    	this.model = model;
     	
         /* THEME SELECTOR */
         themeMenu = new ThemeOptionsComboBox();
@@ -132,6 +136,8 @@ public class PreferencePanel extends GPanel {
         colorPanel.add(colorButton2);
         colorPanel.add(colorButton3);
         
+        model.addObserver(this);
+        
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 225));
         this.add(colorPanel);
         this.add(themePanel);
@@ -147,4 +153,11 @@ public class PreferencePanel extends GPanel {
 		}
     	
     }
+
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			setGradientColors(model.primaryColor, model.secondaryColor);
+			this.updateUI();
+		}
+	}
 }

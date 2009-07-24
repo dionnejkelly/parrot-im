@@ -38,6 +38,8 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import view.styles.GPanel;
+
 import model.Model;
 
 /**
@@ -47,7 +49,7 @@ import model.Model;
  * This object inherits from JPanel
  */
 
-public class ThemeColorChooser extends JPanel implements ChangeListener  {
+public class ThemeColorChooser extends GPanel implements ChangeListener  {
 	/** A chooser GUI.*/
 	protected JColorChooser colorChooser;
 	
@@ -70,6 +72,7 @@ public class ThemeColorChooser extends JPanel implements ChangeListener  {
     
 	public ThemeColorChooser(JFrame frame, JButton colorButton, Model model) {
     	super(new BorderLayout());
+    	setGradientColors(model.primaryColor, model.secondaryColor);
     	
     	this.model = model;
     	this.mainFrame = frame;
@@ -92,9 +95,11 @@ public class ThemeColorChooser extends JPanel implements ChangeListener  {
         colorChooser.getSelectionModel().addChangeListener(this);
         colorChooser.setBorder(BorderFactory.createTitledBorder(
                                              "Choose Text Color"));
+        colorChooser.setOpaque(false);
         colorChooser.setPreviewPanel(banner);
 
         buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 40, 10, 40));
         GridLayout buttonsLayout = new GridLayout(1, 2);
         buttonsLayout.setHgap(5);
@@ -108,8 +113,8 @@ public class ThemeColorChooser extends JPanel implements ChangeListener  {
         
         buttonPanel.add(okButton);
         
-        add(bannerPanel, BorderLayout.CENTER);
-        add(colorChooser, BorderLayout.NORTH);
+        //add(bannerPanel, BorderLayout.CENTER);
+        add(colorChooser, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.PAGE_END);
 	}
 	
@@ -133,7 +138,11 @@ public class ThemeColorChooser extends JPanel implements ChangeListener  {
 		}else if(colorButton.getText().equals("3")){
 			model.tertiaryColor = colorChooser.getColor();
 		}
+		
 		colorButton.setBackground(colorChooser.getColor());
 		model.updateColors();
+		
+		setGradientColors(model.primaryColor, model.secondaryColor);
+		this.updateUI();
 	}
 }
