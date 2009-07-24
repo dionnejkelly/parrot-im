@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.Model;
+
 public class GroupedListPane extends JPanel {
     Box boxes[] = new Box[1];
     private WindowColors colors = new WindowColors();
@@ -25,8 +27,11 @@ public class GroupedListPane extends JPanel {
                     "/images/buddylist/down.png"));
     private ArrayList<JLabel> arrows = new ArrayList<JLabel>();
     JLabel arrowPanel;
+    private Model model;
 
-    public GroupedListPane() {
+    public GroupedListPane(Model model) {
+    	this.model = model;
+    	
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
 
@@ -42,7 +47,7 @@ public class GroupedListPane extends JPanel {
     public void addGroup(String name, ImageIcon img) {
     	//Panel Settings
         GPanel newPanel = new GPanel();
-        newPanel.setGradientColors(newPanel.colors.TERTIARY_COLOR_MED, newPanel.colors.TERTIARY_COLOR_LT);
+        newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
         newPanel.setLayout(new BorderLayout());
         
         //imageLabel
@@ -66,9 +71,9 @@ public class GroupedListPane extends JPanel {
     }
 
     public void addGroupTop(String name) {
-        JPanel newPanel = new JPanel();
+        GPanel newPanel = new GPanel();
         newPanel.add(new JLabel(name));
-        newPanel.setBackground(colors.TERTIARY_COLOR_MED);
+        newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
 
         CustomListPane collapsableListPane = new CustomListPane();
         groups.add(0, collapsableListPane);
@@ -128,10 +133,8 @@ public class GroupedListPane extends JPanel {
     /**
      * @author Jordan
      * 
-     * 
      */
     private class CollapseListner implements MouseListener {
-
         /**
          * toggles the minizations of the sublists
          */
@@ -146,16 +149,9 @@ public class GroupedListPane extends JPanel {
         /**
          * Unused methods
          */
-        public void mouseEntered(MouseEvent event) {
-        }
-
-        public void mouseExited(MouseEvent event) {
-        }
-
-        public void mousePressed(MouseEvent e) {
-        }
-
-        public void mouseReleased(MouseEvent e) {
-        }
+        public void mouseEntered(MouseEvent event) {}
+        public void mouseExited(MouseEvent event) {}
+        public void mousePressed(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {}
     }
 }

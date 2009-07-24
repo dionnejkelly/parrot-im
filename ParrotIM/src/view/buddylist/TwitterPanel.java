@@ -91,8 +91,6 @@ public class TwitterPanel extends GPanel implements Observer {
      */
     Box boxes[] = new Box[2];
 
-    GroupedListPane buddyListPane = new GroupedListPane();
-
     /**
      * selected name
      */
@@ -110,7 +108,9 @@ public class TwitterPanel extends GPanel implements Observer {
      * selected friend
      */
     UserData selectedFriend;
-
+    
+    GroupedListPane buddyListPane;
+    
     /**
      * list of buddies
      */
@@ -180,6 +180,7 @@ public class TwitterPanel extends GPanel implements Observer {
                 new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/twitter_logo.png"));
 
+        buddyListPane = new GroupedListPane(model);
         buddyListPane.addGroup("     Recent Tweets", twitterImage);
         buddyListPane.addGroup("     Twitter Friends", twitterImage);
         //buddyListPane.addElement(0, "test", null);
