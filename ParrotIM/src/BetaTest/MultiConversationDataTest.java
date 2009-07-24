@@ -126,11 +126,9 @@ public class MultiConversationDataTest {
 		String expected =
         	"<U><font face = \"Arial\">"
 			+ "Gina" + ":</font></U> " + "<font face=\"" + "Arial" + "\" size=\"" + "4" +
-			"\" color=\"" + "#000000" + "\"> " 
+			"\" color=\"" + "#FFFFFF" + "\"> " 
             + "Hey, are you coming?" + " </font><br><br>";
-		assertEquals(expected,md1.displayMessages());
-		
-		
+		assertEquals(expected,md1.displayMessages());	
 	}
 
 	@Test
