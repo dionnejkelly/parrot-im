@@ -269,7 +269,7 @@ public class TwitterPanel extends GPanel implements Observer {
                 + "<br> Status:" + user.getState() + "<br>" + user.getServer()
                 + "<hr>" + "Right-click for more options");
 
-        tempWrapper = new FriendWrapper(user);
+        tempWrapper = new FriendWrapper(user,true);
         this.friendWrappers.add(tempWrapper);
 
         ImageIcon avatarImage = defaultIcon;
