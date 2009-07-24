@@ -10,12 +10,11 @@ package view.buddylist;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -27,6 +26,7 @@ import view.mainwindow.AboutFrame;
 import view.options.BugReportFrame;
 import view.options.MusicPlayer;
 import view.options.OptionFrame;
+import view.styles.AccountJMenu;
 import view.styles.GPanel;
 
 import view.chatLog.ChatLogFrame;
@@ -35,16 +35,20 @@ import view.chatwindow.ChatWindow;
 import controller.MainController;
 
 import model.Model;
+import model.dataType.AccountData;
 import model.enumerations.ServerType;
 
 /**
  * BuddyList display Friend contact list for Parrot IM users.
  */
 public class BuddyList extends JFrame {
+	private ArrayList<AccountJMenu> accountMenuList;
+	private BuddyPanel mainListPanel;
     /**
      * menu bar in buddy list
      */
     JMenuBar menu;
+    JMenu contactMenu;
     /**
      * variable model for extracting buddy list, each buddy's information and ,
      * conversation
@@ -63,7 +67,7 @@ public class BuddyList extends JFrame {
     /**
      * buddy window frame
      */
-    protected JFrame buddywindow;
+    protected BuddyList buddywindow;
 
 //    public static JCheckBoxMenuItem chatbotEnabler;
 //    
@@ -88,6 +92,7 @@ public class BuddyList extends JFrame {
         this.setTitle("Buddy List");
         this.model = model;
         this.controller = c;
+        accountMenuList = new ArrayList <AccountJMenu> ();
         
         // INSIDE PANEL
         try {
@@ -103,18 +108,13 @@ public class BuddyList extends JFrame {
         this.setLocation(location);
         this.setMinimumSize(new Dimension(300, 600));
 
-        // Attach the top text menu
-        this.setJMenuBar(this.createMenu());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-
         GPanel buddylistPanel = new GPanel();
         buddylistPanel.setLayout(new BorderLayout());
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
         buddylistPanel.setGradientColors(buddylistPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
 
 
-        BuddyPanel mainListPanel = new BuddyPanel(c, model, this, chat);
+        mainListPanel = new BuddyPanel(c, model, this, chat);
 
         //If twitter exists, make tabbed buddy frame ; add to buddylistpanel
         if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null){
@@ -144,6 +144,11 @@ public class BuddyList extends JFrame {
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);
         
+        // Attach the top text menu
+        this.setJMenuBar(this.createMenu());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        
         // buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
         getContentPane().add(buddylistPanel);
         pack();
@@ -164,7 +169,7 @@ public class BuddyList extends JFrame {
      */
     public JMenuBar createMenu() {
         JMenuBar menuBar;
-        JMenu fileMenu, contactMenu, optionsMenu, helpMenu;
+        JMenu fileMenu, optionsMenu, helpMenu;
 
         // Create the menu bar.
         menuBar = new JMenuBar();
@@ -187,18 +192,25 @@ public class BuddyList extends JFrame {
         contactMenu = new JMenu("Accounts");
         contactMenu.setMnemonic(KeyEvent.VK_C);
         
-        contactMenu.addSeparator();
-        JMenuItem logoutItem = new JMenuItem("Log off All Accounts",  new ImageIcon(this.getClass().getResource(
+        JMenuItem logoutItem = new JMenuItem("Sign Out All Accounts",  new ImageIcon(this.getClass().getResource(
         "/images/menu/sign_out.png")));
         logoutItem.addActionListener(new signoutActionListener());
         contactMenu.add(logoutItem);
+        
+        contactMenu.addSeparator();
+        
+        for (AccountData account : model.getCurrentProfile().getAccountData()){
+        	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel));
+        	contactMenu.add(accountMenuList.get(accountMenuList.size()-1));
+        }
+        
         menuBar.add(contactMenu);
         
+        //OPTIONS//
         optionsMenu = new JMenu("Options");
         optionsMenu.setMnemonic(KeyEvent.VK_O);
         menuBar.add(optionsMenu);
         
-        //OPTIONS//
         JMenuItem optionsItem1 =
                 new JMenuItem("Parrot Preferences",  new ImageIcon(this.getClass().getResource(
                 "/images/menu/tick.png")));
@@ -234,6 +246,17 @@ public class BuddyList extends JFrame {
         return menuBar;
     }
 
+    public void removeAccountJMenu(int i){
+    	contactMenu.remove(accountMenuList.get(i));
+    	accountMenuList.get(i).connectAccount(false);
+    	accountMenuList.remove(i);
+    }
+    public void addAccountJMenu(AccountData account){
+    	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel));
+    	accountMenuList.get(accountMenuList.size()-1).connectAccount(true);
+    	contactMenu.add(accountMenuList.get(accountMenuList.size()-1));
+    }
+    
     public AccountInfo getAccountInfo(){
     	return accountInfo;
     }
@@ -351,7 +374,7 @@ public class BuddyList extends JFrame {
         public void actionPerformed(ActionEvent e) {
         	if (!optionsIsVisible()){
 	            try {
-	            	options = new OptionFrame(controller, model, accountInfo);
+	            	options = new OptionFrame(controller, model, buddywindow);
 //	                options.addWindowListener(new PopupWindowListener(buddywindow, options));
 	                options.addWindowListener(new OptionsWindowListener());
 	            } catch (ClassNotFoundException e1) {

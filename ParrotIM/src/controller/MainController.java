@@ -369,6 +369,7 @@ public class MainController {
 
         // Set up friends' user data
         this.populateBuddyList(account);
+        account.setConnected(true);
 
         // set up chatbot
         try {
@@ -438,12 +439,21 @@ public class MainController {
         if (model.getCurrentProfile() != null) {
             for (AccountData a : model.getCurrentProfile().getAccountData()) {
                 a.getConnection().disconnect();
+                a.setConnected(false);
             }
         }
 
         this.model.initializeAllVariables();
 
         return;
+    }
+    
+    /**
+     * disconnects one account only
+     * */
+    public void disconnect(AccountData account){
+    	account.getConnection().disconnect();
+    	account.setConnected(false);
     }
 
     /**

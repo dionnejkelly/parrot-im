@@ -56,6 +56,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import view.buddylist.BuddyList;
 import view.styles.GPanel;
 import view.styles.WindowColors;
 
@@ -68,6 +69,7 @@ import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 
 public class ManageAccount extends GPanel implements Observer {
+	private BuddyList buddyFrame;
     private ProfileData profile;
     private JList accList;
     private JTextField UNField;
@@ -80,7 +82,8 @@ public class ManageAccount extends GPanel implements Observer {
     protected JTextField jabberServer;
     protected JButton removeButton;
 
-    public ManageAccount(ProfileData profile) {
+    public ManageAccount(ProfileData profile, BuddyList buddyFrame) {
+    	this.buddyFrame = buddyFrame;
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.profile = profile;
         this.profile.addObserver(this);
@@ -124,8 +127,11 @@ public class ManageAccount extends GPanel implements Observer {
         });
 
         JScrollPane listScroller = new JScrollPane(accList);
-
-        listScroller.setPreferredSize(new Dimension(180, 185));
+        
+        if (buddyFrame != null)
+        	listScroller.setPreferredSize(new Dimension(180, 230));
+        else 
+        	listScroller.setPreferredSize(new Dimension(180, 185));
         listScroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -146,13 +152,14 @@ public class ManageAccount extends GPanel implements Observer {
         // add-remove button panel
         JPanel addremovePanel = new JPanel();
         addremovePanel.setOpaque(false);
-        addremovePanel.setBackground(colors.SECONDARY_COLOR_LT);
+//        addremovePanel.setBackground(colors.SECONDARY_COLOR_LT);
         addremovePanel.add(addButton);
         addremovePanel.add(removeButton);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout());
-        leftPanel.setBackground(colors.SECONDARY_COLOR_LT);
+        leftPanel.setOpaque(false);
+//        leftPanel.setBackground(colors.SECONDARY_COLOR_LT);
         leftPanel.add(listScroller, BorderLayout.NORTH);
         leftPanel.add(addremovePanel, BorderLayout.SOUTH);
 
@@ -282,17 +289,21 @@ public class ManageAccount extends GPanel implements Observer {
                 } else {
                     // AccountData is null: account of the selected
                     // serverType is not yet stored
+                	AccountData account;
                     if ((ServerType) server.getSelectedItem() == ServerType.JABBER) {
-                        profile.addAccount(Model.createAccount(UNField
+                    	account = Model.createAccount(UNField
                                 .getText(), String.copyValueOf(pwdField
-                                .getPassword()), (ServerType) server
-                                .getSelectedItem(), jabberServer.getText()));
-                        
+                                        .getPassword()), (ServerType) server
+                                        .getSelectedItem(), jabberServer.getText());
                     } else {
-                        profile.addAccount(Model.createAccount(UNField
+                        account = Model.createAccount(UNField
                                 .getText(), String.copyValueOf(pwdField
                                 .getPassword()), (ServerType) server
-                                .getSelectedItem()));
+                                .getSelectedItem());
+                    }
+                    profile.addAccount(account);
+                    if (buddyFrame!=null){
+                    	buddyFrame.addAccountJMenu(account);
                     }
                 }
                 UNField.setText("");
@@ -316,6 +327,9 @@ public class ManageAccount extends GPanel implements Observer {
             if (selected >= 0) {
                 profile.removeAccount((AccountData) accList.getSelectedValue());
                 removeButton.setEnabled(false);
+                if (buddyFrame !=null){
+                	buddyFrame.removeAccountJMenu(selected);
+                }
             }
         }
     }

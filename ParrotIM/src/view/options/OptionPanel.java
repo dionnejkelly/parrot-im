@@ -29,7 +29,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import view.buddylist.AccountInfo;
+import view.buddylist.BuddyList;
 import view.styles.WindowColors;
 
 import model.Model;
@@ -42,7 +42,7 @@ public class OptionPanel extends JPanel{
 	public WindowColors colors = new WindowColors();
 	
 	public OptionPanel
-		(MainController c, Model model, JFrame optionframe, AccountInfo accInfo) 
+		(MainController c, Model model, JFrame optionframe, BuddyList buddyFrame) 
 									throws ClassNotFoundException, SQLException{
 		this.setLayout(new BorderLayout());
 		
@@ -54,9 +54,9 @@ public class OptionPanel extends JPanel{
 		tabbedOptions.setForeground(Color.WHITE);
 		tabbedOptions.setBackground(colors.PRIMARY_COLOR_DARK);
 		
-		personalProfile = new PersonalProfileTab(c,accInfo);
+		personalProfile = new PersonalProfileTab(c,buddyFrame.getAccountInfo());
 		tabbedOptions.addTab("Personal Profile", personalProfile);
-		tabbedOptions.addTab("Manage Accounts", new ManageAccount(profile));
+		tabbedOptions.addTab("Manage Accounts", new ManageAccount(profile, buddyFrame));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, optionframe, model));
 		tabbedOptions.addTab("Preference", new PreferencePanel(c, optionframe, model));
 		//setting layout

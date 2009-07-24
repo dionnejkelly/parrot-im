@@ -141,8 +141,8 @@ public class PersonalProfileTab extends GPanel {
         //set right layout
         JPanel rightLayout = new JPanel();
         rightLayout.setLayout(new BorderLayout());
-//      rightLayout.setOpaque(false);
-        rightLayout.setBackground(colors.SECONDARY_COLOR_LT);
+        rightLayout.setOpaque(false);
+//        rightLayout.setBackground(colors.SECONDARY_COLOR_LT);
         rightLayout.add (topRightLayout, BorderLayout.NORTH);
 		
         /*SET LAYOUT*/

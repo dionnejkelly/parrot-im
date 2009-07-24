@@ -110,7 +110,10 @@ public class FeaturesPanel extends GPanel {
         chatbotCheck.addItemListener(new chatbotListener());
 
         // chatbot list
-        chatbotList = new JList(chatBotModel.getQAList());
+        chatbotList = new JList();
+        
+        if (model.getCurrentProfile().getAccountData().size() > 0)
+        	chatbotList.setListData(chatBotModel.getQAList());
         chatbotList
                 .addListSelectionListener(new chatbotListSelectionListener());
         JScrollPane chatbotListScroll = new JScrollPane(chatbotList);

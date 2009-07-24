@@ -334,7 +334,7 @@ public class BuddyPanel extends GPanel implements Observer {
         }
     }
 
-    private void listRepopulate() {
+    public void listRepopulate() {
         FriendPanel tempPanel = null;
 
         for (int i = 0; i < 4; i++) {
