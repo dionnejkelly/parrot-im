@@ -30,6 +30,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -74,7 +75,7 @@ public class FeaturesPanel extends GPanel implements Observer{
     private JButton chatbotAddButton;
     private JButton chatbotEditButton;
     private JButton chatbotRemoveButton;
-    private JPanel chatbotOptions;
+    private JPanel chatbotOptions, chatbotPanel;
 
     private Model model;
 
@@ -107,8 +108,8 @@ public class FeaturesPanel extends GPanel implements Observer{
             "/images/menu/monitor_delete.png")));
         }
         
-        chatbotCheck.setBackground(colors.SECONDARY_COLOR_LT);
-        chatbotCheck.setForeground(colors.SECONDARY_COLOR_DARK);
+        chatbotCheck.setBackground(model.tertiaryColor);
+        chatbotCheck.setForeground(model.primaryTextColor);
         chatbotCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,101));
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addItemListener(new chatbotListener());
@@ -139,7 +140,7 @@ public class FeaturesPanel extends GPanel implements Observer{
         setEnabledChatbotButtons(false);
 
         JPanel chatbotButtonsPanel = new JPanel();
-        chatbotButtonsPanel.setBackground(colors.SECONDARY_COLOR_LT2);
+        chatbotButtonsPanel.setBackground(model.tertiaryColor);
         chatbotButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatbotButtonsPanel.setLayout(new BoxLayout(chatbotButtonsPanel,
                 BoxLayout.X_AXIS));
@@ -148,7 +149,7 @@ public class FeaturesPanel extends GPanel implements Observer{
         chatbotButtonsPanel.add(chatbotRemoveButton);
 
         chatbotOptions = new JPanel();
-        chatbotOptions.setBackground(colors.SECONDARY_COLOR_LT2);
+        chatbotOptions.setBackground(model.tertiaryColor);
         chatbotOptions.setAlignmentX(LEFT_ALIGNMENT);
         chatbotOptions.add(chatbotListScroll);
         chatbotOptions.add(chatbotButtonsPanel);
@@ -157,8 +158,8 @@ public class FeaturesPanel extends GPanel implements Observer{
         else
         	chatbotOptions.setVisible(false);
 
-        JPanel chatbotPanel = new JPanel();
-        chatbotPanel.setBackground(colors.SECONDARY_COLOR_LT2);
+        chatbotPanel = new JPanel();
+        chatbotPanel.setBackground(model.tertiaryColor);
         chatbotPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatbotPanel.setLayout(new BoxLayout(chatbotPanel, BoxLayout.Y_AXIS));
         chatbotPanel.add(chatbotCheck);
@@ -176,8 +177,8 @@ public class FeaturesPanel extends GPanel implements Observer{
            "/images/menu/sound_mute.png")));
        }
         
-        soundCheck.setBackground(colors.SECONDARY_COLOR_LT);
-        soundCheck.setForeground(colors.SECONDARY_COLOR_DARK);
+        soundCheck.setBackground(model.tertiaryColor);
+        soundCheck.setForeground(model.primaryTextColor);
         soundCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,43));
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
@@ -194,9 +195,9 @@ public class FeaturesPanel extends GPanel implements Observer{
           "/images/menu/email_delete.png")));
       }
        
-        emailCheck.setBackground(colors.SECONDARY_COLOR_LT);
-        emailCheck.setForeground(colors.SECONDARY_COLOR_DARK);
-        emailCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,43));
+        emailCheck.setBackground(model.tertiaryColor);
+        emailCheck.setForeground(model.primaryTextColor);
+        emailCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,48));
         emailCheck.setSelected(model.getCurrentProfile().isEmailEnabled());
         emailCheck.addItemListener(new emailListener());
        
@@ -213,8 +214,8 @@ public class FeaturesPanel extends GPanel implements Observer{
            "/images/menu/note_delete.png")));
        }
         
-        chatLogCheck.setBackground(colors.SECONDARY_COLOR_LT);
-        chatLogCheck.setForeground(colors.SECONDARY_COLOR_DARK);
+        chatLogCheck.setBackground(model.tertiaryColor);
+        chatLogCheck.setForeground(model.primaryTextColor);
         chatLogCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,96));
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
@@ -233,14 +234,14 @@ public class FeaturesPanel extends GPanel implements Observer{
                 "/images/menu/application_form_delete.png")));
         }
         
-        chatWindowHistoryCheck.setBackground(colors.SECONDARY_COLOR_LT);
-        chatWindowHistoryCheck.setForeground(colors.SECONDARY_COLOR_DARK);
+        chatWindowHistoryCheck.setBackground(model.tertiaryColor);
+        chatWindowHistoryCheck.setForeground(model.primaryTextColor);
         chatWindowHistoryCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,28));
         chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
         chatWindowHistoryCheck
                 .addItemListener(new chatWindowHistoryListener());
-        
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.add(chatbotPanel);
@@ -479,6 +480,22 @@ public class FeaturesPanel extends GPanel implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		if(arg1 == UpdatedType.COLOR){
 			setGradientColors(model.primaryColor, model.secondaryColor);
+			
+			chatbotCheck.setBackground(model.tertiaryColor);
+			soundCheck.setBackground(model.tertiaryColor);
+			emailCheck.setBackground(model.tertiaryColor);
+			chatLogCheck.setBackground(model.tertiaryColor);
+			chatWindowHistoryCheck.setBackground(model.tertiaryColor);
+			
+			chatbotCheck.setForeground(model.primaryTextColor);
+			soundCheck.setForeground(model.primaryTextColor);
+			emailCheck.setForeground(model.primaryTextColor);
+			chatLogCheck.setForeground(model.primaryTextColor);
+			chatWindowHistoryCheck.setForeground(model.primaryTextColor);
+			
+			chatbotOptions.setBackground(model.tertiaryColor.brighter());
+			chatbotPanel.setBackground(model.tertiaryColor.brighter());
+			
 			updateUI();
 		}
 	}
