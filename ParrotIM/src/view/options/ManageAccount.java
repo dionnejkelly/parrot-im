@@ -81,20 +81,25 @@ public class ManageAccount extends GPanel implements Observer {
     protected JPanel serverPanel;
     protected JTextField jabberServer;
     protected JButton removeButton;
+    
+    private Model model;
 
-    public ManageAccount(ProfileData profile, BuddyList buddyFrame) {
+    public ManageAccount(ProfileData profile, BuddyList buddyFrame, Model model) {
     	this.buddyFrame = buddyFrame;
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.profile = profile;
         this.profile.addObserver(this);
         System.out.println(colors.PRIMARY_COLOR_DARK);
         this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        this.model = model;
 
         // set main panel
         setLayout(new BorderLayout());
         // manage account panel
         leftPanelMAN();
         rightPanelMAN();
+        
+        model.addObserver(this);
 
     }
 
@@ -249,12 +254,7 @@ public class ManageAccount extends GPanel implements Observer {
         add(rightPanel, BorderLayout.EAST);
     }
 
-    public void update(Observable arg0, Object o) {
-        accList.setListData(new Vector<AccountData>(profile.getAccountData()));
-        accList.updateUI();
-
-        return;
-    }
+   
 
     private class serverListener implements ItemListener {
 
@@ -368,4 +368,18 @@ public class ManageAccount extends GPanel implements Observer {
         public void keyTyped(KeyEvent e) {}
 
     }
+    
+    public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			setGradientColors(model.primaryColor, model.secondaryColor);
+			this.updateUI();
+		}
+		
+		accList.setListData(new Vector<AccountData>(profile.getAccountData()));
+        accList.updateUI();
+
+        return;
+	}
+
+
 }

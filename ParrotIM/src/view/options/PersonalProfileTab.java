@@ -31,6 +31,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.MalformedURLException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -44,6 +46,9 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
+import model.Model;
+import model.enumerations.UpdatedType;
+
 import controller.MainController;
 
 import view.buddylist.AccountInfo;
@@ -52,7 +57,7 @@ import view.styles.GPanel;
 import view.styles.PmLabel;
 import view.styles.StatusCombo;
 
-public class PersonalProfileTab extends GPanel {
+public class PersonalProfileTab extends GPanel implements Observer {
 	//left components
 	private AvatarLabel avatar;
 	
@@ -65,11 +70,14 @@ public class PersonalProfileTab extends GPanel {
 	
 	public static boolean isPersonalTabOpened = false;
 	
-	public PersonalProfileTab(MainController core, AccountInfo accInfo){
+	private Model model;
+	
+	public PersonalProfileTab(MainController core, AccountInfo accInfo, Model model){
 		//super(false);
 		this.BuddyListStatus = accInfo.presence;
         this.BuddyListPM = accInfo.statusMessage;
         this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        this.model = model;
         
 		/*LEFT COMPONENTS*/
 		//avatar
@@ -152,6 +160,7 @@ public class PersonalProfileTab extends GPanel {
 		this.add (rightLayout, BorderLayout.CENTER);
 		
 		isPersonalTabOpened = true;
+		model.addObserver(this);
 	}
 	
 	public void updateStatus(){
@@ -195,5 +204,12 @@ public class PersonalProfileTab extends GPanel {
 		public void keyTyped(KeyEvent arg0) {}
 
 		
+	}
+	
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			setGradientColors(model.primaryColor, model.secondaryColor);
+			this.updateUI();
+		}
 	}
 }
