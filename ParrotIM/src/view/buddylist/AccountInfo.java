@@ -56,6 +56,8 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -67,6 +69,7 @@ import org.jivesoftware.smack.XMPPException;
 
 import model.Model;
 import model.enumerations.ServerType;
+import model.enumerations.UpdatedType;
 
 import controller.MainController;
 import controller.services.TwitterManager;
@@ -79,7 +82,7 @@ import view.styles.PmLabel;
 /**
  * accountInfo display user name, avatar picture, account information for Parrot IM users.
  */
-public class AccountInfo extends GPanel
+public class AccountInfo extends GPanel implements Observer
 {
 	/* TODO AccInfo has:
 	 * WEST -- Avatar (and avatar settings)
@@ -135,7 +138,7 @@ public class AccountInfo extends GPanel
 	{
 	    this.model = model;
 	    this.chatClient = c;
-	    setGradientColors(colors.PRIMARY_COLOR_DARK, colors.PRIMARY_COLOR_MED);
+	    setGradientColors(model.primaryDark, model.primaryColor);
 		setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
 		setLayout(new BorderLayout());
 		
@@ -212,6 +215,14 @@ public class AccountInfo extends GPanel
 		statusMessage.setPreferredSize(new Dimension(70,80));
 	}
 	
+    public void update(Observable o, Object arg) {
+        if(arg == UpdatedType.COLOR){
+        	setGradientColors(model.primaryDark, model.primaryColor);
+        	updateUI();
+        }
+
+        return;
+    }
 	
 	/**
 	 * mouse listener for mouse to do actions

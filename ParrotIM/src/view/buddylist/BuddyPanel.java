@@ -162,7 +162,7 @@ public class BuddyPanel extends GPanel implements Observer {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         setBackground(Color.WHITE);
-        setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        setGradientColors(model.primaryColor, model.secondaryColor);
         
         this.chatClient = c;
         this.model = model;
