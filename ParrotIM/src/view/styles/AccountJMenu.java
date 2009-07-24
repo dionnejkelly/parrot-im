@@ -25,7 +25,7 @@ public class AccountJMenu extends JMenu{
 	private JMenuItem signOutMenu;
 	
 	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies){
-		super("GoogleTalk - " + account.getUserID());
+		super(account.getServer() + " - " + account.getUserID());
 		setIcon(new ImageIcon(this.getClass().getResource(
         "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")));
 		this.account = account;
@@ -34,21 +34,25 @@ public class AccountJMenu extends JMenu{
 		this.setMnemonic(KeyEvent.VK_S);
 		
 		//SIGN MENU//
-		signMenu= new JMenuItem();
-		signMenu.setText("Sign In");
+		signMenu= new JMenuItem("Sign In", new ImageIcon(this.getClass().getResource(
+        "/images/menu/account/status.png")));
+		
 		signMenu.setEnabled(false);
 		
-		signOutMenu= new JMenuItem();
-		signOutMenu.setText("Sign out");
+		signOutMenu= new JMenuItem("Sign Out", new ImageIcon(this.getClass().getResource(
+        "/images/menu/account/status-busy.png")));
+		
 		signOutMenu.setEnabled(true);
 		
-		JMenuItem addFriendMenu= new JMenuItem("Add a friend");
+		JMenuItem addFriendMenu= new JMenuItem("Add a friend", new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/add_user.png")));
 //		if (account.isOnline())
 //			signMenu.setText("Sign out");
 //		else
 //			signMenu.setText("Sign in");
 		
-		JMenuItem removeMenu = new JMenuItem("Remove account");
+		JMenuItem removeMenu = new JMenuItem("Remove account", new ImageIcon(this.getClass().getResource(
+        "/images/mainwindow/remove.png")));
 		
 		signMenu.setMnemonic(KeyEvent.VK_S);
 		signOutMenu.setMnemonic(KeyEvent.VK_S);
