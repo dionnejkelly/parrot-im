@@ -35,22 +35,12 @@ import org.jivesoftware.smack.XMPPException;
 import controller.MainController;
 import controller.services.BadConnectionException;
 
-import view.blockManager.BlockManager;
-import view.mainwindow.HelpPanel;
-import view.options.GroupChatConfigurationFrame;
-import view.options.MusicPlayer;
 import view.styles.GPanel;
 import view.styles.GroupedListPane;
-import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
-import winterwell.jtwitter.Twitter.User;
 
 import model.Model;
-import model.dataType.TwitterUserData;
 import model.dataType.UserData;
-import model.enumerations.ServerType;
-import model.enumerations.UpdatedType;
-import model.enumerations.UserStateType;
 
 /**
  * TwitterPanel display Twitter feeds and status panels for Parrot IM users.
