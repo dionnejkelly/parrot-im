@@ -247,6 +247,10 @@ public class DisplayPanel extends JPanel implements Observer {
                         .getTypingState());
             }
         }
+        else if(arg == UpdatedType.COLOR){
+        	txtPane.setBackground(model.textPaneColor);
+        	txtPane.updateUI();
+        }
 
         return;
     }
