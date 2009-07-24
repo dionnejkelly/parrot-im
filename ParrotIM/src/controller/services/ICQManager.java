@@ -123,7 +123,7 @@ public class ICQManager implements GenericConnection {
 		//i.getAvatarPicture("565914305");
 		//i.getAvatarPicture("cmpt275");
 		try {
-			i.changeStatus(UserStateType.NOT_AVAILABLE, "lolololol");
+			i.changeStatus(UserStateType.ONLINE, "lolololol");
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,46 +143,46 @@ public class ICQManager implements GenericConnection {
 	}
 	
 
-	 public void setPresence(String status) {
-		 
-	     if (connection != null && connection.getInfoService() != null) {
-	    	 System.out.println("Trying to change the presence...");
-	    	 connection.getInfoService().setAwayMessage(status);
-	     }
-	            
-	        
-	 }
+//	 public void setPresence(String status) {
+//		 
+//	     if (connection != null && connection.getInfoService() != null) {
+//	    	 System.out.println("Trying to change the presence...");
+//	    	 connection.getInfoService().setAwayMessage(status);
+//	     }
+//	            
+//	        
+//	 }
+//	 
+//	 public void setProfile(String profile) {
+//	       
+//		  
+//	      if (connection != null && connection.getInfoService() != null) {
+//	    	  System.out.println("Trying to change the profile...");
+//	    	  connection.getInfoService().setUserProfile(profile);
+//	      }
+//	        	
+//	 }
 	 
-	 public void setProfile(String profile) {
-	       
-		  
-	      if (connection != null && connection.getInfoService() != null) {
-	    	  System.out.println("Trying to change the profile...");
-	    	  connection.getInfoService().setUserProfile(profile);
-	      }
-	        	
-	 }
+//	 public void setStatus(String status) {
+//		 if (connection != null && connection.getInfoService() != null) {
+//			 System.out.println("Trying to change the status...");
+//			 connection.getBosService().setStatusMessage(status);
+//			 connection.getBosService().setStatusMessageSong("路塭1", status, "路塭3", "路塭4");
+//		 }
+//	 }
+//	 
+//	 public void setOnline(boolean online) {
+//		 if (connection != null && connection.getInfoService() != null) {
+//			 connection.getBosService().setVisibleStatus(online);
+//		 }
+//	 }
 	 
-	 public void setStatus(String status) {
-		 if (connection != null && connection.getInfoService() != null) {
-			 System.out.println("Trying to change the status...");
-			 connection.getBosService().setStatusMessage(status);
-			 connection.getBosService().setStatusMessageSong("路塭1", status, "路塭3", "路塭4");
-		 }
-	 }
-	 
-	 public void setOnline(boolean online) {
-		 if (connection != null && connection.getInfoService() != null) {
-			 connection.getBosService().setVisibleStatus(online);
-		 }
-	 }
-	 
-	 public void setState(long state) {
-		 if (connection != null && connection.getInfoService() != null) {
-			 connection.getBosService().setIcqStatus(state);
-			
-		 }
-	 }
+//	 public void setState(long state) {
+//		 if (connection != null && connection.getInfoService() != null) {
+//			 connection.getBosService().setIcqStatus(state);
+//			
+//		 }
+//	 }
 	 
 //	 public void setIdle(long idle) {
 //		 if (connection != null && connection.getInfoService() != null) {
@@ -211,7 +211,7 @@ public class ICQManager implements GenericConnection {
         chkConnection();
         System.out.println("Passed the check connection test and trying to change the status...");
         MainBosService bos = connection.getBosService();
-        
+        System.out.println(state +" message: "+ status);
         long icqState = stateToLong(state); 
         //icqmanager doesn't use an integer to set status
         //check out the private method called stateToLong , it would convert UserStateType
@@ -232,7 +232,7 @@ public class ICQManager implements GenericConnection {
         connection.getInfoService().setAwayMessage(status);
 
         //this one doesn't work for some how
-        bos.setStatusMessage(status);
+        //bos.setStatusMessage(status);
         try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
