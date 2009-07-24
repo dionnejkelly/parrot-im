@@ -59,7 +59,6 @@ public class AccountJMenu extends JMenu{
 	}
 	private class SignMenuActionListener implements ActionListener{
 
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (account.isConnected()){
 				System.out.println("account is online and we have to disconnect it");
