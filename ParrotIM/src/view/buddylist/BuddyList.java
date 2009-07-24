@@ -249,6 +249,7 @@ public class BuddyList extends JFrame {
     public void removeAccountJMenu(int i){
     	accountMenuList.get(i).connectAccount(false);
     	contactMenu.remove(accountMenuList.get(i));
+//    	System.out.println("THIS IS FROM BUDDYLIST: "+accountMenuList.get(i).);
     	accountMenuList.remove(i);
     }
     public void addAccountJMenu(AccountData account){
