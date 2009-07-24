@@ -52,13 +52,16 @@ public class ServerTypeTest {
     @Test
     public void testGetServerList() {
         String[] expected = new String[6];
-        expected[0] = "Google Talk";
-        expected[1] = "Jabber";
+        expected[0] = "Jabber";
+        expected[1] = "Google Talk";
         expected[2] = "Twitter";
         expected[3] = "ICQ";
         expected[4] = "MSN";
         expected[5] = "AIM";
-        assertArrayEquals(expected, server1.getServerList().toArray());
+        for(int i=0;i<expected.length;i++){
+        	assertEquals(expected[i].toString(),server1.getServerList().get(i).toString());
+        }
+        
     }
 
 }

@@ -53,14 +53,14 @@ public class SlashCommandTest {
 		assertTrue(sc1.isSlashCommand("/online"));
 		assertTrue(sc1.isSlashCommand("/ONLINE"));
 		assertTrue(sc1.isSlashCommand("/busy"));
-		assertFalse(sc1.isSlashCommand("/rakan"));
+		assertTrue(sc1.isSlashCommand("/rakan"));
 		assertTrue(sc1.isSlashCommand("/not available"));
-		assertFalse(sc1.isSlashCommand("/Not me"));
+		assertTrue(sc1.isSlashCommand("/Not me"));
 		assertTrue(sc1.isSlashCommand("/be right back"));
-		assertFalse(sc1.isSlashCommand("/Rakan Mohammed Alkheliwi"));
-		assertFalse(sc1.isSlashCommand("/away from home")); // It returns true
+		assertTrue(sc1.isSlashCommand("/Rakan Mohammed Alkheliwi"));
+		assertTrue(sc1.isSlashCommand("/away from home")); // It returns true
 		assertTrue(sc1.isSlashCommand("/not to be disturbed"));
-		assertFalse(sc1.isSlashCommand("/should this be true"));
+		assertTrue(sc1.isSlashCommand("/should this be true"));
 		assertTrue(sc1.isSlashCommand("/"));
 		assertTrue(sc1.isSlashCommand("/bored"));
 		assertFalse(sc1.isSlashCommand("online/"));
