@@ -67,30 +67,28 @@ public class AccountJMenu extends JMenu{
 		//SIGN MENU//
 		signMenu= new JMenuItem("Sign In", new ImageIcon(this.getClass().getResource(
         "/images/menu/account/status.png")));
-		
 		signMenu.setEnabled(false);
-		
-		signOutMenu= new JMenuItem("Sign Out", new ImageIcon(this.getClass().getResource(
-        "/images/menu/account/status-busy.png")));
-		
-		signOutMenu.setEnabled(true);
-		
-		JMenuItem addFriendMenu= new JMenuItem("Add a friend", new ImageIcon(this.getClass().getResource(
-        "/images/buddylist/add_user.png")));
-//		if (account.isOnline())
+		signMenu.setMnemonic(KeyEvent.VK_S);
+		signMenu.addActionListener(new SignMenuActionListener());
+//		if (account.isConnected())
 //			signMenu.setText("Sign out");
 //		else
 //			signMenu.setText("Sign in");
+	
+		signOutMenu= new JMenuItem("Sign Out", new ImageIcon(this.getClass().getResource(
+        "/images/menu/account/status-busy.png")));
+		signOutMenu.setEnabled(true);
+		signOutMenu.setMnemonic(KeyEvent.VK_S);
+		
+		JMenuItem addFriendMenu= new JMenuItem("Add a friend", new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/add_user.png")));
+		addFriendMenu.setMnemonic(KeyEvent.VK_A);
 		
 		JMenuItem removeMenu = new JMenuItem("Remove account", new ImageIcon(this.getClass().getResource(
         "/images/mainwindow/remove.png")));
-		
-		signMenu.setMnemonic(KeyEvent.VK_S);
-		signOutMenu.setMnemonic(KeyEvent.VK_S);
-		addFriendMenu.setMnemonic(KeyEvent.VK_A);
 		removeMenu.setMnemonic(KeyEvent.VK_R);
-		signMenu.addActionListener(new SignMenuActionListener());
 		signOutMenu.addActionListener(new SignMenuActionListener());
+		
 		this.add(signMenu);
 		this.add(signOutMenu);
 		this.add(addFriendMenu);
