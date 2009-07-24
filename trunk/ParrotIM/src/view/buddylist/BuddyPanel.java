@@ -107,7 +107,7 @@ public class BuddyPanel extends GPanel implements Observer {
      */
     Box boxes[] = new Box[6];
 
-    GroupedListPane buddyListPane = new GroupedListPane();
+    GroupedListPane buddyListPane;
 
     /**
      * selected name
@@ -224,6 +224,7 @@ public class BuddyPanel extends GPanel implements Observer {
                 new ImageIcon(this.getClass().getResource(
                         "/images/status/user_orange.png"));
 
+        buddyListPane = new GroupedListPane(model);
         buddyListPane.addGroup("     Online     " + UserData.getCountOnline()
                 + "/" + buddies.size(), userOnlineImage);
         buddyListPane.addGroup("     Away/Busy     " + UserData.getCountAway()
