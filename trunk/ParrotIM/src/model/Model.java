@@ -61,8 +61,10 @@ import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
 import model.dataType.ICQAccountData;
+import model.dataType.ICQUserData;
 import model.dataType.JabberAccountData;
 import model.dataType.MSNAccountData;
+import model.dataType.MSNUserData;
 import model.dataType.PersonData;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
@@ -110,7 +112,7 @@ public class Model extends Observable {
     public boolean bugReportWindowOpen;
     public boolean aboutWindowOpen;
     public boolean groupChatWindowOpen;
-    
+
     // These are the defualt colors
     public Color primaryDark = new Color(12, 69, 91);
     public Color primaryColor = new Color(87, 166, 196);
@@ -313,11 +315,11 @@ public class Model extends Observable {
         notifyObservers(UpdatedType.CHATNOTSIDEPANEL);
         return;
     }
-    
-    public void updateColors(){
-    	System.out.println("updateCalled");
-    	setChanged();
-    	notifyObservers(UpdatedType.COLOR);
+
+    public void updateColors() {
+        System.out.println("updateCalled");
+        setChanged();
+        notifyObservers(UpdatedType.COLOR);
     }
 
     /**
@@ -610,10 +612,12 @@ public class Model extends Observable {
             userToAdd = new GoogleTalkUserData(accountName);
         } else if (server == ServerType.JABBER) {
             userToAdd = new JabberUserData(accountName);
-        }
-
-        else if (server == ServerType.TWITTER) {
+        } else if (server == ServerType.TWITTER) {
             userToAdd = new TwitterUserData(accountName);
+        } else if (server == ServerType.MSN) {
+            userToAdd = new MSNUserData(accountName);
+        } else if (server == ServerType.ICQ) {
+            userToAdd = new ICQUserData(accountName);
         }
 
         account.addFriend(userToAdd);
@@ -1087,7 +1091,7 @@ public class Model extends Observable {
         if (userID.contains("@") && server == ServerType.JABBER) {
             userID = PersonData.delimitUserFront(userID, '@');
             userID = userID + "@" + serverAddress;
-        }        
+        }
 
         switch (server) {
         case GOOGLE_TALK:
@@ -1262,16 +1266,18 @@ public class Model extends Observable {
     public CustomizedChatbotModel getCustomizedChatbotModel() {
         return chatbotModel;
     }
-    public String getEmailNotification()
-    	throws ClassNotFoundException, SQLException {
-	DatabaseFunctions db = new DatabaseFunctions();
-	return db.getEmailNotification(this.getCurrentProfile().getName());
-}
 
-public void setEmailNotification(String emailNotification)
-    	throws ClassNotFoundException, SQLException {
-	DatabaseFunctions db = new DatabaseFunctions();
-	db.setEmailNotification(this.getCurrentProfile().getName(), emailNotification);
-}
+    public String getEmailNotification() throws ClassNotFoundException,
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getEmailNotification(this.getCurrentProfile().getName());
+    }
+
+    public void setEmailNotification(String emailNotification)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        db.setEmailNotification(this.getCurrentProfile().getName(),
+                emailNotification);
+    }
 
 }
