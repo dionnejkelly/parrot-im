@@ -10,6 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import org.jivesoftware.smack.XMPPException;
+
+import net.kano.joscar.ByteBlock;
 import net.kano.joscar.rv.RvProcessor;
 import net.kano.joscar.rvcmd.DefaultRvCommandFactory;
 import net.kano.joscar.snac.ClientSnacProcessor;
@@ -25,6 +28,7 @@ import net.kano.joustsim.oscar.AimConnection;
 import net.kano.joustsim.oscar.AimConnectionProperties;
 import net.kano.joustsim.oscar.AimSession;
 import net.kano.joustsim.oscar.AppSession;
+import net.kano.joustsim.oscar.BuddyInfo;
 import net.kano.joustsim.oscar.DefaultAimSession;
 import net.kano.joustsim.oscar.OpenedServiceListener;
 import net.kano.joustsim.oscar.State;
@@ -52,7 +56,6 @@ import net.kano.joustsim.oscar.oscar.service.ssi.Group;
 import net.kano.joustsim.oscar.oscar.service.ssi.MutableBuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
-import org.jivesoftware.smack.XMPPException;
 
 import view.styles.ProgressMonitorScreen;
 
@@ -93,19 +96,65 @@ public class ICQManager implements GenericConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			i.retrieveFriendList();
-		} catch (BadConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		try {
+//			i.retrieveFriendList();
+//		} catch (BadConnectionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		//i.getAvatarPicture("565914305");
+		//i.getAvatarPicture("cmpt275");
+		while (true) {
+			System.out.println("Type your state: ");
+			Scanner msgInput = new Scanner(System.in);
+			String msg = msgInput.nextLine();
+			i.setPresence(msg);
+			i.setProfile(msg);
 		}
-		try {
-			i.sendMessage("569540234","Hi");
-		} catch (BadConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}//It works
-}
+		
+	}
+	
+
+	 public void setPresence(String status) {
+		 
+	     if (connection != null && connection.getInfoService() != null) {
+	    	 System.out.println("Trying to change the presence...");
+	    	 connection.getInfoService().setAwayMessage(status);
+	     }
+	            
+	        
+	 }
+	 
+	 public void setProfile(String profile) {
+	       
+		  
+	      if (connection != null && connection.getInfoService() != null) {
+	    	  System.out.println("Trying to change the profile...");
+	    	  connection.getInfoService().setUserProfile(profile);
+	      }
+	        	
+	 }
+	 
+	 public void setStatus(String status) {
+		 if (connection != null && connection.getInfoService() != null) {
+			 System.out.println("Trying to change the status...");
+			 connection.getBosService().setStatusMessage(status);
+		 }
+	 }
+	 
+	 public void setOnline(boolean online) {
+		 if (connection != null && connection.getInfoService() != null) {
+			 connection.getBosService().setVisibleStatus(online);
+		 }
+	 }
+	 
+	 public void setState(long state) {
+		 if (connection != null && connection.getInfoService() != null) {
+			 connection.getBosService().setIcqStatus(state);
+		 }
+	 }
+
+
 	
 	public ICQManager(MainController controller, Model model){
 		this.controller = controller;
@@ -123,16 +172,48 @@ public class ICQManager implements GenericConnection {
     public void changeStatus(UserStateType state, String status)
             throws BadConnectionException {
         chkConnection();
-        
+        System.out.println("Passed the check connection test and trying to change the status...");
         MainBosService bos = connection.getBosService();
         long icqState = stateToLong(state);
         bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
         
-        if(state == UserStateType.AWAY){
-        	connection.getInfoService().setAwayMessage(status);
-        }else{
+        if (state == UserStateType.ONLINE){
+        	//connection.getInfoService().setAwayMessage(status);
+        	setOnline(true);
+        }
+        
+        else if (state == UserStateType.INVISIBLE) {
+        	setOnline(false);
+        }
+        
+        else if (state == UserStateType.AWAY) {
+        	 setState(1);
+        } 
+        
+        else if (state == UserStateType.BUSY) {
+        	setState(2);
+        } 
+        
+        else if (state == UserStateType.BRB) {
+        	setState(4);
+        }
+	 
+        else if (state == UserStateType.PHONE) {
+        	setState(2);
+        }
+	 
+        else if (state == UserStateType.LUNCH) {
+        	setState(4);
+        }
+        
+        else{
         	bos.setStatusMessage(status);
         }
+        
+        
+        setPresence(status);
+        setProfile(status);
+        setStatus(status);
     }
     /**
      * helper method for changeStatus
@@ -206,10 +287,12 @@ public class ICQManager implements GenericConnection {
 //    	Long bitFlag = connection.getBuddyInfoManager()
 //		.getBuddyInfo(new Screenname(userID)).getIcqStatus();
 //    	
+
 //    	GetInfoCmd getInfoCmd =
 //            new GetInfoCmd(GetInfoCmd.CMD_USER_INFO, contactIdentifier);
 //    	connection.getInfoService().getOscarConnection()
 //        .sendSnacRequest();
+
     	return curState;
     }
 
@@ -230,9 +313,19 @@ public class ICQManager implements GenericConnection {
 
     }
 
-    public ImageIcon getAvatarPicture(String userID) throws XMPPException {
-        // TODO Auto-generated method stub
-        return null;
+    public ImageIcon getAvatarPicture(String userID) {
+    	BuddyInfo binfo = connection.getBuddyInfoManager().getBuddyInfo(new Screenname(userID));
+        ByteBlock byteBlock = binfo.getIconData();
+        ImageIcon icon = new ImageIcon(this.getClass().getResource(
+        "/images/chatwindow/personal.png"));
+        
+        if (icon != null) {
+        	icon = new ImageIcon(byteBlock.toByteArray());
+        }
+        
+        JOptionPane.showMessageDialog(null, icon);
+        
+        return icon;
     }
 
     public ServerType getServerType() {
@@ -271,6 +364,11 @@ public class ICQManager implements GenericConnection {
             }
         };
         Screenname screenName = new Screenname(userID);
+        
+        System.out.println("Screen Name = " + screenName);
+        System.out.println("Screen Normal = " + screenName.getNormal());
+        System.out.println("Screen Formatted = " + screenName.getFormatted());
+        
         AimSession session = app.openAimSession(screenName);
         
         connectionProperties = new AimConnectionProperties(null, null);
