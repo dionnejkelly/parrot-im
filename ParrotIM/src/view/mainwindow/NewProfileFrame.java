@@ -50,6 +50,7 @@ import javax.swing.text.PlainDocument;
 
 import controller.MainController;
 
+import view.styles.AutoFocusedButton;
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
@@ -135,17 +136,17 @@ public class NewProfileFrame extends JFrame {
         optionPanel.add(passwordOption);
 
         /* BUTTONS */
-        nextButton = new JButton("Next", new ImageIcon(this.getClass()
+        nextButton = new AutoFocusedButton("Next", new ImageIcon(this.getClass()
                 .getResource("/images/mainwindow/next.png")));
         nextButton.setEnabled(false);
         nextButton.addActionListener(new nextButtonActionListener());
-        JButton cancelButton = new JButton("Cancel", new ImageIcon(this
+        JButton cancelButton = new AutoFocusedButton("Cancel", new ImageIcon(this
                 .getClass().getResource("/images/mainwindow/cancel.png")));
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
-        buttonsPanel.add(nextButton);
         buttonsPanel.add(cancelButton);
+        buttonsPanel.add(nextButton);
 
         /* LAYOUT */
         GPanel mainPanel = new GPanel();
