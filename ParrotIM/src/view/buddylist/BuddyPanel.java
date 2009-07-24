@@ -10,6 +10,8 @@ package view.buddylist;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -49,6 +51,7 @@ import view.styles.PopupWindowListener;
 import view.chatwindow.ChatWindow;
 
 import model.Model;
+import model.dataType.AccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
@@ -147,6 +150,14 @@ public class BuddyPanel extends GPanel implements Observer {
 
     private ArrayList<FriendPanel> friendPanels;
 
+    private AccountData selectedAccount;
+
+    private AccountPrompt accountPrompt;
+
+    private String tempFriendToAdd;
+
+    private JFrame buddyPanel;
+
     /**
      * BuddyPanel , display friend contact list in buddy panel.
      * 
@@ -156,14 +167,15 @@ public class BuddyPanel extends GPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
-    public BuddyPanel(MainController c, Model model, JFrame buddyWindow, ChatWindow chat) {
+    public BuddyPanel(MainController c, Model model, JFrame buddyWindow,
+            ChatWindow chat) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         setBackground(Color.WHITE);
         setGradientColors(model.primaryColor, model.secondaryColor);
-        
+
         this.chatClient = c;
         this.model = model;
         this.chat = chat;
@@ -195,28 +207,31 @@ public class BuddyPanel extends GPanel implements Observer {
             boxes[i] = Box.createVerticalBox();
         }
 
-        ImageIcon userOnlineImage = new ImageIcon(
-                this
-                        .getClass()
-                        .getResource(
-                                "/images/status/user_green.png"));
-        ImageIcon userOfflineImage = new ImageIcon(this.getClass().getResource(
-                "/images/status/user_red.png"));
-        ImageIcon userBlockImage = new ImageIcon(this.getClass().getResource(
-                "/images/status/user_gray.png"));
-//        ImageIcon icqImage = new ImageIcon(this.getClass().getResource(
-//                "/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png"));
-//        ImageIcon msnImage = new ImageIcon(this.getClass().getResource(
-//                "/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png"));
-        ImageIcon userAwayImage = new ImageIcon(this.getClass().getResource(
-                "/images/status/user_orange.png"));
+        ImageIcon userOnlineImage =
+                new ImageIcon(this.getClass().getResource(
+                        "/images/status/user_green.png"));
+        ImageIcon userOfflineImage =
+                new ImageIcon(this.getClass().getResource(
+                        "/images/status/user_red.png"));
+        ImageIcon userBlockImage =
+                new ImageIcon(this.getClass().getResource(
+                        "/images/status/user_gray.png"));
+        // ImageIcon icqImage = new ImageIcon(this.getClass().getResource(
+        // "/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png"));
+        // ImageIcon msnImage = new ImageIcon(this.getClass().getResource(
+        // "/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png"));
+        ImageIcon userAwayImage =
+                new ImageIcon(this.getClass().getResource(
+                        "/images/status/user_orange.png"));
 
-        buddyListPane.addGroup("     Online     "
-                + UserData.getCountOnline() + "/" + buddies.size(),
-                userOnlineImage);
-        buddyListPane.addGroup("     Away/Busy     " + UserData.getCountAway() + "/" + buddies.size(), userAwayImage);
-        buddyListPane.addGroup("     Offline     " + UserData.getCountOffline() + "/" + buddies.size(), userOfflineImage);
-        buddyListPane.addGroup("     Blocked     " + UserData.getCountBlock() + "/" + buddies.size(), userBlockImage);
+        buddyListPane.addGroup("     Online     " + UserData.getCountOnline()
+                + "/" + buddies.size(), userOnlineImage);
+        buddyListPane.addGroup("     Away/Busy     " + UserData.getCountAway()
+                + "/" + buddies.size(), userAwayImage);
+        buddyListPane.addGroup("     Offline     " + UserData.getCountOffline()
+                + "/" + buddies.size(), userOfflineImage);
+        buddyListPane.addGroup("     Blocked     " + UserData.getCountBlock()
+                + "/" + buddies.size(), userBlockImage);
 
         pictureUpdateThread = new PictureUpdateThread();
         pictureUpdateThread.start();
@@ -225,22 +240,29 @@ public class BuddyPanel extends GPanel implements Observer {
 
         // rightclick menu
         rightClickMenu = new JPopupMenu();
-        menuItem1 = new JMenuItem("Start New Conversation", new ImageIcon(this
-                .getClass().getResource("/images/popup/comment.png")));
-        menuItem2 = new JMenuItem("Add to open Conversation", new ImageIcon(
-                this.getClass().getResource("/images/popup/comments_add.png")));
-        menuItem3 = new JMenuItem("Remove Friend", new ImageIcon(this
-                .getClass().getResource("/images/buddylist/delete_user.png")));
-        menuItem4 = new JMenuItem("Block Friend", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/block_user.png")));
-        menuItem5 = new JMenuItem("View Profile", new ImageIcon(this.getClass()
-                .getResource("/images/popup/pictures.png")));
+        menuItem1 =
+                new JMenuItem("Start New Conversation", new ImageIcon(this
+                        .getClass().getResource("/images/popup/comment.png")));
+        menuItem2 =
+                new JMenuItem("Add to open Conversation", new ImageIcon(this
+                        .getClass().getResource(
+                                "/images/popup/comments_add.png")));
+        menuItem3 =
+                new JMenuItem("Remove Friend", new ImageIcon(this.getClass()
+                        .getResource("/images/buddylist/delete_user.png")));
+        menuItem4 =
+                new JMenuItem("Block Friend", new ImageIcon(this.getClass()
+                        .getResource("/images/buddylist/block_user.png")));
+        menuItem5 =
+                new JMenuItem("View Profile", new ImageIcon(this.getClass()
+                        .getResource("/images/popup/pictures.png")));
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new inviteFriendListener());
         menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
-        menuItem5.addMouseListener(new RightClickMenuViewProfileFriendListener());
+        menuItem5
+                .addMouseListener(new RightClickMenuViewProfileFriendListener());
 
         rightClickMenu.add(menuItem1);
         rightClickMenu.add(menuItem2);
@@ -252,7 +274,8 @@ public class BuddyPanel extends GPanel implements Observer {
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller
+                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroller.getVerticalScrollBar().setUnitIncrement(16);
         options = OptionsBar();
 
@@ -277,10 +300,12 @@ public class BuddyPanel extends GPanel implements Observer {
         // Remove all conflicting users
         for (group = 0; group < boxes.length; group++) {
             for (int i = 1; i < boxes[group].getComponentCount(); i++) {
-                previous = ((FriendPanel) boxes[group].getComponent(i - 1))
-                        .getWrapper().getUser();
-                current = ((FriendPanel) boxes[group].getComponent(i))
-                        .getWrapper().getUser();
+                previous =
+                        ((FriendPanel) boxes[group].getComponent(i - 1))
+                                .getWrapper().getUser();
+                current =
+                        ((FriendPanel) boxes[group].getComponent(i))
+                                .getWrapper().getUser();
 
                 if (previous.compareTo(current) > 0) {
                     // Means that previous is less online... this is bad
@@ -289,8 +314,9 @@ public class BuddyPanel extends GPanel implements Observer {
                     boxes[group].remove(toRemove);
                     outOfOrderBuddyArray.add(current);
                     buddyArray.get(group).remove(current);
-                    toRemove = (FriendPanel) buddyListPane.getGroup(group)
-                            .getBoxes().getComponent(i);
+                    toRemove =
+                            (FriendPanel) buddyListPane.getGroup(group)
+                                    .getBoxes().getComponent(i);
                     outOfOrderPane.add(toRemove);
                     buddyListPane.removeElement(group, toRemove);
                     i--;
@@ -309,8 +335,8 @@ public class BuddyPanel extends GPanel implements Observer {
             } else if (current.getState() == UserStateType.OFFLINE) {
                 group = 2;
             } else
-            	group = 1;
-            
+                group = 1;
+
             for (int j = 0; j < buddyArray.size() && !found; j++) {
                 if (current.compareTo(buddyArray.get(group).get(j)) < 0) {
                     // Means that the out-of-order user is more online
@@ -318,25 +344,23 @@ public class BuddyPanel extends GPanel implements Observer {
                     buddyArray.get(group).add(j, outOfOrderBuddyArray.get(i));
                     boxes[group].add(outOfOrderBoxes.get(i), j);
                     buddyListPane.addElement(group, outOfOrderPane.get(i), j);
-                    
+
                     found = true;
                 }
             }
             if (!found) {
                 // Still not found, add to end;
-                 buddyArray.get(group).add(outOfOrderBuddyArray.get(i));
-                 boxes[group].add(outOfOrderBoxes.get(i));
-                 buddyListPane.addElement(group, outOfOrderPane.get(i));
+                buddyArray.get(group).add(outOfOrderBuddyArray.get(i));
+                boxes[group].add(outOfOrderBoxes.get(i));
+                buddyListPane.addElement(group, outOfOrderPane.get(i));
             }
-
-           
 
         }
     }
 
     public void listRepopulate() {
         FriendPanel tempPanel = null;
- 
+
         for (int i = 0; i < 4; i++) {
             buddyListPane.removeAllElements(i);
             boxes[i].removeAll();
@@ -351,31 +375,31 @@ public class BuddyPanel extends GPanel implements Observer {
         for (UserData u : this.buddies) {
             tempPanel = FriendItem(u);
             this.friendPanels.add(tempPanel); // adds wrapper
-            if(!u.getServer().equals(ServerType.TWITTER)){
-	            if(u.isBlocked()){
-	            	//block must be checked first because a blocked user
-	            	//also has a status and would be placed in the category
-	            	buddyArray.get(3).add(u);
-	                boxes[3].add(FriendItem(u));
-	                buddyListPane.addElement(3, tempPanel);
-	            } else if (u.getState() == UserStateType.ONLINE) {
-	                buddyArray.get(0).add(u);
-	                boxes[0].add(FriendItem(u));
-	                buddyListPane.addElement(0, tempPanel);
-	            } else if (u.getState() == UserStateType.AWAY ||
-	            		u.getState() == UserStateType.BUSY) {
-	                buddyArray.get(1).add(u);
-	                boxes[1].add(FriendItem(u));
-	                buddyListPane.addElement(1, tempPanel);
-	            } else if (u.getState() == UserStateType.OFFLINE) {
-	                buddyArray.get(2).add(u);
-	                boxes[2].add(FriendItem(u));
-	                buddyListPane.addElement(2, tempPanel);
-	            } else{
-	                buddyArray.get(3).add(u);
-	                boxes[3].add(FriendItem(u));
-	                buddyListPane.addElement(3, tempPanel);
-	            }
+            if (!u.getServer().equals(ServerType.TWITTER)) {
+                if (u.isBlocked()) {
+                    // block must be checked first because a blocked user
+                    // also has a status and would be placed in the category
+                    buddyArray.get(3).add(u);
+                    boxes[3].add(FriendItem(u));
+                    buddyListPane.addElement(3, tempPanel);
+                } else if (u.getState() == UserStateType.ONLINE) {
+                    buddyArray.get(0).add(u);
+                    boxes[0].add(FriendItem(u));
+                    buddyListPane.addElement(0, tempPanel);
+                } else if (u.getState() == UserStateType.AWAY
+                        || u.getState() == UserStateType.BUSY) {
+                    buddyArray.get(1).add(u);
+                    boxes[1].add(FriendItem(u));
+                    buddyListPane.addElement(1, tempPanel);
+                } else if (u.getState() == UserStateType.OFFLINE) {
+                    buddyArray.get(2).add(u);
+                    boxes[2].add(FriendItem(u));
+                    buddyListPane.addElement(2, tempPanel);
+                } else {
+                    buddyArray.get(3).add(u);
+                    boxes[3].add(FriendItem(u));
+                    buddyListPane.addElement(3, tempPanel);
+                }
             }
         }
 
@@ -401,24 +425,29 @@ public class BuddyPanel extends GPanel implements Observer {
         options.setFloatable(false);
 
         this.search = new JTextField();
-        JButton addF = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/add_user.png")));
+        JButton addF =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/add_user.png")));
         addF.setToolTipText("Add a friend");
 
-        JButton removeF = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/delete_user.png")));
+        JButton removeF =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/delete_user.png")));
         removeF.setToolTipText("Remove a friend");
 
-        JButton blockF = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/block_user.png")));
+        JButton blockF =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/block_user.png")));
         blockF.setToolTipText("Block a friend");
 
-        searchButton = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/buddylist/document_preview.png")));
+        searchButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching for a contact");
 
-        googleSearchButton = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/google_search.png")));
+        googleSearchButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/google_search.png")));
         googleSearchButton.setToolTipText("Click me to start Googling");
 
         // add components
@@ -466,7 +495,8 @@ public class BuddyPanel extends GPanel implements Observer {
                     }
                 }
             } else {
-                String resultMessage = "Please provide a key word in the search field.";
+                String resultMessage =
+                        "Please provide a key word in the search field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
         }
@@ -512,7 +542,8 @@ public class BuddyPanel extends GPanel implements Observer {
 
             if (chatClient.getAvailableRoom().size() > 0) {
                 if (!model.groupChatWindowOpen)
-                    new GroupChatConfigurationFrame(chatClient, model, chat, buddyWindow);
+                    new GroupChatConfigurationFrame(chatClient, model, chat,
+                            buddyWindow);
             }
 
             else {
@@ -580,49 +611,55 @@ public class BuddyPanel extends GPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
             String userFriendID;
-            //String result = "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
+            // String result =
+            // "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
 
             // not able to cancel it for now
 
-            userFriendID = JOptionPane
-                    .showInputDialog("Enter an email address: ");
+            userFriendID =
+                    JOptionPane.showInputDialog("Enter an email address: ");
 
             if (userFriendID != null
                     && userFriendID.equals(chatClient.getAccount())) {
-                String redundancy = "Argh, you cannot add yourself! Please provide a different email address.";
+                String redundancy =
+                        "Argh, you cannot add yourself! Please provide a different email address.";
                 JOptionPane.showMessageDialog(null, redundancy);
 
             }
 
             else if ((userFriendID != null && !userFriendID.equals(""))
                     && !userExist(userFriendID)) {
-                chatClient.addFriend(userFriendID);
-                MusicPlayer addMusic = new MusicPlayer(
-                        "/audio/buddy/addFriend.wav", model);
-                
-
-                // buddies.add(new GoogleTalkUserData(userFriendID));
-
-                // add friends to the buddy list
-
-                // boxes[0].add(FriendItem(buddies.get(buddies.size() - 1)));
-
-                // boxes[0].getComponent(buddies.size() - 1).addMouseListener(
-                // new SelectListener());
-
-                // friendList.updateUI();
-
+                selectedAccount = null;
+                if (model.getProfileCollection().getActiveProfile()
+                        .getAccountData().size() > 1) {
+                    accountPrompt =
+                            new AccountPrompt(model.getProfileCollection()
+                                    .getActiveProfile().getAccountData(),
+                                    buddyWindow);
+                    accountPrompt
+                            .addAccountListener(new AccountSelectForAddFriend());
+                    tempFriendToAdd = userFriendID;
+                } else {
+                    selectedAccount =
+                            model.getProfileCollection().getActiveProfile()
+                                    .getAccountData().get(0);
+                    chatClient.addFriend(selectedAccount, userFriendID);
+                    MusicPlayer addMusic =
+                            new MusicPlayer("/audio/buddy/addFriend.wav", model);
+                }
             }
 
             else if (userFriendID == null || userFriendID.equals("")) {
-                String redundancy = "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
+                String redundancy =
+                        "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
                 JOptionPane.showMessageDialog(null, redundancy);
 
             }
 
             else {
-                String redundancy = "Argh, the friend's email address you have provided is already an existing contact. " +
-                		"Please provide a non-existing friend's email address.";
+                String redundancy =
+                        "Argh, the friend's email address you have provided is already an existing contact. "
+                                + "Please provide a non-existing friend's email address.";
                 JOptionPane.showMessageDialog(null, redundancy);
 
             }
@@ -648,14 +685,28 @@ public class BuddyPanel extends GPanel implements Observer {
     }
 
     /**
+     * Allows AccountPrompt to pass back the account selected.
+     */
+    private class AccountSelectForAddFriend implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            selectedAccount = accountPrompt.getSelectedAccount();
+            chatClient.addFriend(selectedAccount, tempFriendToAdd);
+            MusicPlayer addMusic =
+                    new MusicPlayer("/audio/buddy/addFriend.wav", model);
+            return;
+        }
+    }
+
+    /**
      * FriendItem to check friend status.
      * 
      * @param user
      * @return friendItem
      */
     public FriendPanel FriendItem(UserData user) {
-        ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
-                "/images/chatwindow/personal.png"));
+        ImageIcon defaultIcon =
+                new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/personal.png"));
         JLabel label = null;
         FriendPanel friendItem = new FriendPanel();
         FriendWrapper tempWrapper = null;
@@ -749,24 +800,24 @@ public class BuddyPanel extends GPanel implements Observer {
                     try {
                         avatarImage = chatClient.getAvatarPicture(user);
                         Image img = avatarImage.getImage();
-                        img = img.getScaledInstance(25, 25,
-                                java.awt.Image.SCALE_SMOOTH);
+                        img =
+                                img.getScaledInstance(25, 25,
+                                        java.awt.Image.SCALE_SMOOTH);
                         ImageIcon newIcon = new ImageIcon(img);
                         label.setIcon(newIcon);
                     } catch (XMPPException e) {
                         System.err.println("Error in picture thread");
                         e.printStackTrace();
                     }
-                }
-                else {
-                	// Rests thread to prevent cpu overload
-                	try {
-                		Thread.currentThread();
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                } else {
+                    // Rests thread to prevent cpu overload
+                    try {
+                        Thread.currentThread();
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -778,9 +829,9 @@ public class BuddyPanel extends GPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.BUDDY) {
             this.refreshBuddyList();
-        }else if(arg == UpdatedType.COLOR){
-        	setGradientColors(model.primaryColor, model.secondaryColor);
-        	updateUI();
+        } else if (arg == UpdatedType.COLOR) {
+            setGradientColors(model.primaryColor, model.secondaryColor);
+            updateUI();
         }
 
         return;
@@ -795,7 +846,7 @@ public class BuddyPanel extends GPanel implements Observer {
         buddies = model.getCurrentProfile().getAllFriends();
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
-        
+
         // buddyListPane.removeAllElements(0);
 
         // Now check to see if there is a search going on
@@ -811,7 +862,8 @@ public class BuddyPanel extends GPanel implements Observer {
             }
         }
 
-        System.out.println("gui: " + guiFriendCount + " ... model: " + buddies.size());
+        System.out.println("gui: " + guiFriendCount + " ... model: "
+                + buddies.size());
         // Only repopulate if count changed
         if (guiFriendCount != buddies.size()) {
             this.listRepopulate();
@@ -867,14 +919,14 @@ public class BuddyPanel extends GPanel implements Observer {
                             }
                         } else if (event.getSource().equals(
                                 buddyListPane.getComponent(j, i))) {
-                        	
+
                             // Right Click
                             rightClickMenu.show(buddyListPane
                                     .getComponent(j, i), event.getX(), event
                                     .getY());
-                                    //+ 25 * i);
-                            selectedName = buddyListPane.getComponent(j, i)
-                                    .getName();
+                            // + 25 * i);
+                            selectedName =
+                                    buddyListPane.getComponent(j, i).getName();
                             selectedFriend = buddyArray.get(j).get(i);
                             if (selectedFriend.isBlocked()) {
                                 menuItem4.setText("Unblock Friend");
@@ -898,8 +950,9 @@ public class BuddyPanel extends GPanel implements Observer {
                 }
             }
 
-            MusicPlayer highlightMusic = new MusicPlayer(
-                    "/audio/buddy/buddyHighlightedSound.wav", model);
+            MusicPlayer highlightMusic =
+                    new MusicPlayer("/audio/buddy/buddyHighlightedSound.wav",
+                            model);
         }
 
         // unimplemented mouselistener methods
@@ -947,14 +1000,14 @@ public class BuddyPanel extends GPanel implements Observer {
         public void keyReleased(KeyEvent e) {
             if (search.getText().length() < 1) {
                 searchEnabled = false;
-                //boxes[0].getComponent(0).setBackground(Color.WHITE);
+                // boxes[0].getComponent(0).setBackground(Color.WHITE);
                 refreshBuddyList();
             } else { // we have text! search!
                 searchEnabled = true;
 
                 refreshBuddyList();
-                //boxes[0].getComponent(0)
-                //        .setBackground(new Color(145, 200, 200));
+                // boxes[0].getComponent(0)
+                // .setBackground(new Color(145, 200, 200));
 
             }
 
@@ -972,20 +1025,22 @@ public class BuddyPanel extends GPanel implements Observer {
     }
 
     private void searchBuddies() {
-        //buddies = UserData.sortByStringMatch(buddies, search.getText());
+        // buddies = UserData.sortByStringMatch(buddies, search.getText());
         buddies = UserData.cullByStringMatch(buddies, search.getText());
 
         return;
     }
-    
+
     private class RightClickMenuViewProfileFriendListener extends MouseAdapter {
 
-		public void mousePressed(MouseEvent arg0) {
-			JOptionPane.showMessageDialog(null, "View Profile is not supported for the beta version. Sorry for the inconvenience.", "Information", JOptionPane.INFORMATION_MESSAGE);
-			
-		}
+        public void mousePressed(MouseEvent arg0) {
+            JOptionPane
+                    .showMessageDialog(
+                            null,
+                            "View Profile is not supported for the beta version. Sorry for the inconvenience.",
+                            "Information", JOptionPane.INFORMATION_MESSAGE);
 
-	
-    	
+        }
+
     }
 }
