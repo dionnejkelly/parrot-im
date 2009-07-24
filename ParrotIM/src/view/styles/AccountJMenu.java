@@ -15,6 +15,7 @@ import controller.MainController;
 import controller.services.BadConnectionException;
 
 import model.dataType.AccountData;
+import model.enumerations.ServerType;
 
 public class AccountJMenu extends JMenu{
 	MainController controller;
@@ -26,8 +27,38 @@ public class AccountJMenu extends JMenu{
 	
 	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies){
 		super(account.getServer() + " - " + account.getUserID());
-		setIcon(new ImageIcon(this.getClass().getResource(
-        "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")));
+		
+		if (account.getServer() == ServerType.GOOGLE_TALK) {
+			setIcon(new ImageIcon(this.getClass().getResource(
+	        "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")));
+		}
+		
+		else if (account.getServer() == ServerType.JABBER) {
+			setIcon(new ImageIcon(this.getClass().getResource(
+	        "/images/buddylist/statusIcons/Jabber/Jabber-Available.png")));
+		}
+		
+		else if (account.getServer() == ServerType.AIM) {
+			setIcon(new ImageIcon(this.getClass().getResource(
+	        "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")));
+		}
+		
+		else if (account.getServer() == ServerType.ICQ) {
+			setIcon(new ImageIcon(this.getClass().getResource(
+	        "/images/buddylist/statusIcons/ICQ/ICQ-Available.png")));
+		}
+		
+		else if (account.getServer() == ServerType.MSN) {
+			setIcon(new ImageIcon(this.getClass().getResource(
+	        "/images/buddylist/statusIcons/MSN/MSN-Available.png")));
+		}
+		
+		else {
+			setIcon(new ImageIcon(this.getClass().getResource(
+	        "/images/buddylist/twitter_logo.png")));
+		}
+		
+		
 		this.account = account;
 		this.buddies = buddies;
 		controller = c;
