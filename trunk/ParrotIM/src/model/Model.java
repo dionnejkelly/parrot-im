@@ -119,6 +119,8 @@ public class Model extends Observable {
     public Color secondaryColor = Color.white;
     public Color tertiaryColor = new Color(136, 235, 93);
     public Color primaryTextColor = Color.BLACK;
+    public Color textPaneColor = Color.BLACK;
+    public Color inComingMessageColor = Color.BLACK;
 
     // Section
     // II - Constructors
