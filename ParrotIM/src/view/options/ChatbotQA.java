@@ -48,6 +48,8 @@ public class ChatbotQA extends JFrame implements Observer{
 	private JButton addA;
 	private JButton removeA;
 	
+	private JLabel questionLabel, answerLabel;
+	
 	private Model model;
 	/**
 	 * if edit is true, use for adding a new Q/A
@@ -85,7 +87,8 @@ public class ChatbotQA extends JFrame implements Observer{
 	private void setPanels(){
 		
 		/*QUESTIONS*/
-		JLabel questionLabel = new JLabel("Questions:");
+		questionLabel = new JLabel("Questions:");
+		questionLabel.setForeground(model.primaryTextColor);
 		QList = new JList (QAObject.getQuestions());
 		QList.addListSelectionListener(new QuestionsListSelectionListener());
 		JScrollPane QListScroll = new JScrollPane (QList);
@@ -114,7 +117,8 @@ public class ChatbotQA extends JFrame implements Observer{
 		questionPanel.add(QButtonsPanel, BorderLayout.SOUTH);
 		
 		/*ANSWERS*/
-		JLabel answerLabel = new JLabel("Answers:");
+		answerLabel = new JLabel("Answers:");
+		answerLabel.setForeground(model.primaryTextColor);
 		AList = new JList (QAObject.getAnswers());
 		AList.addListSelectionListener(new AnswersListSelectionListener());
 		JScrollPane AListScroll = new JScrollPane (AList);
@@ -341,6 +345,9 @@ public class ChatbotQA extends JFrame implements Observer{
 		if(arg == UpdatedType.COLOR){
 			mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 			addNewQAPanel.setGradientColors(model.primaryColor, model.secondaryColor);
+			questionLabel.setForeground(model.primaryTextColor);
+			answerLabel.setForeground(model.primaryTextColor);
+			
 			mainPanel.updateUI();
 			addNewQAPanel.updateUI();
 		}

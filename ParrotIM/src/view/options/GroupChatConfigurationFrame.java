@@ -135,6 +135,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 
         this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.GROUPCHAT));
 		usersToInvite = new JLabel("Users to invite: ");
+		usersToInvite.setForeground(model.primaryTextColor);
 		//String[] usersList = {"Only online users should be displayed here", "kevin.fahy@gmail.com", "parroim.test@gmail.com", "jrfox02@gmail.com"};
 		
 		usersGroup = new JComboBox(UserData.getOnlineBuddy());
@@ -142,7 +143,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 		usersGroup.addActionListener(new StyleListener());
 		
 		groupChatRoomLabel = new JLabel("Group Chat Room: ");
-		
+		groupChatRoomLabel.setForeground(model.primaryTextColor);
 
 		inviteButton = new JButton ("Invite");
 		inviteButton.addActionListener(new inviteActionListener());
@@ -174,9 +175,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 		mainPanel.add(groupRoom);
 		mainPanel.add(QButtonsPanel);
 	}
-	
 
-	
 //	private void setRoomPanels(){
 //		
 //	
@@ -212,38 +211,20 @@ public class GroupChatConfigurationFrame extends JFrame{
 //
 //	}
 	
-	
-	
-	
 	private class StyleListener implements ActionListener {
-
-		
-
 		public void actionPerformed(ActionEvent event) {
 			
-			
 		}
-			
-		
 	}
 		
 	private class cancelActionListener implements ActionListener{
-
 		public void actionPerformed(ActionEvent e) {
 			//mainFrame.dispose();
 		    popUpFrame.dispose();
-		
-			
 		}
 	}
 	
 	public class TextBoxListener implements KeyListener {
-
-		public void keyPressed(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
 		public void keyReleased(KeyEvent arg0) {
 			if (messageText.getText().length() > 0) {
 				inviteButton.setEnabled(true);
@@ -255,11 +236,8 @@ public class GroupChatConfigurationFrame extends JFrame{
 			
 		}
 
-		public void keyTyped(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
+		public void keyTyped(KeyEvent arg0) {}
+		public void keyPressed(KeyEvent arg0) {}
 	}
 	
 	private class inviteActionListener implements ActionListener{
@@ -281,28 +259,13 @@ public class GroupChatConfigurationFrame extends JFrame{
 					System.out.println("The room does contain Parrot");
 					controller.inviteFriend(friend, roomName + "@conference.jabber.org");
 				}
-					
 				else {
 					System.out.println("The room doesn't contain Parrot");
-					controller.inviteFriend(friend, roomName);
-					
+					controller.inviteFriend(friend, roomName);	
 				}
 			}
-			
-			
-	
 		}
 	}
-	
-	
-	
-
-	
-	
-
-
-	
-	
 }
 
 
