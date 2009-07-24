@@ -89,8 +89,7 @@ public class ManageAccount extends GPanel implements Observer {
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         this.profile = profile;
         this.profile.addObserver(this);
-        System.out.println(colors.PRIMARY_COLOR_DARK);
-        this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        this.setGradientColors(model.primaryColor, model.secondaryColor);
         this.model = model;
 
         // set main panel

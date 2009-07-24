@@ -76,7 +76,7 @@ public class PersonalProfileTab extends GPanel implements Observer {
 		//super(false);
 		this.BuddyListStatus = accInfo.presence;
         this.BuddyListPM = accInfo.statusMessage;
-        this.setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        this.setGradientColors(model.primaryColor, model.secondaryColor);
         this.model = model;
         
 		/*LEFT COMPONENTS*/
