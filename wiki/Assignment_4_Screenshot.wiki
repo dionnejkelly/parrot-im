@@ -9,24 +9,30 @@
 ==Login Windows:==
 
 http://parrot-im.googlecode.com/files/loginPage.jpg
+
+Enter password of the profile to sign in
+
 http://parrot-im.googlecode.com/files/Login.jpg
 
 
 ==Create account into profile:==
 
+===_Create new profile window_===
+
 http://parrot-im.googlecode.com/files/createNewProfile.jpg
 http://parrot-im.googlecode.com/files/createNewProfile2.jpg
 
-select jabber
+
+===_Account manager window_===
+
+add accout of each server into the profile just created.
 
 http://parrot-im.googlecode.com/files/createNewProfile3.jpg
 http://parrot-im.googlecode.com/files/createNewProfile4.jpg
 
-"add" to add account into progile
-
 http://parrot-im.googlecode.com/files/createNewProfile5.jpg
 
-  * Account Manager & Remove Account are not implement in this version yet.
+  * Manage Profile & Remove Account functions are not implement in this version yet.
 
 ==Guest Login:==
 
@@ -35,21 +41,34 @@ http://parrot-im.googlecode.com/files/LoginGuest2.jpg
 http://parrot-im.googlecode.com/files/LoginGuest3.jpg
 
 ==Buddy list:==
+In this version, Parrot-IM buddy list is separated by server types.
 
 http://parrot-im.googlecode.com/files/BuddyList.jpg
 
 ==Chat Window:==
+In this version, avatar picture of each buddy is shown on the list.
 
 http://parrot-im.googlecode.com/files/ChatWindow2.jpg
 
 === _Add / Delete / Block function:_===
-at this stage, we implement add/delete/block function in Parrot-IM.
+In this version, we implement add/delete/block function in Parrot-IM.
 
 User can modify their Buddy list by clicking icons http://parrot-im.googlecode.com/files/adduserIcon.jpg
 http://parrot-im.googlecode.com/files/deleteuserIcon.jpg
 http://parrot-im.googlecode.com/files/blockuserIcon.jpg
 
+"Add friend"
+
+http://parrot-im.googlecode.com/files/AddUser2.jpg
+http://parrot-im.googlecode.com/files/AddUser3.jpg
+
+"Dedlete friend"
+
+http://parrot-im.googlecode.com/files/RemoveUser1.jpg
+
+
 === _Chat Log window:_===
+conversation history
 
 http://parrot-im.googlecode.com/files/viewconversation.jpg
 http://parrot-im.googlecode.com/files/viewconversation2.jpg
