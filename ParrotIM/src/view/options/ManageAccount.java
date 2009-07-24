@@ -323,6 +323,10 @@ public class ManageAccount extends GPanel implements Observer {
     private class removeActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             int selected = accList.getSelectedIndex();
+            
+        	AccountData test = (AccountData)accList.getSelectedValue();
+        	// System.out.println("THIS IS" + test.getNickname());
+ 
             if (selected >= 0) {
             	System.out.println("MANAGEACCOUNT: "+selected);
             	System.out.println("MANAGEACCOUNT: "+((AccountData) accList.getSelectedValue()).getUserID());
@@ -333,6 +337,7 @@ public class ManageAccount extends GPanel implements Observer {
                 System.out.println("GO HERE");
                 removeButton.setEnabled(false);
             }
+            
         }
     }
 

@@ -96,7 +96,9 @@ public class AccountJMenu extends JMenu{
 		this.add(removeMenu);
 
 	}
-	
+	public AccountData getAccount(){
+		return account;
+	}
 	public void connectAccount(boolean connect){
 		if (connect){ //connecting
 			try {
@@ -110,7 +112,7 @@ public class AccountJMenu extends JMenu{
 //				new JOptionPane (account.getUserID()+ " failed signing in.");
 			}
 		} else { //disconnect
-			controller.disconnect(account);
+			//controller.disconnect(account);
 			System.out.println("account is now offline");
 			//signMenu.setText("Sign in");
 			signMenu.setEnabled(true);
@@ -123,6 +125,7 @@ public class AccountJMenu extends JMenu{
 		public void actionPerformed(ActionEvent arg0) {
 			if (account.isConnected()){
 				System.out.println("account is online and we have to disconnect it");
+				controller.disconnect(account);
 				connectAccount(false);
 			}
 			else{
