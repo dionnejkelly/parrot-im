@@ -179,7 +179,7 @@ public class BuddyList extends JFrame {
         String lcOSName = System.getProperty("os.name").toLowerCase();
         if (!(lcOSName.startsWith("mac"))) {
         	fileMenu = new JMenu("Home");
-            fileMenu.setMnemonic(KeyEvent.VK_F);
+            fileMenu.setMnemonic(KeyEvent.VK_H);
             menuBar.add(fileMenu);
        
             JMenuItem exitItem1 = new JMenuItem("Exit",  new ImageIcon(this.getClass().getResource(
@@ -190,7 +190,7 @@ public class BuddyList extends JFrame {
 
         //ACCOUNTS//
         contactMenu = new JMenu("Accounts");
-        contactMenu.setMnemonic(KeyEvent.VK_C);
+        contactMenu.setMnemonic(KeyEvent.VK_A);
         
         JMenuItem logoutItem = new JMenuItem("Sign Out All Accounts",  new ImageIcon(this.getClass().getResource(
         "/images/menu/sign_out.png")));

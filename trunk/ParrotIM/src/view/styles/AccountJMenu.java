@@ -21,22 +21,41 @@ public class AccountJMenu extends JMenu{
 	BuddyPanel buddies;
 	JMenuItem signMenu;
 	
+	private JMenuItem signOutMenu;
+	
 	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies){
-		super(account.getUserID());
+		super("GoogleTalk - " + account.getUserID());
 		this.account = account;
 		this.buddies = buddies;
 		controller = c;
 		this.setMnemonic(KeyEvent.VK_S);
-
+		
 		//SIGN MENU//
 		signMenu= new JMenuItem();
-		if (account.isOnline())
-			signMenu.setText("Sign out");
-		else
-			signMenu.setText("Sign in");
+		signMenu.setText("Sign out");
+		
+		signOutMenu= new JMenuItem();
+		signOutMenu.setText("Sign out");
+		signOutMenu.setEnabled(false);
+		
+		JMenuItem addFriendMenu= new JMenuItem("Add a friend");
+//		if (account.isOnline())
+//			signMenu.setText("Sign out");
+//		else
+//			signMenu.setText("Sign in");
+		
+		JMenuItem removeMenu = new JMenuItem("Remove account");
+		
 		signMenu.setMnemonic(KeyEvent.VK_S);
+		signOutMenu.setMnemonic(KeyEvent.VK_S);
+		addFriendMenu.setMnemonic(KeyEvent.VK_A);
+		removeMenu.setMnemonic(KeyEvent.VK_R);
 		signMenu.addActionListener(new SignMenuActionListener());
 		this.add(signMenu);
+		this.add(signOutMenu);
+		this.add(addFriendMenu);
+		this.addSeparator();
+		this.add(removeMenu);
 
 	}
 	
@@ -45,7 +64,9 @@ public class AccountJMenu extends JMenu{
 			try {
 				controller.login(account);
 				System.out.println("account is now online");
-				signMenu.setText("Sign out");
+				//signMenu.setText("Sign out");
+				signMenu.setEnabled(false);
+				signOutMenu.setEnabled(true);
 			} catch (BadConnectionException e) {
 				//throw warning
 //				new JOptionPane (account.getUserID()+ " failed signing in.");
@@ -53,7 +74,9 @@ public class AccountJMenu extends JMenu{
 		} else { //disconnect
 			controller.disconnect(account);
 			System.out.println("account is now offline");
-			signMenu.setText("Sign in");
+			//signMenu.setText("Sign in");
+			signMenu.setEnabled(true);
+			signOutMenu.setEnabled(false);
 		}
 		buddies.listRepopulate();
 	}
