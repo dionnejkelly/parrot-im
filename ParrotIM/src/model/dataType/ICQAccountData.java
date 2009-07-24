@@ -74,12 +74,12 @@ public class ICQAccountData extends AccountData implements ICQPerson {
      */
     public boolean addFriend(UserData friend) {
         boolean notDuplicate = false;
-        ICQUserData googleFriend = null;
+        ICQUserData icqFriend = null;
 
-        if (friend != null && friend instanceof GoogleTalkUserData) {
-            googleFriend = (ICQUserData) friend;
-            if (!friendExists(googleFriend)) {
-                this.friends.add(googleFriend);
+        if (friend != null && friend instanceof ICQUserData) {
+            icqFriend = (ICQUserData) friend;
+            if (!friendExists(icqFriend)) {
+                this.friends.add(icqFriend);
                 notDuplicate = true;
             }
         }
@@ -124,7 +124,7 @@ public class ICQAccountData extends AccountData implements ICQPerson {
         boolean areEqual = super.equals(o);
         
         if (areEqual) {
-            areEqual = o instanceof GoogleTalkAccountData;
+            areEqual = o instanceof ICQAccountData;
         }
         
         return areEqual;
