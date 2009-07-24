@@ -47,6 +47,11 @@ public class AboutFrame extends JFrame {
      * is opened or not).
      */
     Model model;
+    
+    private JLabel parrotLabel;
+    
+    private JPanel informations;
+    
     /**
      * aboutFrame constructor. This window describes about ParrotIM
      */
@@ -71,13 +76,14 @@ public class AboutFrame extends JFrame {
         avatarDisplay.setIcon(avatar);
         topPanel.add(avatarDisplay, BorderLayout.NORTH);
 
-        JLabel parrotLabel = new JLabel("(c) Pirate Captains 2009");
+        parrotLabel = new JLabel("(c) Pirate Captains 2009");
+        parrotLabel.setForeground(model.primaryTextColor);
         parrotLabel.setOpaque(false);
         parrotLabel.setHorizontalAlignment(SwingConstants.CENTER);
         topPanel.add(parrotLabel, BorderLayout.CENTER);
 
         // informations
-        JPanel informations = new JPanel();
+        informations = new JPanel();
         String[] infoArray =
                 new String[] {
                         "This software is developed by", "Rakan Alkheliwi",
@@ -92,6 +98,7 @@ public class AboutFrame extends JFrame {
 
         for (int pos = 0; pos < infoArray.length; pos++) {
             JLabel infoLabel = new JLabel(infoArray[pos]);
+            infoLabel.setForeground(model.primaryTextColor);
             infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
             informations.add(infoLabel);
         }
