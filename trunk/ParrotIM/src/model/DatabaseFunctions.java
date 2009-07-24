@@ -577,8 +577,10 @@ public class DatabaseFunctions {
 
     public void setStatusMessage(String profile, String statusMessage)
             throws SQLException {
+        statusMessage = this.replace(statusMessage, "'", "''");
         // TODO: change so that it will return null if the avatar is not set
-        stat.executeUpdate("update profiles set statusMessage='"
+        stat.executeUpdate("upda" +
+        		"te profiles set statusMessage='"
                 + statusMessage + "' where name='" + profile + "'");
         conn.close();
     }
@@ -1011,6 +1013,7 @@ public class DatabaseFunctions {
 
     public Vector<String> getAnswersList(String profile, String question)
             throws SQLException {
+        question = this.replace(question, "'", "''");
         Vector<String> answersList = new Vector<String>();
         rs = stat.executeQuery("select * from chatBotAnswers "
                 + "where question='" + question + "' AND profile ='" + profile
@@ -1038,6 +1041,7 @@ public class DatabaseFunctions {
     public Vector<String> getAllAfterQuestions(String profile, String question)
             throws SQLException {
         Vector<String> questionsList = new Vector<String>();
+        question = this.replace(question, "'", "''");
         questionsList.add(question);
         String afterQuestion = "";
         stat = conn.createStatement();
