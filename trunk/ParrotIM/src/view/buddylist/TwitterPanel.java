@@ -36,7 +36,6 @@ import controller.MainController;
 import controller.services.BadConnectionException;
 
 import view.blockManager.BlockManager;
-import view.buddylist.BuddyPanel.PictureUpdateThread;
 import view.mainwindow.HelpPanel;
 import view.options.GroupChatConfigurationFrame;
 import view.options.MusicPlayer;
