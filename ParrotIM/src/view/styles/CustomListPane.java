@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -19,15 +20,18 @@ import javax.swing.ScrollPaneConstants;
 
 import view.chatwindow.UserDataWrapper;
 
-public class CustomListPane extends GPanel {
+public class CustomListPane extends GPanel{
     private ArrayList<String> nicknames = new ArrayList<String>();
     private ArrayList<UserDataWrapper> userWrappers = new ArrayList<UserDataWrapper>();
     private ArrayList<JPanel> userPanels;
+    private ArrayList<JLabel> userLabels = new ArrayList<JLabel>();
     Box boxes[] = new Box[1];
     private ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
             "/images/chatwindow/personal.png"));
     private int lastSelected = 0;
-
+    public boolean modifiableColors = false;
+    private Color textColor = Color.BLACK;
+    
     public CustomListPane() {
         setGradientColors(Color.WHITE, Color.WHITE);
         setLayout(new BorderLayout());
@@ -56,6 +60,8 @@ public class CustomListPane extends GPanel {
         JLabel IconLabel = new JLabel(newIcon);
         IconLabel.setOpaque(false);
         friendPanel.add(IconLabel, BorderLayout.WEST);
+        JLabel nicknameLabel = new JLabel(" " + nickname);
+        userLabels.add(nicknameLabel);
         friendPanel.add(new JLabel(" " + nickname), BorderLayout.CENTER);
         return friendPanel;
     }
@@ -73,11 +79,12 @@ public class CustomListPane extends GPanel {
         ImageIcon newIcon = new ImageIcon(img);
 
         JLabel imageLabel = new JLabel(newIcon);
-        JLabel usernameLabel = new JLabel(user.toString());
         
+        JLabel usernameLabel = new JLabel(user.toString());
+        usernameLabel.setForeground(textColor);
+        userLabels.add(usernameLabel);
         friendPanel.add(imageLabel, BorderLayout.WEST);
         friendPanel.add(usernameLabel, BorderLayout.CENTER);
-
         friendPanel.setToolTipText(user.getToolTipText());
         
         return friendPanel;
@@ -259,5 +266,14 @@ public class CustomListPane extends GPanel {
 
         public void mouseReleased(MouseEvent e) {
         }
+    }
+    
+    public void updateTextColor(Color color){
+    	if(modifiableColors){
+	    	for(JLabel l : userLabels){
+	    		l.setForeground(color);
+	    		l.updateUI();
+	    	}
+    	}
     }
 }
