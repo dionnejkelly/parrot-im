@@ -355,7 +355,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     	public void progressTyping( SwitchboardSession ss, MsnFriend friend, String typingUser )
 	      {
 	          System.out.println(friend.getLoginName() + " is Typing...");
-	          TypingStateType typingState = TypingStateType.ACTIVE;
+	          TypingStateType typingState = TypingStateType.TYPING;
 	          
 	          controller.typingStateUpdated(genericConnection, typingState, friend.getLoginName());
 	      }
