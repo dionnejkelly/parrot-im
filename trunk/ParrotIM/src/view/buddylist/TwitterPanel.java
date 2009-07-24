@@ -41,6 +41,7 @@ import view.chatwindow.ChatWindow;
 
 import model.Model;
 import model.dataType.UserData;
+import model.enumerations.UpdatedType;
 
 /**
  * TwitterPanel display Twitter feeds and status panels for Parrot IM users.
@@ -149,7 +150,7 @@ public class TwitterPanel extends GPanel implements Observer {
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        setGradientColors(colors.PRIMARY_COLOR_MED, Color.WHITE);
+        setGradientColors(model.primaryColor, model.secondaryColor);
         
         this.chatClient = c;
         this.model = model;
@@ -384,9 +385,10 @@ public class TwitterPanel extends GPanel implements Observer {
         }
     }
 
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			setGradientColors(model.primaryColor, model.secondaryColor);
+			updateUI();
+		}
 	}
-
 }
