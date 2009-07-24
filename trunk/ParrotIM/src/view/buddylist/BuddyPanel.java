@@ -254,8 +254,8 @@ public class BuddyPanel extends GPanel implements Observer {
                 new JMenuItem("Block Friend", new ImageIcon(this.getClass()
                         .getResource("/images/buddylist/block_user.png")));
         menuItem5 =
-                new JMenuItem("View Profile", new ImageIcon(this.getClass()
-                        .getResource("/images/popup/pictures.png")));
+                new JMenuItem("Send Email", new ImageIcon(this.getClass()
+                        .getResource("/images/buddylist/mail_generic.png")));
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new inviteFriendListener());
