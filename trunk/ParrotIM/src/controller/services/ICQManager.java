@@ -80,6 +80,7 @@ import controller.MainController;
 import model.Model;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
+import model.enumerations.TypingStateType;
 import model.enumerations.UserStateType;
 
 
@@ -617,14 +618,22 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			System.out.println(text);
 		}
 		public void gotTypingState(Conversation conversation, TypingInfo typingInfo) {
+			TypingStateType typingState = TypingStateType.ACTIVE;
 			if (typingInfo.getTypingState().equals(TypingState.TYPING)){
-				System.out.println(conversation.getBuddy()+" is typing");
+				System.out.println(conversation.getBuddy().getNormal() +" is typing");
 				controller.setTypingState(2);
+				typingState = TypingStateType.TYPING;
+		          
+		          
 			}else if (typingInfo.getTypingState().equals(TypingState.PAUSED)){
 				controller.setTypingState(5);
+				typingState = TypingStateType.PAUSED;
 			}else if (typingInfo.getTypingState().equals(TypingState.NO_TEXT)){
 				controller.setTypingState(1);
+				typingState = TypingStateType.GONE;
 			}
+			
+			controller.typingStateUpdated(genericConnection, typingState, conversation.getBuddy().getNormal());
 			
 		}
 		
