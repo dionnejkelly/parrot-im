@@ -1022,7 +1022,7 @@ public class BuddyPanel extends GPanel implements Observer {
             JOptionPane
                     .showMessageDialog(
                             null,
-                            "View Profile is not supported for the beta version. Sorry for the inconvenience.",
+                            "Email is not supported for the beta version. Sorry for the inconvenience.",
                             "Information", JOptionPane.INFORMATION_MESSAGE);
 
         }
