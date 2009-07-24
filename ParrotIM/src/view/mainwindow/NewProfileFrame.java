@@ -25,14 +25,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -44,13 +44,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 
-import controller.MainController;
-
-import view.styles.AutoFocusedButton;
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
@@ -85,12 +79,12 @@ public class NewProfileFrame extends JFrame {
         profilePanel.add(profileName);
 
         /* DEFAULT PROFILE */
-        defaultCheck = new JCheckBox("Default Profile (Auto-Signin)");
+        defaultCheck = new JCheckBox("Default Profile");
         defaultCheck.setPreferredSize(new Dimension(375, 20));
         defaultCheck.setAlignmentX(LEFT_ALIGNMENT);
-        defaultCheck
-                .setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs."
-                        + "<br>There can only be one Default Profile, checking this will set this profile as the new default");
+//        defaultCheck
+//                .setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs."
+//                        + "<br>There can only be one Default Profile, checking this will set this profile as the new default");
 
         autoSigninCheck = new JCheckBox("Auto Signin");
         autoSigninCheck.setPreferredSize(new Dimension(330, 20));
@@ -134,12 +128,14 @@ public class NewProfileFrame extends JFrame {
         optionPanel.add(passwordOption);
 
         /* BUTTONS */
-        nextButton = new AutoFocusedButton("Next", new ImageIcon(this.getClass()
+        nextButton = new JButton("Next", new ImageIcon(this.getClass()
                 .getResource("/images/mainwindow/next.png")));
         nextButton.setEnabled(false);
+        nextButton.addKeyListener(new NextCancelButtonKeyListener(true));
         nextButton.addActionListener(new nextButtonActionListener());
-        JButton cancelButton = new AutoFocusedButton("Cancel", new ImageIcon(this
+        JButton cancelButton = new JButton("Cancel", new ImageIcon(this
                 .getClass().getResource("/images/mainwindow/cancel.png")));
+        cancelButton.addKeyListener(new NextCancelButtonKeyListener(false));
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
@@ -168,6 +164,35 @@ public class NewProfileFrame extends JFrame {
 
     }
 
+    private void cancelButtonFunction(){
+    	popupFrame.dispose();
+    }
+    private void nextButtonFunction(){
+        ProfileData newProfile = null;
+        if (profileName.getText().length() > 15) {
+            popupFrame.setAlwaysOnTop(false);
+            String warning = "Please provide a profile name of no longer than 15 characters.";
+            JOptionPane.showMessageDialog(null, warning);
+        } else if (profileName.getText().length() > 0) {
+            newProfile = new ProfileData(profileName.getText());
+            if (passwordCheck.isEnabled()) {
+                newProfile.setPassword(String.copyValueOf(passwordField
+                        .getPassword()));
+            }
+            model.getProfileCollection().addProfile(newProfile);
+            if (defaultCheck.isSelected()) {
+                model.getProfileCollection().setDefaultProfile(newProfile);
+            }
+            if (autoSigninCheck.isSelected()) {
+                newProfile.setAutoSignInEnabled(true);
+            }
+
+            ManageAccountFrame manageAccount = new ManageAccountFrame(newProfile, model);
+            manageAccount.addWindowListener(new PopupWindowListener(
+                    mainFrame, manageAccount));
+            popupFrame.dispose();
+        }
+    }
     private class CheckListener implements ChangeListener {
         private JCheckBox check;
         private JPanel panel;
@@ -188,37 +213,13 @@ public class NewProfileFrame extends JFrame {
     private class cancelButtonActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            popupFrame.dispose();
+            cancelButtonFunction();
         }
     }
 
     private class nextButtonActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            ProfileData newProfile = null;
-            if (profileName.getText().length() > 15) {
-                popupFrame.setAlwaysOnTop(false);
-                String warning = "Please provide a profile name of no longer than 15 characters.";
-                JOptionPane.showMessageDialog(null, warning);
-            } else if (profileName.getText().length() > 0) {
-                newProfile = new ProfileData(profileName.getText());
-                if (passwordCheck.isEnabled()) {
-                    newProfile.setPassword(String.copyValueOf(passwordField
-                            .getPassword()));
-                }
-                model.getProfileCollection().addProfile(newProfile);
-                if (defaultCheck.isSelected()) {
-                    model.getProfileCollection().setDefaultProfile(newProfile);
-                }
-                if (autoSigninCheck.isSelected()) {
-                    newProfile.setAutoSignInEnabled(true);
-                }
-
-                ManageAccountFrame manageAccount = new ManageAccountFrame(newProfile, model);
-                manageAccount.addWindowListener(new PopupWindowListener(
-                        mainFrame, manageAccount));
-                popupFrame.dispose();
-            }
-
+        	nextButtonFunction();
         }
     }
 
@@ -239,6 +240,32 @@ public class NewProfileFrame extends JFrame {
             // Will not be implemented.
         }
 
+    }
+    
+    private class NextCancelButtonKeyListener implements KeyListener{
+    	private boolean isNextButton;
+    	public NextCancelButtonKeyListener(boolean isNextButton){
+    		this.isNextButton = isNextButton;
+    	}
+		public void keyPressed(KeyEvent e) {}
+		
+		public void keyReleased(KeyEvent e) {
+			if (isNextButton && e.getKeyChar() == e.VK_ENTER){
+				System.out.println("next Button");
+				nextButtonFunction();
+			}
+			else{
+				if (e.getKeyChar() == e.VK_ENTER){
+					System.out.println("cancel button");
+					cancelButtonFunction();
+				}
+				
+			}
+		}
+		
+		public void keyTyped(KeyEvent e) {}
+		
+    	
     }
 
 }
