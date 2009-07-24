@@ -84,9 +84,6 @@ public class BugReportFrame extends JFrame{
 		setResizable(false);
 		setLocationRelativeTo(null);
 
-		
-		
-		
 		pack();
 		getContentPane().add(mainPanel);
 		setVisible(true);
@@ -95,23 +92,25 @@ public class BugReportFrame extends JFrame{
 		
 	}
 	
-	
-	
 	private void setPanels(){
-		
 		Dimension preferredDimension = new Dimension (400,20);
 		Border preferredBorder = BorderFactory.createEmptyBorder(0,20,0,20);
-		questionLabel = new JLabel("<html>To: <FONT COLOR=WHITE>" + messageTo +"</FONT></html>", JLabel.LEFT);
+		questionLabel = new JLabel("To: " + messageTo, JLabel.LEFT);
+		questionLabel.setForeground(model.primaryTextColor);
 		questionLabel.setPreferredSize(new Dimension(400,40));
 		questionLabel.setBorder(BorderFactory.createEmptyBorder(15,20,0,20));
 		subjectLabel = new JLabel("Title: " , JLabel.LEFT);
+		subjectLabel.setForeground(model.primaryTextColor);
 		subjectLabel.setPreferredSize(preferredDimension);
 		subjectLabel.setBorder(preferredBorder);
 		messageLabel = new JLabel("Problem Description: (please be specific)" );
+		messageLabel.setForeground(model.primaryTextColor);
 		messageLabel.setPreferredSize(preferredDimension);
 		messageLabel.setBorder(preferredBorder);
 		frequencyLabel = new JLabel("Frequency: ");
+		frequencyLabel.setForeground(model.primaryTextColor);
 		severityLabel = new JLabel("Severity: ");
+		severityLabel.setForeground(model.primaryTextColor);
 
 		subjectText = new JTextField(29);
 		subjectText.setToolTipText("Enter a one line summary of your report.");
@@ -137,9 +136,13 @@ public class BugReportFrame extends JFrame{
 		frequency.addActionListener(new StyleListener());
 		
 		criticalImpact = new JRadioButton("Critical");
+		criticalImpact.setForeground(model.primaryTextColor);
 		majorImpact = new JRadioButton("Major");
+		majorImpact.setForeground(model.primaryTextColor);
 		minorImpact = new JRadioButton("Minor");
+		minorImpact.setForeground(model.primaryTextColor);
 		noImpact = new JRadioButton("No Impact");
+		noImpact.setForeground(model.primaryTextColor);
 		
 		criticalImpact.setOpaque(false);
 		majorImpact.setOpaque(false);
@@ -170,7 +173,6 @@ public class BugReportFrame extends JFrame{
 	    group.add(minorImpact);
 	    group.add(noImpact);
 
-	    
 	    
 		JPanel severityPanel = new JPanel();
 		severityPanel.setOpaque(false);
@@ -203,68 +205,42 @@ public class BugReportFrame extends JFrame{
 		mainPanel.add(severityLabel, frequencyPanel.getLayout());
 		mainPanel.add(severityPanel);
 		mainPanel.add(QButtonsPanel);
-
 	}
 	
-	
-	
-	
 	private class StyleListener implements ActionListener {
-
-		
-
 		public void actionPerformed(ActionEvent event) {
-			
 			frequencyReport = frequency.getSelectedItem().toString();
 			System.out.println(frequencyReport);
 			severityReport =  event.getActionCommand();
 			
-			
 			if (severityReport.contains("comboBoxChanged")) {
 				severityReport = "Unspecified";
 			}
-			
 			System.out.println(severityReport);
 		}
-		
 	}
 		
 	private class cancelActionListener implements ActionListener{
-
 		public void actionPerformed(ActionEvent e) {
 			mainFrame.dispose();
-		
-			
 		}
 	}
 	
 	public class TextBoxListener implements KeyListener {
-
-		public void keyPressed(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
 		public void keyReleased(KeyEvent arg0) {
 			if (messageText.getText().length() > 0) {
 				sendButton.setEnabled(true);
 			}
-			
 			else {
 				sendButton.setEnabled(false);
 			}
-			
 		}
 
-		public void keyTyped(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
+		public void keyTyped(KeyEvent arg0) {}
+		public void keyPressed(KeyEvent arg0) {}
 	}
 	
 	private class sendActionListener implements ActionListener{
-
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("From: " + model.getCurrentProfile().getAccountData().get(0));
 			BugReport sendAemail = new BugReport("cmpt275testing@gmail.com", "abcdefghi");
@@ -281,15 +257,4 @@ public class BugReportFrame extends JFrame{
 	
 		}
 	}
-	
-	
-	
-
-	
-	
-
-
-	
-	
 }
-
