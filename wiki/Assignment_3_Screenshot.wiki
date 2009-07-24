@@ -3,12 +3,13 @@
 = Introduction =
 
 
-
 = Details =
 
 ==Login Windows:==
 
 http://parrot-im.googlecode.com/files/login.jpg 
+
+Guest login windows
 
 http://parrot-im.googlecode.com/files/connectguestaccount.jpg
 
@@ -20,7 +21,13 @@ http://parrot-im.googlecode.com/files/add%20new%20account.jpg
 
 ==Buddy list:==
 
+In this version, we use color to define status in buddy list. online: green; away: brown; offline: red
+
 http://parrot-im.googlecode.com/files/buddy%20list.jpg
+
+===_Right Click menu_===
+
+http://parrot-im.googlecode.com/files/rightClickMenu.jpg
 
 ==Chat Window:==
 
