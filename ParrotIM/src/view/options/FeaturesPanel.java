@@ -312,11 +312,11 @@ public class FeaturesPanel extends GPanel implements Observer{
         public void actionPerformed(ActionEvent e) {
             if (mode == 'A') { // add
                 addChatbotOptions =
-                        new ChatbotQA(new ChatbotQADataType(model), true);
+                        new ChatbotQA(new ChatbotQADataType(model), true, model);
             } else if (mode == 'E') { // edit
                 addChatbotOptions =
                         new ChatbotQA(chatBotModel.getQAObject(chatbotList
-                                .getSelectedIndex()), false);
+                                .getSelectedIndex()), false, model);
             }
             addChatbotOptions.addWindowListener(new PopupWindowListener(
                     optionframe, addChatbotOptions));

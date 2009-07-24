@@ -11,6 +11,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,12 +27,13 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import model.Model;
 import model.dataType.ChatbotQADataType;
 
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
-public class ChatbotQA extends JFrame{
+public class ChatbotQA extends JFrame implements Observer{
 	private ChatbotQADataType QAObject;
 	private GPanel mainPanel;
 	private JFrame manageQAFrame;
@@ -42,15 +45,19 @@ public class ChatbotQA extends JFrame{
 	private JList AList;
 	private JButton addA;
 	private JButton removeA;
+	
+	private Model model;
 	/**
 	 * if edit is true, use for adding a new Q/A
 	 * if edit is false, use for editing the existing data
 	 * @param dummyQ
 	 * @param edit
 	 * */
-	public ChatbotQA(ChatbotQADataType QAObject, boolean add){
+	public ChatbotQA(ChatbotQADataType QAObject, boolean add, Model model){
 		manageQAFrame = this;
 		this.QAObject = QAObject;
+		this.model = model;
+		this.model.addObserver(this);
 		
 		if(add){ //QAObject is empty
 			this.setTitle("Add New Questions");
@@ -139,7 +146,7 @@ public class ChatbotQA extends JFrame{
 		mainLayout.setVgap(10);
 		mainPanel.setLayout(mainLayout);
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		mainPanel.setGradientColors(mainPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
+		mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 		mainPanel.setAlignmentX(LEFT_ALIGNMENT);
 		mainPanel.add(questionPanel);
 		mainPanel.add(answerPanel);
@@ -290,10 +297,8 @@ public class ChatbotQA extends JFrame{
 					try {
 						QAObject.addQuestion(field.getText());
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					QList.setListData(QAObject.getQuestions());
@@ -302,10 +307,8 @@ public class ChatbotQA extends JFrame{
 					try {
 						QAObject.addAnswer(field.getText());
 					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					AList.setListData(QAObject.getAnswers());
@@ -316,11 +319,7 @@ public class ChatbotQA extends JFrame{
 		}
 		
 		private class newQAfieldKeyListener implements KeyListener{
-
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void keyPressed(KeyEvent arg0) {	}
 
 			public void keyReleased(KeyEvent arg0) {
 				if (field.getText().length()>0)
@@ -329,11 +328,12 @@ public class ChatbotQA extends JFrame{
 					okButton.setEnabled(false);
 			}
 
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void keyTyped(KeyEvent arg0) {}
 		}
+	}
+
+	public void update(Observable arg0, Object arg1) {
+		mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
+		mainPanel.updateUI();
 	}
 }
