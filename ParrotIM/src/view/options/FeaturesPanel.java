@@ -184,7 +184,7 @@ public class FeaturesPanel extends GPanel implements Observer{
         soundCheck.addItemListener(new soundListener());
 
         /* EMAIL NOTIFICATION */
-        if (model.getCurrentProfile().isEmailEnabled()) {
+        if (model.getEmailNotification().equals("Y")) {
        	 emailCheck = new JCheckBox("Toggle Email Notification",  new ImageIcon(this.getClass().getResource(
             "/images/menu/email_add.png")));
            
@@ -397,11 +397,29 @@ public class FeaturesPanel extends GPanel implements Observer{
     	
     	public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.SELECTED) {
-                model.getCurrentProfile().setEmailEnabled(true);
+               // model.getCurrentProfile().setEmailEnabled(true);
+				try {
+					model.setEmailNotification("Y");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 emailCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/email_add.png")));
             } else {
-                model.getCurrentProfile().setEmailEnabled(false);
+                //model.getCurrentProfile().setEmailEnabled(false);
+            	try {
+					model.setEmailNotification("N");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 emailCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/email_delete.png")));
             }

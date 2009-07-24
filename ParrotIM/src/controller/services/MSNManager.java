@@ -26,9 +26,11 @@ import view.mainwindow.HelpPanel;
 import view.styles.ProgressMonitorScreen;
 import winterwell.jtwitter.Twitter;
 
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -462,18 +464,32 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
         
         int option;
         
-        if (unread > 1) {
-        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
-        }
+        try {
+			if (model.getEmailNotification().equals("Y")) {
+				if (unread > 1) {
+			    	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread emails.\nWould you like to read these emails right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+			    }
+			    
+			    else {
+			    	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread email.\nWould you like to read this email right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
+			    }
+			    
+			    
+			    if (option == JOptionPane.OK_OPTION) {
+			    	HelpPanel openEmail = new HelpPanel("http://www.hotmail.com");
+			    }
+			}
+		} catch (HeadlessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-        else {
-        	option = JOptionPane.showConfirmDialog(null, "You have " + unread + " unread email.\nWould you like to read this email right now?", "Unread Email", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-        
-        if (option == JOptionPane.OK_OPTION) {
-        	HelpPanel openEmail = new HelpPanel("http://www.hotmail.com");
-        }
         
     }
     
