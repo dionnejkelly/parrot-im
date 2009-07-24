@@ -23,6 +23,7 @@ import controller.MainController;
 import model.*;
 import model.dataType.ChatCollectionData;
 import model.dataType.Conversation;
+import model.enumerations.UpdatedType;
 
 import java.util.*;
 
@@ -83,7 +84,8 @@ public class SidePanel extends GPanel implements Observer {
         
         // List preferences
         listPane = new CustomListPane();
-        listPane.setGradientColors(listPane.colors.PRIMARY_COLOR_MED, Color.WHITE);
+        listPane.setGradientColors(model.primaryColor, model.secondaryColor);
+        listPane.modifiableColors = true;
         
         // rightclick menu
         rightClickMenu = new JPopupMenu();
@@ -187,6 +189,12 @@ public class SidePanel extends GPanel implements Observer {
             e.printStackTrace();
         }
         // }
+        
+        if(o == UpdatedType.COLOR){
+        	listPane.updateTextColor(model.primaryTextColor);
+        	listPane.updateUI();
+        }
+        
         return;
     }
 
