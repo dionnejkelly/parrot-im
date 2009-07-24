@@ -118,6 +118,7 @@ public class NewProfileFrame extends JFrame {
         JPanel passwordOption = new JPanel();
         passwordOption.setAlignmentX(LEFT_ALIGNMENT);
         passwordOption.add(passwordField);
+        passwordOption.setOpaque(false);
         passwordOption.setVisible(false);
 
         passwordCheck.addChangeListener(new CheckListener(passwordCheck,
