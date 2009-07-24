@@ -170,7 +170,7 @@ public class AccountInfo extends GPanel implements Observer
 			statusMessage.setText(twitterMan.getMyRecentStatus());
 		}
 		statusMessage.changePM(false, false);
-		presence = new StatusCombo(chatClient);
+		presence = new StatusCombo(chatClient, false);
 		presence.setForeground(new Color(38, 112, 140));
 		//presence.setBackground(new Color(224, 224, 224));
 		if (!model.getCurrentProfile().getName().equals("Guest")){

@@ -336,7 +336,7 @@ public class BuddyPanel extends GPanel implements Observer {
 
     public void listRepopulate() {
         FriendPanel tempPanel = null;
-        System.out.println("REPAINTING!");
+ 
         for (int i = 0; i < 4; i++) {
             buddyListPane.removeAllElements(i);
             boxes[i].removeAll();
