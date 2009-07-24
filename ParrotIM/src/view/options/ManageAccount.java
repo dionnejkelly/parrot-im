@@ -76,8 +76,10 @@ public class ManageAccount extends GPanel implements Observer {
     private JPasswordField pwdField;
     private JComboBox server;
     private JButton addButton;
-    private JPanel rightPanel;
-
+    private JPanel rightPanel, jabberServerPanel, jabberServerLabelPanel;
+    private JPanel usernamePanel, setupPanel, passwordPanel;
+    private JLabel jabberServerLabel, UNLabel, pwdLabel;
+    
     protected JPanel serverPanel;
     protected JTextField jabberServer;
     protected JButton removeButton;
@@ -156,14 +158,12 @@ public class ManageAccount extends GPanel implements Observer {
         // add-remove button panel
         JPanel addremovePanel = new JPanel();
         addremovePanel.setOpaque(false);
-//        addremovePanel.setBackground(colors.SECONDARY_COLOR_LT);
         addremovePanel.add(addButton);
         addremovePanel.add(removeButton);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout());
         leftPanel.setOpaque(false);
-//        leftPanel.setBackground(colors.SECONDARY_COLOR_LT);
         leftPanel.add(listScroller, BorderLayout.NORTH);
         leftPanel.add(addremovePanel, BorderLayout.SOUTH);
 
@@ -189,53 +189,53 @@ public class ManageAccount extends GPanel implements Observer {
         jabberServer.addKeyListener(keyListener);
 //        jabberServer.setPreferredSize(new Dimension(180, 20));
         jabberServer.setToolTipText("specify jabber server");
-        JPanel jabberServerPanel = new JPanel();
+        jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
-        jabberServerPanel.setBackground(colors.SECONDARY_COLOR_LT);
+        jabberServerPanel.setBackground(model.tertiaryColor);
         jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
         // label
-        JLabel jabberServerLabel = new JLabel("Jabber server:  ");
-        jabberServerLabel.setForeground(colors.SECONDARY_COLOR_DARK);
-        JPanel jabberServerLabelPanel = new JPanel();
+        jabberServerLabel = new JLabel("Jabber server:  ");
+        jabberServerLabel.setForeground(model.primaryTextColor);
+        jabberServerLabelPanel = new JPanel();
         jabberServerLabelPanel.setLayout(new BorderLayout());
-        jabberServerLabelPanel.setBackground(colors.SECONDARY_COLOR_LT);
+        jabberServerLabelPanel.setBackground(model.tertiaryColor);
         jabberServerLabelPanel.add(jabberServerLabel, BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
         serverPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
-        serverPanel.setBackground(colors.SECONDARY_COLOR_LT);
+        serverPanel.setBackground(model.tertiaryColor);
         serverPanel.add(jabberServerLabelPanel, BorderLayout.WEST);
         serverPanel.add(jabberServerPanel, BorderLayout.CENTER);
 
         // set username
-        JPanel usernamePanel = new JPanel();
-        usernamePanel.setBackground(colors.SECONDARY_COLOR_LT);
+        usernamePanel = new JPanel();
+        usernamePanel.setBackground(model.tertiaryColor);
         UNField = new JTextField();
         UNField.addKeyListener(keyListener);
         UNField.setPreferredSize(new Dimension(160, 20));
-        JLabel UNLabel = new JLabel("Username:     ");
-        UNLabel.setBackground(colors.SECONDARY_COLOR_LT);
-        UNLabel.setForeground(colors.SECONDARY_COLOR_DARK);
+        UNLabel = new JLabel("Username:     ");
+        UNLabel.setBackground(model.tertiaryColor);
+        UNLabel.setForeground(model.primaryTextColor);
         usernamePanel.add(UNLabel);
         usernamePanel.add(UNField);
         usernamePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         // set password
-        JPanel passwordPanel = new JPanel();
-        passwordPanel.setBackground(colors.SECONDARY_COLOR_LT);
+        passwordPanel = new JPanel();
+        passwordPanel.setBackground(model.tertiaryColor);
         pwdField = new JPasswordField();
         pwdField.addKeyListener(keyListener);
         pwdField.setPreferredSize(new Dimension(160, 20));
-        JLabel pwdLabel = new JLabel("Password:      ");
-        pwdLabel.setBackground(colors.SECONDARY_COLOR_LT);
-        pwdLabel.setForeground(colors.SECONDARY_COLOR_DARK);
+        pwdLabel = new JLabel("Password:      ");
+        pwdLabel.setBackground(model.tertiaryColor);
+        pwdLabel.setForeground(model.primaryTextColor);
         passwordPanel.add(pwdLabel);
         passwordPanel.add(pwdField);
 
         // account setup Panel
-        JPanel setupPanel = new JPanel();
+        setupPanel = new JPanel();
         setupPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        setupPanel.setBackground(colors.SECONDARY_COLOR_LT);
+        setupPanel.setBackground(model.tertiaryColor);
         setupPanel.setLayout(new BoxLayout(setupPanel, BoxLayout.Y_AXIS));
         setupPanel.add(server);
         setupPanel.add(serverPanel);
@@ -373,7 +373,24 @@ public class ManageAccount extends GPanel implements Observer {
     
     public void update(Observable o, Object arg) {
 		if(arg == UpdatedType.COLOR){
+			jabberServerPanel.setBackground(model.tertiaryColor);
+			
+			jabberServerLabelPanel.setBackground(model.tertiaryColor);
+			jabberServerLabel.setForeground(model.primaryTextColor);
+			serverPanel.setBackground(model.tertiaryColor);
+			
+			UNLabel.setBackground(model.tertiaryColor);
+	        UNLabel.setForeground(model.primaryTextColor);
+	        
+	        pwdLabel.setBackground(model.tertiaryColor);
+	        pwdLabel.setForeground(model.primaryTextColor);
+	        
+	        usernamePanel.setBackground(model.tertiaryColor);
+	        passwordPanel.setBackground(model.tertiaryColor);
+	        setupPanel.setBackground(model.tertiaryColor);
+	        
 			setGradientColors(model.primaryColor, model.secondaryColor);
+			
 			this.updateUI();
 		}
 		
