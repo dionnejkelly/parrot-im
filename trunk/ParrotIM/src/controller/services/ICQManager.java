@@ -19,6 +19,7 @@ import net.kano.joscar.snaccmd.FullUserInfo;
 import net.kano.joscar.snaccmd.auth.AuthCommand;
 import net.kano.joscar.snaccmd.auth.AuthResponse;
 import net.kano.joscar.snaccmd.conn.SetExtraInfoCmd;
+import net.kano.joscar.snaccmd.loc.GetInfoCmd;
 import net.kano.joustsim.Screenname;
 import net.kano.joustsim.oscar.AimConnection;
 import net.kano.joustsim.oscar.AimConnectionProperties;
@@ -205,8 +206,10 @@ public class ICQManager implements GenericConnection {
 //    	Long bitFlag = connection.getBuddyInfoManager()
 //		.getBuddyInfo(new Screenname(userID)).getIcqStatus();
 //    	
-    	
-
+//    	GetInfoCmd getInfoCmd =
+//            new GetInfoCmd(GetInfoCmd.CMD_USER_INFO, contactIdentifier);
+//    	connection.getInfoService().getOscarConnection()
+//        .sendSnacRequest();
     	return curState;
     }
 
