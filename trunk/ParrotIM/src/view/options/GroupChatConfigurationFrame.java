@@ -29,6 +29,7 @@ import API.BuddyList;
 
 import controller.MainController;
 
+import view.styles.GPanel;
 import view.styles.PopupEnableMainWindowListener;
 import view.styles.PopupWindowListener;
 
@@ -47,7 +48,7 @@ public class GroupChatConfigurationFrame extends JFrame{
      */
     protected Model model;
     
-	private JPanel mainPanel;
+	private GPanel mainPanel;
 	
 	private JFrame mainFrame;
 	private JFrame popUpFrame;
@@ -114,9 +115,7 @@ public class GroupChatConfigurationFrame extends JFrame{
 		this.setTitle("Group Chat Configuration");
 		
 		
-		
 		setAllPanels();
-		
 		
 		
 		this.setPreferredSize(new Dimension(330,180));
@@ -124,19 +123,13 @@ public class GroupChatConfigurationFrame extends JFrame{
 		setLocationRelativeTo(null);
 
 		
-		
-		
 		pack();
 		getContentPane().add(mainPanel);
 		setVisible(true);
 		setIconImage(new ImageIcon(this.getClass().getResource("/images/mainwindow/logo.png")).getImage());
 		this.setLocation(600 ,200);
-		 this.addWindowListener(new PopupWindowListener(this.mainFrame, popUpFrame));
-		
+		this.addWindowListener(new PopupWindowListener(this.mainFrame, popUpFrame));
 	}
-	
-	
-	
 	
 	private void setAllPanels() {
 
@@ -165,9 +158,6 @@ public class GroupChatConfigurationFrame extends JFrame{
 		groupRoom.addActionListener(new StyleListener());
 		
 
-		
-		
-		
 		JPanel QButtonsPanel = new JPanel();
 		QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
 		QButtonsPanel.setLayout(new BoxLayout(QButtonsPanel, BoxLayout.X_AXIS));
@@ -176,7 +166,8 @@ public class GroupChatConfigurationFrame extends JFrame{
 		
 		
 		/*WRAP UP*/
-		mainPanel = new JPanel();
+		mainPanel = new GPanel();
+		mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 		mainPanel.add(usersToInvite);
 		mainPanel.add(usersGroup);
 		mainPanel.add(groupChatRoomLabel);
