@@ -131,6 +131,8 @@ public class BlockManager extends JFrame implements Observer {
 
     private MainController chatClient;
 
+    private JLabel usersLabel, blockedLabel;
+    
     // Section
     // III - Constructors
 
@@ -224,7 +226,9 @@ public class BlockManager extends JFrame implements Observer {
         addremovePanel.add(blockButton);
 
         // add to leftpanel
-        leftPanel.add(new JLabel("Parrot IM Users"), BorderLayout.NORTH);
+        usersLabel = new JLabel("Parrot IM Users");
+        usersLabel.setForeground(model.primaryTextColor);
+        leftPanel.add(usersLabel, BorderLayout.NORTH);
         leftPanel.add(listScroller, BorderLayout.CENTER);
         leftPanel.add(addremovePanel, BorderLayout.SOUTH);
 
@@ -394,7 +398,9 @@ public class BlockManager extends JFrame implements Observer {
       //  buttonsPanel.add(cancelButton);
 
         // adding to rightPanel
-        rightPanel.add(new JLabel("Blocked Parrot IM Accounts"), BorderLayout.NORTH);
+        blockedLabel = new JLabel("Blocked Parrot IM Accounts");
+        blockedLabel.setForeground(model.primaryTextColor);
+        rightPanel.add(blockedLabel, BorderLayout.NORTH);
         rightPanel.add(topRight, BorderLayout.CENTER);
         rightPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
@@ -441,6 +447,11 @@ public class BlockManager extends JFrame implements Observer {
             
             return;
         }else if(arg == UpdatedType.COLOR){
+        	usersLabel.setForeground(model.primaryTextColor);
+        	blockedLabel.setForeground(model.primaryTextColor);
+        	usersLabel.updateUI();
+        	blockedLabel.updateUI();
+        	
         	accMANPanel.setGradientColors(model.primaryColor, model.secondaryColor);
         	accMANPanel.updateUI();
         }   
