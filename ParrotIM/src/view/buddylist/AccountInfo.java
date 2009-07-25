@@ -145,7 +145,7 @@ public class AccountInfo extends GPanel implements Observer
 		//user diplay picture
 		try {
 			avatarDisplay = new AvatarLabel(chatClient,
-					model.getAvatarDirectory(model.getCurrentProfile().getName()), 65);
+					model.getAvatarDirectory(model.getCurrentProfile().getName()), 80);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
