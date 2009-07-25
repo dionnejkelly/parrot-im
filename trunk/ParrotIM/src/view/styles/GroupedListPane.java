@@ -76,6 +76,34 @@ public class GroupedListPane extends JPanel implements Observer {
         boxes[0].add(newPanel);
         boxes[0].add(collapsableListPane);
     }
+    
+    public void addGroup(JLabel textLabel, ImageIcon img) {
+        //Panel Settings
+        GPanel newPanel = new GPanel();
+        newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
+        newPanel.setLayout(new BorderLayout());
+        
+        //imageLabel
+        newPanel.add(new JLabel(img), BorderLayout.WEST);
+        
+        //textLabel
+        //JLabel textLabel = new JLabel(name);
+        labels.add(textLabel);
+        textLabel.setForeground(model.primaryTextColor);
+        newPanel.add(textLabel, BorderLayout.CENTER);
+
+        arrowPanel = new JLabel(arrowIconDown);
+        newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
+        gPanels.add(newPanel);
+
+        CustomListPane collapsableListPane = new CustomListPane();
+        groups.add(collapsableListPane);
+
+        newPanel.addMouseListener(new CollapseListner());
+        boxes[0].add(newPanel);
+        boxes[0].add(collapsableListPane);
+    }
+
 
     public void addGroupTop(String name) {
         GPanel newPanel = new GPanel();
