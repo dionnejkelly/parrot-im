@@ -124,6 +124,7 @@ public class MainController {
      * @param status
      */
     public void setStatus(String status, boolean changeTwitter) {
+
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
