@@ -434,11 +434,17 @@ public class BuddyPanel extends GPanel implements Observer {
         if (user.getState() == UserStateType.ONLINE) {
             boxIndex = 0;
         } else if (user.getState() == UserStateType.AWAY
-                || user.getState() == UserStateType.BUSY) {
+                || user.getState() == UserStateType.BUSY
+                || user.getState() == UserStateType.PHONE
+                || user.getState() == UserStateType.BRB
+                || user.getState() == UserStateType.LUNCH) {
             boxIndex = 1;
         } else if (user.getState() == UserStateType.OFFLINE) {
             boxIndex = 2;
-        } else {
+        } 
+             
+        else {
+        	System.out.println("I should be blocked!!!");
             boxIndex = 3;
         }
 
