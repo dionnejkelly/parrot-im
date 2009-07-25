@@ -85,10 +85,10 @@ import model.enumerations.UserStateType;
 
 
 public class ICQManager implements GenericConnection {
-	private static final String ICQ_SERVER = "login.messaging.aol.com";
+	private static final String ICQ_SERVER = "llogin.messaging.aol.com";
     private static final int ICQ_PORT = 5190;
    
-    private static final int TIME_OUT = 30; //30 seconds
+    private static final int TIME_OUT = 10; //30 seconds
     
     private Boolean error = false;
     
@@ -243,6 +243,7 @@ public class ICQManager implements GenericConnection {
         //this one doesn't work for some how
         //bos.setStatusMessage(status);
         try {
+        	
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -595,6 +596,7 @@ public class ICQManager implements GenericConnection {
 	private void chkConnection(){
 
         int count = 0;
+
         while(connectionState != State.ONLINE && count < TIME_OUT && error == false){
         	//wait until the client is connected and online
         	try {
