@@ -97,7 +97,7 @@ public class ICQManager implements GenericConnection {
 	private RvProcessor rvProcessor;
 	
 	private State connectionState;
-	private UserStateType curState;
+//	private UserStateType curState;
 	
 	private MainController controller;
 	private Model model;
@@ -110,7 +110,7 @@ public class ICQManager implements GenericConnection {
 	public static void main(String[] args) {
 		ICQManager i = new ICQManager(null, null);
 		try {
-			i.login("595605824", "testingicq");
+			i.login("595683137", "testicq");
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,6 +128,12 @@ public class ICQManager implements GenericConnection {
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		try {
+			i.retrieveState("595605824");
+		} catch (BadConnectionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		while (true) {
 			System.out.println("Type your state: ");
@@ -341,7 +347,7 @@ public class ICQManager implements GenericConnection {
         		friendToAdd =
                     new FriendTempData(buddy.getScreenname().getNormal(), buddy.getAlias(), this
                             .retrieveStatus(userID),
-                            UserStateType.OFFLINE,group.getName(), false);
+                            this.retrieveState(userID),group.getName(), false);
         		friends.add(friendToAdd);
         	}
         }
@@ -365,7 +371,13 @@ public class ICQManager implements GenericConnection {
 //    	connection.getInfoService().getOscarConnection()
 //        .sendSnacRequest();
 
-    	return curState;
+    	this.chkConnection();
+    	BuddyInfo bInfo = connection.getBuddyInfoManager().getBuddyInfo(new Screenname(userID));
+    	if (!bInfo.isOnline()){
+    		return UserStateType.OFFLINE;
+    	}else{
+    		return this.longToStatus(bInfo.getIcqStatus());
+    	}
     }
 
     // @Override
@@ -517,16 +529,33 @@ public class ICQManager implements GenericConnection {
         
         connection.getBuddyService().addBuddyListener(new BuddyServiceListener(){
 
-			public void buddyOffline(BuddyService service, Screenname arg1) {
-				curState = UserStateType.OFFLINE;
-				System.out.println(curState);
-				controller.friendUpdated(genericConnection, arg1.getFormatted());
+			public void buddyOffline(BuddyService service, Screenname buddy) {
+//				curState = UserStateType.OFFLINE;
+				try {
+//					System.out.println("buddy offline");
+					//for testing purpose only
+					System.out.println(buddy.getFormatted()+" state: "+retrieveState(buddy.getFormatted()));
+				} catch (BadConnectionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				controller.friendUpdated(genericConnection, buddy.getFormatted());
 			}
 
 			public void gotBuddyStatus(BuddyService service, Screenname buddy,
 					FullUserInfo info) {
-				curState = longToStatus(info.getIcqStatus());
-				System.out.println(curState);
+				try {
+					//for testing purpose only
+					System.out.println(buddy.getFormatted()+" state: "+retrieveState(buddy.getFormatted()));
+
+				} catch (BadConnectionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+//				curState = longToStatus(info.getIcqStatus());
+//				System.out.println(curState);
 				controller.friendUpdated(genericConnection, buddy.getFormatted());
 				
 			}
