@@ -74,7 +74,7 @@ public class ManageAccountFrame extends JFrame {
         //mac/linux 
         String lcOSName = System.getProperty("os.name").toLowerCase();
 
-        if (lcOSName.contains("win"))
+        if (lcOSName.toLowerCase().contains("win"))
         	setPreferredSize(new Dimension(530, 300));
         else
         	setPreferredSize(new Dimension(530, 270));
