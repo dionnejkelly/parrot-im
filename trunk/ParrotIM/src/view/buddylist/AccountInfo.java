@@ -121,7 +121,7 @@ public class AccountInfo extends GPanel implements Observer
 	
 	public StatusCombo presence;
 	private JPanel presencePanel;
-	
+	private Dimension dimension;
 	/**
 	 * variable model for extracting buddy list, each buddy's information and , conversation 
 	 */
@@ -184,36 +184,41 @@ public class AccountInfo extends GPanel implements Observer
 		textInfo.setOpaque(false);
 		textInfo.add(name);
 		textInfo.add(statusMessage);
+//		textInfo.add(presence);
 		
 		//combobox to change presence
-		JPanel info = new JPanel ();
-		info.setOpaque(false);
-		info.setLayout(new BorderLayout ());
-		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
-
 		presencePanel = new JPanel();
 		presencePanel.setOpaque(false);
 		presencePanel.add(presence);
 		
+		JPanel info = new JPanel ();
+		info.setOpaque(false);
+		info.setLayout(new BorderLayout ());
+		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
 		info.add(textInfo, BorderLayout.NORTH);
 		info.add(presencePanel, BorderLayout.WEST);
 		
 		add(avatarDisplay, BorderLayout.WEST);
 		add(info, BorderLayout.CENTER);
 		this.addMouseListener(new statusMouseListener());
+		this.dimension = new Dimension(this.getWidth(), 95);
+		this.setMaximumSize(dimension);
+		this.setMinimumSize(dimension);
+		this.setPreferredSize(dimension);
 		
+		System.out.println("ACCOUNTINFO: " + this.getWidth() + " " +this.getHeight() );
 		model.addObserver(this);
 	}
    
 	// Section
     // III - Accessors and Mutators
 	void IMpanelSelected(){
-		presencePanel.setVisible(true);
+		presence.setVisible(true);
 		statusMessage.setPreferredSize(new Dimension(70,20));
 	}
 	
 	void TwitterpanelSelected(){
-		presencePanel.setVisible(false);
+		presence.setVisible(false);
 		statusMessage.setPreferredSize(new Dimension(70,80));
 	}
 	
