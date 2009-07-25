@@ -18,9 +18,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/joscar-client.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/joscar-common.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/joscar-protocol.jar"/>
-	<classpathentry kind="lib" path="D:/MyFolder/SFU/cmpt 275/jdic-0.9.5-bin-cross-platform/jdic-0.9.5-bin-cross-platform/lib/jdic.jar"/>
-	<classpathentry kind="lib" path="D:/MyFolder/SFU/cmpt 275/jdic-0.9.5-bin-cross-platform/jdic-0.9.5-bin-cross-platform/lib/jdic_native_applet.jar"/>
-	<classpathentry kind="lib" path="D:/MyFolder/SFU/cmpt 275/jdic-0.9.5-bin-cross-platform/jdic-0.9.5-bin-cross-platform/lib/jdic_stub_unix.jar"/>
-	<classpathentry kind="lib" path="D:/MyFolder/SFU/cmpt 275/jdic-0.9.5-bin-cross-platform/jdic-0.9.5-bin-cross-platform/lib/jdic_stub_windows.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic_native_applet.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic_stub_unix.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic_stub_windows.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
