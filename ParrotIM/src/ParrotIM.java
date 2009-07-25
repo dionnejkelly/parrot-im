@@ -14,6 +14,7 @@
  * Full license can be found in ParrotIM/LICENSE.txt.
  */
 
+import java.awt.Desktop;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -29,6 +30,7 @@ public class ParrotIM {
 
     public static void main(String[] args) throws ClassNotFoundException,
             SQLException {
+
         DatabaseFunctions.setDatabaseName("parrot.db");
         Model model = new Model();
         MainController controller = new MainController(model);

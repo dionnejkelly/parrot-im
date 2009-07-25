@@ -24,9 +24,14 @@
 package view.mainwindow;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.swing.JPanel;
+
+import org.jdesktop.jdic.desktop.Desktop;
+import org.jdesktop.jdic.desktop.DesktopException;
 /**
  * Sets the GUI component of Help pop up window.
  * 
@@ -43,23 +48,32 @@ public class HelpPanel extends JPanel{
 		 String browserPath;
 		 String osName = System.getProperty("os.name").toLowerCase();
 		 
-		 if(osName.contains("win")){
-			 browserPath = "C:/Program Files/Internet Explorer/IEXPLORE.EXE "; //Use your browser path 
-//             String[] b = {browserPath, url};
-//             browserPath = b;
-		 } else if (osName.contains("mac")){
-			 browserPath = "open -a Safari ";
-		 } else {
-			 System.out.println("Unsupported OS");
-			 return;
-		 }
+		 try {
+			Desktop.browse(new URL(url));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DesktopException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		 if(osName.contains("win")){
+//			 browserPath = "C:/Program Files/Internet Explorer/IEXPLORE.EXE "; //Use your browser path 
+////             String[] b = {browserPath, url};
+////             browserPath = b;
+//		 } else if (osName.contains("mac")){
+//			 browserPath = "open -a Safari ";
+//		 } else {
+//			 System.out.println("Unsupported OS");
+//			 return;
+//		 }
 		 
-		 try { 	  
-             Runtime.getRuntime().exec(browserPath+url); 
-         } 
-         catch (Exception exc) { 
-        	 exc.printStackTrace(); 
-          } 
+//		 try { 	  
+//             Runtime.getRuntime().exec(browserPath+url); 
+//         } 
+//         catch (Exception exc) { 
+//        	 exc.printStackTrace(); 
+//          } 
 //		setLayout(new BorderLayout());
 //		add (new JLabel("Help here"));
 		
