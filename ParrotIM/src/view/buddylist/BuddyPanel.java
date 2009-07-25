@@ -37,25 +37,24 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
-import org.jivesoftware.smack.XMPPException;
-
-import controller.MainController;
-
-import view.blockManager.BlockManager;
-import view.mainwindow.HelpPanel;
-import view.options.GroupChatConfigurationFrame;
-import view.options.MusicPlayer;
-import view.styles.GPanel;
-import view.styles.GroupedListPane;
-import view.styles.PopupWindowListener;
-import view.chatwindow.ChatWindow;
-
 import model.Model;
 import model.dataType.AccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
+
+import org.jivesoftware.smack.XMPPException;
+
+import view.blockManager.BlockManager;
+import view.chatwindow.ChatWindow;
+import view.mainwindow.HelpPanel;
+import view.options.GroupChatConfigurationFrame;
+import view.options.MusicPlayer;
+import view.styles.GPanel;
+import view.styles.GroupedListPane;
+import view.styles.PopupWindowListener;
+import controller.MainController;
 
 /**
  * BuddyPanel display FriendList and Account information for Parrot IM users.
@@ -101,7 +100,7 @@ public class BuddyPanel extends GPanel implements Observer {
     /**
      * box to store friend list
      */
-    Box boxes[] = new Box[6];
+    Box boxes[] = new Box[4];
 
     GroupedListPane buddyListPane;
 
@@ -153,8 +152,10 @@ public class BuddyPanel extends GPanel implements Observer {
     private String tempFriendToAdd;
 
     private JFrame buddyPanel;
-    
+
     private SelectListener selectListener;
+
+    private ArrayList<JLabel> groupNames;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -182,9 +183,10 @@ public class BuddyPanel extends GPanel implements Observer {
         this.friendWrappers = new ArrayList<FriendWrapper>();
         this.friendPanels = new ArrayList<FriendPanel>();
         this.selectListener = new SelectListener();
+        this.groupNames = new ArrayList<JLabel>();
 
         buddyArray = new ArrayList<ArrayList<UserData>>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
             buddyArray.add(new ArrayList<UserData>());
         }
 
@@ -202,7 +204,7 @@ public class BuddyPanel extends GPanel implements Observer {
         buddies = UserData.sortMostOnline(buddies);
 
         // add friends to the buddy list
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
             boxes[i] = Box.createVerticalBox();
         }
 
@@ -223,15 +225,28 @@ public class BuddyPanel extends GPanel implements Observer {
                 new ImageIcon(this.getClass().getResource(
                         "/images/status/user_orange.png"));
 
+        groupNames.add(new JLabel("     Online      ?/?"));
+        groupNames.add(new JLabel("     Away/Busy     ?/?"));
+        groupNames.add(new JLabel("     Offline      ?/?"));
+        groupNames.add(new JLabel("     Blocked      ?/?"));
+
         buddyListPane = new GroupedListPane(model);
-        buddyListPane.addGroup("     Online     " + UserData.getCountOnline()
-                + "/" + buddies.size(), userOnlineImage);
-        buddyListPane.addGroup("     Away/Busy     " + UserData.getCountAway()
-                + "/" + buddies.size(), userAwayImage);
-        buddyListPane.addGroup("     Offline     " + UserData.getCountOffline()
-                + "/" + buddies.size(), userOfflineImage);
-        buddyListPane.addGroup("     Blocked     " + UserData.getCountBlock()
-                + "/" + buddies.size(), userBlockImage);
+
+        buddyListPane.addGroup(groupNames.get(0), userOnlineImage);
+        buddyListPane.addGroup(groupNames.get(1), userAwayImage);
+        buddyListPane.addGroup(groupNames.get(2), userOfflineImage);
+        buddyListPane.addGroup(groupNames.get(3), userBlockImage);
+
+        // buddyListPane.addGroup("     Online     " + UserData.getCountOnline()
+        // + "/" + buddies.size(), userOnlineImage);
+        // buddyListPane.addGroup("     Away/Busy     " +
+        // UserData.getCountAway()
+        // + "/" + buddies.size(), userAwayImage);
+        // buddyListPane.addGroup("     Offline     " +
+        // UserData.getCountOffline()
+        // + "/" + buddies.size(), userOfflineImage);
+        // buddyListPane.addGroup("     Blocked     " + UserData.getCountBlock()
+        // + "/" + buddies.size(), userBlockImage);
 
         pictureUpdateThread = new PictureUpdateThread();
         pictureUpdateThread.start();
@@ -283,6 +298,30 @@ public class BuddyPanel extends GPanel implements Observer {
         add(options, BorderLayout.SOUTH);
     }
 
+    private String groupToName(int group) {
+        String toReturn = null;
+
+        switch (group) {
+        case 0:
+            toReturn = "     Online       ";
+            break;
+        case 1:
+            toReturn = "     Away/Busy    ";
+            break;
+        case 2:
+            toReturn = "     Offline      ";
+            break;
+        case 3:
+            toReturn = "     Blocked      ";
+            break;
+        default:
+            toReturn = "";
+            break;
+        }
+
+        return toReturn;
+    }
+
     private void reorderFriends() {
         ArrayList<FriendPanel> outOfOrderBoxes = null;
         ArrayList<UserData> outOfOrderBuddyArray = null;
@@ -305,7 +344,7 @@ public class BuddyPanel extends GPanel implements Observer {
 
                 if (group != this.userToBoxIndex(current)) {
                     toRemove = (FriendPanel) boxes[group].getComponent(i);
-                
+
                     outOfOrderBoxes.add(toRemove);
                     boxes[group].remove(toRemove);
                     outOfOrderBuddyArray.add(current);
@@ -342,7 +381,12 @@ public class BuddyPanel extends GPanel implements Observer {
                 boxes[group].add(outOfOrderBoxes.get(i));
                 buddyListPane.addElement(group, outOfOrderPane.get(i));
             }
+        }
 
+        // Refresh the user count
+        for (group = 0; group < boxes.length; group++) {
+            groupNames.get(group).setText(
+                    this.groupToName(group) + boxes[group].getComponentCount());
         }
     }
 
@@ -374,6 +418,8 @@ public class BuddyPanel extends GPanel implements Observer {
 
         // add mouse listeners
         for (int j = 0; j < boxes.length; j++) {
+            groupNames.get(j).setText(
+                    this.groupToName(j) + boxes[j].getComponentCount());
             for (int i = 0; i < boxes[j].getComponentCount(); i++) {
                 // System.out.println(boxes[j].getComponentCount() + ":" + i);
                 buddyListPane.addExternalMouseListener(j, i,
