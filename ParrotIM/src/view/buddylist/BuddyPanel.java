@@ -663,54 +663,65 @@ public class BuddyPanel extends GPanel implements Observer {
 
             // not able to cancel it for now
 
-            userFriendID =
-                    JOptionPane.showInputDialog("Enter an email address: ");
+           
+            
+            if (model.getCurrentProfile().getAccountData().size() > 0) {
+            	 userFriendID =
+                     JOptionPane.showInputDialog("Enter an email address: ");
+            	 
+            	 if (userFriendID != null
+                         && userFriendID.equals(chatClient.getAccount())) {
+                     String redundancy =
+                             "Argh, you cannot add yourself! Please provide a different email address.";
+                     JOptionPane.showMessageDialog(null, redundancy);
 
-            if (userFriendID != null
-                    && userFriendID.equals(chatClient.getAccount())) {
-                String redundancy =
-                        "Argh, you cannot add yourself! Please provide a different email address.";
-                JOptionPane.showMessageDialog(null, redundancy);
+                 }
 
+                 else if ((userFriendID != null && !userFriendID.equals(""))
+                         && !userExist(userFriendID)) {
+                     selectedAccount = null;
+                     if (model.getProfileCollection().getActiveProfile()
+                             .getAccountData().size() > 1) {
+                         accountPrompt =
+                                 new AccountPrompt(model.getProfileCollection()
+                                         .getActiveProfile().getAccountData(),
+                                         buddyWindow);
+                         accountPrompt
+                                 .addAccountListener(new AccountSelectForAddFriend());
+                         tempFriendToAdd = userFriendID;
+                     } else {
+                         selectedAccount =
+                                 model.getProfileCollection().getActiveProfile()
+                                         .getAccountData().get(0);
+                         chatClient.addFriend(selectedAccount, userFriendID);
+                         MusicPlayer addMusic =
+                                 new MusicPlayer("/audio/buddy/addFriend.wav", model);
+                     }
+                 }
+
+                 else if (userFriendID == null || userFriendID.equals("")) {
+                     String redundancy =
+                             "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
+                     JOptionPane.showMessageDialog(null, redundancy);
+
+                 }
+
+                 else {
+                     String redundancy =
+                             "Argh, the friend's email address you have provided is already an existing contact. "
+                                     + "Please provide a non-existing friend's email address.";
+                     JOptionPane.showMessageDialog(null, redundancy);
+
+                 }
+                 System.out.println("User Input = " + userFriendID);
             }
-
-            else if ((userFriendID != null && !userFriendID.equals(""))
-                    && !userExist(userFriendID)) {
-                selectedAccount = null;
-                if (model.getProfileCollection().getActiveProfile()
-                        .getAccountData().size() > 1) {
-                    accountPrompt =
-                            new AccountPrompt(model.getProfileCollection()
-                                    .getActiveProfile().getAccountData(),
-                                    buddyWindow);
-                    accountPrompt
-                            .addAccountListener(new AccountSelectForAddFriend());
-                    tempFriendToAdd = userFriendID;
-                } else {
-                    selectedAccount =
-                            model.getProfileCollection().getActiveProfile()
-                                    .getAccountData().get(0);
-                    chatClient.addFriend(selectedAccount, userFriendID);
-                    MusicPlayer addMusic =
-                            new MusicPlayer("/audio/buddy/addFriend.wav", model);
-                }
-            }
-
-            else if (userFriendID == null || userFriendID.equals("")) {
-                String redundancy =
-                        "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
-                JOptionPane.showMessageDialog(null, redundancy);
-
-            }
-
+            
             else {
-                String redundancy =
-                        "Argh, the friend's email address you have provided is already an existing contact. "
-                                + "Please provide a non-existing friend's email address.";
-                JOptionPane.showMessageDialog(null, redundancy);
-
+            	 String redundancy =
+                     "Sorry for the incovenience but you have to be logged on to at least one account to add a friend.";
+             JOptionPane.showMessageDialog(null, redundancy, "Connection Error", JOptionPane.INFORMATION_MESSAGE);
             }
-            System.out.println("User Input = " + userFriendID);
+           
 
         }
 

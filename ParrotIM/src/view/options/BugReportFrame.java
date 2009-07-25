@@ -242,7 +242,7 @@ public class BugReportFrame extends JFrame{
 	
 	private class sendActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("From: " + model.getCurrentProfile().getAccountData().get(0));
+
 			BugReport sendAemail = new BugReport("cmpt275testing@gmail.com", "abcdefghi");
 			try {
 				sendAemail.sendReport(subjectText.getText(), "Frequency: " + frequencyReport + "\n" + "Severity: " + severityReport + "\n" + "Message:\n" + messageText.getText(), messageTo);
