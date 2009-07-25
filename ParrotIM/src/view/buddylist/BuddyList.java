@@ -192,7 +192,8 @@ public class BuddyList extends JFrame {
         contactMenu = new JMenu("Accounts");
         contactMenu.setMnemonic(KeyEvent.VK_A);
         
-        JMenuItem logoutItem = new JMenuItem("Sign Out All Accounts",  new ImageIcon(this.getClass().getResource(
+        JMenuItem logoutItem = new JMenuItem("Sign Out " + model.getCurrentProfile().getName()
+        		+"\'s Profile",  new ImageIcon(this.getClass().getResource(
         "/images/menu/sign_out.png")));
         logoutItem.addActionListener(new signoutActionListener());
         contactMenu.add(logoutItem);
