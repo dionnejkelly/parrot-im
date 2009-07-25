@@ -161,9 +161,7 @@ public class MainController {
                 }
             }
         }
-        if (!model.getCurrentProfile().getName().equals("Guest")) {
-            model.getCurrentProfile().setStatus(status);
-        }
+        model.getCurrentProfile().setStatus(status);
 
         return;
     }
@@ -336,9 +334,7 @@ public class MainController {
                 }
             }
         }
-        if (!model.getCurrentProfile().getName().equals("Guest")) {
-            model.getCurrentProfile().setState(state);
-        }
+        model.getCurrentProfile().setState(state);
         return;
     }
 
