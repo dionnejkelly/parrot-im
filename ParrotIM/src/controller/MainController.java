@@ -443,6 +443,7 @@ public class MainController {
         if (model.getCurrentProfile() != null) {
             for (AccountData a : model.getCurrentProfile().getAccountData()) {
                 a.getConnection().disconnect();
+                a.removeAllFriends();
                 a.setConnected(false);
             }
         }
@@ -457,7 +458,11 @@ public class MainController {
      * */
     public void disconnect(AccountData account){
     	account.getConnection().disconnect();
+    	account.removeAllFriends();
+    	System.out.println("allfriends are here= " + account.getFriends().size());
     	account.setConnected(false);
+    	
+    	model.forceUpdate(UpdatedType.BUDDY);
     }
 
     /**
