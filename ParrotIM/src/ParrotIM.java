@@ -14,7 +14,6 @@
  * Full license can be found in ParrotIM/LICENSE.txt.
  */
 
-import java.awt.Desktop;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
