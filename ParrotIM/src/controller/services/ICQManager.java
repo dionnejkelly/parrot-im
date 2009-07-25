@@ -785,23 +785,30 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 
 		public void handleResponse(SnacResponseEvent arg0) {
 			if(arg0.getSnacCommand() instanceof AuthResponse){
-				System.out.println("yes!");
+				String error;
 				int errorCode = ((AuthResponse)((AuthCommand)arg0.getSnacCommand())).getErrorCode();
 				if(errorCode == 5){
 					//TO DO: have a qui popup window to show these error message
-					System.out.println("ERROR Invalid screenname or wrong password");
+					error = "ERROR Invalid screenname or wrong password";
+
 				}else if(errorCode == 17){
-					System.out.println("ERROR Account has been suspended temporarily");
+					error = "ERROR Account has been suspended temporarily";
+
 				}else if(errorCode == 20){
-					System.out.println("ERROR Account temporarily unavailable");
+					error = "ERROR Account temporarily unavailable";
+
 				}else if(errorCode == 24){
-					System.out.println("ERROR Connecting too frequently, Try" +
-							" waiting a few minutes to reconnect - AIM recommends 10 minutes");
+					error = "ERROR\nConnecting too frequently,\nTry" +
+					" waiting 10 minutes to reconnect.";
+
 				}else if(errorCode == 28){
-					System.out.println("ERROR Client software is too old to connect");
+					error = "ERROR Client software is too old to connect";
 				}else{
+					error = "ERROR CODE: "+errorCode +". contact support for more detail";
 					System.out.println(errorCode);
 				}
+				//should integrate this in view
+				JOptionPane.showMessageDialog(null, error);
 			}else{
 				
 			}
