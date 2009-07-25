@@ -45,7 +45,7 @@ public class OptionFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mainPanel = new OptionPanel(c, model, this, buddyFrame);
         getContentPane().add(mainPanel);
-        setPreferredSize(new Dimension(520, 340));
+        setPreferredSize(new Dimension(520, 330));
         pack();
 
         setResizable(false);

@@ -88,7 +88,7 @@ public class ManageAccount extends GPanel implements Observer {
 
     public ManageAccount(ProfileData profile, BuddyList buddyFrame, Model model) {
     	this.buddyFrame = buddyFrame;
-        this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.profile = profile;
         this.profile.addObserver(this);
         this.setGradientColors(model.primaryColor, model.secondaryColor);
@@ -135,7 +135,7 @@ public class ManageAccount extends GPanel implements Observer {
         JScrollPane listScroller = new JScrollPane(accList);
         
         if (buddyFrame != null)
-        	listScroller.setPreferredSize(new Dimension(180, 230));
+        	listScroller.setPreferredSize(new Dimension(180, 200));
         else 
         	listScroller.setPreferredSize(new Dimension(180, 185));
         listScroller
