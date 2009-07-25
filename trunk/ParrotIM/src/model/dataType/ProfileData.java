@@ -358,7 +358,8 @@ public class ProfileData extends Observable {
         DatabaseFunctions db = null;
         boolean removed = false;
         System.out.println("hello we got here: " + account.getUserID());
-        account.getConnection().disconnect();
+        if (account.isConnected())
+        	account.getConnection().disconnect();
         removed = this.accountData.remove(account);
 
         if (removed) {
