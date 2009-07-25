@@ -75,6 +75,9 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     private String userID;
     
     private String password;
+    
+    private PollingThread poller;
+    
     /**
      * Non-blocking call.
      * @throws Exception 
@@ -267,8 +270,32 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
         
         this.connect(userID, password);
        
+        poller = new PollingThread();
+        poller.start();
         
         return;
+    }
+    
+    // Section
+    // Polling methods
+
+    private class PollingThread extends Thread {
+    	
+    	
+    		
+        public void run() {
+            try {
+            	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
+                sleep(4500); // Delay for 4 seconds
+            } catch (InterruptedException e) {
+                System.err.println("Threading error");
+                e.printStackTrace();
+            }
+            
+            System.out.println("Muhahaha");
+			controller.refreshFriends(controller.getConnection());
+			
+        }
     }
     
     public void connect(String userID, String password) throws BadConnectionException {

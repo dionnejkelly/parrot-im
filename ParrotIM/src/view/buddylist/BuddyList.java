@@ -71,7 +71,7 @@ public class BuddyList extends JFrame {
 
     private AccountInfo accountInfo;
     
-    private PollingThread poller;
+    
 
     /**
      * BuddyList display friend contact list, status, information and
@@ -156,8 +156,7 @@ public class BuddyList extends JFrame {
         MusicPlayer receiveMusic =
                 new MusicPlayer("/audio/startup/parrotOpening.wav", model);
         
-        poller = new PollingThread();
-        poller.start();
+        
 
     }
 
@@ -460,25 +459,5 @@ public class BuddyList extends JFrame {
 
     }
     
-    // Section
-    // Polling methods
-
-    private class PollingThread extends Thread {
-    	
-    	
-    		
-        public void run() {
-            try {
-            	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
-                sleep(4000); // Delay for 4 seconds
-            } catch (InterruptedException e) {
-                System.err.println("Threading error");
-                e.printStackTrace();
-            }
-            
-            System.out.println("Muhahaha");
-			controller.refreshFriends(controller.getConnection());
-			
-        }
-    }
+  
 }
