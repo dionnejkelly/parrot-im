@@ -63,7 +63,7 @@ public class BuddyList extends JFrame {
     private ChatWindow chat;
 
     private ChatLogFrame chatlog;
-    private OptionFrame options;
+    private static OptionFrame options;
     /**
      * buddy window frame
      */
@@ -266,7 +266,7 @@ public class BuddyList extends JFrame {
     public OptionFrame getOptions(){
     	return options;
     }
-    public boolean optionsIsVisible(){
+    public static boolean optionsIsVisible(){
     	return options != null;
     }
     /**

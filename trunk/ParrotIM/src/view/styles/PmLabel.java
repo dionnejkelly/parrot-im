@@ -39,6 +39,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
+import view.buddylist.BuddyList;
 import view.options.PersonalProfileTab;
 
 import controller.MainController;
@@ -207,7 +208,7 @@ public class PmLabel extends JTextField {
         }
 
         public void keyReleased(KeyEvent e) {
-        	if (PersonalProfileTab.isPersonalTabOpened) {
+        	if (BuddyList.optionsIsVisible()) {
              	PersonalProfileTab.personalMessage.setText(pmLabelTextField.getText());
             }
         	 

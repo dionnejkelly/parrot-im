@@ -68,7 +68,7 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	private PmLabel BuddyListPM;
 	private StatusCombo BuddyListStatus;
 	
-	public static boolean isPersonalTabOpened = false;
+//	public static boolean isPersonalTabOpened = false;
 	
 	private Model model;
 	
@@ -161,10 +161,13 @@ public class PersonalProfileTab extends GPanel implements Observer {
         this.add (leftLayout, BorderLayout.WEST);
 		this.add (rightLayout, BorderLayout.CENTER);
 		
-		isPersonalTabOpened = true;
+//		isPersonalTabOpened = true;
 		model.addObserver(this);
 	}
 	
+//	public static void setIsPersonalTabOpened(boolean opened){
+//		isPersonalTabOpened = opened;
+//	}
 	public void updateStatus(){
 		personalMessage.setText(BuddyListPM.getText());
 		status.setSelectedIndex(BuddyListStatus.getSelectedIndex());
