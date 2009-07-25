@@ -258,8 +258,8 @@ public class ManageAccount extends GPanel implements Observer {
     private class serverListener implements ItemListener {
 
         public void itemStateChanged(ItemEvent e) {
-            UNField.setText(null);
-            pwdField.setText(null);
+//            UNField.setText(null);
+//            pwdField.setText(null);
             if (server.getSelectedIndex() == 0) {
                 serverPanel.setVisible(true);
             } else {
@@ -400,7 +400,7 @@ public class ManageAccount extends GPanel implements Observer {
 		}
 		
 		accList.setListData(new Vector<AccountData>(profile.getAccountData()));
-        accList.updateUI();
+//        accList.updateUI();
 
         return;
 	}

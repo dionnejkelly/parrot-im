@@ -166,12 +166,6 @@ public class ChatLogPanel extends GPanel implements Observer {
         dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         datesScroll = new JScrollPane(dateList);
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
-//        datesScroll
-//                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
-        // bottom right component shows the chat logs
-//        text = new JList (stub);
-//        text.setCellRenderer(new TextListCellRenderer());
         text = new JEditorPane();
         text.setEditable(false);
 //        text.setEnabled(false);
