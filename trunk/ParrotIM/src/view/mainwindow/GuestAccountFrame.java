@@ -139,7 +139,6 @@ public class GuestAccountFrame extends JFrame implements Observer{
 
         // set Frame
         setTitle("Guest Account Login");
-        // this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(400, 250));
         setResizable(false);
         setIconImage(new ImageIcon("imagesimage/mainwindow/logo.png")
@@ -182,7 +181,7 @@ public class GuestAccountFrame extends JFrame implements Observer{
         usernamePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         usernamePanel.setOpaque(false);
         UNFieldGuest = new JTextField();
-        UNFieldGuest.setPreferredSize(new Dimension(180, 20));
+        UNFieldGuest.setPreferredSize(new Dimension(220, 20));
         JLabel usernameLabel = new JLabel("Username:     ");
         usernameLabel.setForeground(model.primaryTextColor);
         usernamePanel.add(usernameLabel);
@@ -191,7 +190,7 @@ public class GuestAccountFrame extends JFrame implements Observer{
         JPanel passwordPanel = new JPanel();
         passwordPanel.setOpaque(false);
         PwdFieldGuest = new JPasswordField();
-        PwdFieldGuest.setPreferredSize(new Dimension(180, 20));
+        PwdFieldGuest.setPreferredSize(new Dimension(220, 20));
         JLabel passwordLabel = new JLabel("Password:      ");
         passwordLabel.setForeground(model.primaryTextColor);
         passwordPanel.add(passwordLabel);
@@ -215,8 +214,6 @@ public class GuestAccountFrame extends JFrame implements Observer{
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 90, 0, 0));
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         buttonsPanel.add(okButton);
         buttonsPanel.add(cancelButton);
 

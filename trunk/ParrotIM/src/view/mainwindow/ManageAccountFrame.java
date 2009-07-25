@@ -64,6 +64,7 @@ import model.dataType.ProfileData;
 
 public class ManageAccountFrame extends JFrame {
 	JFrame manageaccount;
+	
     public ManageAccountFrame(ProfileData profile, Model model) {
     	manageaccount = this;
         setLocationRelativeTo(null);
