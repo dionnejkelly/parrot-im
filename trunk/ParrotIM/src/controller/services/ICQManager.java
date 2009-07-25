@@ -111,6 +111,8 @@ public class ICQManager implements GenericConnection {
 	
 	private  BasicConnection iconConnection;
     
+	private PollingThread poller;
+	
 	public static void main(String[] args) {
 		ICQManager i = new ICQManager(null, null);
 		try {
@@ -195,12 +197,12 @@ public class ICQManager implements GenericConnection {
 //		 }
 //	 }
 	 
-//	 public void setState(long state) {
-//		 if (connection != null && connection.getInfoService() != null) {
-//			 connection.getBosService().setIcqStatus(state);
-//			
-//		 }
-//	 }
+	 public void setState(long state) {
+		 if (connection != null && connection.getInfoService() != null) {
+			 connection.getBosService().setIcqStatus(state);
+			
+		 }
+	 }
 	 
 //	 public void setIdle(long idle) {
 //		 if (connection != null && connection.getInfoService() != null) {
@@ -242,7 +244,30 @@ public class ICQManager implements GenericConnection {
         if (state == UserStateType.INVISIBLE ||state == UserStateType.OFFLINE){
         	//make user invisible to other contacts
         	bos.setVisibleStatus(false);
-        }else{
+        }
+        
+        else if (state == UserStateType.AWAY) {
+       	 setState(1);
+
+        } 
+       
+       else if (state == UserStateType.BUSY) {
+       	setState(2);
+       } 
+       
+       else if (state == UserStateType.BRB) {
+       	setState(4);
+       }
+	 
+       else if (state == UserStateType.PHONE) {
+       	setState(2);
+       }
+	 
+       else if (state == UserStateType.LUNCH) {
+       	setState(4);
+       }
+
+        else{
         	bos.setVisibleStatus(true);
         }
         
@@ -599,6 +624,31 @@ public class ICQManager implements GenericConnection {
 			}
         	
         });
+        
+        poller = new PollingThread();
+        poller.start();
+    }
+    
+    // Section
+    // Polling methods
+
+    private class PollingThread extends Thread {
+    	
+    	
+    		
+        public void run() {
+            try {
+            	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
+                sleep(4500); // Delay for 4 seconds
+            } catch (InterruptedException e) {
+                System.err.println("Threading error");
+                e.printStackTrace();
+            }
+            
+            System.out.println("Muhahaha");
+			controller.refreshFriends(controller.getConnection());
+			
+        }
     }
 
 //    private class SnacRequestAdapterListener extends SnacRequestAdapter {
