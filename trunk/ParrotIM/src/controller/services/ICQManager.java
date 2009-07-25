@@ -90,6 +90,8 @@ public class ICQManager implements GenericConnection {
    
     private static final int TIME_OUT = 30; //30 seconds
     
+    private Boolean error = false;
+    
     private AimConnection connection;
     
 	private AimConnectionProperties connectionProperties;
@@ -498,7 +500,7 @@ public class ICQManager implements GenericConnection {
         connection.connect();
 
         chkConnection();
-        
+
         ClientSnacProcessor processor =  connection.getBosService()
         .getOscarConnection().getSnacProcessor();
         rvProcessor = new RvProcessor(processor);
@@ -593,7 +595,7 @@ public class ICQManager implements GenericConnection {
 	private void chkConnection(){
 
         int count = 0;
-        while(connectionState != State.ONLINE && count < TIME_OUT){
+        while(connectionState != State.ONLINE && count < TIME_OUT && error == false){
         	//wait until the client is connected and online
         	try {
 				Thread.sleep(1000);
@@ -603,9 +605,19 @@ public class ICQManager implements GenericConnection {
 			count++;
         }
         if(count>=30){
+        	JOptionPane.showMessageDialog(null, "ERROR connection timeout, please check your " +
+        			"internet connection");
 			System.out.println("Waiting for too long!!");
 			return;
+		}else if(error == true){
+			try {
+				throw new BadConnectionException();
+			} catch (BadConnectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+        
 	}
 	private UserStateType longToStatus(Long l){
 		//TO DO have to figure out signal value for each state
@@ -785,30 +797,33 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 
 		public void handleResponse(SnacResponseEvent arg0) {
 			if(arg0.getSnacCommand() instanceof AuthResponse){
-				String error;
+				String errorMsg = null;
 				int errorCode = ((AuthResponse)((AuthCommand)arg0.getSnacCommand())).getErrorCode();
 				if(errorCode == 5){
 					//TO DO: have a qui popup window to show these error message
-					error = "ERROR Invalid screenname or wrong password";
-
+					errorMsg = "ERROR Invalid screenname or wrong password";
+					error = true;
 				}else if(errorCode == 17){
-					error = "ERROR Account has been suspended temporarily";
-
+					errorMsg = "ERROR Account has been suspended temporarily";
+					error = true;
 				}else if(errorCode == 20){
-					error = "ERROR Account temporarily unavailable";
-
+					errorMsg = "ERROR Account temporarily unavailable";
+					error = true;
 				}else if(errorCode == 24){
-					error = "ERROR\nConnecting too frequently,\nTry" +
+					errorMsg = "ERROR\nConnecting too frequently,\nTry" +
 					" waiting 10 minutes to reconnect.";
-
+					error = true;
 				}else if(errorCode == 28){
-					error = "ERROR Client software is too old to connect";
+					errorMsg = "ERROR Client software is too old to connect";
+					error = true;
 				}else{
-					error = "ERROR CODE: "+errorCode +". contact support for more detail";
+
 					System.out.println(errorCode);
 				}
 				//should integrate this in view
-				JOptionPane.showMessageDialog(null, error);
+				if(error == true){
+				JOptionPane.showMessageDialog(null, errorMsg);
+				}
 			}else{
 				
 			}
