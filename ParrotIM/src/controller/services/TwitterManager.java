@@ -50,7 +50,11 @@ public class TwitterManager implements GenericConnection {
     private ArrayList<String> friendList;
 
     private String thisScreenName;
+    
+    private PollingThread poller;
 
+    private volatile Thread stopBlinker;
+    
     public static void main(String[] args) throws BadConnectionException	 {
     	TwitterManager twit = new TwitterManager();
     	twit.login("cmpt275testing", "abcdefghi");
@@ -80,7 +84,7 @@ public class TwitterManager implements GenericConnection {
      *            The MainController object that handles the main program flow.
      */
     public TwitterManager(MainController controller, Model model) {
-        PollingThread poller = null;
+//        PollingThread poller = null;
         this.twitter = null;
         this.genericConnection = this;
         this.controller = controller;
@@ -89,9 +93,9 @@ public class TwitterManager implements GenericConnection {
         this.friendList = new ArrayList<String>();
         this.thisScreenName = "";
 
-        // Check server every 30 seconds for updates
-        poller = new PollingThread();
-        poller.start();
+//        // Check server every 30 seconds for updates
+//        poller = new PollingThread();
+//        poller.start();
     }
 
     /**
@@ -131,7 +135,10 @@ public class TwitterManager implements GenericConnection {
 
     public void disconnect() {
         twitter = null; // Cannot actually disconnect in Twitter
-
+      
+       // stop the thread safely
+        stopThread();
+		
         return;
     }
 
@@ -151,6 +158,11 @@ public class TwitterManager implements GenericConnection {
         try {
             twitter = new Twitter(userID, password);
             thisScreenName = userID;
+            
+            // start the polling only when it is logged in
+            // Check server every 30 seconds for updates
+            poller = new PollingThread();
+            poller.start();
         } catch (Exception e) {
             System.err.println("Error logging into twitter");
             e.printStackTrace();
@@ -301,11 +313,18 @@ public class TwitterManager implements GenericConnection {
     public ServerType getServerType() {
         return ServerType.TWITTER;
     }
+    
+    private void stopThread() {
+    	stopBlinker = null;
+    }
 
     // Section
     // Polling methods
 
     private class PollingThread extends Thread {
+    	
+    	
+    		
         public void run() {
             try {
                 sleep(10000); // Delay for 5 seconds
@@ -313,12 +332,13 @@ public class TwitterManager implements GenericConnection {
                 System.err.println("Threading error");
                 e.printStackTrace();
             }
+            Thread thisThread = Thread.currentThread();
 
-            while (true) {
+            while (stopBlinker == thisThread) {
             	
 				try {
-					Thread.currentThread();
-					Thread.sleep(30000);
+					//Thread.currentThread();
+					thisThread.sleep(30000);
 					controller.refreshFriends(genericConnection);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -329,6 +349,7 @@ public class TwitterManager implements GenericConnection {
                 if (twitter != null) {
                     updateLocalFriendList();
                 }
+                
             }
         }
     }
