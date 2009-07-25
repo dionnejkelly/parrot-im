@@ -1266,4 +1266,14 @@ public class Model extends Observable {
                 emailNotification);
     }
 
+	public static String removeNewLinesAndSpaces(String str){
+		for (int pos = str.length()-1 ; pos >= 0; pos--){
+			if (str.charAt(pos) == '\n' ||  str.charAt(pos) == ' ')
+				str = str.substring(0, str.length()-1);
+			else {
+				break;
+			}
+		}
+		return str;
+	}
 }

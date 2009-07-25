@@ -115,6 +115,7 @@ public class ChatPanel extends GPanel implements Observer{
         this.accinfo = buddyFrame.getAccountInfo();
         this.chatFrame = chatFrame;
         this.buddyFrame = buddyFrame;
+        this.slashCommand = new SlashCommand(c);
 
         this.model = model;
         model.addObserver(this);
@@ -342,12 +343,15 @@ public class ChatPanel extends GPanel implements Observer{
         if (msg != null && msg.length() > 0) {
             // if (c.isConferenceChat()) {
         	
-        	slashCommand = new SlashCommand(c);
+        	msg = Model.removeNewLinesAndSpaces(msg);
+        	
         	
         	System.out.println("********************************************* The text area = " + txt1.getText());
         	if (slashCommand.isSlashCommand(msg)) {
             	accinfo.statusMessage.setTextDisplay(model.getCurrentProfile().getStatus());
-            	System.out.println(model.getCurrentProfile().getState().toString());
+            	
+            	System.out.println("This is status from model " + model.getCurrentProfile().getState().toString());
+            	
     	        if (model.getCurrentProfile().getState() == UserStateType.ONLINE ||
     	        		model.getCurrentProfile().getState() == UserStateType.AWAY ||
     	        		model.getCurrentProfile().getState() == UserStateType.BUSY) {
@@ -365,9 +369,6 @@ public class ChatPanel extends GPanel implements Observer{
             	} else {
             		accinfo.presence.setSelectedIndex(6);
             	}
-            	
-//                OFFLINE("Offline"),
-//                INVISIBLE("Invisible"), 
                 
                 
             	if (buddyFrame.optionsIsVisible())
@@ -539,12 +540,7 @@ public class ChatPanel extends GPanel implements Observer{
      */
     public class SendButtonPressed implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-        	
-        	
         		sendMessage();
-
-        	
-            
         }
     }
 
