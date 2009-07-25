@@ -470,7 +470,7 @@ public class BuddyList extends JFrame {
         public void run() {
             try {
             	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
-                sleep(3900); // Delay for 3.8 seconds
+                sleep(4000); // Delay for 4 seconds
             } catch (InterruptedException e) {
                 System.err.println("Threading error");
                 e.printStackTrace();
