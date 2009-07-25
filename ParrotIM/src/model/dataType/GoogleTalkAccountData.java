@@ -114,6 +114,12 @@ public class GoogleTalkAccountData extends AccountData implements
         return removed;
     }
     
+    public void removeAllFriends() {
+        this.friends.clear();
+        
+        return;
+    }
+    
     public int hashCode() {
         int hash = "Google Talk".hashCode();
         

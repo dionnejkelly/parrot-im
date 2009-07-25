@@ -114,6 +114,12 @@ public class MSNAccountData extends AccountData implements MSNPerson {
 
         return removed;
     }
+    
+    public void removeAllFriends() {
+        this.friends.clear();
+        
+        return;
+    }
 
     public void setMinutesSinceUpdate(int minutesSinceUpdate) {
         this.minutesSinceUpdate = minutesSinceUpdate;

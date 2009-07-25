@@ -124,6 +124,12 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
 
         return removed;
     }
+    
+    public void removeAllFriends() {
+        this.friends.clear();
+        
+        return;
+    }
 
     public void setMinutesSinceUpdate(int minutesSinceUpdate) {
         this.minutesSinceUpdate = minutesSinceUpdate;
