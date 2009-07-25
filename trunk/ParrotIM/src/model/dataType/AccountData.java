@@ -146,6 +146,8 @@ public abstract class AccountData extends PersonData {
      */
     public abstract boolean removeFriend(UserData exFriend);
 
+    public abstract void removeAllFriends();
+    
     /**
      * Gets a list of all friends in UserData format.
      * 

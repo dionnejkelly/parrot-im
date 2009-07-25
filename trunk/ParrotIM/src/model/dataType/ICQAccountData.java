@@ -112,6 +112,12 @@ public class ICQAccountData extends AccountData implements ICQPerson {
         return removed;
     }
     
+    public void removeAllFriends() {
+        this.friends.clear();
+        
+        return;
+    }
+    
     public int hashCode() {
         int hash = "ICQ".hashCode();
         

@@ -111,6 +111,12 @@ public class JabberAccountData extends AccountData implements JabberPerson {
 
         return removed;
     }
+    
+    public void removeAllFriends() {
+        this.friends.clear();
+        
+        return;
+    }
 
     public int hashCode() {
         int hash = "Jabber".hashCode();
