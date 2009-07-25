@@ -68,8 +68,10 @@ import net.kano.joustsim.oscar.oscar.service.icbm.TypingState;
 import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
+import net.kano.joustsim.oscar.oscar.service.ssi.DeleteMutableGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.Group;
 import net.kano.joustsim.oscar.oscar.service.ssi.MutableBuddyList;
+import net.kano.joustsim.oscar.oscar.service.ssi.MutableGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 
@@ -85,7 +87,7 @@ import model.enumerations.UserStateType;
 
 
 public class ICQManager implements GenericConnection {
-	private static final String ICQ_SERVER = "llogin.messaging.aol.com";
+	private static final String ICQ_SERVER = "login.messaging.aol.com";
     private static final int ICQ_PORT = 5190;
    
     private static final int TIME_OUT = 10; //30 seconds
@@ -112,7 +114,8 @@ public class ICQManager implements GenericConnection {
 	public static void main(String[] args) {
 		ICQManager i = new ICQManager(null, null);
 		try {
-			i.login("595683137", "testicq");
+			
+			i.login("566371552", "abcdefg");
 		} catch (BadConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,6 +128,12 @@ public class ICQManager implements GenericConnection {
 //		}
 		//i.getAvatarPicture("565914305");
 		//i.getAvatarPicture("cmpt275");
+		try {
+			System.out.println(i.removeFriend("595605824"));
+		} catch (BadConnectionException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		try {
 			i.changeStatus(UserStateType.ONLINE, "lolololol");
 		} catch (BadConnectionException e) {
@@ -327,10 +336,36 @@ public class ICQManager implements GenericConnection {
 
     // @Override
     public boolean removeFriend(String userID) throws BadConnectionException {
-        // TODO Auto-generated method stub
-        return false;
+
+    	System.out.println("remove this buddy "+userID);
+    	java.util.List<? extends net.kano.joustsim.oscar.oscar.service.ssi.Group>
+    	groupList = connection.getSsiService().getBuddyList().getGroups();
+    	for(Group g:groupList){
+    		if (g != null && g instanceof DeleteMutableGroup) {
+    			for (Buddy buddy : g.getBuddiesCopy()){
+    				if (userID.equalsIgnoreCase(buddy.getScreenname().getNormal())) {
+                        ((DeleteMutableGroup) g).deleteBuddy(buddy);
+                        return true;
+                    }
+    			}
+    		}
+    	}return false;
+
     }
 
+    private Buddy findBuddy(String userID){
+    	chkConnection();
+    	java.util.List<? extends net.kano.joustsim.oscar.oscar.service.ssi.Group>
+    	groupList = connection.getSsiService().getBuddyList().getGroups();
+    	for(Group g:groupList){
+    		if (g instanceof MutableGroup) {
+                for (Buddy buddy : g.getBuddiesCopy()) {
+                    if (userID.equalsIgnoreCase(buddy.getScreenname().getNormal()))
+                        return buddy;
+                }
+            }
+    	}return null;
+    }
     // @Override
     public ArrayList<FriendTempData> retrieveFriendList()
             throws BadConnectionException {
