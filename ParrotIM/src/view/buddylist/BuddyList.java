@@ -70,6 +70,8 @@ public class BuddyList extends JFrame {
     protected BuddyList buddywindow;
 
     private AccountInfo accountInfo;
+    
+    private PollingThread poller;
 
     /**
      * BuddyList display friend contact list, status, information and
@@ -153,6 +155,9 @@ public class BuddyList extends JFrame {
 
         MusicPlayer receiveMusic =
                 new MusicPlayer("/audio/startup/parrotOpening.wav", model);
+        
+        poller = new PollingThread();
+        poller.start();
 
     }
 
@@ -453,5 +458,27 @@ public class BuddyList extends JFrame {
             return;
         }
 
+    }
+    
+    // Section
+    // Polling methods
+
+    private class PollingThread extends Thread {
+    	
+    	
+    		
+        public void run() {
+            try {
+            	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
+                sleep(3900); // Delay for 3.8 seconds
+            } catch (InterruptedException e) {
+                System.err.println("Threading error");
+                e.printStackTrace();
+            }
+            
+            System.out.println("Muhahaha");
+			controller.refreshFriends(controller.getConnection());
+			
+        }
     }
 }
