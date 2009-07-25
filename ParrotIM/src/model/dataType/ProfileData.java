@@ -37,6 +37,7 @@ package model.dataType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Vector;
 
 import controller.services.BadConnectionException;
 
@@ -546,4 +547,13 @@ public class ProfileData extends Observable {
 		return this.emailEnabled;
 	}
 
+	public Vector <ServerType> getAllAccountsServer(){
+		Vector<ServerType> serverList = new Vector<ServerType>();
+		
+		//FIXME: right now I only consider about one account per server
+		for (AccountData account : getAccountData()){
+			serverList.add(account.getServer());
+		}
+		return serverList;
+	}
 }

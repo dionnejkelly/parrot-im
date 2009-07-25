@@ -10,8 +10,6 @@ package view.buddylist;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -146,8 +144,6 @@ public class BuddyPanel extends GPanel implements Observer {
     private ArrayList<FriendPanel> friendPanels;
 
     private AccountData selectedAccount;
-
-    private AccountPrompt accountPrompt;
 
     private String tempFriendToAdd;
 
@@ -430,34 +426,18 @@ public class BuddyPanel extends GPanel implements Observer {
 
     private int userToBoxIndex(UserData user) {
         int boxIndex = -1;
-     
-        
-        if (user.isBlocked()) {
-        	System.out.println("I should be blocked again!!!");
-        	boxIndex = 3;
-        }
-        
-        else {
-        	if (user.getState() == UserStateType.ONLINE) {
-                boxIndex = 0;
-            } else if (user.getState() == UserStateType.AWAY
-                    || user.getState() == UserStateType.BUSY
-                    || user.getState() == UserStateType.PHONE
-                    || user.getState() == UserStateType.BRB
-                    || user.getState() == UserStateType.LUNCH) {
-                boxIndex = 1;
-            } else if (user.getState() == UserStateType.OFFLINE) {
-                boxIndex = 2;
-            } 
-                 
-            else {
-                boxIndex = 3;
-            }
-        }
-        
-        
 
-        System.out.println("Box index = " + boxIndex);
+        if (user.getState() == UserStateType.ONLINE) {
+            boxIndex = 0;
+        } else if (user.getState() == UserStateType.AWAY
+                || user.getState() == UserStateType.BUSY) {
+            boxIndex = 1;
+        } else if (user.getState() == UserStateType.OFFLINE) {
+            boxIndex = 2;
+        } else {
+            boxIndex = 3;
+        }
+
         return boxIndex;
     }
 
@@ -657,101 +637,17 @@ public class BuddyPanel extends GPanel implements Observer {
          */
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
-            String userFriendID;
-            // String result =
-            // "Ay Ay Captain! One person will be invited to your Parrot IM Buddy List.";
-
-            // not able to cancel it for now
-
-           
             
-            if (model.getCurrentProfile().getAccountData().size() > 0) {
-            	 userFriendID =
-                     JOptionPane.showInputDialog("Enter an email address: ");
-            	 
-            	 if (userFriendID != null
-                         && userFriendID.equals(chatClient.getAccount())) {
-                     String redundancy =
-                             "Argh, you cannot add yourself! Please provide a different email address.";
-                     JOptionPane.showMessageDialog(null, redundancy);
-
-                 }
-
-                 else if ((userFriendID != null && !userFriendID.equals(""))
-                         && !userExist(userFriendID)) {
-                     selectedAccount = null;
-                     if (model.getProfileCollection().getActiveProfile()
-                             .getAccountData().size() > 1) {
-                         accountPrompt =
-                                 new AccountPrompt(model.getProfileCollection()
-                                         .getActiveProfile().getAccountData(),
-                                         buddyWindow);
-                         accountPrompt
-                                 .addAccountListener(new AccountSelectForAddFriend());
-                         tempFriendToAdd = userFriendID;
-                     } else {
-                         selectedAccount =
-                                 model.getProfileCollection().getActiveProfile()
-                                         .getAccountData().get(0);
-                         chatClient.addFriend(selectedAccount, userFriendID);
-                         MusicPlayer addMusic =
-                                 new MusicPlayer("/audio/buddy/addFriend.wav", model);
-                     }
-                 }
-
-                 else if (userFriendID == null || userFriendID.equals("")) {
-                     String redundancy =
-                             "Argh, please provide an appropriate user email address. Thank you for your co-operation.";
-                     JOptionPane.showMessageDialog(null, redundancy);
-
-                 }
-
-                 else {
-                     String redundancy =
-                             "Argh, the friend's email address you have provided is already an existing contact. "
-                                     + "Please provide a non-existing friend's email address.";
-                     JOptionPane.showMessageDialog(null, redundancy);
-
-                 }
-                 System.out.println("User Input = " + userFriendID);
-            }
-            
-            else {
-            	 String redundancy =
-                     "Sorry for the incovenience but you have to be logged on to at least one account to add a friend.";
-             JOptionPane.showMessageDialog(null, redundancy, "Connection Error", JOptionPane.INFORMATION_MESSAGE);
-            }
-           
-
-        }
-
-        /**
-         * check if userID exist
-         * 
-         * @param userID
-         * @return boolean
-         */
-        public boolean userExist(String userID) {
-            for (int i = 0; i < buddies.size(); i++) {
-                if (buddies.get(i).getUserID().equals(userID)) {
-                    return true;
-                }
+            if (model.getCurrentProfile().getAllAccountsServer().size() > 0){
+            	AddBuddyFrame addbuddyFrame = new AddBuddyFrame (model, chatClient);
+            	addbuddyFrame.addWindowListener(new PopupWindowListener (buddyWindow, addbuddyFrame));
+            } else {
+            	 String resultMessage =
+                     "You don't have any account right now, please create one.";
+            	 JOptionPane.showMessageDialog(null, resultMessage,
+                     "Information", JOptionPane.INFORMATION_MESSAGE);
             }
 
-            return false;
-        }
-    }
-
-    /**
-     * Allows AccountPrompt to pass back the account selected.
-     */
-    private class AccountSelectForAddFriend implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            selectedAccount = accountPrompt.getSelectedAccount();
-            chatClient.addFriend(selectedAccount, tempFriendToAdd);
-            MusicPlayer addMusic =
-                    new MusicPlayer("/audio/buddy/addFriend.wav", model);
-            return;
         }
     }
 
