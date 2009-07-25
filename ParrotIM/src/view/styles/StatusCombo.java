@@ -30,6 +30,7 @@ import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 
+import view.buddylist.BuddyList;
 import view.options.PersonalProfileTab;
 
 import model.enumerations.StatusType;
@@ -80,7 +81,9 @@ public class StatusCombo extends JComboBox{
 				try {
 					chatClient.setPresence(userStatus);
 					
-		        	if (PersonalProfileTab.isPersonalTabOpened && !optionStatus) {
+					System.out.println("StatusCombo | optionsIsVisible: " + BuddyList.optionsIsVisible() +
+							" | !optionStatus: " + !optionStatus);
+		        	if (BuddyList.optionsIsVisible() && !optionStatus) {
 		             	PersonalProfileTab.status.setSelectedIndex(getSelectedIndex());
 		            }
 		        	 

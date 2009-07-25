@@ -616,7 +616,7 @@ public class DatabaseFunctions {
         if (rs.getString("status").length() != 0) {
             status = Integer.parseInt(rs.getString("status"));
         }
-        System.out.println(status);
+        System.out.println("DATABASE getStatus: "+status);
 
         rs.close();
         conn.close();
