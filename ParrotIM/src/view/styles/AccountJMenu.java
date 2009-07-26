@@ -41,22 +41,22 @@ public class AccountJMenu extends JMenu{
 		
 		else if (account.getServer() == ServerType.JABBER) {
 			setIcon(new ImageIcon(this.getClass().getResource(
-	        "/images/buddylist/statusIcons/Jabber/Jabber-Available.png")));
+	        "/images/buddylist/statusIcons/Jabber/Jabber-AvailableSM.png")));
 		}
 		
 		else if (account.getServer() == ServerType.AIM) {
 			setIcon(new ImageIcon(this.getClass().getResource(
-	        "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")));
+	        "/images/buddylist/statusIcons/AIM/AIM-AvailableSM.png")));
 		}
 		
 		else if (account.getServer() == ServerType.ICQ) {
 			setIcon(new ImageIcon(this.getClass().getResource(
-	        "/images/buddylist/statusIcons/ICQ/ICQ-Available.png")));
+	        "/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png")));
 		}
 		
 		else if (account.getServer() == ServerType.MSN) {
 			setIcon(new ImageIcon(this.getClass().getResource(
-	        "/images/buddylist/statusIcons/MSN/MSN-Available.png")));
+	        "/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png")));
 		}
 		
 		else {
