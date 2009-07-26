@@ -308,24 +308,11 @@ public class ManageAccount extends GPanel implements Observer {
                     if (buddyFrame!=null){
                     	System.out.println("This should never happen in the Main Window!!!");
                     	buddyFrame.addAccountJMenu(account);
-                    	 try {
-     						chatClient.login(account);
-     					} catch (BadConnectionException e) {
-     						// TODO Auto-generated catch block
-     						e.printStackTrace();
-     					}
                     }
-                    
-                    
-                   
                 }
                 UNField.setText("");
                 pwdField.setText("");
                 addButton.setEnabled(false);
-                
-                
-                
-                
             }
         }
 
