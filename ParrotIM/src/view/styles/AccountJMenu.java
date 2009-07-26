@@ -83,7 +83,7 @@ public class AccountJMenu extends JMenu{
 		JMenuItem addFriendMenu= new JMenuItem("Add a friend", new ImageIcon(this.getClass().getResource(
         "/images/buddylist/add_user.png")));
 		addFriendMenu.setMnemonic(KeyEvent.VK_A);
-		
+		addFriendMenu.addActionListener(new AddFriendListener());
 		JMenuItem removeMenu = new JMenuItem("Remove account", new ImageIcon(this.getClass().getResource(
         "/images/mainwindow/remove.png")));
 		removeMenu.setMnemonic(KeyEvent.VK_R);
@@ -119,6 +119,37 @@ public class AccountJMenu extends JMenu{
 			signOutMenu.setEnabled(false);
 		}
 		buddies.listRepopulate();
+	}
+	
+	private class AddFriendListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			String userFriendID = JOptionPane.showInputDialog("Enter an email address: ");  
+			
+			if (userFriendID != null && userFriendID.equals(account.getUserID())) { 
+				 String redundancy = "Argh, you cannot add yourself! Please provide a different email address.";  
+				  JOptionPane.showMessageDialog(null, redundancy); 
+			}
+			
+			// TO-DO: Need to consider if the friend already exists
+			else if ((userFriendID != null && !userFriendID.equals(""))) {                     
+			      System.out.println("You should add me!!!");
+			      controller.addFriend(account, userFriendID);
+			} 
+                               
+               
+			else if (userFriendID == null || userFriendID.equals("")) {                
+				String redundancy = "Argh, please provide an appropriate user email address. Thank you for your co-operation.";                
+				JOptionPane.showMessageDialog(null, redundancy, "Error", JOptionPane.INFORMATION_MESSAGE);                  
+			}  
+			
+			else {                     
+				String redundancy = "Argh, the friend's email address you have provided is already an existing contact. "  + "Please provide a non-existing friend's email address.";                      
+				JOptionPane.showMessageDialog(null, redundancy, "Error", JOptionPane.INFORMATION_MESSAGE);                   }                 
+			
+				
+			}
+		
 	}
 	private class SignMenuActionListener implements ActionListener{
 
