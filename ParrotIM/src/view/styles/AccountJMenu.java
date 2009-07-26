@@ -9,6 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import view.buddylist.AddBuddyFrame;
 import view.buddylist.BuddyPanel;
 import view.options.MusicPlayer;
 
@@ -76,10 +77,6 @@ public class AccountJMenu extends JMenu{
 		signMenu.setEnabled(false);
 		signMenu.setMnemonic(KeyEvent.VK_S);
 		signMenu.addActionListener(new SignMenuActionListener());
-//		if (account.isConnected())
-//			signMenu.setText("Sign out");
-//		else
-//			signMenu.setText("Sign in");
 	
 		signOutMenu= new JMenuItem("Sign Out", new ImageIcon(this.getClass().getResource(
         "/images/menu/account/status-busy.png")));
@@ -130,32 +127,9 @@ public class AccountJMenu extends JMenu{
 	private class AddFriendListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			String userFriendID = JOptionPane.showInputDialog("Enter an email address: ");  
-			
-			if (userFriendID != null && userFriendID.equals(account.getUserID())) { 
-				 String redundancy = "Argh, you cannot add yourself! Please provide a different email address.";  
-				  JOptionPane.showMessageDialog(null, redundancy); 
-			}
-			
-			// TO-DO: Need to consider if the friend already exists
-			else if ((userFriendID != null && !userFriendID.equals(""))) {                     
-			      System.out.println("You should add me!!!");
-			      controller.addFriend(account, userFriendID);
-			      MusicPlayer addMusic = new MusicPlayer("/audio/buddy/addFriend.wav", model); 
-			} 
-                               
-               
-			else if (userFriendID == null || userFriendID.equals("")) {                
-				String redundancy = "Argh, please provide an appropriate user email address. Thank you for your co-operation.";                
-				JOptionPane.showMessageDialog(null, redundancy, "Error", JOptionPane.INFORMATION_MESSAGE);                  
-			}  
-			
-			else {                     
-				String redundancy = "Argh, the friend's email address you have provided is already an existing contact. "  + "Please provide a non-existing friend's email address.";                      
-				JOptionPane.showMessageDialog(null, redundancy, "Error", JOptionPane.INFORMATION_MESSAGE);                   }                 
-			
-				
-			}
+			AddBuddyFrame addbuddyFrame = new AddBuddyFrame (model, controller, account.getServer());
+        	addbuddyFrame.addWindowListener(new PopupWindowListener (buddies.getBuddyList(), addbuddyFrame));
+		}
 		
 	}
 	private class SignMenuActionListener implements ActionListener{

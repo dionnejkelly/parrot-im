@@ -25,19 +25,20 @@ import javax.swing.JFrame;
 
 import controller.MainController;
 import model.Model;
+import model.enumerations.ServerType;
 
 public class AddBuddyFrame extends JFrame {
 	
-    public AddBuddyFrame(Model model, MainController controller) {
+    public AddBuddyFrame(Model model, MainController controller, ServerType server) {
         setLocationRelativeTo(null);
 
         setTitle("Add Buddy");
         setLocationRelativeTo(null);
         
-        setPreferredSize(new Dimension(350, 220));
+        setPreferredSize(new Dimension(350, 180));
         
         setResizable(false);
-        AddBuddyPanel accountPanel = new AddBuddyPanel(model, controller, this);
+        AddBuddyPanel accountPanel = new AddBuddyPanel(model, controller, this, server);
         getContentPane().add(accountPanel);
         
         pack();

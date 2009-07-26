@@ -27,6 +27,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -59,30 +60,40 @@ public class AddBuddyPanel extends GPanel implements Observer {
     private MainController controller;
     private Model model;
 
-    public AddBuddyPanel(Model model, MainController controller, JFrame popup) {
+    public AddBuddyPanel(Model model, MainController controller, JFrame popup, ServerType server) {
     	this.popup = popup;
         this.model = model;
         this.controller = controller;
         this.model.getCurrentProfile().addObserver(this);
-        this.setGradientColors(model.primaryColor, model.secondaryColor);
-        this.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
         
         // set main panel
         setLayout(new BorderLayout());
         
         // manage account panel
-        rightPanelMAN();
+        setupPanel(server);
         
-        model.addObserver(this);
-
     }
     
-    private void rightPanelMAN() {
+    private void setupPanel(ServerType server) {
+
+        this.setGradientColors(model.primaryColor, model.secondaryColor);
+        this.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
+        
     	/*TOP PART*/
         // select server
-        selectableServer = new JComboBox(model.getCurrentProfile().getAllAccountsServer());
+        Vector <ServerType> serverList = model.getCurrentProfile().getAllAccountsServer();
+        selectableServer = new JComboBox(serverList);
         selectableServer.setOpaque(false);
         selectableServer.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
+        
+        if (server != null){
+	        for (int index=0; index < serverList.size(); index ++){
+	        	if (serverList.get(index).compareTo(server)==0){
+	        		selectableServer.setSelectedIndex(index);
+	        		break;
+	        	}
+	        }
+        }
 
         // buddy's address
         buddyField = new JTextField();
@@ -113,6 +124,9 @@ public class AddBuddyPanel extends GPanel implements Observer {
         this.setLayout(new BorderLayout());
         this.add(buddyInfoPanel, BorderLayout.NORTH);
         this.add(buttonsPanel, BorderLayout.SOUTH);
+        
+
+        model.addObserver(this);
 
     }
     
