@@ -45,6 +45,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.MainController;
+
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
 
@@ -61,11 +63,15 @@ public class NewProfileFrame extends JFrame {
     private JFrame mainFrame;
     private JButton nextButton;
     private JCheckBox autoSigninCheck;
+    
+    private MainController chatClient;
 
-    public NewProfileFrame(Model model,JFrame mainFrame) {
+    public NewProfileFrame(Model model,JFrame mainFrame, MainController controller) {
         popupFrame = this;
         this.model = model;
         this.mainFrame = mainFrame;
+        this.chatClient = controller;
+        
         this.addWindowListener(new PopupWindowListener(this.mainFrame, this));
 
         /* PROFILE Name is limited to __ characters */
@@ -191,7 +197,7 @@ public class NewProfileFrame extends JFrame {
                 newProfile.setAutoSignInEnabled(true);
             }
 
-            ManageAccountFrame manageAccount = new ManageAccountFrame(newProfile, model);
+            ManageAccountFrame manageAccount = new ManageAccountFrame(newProfile, model, chatClient);
             manageAccount.addWindowListener(new PopupWindowListener(
                     mainFrame, manageAccount));
             popupFrame.dispose();
