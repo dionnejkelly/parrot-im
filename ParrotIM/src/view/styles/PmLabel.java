@@ -133,7 +133,8 @@ public class PmLabel extends JTextField {
     }
     
     public void synchOptions(){
-    	PersonalProfileTab.personalMessage.setText(pmLabelTextField.getText());
+    	if (BuddyList.optionsIsVisible())
+    		PersonalProfileTab.personalMessage.setText(pmLabelTextField.getText());
     }
     	 
     /**
