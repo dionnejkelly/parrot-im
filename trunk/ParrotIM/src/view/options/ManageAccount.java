@@ -22,7 +22,6 @@
 package view.options;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +32,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -42,7 +40,6 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -348,7 +345,7 @@ public class ManageAccount extends GPanel implements Observer {
             	System.out.println("MANAGEACCOUNT: "+selected);
             	System.out.println("MANAGEACCOUNT: "+((AccountData) accList.getSelectedValue()).getUserID());
                 if (buddyFrame !=null){
-                	buddyFrame.removeAccountJMenu(selectedAccount);
+                	BuddyList.removeAccountJMenu(selectedAccount);
                 }
                 profile.removeAccount((AccountData) accList.getSelectedValue());
                 System.out.println("GO HERE");
