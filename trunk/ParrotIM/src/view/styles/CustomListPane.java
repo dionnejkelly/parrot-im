@@ -80,7 +80,7 @@ public class CustomListPane extends GPanel{
 
         JLabel imageLabel = new JLabel(newIcon);
         
-        JLabel usernameLabel = new JLabel(user.toString());
+        JLabel usernameLabel = user.getLabelRepresentation();
         usernameLabel.setForeground(textColor);
         userLabels.add(usernameLabel);
         friendPanel.add(imageLabel, BorderLayout.WEST);
