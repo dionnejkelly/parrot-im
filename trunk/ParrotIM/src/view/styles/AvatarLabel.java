@@ -154,21 +154,26 @@ public class AvatarLabel extends JLabel{
             } else {
             	System.out.println("not synching");
             }
-
+            
 			try {
-				if (chatClient.getConnection().getServerType() == ServerType.GOOGLE_TALK
-						|| chatClient.getConnection().getServerType() == ServerType.JABBER) {
-					chatClient.setAvatarPicture(file.toURL());
+				
+				if (chatClient.accountExist()) {
+					ServerType serverType = chatClient.getConnection().getServerType();
+					if (serverType == ServerType.GOOGLE_TALK
+							|| chatClient.getConnection().getServerType() == ServerType.JABBER) {
+						chatClient.setAvatarPicture(file.toURL());
+					}
+					
+					else if (serverType == ServerType.ICQ) {
+						System.out.println("Calling ICQ");
+						chatClient.setAvatarPicture(file);
+					}
+					
+					else {
+						System.out.println("Calling MSN/Twitter");
+					}
 				}
 				
-				else if (chatClient.getConnection().getServerType() == ServerType.ICQ) {
-					System.out.println("Calling ICQ");
-					chatClient.setAvatarPicture(file);
-				}
-				
-				else {
-					System.out.println("Calling MSN/Twitter");
-				}
 				
 				// will change the avatar once the chatClient done uploading
 				System.out.println("Succesfully uploaded the avatar picture.");

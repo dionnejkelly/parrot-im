@@ -1150,9 +1150,13 @@ public class MainController {
         GenericConnection connection = null;
 
         // connection should be found from account!!
-        account = model.getCurrentProfile().getAccountData().get(0);
-        connection = account.getConnection();
-
+        
+        if (model.getCurrentProfile().getAccountData().size() > 0) {
+        	account = model.getCurrentProfile().getAccountData().get(0);
+            connection = account.getConnection();
+        }
+        
+        
         return connection;
     }
 
@@ -1401,4 +1405,9 @@ public class MainController {
 
         return;
     }
+    
+    public boolean accountExist() {
+    	return model.getCurrentProfile().getAccountData().size() > 0;
+    }
+
 }
