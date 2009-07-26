@@ -503,6 +503,9 @@ public class BuddyPanel extends GPanel implements Observer {
         return options;
     }
 
+    public JFrame getBuddyList(){
+    	return buddyWindow;
+    }
     // Section
     // III - Accessors and Mutator
 
@@ -647,7 +650,7 @@ public class BuddyPanel extends GPanel implements Observer {
             System.out.println("Add Friend Clicked");
             
             if (model.getCurrentProfile().getAllAccountsServer().size() > 0){
-            	AddBuddyFrame addbuddyFrame = new AddBuddyFrame (model, chatClient);
+            	AddBuddyFrame addbuddyFrame = new AddBuddyFrame (model, chatClient,null);
             	addbuddyFrame.addWindowListener(new PopupWindowListener (buddyWindow, addbuddyFrame));
             } else {
             	 String resultMessage =
