@@ -247,10 +247,16 @@ public class BuddyList extends JFrame {
         return menuBar;
     }
 
-    public void removeAccountJMenu(int i){
-    	accountMenuList.get(i).connectAccount(false);
-    	contactMenu.remove(accountMenuList.get(i));
-    	accountMenuList.remove(i);
+    public void removeAccountJMenu(AccountData account){
+    	int pos = 0;
+    	for (pos=0; pos < accountMenuList.size(); pos++){
+    		if (accountMenuList.get(pos).getAccount().equals(account)){
+    			break;
+    		}
+    	}
+    	accountMenuList.get(pos).connectAccount(false);
+    	contactMenu.remove(accountMenuList.get(pos));
+    	accountMenuList.remove(pos);
     }
     public void addAccountJMenu(AccountData account){
     	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel, model, buddywindow));
@@ -376,7 +382,6 @@ public class BuddyList extends JFrame {
         	if (!optionsIsVisible()){
 	            try {
 	            	options = new OptionFrame(controller, model, buddywindow);
-//	                options.addWindowListener(new PopupWindowListener(buddywindow, options));
 	                options.addWindowListener(new OptionsWindowListener());
 	            } catch (ClassNotFoundException e1) {
 	                e1.printStackTrace();

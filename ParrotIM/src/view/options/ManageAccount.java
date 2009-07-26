@@ -324,14 +324,13 @@ public class ManageAccount extends GPanel implements Observer {
         public void actionPerformed(ActionEvent evt) {
             int selected = accList.getSelectedIndex();
             
-        	AccountData test = (AccountData)accList.getSelectedValue();
-        	// System.out.println("THIS IS" + test.getNickname());
+        	AccountData selectedAccount = (AccountData)accList.getSelectedValue();
  
             if (selected >= 0) {
             	System.out.println("MANAGEACCOUNT: "+selected);
             	System.out.println("MANAGEACCOUNT: "+((AccountData) accList.getSelectedValue()).getUserID());
                 if (buddyFrame !=null){
-                	buddyFrame.removeAccountJMenu(selected);
+                	buddyFrame.removeAccountJMenu(selectedAccount);
                 }
                 profile.removeAccount((AccountData) accList.getSelectedValue());
                 System.out.println("GO HERE");

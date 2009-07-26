@@ -21,7 +21,6 @@
 
 package view.options;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +29,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,6 +39,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -261,25 +260,25 @@ public class FeaturesPanel extends GPanel implements Observer{
         
 
 		public void itemStateChanged(ItemEvent event) {
-			if (event.getStateChange() == ItemEvent.SELECTED) {
-                model.getCurrentProfile().setChatbotEnabled(true);
-//                BuddyList.chatbotEnabler.setSelected(true);
-                chatbotOptions.setVisible(true);
-                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/monitor_add.png")));
-//                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-//                "/images/menu/monitor_add.png")));
-            } else {
-                model.getCurrentProfile().setChatbotEnabled(false);
-                chatbotOptions.setVisible(false);
-//                BuddyList.chatbotEnabler.setSelected(false);
-                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/monitor_delete.png")));
-//                BuddyList.chatbotEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-//                "/images/menu/monitor_delete.png")));
-                
-            }
-            
+			if (model.getCurrentProfile().getAccountData().size() > 0){
+				if (event.getStateChange() == ItemEvent.SELECTED) {
+	                model.getCurrentProfile().setChatbotEnabled(true);
+	                chatbotOptions.setVisible(true);
+	                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
+	                "/images/menu/monitor_add.png")));
+	            } else {
+	                model.getCurrentProfile().setChatbotEnabled(false);
+	                chatbotOptions.setVisible(false);
+	                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
+	                "/images/menu/monitor_delete.png")));
+	            }
+			} else {
+				String resultMessage =
+                    "You don't have any account right now, please create one to use this feature.";
+           	 	JOptionPane.showMessageDialog(null, resultMessage,
+           	 				"Information", JOptionPane.INFORMATION_MESSAGE);
+
+			}
 			System.out.println("=================================");
 	        System.out.println("           From the chatbotListener");
 	        System.out.println("Chatbot =  " + model.getCurrentProfile().isChatbotEnabled());
