@@ -58,6 +58,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.Highlighter;
 
 import view.styles.GPanel;
 import view.styles.TextListCellRenderer;
@@ -109,7 +110,7 @@ public class ChatLogPanel extends GPanel implements Observer {
     private JList dateList;
     // bottom
     private JEditorPane text;
-    
+//    private Highlighter highlight;
     /** 
      * text is a JList that shows the chat log.
      * 
@@ -147,7 +148,6 @@ public class ChatLogPanel extends GPanel implements Observer {
         this.profile = model.getCurrentProfile().getName();
          db = new DatabaseFunctions();
         
-        
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         this.setGradientColors(model.primaryColor, model.secondaryColor);
@@ -168,7 +168,6 @@ public class ChatLogPanel extends GPanel implements Observer {
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
         text = new JEditorPane();
         text.setEditable(false);
-//        text.setEnabled(false);
         
         chatlog = new JScrollPane(text);
         chatlog
@@ -267,7 +266,7 @@ public class ChatLogPanel extends GPanel implements Observer {
     	// Grab all message objects from the database
         Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
                 .toString(), date, searchKey);
-        
+
 //        text.setListData(messages);
         text.setText(ChatLogMessageToString(messages));
         text.updateUI();

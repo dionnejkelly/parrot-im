@@ -642,7 +642,7 @@ public class SignInPanel extends GPanel implements Observer {
             } else {
             	passwordFrame.setAlwaysOnTop(false);
                 JOptionPane.showMessageDialog(null,
-                        "Profile and password do not match. You provided \"" + ((ProfileData) account_select.getSelectedItem()).getName() + "\"", "Failed", JOptionPane.ERROR_MESSAGE);
+                        "Password for " + ((ProfileData) account_select.getSelectedItem()).getName() + " does not match ", "Failed", JOptionPane.ERROR_MESSAGE);
                 account_select.setSelectedIndex(0);
                 header.changeAvatar(null);
             }
