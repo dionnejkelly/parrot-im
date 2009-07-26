@@ -10,10 +10,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import view.buddylist.BuddyPanel;
+import view.options.MusicPlayer;
 
 import controller.MainController;
 import controller.services.BadConnectionException;
 
+import model.Model;
 import model.dataType.AccountData;
 import model.enumerations.ServerType;
 
@@ -25,8 +27,12 @@ public class AccountJMenu extends JMenu{
 	
 	private JMenuItem signOutMenu;
 	
-	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies){
+	private Model model;
+	
+	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies, Model model){
 		super(account.getServer() + " - " + account.getUserID());
+		
+		this.model = model;
 		
 		if (account.getServer() == ServerType.GOOGLE_TALK) {
 			setIcon(new ImageIcon(this.getClass().getResource(
@@ -135,6 +141,7 @@ public class AccountJMenu extends JMenu{
 			else if ((userFriendID != null && !userFriendID.equals(""))) {                     
 			      System.out.println("You should add me!!!");
 			      controller.addFriend(account, userFriendID);
+			      MusicPlayer addMusic = new MusicPlayer("/audio/buddy/addFriend.wav", model); 
 			} 
                                
                
