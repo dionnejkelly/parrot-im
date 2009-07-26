@@ -1,5 +1,7 @@
 package model.dataType;
 
+import java.util.Date;
+
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
@@ -9,6 +11,7 @@ public class TwitterUserData extends UserData implements TwitterPerson {
     // I - Data Members
 
     private int minutesSinceUpdate;
+    private Date datePosted;
     
     // Section
     // II - Constructors
@@ -30,9 +33,10 @@ public class TwitterUserData extends UserData implements TwitterPerson {
      * @param nickname
      * @param status
      */
-    public TwitterUserData(String userID, String status) {
+    public TwitterUserData(String userID, String status, Date date) {
         super(userID, userID, status, UserStateType.OFFLINE, false);
         this.minutesSinceUpdate = 16384;
+        this.datePosted = date;
     }
 
     // Section
@@ -48,6 +52,10 @@ public class TwitterUserData extends UserData implements TwitterPerson {
     
     public ServerType getServer() {
         return ServerType.TWITTER;
+    }
+    
+    public Date getDatePosted() {
+    	return datePosted;
     }
     
 }

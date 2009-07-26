@@ -221,11 +221,11 @@ public class TwitterManager implements GenericConnection {
         return localFriends;
     }
     
-    public ArrayList<FriendTempData> retrieveRecentTweets() throws BadConnectionException {
+    public ArrayList<Twitter.Status> retrieveRecentTweets() throws BadConnectionException {
     	List<Twitter.Status> tweets = null;
-    	ArrayList<FriendTempData> recentTweets = null;
+    	//ArrayList<FriendTempData> recentTweets = null;
     	
-    	recentTweets = new ArrayList<FriendTempData>();
+    	//recentTweets = new ArrayList<FriendTempData>();
     	try {
     		tweets = twitter.getFriendsTimeline();
         } catch (Exception e) {
@@ -233,11 +233,12 @@ public class TwitterManager implements GenericConnection {
             throw new BadConnectionException();
         }
 
-    	for (Twitter.Status s : tweets) {
+    	/*for (Twitter.Status s : tweets) {
     		recentTweets.add(new FriendTempData(s.user.getName(),s.user.getScreenName(),
     				s.getText(),UserStateType.OFFLINE,false));
     	}
-    	return recentTweets;
+    	return recentTweets;*/
+        return (ArrayList<Status>) tweets;
     }
 
     public UserStateType retrieveState(String userID) {
