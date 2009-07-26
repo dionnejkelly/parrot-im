@@ -552,7 +552,8 @@ public class ProfileData extends Observable {
 		
 		//FIXME: right now I only consider about one account per server
 		for (AccountData account : getAccountData()){
-			serverList.add(account.getServer());
+			if (account.isConnected())
+				serverList.add(account.getServer());
 		}
 		return serverList;
 	}
