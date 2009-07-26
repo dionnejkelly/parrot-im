@@ -127,9 +127,7 @@ public class AccountJMenu extends JMenu{
 //				new JOptionPane (account.getUserID()+ " failed signing in.");
 			}
 		} else { //disconnect
-			//controller.disconnect(account);
 			System.out.println("account is now offline");
-			//signMenu.setText("Sign in");
 			signMenu.setEnabled(true);
 			signOutMenu.setEnabled(false);
 		}
@@ -168,7 +166,7 @@ public class AccountJMenu extends JMenu{
 
 		public void actionPerformed(ActionEvent arg0) {
 			BuddyList.removeAccountJMenu(account);
-//			controller.disconnect(account);
+			controller.disconnect(account);
 //			connectAccount(false);
 //			
 //			// need to know which menu it is removing

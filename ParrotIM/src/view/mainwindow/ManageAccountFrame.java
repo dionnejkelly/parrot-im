@@ -95,6 +95,7 @@ public class ManageAccountFrame extends JFrame {
         doneButton.setAlignmentX(RIGHT_ALIGNMENT);
         doneButton.addActionListener(new doneActionListener());
         JPanel donePanel = new JPanel ();
+        donePanel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
         donePanel.setAlignmentX(RIGHT_ALIGNMENT);
         donePanel.setLayout(new BorderLayout());
         donePanel.setOpaque (false);

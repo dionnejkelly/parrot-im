@@ -327,13 +327,6 @@ public class ManageAccount extends GPanel implements Observer {
                 
                 
             }
-
-            // } else {
-            // String resultMessage =
-            // "We are only supporting XMPP and Twitter for the beta version. Sorry for the inconvenience.";
-            // JOptionPane.showMessageDialog(null, resultMessage,
-            // "Information", JOptionPane.INFORMATION_MESSAGE);
-            // }
         }
 
     }
@@ -349,7 +342,7 @@ public class ManageAccount extends GPanel implements Observer {
             	System.out.println("MANAGEACCOUNT: "+((AccountData) accList.getSelectedValue()).getUserID());
                 if (buddyFrame !=null){
                 	System.out.println("This should never happen in the Main Window!!!");
-                	buddyFrame.removeAccountJMenu(selectedAccount);
+                	BuddyList.removeAccountJMenu(selectedAccount);
                 	chatClient.disconnect(selectedAccount);
                 }
                 profile.removeAccount(selectedAccount);
