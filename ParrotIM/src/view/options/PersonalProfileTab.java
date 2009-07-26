@@ -22,7 +22,6 @@
 package view.options;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,8 +67,6 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	
 	private PmLabel BuddyListPM;
 	private StatusCombo BuddyListStatus;
-	
-//	public static boolean isPersonalTabOpened = false;
 	
 	private Model model;
 	
@@ -153,7 +150,6 @@ public class PersonalProfileTab extends GPanel implements Observer {
         JPanel rightLayout = new JPanel();
         rightLayout.setLayout(new BorderLayout());
         rightLayout.setOpaque(false);
-//        rightLayout.setBackground(colors.SECONDARY_COLOR_LT);
         rightLayout.add (topRightLayout, BorderLayout.NORTH);
 		
         /*SET LAYOUT*/
@@ -162,17 +158,9 @@ public class PersonalProfileTab extends GPanel implements Observer {
         this.add (leftLayout, BorderLayout.WEST);
 		this.add (rightLayout, BorderLayout.CENTER);
 		
-//		isPersonalTabOpened = true;
 		model.addObserver(this);
 	}
 	
-//	public static void setIsPersonalTabOpened(boolean opened){
-//		isPersonalTabOpened = opened;
-//	}
-	public void updateStatus(){
-		personalMessage.setText(BuddyListPM.getText());
-		status.setSelectedIndex(BuddyListStatus.getSelectedIndex());
-	}
 	
 	private class BrowseActionListener implements ActionListener{
 
