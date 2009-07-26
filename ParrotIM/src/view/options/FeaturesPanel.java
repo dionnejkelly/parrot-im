@@ -85,7 +85,6 @@ public class FeaturesPanel extends GPanel implements Observer{
         model.addObserver(this);
         chatBotModel = model.getCustomizedChatbotModel();
 
-//        chatBotModel = new CustomizedChatbotModel(this.model);
         this.optionframe = optionframe;
 
         /* CHATBOT */
@@ -451,18 +450,12 @@ public class FeaturesPanel extends GPanel implements Observer{
     	public void itemStateChanged(ItemEvent event) {
 			if (event.getStateChange() == ItemEvent.SELECTED) {
 				 model.getCurrentProfile().setChatLogEnabled(true);
-//				 BuddyList.chatLogEnabler.setSelected(true);
 				 chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
 	                "/images/menu/note_add.png")));
-//				 BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-//	                "/images/menu/note_add.png")));
             } else {
             	model.getCurrentProfile().setChatLogEnabled(false);
-//            	BuddyList.chatLogEnabler.setSelected(false);
             	chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
                 "/images/menu/note_delete.png")));
-//            	BuddyList.chatLogEnabler.setIcon( new ImageIcon(this.getClass().getResource(
-//                "/images/menu/note_delete.png")));
             }
 			
 			   System.out.println("=================================");

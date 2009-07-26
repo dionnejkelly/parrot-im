@@ -201,7 +201,7 @@ public class BuddyList extends JFrame {
         contactMenu.addSeparator();
         
         for (AccountData account : model.getCurrentProfile().getAccountData()){
-        	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel, model, buddywindow));
+        	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel, model));
         	contactMenu.add(accountMenuList.get(accountMenuList.size()-1));
         }
         
@@ -259,7 +259,7 @@ public class BuddyList extends JFrame {
     }
     
     public void addAccountJMenu(AccountData account){
-    	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel, model, buddywindow));
+    	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel, model));
     	accountMenuList.get(accountMenuList.size()-1).connectAccount(true);
     	contactMenu.add(accountMenuList.get(accountMenuList.size()-1));
     }
