@@ -110,16 +110,6 @@ public class ChatLogPanel extends GPanel implements Observer {
     private JList dateList;
     // bottom
     private JEditorPane text;
-//    private Highlighter highlight;
-    /** 
-     * text is a JList that shows the chat log.
-     * 
-     * Developers note: 
-     * text used to be a JEditorPane but the usage of it made the code inefficient. 
-     * Right now, the code is efficient but the GUI looks bad. Please help me to 
-     * consider which is better.
-     */
-//    private JList text;
     
     /** 
      * chatLog is a JScrollPane object. It is the scrollPane for text.
@@ -230,7 +220,7 @@ public class ChatLogPanel extends GPanel implements Observer {
 		        dateList.setEnabled(false);
 //		        text.setListData(stub);
 		        text.setText(stub[0]);
-		        text.setEnabled(false);
+//		        text.setEnabled(false);
 			} else{
 				buddies.setListData(stub);
 			}
@@ -265,9 +255,8 @@ public class ChatLogPanel extends GPanel implements Observer {
     private void updateLog(String date) {
     	// Grab all message objects from the database
         Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
-                .toString(), date, searchKey);
+                .toString(), date, "");
 
-//        text.setListData(messages);
         text.setText(ChatLogMessageToString(messages));
         text.updateUI();
 
