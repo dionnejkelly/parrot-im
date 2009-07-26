@@ -1295,7 +1295,11 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 		
 	}
 
-	
+	public void TestingForVera(String buddyName){
+		System.out.println("MSN buddy's email: "+buddyName);
+		System.out.println("Trying to get friendlyname: " 
+				+ connection.getBuddyGroup().getAllowList().get(buddyName).getFriendlyName());
+	}
 }
 
 

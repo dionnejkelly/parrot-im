@@ -1409,5 +1409,12 @@ public class MainController {
     public boolean accountExist() {
     	return model.getCurrentProfile().getAccountData().size() > 0;
     }
-
+    
+	public void VeraTesting(String buddyName){
+		for (AccountData a : model.getCurrentProfile().getAccountData()) {
+            if (a.getServer() == ServerType.MSN && a.isConnected()) {
+                ((MSNManager)a.getConnection()).TestingForVera(buddyName);
+            }
+        }
+	}
 }
