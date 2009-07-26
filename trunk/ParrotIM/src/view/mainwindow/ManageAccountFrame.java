@@ -57,6 +57,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controller.MainController;
+
 import view.options.ManageAccount;
 
 import model.Model;
@@ -65,13 +67,15 @@ import model.dataType.ProfileData;
 public class ManageAccountFrame extends JFrame {
 	JFrame manageaccount;
 	
-    public ManageAccountFrame(ProfileData profile, Model model) {
+	private MainController chatClient;
+	
+    public ManageAccountFrame(ProfileData profile, Model model, MainController controller) {
     	manageaccount = this;
         setLocationRelativeTo(null);
 
         setTitle(profile + "\'s Account Manager");
         setLocationRelativeTo(null);
-        
+        this.chatClient = controller;
         //mac/linux 
         String lcOSName = System.getProperty("os.name").toLowerCase();
 
@@ -81,7 +85,7 @@ public class ManageAccountFrame extends JFrame {
         	setPreferredSize(new Dimension(530, 270));
         
         setResizable(false);
-        ManageAccount accountPanel = new ManageAccount(profile, null, model);
+        ManageAccount accountPanel = new ManageAccount(profile, null, model, chatClient);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(accountPanel);
         

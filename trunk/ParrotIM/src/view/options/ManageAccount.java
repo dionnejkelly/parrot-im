@@ -61,6 +61,7 @@ import view.styles.GPanel;
 import view.styles.WindowColors;
 
 import controller.MainController;
+import controller.services.BadConnectionException;
 
 import model.Model;
 import model.dataType.AccountData;
@@ -85,14 +86,17 @@ public class ManageAccount extends GPanel implements Observer {
     protected JButton removeButton;
     
     private Model model;
+    
+    private MainController chatClient;
 
-    public ManageAccount(ProfileData profile, BuddyList buddyFrame, Model model) {
+    public ManageAccount(ProfileData profile, BuddyList buddyFrame, Model model, MainController controller) {
     	this.buddyFrame = buddyFrame;
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.profile = profile;
         this.profile.addObserver(this);
         this.setGradientColors(model.primaryColor, model.secondaryColor);
         this.model = model;
+        this.chatClient = controller;
 
         // set main panel
         setLayout(new BorderLayout());
@@ -302,12 +306,26 @@ public class ManageAccount extends GPanel implements Observer {
                     }
                     profile.addAccount(account);
                     if (buddyFrame!=null){
+                    	System.out.println("This should never happen in the Main Window!!!");
                     	buddyFrame.addAccountJMenu(account);
+                    	 try {
+     						chatClient.login(account);
+     					} catch (BadConnectionException e) {
+     						// TODO Auto-generated catch block
+     						e.printStackTrace();
+     					}
                     }
+                    
+                    
+                   
                 }
                 UNField.setText("");
                 pwdField.setText("");
                 addButton.setEnabled(false);
+                
+                
+                
+                
             }
 
             // } else {

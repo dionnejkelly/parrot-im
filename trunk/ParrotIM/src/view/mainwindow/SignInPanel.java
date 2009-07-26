@@ -380,7 +380,7 @@ public class SignInPanel extends GPanel implements Observer {
                 System.out.println("enabled");
 
                 ManageAccountFrame manageAccount =
-                        new ManageAccountFrame((ProfileData) account_select.getSelectedItem(), model);
+                        new ManageAccountFrame((ProfileData) account_select.getSelectedItem(), model, core);
                 manageAccount.addWindowListener(new PopupWindowListener(
                         mainFrame, manageAccount));
             }
@@ -411,7 +411,7 @@ public class SignInPanel extends GPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             // TODO: set this
-            new NewProfileFrame(model, mainFrame);
+            new NewProfileFrame(model, mainFrame, core);
             
         }
 
