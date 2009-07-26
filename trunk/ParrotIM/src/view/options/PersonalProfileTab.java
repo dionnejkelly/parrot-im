@@ -39,6 +39,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -83,7 +84,7 @@ public class PersonalProfileTab extends GPanel implements Observer {
         
 		/*LEFT COMPONENTS*/
 		//avatar
-		avatar = new AvatarLabel(core, accInfo.avatarDisplay, 100);
+		avatar = new AvatarLabel(core, model, accInfo.avatarDisplay, 100);
 		//browse button
 		JButton browseButton = new JButton("Browse", new ImageIcon(this.getClass()
                 .getResource("/images/menu/find.png")));
@@ -176,10 +177,18 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	private class BrowseActionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			try {
-				avatar.changeAvatarWindow();
-			} catch (MalformedURLException e1) {
-				e1.printStackTrace();
+			if (model.getCurrentProfile().getAccountData().size() > 0){
+				try {
+					avatar.changeAvatarWindow();
+				} catch (MalformedURLException e1) {
+					e1.printStackTrace();
+				}
+			}  else {
+				String resultMessage =
+                    "You don't have any account right now, please create one to use this feature.";
+           	 	JOptionPane.showMessageDialog(null, resultMessage,
+           	 				"Information", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		}
 		

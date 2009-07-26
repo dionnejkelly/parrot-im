@@ -3,11 +3,16 @@ package view.styles;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+
+import org.jivesoftware.smack.XMPPException;
 
 import view.buddylist.AddBuddyFrame;
 import view.buddylist.BuddyList;
@@ -20,6 +25,8 @@ import controller.services.BadConnectionException;
 import model.Model;
 import model.dataType.AccountData;
 import model.enumerations.ServerType;
+import model.enumerations.StatusType;
+import model.enumerations.UserStateType;
 
 public class AccountJMenu extends JMenu{
 	MainController controller;
@@ -33,17 +40,11 @@ public class AccountJMenu extends JMenu{
 	
 	protected AccountData userAccount;
 	
-	private JMenu accountJMenu;
-	
-	private BuddyList buddyFrame;
-	
-	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies, Model model, BuddyList buddyFrame){
+	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies, Model model){
 		super(account.getServer() + " - " + account.getUserID());
 		
 		this.model = model;
-		this.accountJMenu = this;
 		this.userAccount = account;
-		this.buddyFrame = buddyFrame;
 		
 		if (account.getServer() == ServerType.GOOGLE_TALK) {
 			setIcon(new ImageIcon(this.getClass().getResource(
@@ -118,6 +119,28 @@ public class AccountJMenu extends JMenu{
 		if (connect){ //connecting
 			try {
 				controller.login(account);
+				try {
+					controller.setStatus(model.getStatusMessage(model.getCurrentProfile().getName()), 
+							false);
+					controller.setPresence(StatusType.intToStatusType
+							(model.getStatus(model.getCurrentProfile().getName())));
+					URL url = new URL (model.getAvatarDirectory(model.getCurrentProfile().getName()));
+					System.out.println("ACCOUNTMENU: " +  model.getAvatarDirectory(model.getCurrentProfile().getName()));
+					System.out.println("ACCOUNTMENU: " +  url.toString());
+					controller.setAvatarPicture(url);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (XMPPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("account is now online");
 				//signMenu.setText("Sign out");
 				signMenu.setEnabled(false);
@@ -167,11 +190,6 @@ public class AccountJMenu extends JMenu{
 		public void actionPerformed(ActionEvent arg0) {
 			BuddyList.removeAccountJMenu(account);
 			controller.disconnect(account);
-//			connectAccount(false);
-//			
-//			// need to know which menu it is removing
-//			// buddyFrame.removeAccountJMenu(1);
-//			accountJMenu.removeAll();
 			model.getCurrentProfile().removeAccount(userAccount);
 			
 		}

@@ -40,8 +40,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import model.Model;
 import model.enumerations.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
@@ -59,7 +61,7 @@ import controller.MainController;
  * It inherits JLabel methods and variables.
  */
 public class AvatarLabel extends JLabel{
-
+	private Model model;
 	private String path;
 	private AvatarLabel avatarToSynch;
 	private boolean synch;
@@ -89,9 +91,10 @@ public class AvatarLabel extends JLabel{
 	 * @param path
 	 * @param mainControl
 	 */
-	public AvatarLabel(MainController mainControl,String path, int size){
+	public AvatarLabel(MainController mainControl, Model model, String path, int size){
+		
 		synch = false;
-		setLabel (mainControl,path, size);
+		setLabel (mainControl, model, path, size);
 	}
 	/**
 	 * AvatarLabel constructor. It takes a String that describes
@@ -103,18 +106,18 @@ public class AvatarLabel extends JLabel{
 	 * @param ava
 	 * @throws MalformedURLException 
 	 */
-	public AvatarLabel(MainController mainControl, AvatarLabel ava, int size){
+	public AvatarLabel(MainController mainControl, Model model, AvatarLabel ava, int size){
 		avatarToSynch = ava;
 		synch = true;
-		setLabel (mainControl,ava.getAvatarPath(), size);
+		setLabel (mainControl,model, ava.getAvatarPath(), size);
 	}
 	
 	public String getAvatarPath(){
 		return path;
 	}
 	
-	private void setLabel (MainController mainControl,String path, int size){
-		
+	private void setLabel (MainController mainControl, Model model, String path, int size){
+		this.model = model;
 		this.setToolTipText("Click to change your display picture");
 		this.chatClient = mainControl;
 		this.addMouseListener(new avatarMouseListener());
@@ -228,13 +231,20 @@ public class AvatarLabel extends JLabel{
 		 * 
 		 *  @param e*/
 		public void mouseReleased(MouseEvent e) {
-			
 			System.out.println("clicked");
-			try {
-				changeAvatarWindow();
-			} catch (MalformedURLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			if (model.getCurrentProfile().getAccountData().size() > 0){
+				try {
+					changeAvatarWindow();
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}  else {
+				String resultMessage =
+                    "You don't have any account right now, please create one to use this feature.";
+           	 	JOptionPane.showMessageDialog(null, resultMessage,
+           	 				"Information", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 		}
 	}

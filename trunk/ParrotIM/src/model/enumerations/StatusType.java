@@ -29,7 +29,13 @@ public enum StatusType {
 	
 	// Section
     // I - Enumerated Types
-    AVAILABLE("Available"), AWAY("Away"), BUSY("Busy"), PHONE("On the phone"), LUNCH("Lunch"), BRB("Be right back"), INVISIBLE("Invisible");
+    AVAILABLE("Available"),
+    AWAY("Away"), 
+    BUSY("Busy"), 
+    PHONE("On the phone"), 
+    LUNCH("Lunch"), 
+    BRB("Be right back"), 
+    INVISIBLE("Invisible");
 
     // Section
     // II - Constants
@@ -94,5 +100,11 @@ public enum StatusType {
             statusList.add(s.name);
         }
         return statusList;
+    }
+    
+
+    public static String intToStatusType(int ordinal){
+    	return getStatusList().get(ordinal);
+    	
     }
 }

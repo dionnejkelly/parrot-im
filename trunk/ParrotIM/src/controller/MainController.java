@@ -128,39 +128,41 @@ public class MainController {
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            if (a.getServer() != ServerType.TWITTER) {
-                try {
-                    a.getConnection().changeStatus(
-                            model.getCurrentProfile().getState(), status);
-                    model.setStatusMessage(model.getCurrentProfile().getName(),
-                            status);
-                } catch (BadConnectionException e) {
-                    // TODO Throw something back?
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            } else {
-                if (changeTwitter) {
-                    try {
-                        a.getConnection().changeStatus(
-                                model.getCurrentProfile().getState(), status);
-                        model.setStatusMessage(model.getCurrentProfile()
-                                .getName(), status);
-                    } catch (BadConnectionException e) {
-                        // TODO Throw something back?
-                    } catch (ClassNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (SQLException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
+        	if (a.isConnected()){
+	            if (a.getServer() != ServerType.TWITTER) {
+	                try {
+	                    a.getConnection().changeStatus(
+	                            model.getCurrentProfile().getState(), status);
+	                    model.setStatusMessage(model.getCurrentProfile().getName(),
+	                            status);
+	                } catch (BadConnectionException e) {
+	                    // TODO Throw something back?
+	                } catch (ClassNotFoundException e) {
+	                    // TODO Auto-generated catch block
+	                    e.printStackTrace();
+	                } catch (SQLException e) {
+	                    // TODO Auto-generated catch block
+	                    e.printStackTrace();
+	                }
+	            } else {
+	                if (changeTwitter) {
+	                    try {
+	                        a.getConnection().changeStatus(
+	                                model.getCurrentProfile().getState(), status);
+	                        model.setStatusMessage(model.getCurrentProfile()
+	                                .getName(), status);
+	                    } catch (BadConnectionException e) {
+	                        // TODO Throw something back?
+	                    } catch (ClassNotFoundException e) {
+	                        // TODO Auto-generated catch block
+	                        e.printStackTrace();
+	                    } catch (SQLException e) {
+	                        // TODO Auto-generated catch block
+	                        e.printStackTrace();
+	                    }
+	                }
+	            }
+        	}
         }
         model.getCurrentProfile().setStatus(status);
 
@@ -206,18 +208,16 @@ public class MainController {
         ImageIcon imageIcon = new ImageIcon(url);
         byte[] byeArray = toByte(imageIcon);
 
-        // TODO create an account selection GUI
-        AccountData account = null; // Should be passed in!!
-        GenericConnection connection = null;
-
-        // connection should be found from account!!
-        account = model.getCurrentProfile().getAccountData().get(0);
-        connection = account.getConnection();
-
-        System.out.println("Which connection = "
-                + connection.getServerType().getServerList().get(0));
-        connection.setAvatarPicture(byeArray);
-
+        for (AccountData account : model.getCurrentProfile().getAccountData()){
+	        if (account.getServer().equals(ServerType.GOOGLE_TALK) && account.isConnected()){
+		        // connection should be found from account!!
+		        GenericConnection connection = account.getConnection();
+		
+		        System.out.println("Which connection = "+ account.getServer());
+		        connection.setAvatarPicture(byeArray);
+	        }
+        }
+        
         if (!model.getCurrentProfile().getName().equals("Guest")) {
             model.setAvatarDirectory(model.getCurrentProfile().getName(), url
                     .toString());
@@ -326,7 +326,7 @@ public class MainController {
         }
 
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            if (a.getServer() != ServerType.TWITTER) {
+            if (a.getServer() != ServerType.TWITTER && a.isConnected()) {
                 try {
                     a.getConnection().changeStatus(state,
                             model.getCurrentProfile().getStatus());
