@@ -2,6 +2,8 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import winterwell.jtwitter.Twitter.Status;
+
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -54,8 +56,8 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
     
     public ArrayList<UserData> getTweets() throws BadConnectionException {
     	ArrayList<UserData> tweets = new ArrayList<UserData>();
-    	for (FriendTempData temp : connection.retrieveRecentTweets()){
-    		tweets.add(new TwitterUserData(temp.getNickname(),temp.getStatus()));
+    	for (Status temp : connection.retrieveRecentTweets()){
+    		tweets.add(new TwitterUserData(temp.getUser().getName(),temp.getText(),temp.getCreatedAt()));
     	}
     	return tweets;
     }

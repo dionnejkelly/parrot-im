@@ -26,7 +26,7 @@ public class FriendWrapper implements Observer {
     
     public FriendWrapper(UserData user, boolean twitterFriend) {
         this.user = user;
-        this.labelRepresentation = new JLabel(this.getUser().getNickname());
+        this.labelRepresentation = new JLabel(" " + this.getUser().getNickname()+ " - Last Updated " + ((TwitterUserData) this.getUser()).getMinutesSinceUpdate()+ " mins ago");
         this.labelRepresentation.setForeground(Color.BLACK);
 
         this.user.addObserver(this);
@@ -78,17 +78,14 @@ public class FriendWrapper implements Observer {
 
     public String toString() {
         String toReturn = "";
-        int minutesSinceUpdate = 16384;
 
         if (user.isBlocked()) {
             toReturn = "  Blocked: " + user.getUserID() + " *";
         } else if (user instanceof TwitterUserData) {
-            minutesSinceUpdate =
-                    ((TwitterUserData) user).getMinutesSinceUpdate();
             toReturn =
                     "  " + user.getNickname() + " -- " + user.getStatus()
-                            + " (Changed: " + minutesSinceUpdate
-                            + " minutes ago)";
+                            + " (Posted: " + ((TwitterUserData)user).getDatePosted()
+                            + " )";
         } else if (user.getState() == UserStateType.ONLINE) {
             if (user.getNickname().trim().equals("")) {
                 toReturn =
