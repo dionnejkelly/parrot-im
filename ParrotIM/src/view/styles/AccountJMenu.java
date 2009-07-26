@@ -167,12 +167,13 @@ public class AccountJMenu extends JMenu{
 	private class RemoveMenuActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			controller.disconnect(account);
-			connectAccount(false);
-			
-			// need to know which menu it is removing
-			// buddyFrame.removeAccountJMenu(1);
-			accountJMenu.removeAll();
+			BuddyList.removeAccountJMenu(account);
+//			controller.disconnect(account);
+//			connectAccount(false);
+//			
+//			// need to know which menu it is removing
+//			// buddyFrame.removeAccountJMenu(1);
+//			accountJMenu.removeAll();
 			model.getCurrentProfile().removeAccount(userAccount);
 			
 		}

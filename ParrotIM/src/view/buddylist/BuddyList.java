@@ -42,13 +42,13 @@ import model.enumerations.ServerType;
  * BuddyList display Friend contact list for Parrot IM users.
  */
 public class BuddyList extends JFrame {
-	private ArrayList<AccountJMenu> accountMenuList;
+	private static ArrayList<AccountJMenu> accountMenuList;
 	private BuddyPanel mainListPanel;
     /**
      * menu bar in buddy list
      */
     JMenuBar menu;
-    JMenu contactMenu;
+    static JMenu contactMenu;
     /**
      * variable model for extracting buddy list, each buddy's information and ,
      * conversation
@@ -247,7 +247,7 @@ public class BuddyList extends JFrame {
         return menuBar;
     }
 
-    public void removeAccountJMenu(AccountData account){
+    public static void removeAccountJMenu(AccountData account){
     	int pos = 0;
     	for (pos=0; pos < accountMenuList.size(); pos++){
     		if (accountMenuList.get(pos).getAccount().equals(account)){
