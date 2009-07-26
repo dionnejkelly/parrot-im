@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import view.buddylist.AddBuddyFrame;
+import view.buddylist.BuddyList;
 import view.buddylist.BuddyPanel;
 import view.options.MusicPlayer;
 
@@ -30,10 +31,19 @@ public class AccountJMenu extends JMenu{
 	
 	private Model model;
 	
-	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies, Model model){
+	protected AccountData userAccount;
+	
+	private JMenu accountJMenu;
+	
+	private BuddyList buddyFrame;
+	
+	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies, Model model, BuddyList buddyFrame){
 		super(account.getServer() + " - " + account.getUserID());
 		
 		this.model = model;
+		this.accountJMenu = this;
+		this.userAccount = account;
+		this.buddyFrame = buddyFrame;
 		
 		if (account.getServer() == ServerType.GOOGLE_TALK) {
 			setIcon(new ImageIcon(this.getClass().getResource(
@@ -82,6 +92,7 @@ public class AccountJMenu extends JMenu{
         "/images/menu/account/status-busy.png")));
 		signOutMenu.setEnabled(true);
 		signOutMenu.setMnemonic(KeyEvent.VK_S);
+		signOutMenu.addActionListener(new SignMenuActionListener());
 		
 		JMenuItem addFriendMenu= new JMenuItem("Add a friend", new ImageIcon(this.getClass().getResource(
         "/images/buddylist/add_user.png")));
@@ -90,7 +101,8 @@ public class AccountJMenu extends JMenu{
 		JMenuItem removeMenu = new JMenuItem("Remove account", new ImageIcon(this.getClass().getResource(
         "/images/mainwindow/remove.png")));
 		removeMenu.setMnemonic(KeyEvent.VK_R);
-		signOutMenu.addActionListener(new SignMenuActionListener());
+		removeMenu.addActionListener(new RemoveMenuActionListener());
+		
 		
 		this.add(signMenu);
 		this.add(signOutMenu);
@@ -144,6 +156,21 @@ public class AccountJMenu extends JMenu{
 				System.out.println("account is offline and we have to connect it");	
 				connectAccount(true);	
 			}
+		}
+		
+	}
+	
+	private class RemoveMenuActionListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent arg0) {
+			controller.disconnect(account);
+			connectAccount(false);
+			
+			// need to know which menu it is removing
+			// buddyFrame.removeAccountJMenu(1);
+			accountJMenu.removeAll();
+			model.getCurrentProfile().removeAccount(userAccount);
+			
 		}
 		
 	}
