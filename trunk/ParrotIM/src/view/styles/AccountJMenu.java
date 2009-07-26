@@ -139,10 +139,14 @@ public class AccountJMenu extends JMenu{
 	private class AddFriendListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			AddBuddyFrame addbuddyFrame = new AddBuddyFrame (model, controller, account.getServer());
-        	addbuddyFrame.addWindowListener(new PopupWindowListener (buddies.getBuddyList(), addbuddyFrame));
+			if (account.isConnected()){
+				AddBuddyFrame addbuddyFrame = new AddBuddyFrame (model, controller, account.getServer());
+				addbuddyFrame.addWindowListener(new PopupWindowListener (buddies.getBuddyList(), addbuddyFrame));
+			} else {
+				String resultMessage = account.getUserID()+ " is not connected, please get connected to add a buddy.";
+				JOptionPane.showMessageDialog(null, resultMessage,"Information", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
-		
 	}
 	private class SignMenuActionListener implements ActionListener{
 

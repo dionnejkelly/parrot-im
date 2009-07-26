@@ -35,7 +35,7 @@ public class AddBuddyFrame extends JFrame {
         setTitle("Add Buddy");
         setLocationRelativeTo(null);
         
-        setPreferredSize(new Dimension(350, 180));
+        setPreferredSize(new Dimension(350, 210));
         
         setResizable(false);
         AddBuddyPanel accountPanel = new AddBuddyPanel(model, controller, this, server);
