@@ -254,16 +254,19 @@ public class BuddyList extends JFrame {
     			break;
     		}
     	}
-    	accountMenuList.get(pos).connectAccount(false);
     	contactMenu.remove(accountMenuList.get(pos));
     	accountMenuList.remove(pos);
     }
+    
     public void addAccountJMenu(AccountData account){
     	accountMenuList.add(new AccountJMenu(account, controller, mainListPanel, model, buddywindow));
     	accountMenuList.get(accountMenuList.size()-1).connectAccount(true);
     	contactMenu.add(accountMenuList.get(accountMenuList.size()-1));
     }
     
+    public BuddyPanel getBuddyPanel(){
+    	return mainListPanel;
+    }
     public AccountInfo getAccountInfo(){
     	return accountInfo;
     }
