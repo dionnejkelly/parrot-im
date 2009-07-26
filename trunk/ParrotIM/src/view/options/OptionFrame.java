@@ -55,7 +55,4 @@ public class OptionFrame extends JFrame {
 
     }
 
-    public void updateProfile(){
-    	mainPanel.updatePersonalProfileTab();
-    }
 }

@@ -131,6 +131,10 @@ public class PmLabel extends JTextField {
     		 this.setText(str);
     	 }
     }
+    
+    public void synchOptions(){
+    	PersonalProfileTab.personalMessage.setText(pmLabelTextField.getText());
+    }
     	 
     /**
      * Sets the behaviour with regard of mouse input and position.
