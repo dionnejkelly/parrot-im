@@ -501,9 +501,10 @@ public class SignInPanel extends GPanel implements Observer {
 					e1.printStackTrace();
                 }
                 // Only pop up password if needed
-                if (selectedProfile.isPasswordEnabled()) {
+                if (selectedProfile.isPasswordEnabled() && allowAutoSignIn) {
                 	System.out.println("password enabled");
                     new SimplifiedPasswordPrompt(selectedProfile);
+                    
 
                 } else {
                     // No password required
@@ -518,6 +519,7 @@ public class SignInPanel extends GPanel implements Observer {
                     	profileSignIn();
                     }
                 }
+                allowAutoSignIn = true;
             } else if (selectedIndex <= 0) {
                 manageAccount.setEnabled(false);
                 removeProfile.setEnabled(false);
