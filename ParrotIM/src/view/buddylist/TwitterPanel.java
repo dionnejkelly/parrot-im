@@ -138,6 +138,8 @@ public class TwitterPanel extends GPanel implements Observer {
     private ArrayList<FriendPanel> friendPanels;
 
     private SelectListener selectListener;
+    
+    private JLabel tempLabel;
 
     /**
      * BuddyPanel , display friend contact list in buddy panel.
@@ -150,12 +152,13 @@ public class TwitterPanel extends GPanel implements Observer {
     // II-Constructors
     public TwitterPanel(Model model){
     	this.model = model;
-    	//model.addObserver(this);
+    	model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         setGradientColors(model.primaryColor, model.secondaryColor);
         
-        JLabel tempLabel = new JLabel("Please Login to a Twitter Account first");
+        tempLabel = new JLabel("Please Login to a Twitter Account first");
+        tempLabel.setForeground(model.primaryTextColor);
         add(tempLabel);
     }
     
@@ -408,6 +411,7 @@ public class TwitterPanel extends GPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.COLOR) {
             setGradientColors(model.primaryColor, model.secondaryColor);
+            tempLabel.setForeground(model.primaryTextColor);
             updateUI();
         }
     }
