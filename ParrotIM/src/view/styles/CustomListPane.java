@@ -34,7 +34,7 @@ public class CustomListPane extends GPanel{
             "/images/chatwindow/personal.png"));
     private int lastSelected = 0;
     public boolean modifiableColors = false;
-    private Color textColor = Color.BLACK;
+    public Color textColor = Color.BLACK;
     
     public CustomListPane() {
         setGradientColors(Color.WHITE, Color.WHITE);
@@ -95,7 +95,7 @@ public class CustomListPane extends GPanel{
         JLabel imageLabel = new JLabel(newIcon);
         
         JLabel usernameLabel = user.getLabelRepresentation();
-        usernameLabel.setForeground(textColor);
+        usernameLabel.setForeground(this.textColor);
         userLabels.add(usernameLabel);
         friendPanel.add(imageLabel, BorderLayout.WEST);
         friendPanel.add(usernameLabel, BorderLayout.CENTER);
@@ -288,11 +288,9 @@ public class CustomListPane extends GPanel{
     }
     
     public void updateTextColor(Color color){
-    	if(modifiableColors){
-	    	for(JLabel l : userLabels){
-	    		l.setForeground(color);
-	    		l.updateUI();
-	    	}
-    	}
+	    for(JLabel l : userLabels){
+	    	l.setForeground(color);
+	    	l.updateUI();
+	    }
     }
 }
