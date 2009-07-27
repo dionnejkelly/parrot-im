@@ -34,6 +34,7 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -57,7 +58,7 @@ public class PreferencePanel extends GPanel implements Observer {
     private ThemeOptionsComboBox themeMenu;
     private Model model;
     private JFrame colorChooser;
-    private JPanel colorPanel, themePanel, textColorPanel, chatPaneColorPanel;
+    private JPanel colorPanel, themePanel, textColorPanel, chatPaneColorPanel, presetColorPanel;
     private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     
     public PreferencePanel(MainController c, JFrame mainframe, final Model model)
@@ -85,6 +86,11 @@ public class PreferencePanel extends GPanel implements Observer {
         themePanel.add(themeMenu);
         
         /* colorSelection*/
+        presetColorPanel = new JPanel();
+        presetColorPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+        presetColorPanel.setAlignmentX(LEFT_ALIGNMENT);
+        presetColorPanel.setBackground(model.tertiaryColor);
+        
         colorPanel = new JPanel();
         colorPanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
         colorPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -100,6 +106,9 @@ public class PreferencePanel extends GPanel implements Observer {
         chatPaneColorPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatPaneColorPanel.setBackground(model.tertiaryColor);
         	
+        JLabel presetLabel = new JLabel("Color Presets: ");
+        presetLabel.setForeground(model.primaryTextColor);
+        
         JLabel colorLabel = new JLabel("Window Colors:");
         colorLabel.setForeground(model.primaryTextColor);
         
@@ -111,6 +120,9 @@ public class PreferencePanel extends GPanel implements Observer {
         
         colorChooser = new JFrame();
         colorChooser.setVisible(false);
+        
+        String[] presetStrings = { "defualt", "Blue", "Red", "Green" };
+        JComboBox presets = new JComboBox(presetStrings);
         
         final JButton colorButton = new JButton("1");
         colorButton.setBackground(model.primaryColor);
@@ -152,6 +164,9 @@ public class PreferencePanel extends GPanel implements Observer {
 			}
         });
         
+        presetColorPanel.add(presetLabel);
+        presetColorPanel.add(presets);
+        
         colorPanel.add(colorLabel);
         colorPanel.add(colorButton);
         colorPanel.add(colorButton2);
@@ -164,12 +179,14 @@ public class PreferencePanel extends GPanel implements Observer {
         chatPaneColorPanel.add(chatButton);
         
         model.addObserver(this);
+        labels.add(presetLabel);
         labels.add(colorLabel);
         labels.add(textColorLabel);
         labels.add(themeLabel);
         labels.add(chatPaneColorLabel);
         
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 225));
+        this.add(presetColorPanel);
         this.add(colorPanel);
         this.add(textColorPanel);
         this.add(chatPaneColorPanel);
@@ -199,6 +216,7 @@ public class PreferencePanel extends GPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		if(arg == UpdatedType.COLOR){
 			setGradientColors(model.primaryColor, model.secondaryColor);
+			presetColorPanel.setBackground(model.tertiaryColor);
 			colorPanel.setBackground(model.tertiaryColor);
 			textColorPanel.setBackground(model.tertiaryColor);
 			themePanel.setBackground(model.tertiaryColor);

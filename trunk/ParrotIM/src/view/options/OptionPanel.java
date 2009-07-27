@@ -64,7 +64,7 @@ public class OptionPanel extends JPanel {
 		tabbedOptions.addTab("Personal Profile", new PersonalProfileTab(c,buddyFrame.getAccountInfo(), model));
 		tabbedOptions.addTab("Manage Accounts", new ManageAccount(profile, buddyFrame, model, c));
 		tabbedOptions.addTab("Features Settings", new FeaturesPanel(c, optionframe, model));
-		tabbedOptions.addTab("Preference", new PreferencePanel(c, optionframe, model));
+		tabbedOptions.addTab("Colors/Themes", new PreferencePanel(c, optionframe, model));
 		//setting layout
 		this.add(tabbedOptions);
 	}
