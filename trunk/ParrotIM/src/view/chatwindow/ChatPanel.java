@@ -103,6 +103,8 @@ public class ChatPanel extends GPanel implements Observer{
 
     private SlashCommand slashCommand;
     
+    private Long previousTime = System.currentTimeMillis();
+    
     /**
      * This is the constructor of the ChatPanel.
      * 
@@ -162,7 +164,8 @@ public class ChatPanel extends GPanel implements Observer{
         JScrollPane chatInputWindowScroller = new JScrollPane(txt1);
         chatInputWindowScroller
                 .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
+        typingThread typingT = new typingThread();
+        typingT.start();
         sendButton = new JButton("Send");
         sendButton.addActionListener(new SendButtonPressed());
         // displayPanel.addMessage(incoming messages); //TODO
@@ -309,6 +312,7 @@ public class ChatPanel extends GPanel implements Observer{
         // add to chat panel
         add(sPane, BorderLayout.CENTER);
         txt1.requestFocus();
+        
     }
 
     // Getters
@@ -585,7 +589,7 @@ public class ChatPanel extends GPanel implements Observer{
          */
 
         public void keyReleased(KeyEvent e) {
-        	
+        	previousTime = System.currentTimeMillis();
         	
             if (!shiftPressed && e.getKeyCode() == e.VK_ENTER
                     && sendButton.isEnabled()) {
@@ -649,7 +653,24 @@ public class ChatPanel extends GPanel implements Observer{
         }
 
     }
-
+    private class typingThread extends Thread{
+    	public typingThread(){
+    		
+    	}
+    	public void run(){
+    		while (true){
+    			if((System.currentTimeMillis() - previousTime)> 3000){
+    				c.setTypingState(1);
+    			}
+    			try {
+					this.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	}
+    }
     /**
      * 
      * Check content of the textarea
