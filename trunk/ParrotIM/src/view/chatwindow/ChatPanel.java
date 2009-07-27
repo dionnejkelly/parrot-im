@@ -659,11 +659,11 @@ public class ChatPanel extends GPanel implements Observer{
     	}
     	public void run(){
     		while (true){
-    			if((System.currentTimeMillis() - previousTime)> 3000){
+    			if((System.currentTimeMillis() - previousTime)> 2000){
     				c.setTypingState(1);
     			}
     			try {
-					this.sleep(3000);
+					this.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
