@@ -70,7 +70,9 @@ public class LinkLabel extends JLabel {
 		this.enabled = enabled;
 		if (enabled){
 			this.setText("<html><u>"+ text +"</u></html>");
-			this.setBackground(model.primaryColor);
+			this.setBackground(model.primaryTextColor);
+			//Integer.toHexString(
+			//		colorChooser.getColor().getRGB()).substring(2, 8)
 		} else{
 			this.setText("<html><u>"+ text +"</u></html>");
 			this.setBackground(Color.GRAY);
@@ -104,8 +106,7 @@ public class LinkLabel extends JLabel {
 		 * @param e */
 		public void mouseEntered(MouseEvent e) {
 			if (enabled){
-				label.setText("<html><b>"+label.text+"</b></html>");
-				label.setBackground(Color.WHITE);
+				label.setText("<html><Font Color=WHITE><b>"+label.text+"</b></Font></html>");
 			}
 		}
 		
@@ -114,7 +115,7 @@ public class LinkLabel extends JLabel {
 		 * @param e */
 		public void mouseExited(MouseEvent e) {
 			label.setEnabled(enabled);
-			label.setBackground(model.primaryColor);
+			label.setBackground(model.primaryTextColor);
 		}
 
 		public void mousePressed(MouseEvent e) {}

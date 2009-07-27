@@ -289,6 +289,8 @@ public class BuddyPanel extends GPanel implements Observer {
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scroller.getVerticalScrollBar().setUnitIncrement(16);
         options = OptionsBar();
+        options.setBackground(model.tertiaryColor);
+        options.setForeground(model.tertiaryColor);
 
         add(scroller, BorderLayout.CENTER);
         add(options, BorderLayout.SOUTH);
