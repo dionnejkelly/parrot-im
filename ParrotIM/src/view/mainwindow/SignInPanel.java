@@ -152,10 +152,14 @@ public class SignInPanel extends GPanel implements Observer {
      * includes a separator and help LinkLabel.
      */
     protected MiscPanel misc;
+    
+    private LinkLabel createProfile;
 
     private LinkLabel manageAccount;
 
     private LinkLabel removeProfile;
+    
+    private LinkLabel guestAccount;
 
     private JButton connectButton;
 
@@ -194,7 +198,7 @@ public class SignInPanel extends GPanel implements Observer {
 
         this.setGradientColors(model.primaryColor, model.secondaryColor);
         
-        misc = new MiscPanel();
+        misc = new MiscPanel(model);
         misc.setOpaque(false);
         
         add(header, BorderLayout.NORTH);
@@ -246,19 +250,19 @@ public class SignInPanel extends GPanel implements Observer {
         accOptPanel.setLayout(new BoxLayout(accOptPanel, BoxLayout.Y_AXIS));
 
         // create account
-        LinkLabel createProfile = new LinkLabel("Create New Profile", true);
+        createProfile = new LinkLabel("Create New Profile", true, model);
         createProfile.addMouseListener(new createProfileListener());
 
         // manage account
-        manageAccount = new LinkLabel("Manage Profile", false);
+        manageAccount = new LinkLabel("Manage Profile", false, model);
         manageAccount.addMouseListener(new manageProfileListener());
 
         // remove account
-        removeProfile = new LinkLabel("Remove Profile", false);
+        removeProfile = new LinkLabel("Remove Profile", false, model);
         removeProfile.addMouseListener(new removeProfileListener());
 
         // guest account
-        LinkLabel guestAccount = new LinkLabel("Connect Guest Account", true);
+        guestAccount = new LinkLabel("Connect Guest Account", true, model);
         guestAccount.setToolTipText("Connect without creating a Profile, limited to only one account and disables chatlogging.");
         guestAccount.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         guestAccount.addMouseListener(new guestAccountListener());
@@ -346,6 +350,11 @@ public class SignInPanel extends GPanel implements Observer {
         
         if(arg == UpdatedType.COLOR){
         	setGradientColors(model.primaryColor, model.secondaryColor);
+        	createProfile.setForeground(model.primaryTextColor);
+        	createProfile.updateUI();
+        	manageAccount.setForeground(model.primaryTextColor);
+        	removeProfile.setForeground(model.primaryTextColor);
+        	guestAccount.setForeground(model.primaryTextColor);
         	updateUI();
         }
 
