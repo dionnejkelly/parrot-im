@@ -1,13 +1,14 @@
 package view.styles;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -19,12 +20,11 @@ import javax.swing.ScrollPaneConstants;
 
 import view.chatwindow.UserDataWrapper;
 
-
 public class CustomListPane extends GPanel{
-
-    private int groupIndex;
+	private int groupIndex;
 	private Component lastClickedComponent;
 	private int lastClickedIndex;
+	
     private ArrayList<String> nicknames = new ArrayList<String>();
     private ArrayList<UserDataWrapper> userWrappers = new ArrayList<UserDataWrapper>();
     private ArrayList<JPanel> userPanels;
@@ -36,10 +36,7 @@ public class CustomListPane extends GPanel{
     public boolean modifiableColors = false;
     private Color textColor = Color.BLACK;
     
-    public CustomListPane(int groupIndex) {
-    	this.groupIndex = groupIndex;
-    	lastClickedComponent = null;
-    	lastClickedIndex = -1;
+    public CustomListPane() {
         setGradientColors(Color.WHITE, Color.WHITE);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
@@ -50,9 +47,16 @@ public class CustomListPane extends GPanel{
 
         add(boxes[0], BorderLayout.NORTH);
     }
-
     public void setGroupIndex(int index){
     	groupIndex = index;
+    }
+    public void resetClickedSelection(){
+    	if (lastClickedComponent != null && lastClickedIndex != -1){
+    		lastClickedComponent.setBackground(Color.WHITE);
+    		userPanels.get(lastClickedIndex).setOpaque(false);
+    	}
+    	lastClickedComponent = null;
+    	lastClickedIndex = -1;
     }
     private JPanel friendPanel(String nickname, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
@@ -210,11 +214,7 @@ public class CustomListPane extends GPanel{
         userPanels.remove(panel);
         boxes[0].remove(panel);
         updateUI();
-        
-        if (userPanels.size() == 0 || userPanels.size() <= lastClickedIndex){
-        	lastClickedComponent = null;
-    		lastClickedIndex = -1;
-        }
+
         return;
     }
 
@@ -222,7 +222,6 @@ public class CustomListPane extends GPanel{
         userPanels.clear();
         boxes[0].removeAll();
         updateUI();
-        this.resetClickedSelection();
     }
 
     public int getClickedIndex() {
@@ -240,109 +239,41 @@ public class CustomListPane extends GPanel{
     public Box getBoxes() {
         return boxes[0];
     }
-    
-	public void resetClickedSelection(){
-		if (lastClickedComponent != null && lastClickedIndex != -1){
-			lastClickedComponent.setBackground(Color.WHITE);
-			userPanels.get(lastClickedIndex).setOpaque(false);
-		}
-		lastClickedComponent = null;
-		lastClickedIndex = -1;
-	}
-	
+
     private class SelectListener implements MouseListener {
-    	boolean clicked;
-    	
-    	public SelectListener(){
-    		clicked = false;
-    	}
-    	
 
         /**
          * highlights clicked element
          */
         public void mouseClicked(MouseEvent event) {
-        	if (groupIndex > -1){
-        		if (GroupedListPane.getLastClickedGroup() != groupIndex){
-        			GroupedListPane.resetSelectionLastClickedGroup();
-        			GroupedListPane.setLastClickedGroup(groupIndex);
-        		}
-        	}
-        	System.out.println("lastSelected "+ lastSelected);
-        	System.out.println("lastClickedIndex "+ lastClickedIndex);
-        	System.out.println("userPanel.size() "+ userPanels.size());
-        	clicked = true;
-        	if (lastClickedComponent != null && lastClickedIndex < userPanels.size() 
-        			&& userPanels.size() != 1
-        			&& !lastClickedComponent.equals(boxes[0].getComponent(lastSelected))){
-        		System.out.println("I GOT HERE VERA");
-        		lastClickedComponent.setBackground(Color.WHITE);
-            	userPanels.get(lastClickedIndex).setOpaque(false);
-        	} else {
-    	        lastClickedIndex = lastSelected;
-        	}
-        	if (lastSelected < userPanels.size()){
-        		System.out.println("GOT IN HERE NNN");
-        		boxes[0].getComponent(lastSelected).setBackground(
-	                    new Color(145, 200, 200));
-        		lastClickedComponent = boxes[0].getComponent(lastSelected);
-        	} 
+            boxes[0].getComponent(lastSelected).setBackground(
+                    new Color(145, 200, 200));
         }
 
         /**
          * change background to color when mouse Entered
          */
         public void mouseEntered(MouseEvent event) {
-//        	if (userPanels.size() == 1){
-//        		lastClickedIndex = -1;
-//        	}
-//        	System.out.println("lastSelected MOUSEENTER "+lastSelected);
-//        	System.out.println("lastClicked MOUSEENTER "+lastClickedIndex);
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
-                	System.out.println("lastClicked MOUSEENTER "+lastClickedIndex);
-                	System.out.println("this is i MOUSEENTER "+i);
-                	System.out.println("clicked "+clicked);
-                	if (!clicked && lastClickedIndex != i){
-                		System.out.println("me ish called from "+groupIndex);
-	                    boxes[0].getComponent(i).setBackground(
-	                            new Color(225, 247, 247));
-	                    try {
-	                        userPanels.get(i).setOpaque(true);
-	                    } catch (IndexOutOfBoundsException e) {
-	                        System.err.println("userPanel does not exist... i = " + i);
-	                    }
-                	} else if (lastClickedIndex == i){
-                		clicked = true;
-                	}
-	                lastSelected = i;
-                	
+                    boxes[0].getComponent(i).setBackground(
+                            new Color(225, 247, 247));
+                    try {
+                        userPanels.get(i).setOpaque(true);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.err.println("userPanel does not exist... i = " + i);
+                    }
+                    lastSelected = i;
                 }
             }
-            
-           
         }
 
         /**
          * change background to white when mouse Exited
          */
         public void mouseExited(MouseEvent event) {
-        	if (!clicked && lastSelected < userPanels.size()){
-        		boxes[0].getComponent(lastSelected).setBackground(Color.WHITE);
-            	userPanels.get(lastSelected).setOpaque(false);
-        	} else {
-        		lastClickedIndex = lastSelected;
-        	}
-//        	if (userPanels.size() == 1 && clicked){
-//        		clicked = true;
-//        	}else if (userPanels.size() == 1 && !clicked){
-//        		boxes[0].getComponent(0).setBackground(Color.WHITE);
-//            	userPanels.get(0).setOpaque(false);
-//            	clicked = false;
-//        	} else {
-        		clicked = false;
-//        	}
+            boxes[0].getComponent(lastSelected).setBackground(Color.WHITE);
+            userPanels.get(lastSelected).setOpaque(false);
         }
 
         /**

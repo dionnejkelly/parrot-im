@@ -83,7 +83,7 @@ public class SidePanel extends GPanel implements Observer {
         setGradientColors(Color.BLACK, Color.WHITE);
         
         // List preferences
-        listPane = new CustomListPane(-1);
+        listPane = new CustomListPane();
         listPane.setGradientColors(model.primaryColor, model.secondaryColor);
         listPane.modifiableColors = true;
         
