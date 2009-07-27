@@ -115,9 +115,9 @@ public class BuddyList extends JFrame implements Observer{
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
         buddylistPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 
-        mainListPanel = new BuddyPanel(c, model, this, chat);
+        mainListPanel = new BuddyPanel(c, model, this);
         if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null)
-        	mainTwitterPanel = new TwitterPanel(c,model,this,mainListPanel);
+        	mainTwitterPanel = new TwitterPanel(c,model,this);
         else 
         	mainTwitterPanel = new TwitterPanel(model);
         

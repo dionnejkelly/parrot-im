@@ -162,8 +162,7 @@ public class BuddyPanel extends GPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
-    public BuddyPanel(MainController c, Model model, JFrame buddyWindow,
-            ChatWindow chat) {
+    public BuddyPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
@@ -173,7 +172,6 @@ public class BuddyPanel extends GPanel implements Observer {
 
         this.chatClient = c;
         this.model = model;
-        this.chat = chat;
         this.searchEnabled = false;
         this.lastUpdate = System.currentTimeMillis();
         this.friendWrappers = new ArrayList<FriendWrapper>();

@@ -162,8 +162,7 @@ public class TwitterPanel extends GPanel implements Observer {
         add(tempLabel);
     }
     
-    public TwitterPanel(MainController c, Model model, JFrame buddyWindow,
-            BuddyPanel buddyList) {
+    public TwitterPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
         model.addObserver(this);
         setLayout(new BorderLayout());
