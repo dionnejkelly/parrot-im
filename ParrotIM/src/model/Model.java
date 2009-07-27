@@ -113,7 +113,7 @@ public class Model extends Observable {
     public boolean aboutWindowOpen;
     public boolean groupChatWindowOpen;
 
-    // These are the defualt colors
+    // These are the default colors
     // public Color primaryDark = new Color(0x0c455b);
     public Color primaryColor = new Color(0x57a6c4);
     public Color secondaryColor = new Color(0xffffff);
@@ -131,13 +131,6 @@ public class Model extends Observable {
      * profiles and accounts from the database.
      */
     public Model() {
-        // System.out.println(Integer.toHexString(primaryDark.getRGB()).substring(2, 8));
-        System.out.println(Integer.toHexString(primaryColor.getRGB()).substring(2, 8));
-        System.out.println(Integer.toHexString(secondaryColor.getRGB()).substring(2, 8));
-        System.out.println(Integer.toHexString(tertiaryColor.getRGB()).substring(2, 8));
-        System.out.println(Integer.toHexString(primaryTextColor.getRGB()).substring(2, 8));
-        System.out.println(Integer.toHexString(textPaneColor.getRGB()).substring(2, 8));
-        // System.out.println(Integer.toHexString(inComingMessageColor.getRGB()).substring(2, 8));
         initializeAllVariables();
     }
 
