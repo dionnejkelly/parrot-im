@@ -186,6 +186,7 @@ public class SignInPanel extends GPanel implements Observer {
         mainFrame = frame;
         core = chatClient;// CORE
         this.model = model;
+        model.addObserver(this);
         
         signin = this;
         this.profiles = model.getProfileCollection();
@@ -333,37 +334,25 @@ public class SignInPanel extends GPanel implements Observer {
      */
     public void update(Observable o, Object arg) {
 
-        // Clear current list of profiles
-        this.profilesModel.removeAllElements();
-
-        // Set up the "header" of the list
-        if (profiles.getProfiles().size() > 1) {
-            this.profilesModel.addElement("Select a Profile");
-        } else {
-            this.profilesModel.addElement("Create a Profile");
-        }
-
-        // Add the profiles to the list
-        for (ProfileData p : profiles.getProfiles()) {
-            this.profilesModel.addElement(p);
-        }
-        
         if(arg == UpdatedType.COLOR){
-        	setGradientColors(model.primaryColor, model.secondaryColor);
-        	
-        	createProfile.setForeground(model.primaryTextColor);
-        	createProfile.updateUI();
-        	
-        	manageAccount.setForeground(model.primaryTextColor);
-        	manageAccount.updateUI();
-        	
-        	removeProfile.setForeground(model.primaryTextColor);
-        	removeProfile.updateUI();
-        	
-        	guestAccount.setForeground(model.primaryTextColor);
-        	guestAccount.updateUI();
+        	this.setGradientColors(model.primaryColor, model.secondaryColor);
         	
         	updateUI();
+        }else{
+        	// Clear current list of profiles
+            this.profilesModel.removeAllElements();
+
+            // Set up the "header" of the list
+            if (profiles.getProfiles().size() > 1) {
+                this.profilesModel.addElement("Select a Profile");
+            } else {
+                this.profilesModel.addElement("Create a Profile");
+            }
+
+            // Add the profiles to the list
+            for (ProfileData p : profiles.getProfiles()) {
+                this.profilesModel.addElement(p);
+            }
         }
 
         return;
