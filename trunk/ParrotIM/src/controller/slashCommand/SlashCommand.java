@@ -34,13 +34,7 @@ public class SlashCommand {
 			
 			if (numberOfTokens==1){
 				// one token
-				if (token.compareToIgnoreCase("pm") == 0){
-					//TESTING: trying to set MSN personal message
-					System.out.println("slash command for pm " + str.substring (3));
-					controller.VeraTesting(str.substring (3));
-					return true;
-				} else 
-					if (token.compareToIgnoreCase(UserStateType.ONLINE.toString())==0 || //online
+				if (token.compareToIgnoreCase(UserStateType.ONLINE.toString())==0 || //online
 						token.compareToIgnoreCase("available")==0 || //online
 						token.compareToIgnoreCase(UserStateType.AWAY.toString())==0 || //away
 						token.compareToIgnoreCase(UserStateType.BUSY.toString())==0 || //busy
