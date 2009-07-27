@@ -488,16 +488,21 @@ public class SignInPanel extends GPanel implements Observer {
 
                 ProfileData selectedProfile = (ProfileData) account_select.getSelectedItem();
                 System.out.println(selectedProfile.getName());
-                //change avatar
-                
+                //change avatar and colors
                 try {
 					System.out.println(model.getAvatarDirectory(selectedProfile.getName()));
 					header.changeAvatar(model.getAvatarDirectory(selectedProfile.getName()));
+
+					model.primaryColor = Color.decode("0x" + model.getColor(1, selectedProfile.getName()).toString());
+					model.secondaryColor = Color.decode("0x" + model.getColor(2, selectedProfile.getName()).toString());
+					model.tertiaryColor = Color.decode("0x" + model.getColor(3, selectedProfile.getName()).toString());
+					model.primaryTextColor = Color.decode("0x" + model.getColor(4, selectedProfile.getName()).toString());
+					model.textPaneColor = Color.decode("0x" + model.getColor(5, selectedProfile.getName()).toString());
+					
+					model.updateColors();
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
                 }
                 // Only pop up password if needed
