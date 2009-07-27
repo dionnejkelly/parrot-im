@@ -228,17 +228,19 @@ public class ChatbotQA extends JFrame implements Observer{
 			}
 		}
 	}
-	private class addNewQAFrame extends JFrame{
+	private class addNewQAFrame extends JFrame implements Observer{
 		private JTextField field;
 		private JFrame frame;
 		private JButton okButton;
+		private JLabel label;
 		
 		public addNewQAFrame(char mode){
 			frame =this;
 			
 			/*PROMPT*/
-			JLabel label = new JLabel();
+			label = new JLabel();
 			label.setOpaque(false);
+			label.setForeground(model.primaryTextColor);
 			if (mode == 'Q') 
 				label.setText("Please type in your question: ");
 			else if (mode == 'A')
@@ -339,9 +341,16 @@ public class ChatbotQA extends JFrame implements Observer{
 
 			public void keyTyped(KeyEvent arg0) {}
 		}
+
+		public void update(Observable o, Object arg) {
+			if(arg == UpdatedType.COLOR){
+				label.setForeground(model.primaryTextColor);
+				label.updateUI();
+			}
+		}
 	}
 
-	public void update(Observable arg0, Object arg) {
+	public void update(Observable o, Object arg) {
 		if(arg == UpdatedType.COLOR){
 			mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 			addNewQAPanel.setGradientColors(model.primaryColor, model.secondaryColor);
