@@ -111,7 +111,7 @@ public class ICQManager implements GenericConnection {
 	
 	private  BasicConnection iconConnection;
     
-	private PollingThread poller;
+//	private PollingThread poller;
 	
 	public static void main(String[] args) {
 		ICQManager i = new ICQManager(null, null);
@@ -625,31 +625,31 @@ public class ICQManager implements GenericConnection {
         	
         });
         
-        poller = new PollingThread();
-        poller.start();
+//        poller = new PollingThread();
+//        poller.start();
     }
     
     // Section
     // Polling methods
 
-    private class PollingThread extends Thread {
-    	
-    	
-    		
-        public void run() {
-            try {
-            	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
-                sleep(4500); // Delay for 4 seconds
-            } catch (InterruptedException e) {
-                System.err.println("Threading error");
-                e.printStackTrace();
-            }
-            
-            System.out.println("Muhahaha");
-			controller.refreshFriends(controller.getConnection());
-			
-        }
-    }
+//    private class PollingThread extends Thread {
+//    	
+//    	
+//    		
+//        public void run() {
+//            try {
+//            	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
+//                sleep(4500); // Delay for 4 seconds
+//            } catch (InterruptedException e) {
+//                System.err.println("Threading error");
+//                e.printStackTrace();
+//            }
+//            
+//            System.out.println("Muhahaha");
+//			controller.refreshFriends(controller.getConnection());
+//			
+//        }
+//    }
 
 //    private class SnacRequestAdapterListener extends SnacRequestAdapter {
 //    	public void handleResponse(SnacResponseEvent e) {
