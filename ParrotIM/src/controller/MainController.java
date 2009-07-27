@@ -220,10 +220,13 @@ public class MainController {
 	        }
         }
         
-        if (!model.getCurrentProfile().getName().equals("Guest")) {
+//        if (!model.getCurrentProfile().isGuestAccount()) {
+        	
+        	
+        	System.out.println("      FROM THE MAIN CONTROLLER I GOT SAVED IN THE DATABASE!!!");
             model.setAvatarDirectory(model.getCurrentProfile().getName(), url
                     .toString());
-        }
+//        }
 
         // TODO make a more accurate Model.addFriend
 

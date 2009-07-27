@@ -285,7 +285,7 @@ public class ManageAccount extends GPanel implements Observer {
                     // AccountData is not null: account of the selected
                     // serverType is stored
                     String resultMessage =
-                            "We are only supporting one account per server for the beta version. \n"
+                            "We are only supporting one account per server. \n"
                                     + "Sorry for the inconvenience.";
                     JOptionPane.showMessageDialog(null, resultMessage,
                             "Information", JOptionPane.INFORMATION_MESSAGE);

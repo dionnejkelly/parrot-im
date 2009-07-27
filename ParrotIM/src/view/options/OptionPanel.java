@@ -73,7 +73,7 @@ public class OptionPanel extends JPanel {
 
 		public void stateChanged(ChangeEvent arg0) {
 			// TODO Auto-generated method stub
-			if (model.getCurrentProfile().getName().equals("Guest") && tabbedOptions.getSelectedIndex() == 1){
+			if (model.getCurrentProfile().isGuestAccount() && tabbedOptions.getSelectedIndex() == 1){
 	            JOptionPane
                 .showMessageDialog(
                         null,

@@ -63,8 +63,8 @@ public class PopupWindowListener implements WindowListener {
 	 * @param e */
 	public void windowClosed(WindowEvent e) {
 		mainFrame.setEnabled(true);
-		mainFrame.setAlwaysOnTop(true);
-	    mainFrame.setAlwaysOnTop(false);
+//		mainFrame.setAlwaysOnTop(true);
+//	    mainFrame.setAlwaysOnTop(false);
 	}
 
 	public void windowClosing(WindowEvent e) {}
@@ -77,7 +77,7 @@ public class PopupWindowListener implements WindowListener {
 	 * @param e */
 	public void windowOpened(WindowEvent e) {
 		mainFrame.setEnabled(false);
-		popup.setAlwaysOnTop(true);
+//		popup.setAlwaysOnTop(true);
 	}
 	public void windowActivated(WindowEvent e) {}
 }

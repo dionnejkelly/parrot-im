@@ -321,10 +321,13 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
             
             
         } catch (BadConnectionException e) {
+        	
+        	
             notifyConnectionFailed(e.getMessage());
             throw e;
         } catch (Exception e) {
 			// TODO Auto-generated catch block
+        	
 			e.printStackTrace();
 		}
     }

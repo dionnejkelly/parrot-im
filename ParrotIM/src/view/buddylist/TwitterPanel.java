@@ -42,6 +42,7 @@ import view.chatwindow.ChatWindow;
 
 import model.Model;
 import model.dataType.UserData;
+import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 
 /**
@@ -150,6 +151,18 @@ public class TwitterPanel extends GPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
+
+//    public TwitterPanel(Model model){
+//    	this.model = model;
+//    	//model.addObserver(this);
+//        setLayout(new BorderLayout());
+//        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+//        setGradientColors(model.primaryColor, model.secondaryColor);
+//        
+//        JLabel tempLabel = new JLabel("Please Login to a Twitter Account first");
+//        add(tempLabel);
+//    }
+
     public TwitterPanel(Model model){
     	this.model = model;
     	model.addObserver(this);
@@ -161,6 +174,7 @@ public class TwitterPanel extends GPanel implements Observer {
         tempLabel.setForeground(model.primaryTextColor);
         add(tempLabel);
     }
+
     
     public TwitterPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
@@ -203,10 +217,14 @@ public class TwitterPanel extends GPanel implements Observer {
         buddyListPane.addGroup("     Twitter Friends", twitterImage);
         // buddyListPane.addElement(0, "test", null);
 
+        
+        if (model.getCurrentProfile().hasTwitter())
+        {
         pictureUpdateThread = new PictureUpdateThread();
         pictureUpdateThread.start();
 
         listRepopulate();
+        }
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
@@ -410,7 +428,7 @@ public class TwitterPanel extends GPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.COLOR) {
             setGradientColors(model.primaryColor, model.secondaryColor);
-            tempLabel.setForeground(model.primaryTextColor);
+           // tempLabel.setForeground(model.primaryTextColor);
             updateUI();
         }
     }
@@ -424,7 +442,8 @@ public class TwitterPanel extends GPanel implements Observer {
          * boolean variable, indicate whether selected.
          */
         protected boolean selected;
-
+        
+        
         /**
          * SelectListener()
          */
