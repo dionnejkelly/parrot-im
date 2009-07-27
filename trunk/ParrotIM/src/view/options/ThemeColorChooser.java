@@ -89,7 +89,7 @@ public class ThemeColorChooser extends GPanel implements ChangeListener  {
         JPanel bannerPanel = new JPanel(new BorderLayout());
         bannerPanel.add(banner, BorderLayout.CENTER);
         bannerPanel.setBorder(BorderFactory.createTitledBorder("Font Preview"));
-
+        
         //Set up color chooser for setting text color
         colorChooser = new JColorChooser(banner.getForeground());
         colorChooser.getSelectionModel().addChangeListener(this);

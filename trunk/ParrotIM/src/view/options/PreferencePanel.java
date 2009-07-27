@@ -197,10 +197,25 @@ public class PreferencePanel extends GPanel implements Observer {
 					model.textPaneColor = Color.WHITE;
 				}
 				colorButton.setBackground(model.primaryColor);
+				model.setColor(1, Integer.toHexString(
+						colorButton.getBackground().getRGB()).substring(2, 8));
+				
 				colorButton2.setBackground(model.secondaryColor);
+				model.setColor(2, Integer.toHexString(
+						colorButton2.getBackground().getRGB()).substring(2, 8));
+				
 				colorButton3.setBackground(model.tertiaryColor);
+				model.setColor(3, Integer.toHexString(
+						colorButton3.getBackground().getRGB()).substring(2, 8));
+				
 				textButton.setBackground(model.primaryTextColor);
+				model.setColor(4, Integer.toHexString(
+						textButton.getBackground().getRGB()).substring(2, 8));
+				
 				chatButton.setBackground(model.textPaneColor);
+				model.setColor(5, Integer.toHexString(
+						chatButton.getBackground().getRGB()).substring(2, 8));
+				
 				model.updateColors();
 			}
         });
