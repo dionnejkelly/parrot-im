@@ -797,6 +797,7 @@ public class BuddyPanel extends GPanel implements Observer {
             this.refreshBuddyList();
         } else if (arg == UpdatedType.COLOR) {
             setGradientColors(model.primaryColor, model.secondaryColor);
+            this.options.setBackground(model.tertiaryColor);
             updateUI();
         }
 
