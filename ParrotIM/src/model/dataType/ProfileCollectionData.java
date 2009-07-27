@@ -1,5 +1,6 @@
 package model.dataType;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -61,7 +62,16 @@ public class ProfileCollectionData extends Observable {
 
     public void addProfile(ProfileData profile) {
         DatabaseFunctions db = null;
-
+        try {
+			db = new DatabaseFunctions();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        profile.setName(db.replace(profile.getName(), "'", ""));
         if (!this.duplicateName(profile.getName())) {
             this.profiles.add(profile);
 

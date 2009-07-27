@@ -133,14 +133,24 @@ public class ThemeColorChooser extends GPanel implements ChangeListener  {
 	public void stateChanged(ChangeEvent arg0) {
 		if(colorButton.getText().equals("1")){
 			model.primaryColor = colorChooser.getColor();
+			model.setColor(1, Integer.toHexString(
+					colorChooser.getColor().getRGB()).substring(2, 8));
 		}else if(colorButton.getText().equals("2")){
 			model.secondaryColor = colorChooser.getColor();
+			model.setColor(2, Integer.toHexString(
+					colorChooser.getColor().getRGB()).substring(2, 8));
 		}else if(colorButton.getText().equals("3")){
 			model.tertiaryColor = colorChooser.getColor();
+			model.setColor(3, Integer.toHexString(
+					colorChooser.getColor().getRGB()).substring(2, 8));
 		}else if(colorButton.getText().equals("text")){
 			model.primaryTextColor = colorChooser.getColor();
+			model.setColor(4, Integer.toHexString(
+					colorChooser.getColor().getRGB()).substring(2, 8));
 		}else if(colorButton.getText().equals("chat")){
 			model.textPaneColor = colorChooser.getColor();
+			model.setColor(5, Integer.toHexString(
+					colorChooser.getColor().getRGB()).substring(2, 8));
 		}
 		
 		colorButton.setBackground(colorChooser.getColor());
