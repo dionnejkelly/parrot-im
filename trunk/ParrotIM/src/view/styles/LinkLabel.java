@@ -14,9 +14,8 @@
  *     2009-June-23, KF
  *         Naming convention updates. Changed all class names.
  *     2009-July-27, JF
- *     	   Colours set by HTML are changed to colours set by java
- *     	   in order to make link labels more easily integrated with
- *     	   colour schemes
+ *     	   Changed texted colors to values from the model to be consistant with
+ *     	   the colors in the rest of the program
  *         
  * Known Issues:
  *     1. The best look and feel for linkLabel is still on dispute
@@ -62,20 +61,18 @@ public class LinkLabel extends JLabel {
 		this.text = text;
 		this.setEnabled(enabled);
         this.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
-		
+        
 		this.addMouseListener(new labelMouseListener(this));
 	}
 	
 	public void setEnabled(boolean enabled){
 		this.enabled = enabled;
 		if (enabled){
-			this.setText("<html><u>"+ text +"</u></html>");
-			this.setBackground(model.primaryTextColor);
-			//Integer.toHexString(
-			//		colorChooser.getColor().getRGB()).substring(2, 8)
+			String hex = Integer.toHexString(model.primaryTextColor.getRGB()).substring(2, 8);
+			this.setText("<html><Font Color=#" + hex + "><u>"+ text +"</u></Font></html>");
 		} else{
-			this.setText("<html><u>"+ text +"</u></html>");
-			this.setBackground(Color.GRAY);
+			String hex = Integer.toHexString(Color.GRAY.getRGB()).substring(2, 8);
+			this.setText("<html><Font Color=#" + hex + "><u>"+ text +"</u></Font></html>");
 		}
 	}
 	
@@ -106,7 +103,8 @@ public class LinkLabel extends JLabel {
 		 * @param e */
 		public void mouseEntered(MouseEvent e) {
 			if (enabled){
-				label.setText("<html><Font Color=WHITE><b>"+label.text+"</b></Font></html>");
+				String hex = Integer.toHexString(model.primaryTextColor.getRGB()).substring(2, 8);
+				label.setText("<html><Font Color=#" + hex + "><b>"+label.text+"</b></Font></html>");
 			}
 		}
 		

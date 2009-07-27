@@ -350,11 +350,19 @@ public class SignInPanel extends GPanel implements Observer {
         
         if(arg == UpdatedType.COLOR){
         	setGradientColors(model.primaryColor, model.secondaryColor);
+        	
         	createProfile.setForeground(model.primaryTextColor);
         	createProfile.updateUI();
+        	
         	manageAccount.setForeground(model.primaryTextColor);
+        	manageAccount.updateUI();
+        	
         	removeProfile.setForeground(model.primaryTextColor);
+        	removeProfile.updateUI();
+        	
         	guestAccount.setForeground(model.primaryTextColor);
+        	guestAccount.updateUI();
+        	
         	updateUI();
         }
 
