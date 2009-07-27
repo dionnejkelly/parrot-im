@@ -425,7 +425,8 @@ public class DatabaseFunctions {
         prep.setString(13, "57a6c4");
         prep.setString(14, "ffffff");
         prep.setString(15, "88eb5d");
-        prep.setString(16, "000000");
+        String white = "000000";
+        prep.setString(16, white);
         prep.setString(17, "ffffff");
         prep.executeUpdate();
 
