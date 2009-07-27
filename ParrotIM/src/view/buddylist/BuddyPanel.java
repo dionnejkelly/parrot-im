@@ -445,7 +445,7 @@ public class BuddyPanel extends GPanel implements Observer {
     			boxIndex = 3 ;
     		}
     	}
-    	System.out.println("Box index = " + boxIndex);
+    	
     	return boxIndex;
     }
 
@@ -827,8 +827,6 @@ public class BuddyPanel extends GPanel implements Observer {
             }
         }
 
-        System.out.println("gui: " + guiFriendCount + " ... model: "
-                + buddies.size());
         // Only repopulate if count changed
         if (guiFriendCount != buddies.size()) {
             this.listRepopulate();
@@ -857,7 +855,6 @@ public class BuddyPanel extends GPanel implements Observer {
          * SelectListener()
          */
         public SelectListener() {
-            System.out.println("I am being made!!!!");
             selected = false;
         }
 

@@ -240,7 +240,6 @@ public class CustomListPane extends GPanel{
          * change background to color when mouse Entered
          */
         public void mouseEntered(MouseEvent event) {
-            System.out.println("mouseENETERED");
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
                     boxes[0].getComponent(i).setBackground(
