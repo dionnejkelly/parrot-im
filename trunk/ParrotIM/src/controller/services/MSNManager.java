@@ -363,8 +363,8 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
             msnFriend = msnFriend(msnFriendLoginName);
             buddies.add(connection.getBuddyGroup().getAllowList().get(count).getLoginName());
             System.out.println("*** Status = " + getUserStatus(msnFriend));
-            localFriends.add(new FriendTempData(msnFriendLoginName, msnFriendLoginName, getUserStatus(msnFriend),
-                  UserStateType.OFFLINE, false));
+            localFriends.add(new FriendTempData(msnFriendLoginName, msnFriendLoginName, this.retrieveStatus(msnFriend.getLoginName()),
+            		 this.retrieveState(msnFriend.getLoginName()), false));
             		
             count++;
         }
@@ -1215,8 +1215,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 	}
 
 	
-	public UserStateType retrieveState(String userID)
-			throws BadConnectionException {
+	public UserStateType retrieveState(String userID) {
 		MsnFriend friend = msnFriend(userID);
 		
 		  UserStateType userState = UserStateType.OFFLINE; // default return value
@@ -1251,9 +1250,11 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 	
 	}
 
-	public String retrieveStatus(String userID) throws BadConnectionException {
-		// TODO Auto-generated method stub
-		return null;
+
+	public String retrieveStatus(String userID) {
+		MsnFriend msnFriend = msnFriend(userID);
+		
+		return getUserFormattedFriendlyName(msnFriend);
 	}
 
 	public void sendFile(String filePath, String userID,
