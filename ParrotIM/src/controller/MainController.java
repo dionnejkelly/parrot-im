@@ -1426,14 +1426,4 @@ public class MainController {
     public boolean accountExist() {
     	return model.getCurrentProfile().getAccountData().size() > 0;
     }
-    
-	public void VeraTesting(String buddyName){
-		for (AccountData a : model.getCurrentProfile().getAccountData()) {
-            if (a.getServer() == ServerType.MSN && a.isConnected()) {
-            	System.out.println("MSN buddy's email: "+buddyName);
-        		System.out.println("Trying to get friendlyname: " 
-        				+ ((MSNManager)a.getConnection()).getUserFriendlyName(buddyName));
-            }
-        }
-	}
 }
