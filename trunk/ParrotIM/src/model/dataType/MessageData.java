@@ -30,6 +30,10 @@
 
 package model.dataType;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Holds message data from a conversation. Each MessageData object represents
  * one message from a user.
@@ -76,6 +80,8 @@ public class MessageData {
      */
     private String fontColor;
     
+    private String timeStamp;
+    
     /** String[][] emoticons is a 2-dimensional array of strings with
 	 * the first string being the regular expression of shortcuts which
 	 * will be replaced by an image, and the second string is the file
@@ -120,12 +126,17 @@ public class MessageData {
         this.italics = italics;
         this.underlined = underlined;
         this.fontColor = color;
+        
+        Date date1 = new Date();
+        timeStamp = new SimpleDateFormat("HH:mm--").format(date1);
     }
 
     public MessageData(String fromUser, String message) {
         this.fromUser = fromUser;
         this.message = message;
-    
+        
+        Date date1 = new Date();
+        timeStamp = new SimpleDateFormat("HH:mm--").format(date1);
     }
     
     // Section
@@ -197,8 +208,8 @@ public class MessageData {
      * @return The message with HTML tags attached for display.
      */
     public String text() {
-    	String toUserText = "<U><font face = \"Arial\">"
-            			+ this.fromUser + ":</font></U> ";
+        String toUserText = timeStamp + "<U><font face = \"Arial\">"
+            			+ this.fromUser + ":</font></U>";
         String text =   "<font face=\"" + this.font + "\" size=\"" + this.size +
         				"\" color=\"" + fontColor + "\"> " 
                         + this.message + " </font><br><br>";
@@ -246,7 +257,6 @@ public class MessageData {
      * 
      * @return The message text.
      */
-    @Override
     public String toString() {
         return text();
     }
