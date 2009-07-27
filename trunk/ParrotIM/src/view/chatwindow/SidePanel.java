@@ -72,7 +72,7 @@ public class SidePanel extends GPanel implements Observer {
     public SidePanel(MainController controller, Model model) {
         this.model = model;
         this.controller = controller;
-        // this.model.addObserver(this);
+        this.model.addObserver(this);
         this.model.getChatCollection().addObserver(this);
         this.users = new ArrayList<UserDataWrapper>();
         this.chatCollection = this.model.getChatCollection();
@@ -85,7 +85,7 @@ public class SidePanel extends GPanel implements Observer {
         // List preferences
         listPane = new CustomListPane();
         listPane.setGradientColors(model.primaryColor, model.secondaryColor);
-        listPane.modifiableColors = true;
+        listPane.textColor = model.primaryTextColor;
         
         // rightclick menu
         rightClickMenu = new JPopupMenu();
@@ -191,8 +191,9 @@ public class SidePanel extends GPanel implements Observer {
         // }
         
         if(o == UpdatedType.COLOR){
+        	System.out.println("SidePanelColorsUpdated");
+        	listPane.textColor = model.primaryTextColor;
         	listPane.updateTextColor(model.primaryTextColor);
-        	listPane.updateUI();
         }
         
         return;

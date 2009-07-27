@@ -138,13 +138,14 @@ public class DisplayPanel extends JPanel implements Observer {
         // JToolBar bar2 = new JToolBar();
         bar2 = new JToolBar();
         bar2.setFloatable(false);
+        bar2.setBackground(model.tertiaryColor);
 
         chatState = new JLabel();
 
         bar1.add(chatState);
         // JLabel isTyping = new JLabel("140");
         twitterLimit = new JLabel("140");
-        twitterLimit.setForeground(Color.GRAY.darker());
+        twitterLimit.setForeground(model.primaryTextColor);
         bar2.add(twitterLimit);
 
         // add to panel
@@ -249,7 +250,11 @@ public class DisplayPanel extends JPanel implements Observer {
         }
         else if(arg == UpdatedType.COLOR){
         	txtPane.setBackground(model.textPaneColor);
+        	bar2.setBackground(model.tertiaryColor);
+        	twitterLimit.setForeground(model.primaryTextColor);
+        	
         	txtPane.updateUI();
+        	bar2.updateUI();
         }
 
         return;
