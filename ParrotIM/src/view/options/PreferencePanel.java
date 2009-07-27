@@ -129,6 +129,7 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				openColorChooser("Primary Window Color", colorButton, model);
+				presets.setSelectedIndex(presets.getItemCount()-1);
 			}
         });
         
@@ -137,6 +138,7 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				openColorChooser("Secondary Window Color", colorButton2, model);
+				presets.setSelectedIndex(presets.getItemCount()-1);
 			}
         });
         
@@ -145,6 +147,7 @@ public class PreferencePanel extends GPanel implements Observer {
         colorButton3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				openColorChooser("Tertiary Window Color", colorButton3, model);
+				presets.setSelectedIndex(presets.getItemCount()-1);
 			}
         });
         
@@ -153,6 +156,7 @@ public class PreferencePanel extends GPanel implements Observer {
         textButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				openColorChooser("Primary Text Color", textButton, model);
+				presets.setSelectedIndex(presets.getItemCount()-1);
 			}
         });
         
@@ -161,6 +165,7 @@ public class PreferencePanel extends GPanel implements Observer {
         chatButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				openColorChooser("Chat Pane Color", chatButton, model);
+				presets.setSelectedIndex(presets.getItemCount()-1);
 			}
         });
         
