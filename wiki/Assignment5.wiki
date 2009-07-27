@@ -1,8 +1,8 @@
-#summary One-sentence summary of this page.
+#summary Final Release of Parrot IM
 
-= Introduction =
+= User Acceptance Test =
 
-Add your content here.
+[UserAcceptanceTest Testing procedures].
 
 
 = Details =
