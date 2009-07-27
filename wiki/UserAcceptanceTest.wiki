@@ -1,0 +1,23 @@
+#summary Testing procedures for the user acceptance test
+
+= Background information from user = 
+  * Rank of computer familiarity (1 to 5)
+  * Number of chat services used (MSN, Google Talk, Jabber, Twitter, ICQ, AIM)
+
+= Tasks for the user to perform = 
+
+We will ask the user to do the following actions, and the user can report back on the following characteristics on a 1 to 5 scale:
+  * Difficulty
+  * Speed
+  * Intuitiveness
+  * Fun
+
+Tasks:
+  * Create a profile with your accounts, and log in.
+  * Talk to some friends with the chatbot, and try to make some custom messages.
+  * Find and use the buddy search.
+
+= User Feedback
+
+Allow the user to make comments, and record them.
+
