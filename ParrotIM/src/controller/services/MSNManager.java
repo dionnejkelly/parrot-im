@@ -358,9 +358,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
    	 
         while (count < target) {
         	
-          //  System.out.println("MSN Type = " + connection.getBuddyGroup().getAllowList().get(count));
-          //  System.out.println("Friends = " + connection.getBuddyGroup().getAllowList().get(count).getLoginName());
-            msnFriendLoginName = connection.getBuddyGroup().getAllowList().get(count).getLoginName();
+        	msnFriendLoginName = connection.getBuddyGroup().getAllowList().get(count).getLoginName();
             System.out.println("MSN Friend = " + msnFriendLoginName);
             msnFriend = msnFriend(msnFriendLoginName);
             buddies.add(connection.getBuddyGroup().getAllowList().get(count).getLoginName());
@@ -370,10 +368,6 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
             		
             count++;
         }
-        
-//        for (String friends : buddies) {
-//            
-//        }
     	
         return localFriends;
     }
@@ -1129,7 +1123,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 			throws BadConnectionException {
 		
 			
-			System.out.println("Status = " + status);
+			System.out.println("MSN Status = " + status);
 			System.out.println("State = " + state);
 			
 			if (connection.isLoggedIn()) {
@@ -1295,11 +1289,6 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
 		
 	}
 
-	public void TestingForVera(String buddyName){
-		System.out.println("MSN buddy's email: "+buddyName);
-		System.out.println("Trying to get friendlyname: " 
-				+ connection.getBuddyGroup().getAllowList().get(buddyName).getFriendlyName());
-	}
 }
 
 
