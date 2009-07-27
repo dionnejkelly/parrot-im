@@ -12,10 +12,13 @@ We will ask the user to do the following actions, and the user can report back o
   * Intuitiveness
   * Fun
 
-Tasks:
+Tasks (have the user complete as many as possible):
   * Create a profile with your accounts, and log in.
   * Talk to some friends with the chatbot, and try to make some custom messages.
   * Find and use the buddy search.
+  * Use the chatlog to look at a previous conversation.
+  * Change the themes/colours of the program.
+  * Logout and login certain accounts while using the program.
 
 = User Feedback =
 
