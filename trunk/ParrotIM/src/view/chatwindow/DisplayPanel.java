@@ -192,22 +192,26 @@ public class DisplayPanel extends JPanel implements Observer {
         ChatCollectionData chatCollection = model.getChatCollection();
         String text = "";
 
-        if ((arg == UpdatedType.CHAT || arg == UpdatedType.CHATNOTSIDEPANEL || o instanceof ChatCollectionData)
+        if ((arg == UpdatedType.BUDDY || arg == UpdatedType.CHAT
+                || arg == UpdatedType.CHATNOTSIDEPANEL || o instanceof ChatCollectionData)
                 && model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
 
             if (chatCollection.getActiveConversation() instanceof ConversationData) {
-            	//A blank space is add to the start of each name because otherwise
-            	//the first letter may look cutoff for some names.
-            	if(model.getActiveConversation().getUser()
-                        .getNickname().length() > 0){
-	                title.setText("  " + model.getActiveConversation().getUser()
-	                        .getNickname());
-            	}else{
-            		title.setText("  " + model.getActiveConversation().getUser()
-	                        .getUserID());
-            	}
-            	
+                // A blank space is add to the start of each name because
+                // otherwise
+                // the first letter may look cutoff for some names.
+                if (model.getActiveConversation().getUser().getNickname()
+                        .length() > 0) {
+                    title.setText("  "
+                            + model.getActiveConversation().getUser()
+                                    .getNickname());
+                } else {
+                    title.setText("  "
+                            + model.getActiveConversation().getUser()
+                                    .getUserID());
+                }
+
                 // VCard vcard = new VCard();
                 // vcard.load(connection,model.getActiveConversation().getUser().getUserID());
 
@@ -247,6 +251,9 @@ public class DisplayPanel extends JPanel implements Observer {
                 chatState.setText(model.getActiveConversation().getUser()
                         .getTypingState());
             }
+        } else if (arg == UpdatedType.COLOR) {
+            txtPane.setBackground(model.textPaneColor);
+            txtPane.updateUI();
         }
         else if(arg == UpdatedType.COLOR){
         	txtPane.setBackground(model.textPaneColor);
