@@ -9,12 +9,15 @@
 package view.chatwindow;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 
 import org.jivesoftware.smack.XMPPException;
 
+import view.mainwindow.HelpPanel;
 import view.styles.CustomListPane;
 import view.styles.GPanel;
 
@@ -51,7 +54,7 @@ public class SidePanel extends GPanel implements Observer {
     public CustomListPane listPane;
 
     private JPopupMenu rightClickMenu;
-    
+
     /**
      * Maintains the Parrot IM XMPP Protocol.
      */
@@ -81,18 +84,20 @@ public class SidePanel extends GPanel implements Observer {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(150, 500));
         setGradientColors(Color.BLACK, Color.WHITE);
-        
+
         // List preferences
         listPane = new CustomListPane();
         listPane.setGradientColors(model.primaryColor, model.secondaryColor);
         listPane.textColor = model.primaryTextColor;
-        
+
         // rightclick menu
         rightClickMenu = new JPopupMenu();
-		
-		JMenuItem menuItem4 = new JMenuItem("Remove Conversation", new ImageIcon(this
-                .getClass().getResource("/images/buddylist/delete_user.png")));
-		
+
+        JMenuItem menuItem4 =
+                new JMenuItem("Remove Conversation", new ImageIcon(this
+                        .getClass().getResource(
+                                "/images/buddylist/delete_user.png")));
+        menuItem4.addActionListener(new removeConversationListener());
         rightClickMenu.add(menuItem4);
 
         this.add(listPane.getWithScroller(), BorderLayout.CENTER);
@@ -117,7 +122,7 @@ public class SidePanel extends GPanel implements Observer {
                 if (u.getConversation().getUser() != null) {
                     u.getConversation().getUser().getTypingState();
                 }
-                
+
                 if (u.getConversation() == c) {
                     userWrapper = u;
                     break;
@@ -144,7 +149,8 @@ public class SidePanel extends GPanel implements Observer {
 
     private void removeClosedConversations() {
         UserDataWrapper foundUser = null;
-        ArrayList<UserDataWrapper> usersToRemove = new ArrayList<UserDataWrapper>();
+        ArrayList<UserDataWrapper> usersToRemove =
+                new ArrayList<UserDataWrapper>();
 
         // Remove from the sidePanel, and make a list
         for (UserDataWrapper u : this.users) {
@@ -189,12 +195,12 @@ public class SidePanel extends GPanel implements Observer {
             e.printStackTrace();
         }
         // }
-        
-        if(o == UpdatedType.COLOR){
-        	listPane.textColor = model.primaryTextColor;
-        	listPane.updateTextColor(model.primaryTextColor);
+
+        if (o == UpdatedType.COLOR) {
+            listPane.textColor = model.primaryTextColor;
+            listPane.updateTextColor(model.primaryTextColor);
         }
-        
+
         return;
     }
 
@@ -211,20 +217,20 @@ public class SidePanel extends GPanel implements Observer {
          * @param event
          */
         public void mousePressed(MouseEvent event) {
-        	if(event.getButton() == event.BUTTON1){
-        		System.out.println("left clicked");
-            controller.setTypingState(1); // set to the default typing state
-                                          // before
-            rightClickMenu.setVisible(false);
-            // switching
-            controller.changeConversation(listPane.getUserWrapper(
-                    listPane.getClickedIndex()).getConversation());
-        	}else if(event.getButton() == event.BUTTON3){
-        		System.out.println("right clicked");
-                
-                //rightClickMenu.setVisible(true);
+            if (event.getButton() == event.BUTTON1) {
+                System.out.println("left clicked");
+                controller.setTypingState(1); // set to the default typing state
+                // before
+                rightClickMenu.setVisible(false);
+                // switching
+                controller.changeConversation(listPane.getUserWrapper(
+                        listPane.getClickedIndex()).getConversation());
+            } else if (event.getButton() == event.BUTTON3) {
+                System.out.println("right clicked");
+
+                // rightClickMenu.setVisible(true);
                 rightClickMenu.show(listPane, event.getX(), event.getY());
-        	}
+            }
             return;
         }
 
@@ -232,7 +238,7 @@ public class SidePanel extends GPanel implements Observer {
          * Unimplemented MouseListener Methods
          */
         public void mouseEntered(MouseEvent event) {
-        	
+
         }
 
         public void mouseExited(MouseEvent event) {
@@ -244,4 +250,14 @@ public class SidePanel extends GPanel implements Observer {
         public void mouseReleased(MouseEvent event) {
         }
     }
+    
+    private class removeConversationListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            chatCollection.removeConversation(listPane.getUserWrapper(
+                    listPane.getClickedIndex()).getConversation());
+            
+            return;
+        }
+    }
+
 }
