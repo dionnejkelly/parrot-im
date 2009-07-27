@@ -121,7 +121,7 @@ public class PreferencePanel extends GPanel implements Observer {
         colorChooser = new JFrame();
         colorChooser.setVisible(false);
         
-        String[] presetStrings = { "-- Select a Color Scheme --", "Default", "Ice", "Fire", "Jungle", "Custom" };
+        String[] presetStrings = { "-- Select a Color Scheme --", "Default", "Steel", "Ice", "Fire", "Jungle", "Custom" };
         final JComboBox presets = new JComboBox(presetStrings);
         
         final JButton colorButton = new JButton("1");
@@ -175,6 +175,12 @@ public class PreferencePanel extends GPanel implements Observer {
 					model.primaryColor = new Color(0x57a6c4);
 					model.secondaryColor = Color.WHITE;
 					model.tertiaryColor = new Color(0x88eb5d);
+					model.primaryTextColor = Color.BLACK;
+					model.textPaneColor = Color.WHITE;
+				}else if(presets.getSelectedItem().toString().equals("Steel")){
+					model.primaryColor = Color.WHITE;
+					model.secondaryColor = new Color(170, 178, 187);
+					model.tertiaryColor = new Color(204, 204, 204);
 					model.primaryTextColor = Color.BLACK;
 					model.textPaneColor = Color.WHITE;
 				}else if(presets.getSelectedItem().toString().equals("Ice")){
