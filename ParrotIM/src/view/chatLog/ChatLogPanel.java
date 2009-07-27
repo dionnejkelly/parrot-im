@@ -61,7 +61,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.Highlighter;
 
 import view.styles.GPanel;
-import view.styles.TextListCellRenderer;
 
 import model.DatabaseFunctions;
 import model.Model;

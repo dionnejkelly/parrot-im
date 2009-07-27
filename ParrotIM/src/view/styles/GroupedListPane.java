@@ -15,13 +15,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.itbs.aimcer.bean.Group;
+
 import model.Model;
 import model.enumerations.UpdatedType;
 
 public class GroupedListPane extends JPanel implements Observer {
+	private static int lastClickedGroup;
     Box boxes[] = new Box[1];
     private WindowColors colors = new WindowColors();
-    private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
+    private static ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
     private ImageIcon arrowIconUp =
             new ImageIcon(this.getClass().getResource(
                     "/images/buddylist/up.png"));
@@ -35,6 +38,7 @@ public class GroupedListPane extends JPanel implements Observer {
     private Model model;
 
     public GroupedListPane(Model model) {
+    	lastClickedGroup = -2;
     	this.model = model;
     	model.addObserver(this);
     	
@@ -46,6 +50,17 @@ public class GroupedListPane extends JPanel implements Observer {
         add(boxes[0], BorderLayout.NORTH);
     }
 
+    public static int getLastClickedGroup(){
+    	return lastClickedGroup;
+    }
+    
+    public static void setLastClickedGroup(int index){
+    	lastClickedGroup = index;
+    }
+    public static void resetSelectionLastClickedGroup(){
+    	if (lastClickedGroup >= 0)
+    		groups.get(lastClickedGroup).resetClickedSelection();
+    }
     public int getGroupCount() {
         return groups.size();
     }
@@ -69,7 +84,7 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
         gPanels.add(newPanel);
 
-        CustomListPane collapsableListPane = new CustomListPane();
+        CustomListPane collapsableListPane = new CustomListPane(groups.size());
         groups.add(collapsableListPane);
 
         newPanel.addMouseListener(new CollapseListner());
@@ -96,7 +111,7 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
         gPanels.add(newPanel);
 
-        CustomListPane collapsableListPane = new CustomListPane();
+        CustomListPane collapsableListPane = new CustomListPane(groups.size());
         groups.add(collapsableListPane);
 
         newPanel.addMouseListener(new CollapseListner());
@@ -113,14 +128,20 @@ public class GroupedListPane extends JPanel implements Observer {
         labels.add(textLabel);
         newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
 
-        CustomListPane collapsableListPane = new CustomListPane();
+        CustomListPane collapsableListPane = new CustomListPane(0);
         groups.add(0, collapsableListPane);
+        setAllGroupIndex();
 
         newPanel.addMouseListener(new CollapseListner());
         boxes[0].add(newPanel, 0);
         boxes[0].add(collapsableListPane, 1);
     }
 
+    private void setAllGroupIndex(){
+    	for (int index = 0; index < groups.size(); index++){
+    		groups.get(index).setGroupIndex(index);
+    	}
+    }
     public void addElement(int group, String name, ImageIcon img) {
         groups.get(group).addElement(name, img);
     }

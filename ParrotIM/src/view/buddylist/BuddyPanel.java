@@ -849,13 +849,11 @@ public class BuddyPanel extends GPanel implements Observer {
         /**
          * boolean variable, indicate whether selected.
          */
-        protected boolean selected;
 
         /**
          * SelectListener()
          */
         public SelectListener() {
-            selected = false;
         }
 
         /**
@@ -869,19 +867,14 @@ public class BuddyPanel extends GPanel implements Observer {
                             buddyListPane.getComponent(j, i))) {
                         if (event.getButton() == event.BUTTON1) {
                             // Left Click
-                            selected = true;
 
                             /* Fix this to directly reference the GUI */
                             selectedFriend = buddyArray.get(j).get(i);
 
                             if (event.getClickCount() == 2) {
-                                selected = false;
-                                chatClient.startConversation(selectedFriend,
-                                        true);
+                                chatClient.startConversation(selectedFriend, true);
                             }
-                        } else if (event.getSource().equals(
-                                buddyListPane.getComponent(j, i))) {
-
+                        } else if (event.getSource().equals(buddyListPane.getComponent(j, i))) {
                             // Right Click
                             rightClickMenu.show(buddyListPane
                                     .getComponent(j, i), event.getX(), event
@@ -893,19 +886,13 @@ public class BuddyPanel extends GPanel implements Observer {
                             if (selectedFriend.isBlocked()) {
                                 menuItem4.setText("Unblock Friend");
                                 menuItem4
-                                        .setIcon(new ImageIcon(
-                                                this
-                                                        .getClass()
-                                                        .getResource(
-                                                                "/images/buddylist/unblock_user.png")));
+                                        .setIcon(new ImageIcon(this.getClass().getResource
+                                        		("/images/buddylist/unblock_user.png")));
                             } else { // is not blocked; block it
                                 menuItem4.setText("Block Friend");
                                 menuItem4
-                                        .setIcon(new ImageIcon(
-                                                this
-                                                        .getClass()
-                                                        .getResource(
-                                                                "/images/buddylist/block_user.png")));
+                                        .setIcon(new ImageIcon(this.getClass().getResource
+                                                ("/images/buddylist/block_user.png")));
                             }
                         }
                     }
