@@ -387,6 +387,7 @@ public class BuddyPanel extends GPanel implements Observer {
     }
 
     public void listRepopulate() {
+    	System.out.println("Hi hi I am called.. haha");
         FriendPanel tempPanel = null;
         int boxIndex = -1;
 

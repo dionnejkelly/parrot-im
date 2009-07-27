@@ -272,10 +272,11 @@ public class CustomListPane extends GPanel{
          * change background to white when mouse Exited
          */
         public void mouseExited(MouseEvent event) {
-            boxes[0].getComponent(lastSelected).setBackground(Color.WHITE);
-            userPanels.get(lastSelected).setOpaque(false);
+        	if (lastSelected < userPanels.size()){
+        		boxes[0].getComponent(lastSelected).setBackground(Color.WHITE);
+        		userPanels.get(lastSelected).setOpaque(false);
+        	}
         }
-
         /**
          * Unused methods
          */

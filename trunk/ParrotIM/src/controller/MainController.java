@@ -125,7 +125,8 @@ public class MainController {
      * @param status
      */
     public void setStatus(String status, boolean changeTwitter) {
-
+    	if (status == null || status.length() == 0)
+    		return;
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
@@ -1429,7 +1430,9 @@ public class MainController {
 	public void VeraTesting(String buddyName){
 		for (AccountData a : model.getCurrentProfile().getAccountData()) {
             if (a.getServer() == ServerType.MSN && a.isConnected()) {
-                ((MSNManager)a.getConnection()).TestingForVera(buddyName);
+            	System.out.println("MSN buddy's email: "+buddyName);
+        		System.out.println("Trying to get friendlyname: " 
+        				+ ((MSNManager)a.getConnection()).getUserFriendlyName(buddyName));
             }
         }
 	}
