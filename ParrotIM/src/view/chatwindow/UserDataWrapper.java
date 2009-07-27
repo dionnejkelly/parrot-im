@@ -34,38 +34,51 @@ public class UserDataWrapper implements Observer {
     public Conversation getConversation() {
         return this.conversation;
     }
-    
-    public String getToolTipText(){
-    	//The tool tip text for the sidepanel in the chatwindow
-    	String statePath = "";
-    	if(this.conversation.getUser().getState() == UserStateType.ONLINE){
-    		statePath = "images/status/user_green.png";
-    	}else if(this.conversation.getUser().getState() == UserStateType.BUSY ||
-    			this.conversation.getUser().getState() == UserStateType.AWAY){
-    		statePath = "images/status/user_orange.png";
-    	}else if(this.conversation.getUser().getState() == UserStateType.OFFLINE){
-    		statePath = "images/status/user_red.png";
-    	}else if(this.conversation.getUser().isBlocked()){
-    		statePath = "images/status/user_grey.png";
-    	}
-    	
-    	String serverPath = "";
-    	if(this.conversation.getUser().getServer() == ServerType.GOOGLE_TALK){
-    		serverPath = "images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png";
-    	}else if(this.conversation.getUser().getServer() == ServerType.MSN){
-    		serverPath = "images/buddylist/statusIcons/MSN/MSN-Available.png";
-    	}
-    	
-    	String profileText = "<html>" + this.conversation.getUser().getNickname() + "(" 
-    						+ this.conversation.getUser().getUserID() + ") <br>"
-    						+ this.conversation.getUser().getStatus() + "<br>"
-    						+ "<img src=\"" 
-    						+ getClass().getClassLoader().getResource(statePath) + "\">"
-    						+ "<img width=\"22\" height=\"22\" src=\"" 
-    						+ getClass().getClassLoader()
-    						.getResource(serverPath) + "\">"
-    						+ "<hr>" + "(Right-click for more options)";
-    	return profileText;
+
+    public String getToolTipText() {
+        // The tool tip text for the sidepanel in the chatwindow
+        String statePath = "";
+        String profileText = "";
+        if (this.conversation instanceof ConversationData) {
+            if (this.conversation.getUser().getState() == UserStateType.ONLINE) {
+                statePath = "images/status/user_green.png";
+            } else if (this.conversation.getUser().getState() == UserStateType.BUSY
+                    || this.conversation.getUser().getState() == UserStateType.AWAY) {
+                statePath = "images/status/user_orange.png";
+            } else if (this.conversation.getUser().getState() == UserStateType.OFFLINE) {
+                statePath = "images/status/user_red.png";
+            } else if (this.conversation.getUser().isBlocked()) {
+                statePath = "images/status/user_grey.png";
+            }
+
+            String serverPath = "";
+            if (this.conversation.getUser().getServer() == ServerType.GOOGLE_TALK) {
+                serverPath =
+                        "images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png";
+            } else if (this.conversation.getUser().getServer() == ServerType.MSN) {
+                serverPath =
+                        "images/buddylist/statusIcons/MSN/MSN-Available.png";
+            }
+
+            profileText =
+                    "<html>"
+                            + this.conversation.getUser().getNickname()
+                            + "("
+                            + this.conversation.getUser().getUserID()
+                            + ") <br>"
+                            + this.conversation.getUser().getStatus()
+                            + "<br>"
+                            + "<img src=\""
+                            + getClass().getClassLoader()
+                                    .getResource(statePath)
+                            + "\">"
+                            + "<img width=\"22\" height=\"22\" src=\""
+                            + getClass().getClassLoader().getResource(
+                                    serverPath) + "\">" + "<hr>"
+                            + "(Right-click for more options)";
+        }
+
+        return profileText;
     }
 
     public JLabel getLabelRepresentation() {
@@ -75,30 +88,32 @@ public class UserDataWrapper implements Observer {
     public String toString() {
         String message = "";
         if (this.conversation.getMessageCount() - this.readMessages > 0) {
-            message += "("
-                    + (this.conversation.getMessageCount() - this.readMessages)
-                    + ") ";
+            message +=
+                    "("
+                            + (this.conversation.getMessageCount() - this.readMessages)
+                            + ") ";
         }
         if (this.conversation instanceof ConversationData) {
-        	String displayedName = this.conversation.getUser().getNickname();
-        	if(displayedName == null || displayedName.trim().equals("")){
-        		displayedName = this.conversation.getUser().getUserID();
-        	}
-        	if(displayedName.length() <= 13){
-        		message += displayedName;
-        	}else{
-        		message += displayedName.substring(0, 13);
-        		message += "...";
-        	}
-            
+            String displayedName = this.conversation.getUser().getNickname();
+            if (displayedName == null || displayedName.trim().equals("")) {
+                displayedName = this.conversation.getUser().getUserID();
+            }
+            if (displayedName.length() <= 13) {
+                message += displayedName;
+            } else {
+                message += displayedName.substring(0, 13);
+                message += "...";
+            }
+
             String typingState = this.conversation.getUser().getTypingState();
             if (!typingState.equals("")) {
                 message += "\n (" + typingState + ")";
             }
             message += "\n " + this.conversation.getUser().getTypingState();
         } else if (this.conversation instanceof MultiConversationData) {
-            message += ((MultiConversationData) this.conversation).getRoomName();
-        }     
+            message +=
+                    ((MultiConversationData) this.conversation).getRoomName();
+        }
         return message;
     }
 
