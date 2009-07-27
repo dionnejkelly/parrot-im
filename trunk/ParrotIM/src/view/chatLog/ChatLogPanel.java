@@ -168,7 +168,6 @@ public class ChatLogPanel extends GPanel implements Observer {
         logPane.setBorder(null);
         logPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         //logPane.setGradientColors(Color.BLACK, Color.WHITE);
-        logPane.setBackground(Color.BLACK);
         logPane.setDividerLocation(140);
         logPane.setTopComponent(datesScroll);
         logPane.setBottomComponent(chatlog);
