@@ -252,10 +252,6 @@ public class DisplayPanel extends JPanel implements Observer {
                         .getTypingState());
             }
         } else if (arg == UpdatedType.COLOR) {
-            txtPane.setBackground(model.textPaneColor);
-            txtPane.updateUI();
-        }
-        else if(arg == UpdatedType.COLOR){
         	txtPane.setBackground(model.textPaneColor);
         	bar2.setBackground(model.tertiaryColor);
         	twitterLimit.setForeground(model.primaryTextColor);
