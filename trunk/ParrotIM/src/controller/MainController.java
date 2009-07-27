@@ -355,11 +355,13 @@ public class MainController {
         GenericConnection connection = null;
         MainController controller = this;
 		try {
+			if (!model.getCurrentProfile().isGuestAccount()) {
 			model.primaryColor = Color.decode("0x" + model.getColor(1).toString());
 			model.secondaryColor = Color.decode("0x" + model.getColor(2).toString());
 			model.tertiaryColor = Color.decode("0x" + model.getColor(3).toString());
 			model.primaryTextColor = Color.decode("0x" + model.getColor(4).toString());
 			model.textPaneColor = Color.decode("0x" + model.getColor(5).toString());
+			}
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

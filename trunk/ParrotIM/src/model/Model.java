@@ -50,7 +50,9 @@ package model;
 
 import java.util.*;
 import java.awt.Color;
+import java.io.IOException;
 import java.sql.*;
+import no.geosoft.cc.io.*;
 
 import controller.services.GenericConnection;
 
@@ -82,7 +84,6 @@ import model.enumerations.PopupEnableWindowType;
 import model.enumerations.TypingStateType;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
-
 /**
  * The model stores all data and provides it for the view and controllers. Also,
  * the model is the only class to access the database, and does so by employing
@@ -139,6 +140,12 @@ public class Model extends Observable {
      * 
      */
     public void initializeAllVariables() {
+    	try {
+			Browser.openUrl("http://www.google.com");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         this.profileCollection = new ProfileCollectionData();
         this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
