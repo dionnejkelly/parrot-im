@@ -23,12 +23,15 @@
 
 package view.mainwindow;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.swing.JPanel;
+
+import no.geosoft.cc.io.Browser;
 
 import org.jdesktop.jdic.desktop.Desktop;
 import org.jdesktop.jdic.desktop.DesktopException;
@@ -45,15 +48,9 @@ public class HelpPanel extends JPanel{
 	}
 	public HelpPanel(String url) {
 		
-		 String browserPath;
-		 String osName = System.getProperty("os.name").toLowerCase();
-		 
-		 try {
-			Desktop.browse(new URL(url));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DesktopException e) {
+		try {
+			Browser.openUrl(url);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
