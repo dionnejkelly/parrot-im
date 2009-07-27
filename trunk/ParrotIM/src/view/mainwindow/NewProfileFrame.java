@@ -98,6 +98,7 @@ public class NewProfileFrame extends JFrame {
         autoSigninCheck.setForeground(model.primaryTextColor);
         autoSigninCheck.setPreferredSize(new Dimension(330, 20));
         autoSigninCheck.setOpaque(false);
+        autoSigninCheck.setForeground(model.primaryTextColor);
         JPanel autoSigninPanel = new JPanel();
         autoSigninPanel.setAlignmentX(LEFT_ALIGNMENT);
         autoSigninPanel.add(autoSigninCheck);
@@ -107,6 +108,7 @@ public class NewProfileFrame extends JFrame {
         defaultCheck.addChangeListener(new CheckListener(defaultCheck,
                 autoSigninPanel));
         defaultCheck.setOpaque(false);
+        defaultCheck.setForeground(model.primaryTextColor);
 
         /* PASSWORD */
         passwordCheck = new JCheckBox("Enable Password (recommended)");
@@ -116,6 +118,7 @@ public class NewProfileFrame extends JFrame {
         passwordCheck
                 .setToolTipText("Lock your profile account settings by setting a password");
         passwordCheck.setOpaque(false);
+        passwordCheck.setForeground(model.primaryTextColor);
         passwordField = new JPasswordField();
         passwordField.setPreferredSize(new Dimension(330, 20));
         JPanel passwordOption = new JPanel();
@@ -156,7 +159,7 @@ public class NewProfileFrame extends JFrame {
         GPanel mainPanel = new GPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        mainPanel.setGradientColors(mainPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
+        mainPanel.setGradientColors(model.primaryColor, model.secondaryColor);
         mainPanel.add(profilePanel, BorderLayout.NORTH);
         mainPanel.add(optionPanel, BorderLayout.CENTER);
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
