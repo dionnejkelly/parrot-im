@@ -1305,4 +1305,8 @@ public class Model extends Observable {
 		DatabaseFunctions db = new DatabaseFunctions();
 		return db.getColor(this.getCurrentProfile().getName(), whichOne);
 	}
+	public String getColor(int whichOne, String profileName) throws ClassNotFoundException, SQLException{
+		DatabaseFunctions db = new DatabaseFunctions();
+		return db.getColor(profileName, whichOne);
+	}
 }
