@@ -191,7 +191,6 @@ public class SidePanel extends GPanel implements Observer {
         // }
         
         if(o == UpdatedType.COLOR){
-        	System.out.println("SidePanelColorsUpdated");
         	listPane.textColor = model.primaryTextColor;
         	listPane.updateTextColor(model.primaryTextColor);
         }

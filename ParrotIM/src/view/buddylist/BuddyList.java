@@ -15,6 +15,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -37,11 +39,12 @@ import controller.MainController;
 import model.Model;
 import model.dataType.AccountData;
 import model.enumerations.ServerType;
+import model.enumerations.UpdatedType;
 
 /**
  * BuddyList display Friend contact list for Parrot IM users.
  */
-public class BuddyList extends JFrame {
+public class BuddyList extends JFrame implements Observer{
 	private static ArrayList<AccountJMenu> accountMenuList;
 	private BuddyPanel mainListPanel;
 	private TwitterPanel mainTwitterPanel;
@@ -72,7 +75,7 @@ public class BuddyList extends JFrame {
 
     private AccountInfo accountInfo;
     
-    
+    private GPanel buddylistPanel;
 
     /**
      * BuddyList display friend contact list, status, information and
@@ -90,6 +93,7 @@ public class BuddyList extends JFrame {
         buddywindow = this;
         this.setTitle("Buddy List");
         this.model = model;
+        model.addObserver(this);
         this.controller = c;
         accountMenuList = new ArrayList <AccountJMenu> ();
         
@@ -97,7 +101,6 @@ public class BuddyList extends JFrame {
         try {
 			accountInfo = new AccountInfo(c, model);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -107,11 +110,10 @@ public class BuddyList extends JFrame {
         this.setLocation(location);
         this.setMinimumSize(new Dimension(300, 600));
 
-        GPanel buddylistPanel = new GPanel();
+        buddylistPanel = new GPanel();
         buddylistPanel.setLayout(new BorderLayout());
         buddylistPanel.setPreferredSize(new Dimension(300, 600));
-        buddylistPanel.setGradientColors(buddylistPanel.colors.PRIMARY_COLOR_MED, Color.WHITE);
-
+        buddylistPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 
         mainListPanel = new BuddyPanel(c, model, this, chat);
         if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null)
@@ -366,7 +368,6 @@ public class BuddyList extends JFrame {
 		public void windowDeiconified(WindowEvent e) {}
 		public void windowIconified(WindowEvent e) {}
 		public void windowOpened(WindowEvent e) {}
-		
 	}
 
     /**
@@ -395,7 +396,6 @@ public class BuddyList extends JFrame {
             	options.setAlwaysOnTop(true);
             	options.setAlwaysOnTop(false);
             }
-        	
             return;
         }
     }
@@ -414,7 +414,6 @@ public class BuddyList extends JFrame {
 		public void windowDeiconified(WindowEvent e) {}
 		public void windowIconified(WindowEvent e) {}
 		public void windowOpened(WindowEvent e) {}
-		
 	}
 
     /**
@@ -436,7 +435,6 @@ public class BuddyList extends JFrame {
             System.exit(0);
             return;
         }
-
     }
 
     /**
@@ -464,8 +462,12 @@ public class BuddyList extends JFrame {
 
             return;
         }
-
     }
-    
-  
+
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			buddylistPanel.setGradientColors(model.primaryColor, model.secondaryColor);
+			buddylistPanel.updateUI();
+		}
+	}
 }
