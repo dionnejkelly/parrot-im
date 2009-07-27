@@ -148,6 +148,12 @@ public class ICQManager implements GenericConnection {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		try {
+			i.addFriend("595683137");
+		} catch (BadConnectionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		while (true) {
 			System.out.println("Type your state: ");
 			Scanner msgInput = new Scanner(System.in);
@@ -221,7 +227,27 @@ public class ICQManager implements GenericConnection {
 	}
     // @Override
     public void addFriend(String userID) throws BadConnectionException {
-        // TODO Auto-generated method stub
+    	chkConnection();
+    	System.out.println("run addFriend");
+    	java.util.List<? extends net.kano.joustsim.oscar.oscar.service.ssi.Group>
+        groupList = connection.getSsiService().getBuddyList().getGroups();
+    	
+    	Group group = null;
+    	for(Group g: groupList){
+    		if (g != null && g instanceof MutableGroup){
+    			System.out.println("found the first group"+g.getName());
+    			group = g;
+    			break;
+    		}
+    	}
+    	if (group !=null){
+    		System.out.println("adding");
+    		((MutableGroup)group).addBuddy(userID);
+    	}else{
+    		System.out.println("no default group in your buddy list");
+    	}
+    	
+    	
 
     }
 
@@ -786,7 +812,7 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			String subscriptionRequest =
                 buddy.getScreenname()
                         + " wants to add you as a friend. Add as a friend?";
-			//JOptionPane.showMessageDialog(null, subscriptionRequest);
+			JOptionPane.showMessageDialog(null, subscriptionRequest);
 			for (Group g:buddy.getBuddyList().getGroups()){
 				for(Buddy b:g.getBuddiesCopy()){
 					System.out.println("badded: "+g.getName()+": "+b.getScreenname().toString());
