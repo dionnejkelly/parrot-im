@@ -44,6 +44,7 @@ import model.enumerations.ServerType;
 public class BuddyList extends JFrame {
 	private static ArrayList<AccountJMenu> accountMenuList;
 	private BuddyPanel mainListPanel;
+	private TwitterPanel mainTwitterPanel;
     /**
      * menu bar in buddy list
      */
@@ -113,30 +114,29 @@ public class BuddyList extends JFrame {
 
 
         mainListPanel = new BuddyPanel(c, model, this, chat);
-
+        if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null)
+        	mainTwitterPanel = new TwitterPanel(c,model,this,mainListPanel);
+        else 
+        	mainTwitterPanel = new TwitterPanel(model);
+        
         //If twitter exists, make tabbed buddy frame ; add to buddylistpanel
-        if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null){
-        	JTabbedPane contactList = new JTabbedPane();
-        	contactList.addTab("IM", new ImageIcon(this.getClass().getResource(
-    		"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel, "Instant Messaging Contact List");
-        	contactList.addTab("Twitter", new ImageIcon(this.getClass().getResource(
-        	"/images/buddylist/twitter_logo.png")), new TwitterPanel(c,model,this,mainListPanel), "Twitter Feed");
-        	buddylistPanel.add(contactList, BorderLayout.CENTER);
+        JTabbedPane contactList = new JTabbedPane();
+        contactList.addTab("IM", new ImageIcon(this.getClass().getResource(
+    	"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel, "Instant Messaging Contact List");
+        contactList.addTab("Twitter", new ImageIcon(this.getClass().getResource(
+        "/images/buddylist/twitter_logo.png")), mainTwitterPanel, "Twitter Feed");
+        buddylistPanel.add(contactList, BorderLayout.CENTER);
         	
-        	contactList.addChangeListener(new ChangeListener(){
-        		//Modifies info panel according to twitter/IM tab
-        		public void stateChanged(ChangeEvent evt){
-        			JTabbedPane contactPane = (JTabbedPane)evt.getSource();
-        			if (contactPane.getSelectedIndex() == 1)
-        				accountInfo.TwitterpanelSelected();
-        			else 
-        				accountInfo.IMpanelSelected();
-        		}
-        	});
-        }
-        else{
-        	buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
-        }
+        contactList.addChangeListener(new ChangeListener(){
+        	//Modifies info panel according to twitter/IM tab
+        	public void stateChanged(ChangeEvent evt){
+        		JTabbedPane contactPane = (JTabbedPane)evt.getSource();
+        		if (contactPane.getSelectedIndex() == 1)
+        			accountInfo.TwitterpanelSelected();
+        		else 
+        			accountInfo.IMpanelSelected();
+        	}
+        });
 
         buddylistPanel.setStartPosition(92);
         // add to buddylistPanel

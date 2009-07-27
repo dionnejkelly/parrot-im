@@ -148,6 +148,17 @@ public class TwitterPanel extends GPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
+    public TwitterPanel(Model model){
+    	this.model = model;
+    	//model.addObserver(this);
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        setGradientColors(model.primaryColor, model.secondaryColor);
+        
+        JLabel tempLabel = new JLabel("Please Login to a Twitter Account first");
+        add(tempLabel);
+    }
+    
     public TwitterPanel(MainController c, Model model, JFrame buddyWindow,
             BuddyPanel buddyList) {
         this.buddyWindow = buddyWindow;
