@@ -18,6 +18,7 @@
 
 package controller;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
@@ -352,7 +353,22 @@ public class MainController {
     public void login(AccountData account) throws BadConnectionException {
         GenericConnection connection = null;
         MainController controller = this;
-
+		try {
+			model.primaryColor = Color.decode("0x" + model.getColor(1).toString());
+			model.secondaryColor = Color.decode("0x" + model.getColor(2).toString());
+			model.tertiaryColor = Color.decode("0x" + model.getColor(3).toString());
+			model.primaryTextColor = Color.decode("0x" + model.getColor(4).toString());
+			model.textPaneColor = Color.decode("0x" + model.getColor(5).toString());
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         // Determine which type of connection the account requires, and add it
         if (account instanceof GoogleTalkAccountData) {
             connection = new GoogleTalkManager(controller, model);

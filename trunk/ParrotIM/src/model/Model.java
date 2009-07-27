@@ -114,14 +114,14 @@ public class Model extends Observable {
     public boolean groupChatWindowOpen;
 
     // These are the defualt colors
-    public Color primaryDark = new Color(12, 69, 91);
-    public Color primaryColor = new Color(87, 166, 196);
-    public Color secondaryColor = Color.white;
-    public Color tertiaryColor = new Color(136, 235, 93);
-    public Color primaryTextColor = Color.BLACK;
-    public Color textPaneColor = Color.WHITE;
-    public Color inComingMessageColor = Color.BLACK;
-
+    // public Color primaryDark = new Color(0x0c455b);
+    public Color primaryColor = new Color(0x57a6c4);
+    public Color secondaryColor = new Color(0xffffff);
+    public Color tertiaryColor = new Color(0x88eb5d);
+    public Color primaryTextColor = new Color(0x000000);
+    public Color textPaneColor = new Color(0xffffff);
+    // public Color inComingMessageColor = new Color(0x000000);
+    
     // Section
     // II - Constructors
 
@@ -131,6 +131,13 @@ public class Model extends Observable {
      * profiles and accounts from the database.
      */
     public Model() {
+        // System.out.println(Integer.toHexString(primaryDark.getRGB()).substring(2, 8));
+        System.out.println(Integer.toHexString(primaryColor.getRGB()).substring(2, 8));
+        System.out.println(Integer.toHexString(secondaryColor.getRGB()).substring(2, 8));
+        System.out.println(Integer.toHexString(tertiaryColor.getRGB()).substring(2, 8));
+        System.out.println(Integer.toHexString(primaryTextColor.getRGB()).substring(2, 8));
+        System.out.println(Integer.toHexString(textPaneColor.getRGB()).substring(2, 8));
+        // System.out.println(Integer.toHexString(inComingMessageColor.getRGB()).substring(2, 8));
         initializeAllVariables();
     }
 
@@ -1275,5 +1282,27 @@ public class Model extends Observable {
 			}
 		}
 		return str;
+	}
+	public void setColor(int whichOne, String color) {
+		DatabaseFunctions db = null;
+		try {
+			db = new DatabaseFunctions();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			db.setColor(this.getCurrentProfile().getName(), whichOne, color);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public String getColor(int whichOne) throws ClassNotFoundException, SQLException {
+		DatabaseFunctions db = new DatabaseFunctions();
+		return db.getColor(this.getCurrentProfile().getName(), whichOne);
 	}
 }

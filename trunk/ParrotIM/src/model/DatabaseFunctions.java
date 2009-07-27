@@ -56,6 +56,7 @@
 
 package model;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -158,7 +159,8 @@ public class DatabaseFunctions {
         stat.executeUpdate("create table if not exists profiles "
                 + "(name, password, defaultProfile, chatWindowHistory, "
                 + "autoSignIn, chatLog, sounds, chatbot, avatarDirectory, "
-                + "statusMessage, status, emailNotification);");
+                + "statusMessage, status, emailNotification, color1, "
+                + "color2, color3, color4, color5);");
         stat.executeUpdate("create table if not exists friendList "
                 + "(accountName, friendName, blocked);");
         stat.executeUpdate("create table if not exists chatBotQuestions "
@@ -396,6 +398,7 @@ public class DatabaseFunctions {
             boolean isChatWindowHistory, boolean isAutoSignIn,
             boolean isChatLog, boolean isSounds, boolean isChatbot)
             throws SQLException {
+        password = this.replace(password, "'", "");
         String defaultProfile = isDefault ? YES : NO;
         String chatWindowHistory = isChatWindowHistory ? YES : NO;
         String autoSignIn = isAutoSignIn ? YES : NO;
@@ -404,7 +407,7 @@ public class DatabaseFunctions {
         String chatbot = isChatbot ? YES : NO;
 
         prep = conn.prepareStatement("insert into profiles values "
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, name);
@@ -419,6 +422,11 @@ public class DatabaseFunctions {
         prep.setString(10, "");
         prep.setString(11, "");
         prep.setString(12, "Y");
+        prep.setString(13, "57a6c4");
+        prep.setString(14, "ffffff");
+        prep.setString(15, "88eb5d");
+        prep.setString(16, "000000");
+        prep.setString(17, "ffffff");
         prep.executeUpdate();
 
         conn.commit();
@@ -1164,4 +1172,52 @@ public class DatabaseFunctions {
 
         return name.contentEquals(profile);
     }
+    public void setColor(String profile, int whichOne, String color) throws SQLException
+    {
+    	if (whichOne == 1) {
+            stat.executeUpdate("update profiles set color1='" 
+            		+ color + "' where name='" + profile + "'");
+    	}
+    	else if (whichOne == 2) {
+            stat.executeUpdate("update profiles set color2='" 
+            		+ color + "' where name='" + profile + "'");
+    	}
+    	else if (whichOne == 3) {
+            stat.executeUpdate("update profiles set color3='" 
+            		+ color + "' where name='" + profile + "'");
+    	}
+    	else if (whichOne == 4) {
+            stat.executeUpdate("update profiles set color4='" 
+            		+ color + "' where name='" + profile + "'");
+    	}
+    	else {
+            stat.executeUpdate("update profiles set color5='" 
+            		+ color + "' where name='" + profile + "'");
+    	}
+        conn.close();
+    }
+    public String getColor(String profile, int whichOne) throws SQLException
+    {
+    	String color = "";
+        rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
+        rs.next();
+    	if (whichOne == 1) {
+    		color = rs.getString("color1");
+    	}
+    	else if (whichOne == 2) {
+    		color = rs.getString("color2");
+    	}
+    	else if (whichOne == 3) {
+    		color = rs.getString("color3");
+    	}
+    	else if (whichOne == 4) {
+    		color = rs.getString("color4");
+    	}
+    	else {
+    		color = rs.getString("color5");
+    	}
+        conn.close();
+        return color;
+    }
+    
 }
