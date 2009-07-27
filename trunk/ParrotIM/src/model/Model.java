@@ -140,12 +140,6 @@ public class Model extends Observable {
      * 
      */
     public void initializeAllVariables() {
-    	try {
-			Browser.openUrl("http://www.google.com");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         this.profileCollection = new ProfileCollectionData();
         this.chatCollection = new ChatCollectionData();
         aboutWindowOpen = false;
