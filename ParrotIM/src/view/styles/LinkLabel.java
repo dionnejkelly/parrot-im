@@ -30,18 +30,21 @@ package view.styles;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 import model.Model;
+import model.enumerations.UpdatedType;
 
 /**
  * This object sets the style of the clickable labels on mainwindow (sign in window).
  * 
  * It inherits JLabel methods and variables.
  */
-public class LinkLabel extends JLabel {
+public class LinkLabel extends JLabel implements Observer{
 	/** text is a String with the name of the label that will be shown on the GUI*/
 	private String text;
 	
@@ -55,6 +58,7 @@ public class LinkLabel extends JLabel {
 	 * @param text */
 	public LinkLabel (String text, boolean enable, Model model){
 		this.model = model;
+		model.addObserver(this);
 		
 		this.enabled = enable;
 		this.setHorizontalAlignment(CENTER);
@@ -122,4 +126,10 @@ public class LinkLabel extends JLabel {
 		
 	}
 
+	public void update(Observable o, Object arg) {
+		if(arg == UpdatedType.COLOR){
+			String hex = Integer.toHexString(model.primaryTextColor.getRGB()).substring(2, 8);
+			this.setText("<html><Font Color=#" + hex + "><u>"+ text +"</u></Font></html>");
+		}
+	}
 }

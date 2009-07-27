@@ -509,7 +509,7 @@ public class SignInPanel extends GPanel implements Observer {
                 try {
 					System.out.println(model.getAvatarDirectory(selectedProfile.getName()));
 					header.changeAvatar(model.getAvatarDirectory(selectedProfile.getName()));
-
+					
 					model.primaryColor = Color.decode("0x" + model.getColor(1, selectedProfile.getName()).toString());
 					model.secondaryColor = Color.decode("0x" + model.getColor(2, selectedProfile.getName()).toString());
 					model.tertiaryColor = Color.decode("0x" + model.getColor(3, selectedProfile.getName()).toString());
