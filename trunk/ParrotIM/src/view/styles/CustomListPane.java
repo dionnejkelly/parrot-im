@@ -211,9 +211,9 @@ public class CustomListPane extends GPanel{
         boxes[0].remove(panel);
         updateUI();
         
-        if (userPanels.size() == 0 ){
-        	lastClickedIndex = -1;
+        if (userPanels.size() == 0 || userPanels.size() <= lastClickedIndex){
         	lastClickedComponent = null;
+    		lastClickedIndex = -1;
         }
         return;
     }
@@ -222,6 +222,7 @@ public class CustomListPane extends GPanel{
         userPanels.clear();
         boxes[0].removeAll();
         updateUI();
+        this.resetClickedSelection();
     }
 
     public int getClickedIndex() {
@@ -261,21 +262,20 @@ public class CustomListPane extends GPanel{
          * highlights clicked element
          */
         public void mouseClicked(MouseEvent event) {
-        	if (groupIndex != -1){
-        		System.out.println("Group Clicked " + groupIndex);
+        	if (groupIndex > -1){
         		if (GroupedListPane.getLastClickedGroup() != groupIndex){
         			GroupedListPane.resetSelectionLastClickedGroup();
         			GroupedListPane.setLastClickedGroup(groupIndex);
         		}
         	}
-//        	System.out.println("lastSelected "+ lastSelected);
-//        	System.out.println("lastClickedIndex "+ lastClickedIndex);
+        	System.out.println("lastSelected "+ lastSelected);
+        	System.out.println("lastClickedIndex "+ lastClickedIndex);
+        	System.out.println("userPanel.size() "+ userPanels.size());
         	clicked = true;
-//        	System.out.println("userPanel.size() "+ userPanels.size());
-        	if (lastClickedIndex != -1 && lastClickedIndex < userPanels.size() 
+        	if (lastClickedComponent != null && lastClickedIndex < userPanels.size() 
         			&& userPanels.size() != 1
         			&& !lastClickedComponent.equals(boxes[0].getComponent(lastSelected))){
-//        			System.out.println("not last selected");
+        		System.out.println("I GOT HERE VERA");
         		lastClickedComponent.setBackground(Color.WHITE);
             	userPanels.get(lastClickedIndex).setOpaque(false);
         	} else {
@@ -293,15 +293,19 @@ public class CustomListPane extends GPanel{
          * change background to color when mouse Entered
          */
         public void mouseEntered(MouseEvent event) {
-        	if (userPanels.size() == 1){
-        		lastClickedIndex = -1;
-        	}
+//        	if (userPanels.size() == 1){
+//        		lastClickedIndex = -1;
+//        	}
 //        	System.out.println("lastSelected MOUSEENTER "+lastSelected);
 //        	System.out.println("lastClicked MOUSEENTER "+lastClickedIndex);
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
 
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
+                	System.out.println("lastClicked MOUSEENTER "+lastClickedIndex);
+                	System.out.println("this is i MOUSEENTER "+i);
+                	System.out.println("clicked "+clicked);
                 	if (!clicked && lastClickedIndex != i){
+                		System.out.println("me ish called from "+groupIndex);
 	                    boxes[0].getComponent(i).setBackground(
 	                            new Color(225, 247, 247));
 	                    try {
@@ -309,7 +313,7 @@ public class CustomListPane extends GPanel{
 	                    } catch (IndexOutOfBoundsException e) {
 	                        System.err.println("userPanel does not exist... i = " + i);
 	                    }
-                	} else {
+                	} else if (lastClickedIndex == i){
                 		clicked = true;
                 	}
 	                lastSelected = i;
@@ -330,10 +334,15 @@ public class CustomListPane extends GPanel{
         	} else {
         		lastClickedIndex = lastSelected;
         	}
-        	if (userPanels.size() == 1)
-        		clicked = true;
-        	else 
+//        	if (userPanels.size() == 1 && clicked){
+//        		clicked = true;
+//        	}else if (userPanels.size() == 1 && !clicked){
+//        		boxes[0].getComponent(0).setBackground(Color.WHITE);
+//            	userPanels.get(0).setOpaque(false);
+//            	clicked = false;
+//        	} else {
         		clicked = false;
+//        	}
         }
 
         /**
