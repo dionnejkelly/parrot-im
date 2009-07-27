@@ -121,8 +121,38 @@ public class PreferencePanel extends GPanel implements Observer {
         colorChooser = new JFrame();
         colorChooser.setVisible(false);
         
-        String[] presetStrings = { "defualt", "Blue", "Red", "Green" };
-        JComboBox presets = new JComboBox(presetStrings);
+        String[] presetStrings = { "-- Select a Color Scheme --", "Default", "Ice", "Fire", "Jungle" };
+        final JComboBox presets = new JComboBox(presetStrings);
+        presets.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				if(presets.getSelectedItem().toString().equals("Default")){
+					model.primaryColor = new Color(0x57a6c4);
+					model.secondaryColor = Color.WHITE;
+					model.tertiaryColor = new Color(0x88eb5d);
+					model.primaryTextColor = Color.BLACK;
+					model.textPaneColor = Color.WHITE;
+				}else if(presets.getSelectedItem().toString().equals("Ice")){
+					model.primaryColor = Color.BLUE;
+					model.secondaryColor = Color.BLUE.brighter();
+					model.tertiaryColor = Color.CYAN;
+					model.primaryTextColor = Color.WHITE;
+					model.textPaneColor = Color.WHITE;
+				}else if(presets.getSelectedItem().toString().equals("Fire")){
+					model.primaryColor = Color.RED;
+					model.secondaryColor = Color.RED.brighter();
+					model.tertiaryColor = Color.RED;
+					model.primaryTextColor = Color.BLACK;
+					model.textPaneColor = Color.WHITE;
+				}else if(presets.getSelectedItem().toString().equals("Jungle")){
+					model.primaryColor = Color.GREEN;
+					model.secondaryColor = Color.GREEN.brighter();
+					model.tertiaryColor = Color.GREEN;
+					model.primaryTextColor = Color.BLACK;
+					model.textPaneColor = Color.WHITE;
+				}
+				model.updateColors();
+			}
+        });
         
         final JButton colorButton = new JButton("1");
         colorButton.setBackground(model.primaryColor);
