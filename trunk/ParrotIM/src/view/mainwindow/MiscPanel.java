@@ -37,6 +37,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
+import model.Model;
+
 import view.styles.LinkLabel;
 
 /** accPanel is a JPanel object.
@@ -44,7 +46,7 @@ import view.styles.LinkLabel;
 public class MiscPanel extends JPanel{
 	
 	/** MiscPanel constructor. It sets up the panel layout.*/
-	public MiscPanel(){
+	public MiscPanel(Model model){
 		setLayout (new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40));
 		this.setOpaque(false);
@@ -53,7 +55,7 @@ public class MiscPanel extends JPanel{
 		JSeparator line = new JSeparator();
 		
 		//guest account
-		LinkLabel help = new LinkLabel ("Help", true);
+		LinkLabel help = new LinkLabel ("Help", true, model);
 		help.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             

@@ -13,6 +13,10 @@
  *     	   The label is underlined on mouse out. It is bolded when hovered.
  *     2009-June-23, KF
  *         Naming convention updates. Changed all class names.
+ *     2009-July-27, JF
+ *     	   Colours set by HTML are changed to colours set by java
+ *     	   in order to make link labels more easily integrated with
+ *     	   colour schemes
  *         
  * Known Issues:
  *     1. The best look and feel for linkLabel is still on dispute
@@ -31,6 +35,8 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
+import model.Model;
+
 /**
  * This object sets the style of the clickable labels on mainwindow (sign in window).
  * 
@@ -42,11 +48,15 @@ public class LinkLabel extends JLabel {
 	
 	private boolean enabled;
 	
+	private Model model;
+	
 	/**
 	 * LinkLabel constructor. It takes a String object as its argument.
 	 * It sets up the String to be underlined and show it on the GUI.
 	 * @param text */
-	public LinkLabel (String text, boolean enable){
+	public LinkLabel (String text, boolean enable, Model model){
+		this.model = model;
+		
 		this.enabled = enable;
 		this.setHorizontalAlignment(CENTER);
 		this.text = text;
@@ -59,9 +69,11 @@ public class LinkLabel extends JLabel {
 	public void setEnabled(boolean enabled){
 		this.enabled = enabled;
 		if (enabled){
-			this.setText("<html><FONT COLOR=BLACK><u>"+ text +"</u></FONT></html>");
+			this.setText("<html><u>"+ text +"</u></html>");
+			this.setBackground(model.primaryColor);
 		} else{
-			this.setText("<html><FONT COLOR=GRAY><u>"+ text +"</u></FONT></html>");
+			this.setText("<html><u>"+ text +"</u></html>");
+			this.setBackground(Color.GRAY);
 		}
 	}
 	
@@ -91,8 +103,10 @@ public class LinkLabel extends JLabel {
 		 * It takes a MouseEvent argument
 		 * @param e */
 		public void mouseEntered(MouseEvent e) {
-			if (enabled)
-				label.setText("<html><FONT COLOR=BLACK><b>"+label.text+"</b></FONT></html>");
+			if (enabled){
+				label.setText("<html><b>"+label.text+"</b></html>");
+				label.setBackground(Color.WHITE);
+			}
 		}
 		
 		/** When the user hover on label, the text will be underlined.
@@ -100,6 +114,7 @@ public class LinkLabel extends JLabel {
 		 * @param e */
 		public void mouseExited(MouseEvent e) {
 			label.setEnabled(enabled);
+			label.setBackground(model.primaryColor);
 		}
 
 		public void mousePressed(MouseEvent e) {}
