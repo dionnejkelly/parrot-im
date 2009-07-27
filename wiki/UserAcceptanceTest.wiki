@@ -17,7 +17,6 @@ Tasks:
   * Talk to some friends with the chatbot, and try to make some custom messages.
   * Find and use the buddy search.
 
-= User Feedback
+= User Feedback =
 
 Allow the user to make comments, and record them.
-
