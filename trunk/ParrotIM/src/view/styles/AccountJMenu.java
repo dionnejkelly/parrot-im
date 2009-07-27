@@ -40,6 +40,8 @@ public class AccountJMenu extends JMenu{
 	
 	protected AccountData userAccount;
 	
+	private URL url;
+	
 	public AccountJMenu(AccountData account, MainController c, BuddyPanel buddies, Model model){
 		super(account.getServer() + " - " + account.getUserID());
 		
@@ -124,17 +126,25 @@ public class AccountJMenu extends JMenu{
 							false);
 					controller.setPresence(StatusType.intToStatusType
 							(model.getStatus(model.getCurrentProfile().getName())));
-					URL url = new URL (model.getAvatarDirectory(model.getCurrentProfile().getName()));
+					
+					System.out.println("                 ***     AVATAR PICTURE     ***" + model.getAvatarDirectory(model.getCurrentProfile().getName()));
+					
+					url = new URL (model.getAvatarDirectory(model.getCurrentProfile().getName()));
+					
 					System.out.println("ACCOUNTMENU: " +  model.getAvatarDirectory(model.getCurrentProfile().getName()));
 					System.out.println("ACCOUNTMENU: " +  url.toString());
-					controller.setAvatarPicture(url);
+					
+					//JOptionPane.showMessageDialog(null, new ImageIcon(url));
+					
+					PollingThread thread = new PollingThread();
+					
+					thread.start();
+					
+					
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (XMPPException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -156,6 +166,44 @@ public class AccountJMenu extends JMenu{
 		}
 		buddies.listRepopulate();
 	}
+	
+	// Section
+    // Polling methods
+
+    private class PollingThread extends Thread {
+    	
+    	
+    		
+        public void run() {
+            try {
+            	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
+                sleep(10000); // Delay for 4 seconds
+            } catch (InterruptedException e) {
+                System.err.println("Threading error");
+                e.printStackTrace();
+            }
+            
+            System.out.println("Muhahaha");
+            try {
+            	if (url.toString().equals(model.getAvatarDirectory(model.getCurrentProfile().getName())))
+            		controller.setAvatarPicture(url);
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//controller.refreshFriends(controller.getConnection());
+			
+        }
+    }
 	
 	private class AddFriendListener implements ActionListener {
 

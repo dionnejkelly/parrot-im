@@ -45,6 +45,7 @@ import model.enumerations.UpdatedType;
  * BuddyList display Friend contact list for Parrot IM users.
  */
 public class BuddyList extends JFrame implements Observer{
+	private JTabbedPane contactList;
 	private static ArrayList<AccountJMenu> accountMenuList;
 	private BuddyPanel mainListPanel;
 	private TwitterPanel mainTwitterPanel;
@@ -116,17 +117,22 @@ public class BuddyList extends JFrame implements Observer{
         buddylistPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 
         mainListPanel = new BuddyPanel(c, model, this);
-        if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null)
-        	mainTwitterPanel = new TwitterPanel(c,model,this);
-        else 
-        	mainTwitterPanel = new TwitterPanel(model);
+
+         mainTwitterPanel = new TwitterPanel(c,model,this);
+
+//        if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null)
+//        	mainTwitterPanel = new TwitterPanel(c,model,this);
+//        else 
+//        	mainTwitterPanel = new TwitterPanel(model);
+
         
         //If twitter exists, make tabbed buddy frame ; add to buddylistpanel
-        JTabbedPane contactList = new JTabbedPane();
+        contactList = new JTabbedPane();
         contactList.addTab("IM", new ImageIcon(this.getClass().getResource(
     	"/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")), mainListPanel, "Instant Messaging Contact List");
         contactList.addTab("Twitter", new ImageIcon(this.getClass().getResource(
         "/images/buddylist/twitter_logo.png")), mainTwitterPanel, "Twitter Feed");
+        contactList.addChangeListener(new ContactListChangeListener());
         buddylistPanel.add(contactList, BorderLayout.CENTER);
         	
         contactList.addChangeListener(new ChangeListener(){
@@ -465,9 +471,37 @@ public class BuddyList extends JFrame implements Observer{
     }
 
 	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+    
+    
+	private class ContactListChangeListener implements ChangeListener{
+
+		public void stateChanged(ChangeEvent arg0) {
+			// TODO Auto-generated method stub
+			if (contactList.getSelectedIndex() == 1 
+					&& !model.getCurrentProfile().hasTwitter()){
+	            JOptionPane
+                .showMessageDialog(
+                        null,
+                        "You don't have any Twitter account.",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+	            contactList.setSelectedIndex(0);
+			}
+		
+	
+	}
+  
+
+	public void update(Observable o, Object arg) {
 		if(arg == UpdatedType.COLOR){
 			buddylistPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 			buddylistPanel.updateUI();
 		}
 	}
+
+}
 }

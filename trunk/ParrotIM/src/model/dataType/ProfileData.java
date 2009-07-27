@@ -557,4 +557,12 @@ public class ProfileData extends Observable {
 		}
 		return serverList;
 	}
+	
+	public boolean hasTwitter(){
+		for (AccountData account : getAccountData()){
+			if (account.getServer().equals(ServerType.TWITTER)) 
+				return true;
+		}
+		return false;
+	}
 }

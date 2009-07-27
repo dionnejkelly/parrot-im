@@ -271,9 +271,14 @@ public class BlockManager extends JFrame implements Observer {
             }
 
             else {
+//            	popup.setAlwaysOnTop(false);
                 String resultMessage =
                         "Sorry for the inconvenience but there is no one to block. Please click on the users you want to block on the list. Thank you for your co-operation.";
-                JOptionPane.showMessageDialog(null, resultMessage);
+               JOptionPane.showMessageDialog(null, resultMessage);
+               
+//               popup.setAlwaysOnTop(true);
+                
+                
             }
 
         }
