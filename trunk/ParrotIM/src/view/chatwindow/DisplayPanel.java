@@ -239,6 +239,8 @@ public class DisplayPanel extends JPanel implements Observer {
 
             }
 
+            // this auto-scrolls the chat window to the bottom when an incoming
+            // message is received
             int x;
             txtPane.selectAll();
             x = txtPane.getSelectionEnd();
