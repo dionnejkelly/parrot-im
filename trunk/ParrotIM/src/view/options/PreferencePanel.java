@@ -121,38 +121,8 @@ public class PreferencePanel extends GPanel implements Observer {
         colorChooser = new JFrame();
         colorChooser.setVisible(false);
         
-        String[] presetStrings = { "-- Select a Color Scheme --", "Default", "Ice", "Fire", "Jungle" };
+        String[] presetStrings = { "-- Select a Color Scheme --", "Default", "Ice", "Fire", "Jungle", "Custom" };
         final JComboBox presets = new JComboBox(presetStrings);
-        presets.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				if(presets.getSelectedItem().toString().equals("Default")){
-					model.primaryColor = new Color(0x57a6c4);
-					model.secondaryColor = Color.WHITE;
-					model.tertiaryColor = new Color(0x88eb5d);
-					model.primaryTextColor = Color.BLACK;
-					model.textPaneColor = Color.WHITE;
-				}else if(presets.getSelectedItem().toString().equals("Ice")){
-					model.primaryColor = Color.BLUE;
-					model.secondaryColor = Color.BLUE.brighter();
-					model.tertiaryColor = Color.CYAN;
-					model.primaryTextColor = Color.WHITE;
-					model.textPaneColor = Color.WHITE;
-				}else if(presets.getSelectedItem().toString().equals("Fire")){
-					model.primaryColor = Color.RED;
-					model.secondaryColor = Color.RED.brighter();
-					model.tertiaryColor = Color.RED;
-					model.primaryTextColor = Color.BLACK;
-					model.textPaneColor = Color.WHITE;
-				}else if(presets.getSelectedItem().toString().equals("Jungle")){
-					model.primaryColor = Color.GREEN;
-					model.secondaryColor = Color.GREEN.brighter();
-					model.tertiaryColor = Color.GREEN;
-					model.primaryTextColor = Color.BLACK;
-					model.textPaneColor = Color.WHITE;
-				}
-				model.updateColors();
-			}
-        });
         
         final JButton colorButton = new JButton("1");
         colorButton.setBackground(model.primaryColor);
@@ -191,6 +161,42 @@ public class PreferencePanel extends GPanel implements Observer {
         chatButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				openColorChooser("Chat Pane Color", chatButton, model);
+			}
+        });
+        
+        presets.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				if(presets.getSelectedItem().toString().equals("Default")){
+					model.primaryColor = new Color(0x57a6c4);
+					model.secondaryColor = Color.WHITE;
+					model.tertiaryColor = new Color(0x88eb5d);
+					model.primaryTextColor = Color.BLACK;
+					model.textPaneColor = Color.WHITE;
+				}else if(presets.getSelectedItem().toString().equals("Ice")){
+					model.primaryColor = Color.BLUE.darker().darker();
+					model.secondaryColor = Color.BLUE.brighter().brighter();
+					model.tertiaryColor = Color.CYAN.darker();
+					model.primaryTextColor = Color.WHITE;
+					model.textPaneColor = Color.WHITE;
+				}else if(presets.getSelectedItem().toString().equals("Fire")){
+					model.primaryColor = Color.RED.darker().darker();
+					model.secondaryColor = Color.RED.brighter();
+					model.tertiaryColor = Color.RED;
+					model.primaryTextColor = Color.WHITE;
+					model.textPaneColor = Color.WHITE;
+				}else if(presets.getSelectedItem().toString().equals("Jungle")){
+					model.primaryColor = Color.GREEN.darker().darker();
+					model.secondaryColor = Color.GREEN.brighter();
+					model.tertiaryColor = Color.GREEN;
+					model.primaryTextColor = Color.BLACK;
+					model.textPaneColor = Color.WHITE;
+				}
+				colorButton.setBackground(model.primaryColor);
+				colorButton2.setBackground(model.secondaryColor);
+				colorButton3.setBackground(model.tertiaryColor);
+				textButton.setBackground(model.primaryTextColor);
+				chatButton.setBackground(model.textPaneColor);
+				model.updateColors();
 			}
         });
         
