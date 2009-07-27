@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import model.Model;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
+import model.enumerations.TypingStateType;
 import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;
@@ -35,6 +36,7 @@ import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatState;
+import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
 import org.jivesoftware.smackx.packet.VCard;
 
@@ -51,17 +53,17 @@ public class JabberManager implements GenericConnection {
     private MainController controller;
 
     private GenericConnection genericConnection;
-    
+
     private Model model;
 
     private ArrayList<Chat> chats;
 
     private String server;
-    
+
     private Chat lastChat;
 
     private String domain;
-    
+
     private VCard vcard;
 
     public JabberManager(MainController controller, Model model) {
@@ -116,7 +118,7 @@ public class JabberManager implements GenericConnection {
         System.out.println("userID: " + userID);
         System.out.println("server " + server);
         System.out.println("domain " + domain);
-        
+
         connection = new XMPPConnection(config);
         try {
             connection.connect();
@@ -507,181 +509,208 @@ public class JabberManager implements GenericConnection {
     /**
      * 
      * set typing state
-     * @param state int that represents different state
-     * 1 = active
-     * 2 = composing
-     * 3 = gone
-     * 4 = inactive
-     * 5 = paused
+     * 
+     * @param state
+     *            int that represents different state 1 = active 2 = composing 3
+     *            = gone 4 = inactive 5 = paused
      */
-        public void setTypingState(int state, String UserID) throws BadConnectionException, XMPPException {
-                ChatStateManager curState = ChatStateManager.getInstance(connection);
-                
-                if (state == 1){
-                        curState.setCurrentState(ChatState.active, lastChat);
-                }else if(state == 2){
-                curState.setCurrentState(ChatState.composing, lastChat);
-                
-                }else if(state == 3){
-                curState.setCurrentState(ChatState.gone, lastChat);
-                }else if(state == 4){
-                curState.setCurrentState(ChatState.inactive, lastChat);
-                }else if(state == 5){
-                curState.setCurrentState(ChatState.paused, lastChat);
-                }
+    public void setTypingState(int state, String userID)
+            throws BadConnectionException, XMPPException {
+        ChatStateManager curState = ChatStateManager.getInstance(connection);
+        if (lastChat == null) {
+            lastChat =
+                    connection.getChatManager().createChat(userID,
+                            new DefaultChatStateListener());
         }
 
-	public String getUserEmailHome() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        if (state == 1) {
+            curState.setCurrentState(ChatState.active, lastChat);
+        } else if (state == 2) {
+            curState.setCurrentState(ChatState.composing, lastChat);
 
-	public String getUserEmailWork() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        } else if (state == 3) {
+            curState.setCurrentState(ChatState.gone, lastChat);
+        } else if (state == 4) {
+            curState.setCurrentState(ChatState.inactive, lastChat);
+        } else if (state == 5) {
+            curState.setCurrentState(ChatState.paused, lastChat);
+        }
+    }
+    
+    private class DefaultChatStateListener implements ChatStateListener {
+        public void stateChanged(Chat user, ChatState event) {
+            String state = event.name();
+            TypingStateType typingState = null;
+            if (state.equals("active")) {
+                typingState = TypingStateType.ACTIVE;
+            } else if (state.equals("composing")) {
+                typingState = TypingStateType.TYPING;
+            } else if (state.equals("paused")) {
+                typingState = TypingStateType.PAUSED;
+            } else if (state.equals("inactive")) {
+                typingState = TypingStateType.INACTIVE;
+            } else if (state.equals("gone")) {
+                typingState = TypingStateType.GONE;
+            }
+            controller.typingStateUpdated(genericConnection, typingState, user
+                    .getParticipant().toString());
+        }
 
-	public String getUserFirstName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserLastName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserMiddleName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserNickName() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserOrganization() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserOrganizationUnit() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserPhoneHome() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserPhoneWork() throws XMPPException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void load(String userID) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void load() throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserEmailHome(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserEmailWork(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserFirstName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserLastName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserMiddleName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserNickName(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserOrganization(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserOrganizationUnit(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserPhoneHome(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserPhoneWork(String name) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void sendFile(String filePath, String userID, ProgressMonitorScreen progress) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public boolean isValidUserID(String userID) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void createRoom(String room) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void inviteFriend(String userID, String roomName) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public boolean isConferenceChat() {
-    	return false;
+        public void processMessage(Chat arg0, Message arg1) {
+            // Do nothing
+        }
     }
 
-	public void sendMultMessage(String message, String roomName)
-			throws BadConnectionException {
-		// TODO Auto-generated method stub
-		
-	}
+    public String getUserEmailHome() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public boolean doesExist(String userID) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public String getUserEmailWork() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public boolean isFollowing(String userID) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public String getUserFirstName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
+    public String getUserLastName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
+    public String getUserMiddleName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public String getUserNickName() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public String getUserOrganization() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public String getUserOrganizationUnit() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public String getUserPhoneHome() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public String getUserPhoneWork() throws XMPPException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void load(String userID) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void load() throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserEmailHome(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserEmailWork(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserFirstName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserLastName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserMiddleName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserNickName(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserOrganization(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserOrganizationUnit(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserPhoneHome(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void setUserPhoneWork(String name) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void sendFile(String filePath, String userID,
+            ProgressMonitorScreen progress) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public boolean isValidUserID(String userID) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void createRoom(String room) throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void inviteFriend(String userID, String roomName)
+            throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public boolean isConferenceChat() {
+        return false;
+    }
+
+    public void sendMultMessage(String message, String roomName)
+            throws BadConnectionException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public boolean doesExist(String userID) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean isFollowing(String userID) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }
-
