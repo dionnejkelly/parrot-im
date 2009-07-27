@@ -4,6 +4,18 @@
 
 [UserAcceptanceTest Testing procedures].
 
+Reports:
+  * [UA_Person1 Person 1]
+  * [UA_Person2 Person 2]
+  * [UA_Person3 Person 3]
+  * [UA_Person4 Person 4]
+  * [UA_Person5 Person 5]
+  * [UA_Person6 Person 6]
+  * [UA_Person7 Person 7]
+  * [UA_Person8 Person 8]
+  * [UA_Person9 Person 9]
+  * [UA_Person10 Person 10]
+  * [UA_Person11 Person 11]
 
 = Details =
 
