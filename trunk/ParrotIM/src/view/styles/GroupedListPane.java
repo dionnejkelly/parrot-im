@@ -61,6 +61,7 @@ public class GroupedListPane extends JPanel implements Observer {
     	if (lastClickedGroup >= 0)
     		groups.get(lastClickedGroup).resetClickedSelection();
     }
+
     public int getGroupCount() {
         return groups.size();
     }
@@ -84,7 +85,7 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
         gPanels.add(newPanel);
 
-        CustomListPane collapsableListPane = new CustomListPane(groups.size());
+        CustomListPane collapsableListPane = new CustomListPane();
         groups.add(collapsableListPane);
 
         newPanel.addMouseListener(new CollapseListner());
@@ -111,7 +112,7 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
         gPanels.add(newPanel);
 
-        CustomListPane collapsableListPane = new CustomListPane(groups.size());
+        CustomListPane collapsableListPane = new CustomListPane();
         groups.add(collapsableListPane);
 
         newPanel.addMouseListener(new CollapseListner());
@@ -128,7 +129,7 @@ public class GroupedListPane extends JPanel implements Observer {
         labels.add(textLabel);
         newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
 
-        CustomListPane collapsableListPane = new CustomListPane(0);
+        CustomListPane collapsableListPane = new CustomListPane();
         groups.add(0, collapsableListPane);
         setAllGroupIndex();
 
