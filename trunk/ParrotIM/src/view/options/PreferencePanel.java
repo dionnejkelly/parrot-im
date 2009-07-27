@@ -230,7 +230,7 @@ public class PreferencePanel extends GPanel implements Observer {
         
         textColorPanel.add(textColorLabel);
         textColorPanel.add(textButton);
-
+        
         chatPaneColorPanel.add(chatPaneColorLabel);
         chatPaneColorPanel.add(chatButton);
         
