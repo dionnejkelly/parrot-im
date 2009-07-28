@@ -19,9 +19,15 @@ Also, we tested our user interface, by cognitive walkthrough by our team, and as
 
 == Unit Testing ==
 
-As our previous versions, we used JUnit. We added to our test cases package:
+As our previous versions, we used JUnit. We focused more on blackbox testing here more than whitebox because it's faster, but still for some test cases we needed to read the actual implementation. We added to our test cases package:
+
+SlashCommandTest.java
 
 To Check our test (steps to import our test cases or installing JUnit check our previous document).
+
+Also, we revise our work on previous unit tests, and we made most of them succesfully working. But we left test cases related to database, model, GUI and controller because testing them using unit testing is more complicated and time consuming than just walkthrough the system which is simpler.
+
+
 ------------------------------
 
 == Integration Testing ==
@@ -31,6 +37,11 @@ We walkthrough our system to see if the new features are integrating perfectly w
 Also, we asked some users to use our system and perform new tasks (plus the tasks from previous documents) :
 
 *Observations and Changes:*
+
+1. MSN is working and you can chat with a friend with no problem.
+
+2. SQL exceptions from ' in some text fields are now solved and don't cause exceptions.
+
 
 ----------------------------------
 
