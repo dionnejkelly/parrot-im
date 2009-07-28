@@ -92,7 +92,6 @@ public class AvatarLabel extends JLabel{
 	 * @param mainControl
 	 */
 	public AvatarLabel(MainController mainControl, Model model, String path, int size){
-		this.model = model;
 		synch = false;
 		setLabel (mainControl, model, path, size);
 	}
