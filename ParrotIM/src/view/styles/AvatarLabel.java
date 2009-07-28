@@ -22,35 +22,24 @@
 
 package view.styles;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Panel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import model.Model;
 import model.enumerations.ServerType;
 
 import org.jivesoftware.smack.XMPPException;
-
-import com.sun.image.codec.jpeg.ImageFormatException;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import controller.MainController;
 
@@ -211,9 +200,13 @@ public class AvatarLabel extends JLabel{
 	 */
 	public void changeAvatar(String avatarPath){
 		
-		if (avatarPath == null){
+		if (avatarPath == null || avatarPath.length() == 0){
 			avatarPath = getClass().getClassLoader().getResource("images/buddylist/logoBox.png").toString();
 		}
+		
+//		URL url = new URL(avatarPath);
+//		Image img = new Image();
+//		ImageIcon icon = new ImageIcon (img);
 		this.setText("<html><img src=\""+ avatarPath +"\" height=\"" + size + "\" width=\"" + size + "\" ></html>");
 		path = avatarPath;
 	}
