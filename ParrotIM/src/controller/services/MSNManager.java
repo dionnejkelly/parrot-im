@@ -57,6 +57,7 @@ import model.enumerations.UserStateType;
 
 public class MSNManager extends AbstractMessageConnection implements GenericConnection { //implements FileTransferSupport {
     private static Logger log = Logger.getLogger(MSNManager.class.getName());
+    private final int maximumCapacity = 115;
     
     private MSNMessenger connection = null;
     private Map<String, SwitchboardSession> sessions = new ConcurrentHashMap<String, SwitchboardSession>();
@@ -83,63 +84,63 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
      * @throws Exception 
      */
     
-//    public static void main(String[] args) throws Exception {
-//    	MSNManager msn = new MSNManager();
-//    	msn.connect("cmpt275testing@hotmail.com","abcdefghi");
-//    	
-//    
-//    	msn.retrieveFriendList();
-//    	System.out.println(">");
-//		Scanner optionScanner = new Scanner(System.in);
-//		String option = optionScanner.nextLine();
-//		
-//		MsnFriend friend = msn.msnFriend("littletomato89@hotmail.com"); 
-//		while((option).equals("1"))
-//		{
-//			
-//				System.out.println("Type your message to littletomato89@gmail.com: " + msn.getUserStatus(friend));
-//				Scanner msgInput = new Scanner(System.in);
-//				String msg = msgInput.nextLine();
+    public static void main(String[] args) throws Exception {
+    	MSNManager msn = new MSNManager();
+    	msn.connect("tuna_shichan@hotmail.com","aloha0712?!");
+    	
+    
+    	msn.retrieveFriendList();
+    	System.out.println(">");
+		Scanner optionScanner = new Scanner(System.in);
+		String option = optionScanner.nextLine();
+		
+		MsnFriend friend = msn.msnFriend("littletomato89@hotmail.com"); 
+		while((option).equals("1"))
+		{
+			
+				System.out.println("Type your message to littletomato89@gmail.com: " + msn.getUserStatus(friend));
+				Scanner msgInput = new Scanner(System.in);
+				String msg = msgInput.nextLine();
+				
+				
+				//msn.removeFriend(msg);
+				//msn.getBuddies();
+				//System.out.println("=====================");
+				//System.out.println("User status = " + msn.getUserStatus("littletomato89@hotmail.com"));
+			
+				//msn.setPresence(msg);
+				//msn.sendMessage("littletomato89@hotmail.com", msg);
+//				if (msg.equals("1")) {
+//					msn.setAway(true);
+//				}
 //				
+//				if (msg.equals("2")) {
+//					msn.setBRB(true);
+//				}
 //				
-//				//msn.removeFriend(msg);
-//				//msn.getBuddies();
-//				//System.out.println("=====================");
-//				//System.out.println("User status = " + msn.getUserStatus("littletomato89@hotmail.com"));
-//			
-//				//msn.setPresence(msg);
-//				//msn.sendMessage("littletomato89@hotmail.com", msg);
-////				if (msg.equals("1")) {
-////					msn.setAway(true);
-////				}
-////				
-////				if (msg.equals("2")) {
-////					msn.setBRB(true);
-////				}
-////				
-////				if (msg.equals("3")) {
-////					msn.setBusy(true);
-////				}
-////				
-////				if (msg.equals("4")) {
-////					msn.setIdle(true);
-////				}
-////				
-////				if (msg.equals("5")) {
-////					msn.setLunch(true);
-////				}
-////				
-////				if (msg.equals("6")) {
-////					msn.setPhone(true);
-////				}
-////				
-//				//System.out.println("My status = " + msn.getMyStatus());
+//				if (msg.equals("3")) {
+//					msn.setBusy(true);
+//				}
 //				
+//				if (msg.equals("4")) {
+//					msn.setIdle(true);
+//				}
 //				
-//			
-//		}
-////	
-//    }
+//				if (msg.equals("5")) {
+//					msn.setLunch(true);
+//				}
+//				
+//				if (msg.equals("6")) {
+//					msn.setPhone(true);
+//				}
+//				
+				//System.out.println("My status = " + msn.getMyStatus());
+				
+				
+			
+		}
+//	
+    }
     
     public MSNManager() {
     	
@@ -356,22 +357,24 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
    	 	int count = 0;
    	 	
    	 	String msnFriendLoginName;
-   	 	
+   	 	System.out.println("Vera's total friend = " + target);
    	 	MsnFriend msnFriend;
    	 
-        while (count < target) {
+        while (count < target && count < maximumCapacity) {
         	
         	msnFriendLoginName = connection.getBuddyGroup().getAllowList().get(count).getLoginName();
             System.out.println("MSN Friend = " + msnFriendLoginName);
             msnFriend = msnFriend(msnFriendLoginName);
             buddies.add(connection.getBuddyGroup().getAllowList().get(count).getLoginName());
             System.out.println("*** Status = " + getUserStatus(msnFriend));
+            System.out.println("Count = " + count);
             localFriends.add(new FriendTempData(msnFriendLoginName, msnFriendLoginName, this.retrieveStatus(msnFriend.getLoginName()),
             		 this.retrieveState(msnFriend.getLoginName()), false));
             		
             count++;
         }
     	
+        System.out.println("Never Count = " + count);
         return localFriends;
     }
     
