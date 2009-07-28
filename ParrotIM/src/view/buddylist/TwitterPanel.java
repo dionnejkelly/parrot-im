@@ -41,6 +41,7 @@ import view.styles.GroupedListPane;
 import view.chatwindow.ChatWindow;
 
 import model.Model;
+import model.dataType.TwitterAccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
@@ -178,6 +179,7 @@ public class TwitterPanel extends GPanel implements Observer {
     
     public TwitterPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
+        model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER).addObserver(this);
         model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -239,6 +241,7 @@ public class TwitterPanel extends GPanel implements Observer {
         try {
             tweets = model.getCurrentProfile().getTweets();
             buddies = model.getCurrentProfile().getTwitterFriends();
+            System.out.println(buddies.size() + " FJSDFLJSFLF");
         } catch (BadConnectionException e1) {
             e1.printStackTrace();
         }
@@ -426,10 +429,15 @@ public class TwitterPanel extends GPanel implements Observer {
     }
 
     public void update(Observable o, Object arg) {
+        System.out.println("thisistheupdate!: " + o);
         if (arg == UpdatedType.COLOR) {
             setGradientColors(model.primaryColor, model.secondaryColor);
            // tempLabel.setForeground(model.primaryTextColor);
             updateUI();
+        } else if (o instanceof TwitterAccountData) {
+            // Refresh if add/remove friends
+            System.out.println("FKSDHFLKDJSKFLSJDFLF");
+            listRepopulate();
         }
     }
 
