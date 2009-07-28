@@ -207,6 +207,9 @@ public class MainController {
 
     public void setAvatarPicture(URL url) throws XMPPException, IOException,
             ClassNotFoundException, SQLException {
+    	
+    	if (model.getCurrentProfile().isEmptyProfile()) return;
+    	
         ImageIcon imageIcon = new ImageIcon(url);
         byte[] byeArray = toByte(imageIcon);
 
