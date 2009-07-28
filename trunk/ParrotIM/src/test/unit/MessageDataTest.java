@@ -18,6 +18,9 @@ package test.unit;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import model.dataType.MessageData;
 
 import org.junit.After;
@@ -33,7 +36,7 @@ public class MessageDataTest {
         md1 =
                 new MessageData(
                         "Gina", "Hey, are you coming?", "Arial",
-                        "4", false, false, false, "#FFFFFF");
+                        "4", false, false, false, "#FFFFFF",true);
 
     }
 
@@ -48,7 +51,7 @@ public class MessageDataTest {
         md2 =
                 new MessageData(
                         "Niko", "What did you say?", "Arial", "4", false,
-                        false, false, "#FFFFFF");
+                        false, false, "#FFFFFF",true);
         assertSame("Niko", md2.getFromUser());
         assertSame("What did you say?", md2.getMessage());
         assertSame("Arial", md2.getFont());
@@ -96,12 +99,15 @@ public class MessageDataTest {
 
     @Test
     public void testText() {
+    	Date date1 = new Date();
+        String etimeStamp = new SimpleDateFormat("HH:mm--").format(date1);
         String expected =
-        	"<U><font face = \"Arial\">"
-			+ "Gina" + ":</font></U> " + "<font face=\"" + "Arial" + "\" size=\"" + "4" +
-			"\" color=\"" + "#FFFFFF" + "\"> " 
-            + "Hey, are you coming?" + " </font><br><br>";
+        	etimeStamp+"<U><font face = \"Arial"
+			 +"\" color=\"" + "#FFFFFF" + "\">Gina:</font></U><font face=\"Arial\" "+"size=\"4\" color=\"#FFFFFF\">" 
+            + " Hey, are you coming?" + " </font><br><br>";
+        
         assertEquals(expected, md1.text());
+        //System.out.println(expected);
         //System.out.println(md1.text());
     }
 
@@ -113,12 +119,14 @@ public class MessageDataTest {
 
     @Test
     public void testToString() {
-        String expected ="<U><font face = \"Arial\">"
-			+ "Gina" + ":</font></U> " + "<font face=\"" + "Arial" + "\" size=\"" + "4" +
-			"\" color=\"" + "#FFFFFF" + "\"> " 
-            + "Hey, are you coming?" + " </font><br><br>";
-                
+    	Date date1 = new Date();
+        String etimeStamp = new SimpleDateFormat("HH:mm--").format(date1);
+        String expected =
+        	etimeStamp+"<U><font face = \"Arial"
+			 +"\" color=\"" + "#FFFFFF" + "\">Gina:</font></U><font face=\"Arial\" "+"size=\"4\" color=\"#FFFFFF\">" 
+            + " Hey, are you coming?" + " </font><br><br>";
         assertEquals(expected, md1.toString());
+        
     }
 
 }

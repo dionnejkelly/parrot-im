@@ -2,6 +2,9 @@ package BetaTest;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import model.dataType.JabberAccountData;
 import model.dataType.JabberUserData;
 import model.dataType.MessageData;
@@ -69,7 +72,7 @@ public class MultiConversationDataTest {
 	}
 	@Test
 	public void testGetText() {
-		md1.addMessage(new MessageData("Goerge","Hawa sultan","Arial","4",true,false,true,"b"));
+		md1.addMessage(new MessageData("Goerge","Hawa sultan","Arial","4",true,false,true,"b",true));
 		assertSame("Goerge",md1.getText().get(0).getFromUser());
 		assertSame("Arial",md1.getText().get(0).getFont());
 	}
@@ -96,7 +99,7 @@ public class MultiConversationDataTest {
 
 	@Test
 	public void testAddMessage() {
-		md1.addMessage(new MessageData("Goerge","Hawa sultan","Arial","4",true,false,true,"b"));
+		md1.addMessage(new MessageData("Goerge","Hawa sultan","Arial","4",true,false,true,"b",false));
 		assertEquals("Goerge",md1.getText().get(0).getFromUser());
 		assertSame("Arial",md1.getText().get(0).getFont());
 	}
@@ -113,7 +116,7 @@ public class MultiConversationDataTest {
 
 	@Test
 	public void testGetMessageCount() {
-		md1.addMessage(new MessageData("Goerge","Hawa sultan","Arial","4",true,false,true,"b"));
+		md1.addMessage(new MessageData("Goerge","Hawa sultan","Arial","4",true,false,true,"b",true));
 		assertSame(1,md1.getMessageCount());
 	}
 
@@ -121,13 +124,15 @@ public class MultiConversationDataTest {
 	public void testDisplayMessages() {
 		md1.addMessage(new MessageData(
                 "Gina", "Hey, are you coming?", "Arial",
-                "4", false, false, false, "#FFFFFF"));
+                "4", false, false, false, "#FFFFFF",false));
 		
-		String expected =
-        	"<U><font face = \"Arial\">"
-			+ "Gina" + ":</font></U> " + "<font face=\"" + "Arial" + "\" size=\"" + "4" +
-			"\" color=\"" + "#FFFFFF" + "\"> " 
-            + "Hey, are you coming?" + " </font><br><br>";
+		Date date1 = new Date();
+        String etimeStamp = new SimpleDateFormat("HH:mm--").format(date1);
+        String expected =
+        	etimeStamp+"<U><font face = \"Arial"
+			 +"\" color=\"" + "#ff00ff" + "\">Gina:</font></U><font face=\"Arial\" "+"size=\"4\" color=\"#FFFFFF\">" 
+            + " Hey, are you coming?" + " </font><br><br>";
+        //System.out.println(md1.displayMessages());
 		assertEquals(expected,md1.displayMessages());	
 	}
 
