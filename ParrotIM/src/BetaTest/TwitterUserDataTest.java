@@ -1,4 +1,4 @@
-//package BetaTest;
+package BetaTest;
 //
 //import static org.junit.Assert.*;
 //
@@ -10,7 +10,7 @@
 //import org.junit.Before;
 //import org.junit.Test;
 //
-//public class TwitterUserDataTest {
+public class TwitterUserDataTest {
 //	private TwitterUserData tu1;
 //	private TwitterUserData tu2;
 //	private TwitterUserData tu3;
@@ -66,4 +66,4 @@
 //		assertSame(ServerType.TWITTER,tu3.getServer());
 //	}
 //
-//}
+}
