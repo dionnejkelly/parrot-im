@@ -5,6 +5,7 @@ package controller.spellcheck;
  *
  */
 
+import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
 import com.inet.jortho.FileUserDictionary;
@@ -27,9 +28,11 @@ public class SpellCheck {
         // Create user dictionary in the current working directory of your application
         SpellChecker.setUserDictionaryProvider( new FileUserDictionary() );
         
+        
         // Load the configuration from the file dictionaries.cnf and 
-        // use the current locale or the first language as default 
-        SpellChecker.registerDictionaries( null, null );
+        // use the current locale or the first language as default
+//        setIconImage(new ImageIcon(this.getClass().getResource("/images/mainwindow/logo.png")).getImage());
+        SpellChecker.registerDictionaries(this.getClass().getResource("/dictionary/dictionary_en.ortho"), null );
 
         // enable the spell checking on the text component with all features
         SpellChecker.register(txt1);
