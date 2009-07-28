@@ -272,9 +272,10 @@ public class CustomListPane extends GPanel{
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
                 	System.out.println("this is i "+ i);
                 	lastSelectedComponent = boxes[0].getComponent(i);
-                	boxes[0].getComponent(i).setBackground(
-                            new Color(225, 247, 247));
                     lastSelectedPanel = userPanels.get(i);
+                	lastSelectedComponent.setBackground(
+                            new Color(225, 247, 247));
+                	lastSelectedPanel.setOpaque(false);
                     
                 	lastSelected = i;
                     try {
@@ -291,7 +292,6 @@ public class CustomListPane extends GPanel{
          */
         public void mouseExited(MouseEvent event) {
         	if (lastSelectedComponent!= null){
-        		System.out.println("I AM NOT NULL!!");
         		lastSelectedComponent.setBackground(Color.WHITE);
         		lastSelectedPanel.setOpaque(false);
         	}
