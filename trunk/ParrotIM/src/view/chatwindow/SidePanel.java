@@ -250,12 +250,14 @@ public class SidePanel extends GPanel implements Observer {
         public void mouseReleased(MouseEvent event) {
         }
     }
-    
+
     private class removeConversationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            chatCollection.removeConversation(listPane.getUserWrapper(
-                    listPane.getClickedIndex()).getConversation());
-            
+            if (chatCollection.getConversations().size() > 1) {
+                chatCollection.removeConversation(listPane.getUserWrapper(
+                        listPane.getClickedIndex()).getConversation());
+            }
+
             return;
         }
     }
