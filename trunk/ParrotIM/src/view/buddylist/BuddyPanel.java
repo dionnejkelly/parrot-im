@@ -262,16 +262,16 @@ public class BuddyPanel extends GPanel implements Observer {
         menuItem4 =
                 new JMenuItem("Block Friend", new ImageIcon(this.getClass()
                         .getResource("/images/buddylist/block_user.png")));
-        menuItem5 =
-                new JMenuItem("Send Email", new ImageIcon(this.getClass()
-                        .getResource("/images/buddylist/mail_generic.png")));
+//        menuItem5 =
+//                new JMenuItem("Send Email", new ImageIcon(this.getClass()
+//                        .getResource("/images/buddylist/mail_generic.png")));
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new inviteFriendListener());
         menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
-        menuItem5
-                .addMouseListener(new RightClickMenuViewProfileFriendListener());
+//        menuItem5
+//                .addMouseListener(new RightClickMenuViewProfileFriendListener());
 
         rightClickMenu.add(menuItem1);
         rightClickMenu.add(menuItem2);
@@ -279,7 +279,7 @@ public class BuddyPanel extends GPanel implements Observer {
         rightClickMenu.add(menuItem3);
         rightClickMenu.add(menuItem4);
         rightClickMenu.addSeparator();
-        rightClickMenu.add(menuItem5);
+        //rightClickMenu.add(menuItem5);
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
@@ -429,7 +429,6 @@ public class BuddyPanel extends GPanel implements Observer {
     	int boxIndex = -1;
    
     	if (user.isBlocked()) {
-    		System.out.println("I should be blocked again!!!");
     		boxIndex = 3;
     	} else {
     		if (user.getState() == UserStateType.ONLINE) {
