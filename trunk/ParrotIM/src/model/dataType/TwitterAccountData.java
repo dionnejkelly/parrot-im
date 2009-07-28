@@ -100,6 +100,9 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
             }
         }
 
+        setChanged();
+        notifyObservers();
+        
         return notDuplicate;
     }
 
@@ -112,6 +115,9 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
      * @return true if removed, false otherwise
      */
     public boolean removeFriend(UserData exFriend) {
+        setChanged();
+        notifyObservers();
+        
         return this.friends.remove(exFriend);
     }
 
@@ -125,6 +131,9 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
             }
         }
 
+        setChanged();
+        notifyObservers();
+        
         return removed;
     }
     

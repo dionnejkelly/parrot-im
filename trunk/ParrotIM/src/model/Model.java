@@ -84,6 +84,7 @@ import model.enumerations.PopupEnableWindowType;
 import model.enumerations.TypingStateType;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
+
 /**
  * The model stores all data and provides it for the view and controllers. Also,
  * the model is the only class to access the database, and does so by employing
@@ -121,8 +122,9 @@ public class Model extends Observable {
     public Color tertiaryColor = new Color(0x88eb5d);
     public Color primaryTextColor = new Color(0x000000);
     public Color textPaneColor = new Color(0xffffff);
+
     // public Color inComingMessageColor = new Color(0x000000);
-    
+
     // Section
     // II - Constructors
 
@@ -594,7 +596,7 @@ public class Model extends Observable {
         ServerType server = null;
 
         server = account.getServer();
-        
+
         if (server == ServerType.GOOGLE_TALK) {
             userToAdd = new GoogleTalkUserData(accountName);
         } else if (server == ServerType.JABBER) {
@@ -1267,40 +1269,46 @@ public class Model extends Observable {
                 emailNotification);
     }
 
-	public static String removeNewLinesAndSpaces(String str){
-		for (int pos = str.length()-1 ; pos >= 0; pos--){
-			if (str.charAt(pos) == '\n' ||  str.charAt(pos) == ' ')
-				str = str.substring(0, str.length()-1);
-			else {
-				break;
-			}
-		}
-		return str;
-	}
-	public void setColor(int whichOne, String color) {
-		DatabaseFunctions db = null;
-		try {
-			db = new DatabaseFunctions();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			db.setColor(this.getCurrentProfile().getName(), whichOne, color);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public String getColor(int whichOne) throws ClassNotFoundException, SQLException {
-		DatabaseFunctions db = new DatabaseFunctions();
-		return db.getColor(this.getCurrentProfile().getName(), whichOne);
-	}
-	public String getColor(int whichOne, String profileName) throws ClassNotFoundException, SQLException{
-		DatabaseFunctions db = new DatabaseFunctions();
-		return db.getColor(profileName, whichOne);
-	}
+    public static String removeNewLinesAndSpaces(String str) {
+        for (int pos = str.length() - 1; pos >= 0; pos--) {
+            if (str.charAt(pos) == '\n' || str.charAt(pos) == ' ')
+                str = str.substring(0, str.length() - 1);
+            else {
+                break;
+            }
+        }
+        return str;
+    }
+
+    public void setColor(int whichOne, String color) {
+        DatabaseFunctions db = null;
+        try {
+            db = new DatabaseFunctions();
+        } catch (ClassNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        try {
+            db.setColor(this.getCurrentProfile().getName(), whichOne, color);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public String getColor(int whichOne) throws ClassNotFoundException,
+            SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getColor(this.getCurrentProfile().getName(), whichOne);
+    }
+
+    public String getColor(int whichOne, String profileName)
+            throws ClassNotFoundException, SQLException {
+        DatabaseFunctions db = new DatabaseFunctions();
+        return db.getColor(profileName, whichOne);
+    }
+    
 }
