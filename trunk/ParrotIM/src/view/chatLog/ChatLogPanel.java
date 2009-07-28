@@ -114,12 +114,13 @@ public class ChatLogPanel extends GPanel implements Observer {
      * chatLog is a JScrollPane object. It is the scrollPane for text.
      */
     private JScrollPane chatlog;
-    
+    private final String htmlHead="<html><font face=\"Arial\" size=\"3\">";
+    private final String htmlTail="</font></html>";
     /** 
      * stub is an array of String with one member.
      * It used if there is no message to display on text.
      */
-    private String[] stub = new String[]{"no data is displayed"};
+    private String[] stub = new String[]{htmlHead + "<i><b>no data is displayed</b></i>" + htmlTail};
     private JTextField searchField ;
     // Added the database
     private DatabaseFunctions db;
@@ -157,6 +158,8 @@ public class ChatLogPanel extends GPanel implements Observer {
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
         text = new JEditorPane();
         text.setEditable(false);
+        text.setContentType("text/html");
+        text.setText(stub[0]);
         
         chatlog = new JScrollPane(text);
         chatlog
@@ -216,9 +219,7 @@ public class ChatLogPanel extends GPanel implements Observer {
 	
 		        dateList.setListData(stub);
 		        dateList.setEnabled(false);
-//		        text.setListData(stub);
 		        text.setText(stub[0]);
-//		        text.setEnabled(false);
 			} else{
 				buddies.setListData(stub);
 			}
@@ -254,8 +255,9 @@ public class ChatLogPanel extends GPanel implements Observer {
     	// Grab all message objects from the database
         Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
                 .toString(), date, "");
-
-        text.setText(ChatLogMessageToString(messages));
+        String str = ChatLogMessageToString(messages);
+        str = htmlHead + str + htmlTail;
+        text.setText(str);
         text.updateUI();
 
     }
@@ -263,8 +265,10 @@ public class ChatLogPanel extends GPanel implements Observer {
     private String ChatLogMessageToString(Vector<ChatLogMessageTempData> messages){
     	String message = "";
     	
-    	for (int i=0; i<messages.size(); i++){
-    		message += messages.get(i).toString();
+    	for (ChatLogMessageTempData c : messages){
+    		String str = c.toString();
+    		str = str.replace(searchKey, "<FONT COLOR=\"RED\"><b>"+searchKey+"</b></FONT>");
+    		message += str +"<br>";
     	}
     	return message;
     }
