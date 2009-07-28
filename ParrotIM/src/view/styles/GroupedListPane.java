@@ -24,7 +24,7 @@ public class GroupedListPane extends JPanel implements Observer {
 	private static int lastClickedGroup;
     Box boxes[] = new Box[1];
     private WindowColors colors = new WindowColors();
-    private static ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
+    private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
     private ImageIcon arrowIconUp =
             new ImageIcon(this.getClass().getResource(
                     "/images/buddylist/up.png"));
@@ -57,10 +57,10 @@ public class GroupedListPane extends JPanel implements Observer {
     public static void setLastClickedGroup(int index){
     	lastClickedGroup = index;
     }
-    public static void resetSelectionLastClickedGroup(){
-    	if (lastClickedGroup >= 0)
-    		groups.get(lastClickedGroup).resetClickedSelection();
-    }
+//    public static void resetSelectionLastClickedGroup(){
+//    	if (lastClickedGroup >= 0)
+//    		groups.get(lastClickedGroup).resetClickedSelection();
+//    }
 
     public int getGroupCount() {
         return groups.size();
