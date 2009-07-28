@@ -340,7 +340,6 @@ public class ChatLogPanel extends GPanel implements Observer {
 		public void keyReleased(KeyEvent arg0) {
 			if (searchField.getText().length() > 0) {
             	searchKey = searchField.getText();
-            	System.out.println(searchKey);
 			}
 			else{
 				searchKey = "";
