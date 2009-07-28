@@ -143,28 +143,30 @@ public class ChatLogPanel extends GPanel implements Observer {
         this.setGradientColors(model.primaryColor, model.secondaryColor);
 
         /*CHATLOG SPLIT PANE*/
-        
-        /* set left JSplitPane component */
-        BuddyPanel buddyList = new BuddyPanel(model, profile);
-        buddies = buddyList.buddyList;
-        buddies.addListSelectionListener(new buddyListener());
-
         // top right component shows the list of dates
+        text = new JEditorPane();
+        text.setEditable(false);
+        text.setContentType("text/html");
+        text.setText(stub[0]);
+
+        chatlog = new JScrollPane(text);
+        chatlog
+                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
+        
         dateList = new JList(stub);
         dateList.setEnabled(false);
         dateList.addListSelectionListener(new datesListener());//
         dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         datesScroll = new JScrollPane(dateList);
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
-        text = new JEditorPane();
-        text.setEditable(false);
-        text.setContentType("text/html");
-        text.setText(stub[0]);
         
-        chatlog = new JScrollPane(text);
-        chatlog
-                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
+        /* set left JSplitPane component */
+        BuddyPanel buddyList = new BuddyPanel(model, profile);
+        buddies = buddyList.buddyList;
+        this.updateBuddyList();
+        buddies.addListSelectionListener(new buddyListener());
+        
         
         /* set right JSplitPane component */
         logPane = new JSplitPane();
@@ -214,20 +216,20 @@ public class ChatLogPanel extends GPanel implements Observer {
 			
 			if (buddiesSearchResult.size()>0){
 		        buddies.setListData(buddiesSearchResult);
+		        buddies.setSelectedIndex(0);
 		        buddies.setEnabled(true);
 		        buddies.updateUI();
-	
-		        dateList.setListData(stub);
-		        dateList.setEnabled(false);
-		        text.setText(stub[0]);
+		        
+		        this.updateDateList();
 			} else{
 				buddies.setListData(stub);
+				dateList.setListData(stub);
+		        dateList.setEnabled(false);
+		        text.setText(stub[0]);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -238,11 +240,8 @@ public class ChatLogPanel extends GPanel implements Observer {
         
 
         dateList.setListData(dateVectorList);
+        dateList.setSelectedIndex(0);
         dateList.setEnabled(true);
-        dateList.updateUI();
-
-//        text.setListData(stub);
-        text.setText(stub[0]);
     }
 
     /**
@@ -259,6 +258,7 @@ public class ChatLogPanel extends GPanel implements Observer {
         str = htmlHead + str + htmlTail;
         text.setText(str);
         text.updateUI();
+        
 
     }
     
@@ -287,12 +287,7 @@ public class ChatLogPanel extends GPanel implements Observer {
          */
         public void valueChanged(ListSelectionEvent e) {
             if (buddies.getSelectedIndex() > -1) {
-
-                
-//                System.out.println("dateVectorList is null??  "+dateVectorList.size());
                 updateDateList();
-                	
-
             }
         }
     }
@@ -304,7 +299,7 @@ public class ChatLogPanel extends GPanel implements Observer {
      * This class inherits ListSelectionListener methods and variables.
      */
     private class datesListener implements ListSelectionListener {
-//
+
     	/**
          * If user selected a date of the dateList JList changed,
          * text will show the logged message of the date. 
@@ -314,12 +309,10 @@ public class ChatLogPanel extends GPanel implements Observer {
         public void valueChanged(ListSelectionEvent e) {
             JList source = (JList) e.getSource();
             
-            if (source.getSelectedValue() == null){
+            if (source.getSelectedValue() == null)
             	return;
-            }
-//            System.out.println("selected date??  "+source.getSelectedValue());
+            
             String date = source.getSelectedValue().toString();
-//            System.out.println("date is null??  "+date.length());
             updateLog(date);
         }
     }
@@ -331,26 +324,19 @@ public class ChatLogPanel extends GPanel implements Observer {
          * 
          * @param e
          */
-//
-        public void mousePressed(MouseEvent event) {
 
+        public void mousePressed(MouseEvent event) {
             if (searchField.getText().length() == 0) {
             	String resultMessage = "Please provide a key word in the search field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
-
         }
     }
     
     private class searchFieldKeyListener implements KeyListener{
 
-		//@Override
-		public void keyPressed(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void keyPressed(KeyEvent arg0) {}
 
-		//@Override
 		public void keyReleased(KeyEvent arg0) {
 			if (searchField.getText().length() > 0) {
             	searchKey = searchField.getText();
@@ -359,14 +345,11 @@ public class ChatLogPanel extends GPanel implements Observer {
 			else{
 				searchKey = "";
 			}
+			
 			updateBuddyList();
 		}
 
-		//@Override
-		public void keyTyped(KeyEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void keyTyped(KeyEvent arg0) {}
     	
     }
 
