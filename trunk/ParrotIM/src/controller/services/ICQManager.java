@@ -65,6 +65,7 @@ import net.kano.joustsim.oscar.oscar.service.icbm.SimpleMessage;
 import net.kano.joustsim.oscar.oscar.service.icbm.TypingInfo;
 import net.kano.joustsim.oscar.oscar.service.icbm.TypingListener;
 import net.kano.joustsim.oscar.oscar.service.icbm.TypingState;
+import net.kano.joustsim.oscar.oscar.service.ssi.AddMutableGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.Buddy;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.BuddyListLayoutListener;
@@ -72,6 +73,7 @@ import net.kano.joustsim.oscar.oscar.service.ssi.DeleteMutableGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.Group;
 import net.kano.joustsim.oscar.oscar.service.ssi.MutableBuddyList;
 import net.kano.joustsim.oscar.oscar.service.ssi.MutableGroup;
+import net.kano.joustsim.oscar.oscar.service.ssi.SsiItemGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 
@@ -113,7 +115,7 @@ public class ICQManager implements GenericConnection {
     
 //	private PollingThread poller;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		ICQManager i = new ICQManager(null, null);
 		try {
 			
@@ -166,7 +168,7 @@ public class ICQManager implements GenericConnection {
 			}
 		}
 		
-	}
+	}*/
 	
 
 //	 public void setPresence(String status) {
@@ -236,9 +238,10 @@ public class ICQManager implements GenericConnection {
     	for(Group g: groupList){
     		if (g != null && g instanceof MutableGroup){
     			System.out.println("found the first group"+g.getName());
+    			//((MutableGroup)g).addBuddy(userID);
     			group = g;
-    			break;
     		}
+    		break;
     	}
     	if (group !=null){
     		System.out.println("adding");
@@ -310,8 +313,12 @@ public class ICQManager implements GenericConnection {
 			e.printStackTrace();
 		}
         //state has to be set after setting away message
-        bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
-//        }
+        
+		//If you include this statement, the "Lunch" and "BRB" will change to other state
+		//and "Invisible" does not work
+		//bos.getOscarConnection().sendSnac(new SetExtraInfoCmd(icqState));
+
+		//        }
         	//connection.getInfoService().setAwayMessage(status);
         	//setOnline(true);
 //        if (state == UserStateType.ONLINE) {
@@ -812,7 +819,7 @@ private class TypingAdapter extends ConversationAdapter implements TypingListene
 			String subscriptionRequest =
                 buddy.getScreenname()
                         + " wants to add you as a friend. Add as a friend?";
-			JOptionPane.showMessageDialog(null, subscriptionRequest);
+			//JOptionPane.showMessageDialog(null, subscriptionRequest);
 			for (Group g:buddy.getBuddyList().getGroups()){
 				for(Buddy b:g.getBuddiesCopy()){
 					System.out.println("badded: "+g.getName()+": "+b.getScreenname().toString());
