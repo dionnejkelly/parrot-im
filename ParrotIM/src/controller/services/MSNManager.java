@@ -352,7 +352,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     	ArrayList<String> buddies = new ArrayList<String>();
     	
     	System.out.println(connection);
-    	int target = connection.getBuddyGroup().getAllowList().size();
+    	int target = connection.getBuddyGroup().getForwardList().size();
     	
    	 	int count = 0;
    	 	
@@ -362,12 +362,14 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
    	
         while (count < target && count < maximumCapacity) {
         	
-        	msnFriendLoginName = connection.getBuddyGroup().getAllowList().get(count).getLoginName();
+        	msnFriendLoginName = connection.getBuddyGroup().getForwardList().get(count).getLoginName();
             System.out.println("MSN Friend = " + msnFriendLoginName);
             msnFriend = msnFriend(msnFriendLoginName);
-            buddies.add(connection.getBuddyGroup().getAllowList().get(count).getLoginName());
+            buddies.add(connection.getBuddyGroup().getForwardList().get(count).getLoginName());
             System.out.println("*** Status = " + getUserStatus(msnFriend));
             System.out.println("Count = " + count);
+            System.out.println(msnFriend);
+            System.out.println(msnFriend.getLoginName());
             localFriends.add(new FriendTempData(msnFriendLoginName, msnFriendLoginName, this.retrieveStatus(msnFriend.getLoginName()),
             		 this.retrieveState(msnFriend.getLoginName()), false));
             		
