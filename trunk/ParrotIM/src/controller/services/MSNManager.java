@@ -286,7 +286,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
         public void run() {
             try {
             	System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
-                sleep(4500); // Delay for 4 seconds
+                sleep(6000); // Delay for 4 seconds
             } catch (InterruptedException e) {
                 System.err.println("Threading error");
                 e.printStackTrace();

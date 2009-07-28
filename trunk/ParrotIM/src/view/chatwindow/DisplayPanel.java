@@ -219,10 +219,13 @@ public class DisplayPanel extends JPanel implements Observer {
                     title.setForeground(Color.LIGHT_GRAY.darker());
                 } else if (model.getActiveConversation().getUser().getState() == UserStateType.ONLINE) {
                     title.setForeground(Color.GREEN.darker());
-                } else if (model.getActiveConversation().getUser().getState() == UserStateType.BUSY) {
+                } else if (model.getActiveConversation().getUser().getState() == UserStateType.BUSY
+                		|| model.getActiveConversation().getUser().getState() == UserStateType.AWAY) {
                     title.setForeground(Color.ORANGE.darker());
-                } else if (model.getActiveConversation().getUser().getState() == UserStateType.AWAY) {
-                    title.setForeground(Color.ORANGE.darker());
+                } else if (model.getActiveConversation().getUser().getState() == UserStateType.BRB
+                		|| model.getActiveConversation().getUser().getState() == UserStateType.LUNCH
+                		|| model.getActiveConversation().getUser().getState() == UserStateType.PHONE) {
+                    title.setForeground(Color.CYAN.darker());
                 } else {
                     title.setForeground(Color.RED.darker());
                 }
