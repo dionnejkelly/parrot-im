@@ -19,6 +19,7 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
      * A friend list of this account.
      */
     private ArrayList<TwitterUserData> friends;
+    private ArrayList<UserData> tweets;
 
     /**
      * Holds the object that allows for connection to the server.
@@ -55,7 +56,7 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
     }
     
     public ArrayList<UserData> getTweets() throws BadConnectionException {
-    	ArrayList<UserData> tweets = new ArrayList<UserData>();
+    	tweets = new ArrayList<UserData>();
     	for (Status temp : connection.retrieveRecentTweets()){
     		tweets.add(new TwitterUserData(temp.getUser().getName(),temp.getText(),temp.getCreatedAt()));
     	}
@@ -129,6 +130,7 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
     
     public void removeAllFriends() {
         this.friends.clear();
+        this.tweets.clear();
         
         return;
     }
