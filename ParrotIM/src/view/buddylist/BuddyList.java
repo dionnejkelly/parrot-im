@@ -345,6 +345,15 @@ public class BuddyList extends JFrame implements Observer{
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
+        	//disable chatlog account if it's guest account
+        	if (model.getCurrentProfile().isGuestAccount()){
+        		JOptionPane
+                .showMessageDialog(
+                        null,
+                        "Please create a profile to use the Chatlog feature.",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+        		return;
+        	}
             if (chatlog == null) {
                 try {
                     chatlog = new ChatLogFrame(model);
