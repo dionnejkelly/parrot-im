@@ -69,7 +69,7 @@ public class GroupedListPane extends JPanel implements Observer {
     public void addGroup(String name, ImageIcon img) {
     	//Panel Settings
         GPanel newPanel = new GPanel();
-        newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
+        newPanel.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
         newPanel.setLayout(new BorderLayout());
         
         //imageLabel
@@ -96,7 +96,7 @@ public class GroupedListPane extends JPanel implements Observer {
     public void addGroup(JLabel textLabel, ImageIcon img) {
         //Panel Settings
         GPanel newPanel = new GPanel();
-        newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
+        newPanel.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
         newPanel.setLayout(new BorderLayout());
         
         //imageLabel
@@ -127,7 +127,7 @@ public class GroupedListPane extends JPanel implements Observer {
         textLabel.setForeground(model.primaryTextColor);
         newPanel.add(textLabel);
         labels.add(textLabel);
-        newPanel.setGradientColors(model.tertiaryColor, model.tertiaryColor);
+        newPanel.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
 
         CustomListPane collapsableListPane = new CustomListPane();
         groups.add(0, collapsableListPane);
@@ -218,7 +218,7 @@ public class GroupedListPane extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		if(arg == UpdatedType.COLOR){
 			for(GPanel g : gPanels){
-				g.setGradientColors(model.tertiaryColor, model.tertiaryColor);
+				g.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
 				g.updateUI();
 			}
 			for(JLabel l : labels){
