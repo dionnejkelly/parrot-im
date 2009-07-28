@@ -155,7 +155,7 @@ public class BuddyList extends JFrame implements Observer{
         // Attach the top text menu
         this.setJMenuBar(this.createMenu());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource("/images/mainwindow/logo.png")).getImage());
         
         // buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
         getContentPane().add(buddylistPanel);
