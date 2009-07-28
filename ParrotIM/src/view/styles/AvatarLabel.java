@@ -107,6 +107,7 @@ public class AvatarLabel extends JLabel{
 	 * @throws MalformedURLException 
 	 */
 	public AvatarLabel(MainController mainControl, Model model, AvatarLabel ava, int size){
+		super("",JLabel.CENTER);
 		avatarToSynch = ava;
 		synch = true;
 		setLabel (mainControl,model, ava.getAvatarPath(), size);
