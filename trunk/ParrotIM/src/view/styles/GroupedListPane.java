@@ -21,7 +21,7 @@ import model.Model;
 import model.enumerations.UpdatedType;
 
 public class GroupedListPane extends JPanel implements Observer {
-	private static int lastClickedGroup;
+	private int lastClickedGroup;
     Box boxes[] = new Box[1];
     private WindowColors colors = new WindowColors();
     private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
@@ -50,17 +50,17 @@ public class GroupedListPane extends JPanel implements Observer {
         add(boxes[0], BorderLayout.NORTH);
     }
 
-    public static int getLastClickedGroup(){
+    public int getLastClickedGroup(){
     	return lastClickedGroup;
     }
     
-    public static void setLastClickedGroup(int index){
+    public void setLastClickedGroup(int index){
     	lastClickedGroup = index;
     }
-//    public static void resetSelectionLastClickedGroup(){
-//    	if (lastClickedGroup >= 0)
-//    		groups.get(lastClickedGroup).resetClickedSelection();
-//    }
+    public void resetSelectionLastClickedGroup(){
+    	if (lastClickedGroup >= 0)
+    		groups.get(lastClickedGroup).resetClickedSelection();
+    }
 
     public int getGroupCount() {
         return groups.size();

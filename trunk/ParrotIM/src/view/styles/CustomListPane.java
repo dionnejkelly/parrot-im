@@ -22,6 +22,10 @@ import view.chatwindow.UserDataWrapper;
 
 public class CustomListPane extends GPanel{
 	private int groupIndex;
+	
+	private Component lastSelectedComponent;
+	private JPanel lastSelectedPanel;
+	
 	private Component lastClickedComponent;
 	private int lastClickedIndex;
 	
@@ -130,7 +134,8 @@ public class CustomListPane extends GPanel{
     }
 
     public UserDataWrapper getUserWrapper(int i) {
-        return userWrappers.get(i);
+    	
+    	return userWrappers.get(i);
     }
 
     public void addElement(JPanel externalFriendPanel) {
@@ -225,7 +230,14 @@ public class CustomListPane extends GPanel{
     }
 
     public int getClickedIndex() {
-        return lastSelected;
+    	
+//    	for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+//            if (lastSelectedComponent.equals(boxes[0].getComponent(i))) {
+//            	return i;
+//            }
+//    	}
+//    	return 0;
+    	return lastSelected;
     }
 
     public JScrollPane getWithScroller() {
@@ -246,8 +258,9 @@ public class CustomListPane extends GPanel{
          * highlights clicked element
          */
         public void mouseClicked(MouseEvent event) {
-            boxes[0].getComponent(lastSelected).setBackground(
-                    new Color(145, 200, 200));
+        	if (lastSelectedComponent != null)
+        		lastSelectedComponent.setBackground(
+        				new Color(145, 200, 200));
         }
 
         /**
@@ -256,14 +269,17 @@ public class CustomListPane extends GPanel{
         public void mouseEntered(MouseEvent event) {
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
-                    boxes[0].getComponent(i).setBackground(
+                    lastSelectedComponent = boxes[0].getComponent(i);
+                    lastSelectedPanel = userPanels.get(i);
+                    lastSelectedComponent.setBackground(
                             new Color(225, 247, 247));
+                    
+                	lastSelected = i;
                     try {
                         userPanels.get(i).setOpaque(true);
                     } catch (IndexOutOfBoundsException e) {
                         System.err.println("userPanel does not exist... i = " + i);
                     }
-                    lastSelected = i;
                 }
             }
         }
@@ -272,9 +288,9 @@ public class CustomListPane extends GPanel{
          * change background to white when mouse Exited
          */
         public void mouseExited(MouseEvent event) {
-        	if (lastSelected < userPanels.size()){
-        		boxes[0].getComponent(lastSelected).setBackground(Color.WHITE);
-        		userPanels.get(lastSelected).setOpaque(false);
+        	if (lastSelectedComponent!= null){
+        		lastSelectedComponent.setBackground(Color.WHITE);
+        		lastSelectedPanel.setOpaque(false);
         	}
         }
         /**
