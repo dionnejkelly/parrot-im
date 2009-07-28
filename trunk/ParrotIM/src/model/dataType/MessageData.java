@@ -82,6 +82,8 @@ public class MessageData {
     
     private String timeStamp;
     
+    private boolean isReceiving;
+    
     /** String[][] emoticons is a 2-dimensional array of strings with
 	 * the first string being the regular expression of shortcuts which
 	 * will be replaced by an image, and the second string is the file
@@ -117,7 +119,7 @@ public class MessageData {
      * @param size
      */
     public MessageData(String fromUser, String message, String font, String size,
-    		boolean bold, boolean italics, boolean underlined, String color) {
+    		boolean bold, boolean italics, boolean underlined, String color, boolean receiving) {
         this.fromUser = fromUser;
         this.message = message;
         this.font = font;
@@ -126,6 +128,7 @@ public class MessageData {
         this.italics = italics;
         this.underlined = underlined;
         this.fontColor = color;
+        this.isReceiving = receiving;
         
         Date date1 = new Date();
         timeStamp = new SimpleDateFormat("HH:mm--").format(date1);
@@ -210,9 +213,25 @@ public class MessageData {
     public String text() {
         String toUserText = timeStamp + "<U><font face = \"Arial\">"
             			+ this.fromUser + ":</font></U>";
+           
+        if (!isReceiving) {
+        	System.out.println("Never getting called...");
+        	toUserText = timeStamp + "<U><font face = \"Arial" + "\" color=\"" + "#ff00ff"
+            + "\">" + this.fromUser + ":</font></U>";
+        }
+        
+        else {
+        	toUserText = timeStamp + "<U><font face = \"Arial" + "\" color=\"" + fontColor
+            + "\">" + this.fromUser + ":</font></U>";
+        }
+        
+        
+        
+        
         String text =   "<font face=\"" + this.font + "\" size=\"" + this.size +
         				"\" color=\"" + fontColor + "\"> " 
                         + this.message + " </font><br><br>";
+        
         if(this.bold){ 
         	text = "<b>" + text + "</b>"; 
         }

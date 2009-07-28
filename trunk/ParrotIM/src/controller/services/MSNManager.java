@@ -203,22 +203,33 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
     	
     	mimeMsg.setKind(2);
     	
+    	MsnFriend msnFriend = this.msnFriend(userID);
     	
-			try {
-				session = getSession(userID);
-				if (session != null) {
+    	if(!this.getUserStatus(msnFriend).equals("FLN")) {
+
+				
+				try {
+					session = getSession(userID);
 					connection.sendMessage(userID, mimeMsg, session.getSessionId());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
-				else {
-					controller.messageReceived(userID,
-							connection.getLoginName(),
-		                    " is offline right now.");
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			
+			
+			
+    	}
+    	
+    	else {
+    		controller.messageReceived(userID,connection.getLoginName()," is offline right now.");
+    	}
+    	
+    	return;
+    	
+    	
+			
 			
 			
 			

@@ -894,7 +894,7 @@ public class MainController {
 
         messageObject =
                 new MessageData(fromUser, messageString, font, size, bold,
-                        italics, underlined, color);
+                        italics, underlined, color, false);
 
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
@@ -924,18 +924,21 @@ public class MainController {
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
-
+        
         to = conversation.getUser().getUserID();
         System.out
                 .println("---------------------------------------------------- Who am I sending it to = "
                         + to);
 
         to = conversation.getUser().getUserID();
-
+        
+        System.out.println("                 COLOR ME = " + color);
+        
+        
         messageObject =
                 new MessageData(fromUser, messageString, font, size, bold,
-                        italics, underlined, color);
-
+                        italics, underlined, color, false);
+        
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
 
@@ -1085,6 +1088,8 @@ public class MainController {
 
         return;
     }
+    
+    // Aligator
 
     public void messageReceived(String fromUserID, String toUserID,
             String message) {
@@ -1093,7 +1098,7 @@ public class MainController {
 
         messageData =
                 new MessageData(fromUserID, message, "font", "4", false, false,
-                        false, "#000000");
+                        false, "#0000ff", true);
         account = model.findAccountByUserID(toUserID);
 
         MusicPlayer receiveMusic =
@@ -1130,7 +1135,7 @@ public class MainController {
 
         messageData =
                 new MessageData(fromUserID, message, "font", "4", false, false,
-                        false, "#000000");
+                        false, "#000000", true);
         account = model.findAccountByUserID(toUserID);
         user = model.findUserByUserID(fromUserID);
 
@@ -1359,7 +1364,7 @@ public class MainController {
 
         messageObject =
                 new MessageData(fromUser, message, font, size, bold, italics,
-                        underlined, color);
+                        underlined, color, false);
 
         connection.sendMultMessage(message, roomName);
         model.sendMessage(conversation, messageObject);
@@ -1410,7 +1415,7 @@ public class MainController {
 
         messageObject =
                 new MessageData(fromUser, messageString, font, size, bold,
-                        italics, underlined, color);
+                        italics, underlined, color, false);
 
         sendMultMessage(messageString, roomName);
         if (chatCollection.isHidden(conversation)) {
