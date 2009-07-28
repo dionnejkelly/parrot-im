@@ -559,10 +559,14 @@ public class ProfileData extends Observable {
 	}
 	
 	public boolean hasTwitter(){
-		for (AccountData account : getAccountData()){
-			if (account.getServer().equals(ServerType.TWITTER)) 
-				return true;
-		}
-		return false;
+		return this.getAccountFromServer(ServerType.TWITTER) != null;
+	}
+	
+	public boolean hasTwitterOnly(){
+		return hasTwitter() && this.getAccountData().size()==1;
+	}
+	
+	public boolean isEmptyProfile(){
+		return this.getAccountData().size() == 0;
 	}
 }

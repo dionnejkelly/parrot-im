@@ -165,19 +165,12 @@ public class PersonalProfileTab extends GPanel implements Observer {
 	private class BrowseActionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			if (model.getCurrentProfile().getAccountData().size() > 0){
-				try {
-					avatar.changeAvatarWindow();
-				} catch (MalformedURLException e1) {
-					e1.printStackTrace();
-				}
-			}  else {
-				String resultMessage =
-                    "You don't have any account right now, please create one to use this feature.";
-           	 	JOptionPane.showMessageDialog(null, resultMessage,
-           	 				"Information", JOptionPane.INFORMATION_MESSAGE);
-
+			try {
+				avatar.changeAvatarWindow();
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
 			}
+			
 		}
 		
 	}

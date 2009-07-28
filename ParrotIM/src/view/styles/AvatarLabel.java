@@ -162,7 +162,7 @@ public class AvatarLabel extends JLabel{
             
 			try {
 				
-				if (chatClient.accountExist()) {
+				if (!model.getCurrentProfile().isEmptyProfile()) {
 					ServerType serverType = chatClient.getConnection().getServerType();
 					if (serverType == ServerType.GOOGLE_TALK
 							|| chatClient.getConnection().getServerType() == ServerType.JABBER) {
@@ -178,6 +178,9 @@ public class AvatarLabel extends JLabel{
 						System.out.println("Calling MSN/Twitter");
 					}
 				}
+				
+				System.out.println("      FROM THE MAIN CONTROLLER I GOT SAVED IN THE DATABASE!!!");
+		        model.setAvatarDirectory(model.getCurrentProfile().getName(), avatarPath);
 				
 				
 				// will change the avatar once the chatClient done uploading
@@ -233,21 +236,12 @@ public class AvatarLabel extends JLabel{
 		 * 
 		 *  @param e*/
 		public void mouseReleased(MouseEvent e) {
-			System.out.println("clicked");
-			if (model.getCurrentProfile().getAccountData().size() > 0){
-				try {
+			try {
 					changeAvatarWindow();
-				} catch (MalformedURLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}  else {
-				String resultMessage =
-                    "You don't have any account right now, please create one to use this feature.";
-           	 	JOptionPane.showMessageDialog(null, resultMessage,
-           	 				"Information", JOptionPane.INFORMATION_MESSAGE);
-
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
 			}
+		
 		}
 	}
 	
