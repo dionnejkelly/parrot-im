@@ -129,17 +129,19 @@ public class AccountJMenu extends JMenu{
 					
 					System.out.println("                 ***     AVATAR PICTURE     ***" + model.getAvatarDirectory(model.getCurrentProfile().getName()));
 					
-					url = new URL (model.getAvatarDirectory(model.getCurrentProfile().getName()));
-					
-					System.out.println("ACCOUNTMENU: " +  model.getAvatarDirectory(model.getCurrentProfile().getName()));
-					System.out.println("ACCOUNTMENU: " +  url.toString());
-					
-					//JOptionPane.showMessageDialog(null, new ImageIcon(url));
-					
-					PollingThread thread = new PollingThread();
-					
-					thread.start();
-					
+					if (model.getAvatarDirectory(model.getCurrentProfile().getName()) != null &&
+							model.getAvatarDirectory(model.getCurrentProfile().getName()).length() > 0){
+						url = new URL (model.getAvatarDirectory(model.getCurrentProfile().getName()));
+						
+						System.out.println("ACCOUNTMENU: " +  model.getAvatarDirectory(model.getCurrentProfile().getName()));
+						System.out.println("ACCOUNTMENU: " +  url.toString());
+						
+						//JOptionPane.showMessageDialog(null, new ImageIcon(url));
+						
+						PollingThread thread = new PollingThread();
+						
+						thread.start();
+					}
 					
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
