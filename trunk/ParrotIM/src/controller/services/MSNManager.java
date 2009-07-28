@@ -359,7 +359,7 @@ public class MSNManager extends AbstractMessageConnection implements GenericConn
    	 	String msnFriendLoginName;
    	 	System.out.println("Vera's total friend = " + target);
    	 	MsnFriend msnFriend;
-   	 
+   	
         while (count < target && count < maximumCapacity) {
         	
         	msnFriendLoginName = connection.getBuddyGroup().getAllowList().get(count).getLoginName();

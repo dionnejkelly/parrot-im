@@ -179,8 +179,10 @@ public class TwitterPanel extends GPanel implements Observer {
     
     public TwitterPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
+        if (model.getCurrentProfile().hasTwitter()){
         model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER).addObserver(this);
         model.addObserver(this);
+        }
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         setGradientColors(model.primaryColor, model.secondaryColor);
