@@ -160,6 +160,7 @@ public class GuestAccountFrame extends JFrame implements Observer{
         jabberServer.setPreferredSize(new Dimension(200, 20));
         jabberServer.setToolTipText("Specify jabber server");
         JPanel jabberServerPanel = new JPanel();
+        jabberServerPanel.setOpaque(false);
         jabberServerPanel.setLayout(new BorderLayout());
         jabberServerPanel.add(jabberServer, BorderLayout.NORTH);
         // label
