@@ -117,8 +117,7 @@ public class BuddyList extends JFrame implements Observer{
         buddylistPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 
         mainListPanel = new BuddyPanel(c, model, this);
-
-         mainTwitterPanel = new TwitterPanel(c,model,this);
+        mainTwitterPanel = new TwitterPanel(c,model,this);
 
 //        if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null)
 //        	mainTwitterPanel = new TwitterPanel(c,model,this);
@@ -133,6 +132,9 @@ public class BuddyList extends JFrame implements Observer{
         contactList.addTab("Twitter", new ImageIcon(this.getClass().getResource(
         "/images/buddylist/twitter_logo.png")), mainTwitterPanel, "Twitter Feed");
         contactList.addChangeListener(new ContactListChangeListener());
+        
+        if (model.getCurrentProfile().hasTwitterOnly())
+        	contactList.setSelectedIndex(1);
         buddylistPanel.add(contactList, BorderLayout.CENTER);
         	
         contactList.addChangeListener(new ChangeListener(){
@@ -491,6 +493,8 @@ public class BuddyList extends JFrame implements Observer{
 
 		public void stateChanged(ChangeEvent arg0) {
 			// TODO Auto-generated method stub
+			if (model.getCurrentProfile().isEmptyProfile()) return;
+			
 			if (contactList.getSelectedIndex() == 1 
 					&& !model.getCurrentProfile().hasTwitter()){
 	            JOptionPane
@@ -499,6 +503,14 @@ public class BuddyList extends JFrame implements Observer{
                         "You don't have any Twitter account.",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
 	            contactList.setSelectedIndex(0);
+			} else if (contactList.getSelectedIndex() == 0 
+					&& model.getCurrentProfile().hasTwitterOnly()){
+				JOptionPane
+                .showMessageDialog(
+                        null,
+                        "You don't have any Instant Messenger account.",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+	            contactList.setSelectedIndex(1);
 			}
 		
 	

@@ -115,7 +115,7 @@ public class FeaturesPanel extends GPanel implements Observer{
         // chatbot list
         chatbotList = new JList();
         
-        if (model.getCurrentProfile().getAccountData().size() > 0)
+        if (!model.getCurrentProfile().isEmptyProfile())
         	chatbotList.setListData(chatBotModel.getQAList());
         chatbotList
                 .addListSelectionListener(new chatbotListSelectionListener());
@@ -259,7 +259,7 @@ public class FeaturesPanel extends GPanel implements Observer{
         
 
 		public void itemStateChanged(ItemEvent event) {
-			if (model.getCurrentProfile().getAccountData().size() > 0){
+			if (!model.getCurrentProfile().isEmptyProfile()){
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 	                model.getCurrentProfile().setChatbotEnabled(true);
 	                chatbotOptions.setVisible(true);
