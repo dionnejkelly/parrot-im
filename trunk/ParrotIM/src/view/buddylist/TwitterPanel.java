@@ -23,6 +23,7 @@ import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
 import model.Model;
+import model.dataType.ProfileData;
 import model.dataType.TwitterAccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
@@ -124,6 +125,8 @@ public class TwitterPanel extends GPanel implements Observer {
 
     private JLabel tempLabel;
 
+    private boolean twitterPanelEnabled;
+
     /**
      * BuddyPanel , display friend contact list in buddy panel.
      * 
@@ -157,10 +160,14 @@ public class TwitterPanel extends GPanel implements Observer {
 
     public TwitterPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
+        model.getCurrentProfile().addObserver(this);
         if (model.getCurrentProfile().hasTwitter()) {
+            this.twitterPanelEnabled = true;
             model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER)
                     .addObserver(this);
             model.addObserver(this);
+        } else {
+            this.twitterPanelEnabled = false;
         }
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -212,6 +219,18 @@ public class TwitterPanel extends GPanel implements Observer {
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         add(scroller);
+    }
+
+    private void initializeUponAccountAddition() {
+        this.twitterPanelEnabled = true;
+        model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER)
+                .addObserver(this);
+        model.addObserver(this);
+
+        pictureUpdateThread = new PictureUpdateThread();
+        pictureUpdateThread.start();
+
+        return;
     }
 
     private void listRepopulate() {
@@ -407,6 +426,8 @@ public class TwitterPanel extends GPanel implements Observer {
     }
 
     public void update(Observable o, Object arg) {
+        boolean breakLoop = false;
+
         System.out.println("thisistheupdate!: " + o);
         if (arg == UpdatedType.COLOR) {
             setGradientColors(model.primaryColor, model.secondaryColor);
@@ -416,6 +437,9 @@ public class TwitterPanel extends GPanel implements Observer {
             // Refresh if add/remove friends
             System.out.println("FKSDHFLKDJSKFLSJDFLF");
             listRepopulate();
+        } else if (o instanceof ProfileData && !this.twitterPanelEnabled
+                && model.getCurrentProfile().hasTwitter()) {
+            this.initializeUponAccountAddition();
         }
     }
 
