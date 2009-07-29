@@ -163,7 +163,9 @@ public class GuestAccountFrame extends JFrame implements Observer {
         JPanel jabberServerLabel = new JPanel();
         jabberServerLabel.setLayout(new BorderLayout());
         jabberServerLabel.setOpaque(false);
-        jabberServerLabel.add(new JLabel("Jabber server:  "),
+        JLabel jabberServerLabelLabel = new JLabel("Jabber server:  ");
+        jabberServerLabelLabel.setForeground(model.primaryTextColor);
+        jabberServerLabel.add(jabberServerLabelLabel,
                 BorderLayout.NORTH);
 
         serverPanel = new JPanel();
