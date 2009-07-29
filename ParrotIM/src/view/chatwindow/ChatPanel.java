@@ -37,6 +37,7 @@ import controller.spellcheck.SpellCheck;
 
 import model.*;
 import model.dataType.MultiConversationData;
+import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
@@ -726,15 +727,23 @@ public class ChatPanel extends GPanel implements Observer{
 
         // @Override
         public void actionPerformed(ActionEvent event) {
-            System.out.println("Name = " + model.getCurrentProfile().getName());
+        
+            // if the profile contains XMPP protocols
+            if (c.isXMPP()) {
+            	c.create(model.getCurrentProfile().getName());
 
-            c.create(model.getCurrentProfile().getName());
-
-            JOptionPane
-                    .showMessageDialog(null,
-                            "This should open a new chat window to invite users into that room.");
-
-            // if (!model.groupChatWindowOpen)
+            	JOptionPane
+                    	.showMessageDialog(null,
+                            	"Multiple conversation room has been added to the chat window.", "Conference Room Created", JOptionPane.INFORMATION_MESSAGE);
+            }
+            	
+            	
+            else {
+            	JOptionPane
+            	.showMessageDialog(null,
+                    	"Sorry for the inconvenience but you need an XMPP account to create a conference room.", "Conference Room Created", JOptionPane.INFORMATION_MESSAGE);
+            }
+            // if (!model.groupChatWindowOpen)  
             // new GroupChatConfigurationFrame(chatClient, model);
             // need to create a new conference chat room here
             // c.messageReceived("the left side panel in the chat window should be empty"
