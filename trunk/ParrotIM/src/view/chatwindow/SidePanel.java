@@ -235,7 +235,7 @@ public class SidePanel extends GPanel implements Observer {
                 System.out.println("right clicked");
 
                 // rightClickMenu.setVisible(true);
-                rightClickMenu.show(listPane, event.getX(), event.getY());
+                rightClickMenu.show(listPane, event.getX(), event.getY() + 150);//event.getYOnScreen() - 60);
             }
             return;
         }
