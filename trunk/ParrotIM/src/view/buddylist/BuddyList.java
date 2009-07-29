@@ -529,8 +529,18 @@ public class BuddyList extends JFrame implements Observer {
     }
 
     public void update(Observable o, Object arg) {
-        // TODO Auto-generated method stub
-
+    	if (arg == UpdatedType.COLOR) {
+            buddylistPanel.setGradientColors(model.primaryColor,
+                    model.secondaryColor);
+            mainListPanel.setGradientColors(model.primaryColor,
+                    model.secondaryColor);
+            mainTwitterPanel.setGradientColors(model.primaryColor,
+                    model.secondaryColor);
+            mainListPanel.updateUI();
+            mainTwitterPanel.updateUI();
+            buddylistPanel.updateUI();
+            contactList.updateUI();
+        }
     }
 
     private class ContactListChangeListener implements ChangeListener {
