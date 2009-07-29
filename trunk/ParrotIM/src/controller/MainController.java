@@ -228,6 +228,18 @@ public class MainController {
         // TODO make a more accurate Model.addFriend
 
     }
+    
+    // Returns true if the profile contatins an XMPP account
+    
+    public boolean isXMPP() {
+    	for (AccountData account : model.getCurrentProfile().getAccountData()){
+	        if (account.getServer() == ServerType.GOOGLE_TALK || account.getServer() == ServerType.JABBER){
+		        return true;
+	        }
+        }
+    	
+    	return false;
+    }
 
     private byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {
         // iconData is the original array of bytes
@@ -385,7 +397,8 @@ public class MainController {
         } else if (account instanceof ICQAccountData) {
             connection = new ICQManager(controller, model);
         } else {
-            // Other servers
+        	// it is AIM's server which we can connect it to the ICQ server
+        	 connection = new ICQManager(controller, model);
         }
         account.setConnection(connection);
 
