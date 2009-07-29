@@ -226,7 +226,14 @@ public class SidePanel extends GPanel implements Observer {
          * @param event
          */
         public void mousePressed(MouseEvent event) {
-            if (event.getButton() == MouseEvent.BUTTON1) {
+        	if (event.getButton() == MouseEvent.BUTTON3 || (event.isControlDown() == true && event.getButton() == MouseEvent.BUTTON1)) {
+                System.out.println("right clicked");
+
+                // rightClickMenu.setVisible(true);
+                conversationToRemove = listPane.getUserWrapper(
+                        listPane.getClickedIndex()).getConversation();
+                rightClickMenu.show(listPane, event.getX(), event.getY() + 150);//event.getYOnScreen() - 60);
+        	}   else if (event.getButton() == MouseEvent.BUTTON1) {
                 System.out.println("left clicked");
                 controller.setTypingState(1); // set to the default typing state
                 // before
@@ -234,14 +241,7 @@ public class SidePanel extends GPanel implements Observer {
                 // switching
                 controller.changeConversation(listPane.getUserWrapper(
                         listPane.getClickedIndex()).getConversation());
-            } else if (event.getButton() == MouseEvent.BUTTON3) {
-                System.out.println("right clicked");
-
-                // rightClickMenu.setVisible(true);
-                conversationToRemove = listPane.getUserWrapper(
-                        listPane.getClickedIndex()).getConversation();
-                rightClickMenu.show(listPane, event.getX(), event.getY() + 150);//event.getYOnScreen() - 60);
-            }
+            } 
             return;
         }
 
