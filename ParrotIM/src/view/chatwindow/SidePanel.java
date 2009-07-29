@@ -188,11 +188,13 @@ public class SidePanel extends GPanel implements Observer {
     public void update(Observable t, Object o) {
         // if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
         // || o == UpdatedType.CHAT_STATE) {
-        try {
-            addNewConversationsToList();
-            removeClosedConversations();
-        } catch (XMPPException e) {
-            e.printStackTrace();
+        if (t instanceof ChatCollectionData) {
+            try {
+                addNewConversationsToList();
+                removeClosedConversations();
+            } catch (XMPPException e) {
+                e.printStackTrace();
+            }
         }
         // }
 
