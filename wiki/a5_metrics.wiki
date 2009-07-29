@@ -44,10 +44,12 @@
 || Source with Comment Lines || 38 || 83 || ||
 || Blank Lines || 3034 || 5231 || ||
 || Total Lines || 14134 || 24477 || ||
-|| Total Classes || 122 || 215 || ||
 || Model Classes || || || ||
 || View Classes || || || ||
 || Controller Classes || || || ||
+|| Total Classes || 122 || 215 || ||
+|| Number of files || || || ||
+|| File Size || || || ||
 || Methods || 620 || 1180 || ||
 || Attributes || 323 || 489 || ||
 || Test Cases || 60 || 317 || ||
