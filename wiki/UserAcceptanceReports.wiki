@@ -2,21 +2,25 @@
 
 = Person 1 = 
 
-  * Computer Familiarity: 
-  * Chat services used:
+  * Computer Familiarity: 5
+  * Chat services used: Google Talk
 
-Task 1:
-  * Difficulty:
-  * Speed:
-  * Intuitiveness:
-  * Fun:
-Task 2 comments:
-  * Difficulty:
-  * Speed:
-  * Intuitiveness:
-  * Fun:
+Task: Create a profile and log in
+  * Difficulty: 3
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 4
+  * Fun: 4
 
 General comments:
+  * Liked the graphics of the user interface.
+  * Wished the accounts could be edited.
+  * Wants to use just the username, minus the @gmail.com, to log in.
+  * Searching did not work for nicknames.
 
 ----
 
