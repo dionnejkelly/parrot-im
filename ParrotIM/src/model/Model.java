@@ -1000,7 +1000,9 @@ public class Model extends Observable {
                 db = new DatabaseFunctions();
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                messages.addAll(db.getMessageFromDate(account.getUserID(),
+                messages.addAll(db.getMessageFromDate(
+                		this.getCurrentProfile().getName(),
+                		account.getUserID(),
                         buddyname, date, search));
             }
         } catch (SQLException e) {
