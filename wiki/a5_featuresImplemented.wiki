@@ -1,3 +1,33 @@
 #summary List of all features, and shows the percentage implemented.
 
-
+|| Feature || Implemented ||
+|| Graphical User Interface || yes ||
+|| Friend List || yes ||
+|| Live Instant Messaging || yes ||
+|| XMPP Protocol || yes ||
+|| Chatbot || yes ||
+|| Profile System || yes ||
+|| Font Customization || yes ||
+|| Auto Sign-in || yes ||
+|| Avatar picture || yes ||
+|| Tabbed Windows || yes ||
+|| Blocking another user || yes ||
+|| Status || yes ||
+|| Chat Log || yes ||
+|| Search Engine || yes ||
+|| Twitter and ICQ Protocols || yes ||
+|| "Is Typing" Notification Option || yes ||
+|| Emoticons || yes ||
+|| Spellchecker || yes ||
+|| Conference Chatting || yes ||
+|| File Transfer || no ||
+|| Sound Notification || yes ||
+|| UI Customization || yes ||
+|| Additional Protocol Modules || yes ||
+|| Offline Messaging || yes ||
+|| Advanced/Simplified Modes || no ||
+|| Spam Filter || no ||
+|| Multiple OS Compatibility || yes ||
+|| Language Localization || no ||
+|| Email Notification || yes ||
+|| Slash Commands || yes ||
