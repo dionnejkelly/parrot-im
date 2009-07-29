@@ -43,7 +43,7 @@ Code sampled from svn/tags/alpha for the following metrics:
 || Pure Comment Lines || 4866  ||
 || Source with Comment Lines || 38 ||
 || Blank Lines || 3034 ||
-|| Total Lines || ||
+|| Total Lines || 14134 ||
 || Classes || 122 ||
 || Methods || 620 ||
 || Attributes || 323 ||
