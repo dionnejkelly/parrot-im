@@ -49,7 +49,7 @@
 || Controller Classes || || || ||
 || Total Classes || 122 || 215 || ||
 || Number of files || || || ||
-|| File Size || || || ||
+|| File Size || 3.69 MB || 7.44 MB || ||
 || Methods || 620 || 1180 || ||
 || Attributes || 323 || 489 || ||
 || Test Cases || 60 || 317 || ||
