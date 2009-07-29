@@ -19,6 +19,7 @@ Summary:
 
 Features:
   * pair with ss, jihoon talk?
+  * (Note: this is our "demo"!)
 
 ----
 
