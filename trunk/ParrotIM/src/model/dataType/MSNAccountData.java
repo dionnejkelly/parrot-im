@@ -8,7 +8,6 @@ import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.MSNManager;
 
-
 public class MSNAccountData extends AccountData implements MSNPerson {
 
     /**
@@ -22,7 +21,7 @@ public class MSNAccountData extends AccountData implements MSNPerson {
     private MSNManager connection;
 
     private int minutesSinceUpdate;
-    
+
     public MSNAccountData(String userID, String password) {
         super(userID, password);
 
@@ -37,7 +36,7 @@ public class MSNAccountData extends AccountData implements MSNPerson {
         if (connection == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.friends = new ArrayList<MSNUserData>();
         this.connection = connection;
     }
@@ -63,10 +62,10 @@ public class MSNAccountData extends AccountData implements MSNPerson {
         if (connection != null && connection instanceof MSNManager) {
             this.connection = (MSNManager) connection;
         }
-        
+
         return;
     }
-    
+
     /**
      * Adds a friend by UserData. Will not add duplicate entries, checked by
      * userID.
@@ -114,10 +113,10 @@ public class MSNAccountData extends AccountData implements MSNPerson {
 
         return removed;
     }
-    
+
     public void removeAllFriends() {
         this.friends.clear();
-        
+
         return;
     }
 
@@ -131,19 +130,19 @@ public class MSNAccountData extends AccountData implements MSNPerson {
 
     public int hashCode() {
         int hash = "MSN".hashCode();
-        
+
         hash = hash * 31 + super.hashCode();
-        
+
         return hash;
     }
-    
+
     public boolean equals(Object o) {
         boolean areEqual = super.equals(o);
-        
+
         if (areEqual) {
             areEqual = o instanceof MSNAccountData;
         }
-        
+
         return areEqual;
     }
 
@@ -151,8 +150,8 @@ public class MSNAccountData extends AccountData implements MSNPerson {
         return ServerType.MSN;
     }
 
-	@Override
-	public ArrayList<UserData> getTweets() throws BadConnectionException {
-		return null;
-	}
+    @Override
+    public ArrayList<UserData> getTweets() throws BadConnectionException {
+        return null;
+    }
 }

@@ -49,23 +49,21 @@ import model.Model;
 import model.dataType.ChatbotQADataType;
 import model.dataType.tempData.CustomizedChatbotModel;
 import model.enumerations.UpdatedType;
-
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
-
 import controller.MainController;
 
-public class FeaturesPanel extends GPanel implements Observer{
-	
+public class FeaturesPanel extends GPanel implements Observer {
+
     private CustomizedChatbotModel chatBotModel;
 
     private JFrame optionframe;
 
     private JCheckBox chatbotCheck;
     private JCheckBox soundCheck;
-    
-//    private JCheckBox spellingCheck;
-    
+
+    // private JCheckBox spellingCheck;
+
     private JCheckBox emailCheck;
     private JCheckBox chatLogCheck;
     private JCheckBox chatWindowHistoryCheck;
@@ -80,7 +78,7 @@ public class FeaturesPanel extends GPanel implements Observer{
 
     public FeaturesPanel(MainController c, JFrame optionframe, Model model)
             throws ClassNotFoundException, SQLException {
-    	this.setGradientColors(model.primaryColor, model.secondaryColor);
+        this.setGradientColors(model.primaryColor, model.secondaryColor);
         this.model = model;
         model.addObserver(this);
         chatBotModel = model.getCustomizedChatbotModel();
@@ -88,51 +86,61 @@ public class FeaturesPanel extends GPanel implements Observer{
         this.optionframe = optionframe;
 
         /* CHATBOT */
-        
+
         System.out.println("=================================");
         System.out.println("           From the feature panel");
-        System.out.println("Chatbot =  " + model.getCurrentProfile().isChatbotEnabled());
-        System.out.println("Chat Log =  " + model.getCurrentProfile().isChatLogEnabled());
+        System.out.println("Chatbot =  "
+                + model.getCurrentProfile().isChatbotEnabled());
+        System.out.println("Chat Log =  "
+                + model.getCurrentProfile().isChatLogEnabled());
         System.out.println("=================================");
-        
+
         if (model.getCurrentProfile().isChatbotEnabled()) {
-        	 chatbotCheck = new JCheckBox("Toggle ChatBot",  new ImageIcon(this.getClass().getResource(
-             "/images/menu/monitor_add.png")));
-             
+            chatbotCheck =
+                    new JCheckBox("Toggle ChatBot", new ImageIcon(this
+                            .getClass().getResource(
+                                    "/images/menu/monitor_add.png")));
+
         }
-        
+
         else {
-        	chatbotCheck = new JCheckBox("Toggle ChatBot",  new ImageIcon(this.getClass().getResource(
-            "/images/menu/monitor_delete.png")));
+            chatbotCheck =
+                    new JCheckBox("Toggle ChatBot", new ImageIcon(this
+                            .getClass().getResource(
+                                    "/images/menu/monitor_delete.png")));
         }
-        
+
         chatbotCheck.setBackground(model.tertiaryColor);
         chatbotCheck.setForeground(model.primaryTextColor);
-        chatbotCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,101));
+        chatbotCheck.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 101));
         chatbotCheck.setSelected(model.getCurrentProfile().isChatbotEnabled());
         chatbotCheck.addItemListener(new chatbotListener());
 
         // chatbot list
         chatbotList = new JList();
-        
-        if (!model.getCurrentProfile().isEmptyProfile())
-        	chatbotList.setListData(chatBotModel.getQAList());
+
+        if (!model.getCurrentProfile().isEmptyProfile()) {
+            chatbotList.setListData(chatBotModel.getQAList());
+        }
         chatbotList
                 .addListSelectionListener(new chatbotListSelectionListener());
         JScrollPane chatbotListScroll = new JScrollPane(chatbotList);
         chatbotListScroll.setPreferredSize(new Dimension(400, 80));
 
         // chatbot buttons
-        chatbotAddButton = new JButton("Add", new ImageIcon(this.getClass()
-                .getResource("/images/chatbot/pencil.png")));
+        chatbotAddButton =
+                new JButton("Add", new ImageIcon(this.getClass().getResource(
+                        "/images/chatbot/pencil.png")));
         chatbotAddButton
                 .addActionListener(new chatbotManageButtonActionListener('A'));
-        chatbotEditButton = new JButton("Edit", new ImageIcon(this.getClass()
-                .getResource("/images/chatbot/edit.png")));
+        chatbotEditButton =
+                new JButton("Edit", new ImageIcon(this.getClass().getResource(
+                        "/images/chatbot/edit.png")));
         chatbotEditButton
                 .addActionListener(new chatbotManageButtonActionListener('E'));
-        chatbotRemoveButton = new JButton("Remove", new ImageIcon(this.getClass()
-                .getResource("/images/chatbot/eraser.png")));
+        chatbotRemoveButton =
+                new JButton("Remove", new ImageIcon(this.getClass()
+                        .getResource("/images/chatbot/eraser.png")));
         chatbotRemoveButton
                 .addActionListener(new chatbotRemoveButtonActionListener());
         setEnabledChatbotButtons(false);
@@ -151,10 +159,11 @@ public class FeaturesPanel extends GPanel implements Observer{
         chatbotOptions.setAlignmentX(LEFT_ALIGNMENT);
         chatbotOptions.add(chatbotListScroll);
         chatbotOptions.add(chatbotButtonsPanel);
-        if (chatbotCheck.isSelected())
-        	chatbotOptions.setVisible(true);
-        else
-        	chatbotOptions.setVisible(false);
+        if (chatbotCheck.isSelected()) {
+            chatbotOptions.setVisible(true);
+        } else {
+            chatbotOptions.setVisible(false);
+        }
 
         chatbotPanel = new JPanel();
         chatbotPanel.setBackground(model.tertiaryColor);
@@ -165,80 +174,94 @@ public class FeaturesPanel extends GPanel implements Observer{
 
         /* SOUND NOTIFICATION */
         if (model.getCurrentProfile().isSoundsEnabled()) {
-        	 soundCheck = new JCheckBox("Toggle Sound Notification",  new ImageIcon(this.getClass().getResource(
-             "/images/menu/sound.png")));
-            
-       }
-       
-       else {
-    	   soundCheck = new JCheckBox("Toggle Sound Notification",  new ImageIcon(this.getClass().getResource(
-           "/images/menu/sound_mute.png")));
-       }
-        
+            soundCheck =
+                    new JCheckBox("Toggle Sound Notification", new ImageIcon(
+                            this.getClass().getResource(
+                                    "/images/menu/sound.png")));
+
+        }
+
+        else {
+            soundCheck =
+                    new JCheckBox("Toggle Sound Notification", new ImageIcon(
+                            this.getClass().getResource(
+                                    "/images/menu/sound_mute.png")));
+        }
+
         soundCheck.setBackground(model.tertiaryColor);
         soundCheck.setForeground(model.primaryTextColor);
-        soundCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,43));
+        soundCheck.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 43));
         soundCheck.setSelected(model.getCurrentProfile().isSoundsEnabled());
         soundCheck.addItemListener(new soundListener());
 
         /* EMAIL NOTIFICATION */
         if (model.getEmailNotification().equals("Y")) {
-       	 emailCheck = new JCheckBox("Toggle Email Notification",  new ImageIcon(this.getClass().getResource(
-            "/images/menu/email_add.png")));
-           
-      }
-      
-      else {
-    	  emailCheck = new JCheckBox("Toggle Email Notification",  new ImageIcon(this.getClass().getResource(
-          "/images/menu/email_delete.png")));
-      }
-       
+            emailCheck =
+                    new JCheckBox("Toggle Email Notification", new ImageIcon(
+                            this.getClass().getResource(
+                                    "/images/menu/email_add.png")));
+
+        }
+
+        else {
+            emailCheck =
+                    new JCheckBox("Toggle Email Notification", new ImageIcon(
+                            this.getClass().getResource(
+                                    "/images/menu/email_delete.png")));
+        }
+
         emailCheck.setBackground(model.tertiaryColor);
         emailCheck.setForeground(model.primaryTextColor);
-        emailCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,48));
+        emailCheck.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 48));
         emailCheck.setSelected(model.getCurrentProfile().isEmailEnabled());
         emailCheck.addItemListener(new emailListener());
-       
-        
+
         /* CHATLOG */
         if (model.getCurrentProfile().isChatLogEnabled()) {
-        	 chatLogCheck = new JCheckBox("Toggle Chat Log",  new ImageIcon(this.getClass().getResource(
-             "/images/menu/note_add.png")));
-            
-       }
-       
-       else {
-    	   chatLogCheck = new JCheckBox("Toggle Chat Log",  new ImageIcon(this.getClass().getResource(
-           "/images/menu/note_delete.png")));
-       }
-        
+            chatLogCheck =
+                    new JCheckBox("Toggle Chat Log", new ImageIcon(this
+                            .getClass()
+                            .getResource("/images/menu/note_add.png")));
+
+        }
+
+        else {
+            chatLogCheck =
+                    new JCheckBox("Toggle Chat Log", new ImageIcon(this
+                            .getClass().getResource(
+                                    "/images/menu/note_delete.png")));
+        }
+
         chatLogCheck.setBackground(model.tertiaryColor);
         chatLogCheck.setForeground(model.primaryTextColor);
-        chatLogCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,96));
+        chatLogCheck.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 96));
         chatLogCheck.setSelected(model.getCurrentProfile().isChatLogEnabled());
         chatLogCheck.addItemListener(new chatLogListener());
-        
+
         /* CHAT WINDOW HISTORY */
         if (model.getCurrentProfile().isChatWindowHistoryEnabled()) {
-        	chatWindowHistoryCheck =
-                new JCheckBox("Toggle Chat Window History",  new ImageIcon(this.getClass().getResource(
-                "/images/menu/application_form_add.png")));
-            
+            chatWindowHistoryCheck =
+                    new JCheckBox("Toggle Chat Window History", new ImageIcon(
+                            this.getClass().getResource(
+                                    "/images/menu/application_form_add.png")));
+
         }
-      
+
         else {
-        	chatWindowHistoryCheck =
-                new JCheckBox("Toggle Chat Window History",  new ImageIcon(this.getClass().getResource(
-                "/images/menu/application_form_delete.png")));
+            chatWindowHistoryCheck =
+                    new JCheckBox(
+                            "Toggle Chat Window History",
+                            new ImageIcon(this.getClass().getResource(
+                                    "/images/menu/application_form_delete.png")));
         }
-        
+
         chatWindowHistoryCheck.setBackground(model.tertiaryColor);
         chatWindowHistoryCheck.setForeground(model.primaryTextColor);
-        chatWindowHistoryCheck.setBorder(BorderFactory.createEmptyBorder(5,5,5,28));
+        chatWindowHistoryCheck.setBorder(BorderFactory.createEmptyBorder(5, 5,
+                5, 28));
         chatWindowHistoryCheck.setSelected(model.getCurrentProfile()
                 .isChatWindowHistoryEnabled());
-        chatWindowHistoryCheck
-                .addItemListener(new chatWindowHistoryListener());
+        chatWindowHistoryCheck.addItemListener(new chatWindowHistoryListener());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -247,7 +270,7 @@ public class FeaturesPanel extends GPanel implements Observer{
         this.add(emailCheck);
         this.add(chatLogCheck);
         this.add(chatWindowHistoryCheck);
-       
+
     }
 
     private void setEnabledChatbotButtons(boolean b) {
@@ -256,36 +279,37 @@ public class FeaturesPanel extends GPanel implements Observer{
     }
 
     private class chatbotListener implements ItemListener {
-        
 
-		public void itemStateChanged(ItemEvent event) {
-			if (!model.getCurrentProfile().isEmptyProfile()){
-				if (event.getStateChange() == ItemEvent.SELECTED) {
-	                model.getCurrentProfile().setChatbotEnabled(true);
-	                chatbotOptions.setVisible(true);
-	                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
-	                "/images/menu/monitor_add.png")));
-	            } else {
-	                model.getCurrentProfile().setChatbotEnabled(false);
-	                chatbotOptions.setVisible(false);
-	                chatbotCheck.setIcon( new ImageIcon(this.getClass().getResource(
-	                "/images/menu/monitor_delete.png")));
-	            }
-			} else {
-				String resultMessage =
-                    "You don't have any account right now, please create one to use this feature.";
-           	 	JOptionPane.showMessageDialog(null, resultMessage,
-           	 				"Information", JOptionPane.INFORMATION_MESSAGE);
+        public void itemStateChanged(ItemEvent event) {
+            if (!model.getCurrentProfile().isEmptyProfile()) {
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+                    model.getCurrentProfile().setChatbotEnabled(true);
+                    chatbotOptions.setVisible(true);
+                    chatbotCheck.setIcon(new ImageIcon(this.getClass()
+                            .getResource("/images/menu/monitor_add.png")));
+                } else {
+                    model.getCurrentProfile().setChatbotEnabled(false);
+                    chatbotOptions.setVisible(false);
+                    chatbotCheck.setIcon(new ImageIcon(this.getClass()
+                            .getResource("/images/menu/monitor_delete.png")));
+                }
+            } else {
+                String resultMessage =
+                        "You don't have any account right now, please create one to use this feature.";
+                JOptionPane.showMessageDialog(null, resultMessage,
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
 
-			}
-			System.out.println("=================================");
-	        System.out.println("           From the chatbotListener");
-	        System.out.println("Chatbot =  " + model.getCurrentProfile().isChatbotEnabled());
-	        System.out.println("Chat Log =  " + model.getCurrentProfile().isChatLogEnabled());
-	        System.out.println("=================================");
+            }
+            System.out.println("=================================");
+            System.out.println("           From the chatbotListener");
+            System.out.println("Chatbot =  "
+                    + model.getCurrentProfile().isChatbotEnabled());
+            System.out.println("Chat Log =  "
+                    + model.getCurrentProfile().isChatLogEnabled());
+            System.out.println("=================================");
             return;
-			
-		}
+
+        }
     }
 
     private class chatbotListSelectionListener implements ListSelectionListener {
@@ -336,17 +360,17 @@ public class FeaturesPanel extends GPanel implements Observer{
                     ChatbotQADataType QAObject =
                             addChatbotOptions.getQAObject();
 
-//                    if (!QAObject.isEmpty()) {
-                        try {
-                            chatBotModel.addQA(QAObject);
-                        } catch (ClassNotFoundException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                        } catch (SQLException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                        }
-//                    }
+                    // if (!QAObject.isEmpty()) {
+                    try {
+                        chatBotModel.addQA(QAObject);
+                    } catch (ClassNotFoundException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    } catch (SQLException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    // }
                 }
 
                 chatbotList.setListData(chatBotModel.getQAList());
@@ -374,14 +398,14 @@ public class FeaturesPanel extends GPanel implements Observer{
             int selected = chatbotList.getSelectedIndex();
             if (selected > -1) {
                 try {
-					chatBotModel.removeQA(selected);
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+                    chatBotModel.removeQA(selected);
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 chatbotList.setListData(chatBotModel.getQAList());
                 chatbotList.updateUI();
             }
@@ -390,123 +414,120 @@ public class FeaturesPanel extends GPanel implements Observer{
             }
         }
     }
-    
+
     private class emailListener implements ItemListener {
-    	
-    	public void itemStateChanged(ItemEvent event) {
-			if (event.getStateChange() == ItemEvent.SELECTED) {
-               // model.getCurrentProfile().setEmailEnabled(true);
-				try {
-					model.setEmailNotification("Y");
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                emailCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/email_add.png")));
+
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                // model.getCurrentProfile().setEmailEnabled(true);
+                try {
+                    model.setEmailNotification("Y");
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                emailCheck.setIcon(new ImageIcon(this.getClass().getResource(
+                        "/images/menu/email_add.png")));
             } else {
-                //model.getCurrentProfile().setEmailEnabled(false);
-            	try {
-					model.setEmailNotification("N");
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                emailCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/email_delete.png")));
+                // model.getCurrentProfile().setEmailEnabled(false);
+                try {
+                    model.setEmailNotification("N");
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                emailCheck.setIcon(new ImageIcon(this.getClass().getResource(
+                        "/images/menu/email_delete.png")));
             }
-			
-			
-			
-		}
+
+        }
     }
 
     private class soundListener implements ItemListener {
-   
 
-		public void itemStateChanged(ItemEvent event) {
-			if (event.getStateChange() == ItemEvent.SELECTED) {
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
                 model.getCurrentProfile().setSoundsEnabled(true);
-                soundCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/sound.png")));
+                soundCheck.setIcon(new ImageIcon(this.getClass().getResource(
+                        "/images/menu/sound.png")));
             } else {
                 model.getCurrentProfile().setSoundsEnabled(false);
-                soundCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/sound_mute.png")));
+                soundCheck.setIcon(new ImageIcon(this.getClass().getResource(
+                        "/images/menu/sound_mute.png")));
             }
-			
-			
-			
-		}
+
+        }
     }
 
     private class chatLogListener implements ItemListener {
-    	public void itemStateChanged(ItemEvent event) {
-			if (event.getStateChange() == ItemEvent.SELECTED) {
-				 model.getCurrentProfile().setChatLogEnabled(true);
-				 chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
-	                "/images/menu/note_add.png")));
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                model.getCurrentProfile().setChatLogEnabled(true);
+                chatLogCheck.setIcon(new ImageIcon(this.getClass().getResource(
+                        "/images/menu/note_add.png")));
             } else {
-            	model.getCurrentProfile().setChatLogEnabled(false);
-            	chatLogCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/note_delete.png")));
+                model.getCurrentProfile().setChatLogEnabled(false);
+                chatLogCheck.setIcon(new ImageIcon(this.getClass().getResource(
+                        "/images/menu/note_delete.png")));
             }
-			
-			   System.out.println("=================================");
-		        System.out.println("           From the chatLogListener");
-		        System.out.println("Chatbot =  " + model.getCurrentProfile().isChatbotEnabled());
-		        System.out.println("Chat Log =  " + model.getCurrentProfile().isChatLogEnabled());
-		        System.out.println("=================================");
-			
-		}
-       
+
+            System.out.println("=================================");
+            System.out.println("           From the chatLogListener");
+            System.out.println("Chatbot =  "
+                    + model.getCurrentProfile().isChatbotEnabled());
+            System.out.println("Chat Log =  "
+                    + model.getCurrentProfile().isChatLogEnabled());
+            System.out.println("=================================");
+
+        }
+
     }
 
     private class chatWindowHistoryListener implements ItemListener {
-        
 
-		public void itemStateChanged(ItemEvent event) {
-			if (event.getStateChange() == ItemEvent.SELECTED) {
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
                 model.getCurrentProfile().setChatWindowHistoryEnabled(true);
-                chatWindowHistoryCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/application_form_add.png")));
+                chatWindowHistoryCheck.setIcon(new ImageIcon(this.getClass()
+                        .getResource("/images/menu/application_form_add.png")));
             } else {
                 model.getCurrentProfile().setChatWindowHistoryEnabled(false);
-                chatWindowHistoryCheck.setIcon( new ImageIcon(this.getClass().getResource(
-                "/images/menu/application_form_delete.png")));
+                chatWindowHistoryCheck.setIcon(new ImageIcon(
+                        this.getClass().getResource(
+                                "/images/menu/application_form_delete.png")));
             }
 
             return;
-			
-		}
+
+        }
     }
 
-	public void update(Observable arg0, Object arg1) {
-		if(arg1 == UpdatedType.COLOR){
-			setGradientColors(model.primaryColor, model.secondaryColor);
-			
-			chatbotCheck.setBackground(model.tertiaryColor);
-			soundCheck.setBackground(model.tertiaryColor);
-			emailCheck.setBackground(model.tertiaryColor);
-			chatLogCheck.setBackground(model.tertiaryColor);
-			chatWindowHistoryCheck.setBackground(model.tertiaryColor);
-			
-			chatbotCheck.setForeground(model.primaryTextColor);
-			soundCheck.setForeground(model.primaryTextColor);
-			emailCheck.setForeground(model.primaryTextColor);
-			chatLogCheck.setForeground(model.primaryTextColor);
-			chatWindowHistoryCheck.setForeground(model.primaryTextColor);
-			
-			chatbotOptions.setBackground(model.tertiaryColor.brighter());
-			chatbotPanel.setBackground(model.tertiaryColor.brighter());
-			
-			updateUI();
-		}
-	}
+    public void update(Observable arg0, Object arg1) {
+        if (arg1 == UpdatedType.COLOR) {
+            setGradientColors(model.primaryColor, model.secondaryColor);
+
+            chatbotCheck.setBackground(model.tertiaryColor);
+            soundCheck.setBackground(model.tertiaryColor);
+            emailCheck.setBackground(model.tertiaryColor);
+            chatLogCheck.setBackground(model.tertiaryColor);
+            chatWindowHistoryCheck.setBackground(model.tertiaryColor);
+
+            chatbotCheck.setForeground(model.primaryTextColor);
+            soundCheck.setForeground(model.primaryTextColor);
+            emailCheck.setForeground(model.primaryTextColor);
+            chatLogCheck.setForeground(model.primaryTextColor);
+            chatWindowHistoryCheck.setForeground(model.primaryTextColor);
+
+            chatbotOptions.setBackground(model.tertiaryColor.brighter());
+            chatbotPanel.setBackground(model.tertiaryColor.brighter());
+
+            updateUI();
+        }
+    }
 }

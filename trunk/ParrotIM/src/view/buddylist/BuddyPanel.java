@@ -36,7 +36,6 @@ import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
 import model.Model;
-import model.dataType.AccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
@@ -142,12 +141,6 @@ public class BuddyPanel extends GPanel implements Observer {
     private ArrayList<FriendWrapper> friendWrappers;
 
     private ArrayList<FriendPanel> friendPanels;
-
-    private AccountData selectedAccount;
-
-    private String tempFriendToAdd;
-
-    private JFrame buddyPanel;
 
     private SelectListener selectListener;
 
@@ -262,16 +255,16 @@ public class BuddyPanel extends GPanel implements Observer {
         menuItem4 =
                 new JMenuItem("Block Friend", new ImageIcon(this.getClass()
                         .getResource("/images/buddylist/block_user.png")));
-//        menuItem5 =
-//                new JMenuItem("Send Email", new ImageIcon(this.getClass()
-//                        .getResource("/images/buddylist/mail_generic.png")));
+        // menuItem5 =
+        // new JMenuItem("Send Email", new ImageIcon(this.getClass()
+        // .getResource("/images/buddylist/mail_generic.png")));
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new inviteFriendListener());
         menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
-//        menuItem5
-//                .addMouseListener(new RightClickMenuViewProfileFriendListener());
+        // menuItem5
+        // .addMouseListener(new RightClickMenuViewProfileFriendListener());
 
         rightClickMenu.add(menuItem1);
         rightClickMenu.add(menuItem2);
@@ -279,7 +272,7 @@ public class BuddyPanel extends GPanel implements Observer {
         rightClickMenu.add(menuItem3);
         rightClickMenu.add(menuItem4);
         rightClickMenu.addSeparator();
-        //rightClickMenu.add(menuItem5);
+        // rightClickMenu.add(menuItem5);
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
@@ -387,7 +380,7 @@ public class BuddyPanel extends GPanel implements Observer {
     }
 
     public void listRepopulate() {
-    	System.out.println("Hi hi I am called.. haha");
+        System.out.println("Hi hi I am called.. haha");
         FriendPanel tempPanel = null;
         int boxIndex = -1;
 
@@ -426,27 +419,27 @@ public class BuddyPanel extends GPanel implements Observer {
     }
 
     private int userToBoxIndex(UserData user) {
-    	int boxIndex = -1;
-   
-    	if (user.isBlocked()) {
-    		boxIndex = 3;
-    	} else {
-    		if (user.getState() == UserStateType.ONLINE) {
-    			boxIndex = 0;
-    		} else if (user.getState() == UserStateType.AWAY
-    				|| user.getState() == UserStateType.BUSY
-    				|| user.getState() == UserStateType.PHONE
-    				|| user.getState() == UserStateType.BRB
-    				|| user.getState() == UserStateType.LUNCH) {
-    			boxIndex = 1;
-    		} else if (user.getState() == UserStateType.OFFLINE) {
-    			boxIndex = 2;
-    		} else {
-    			boxIndex = 3 ;
-    		}
-    	}
-    	
-    	return boxIndex;
+        int boxIndex = -1;
+
+        if (user.isBlocked()) {
+            boxIndex = 3;
+        } else {
+            if (user.getState() == UserStateType.ONLINE) {
+                boxIndex = 0;
+            } else if (user.getState() == UserStateType.AWAY
+                    || user.getState() == UserStateType.BUSY
+                    || user.getState() == UserStateType.PHONE
+                    || user.getState() == UserStateType.BRB
+                    || user.getState() == UserStateType.LUNCH) {
+                boxIndex = 1;
+            } else if (user.getState() == UserStateType.OFFLINE) {
+                boxIndex = 2;
+            } else {
+                boxIndex = 3;
+            }
+        }
+
+        return boxIndex;
     }
 
     /**
@@ -503,9 +496,10 @@ public class BuddyPanel extends GPanel implements Observer {
         return options;
     }
 
-    public JFrame getBuddyList(){
-    	return buddyWindow;
+    public JFrame getBuddyList() {
+        return buddyWindow;
     }
+
     // Section
     // III - Accessors and Mutator
 
@@ -579,9 +573,10 @@ public class BuddyPanel extends GPanel implements Observer {
         public void mousePressed(MouseEvent event) {
 
             if (chatClient.getAvailableRoom().size() > 0) {
-                if (!model.groupChatWindowOpen)
+                if (!model.groupChatWindowOpen) {
                     new GroupChatConfigurationFrame(chatClient, model, chat,
                             buddyWindow);
+                }
             }
 
             else {
@@ -648,15 +643,17 @@ public class BuddyPanel extends GPanel implements Observer {
          */
         public void mousePressed(MouseEvent event) {
             System.out.println("Add Friend Clicked");
-            
-            if (model.getCurrentProfile().getAllAccountsServer().size() > 0){
-            	AddBuddyFrame addbuddyFrame = new AddBuddyFrame (model, chatClient,null);
-            	addbuddyFrame.addWindowListener(new PopupWindowListener (buddyWindow, addbuddyFrame));
+
+            if (model.getCurrentProfile().getAllAccountsServer().size() > 0) {
+                AddBuddyFrame addbuddyFrame =
+                        new AddBuddyFrame(model, chatClient, null);
+                addbuddyFrame.addWindowListener(new PopupWindowListener(
+                        buddyWindow, addbuddyFrame));
             } else {
-            	 String resultMessage =
-                     "You don't have any account right now, please create one.";
-            	 JOptionPane.showMessageDialog(null, resultMessage,
-                     "Information", JOptionPane.INFORMATION_MESSAGE);
+                String resultMessage =
+                        "You don't have any account right now, please create one.";
+                JOptionPane.showMessageDialog(null, resultMessage,
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }
@@ -866,16 +863,18 @@ public class BuddyPanel extends GPanel implements Observer {
                     // System.out.println("j: " + j + "  and i: " + i);
                     if (event.getSource().equals(
                             buddyListPane.getComponent(j, i))) {
-                        if (event.getButton() == event.BUTTON1) {
+                        if (event.getButton() == MouseEvent.BUTTON1) {
                             // Left Click
 
                             /* Fix this to directly reference the GUI */
                             selectedFriend = buddyArray.get(j).get(i);
 
                             if (event.getClickCount() == 2) {
-                                chatClient.startConversation(selectedFriend, true);
+                                chatClient.startConversation(selectedFriend,
+                                        true);
                             }
-                        } else if (event.getSource().equals(buddyListPane.getComponent(j, i))) {
+                        } else if (event.getSource().equals(
+                                buddyListPane.getComponent(j, i))) {
                             // Right Click
                             rightClickMenu.show(buddyListPane
                                     .getComponent(j, i), event.getX(), event
@@ -887,22 +886,26 @@ public class BuddyPanel extends GPanel implements Observer {
                             if (selectedFriend.isBlocked()) {
                                 menuItem4.setText("Unblock Friend");
                                 menuItem4
-                                        .setIcon(new ImageIcon(this.getClass().getResource
-                                        		("/images/buddylist/unblock_user.png")));
+                                        .setIcon(new ImageIcon(
+                                                this
+                                                        .getClass()
+                                                        .getResource(
+                                                                "/images/buddylist/unblock_user.png")));
                             } else { // is not blocked; block it
                                 menuItem4.setText("Block Friend");
                                 menuItem4
-                                        .setIcon(new ImageIcon(this.getClass().getResource
-                                                ("/images/buddylist/block_user.png")));
+                                        .setIcon(new ImageIcon(
+                                                this
+                                                        .getClass()
+                                                        .getResource(
+                                                                "/images/buddylist/block_user.png")));
                             }
                         }
                     }
                 }
             }
 
-            MusicPlayer highlightMusic =
-                    new MusicPlayer("/audio/buddy/buddyHighlightedSound.wav",
-                            model);
+            new MusicPlayer("/audio/buddy/buddyHighlightedSound.wav", model);
         }
 
         // unimplemented mouselistener methods
@@ -941,7 +944,8 @@ public class BuddyPanel extends GPanel implements Observer {
 
         public void keyPressed(KeyEvent e) {
             // Do nothing
-            if (search.getText().length() > 0 && e.getKeyCode() == e.VK_ENTER) {
+            if (search.getText().length() > 0
+                    && e.getKeyCode() == KeyEvent.VK_ENTER) {
                 chatClient.startConversation(buddies.get(0), true);
             }
             return;
@@ -979,18 +983,5 @@ public class BuddyPanel extends GPanel implements Observer {
         buddies = UserData.cullByStringMatch(buddies, search.getText());
 
         return;
-    }
-
-    private class RightClickMenuViewProfileFriendListener extends MouseAdapter {
-
-        public void mousePressed(MouseEvent arg0) {
-            JOptionPane
-                    .showMessageDialog(
-                            null,
-                            "Email is not supported for the beta version. Sorry for the inconvenience.",
-                            "Information", JOptionPane.INFORMATION_MESSAGE);
-
-        }
-
     }
 }

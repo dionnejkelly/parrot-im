@@ -41,11 +41,10 @@ package model.dataType;
 
 import java.util.ArrayList;
 
-import controller.services.BadConnectionException;
-import controller.services.GenericConnection;
-
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+import controller.services.BadConnectionException;
+import controller.services.GenericConnection;
 
 /**
  * Holds username, password, and account type. Info is used in user profiles and
@@ -116,9 +115,9 @@ public abstract class AccountData extends PersonData {
     }
 
     public abstract GenericConnection getConnection();
-    
+
     public abstract void setConnection(GenericConnection connection);
-    
+
     /**
      * Returns the server type as a ServerType enumeration.
      * 
@@ -147,15 +146,16 @@ public abstract class AccountData extends PersonData {
     public abstract boolean removeFriend(UserData exFriend);
 
     public abstract void removeAllFriends();
-    
+
     /**
      * Gets a list of all friends in UserData format.
      * 
      * @return An ArrayList of all friends in UserData objects.
      */
     public abstract ArrayList<UserData> getFriends();
-    
-    public abstract ArrayList<UserData> getTweets() throws BadConnectionException;
+
+    public abstract ArrayList<UserData> getTweets()
+            throws BadConnectionException;
 
     /**
      * Checks whether a friend is in the list or not.
@@ -185,6 +185,5 @@ public abstract class AccountData extends PersonData {
 
         return foundFriend;
     }
-    
-    
+
 }

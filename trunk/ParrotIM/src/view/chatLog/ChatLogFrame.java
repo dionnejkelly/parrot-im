@@ -30,32 +30,36 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import view.styles.PopupEnableMainWindowListener;
-
 import model.Model;
 
 /**
  * The container frame of ChatLogPanel.
- *
+ * 
  * This class inherits JFrame methods and variables.
  */
-public class ChatLogFrame extends JFrame{
-	
-	/** model allows the ChatLogFrame to store the state of ChatLogFrame (ie. whether it is opened or not). */
-	Model model;
-	
-	/** Sets the title of the window, size, and default close operation.
-	 * @param model
-	 * @throws SQLException
-	 * @throws ClassNotFoundException */
-    public ChatLogFrame(Model model) throws SQLException, ClassNotFoundException {
+public class ChatLogFrame extends JFrame {
+
+    /**
+     * model allows the ChatLogFrame to store the state of ChatLogFrame (ie.
+     * whether it is opened or not).
+     */
+    Model model;
+
+    /**
+     * Sets the title of the window, size, and default close operation.
+     * 
+     * @param model
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public ChatLogFrame(Model model) throws SQLException,
+            ClassNotFoundException {
         super("ParrotIM - Chat Log Viewer");
-    	this.model = model;
-    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.model = model;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.getContentPane().add(
-                new ChatLogPanel(model, model.getCurrentProfile()
-                        .getName()));
+                new ChatLogPanel(model, model.getCurrentProfile().getName()));
         this.setPreferredSize(new Dimension(700, 500));
         this.setMinimumSize(new Dimension(400, 300));
         this.pack();

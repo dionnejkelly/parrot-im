@@ -18,7 +18,6 @@
 package view.mainwindow;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -29,11 +28,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import view.styles.GPanel;
-import view.styles.PopupEnableMainWindowListener;
-
 import model.Model;
 import model.enumerations.PopupEnableWindowType;
+import view.styles.GPanel;
+import view.styles.PopupEnableMainWindowListener;
 
 /**
  * The container frame of About ParrotIM Window. User can view the details about
@@ -47,18 +45,19 @@ public class AboutFrame extends JFrame {
      * is opened or not).
      */
     Model model;
-    
+
     private JLabel parrotLabel;
-    
+
     private JPanel informations;
-    
+
     /**
      * aboutFrame constructor. This window describes about ParrotIM
      */
     public AboutFrame(Model model) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
-        this.addWindowListener(new PopupEnableMainWindowListener(model, PopupEnableWindowType.ABOUT));
+        this.addWindowListener(new PopupEnableMainWindowListener(model,
+                PopupEnableWindowType.ABOUT));
         this.setTitle("About ParrotIM");
         this.setPreferredSize(new Dimension(300, 500));
         this.setResizable(false);
@@ -85,19 +84,18 @@ public class AboutFrame extends JFrame {
         // informations
         informations = new JPanel();
         String[] infoArray =
-                new String[] {
-                        "This software is developed by", "Rakan Alkheliwi",
-                        "William (Wei-Lun) Chen", "Jihoon Choi",
-                        "Kevin Fahy", "Jordan Fox", "Chenny Huang",
-                        "Vera Lukman", "Ahmad Sidiqi", "Aaron Siu",
-                        "Wei Zhang" };
+                new String[] { "This software is developed by",
+                        "Rakan Alkheliwi", "William (Wei-Lun) Chen",
+                        "Jihoon Choi", "Kevin Fahy", "Jordan Fox",
+                        "Chenny Huang", "Vera Lukman", "Ahmad Sidiqi",
+                        "Aaron Siu", "Wei Zhang" };
         GridLayout infoLayout = new GridLayout(infoArray.length, 1);
         informations.setLayout(infoLayout);
         informations.setOpaque(false);
         // infoLayout.setVgap(3);
 
-        for (int pos = 0; pos < infoArray.length; pos++) {
-            JLabel infoLabel = new JLabel(infoArray[pos]);
+        for (String element : infoArray) {
+            JLabel infoLabel = new JLabel(element);
             infoLabel.setForeground(model.primaryTextColor);
             infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
             informations.add(infoLabel);
@@ -112,8 +110,7 @@ public class AboutFrame extends JFrame {
         final GPanel aboutPanel = new GPanel();
         aboutPanel.setLayout(new BorderLayout());
         aboutPanel.setGradientColors(model.primaryColor, model.secondaryColor);
-        aboutPanel.setBorder(BorderFactory
-                .createEmptyBorder(20, 10, 20, 10));
+        aboutPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         aboutPanel.add(topPanel, BorderLayout.NORTH);
         aboutPanel.add(infoLabelAll, BorderLayout.CENTER);
 

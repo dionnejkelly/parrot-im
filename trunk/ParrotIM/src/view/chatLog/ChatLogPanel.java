@@ -33,7 +33,6 @@
 package view.chatLog;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -58,14 +57,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.Highlighter;
-
-import view.styles.GPanel;
 
 import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.enumerations.UpdatedType;
+import view.styles.GPanel;
 
 /**
  * Sets the GUI component of ChatLogFrame.
@@ -73,23 +70,25 @@ import model.enumerations.UpdatedType;
  * This class inherits JSplitPane methods and variables.
  */
 public class ChatLogPanel extends GPanel implements Observer {
-	private String searchKey = "";
-	/** 
-	 * profile describes the name of the currently used profile. 
-	 * It is used as one the arguments to extract chatlog data from database*/
+    private String searchKey = "";
+    /**
+     * profile describes the name of the currently used profile. It is used as
+     * one the arguments to extract chatlog data from database
+     */
     private String profile;
-    
-    /** model connects ChatLogPanel and the database functions.*/
+
+    /** model connects ChatLogPanel and the database functions. */
     private Model model;
-    
-    /** 
-     * logPane is a JSplitPane object that sets the right component of ChatLogWindow.
-     * It consists of datesScroll (on the top) and chatLog (on the bottom).
+
+    /**
+     * logPane is a JSplitPane object that sets the right component of
+     * ChatLogWindow. It consists of datesScroll (on the top) and chatLog (on
+     * the bottom).
      */
     private JSplitPane logPane;
 
     // left component
-    /** 
+    /**
      * buddies is a JList object. It is the left component of ChatLogPanel.
      * buddies shows the list of buddies whom the user has talked to.
      */
@@ -97,52 +96,58 @@ public class ChatLogPanel extends GPanel implements Observer {
 
     // right component
     // top
-    /** 
+    /**
      * datesScroll is a JScrollPane object. It is the scrollPane for dateList.
      */
     private JScrollPane datesScroll;
-    
-    /** 
-     * dateList is a JList that shows the dates of chat history.
-     * It shows the dates on dateVectorList.
+
+    /**
+     * dateList is a JList that shows the dates of chat history. It shows the
+     * dates on dateVectorList.
      */
     private JList dateList;
     // bottom
     private JEditorPane text;
-    
-    /** 
+
+    /**
      * chatLog is a JScrollPane object. It is the scrollPane for text.
      */
     private JScrollPane chatlog;
-    private final String htmlHead="<html><font face=\"Arial\" size=\"3\">";
-    private final String htmlTail="</font></html>";
-    /** 
-     * stub is an array of String with one member.
-     * It used if there is no message to display on text.
+    private final String htmlHead = "<html><font face=\"Arial\" size=\"3\">";
+    private final String htmlTail = "</font></html>";
+    /**
+     * stub is an array of String with one member. It used if there is no
+     * message to display on text.
      */
-    private String[] stub = new String[]{htmlHead + "<i><b>no data is displayed</b></i>" + htmlTail};
-    private JTextField searchField ;
+    private String[] stub =
+            new String[] { htmlHead + "<i><b>no data is displayed</b></i>"
+                    + htmlTail };
+    private JTextField searchField;
     // Added the database
     private DatabaseFunctions db;
-    /** 
-     * The constructor of ChatLogPanel. It takes model and currently used profile name as arguments.
-     * It sets up the panel, including the nested splitPane. 
+
+    /**
+     * The constructor of ChatLogPanel. It takes model and currently used
+     * profile name as arguments. It sets up the panel, including the nested
+     * splitPane.
+     * 
      * @param model
      * @param profile
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public ChatLogPanel(Model model, String profile) throws ClassNotFoundException, SQLException {
+    public ChatLogPanel(Model model, String profile)
+            throws ClassNotFoundException, SQLException {
         // model stub
         this.model = model;
         this.profile = model.getCurrentProfile().getName();
-         db = new DatabaseFunctions();
-        
+        db = new DatabaseFunctions();
+
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         this.setGradientColors(model.primaryColor, model.secondaryColor);
 
-        /*CHATLOG SPLIT PANE*/
+        /* CHATLOG SPLIT PANE */
         // top right component shows the list of dates
         text = new JEditorPane();
         text.setEditable(false);
@@ -153,26 +158,25 @@ public class ChatLogPanel extends GPanel implements Observer {
         chatlog
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         chatlog.setMinimumSize(new Dimension(chatlog.getWidth(), 100));
-        
+
         dateList = new JList(stub);
         dateList.setEnabled(false);
         dateList.addListSelectionListener(new datesListener());//
         dateList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         datesScroll = new JScrollPane(dateList);
         datesScroll.setMinimumSize(new Dimension(datesScroll.getWidth(), 50));
-        
+
         /* set left JSplitPane component */
         BuddyPanel buddyList = new BuddyPanel(model, profile);
         buddies = buddyList.buddyList;
         this.updateBuddyList();
         buddies.addListSelectionListener(new buddyListener());
-        
-        
+
         /* set right JSplitPane component */
         logPane = new JSplitPane();
         logPane.setBorder(null);
         logPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        //logPane.setGradientColors(Color.BLACK, Color.WHITE);
+        // logPane.setGradientColors(Color.BLACK, Color.WHITE);
         logPane.setDividerLocation(140);
         logPane.setTopComponent(datesScroll);
         logPane.setBottomComponent(chatlog);
@@ -185,59 +189,61 @@ public class ChatLogPanel extends GPanel implements Observer {
         chatlogPane.setDividerLocation(200);
         chatlogPane.setDividerSize(5);
 
-        /*SEARCH BAR*/
+        /* SEARCH BAR */
         searchField = new JTextField();
         searchField.addKeyListener(new searchFieldKeyListener());
-        JButton searchButton = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/document_preview.png")));
+        JButton searchButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching");
-        searchButton.setPreferredSize(new Dimension(30,30));
+        searchButton.setPreferredSize(new Dimension(30, 30));
         //
         searchButton.addMouseListener(new searchListener());
         JPanel searchBarPanel = new JPanel();
-        searchBarPanel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
+        searchBarPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0));
         searchBarPanel.setLayout(new BorderLayout());
         searchBarPanel.add(searchField, BorderLayout.CENTER);
         searchBarPanel.add(searchButton, BorderLayout.EAST);
-        
-        /*SETTING THIS SPLITPANE*/
+
+        /* SETTING THIS SPLITPANE */
         this.setLayout(new BorderLayout());
         this.add(searchBarPanel, BorderLayout.SOUTH);
         this.add(chatlogPane, BorderLayout.CENTER);
-        
+
         // this line is important Jordan
         this.model.addObserver(this);
     }
-    
-    public void updateBuddyList(){
-    	
-    	try {
-			Vector <String> buddiesSearchResult = model.getBuddyLogList(profile, searchKey);
-			
-			if (buddiesSearchResult.size()>0){
-		        buddies.setListData(buddiesSearchResult);
-		        buddies.setSelectedIndex(0);
-		        buddies.setEnabled(true);
-		        buddies.updateUI();
-		        
-		        this.updateDateList();
-			} else{
-				buddies.setListData(stub);
-				dateList.setListData(stub);
-		        dateList.setEnabled(false);
-		        text.setText(stub[0]);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+
+    public void updateBuddyList() {
+
+        try {
+            Vector<String> buddiesSearchResult =
+                    model.getBuddyLogList(profile, searchKey);
+
+            if (buddiesSearchResult.size() > 0) {
+                buddies.setListData(buddiesSearchResult);
+                buddies.setSelectedIndex(0);
+                buddies.setEnabled(true);
+                buddies.updateUI();
+
+                this.updateDateList();
+            } else {
+                buddies.setListData(stub);
+                dateList.setListData(stub);
+                dateList.setEnabled(false);
+                text.setText(stub[0]);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
-    
-    public void updateDateList(){
-    	Vector<String> dateVectorList = model.getBuddyDateList(profile, buddies
-                .getSelectedValue().toString(), searchKey);
-        
+
+    public void updateDateList() {
+        Vector<String> dateVectorList =
+                model.getBuddyDateList(profile, buddies.getSelectedValue()
+                        .toString(), searchKey);
 
         dateList.setListData(dateVectorList);
         dateList.setSelectedIndex(0);
@@ -245,44 +251,50 @@ public class ChatLogPanel extends GPanel implements Observer {
     }
 
     /**
-     * This method grabs the message from the database and sets the Vector returned
-     * by the model as the text's data source. It also update the message shown by text.
-     * It takes a String argument that specify the date.
+     * This method grabs the message from the database and sets the Vector
+     * returned by the model as the text's data source. It also update the
+     * message shown by text. It takes a String argument that specify the date.
+     * 
      * @param date
      */
     private void updateLog(String date) {
-    	// Grab all message objects from the database
-        Vector<ChatLogMessageTempData> messages = model.getLogMessage(profile, buddies.getSelectedValue()
-                .toString(), date, "");
+        // Grab all message objects from the database
+        Vector<ChatLogMessageTempData> messages =
+                model.getLogMessage(profile, buddies.getSelectedValue()
+                        .toString(), date, "");
         String str = ChatLogMessageToString(messages);
         str = htmlHead + str + htmlTail;
         text.setText(str);
         text.updateUI();
-        
 
     }
-    
-    private String ChatLogMessageToString(Vector<ChatLogMessageTempData> messages){
-    	String message = "";
-    	
-    	for (ChatLogMessageTempData c : messages){
-    		String str = c.toString();
-    		str = str.replace(searchKey, "<FONT COLOR=\"RED\"><b>"+searchKey+"</b></FONT>");
-    		message += str +"<br>";
-    	}
-    	return message;
+
+    private String ChatLogMessageToString(
+            Vector<ChatLogMessageTempData> messages) {
+        String message = "";
+
+        for (ChatLogMessageTempData c : messages) {
+            String str = c.toString();
+            str =
+                    str.replace(searchKey, "<FONT COLOR=\"RED\"><b>"
+                            + searchKey + "</b></FONT>");
+            message += str + "<br>";
+        }
+        return message;
     }
-    
+
     /**
-     * Sets the behaviour when one of the buddies on the buddies JList is selected
+     * Sets the behaviour when one of the buddies on the buddies JList is
+     * selected
      * 
      * This class inherits ListSelectionListener methods and variables.
      */
     private class buddyListener implements ListSelectionListener {
 
-    	/**
-         * If the selected buddy of the buddies JList is changed, then regenerate
-         * the list of dates on dateList JList.
+        /**
+         * If the selected buddy of the buddies JList is changed, then
+         * regenerate the list of dates on dateList JList.
+         * 
          * @param e
          */
         public void valueChanged(ListSelectionEvent e) {
@@ -291,32 +303,34 @@ public class ChatLogPanel extends GPanel implements Observer {
             }
         }
     }
-    
 
     /**
-     * Sets the behaviour when one of the dates on the dateList JList is selected
+     * Sets the behaviour when one of the dates on the dateList JList is
+     * selected
      * 
      * This class inherits ListSelectionListener methods and variables.
      */
     private class datesListener implements ListSelectionListener {
 
-    	/**
-         * If user selected a date of the dateList JList changed,
-         * text will show the logged message of the date. 
-         * It takes a ListSelectionEvent argument.
+        /**
+         * If user selected a date of the dateList JList changed, text will show
+         * the logged message of the date. It takes a ListSelectionEvent
+         * argument.
+         * 
          * @param e
          */
         public void valueChanged(ListSelectionEvent e) {
             JList source = (JList) e.getSource();
-            
-            if (source.getSelectedValue() == null)
-            	return;
-            
+
+            if (source.getSelectedValue() == null) {
+                return;
+            }
+
             String date = source.getSelectedValue().toString();
             updateLog(date);
         }
     }
-    
+
     private class searchListener extends MouseAdapter {
 
         /**
@@ -327,38 +341,42 @@ public class ChatLogPanel extends GPanel implements Observer {
 
         public void mousePressed(MouseEvent event) {
             if (searchField.getText().length() == 0) {
-            	String resultMessage = "Please provide a key word in the search field.";
+                String resultMessage =
+                        "Please provide a key word in the search field.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
         }
     }
-    
-    private class searchFieldKeyListener implements KeyListener{
 
-		public void keyPressed(KeyEvent arg0) {}
+    private class searchFieldKeyListener implements KeyListener {
 
-		public void keyReleased(KeyEvent arg0) {
-			if (searchField.getText().length() > 0) {
-            	searchKey = searchField.getText();
-			}
-			else{
-				searchKey = "";
-			}
-			
-			updateBuddyList();
-		}
+        public void keyPressed(KeyEvent arg0) {
+        }
 
-		public void keyTyped(KeyEvent arg0) {}
-    	
+        public void keyReleased(KeyEvent arg0) {
+            if (searchField.getText().length() > 0) {
+                searchKey = searchField.getText();
+            } else {
+                searchKey = "";
+            }
+
+            updateBuddyList();
+        }
+
+        public void keyTyped(KeyEvent arg0) {
+        }
+
     }
 
-	public void update(Observable arg0, Object arg) {
-		System.out.println("CHAT LOG *************************************** Who are you? " + arg);
-		if(arg == UpdatedType.COLOR){
-        	System.out.println("Jordan I am getting called...");
-        	this.setGradientColors(model.primaryColor, model.secondaryColor);
-        	this.updateUI();
+    public void update(Observable arg0, Object arg) {
+        System.out
+                .println("CHAT LOG *************************************** Who are you? "
+                        + arg);
+        if (arg == UpdatedType.COLOR) {
+            System.out.println("Jordan I am getting called...");
+            this.setGradientColors(model.primaryColor, model.secondaryColor);
+            this.updateUI();
         }
-		
-	}
+
+    }
 }

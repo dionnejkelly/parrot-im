@@ -33,7 +33,7 @@ public enum ServerType {
 
     // Section
     // I - Enumerated Types
-     JABBER("Jabber"),GOOGLE_TALK("Google Talk"), TWITTER("Twitter"),
+    JABBER("Jabber"), GOOGLE_TALK("Google Talk"), TWITTER("Twitter"),
     ICQ("ICQ"), MSN("MSN"), AIM("AIM");
 
     // Section
@@ -51,7 +51,7 @@ public enum ServerType {
 
     // Section
     // IV - Constructors
-    
+
     /**
      * Default constructor. Assigns a String name to each type for output on the
      * GUI.
@@ -64,7 +64,7 @@ public enum ServerType {
 
     // Section
     // V - Accessors and Mutators
-    
+
     /**
      * Returns how many enumerated types there are. This is currently set as a
      * constant that needs to be updated every type a type is added.
@@ -74,7 +74,7 @@ public enum ServerType {
     public static int numberOfValues() {
         return TOTAL_VALUES;
     }
-    
+
     // Section
     // VI - Information Request Methods
 
@@ -100,7 +100,7 @@ public enum ServerType {
         }
         return serverList;
     }
-    
+
     public static ServerType serverStringToServerType(String server) {
         ServerType serverToReturn = null; // Default return value
 

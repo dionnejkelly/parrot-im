@@ -8,27 +8,31 @@
 
 package view.chatwindow;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-import org.jivesoftware.smack.XMPPException;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
-import view.mainwindow.HelpPanel;
-import view.styles.CustomListPane;
-import view.styles.GPanel;
-
-import controller.MainController;
-
-import model.*;
+import model.Model;
 import model.dataType.ChatCollectionData;
 import model.dataType.Conversation;
 import model.enumerations.UpdatedType;
 
-import java.util.*;
+import org.jivesoftware.smack.XMPPException;
+
+import view.styles.CustomListPane;
+import view.styles.GPanel;
+import controller.MainController;
 
 /**
  * The SidePanel contains the list of users that are currently visible in chat
@@ -219,7 +223,7 @@ public class SidePanel extends GPanel implements Observer {
          * @param event
          */
         public void mousePressed(MouseEvent event) {
-            if (event.getButton() == event.BUTTON1) {
+            if (event.getButton() == MouseEvent.BUTTON1) {
                 System.out.println("left clicked");
                 controller.setTypingState(1); // set to the default typing state
                 // before
@@ -227,7 +231,7 @@ public class SidePanel extends GPanel implements Observer {
                 // switching
                 controller.changeConversation(listPane.getUserWrapper(
                         listPane.getClickedIndex()).getConversation());
-            } else if (event.getButton() == event.BUTTON3) {
+            } else if (event.getButton() == MouseEvent.BUTTON3) {
                 System.out.println("right clicked");
 
                 // rightClickMenu.setVisible(true);

@@ -10,7 +10,6 @@ import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.MultiConversationData;
 import model.enumerations.ServerType;
-import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
 public class UserDataWrapper implements Observer {

@@ -48,42 +48,38 @@
 
 package model;
 
-import java.util.*;
 import java.awt.Color;
-import java.io.IOException;
-import java.sql.*;
-import no.geosoft.cc.io.*;
-
-import controller.services.GenericConnection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Vector;
 
 import model.dataType.AccountData;
 import model.dataType.ChatCollectionData;
-import model.dataType.ChatbotQADataType;
 import model.dataType.Conversation;
 import model.dataType.ConversationData;
 import model.dataType.GoogleTalkAccountData;
+import model.dataType.GoogleTalkUserData;
 import model.dataType.ICQAccountData;
 import model.dataType.ICQUserData;
 import model.dataType.JabberAccountData;
+import model.dataType.JabberUserData;
 import model.dataType.MSNAccountData;
 import model.dataType.MSNUserData;
-import model.dataType.PersonData;
+import model.dataType.MessageData;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
-import model.dataType.GoogleTalkUserData;
-import model.dataType.JabberUserData;
-import model.dataType.MessageData;
 import model.dataType.TwitterAccountData;
 import model.dataType.TwitterUserData;
 import model.dataType.UserData;
-import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.CustomizedChatbotModel;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.PopupEnableWindowType;
-import model.enumerations.TypingStateType;
 import model.enumerations.ServerType;
+import model.enumerations.TypingStateType;
 import model.enumerations.UpdatedType;
+import controller.services.GenericConnection;
 
 /**
  * The model stores all data and provides it for the view and controllers. Also,
@@ -866,7 +862,9 @@ public class Model extends Observable {
      */
 
     public void setTypingState(UserData friend, TypingStateType state) {
-    	if (friend == null) return;
+        if (friend == null) {
+            return;
+        }
         friend.setTypingState(state);
         for (ConversationData cd1 : this.getConversations()) {
             if (cd1.getUser().getUserID().equals(friend.getUserID())) {
@@ -1113,7 +1111,7 @@ public class Model extends Observable {
     public static AccountData createAccount(String userID, String password,
             ServerType server) {
         AccountData account = null;
-        
+
         if (!userID.contains("@") && server == ServerType.GOOGLE_TALK) {
             userID = userID + "@gmail.com";
         }
@@ -1277,9 +1275,9 @@ public class Model extends Observable {
 
     public static String removeNewLinesAndSpaces(String str) {
         for (int pos = str.length() - 1; pos >= 0; pos--) {
-            if (str.charAt(pos) == '\n' || str.charAt(pos) == ' ')
+            if (str.charAt(pos) == '\n' || str.charAt(pos) == ' ') {
                 str = str.substring(0, str.length() - 1);
-            else {
+            } else {
                 break;
             }
         }
@@ -1316,5 +1314,5 @@ public class Model extends Observable {
         DatabaseFunctions db = new DatabaseFunctions();
         return db.getColor(profileName, whichOne);
     }
-    
+
 }

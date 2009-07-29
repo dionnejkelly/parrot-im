@@ -20,8 +20,8 @@ package model.dataType;
 
 import java.util.Observable;
 
-import model.enumerations.TypingStateType;
 import model.enumerations.ServerType;
+import model.enumerations.TypingStateType;
 import model.enumerations.UserStateType;
 
 /**
@@ -43,7 +43,7 @@ public abstract class PersonData extends Observable {
      * be equal to the userID. Is unrelated to log-in information.
      */
     private String nickname;
-    
+
     private String group;
     /**
      * A person's customized status message. May be empty.
@@ -104,24 +104,25 @@ public abstract class PersonData extends Observable {
         this.typingState = TypingStateType.ACTIVE;
         this.setGroup("");
     }
-    
+
     public PersonData(String userID, String nickname, String status,
-            UserStateType state,String group){
-    	this.userID = userID;
+            UserStateType state, String group) {
+        this.userID = userID;
         this.setNickname(nickname);
         this.setStatus(status);
         this.setState(state);
         this.typingState = TypingStateType.ACTIVE;
         this.setGroup(group);
     }
-    
-    public boolean isConnected(){
-    	return connected;
+
+    public boolean isConnected() {
+        return connected;
     }
-    
-    public void setConnected(boolean b){
-    	connected = b;
+
+    public void setConnected(boolean b) {
+        connected = b;
     }
+
     /**
      * Gets the userID as a String. Cannot be null or empty.
      * 
@@ -149,7 +150,7 @@ public abstract class PersonData extends Observable {
      */
     public void setNickname(String nickname) {
         this.nickname = nickname != null ? nickname : "";
-        
+
         super.setChanged();
         super.notifyObservers();
 
@@ -178,7 +179,7 @@ public abstract class PersonData extends Observable {
 
         super.setChanged();
         super.notifyObservers();
-        
+
         return;
     }
 
@@ -194,10 +195,10 @@ public abstract class PersonData extends Observable {
      */
     public void setState(UserStateType state) {
         this.state = state != null ? state : UserStateType.OFFLINE;
-        
+
         super.setChanged();
         super.notifyObservers();
-        
+
         return;
     }
 
@@ -241,7 +242,6 @@ public abstract class PersonData extends Observable {
 
     public abstract ServerType getServer();
 
-
     public static String delimitUserBack(String from, char character) {
         String subString = from.substring(from.indexOf(character) + 1);
 
@@ -253,7 +253,7 @@ public abstract class PersonData extends Observable {
 
         return subString;
     }
-    
+
     /**
      * Converts the user to a String, returning the userID.
      * 
@@ -284,12 +284,14 @@ public abstract class PersonData extends Observable {
 
         return areEqual;
     }
+
     public void setGroup(String group) {
-		this.group=group;
-		
-	}
-	public String getGroup() {
-		
-		return group;
-	}
+        this.group = group;
+
+    }
+
+    public String getGroup() {
+
+        return group;
+    }
 }

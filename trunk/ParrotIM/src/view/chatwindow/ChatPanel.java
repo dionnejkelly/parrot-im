@@ -8,7 +8,10 @@
 
 package view.chatwindow;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -20,26 +23,38 @@ import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JToolBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import view.buddylist.BuddyList;
+import model.Model;
+import model.dataType.MultiConversationData;
+import model.enumerations.UpdatedType;
+import model.enumerations.UserStateType;
 import view.buddylist.AccountInfo;
+import view.buddylist.BuddyList;
 import view.options.GroupChatConfigurationFrame;
 import view.styles.GPanel;
-import view.styles.PopupWindowListener; //import view.theme.LookAndFeelManager;
-
+import view.styles.PopupWindowListener;
 import controller.MainController;
 import controller.services.BadConnectionException;
 import controller.slashCommand.SlashCommand;
 import controller.spellcheck.SpellCheck;
-
-import model.*;
-import model.dataType.MultiConversationData;
-import model.enumerations.ServerType;
-import model.enumerations.UpdatedType;
-import model.enumerations.UserStateType;
 
 /**
  * The ChatPanel contains the panel that allow users to type messages and set
@@ -48,7 +63,7 @@ import model.enumerations.UserStateType;
  * This object inherits from JPanel
  */
 
-public class ChatPanel extends GPanel implements Observer{
+public class ChatPanel extends GPanel implements Observer {
 
     /**
      * Model stores the needed data of the system. It also connects it with
@@ -69,10 +84,6 @@ public class ChatPanel extends GPanel implements Observer{
     private JButton sendButton;
 
     private JButton emoticons;
-
-    /** Allows users to select the color from JColorChooser. */
-
-    private JColorChooser colorChooser;
 
     /** Allows users to type messages in the JTextArea. */
 
@@ -99,13 +110,13 @@ public class ChatPanel extends GPanel implements Observer{
     private JButton groupChatAddButton;
 
     private JButton groupChatButton;
-    
+
     private GPanel emoticonPanel;
 
     private SlashCommand slashCommand;
-    
+
     private Long previousTime = System.currentTimeMillis();
-    
+
     /**
      * This is the constructor of the ChatPanel.
      * 
@@ -113,7 +124,8 @@ public class ChatPanel extends GPanel implements Observer{
      * @param model
      */
 
-    public ChatPanel(MainController c, Model model, JFrame chatFrame, BuddyList buddyFrame) {
+    public ChatPanel(MainController c, Model model, JFrame chatFrame,
+            BuddyList buddyFrame) {
         setLayout(new BorderLayout());
         this.accinfo = buddyFrame.getAccountInfo();
         this.chatFrame = chatFrame;
@@ -126,7 +138,7 @@ public class ChatPanel extends GPanel implements Observer{
 
         setGradientColors(model.primaryColor, model.secondaryColor);
         setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 3));
-        
+
         bold = false;
         italics = false;
         underlined = false;
@@ -164,7 +176,7 @@ public class ChatPanel extends GPanel implements Observer{
         txt1.addFocusListener(new TextAreaFocusListener());
         JScrollPane chatInputWindowScroller = new JScrollPane(txt1);
         chatInputWindowScroller
-                .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         typingThread typingT = new typingThread();
         typingT.start();
         sendButton = new JButton("Send");
@@ -173,8 +185,9 @@ public class ChatPanel extends GPanel implements Observer{
 
         // Editing button properties
         // bold Button
-        final JButton boldButton = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/chatwindow/bold.png")));
+        final JButton boldButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/bold.png")));
         boldButton.setSelectedIcon(new ImageIcon(this.getClass().getResource(
                 "/images/chatwindow/boldSelected.png")));
         boldButton.setToolTipText("Bold");
@@ -186,8 +199,9 @@ public class ChatPanel extends GPanel implements Observer{
         });
 
         // Italics Button
-        final JButton italicsButton = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/chatwindow/Italics.png")));
+        final JButton italicsButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/Italics.png")));
         italicsButton.setSelectedIcon(new ImageIcon(this.getClass()
                 .getResource("/images/chatwindow/ItalicsSelected.png")));
         italicsButton.setToolTipText("Italic");
@@ -199,8 +213,9 @@ public class ChatPanel extends GPanel implements Observer{
         });
 
         // UnderlineButton
-        final JButton underlineButton = new JButton(new ImageIcon(this
-                .getClass().getResource("/images/chatwindow/underLine.png")));
+        final JButton underlineButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/underLine.png")));
         underlineButton.setSelectedIcon(new ImageIcon(this.getClass()
                 .getResource("/images/chatwindow/underLineSelected.png")));
         underlineButton.setToolTipText("Underline");
@@ -212,15 +227,17 @@ public class ChatPanel extends GPanel implements Observer{
         });
 
         // color Button
-        colorButton = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/chatwindow/colorscm.png")));
+        colorButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/colorscm.png")));
         colorButton.setBackground(Color.BLACK);
         colorButton.setToolTipText("Change Font Color");
         colorButton.addActionListener(new colorListener());
 
         // emoticon button
-        emoticons = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/chatwindow/emote.png")));
+        emoticons =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/emote.png")));
         emoticons.setToolTipText("Add an Emoticon");
         emoticons.addMouseListener(new emoticonListener());
 
@@ -231,21 +248,26 @@ public class ChatPanel extends GPanel implements Observer{
         emoticonChooser.setResizable(false);
         emoticonChooser.setLayout(new FlowLayout());
         emoticonPanel = new GPanel();
-        emoticonPanel.setGradientColors(model.primaryColor, model.secondaryColor);
-        String[][] emoticonImages = { { "happy", ":)" }, { "sad", ":(" },
-                { "neutral", ":|" }, { "joy", ":D" }, { "laugh", "XD" },
-                { "cool", "B)" }, { "sick", ":S" }, { "glasses", "8)" },
-                { "dead", "XP" }, { "surprise", ":o" }, { "tongue", ":P" },
-                { "zipper", ":X" }, { "wink", ";)" }, { "afraid", "=0" },
-                { "angel", "O:)" }, { "party", "<:)" }, { "heart", "<3" },
-                { "brokenheart", "</3" } };
+        emoticonPanel.setGradientColors(model.primaryColor,
+                model.secondaryColor);
+        String[][] emoticonImages =
+                { { "happy", ":)" }, { "sad", ":(" }, { "neutral", ":|" },
+                        { "joy", ":D" }, { "laugh", "XD" }, { "cool", "B)" },
+                        { "sick", ":S" }, { "glasses", "8)" },
+                        { "dead", "XP" }, { "surprise", ":o" },
+                        { "tongue", ":P" }, { "zipper", ":X" },
+                        { "wink", ";)" }, { "afraid", "=0" },
+                        { "angel", "O:)" }, { "party", "<:)" },
+                        { "heart", "<3" }, { "brokenheart", "</3" } };
         for (final String[] str : emoticonImages) {
-            JButton newButton = new JButton(new ImageIcon(this.getClass()
-                    .getResource("/images/emoticons/" + str[0] + ".png")));
+            JButton newButton =
+                    new JButton(new ImageIcon(this.getClass().getResource(
+                            "/images/emoticons/" + str[0] + ".png")));
             newButton.setToolTipText(str[0] + " " + str[1]);
             newButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
-                    txt1.setText(txt1.getText().substring(0,
+                    txt1
+                            .setText(txt1.getText().substring(0,
                                     txt1.getCaretPosition())
                                     + str[1]
                                     + txt1.getText().substring(
@@ -256,27 +278,31 @@ public class ChatPanel extends GPanel implements Observer{
             emoticonPanel.add(newButton);
         }
         emoticonChooser.setContentPane(emoticonPanel);
-        emoticonChooser.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        emoticonChooser.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         emoticonChooser.pack();
         emoticonChooser.setIconImage(new ImageIcon(
                 "src/images/mainwindow/logo.png").getImage());
 
         // Image button
-        JButton pic = new JButton(new ImageIcon(this.getClass().getResource(
-                "/images/chatwindow/pic.png")));
+        JButton pic =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/chatwindow/pic.png")));
         pic.setToolTipText("Send a file");
         pic.addActionListener(new sendFileListener());
 
-        groupChatButton = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/popup/comments.png")));
+        groupChatButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/popup/comments.png")));
 
         groupChatButton.addActionListener(new GroupChatActionListener());
         groupChatButton.setToolTipText("Start a conference chat");
-        groupChatAddButton = new JButton(new ImageIcon(this.getClass()
-                .getResource("/images/popup/comments_add.png")));
+        groupChatAddButton =
+                new JButton(new ImageIcon(this.getClass().getResource(
+                        "/images/popup/comments_add.png")));
 
         groupChatAddButton.addActionListener(new GroupChatAddActionListener());
-        groupChatAddButton.setToolTipText("Add users to an already existing conference chat");
+        groupChatAddButton
+                .setToolTipText("Add users to an already existing conference chat");
         // themeMenu = new ThemeOptionsComboBox();
         // themeMenu.setToolTipText("Select your own Theme");
 
@@ -313,7 +339,7 @@ public class ChatPanel extends GPanel implements Observer{
         // add to chat panel
         add(sPane, BorderLayout.CENTER);
         txt1.requestFocus();
-        
+
     }
 
     // Getters
@@ -347,76 +373,82 @@ public class ChatPanel extends GPanel implements Observer{
 
         if (msg != null && msg.length() > 0) {
             // if (c.isConferenceChat()) {
-        	
-        	msg = Model.removeNewLinesAndSpaces(msg);
-        	
-        	
-        	System.out.println("********************************************* The text area = " + txt1.getText());
-        	if (slashCommand.isSlashCommand(msg)) {
-            	accinfo.statusMessage.setTextDisplay(model.getCurrentProfile().getStatus());
-            	accinfo.statusMessage.synchOptions();
-            	System.out.println("This is status from model " + model.getCurrentProfile().getState().toString());
-            	
-    	        if (model.getCurrentProfile().getState() == UserStateType.ONLINE ||
-    	        		model.getCurrentProfile().getState() == UserStateType.AWAY ||
-    	        		model.getCurrentProfile().getState() == UserStateType.BUSY) {
-    	        	accinfo.presence.setSelectedIndex(model.getCurrentProfile().getState().ordinal());
-            	} else if (model.getCurrentProfile().getState() == UserStateType.NOT_AVAILABLE){
-            		accinfo.presence.setSelectedIndex(1);
-            	} else if (model.getCurrentProfile().getState() == UserStateType.NOT_BE_DISTURBED){
-            		accinfo.presence.setSelectedIndex(2);
-            	} else if (model.getCurrentProfile().getState() == UserStateType.PHONE){
-            		accinfo.presence.setSelectedIndex(3);
-            	} else if (model.getCurrentProfile().getState() == UserStateType.LUNCH){
-            		accinfo.presence.setSelectedIndex(4);
-            	} else if (model.getCurrentProfile().getState() == UserStateType.BRB) {
-            		accinfo.presence.setSelectedIndex(5);
-            	} else if (model.getCurrentProfile().getState() == UserStateType.INVISIBLE){
-            		accinfo.presence.setSelectedIndex(6);
-            	} else {
-            		accinfo.presence.setSelectedIndex(0);
-            	}
-        	} else{
-  
-        	
-	            if (model.getChatCollection().activeIsMulti()) {
-	                // we need to know which room is selected in the Chat Side Panel
-	                // for now I'll assume it only sends to the room
-	                // "Parrot0@conference.jabber.org"
-	                // as a Proof of concept
-	
-	                try {
-	                    c.sendMultMessage(msg, ((MultiConversationData) model
-	                            .getChatCollection().getActiveConversation())
-	                            .getRoomName(), fontSelect.getSelectedItem()
-	                            .toString(), fontSizemodel.getValue().toString(),
-	                            bold, italics, underlined, "#000000");
-	                    // c.sendMultMessage(msg, "Parrot0@conference.jabber.org");
-	                } catch (BadConnectionException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
-	                }
-	            } else { // Single Conversation
-	                System.out.println(msg);
-	                System.out.println(msg.length());
-	                try {
-	                    if (oldContentPane == null) {
-	                        c.sendMessage(msg, fontSelect.getSelectedItem()
-	                                .toString(), fontSizemodel.getValue()
-	                                .toString(), bold, italics, underlined,
-	                                "#000000");
-	                    } else {
-	                        c.sendMessage(msg, fontSelect.getSelectedItem()
-	                                .toString(), fontSizemodel.getValue()
-	                                .toString(), bold, italics, underlined,
-	                                oldContentPane.hexColor);
-	                    }
-	
-	                } catch (BadConnectionException e) {
-	                    e.printStackTrace();
-	                    System.out.println("failed in sending text");
-	                }
-	            }
+
+            msg = Model.removeNewLinesAndSpaces(msg);
+
+            System.out
+                    .println("********************************************* The text area = "
+                            + txt1.getText());
+            if (slashCommand.isSlashCommand(msg)) {
+                accinfo.statusMessage.setTextDisplay(model.getCurrentProfile()
+                        .getStatus());
+                accinfo.statusMessage.synchOptions();
+                System.out.println("This is status from model "
+                        + model.getCurrentProfile().getState().toString());
+
+                if (model.getCurrentProfile().getState() == UserStateType.ONLINE
+                        || model.getCurrentProfile().getState() == UserStateType.AWAY
+                        || model.getCurrentProfile().getState() == UserStateType.BUSY) {
+                    accinfo.presence.setSelectedIndex(model.getCurrentProfile()
+                            .getState().ordinal());
+                } else if (model.getCurrentProfile().getState() == UserStateType.NOT_AVAILABLE) {
+                    accinfo.presence.setSelectedIndex(1);
+                } else if (model.getCurrentProfile().getState() == UserStateType.NOT_BE_DISTURBED) {
+                    accinfo.presence.setSelectedIndex(2);
+                } else if (model.getCurrentProfile().getState() == UserStateType.PHONE) {
+                    accinfo.presence.setSelectedIndex(3);
+                } else if (model.getCurrentProfile().getState() == UserStateType.LUNCH) {
+                    accinfo.presence.setSelectedIndex(4);
+                } else if (model.getCurrentProfile().getState() == UserStateType.BRB) {
+                    accinfo.presence.setSelectedIndex(5);
+                } else if (model.getCurrentProfile().getState() == UserStateType.INVISIBLE) {
+                    accinfo.presence.setSelectedIndex(6);
+                } else {
+                    accinfo.presence.setSelectedIndex(0);
+                }
+            } else {
+
+                if (model.getChatCollection().activeIsMulti()) {
+                    // we need to know which room is selected in the Chat Side
+                    // Panel
+                    // for now I'll assume it only sends to the room
+                    // "Parrot0@conference.jabber.org"
+                    // as a Proof of concept
+
+                    try {
+                        c.sendMultMessage(msg, ((MultiConversationData) model
+                                .getChatCollection().getActiveConversation())
+                                .getRoomName(), fontSelect.getSelectedItem()
+                                .toString(), fontSizemodel.getValue()
+                                .toString(), bold, italics, underlined,
+                                "#000000");
+                        // c.sendMultMessage(msg,
+                        // "Parrot0@conference.jabber.org");
+                    } catch (BadConnectionException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else { // Single Conversation
+                    System.out.println(msg);
+                    System.out.println(msg.length());
+                    try {
+                        if (oldContentPane == null) {
+                            c.sendMessage(msg, fontSelect.getSelectedItem()
+                                    .toString(), fontSizemodel.getValue()
+                                    .toString(), bold, italics, underlined,
+                                    "#000000");
+                        } else {
+                            c.sendMessage(msg, fontSelect.getSelectedItem()
+                                    .toString(), fontSizemodel.getValue()
+                                    .toString(), bold, italics, underlined,
+                                    oldContentPane.hexColor);
+                        }
+
+                    } catch (BadConnectionException e) {
+                        e.printStackTrace();
+                        System.out.println("failed in sending text");
+                    }
+                }
             }
             txt1.setText("");
         }
@@ -469,39 +501,34 @@ public class ChatPanel extends GPanel implements Observer{
 
         public void actionPerformed(ActionEvent evt) {
 
-//        	String userID = "solidworktesting@gmail.com";
-//        	
-//        	if (c.isValidUserID(userID)) {
-//        		System.out.println("Start Transfering File... " + userID);
-//           		
-//            	ImageFileFilter filefilter = new ImageFileFilter();
-//            	JFileChooser fileChooser = new JFileChooser();
-//            	fileChooser.setFileFilter(filefilter);
-//        		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//        		fileChooser.setMultiSelectionEnabled(false);
-//        		
-//            	int fileConfirmation = fileChooser.showOpenDialog(null);
-//            	
-//            	if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
-            		//String filePath = fileChooser.getSelectedFile().getPath();
-            		c.sendFile();
-            	//}
-        	//}
-        	
-//        	else {
-//        		JOptionPane.showMessageDialog(null, "Cannot send file because " + userID + "does not support file receiving.",
-//                        "Failed", JOptionPane.ERROR_MESSAGE);
-//        	}
-        	
-       		
+            // String userID = "solidworktesting@gmail.com";
+            //        	
+            // if (c.isValidUserID(userID)) {
+            // System.out.println("Start Transfering File... " + userID);
+            //           		
+            // ImageFileFilter filefilter = new ImageFileFilter();
+            // JFileChooser fileChooser = new JFileChooser();
+            // fileChooser.setFileFilter(filefilter);
+            // fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            // fileChooser.setMultiSelectionEnabled(false);
+            //        		
+            // int fileConfirmation = fileChooser.showOpenDialog(null);
+            //            	
+            // if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
+            // String filePath = fileChooser.getSelectedFile().getPath();
+            c.sendFile();
+            // }
+            // }
 
-
+            // else {
+            // JOptionPane.showMessageDialog(null, "Cannot send file because " +
+            // userID + "does not support file receiving.",
+            // "Failed", JOptionPane.ERROR_MESSAGE);
+            // }
 
         }
 
     }
-
-  
 
     /**
      * This is a color listener class that is responsible for handling user's
@@ -543,7 +570,7 @@ public class ChatPanel extends GPanel implements Observer{
      */
     public class SendButtonPressed implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-        		sendMessage();
+            sendMessage();
         }
     }
 
@@ -554,14 +581,7 @@ public class ChatPanel extends GPanel implements Observer{
      */
     public class TextBoxListener implements KeyListener {
         private boolean shiftPressed = false;
-        private boolean controlPressed = false;
-
-        private boolean twitterEnabled;
-        private final int keyCapacity = 140;
-
         private int keyEvent;
-
-        private int keyCount;
 
         /**
          * Listens for the key pressed.
@@ -573,12 +593,11 @@ public class ChatPanel extends GPanel implements Observer{
             // this is functional but somewhat unstable
             // any ideas are welcome to be discussed in the upcoming meeting
 
-            if (e.getKeyCode() == e.VK_SHIFT) {
+            if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
                 shiftPressed = true;
             }
 
-            else if (e.getKeyCode() == e.VK_CONTROL) {
-                controlPressed = true;
+            else if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             }
 
             keyEvent = e.getKeyCode();
@@ -592,13 +611,13 @@ public class ChatPanel extends GPanel implements Observer{
          */
 
         public void keyReleased(KeyEvent e) {
-        	previousTime = System.currentTimeMillis();
-        	
-            if (!shiftPressed && e.getKeyCode() == e.VK_ENTER
+            previousTime = System.currentTimeMillis();
+
+            if (!shiftPressed && e.getKeyCode() == KeyEvent.VK_ENTER
                     && sendButton.isEnabled()) {
                 System.out
                         .println("-------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
-                e.setKeyCode(e.VK_BEGIN);
+                e.setKeyCode(KeyEvent.VK_BEGIN);
                 // txt1.setText(txt1.getText().substring(
                 // 0, txt1.getText().length() - 1));
                 sendMessage();
@@ -610,12 +629,10 @@ public class ChatPanel extends GPanel implements Observer{
                         .println("-------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 txt1.setText(txt1.getText() + "\n");
                 shiftPressed = false;
-                controlPressed = false;
             }
 
             else {
                 shiftPressed = false;
-                controlPressed = false;
                 c.setTypingState(2);
 
             }
@@ -656,24 +673,27 @@ public class ChatPanel extends GPanel implements Observer{
         }
 
     }
-    private class typingThread extends Thread{
-    	public typingThread(){
-    		
-    	}
-    	public void run(){
-    		while (true){
-    			if((System.currentTimeMillis() - previousTime)> 2000){
-    				c.setTypingState(1);
-    			}
-    			try {
-					this.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-    		}
-    	}
+
+    private class typingThread extends Thread {
+        public typingThread() {
+
+        }
+
+        public void run() {
+            while (true) {
+                if ((System.currentTimeMillis() - previousTime) > 2000) {
+                    c.setTypingState(1);
+                }
+                try {
+                    this.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
     }
+
     /**
      * 
      * Check content of the textarea
@@ -727,23 +747,28 @@ public class ChatPanel extends GPanel implements Observer{
 
         // @Override
         public void actionPerformed(ActionEvent event) {
-        
+
             // if the profile contains XMPP protocols
             if (c.isXMPP()) {
-            	c.create(model.getCurrentProfile().getName());
+                c.create(model.getCurrentProfile().getName());
 
-            	JOptionPane
-                    	.showMessageDialog(null,
-                            	"Multiple conversation room has been added to the chat window.", "Conference Room Created", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane
+                        .showMessageDialog(
+                                null,
+                                "Multiple conversation room has been added to the chat window.",
+                                "Conference Room Created",
+                                JOptionPane.INFORMATION_MESSAGE);
             }
-            	
-            	
+
             else {
-            	JOptionPane
-            	.showMessageDialog(null,
-                    	"Sorry for the inconvenience but you need an XMPP account to create a conference room.", "Conference Room Created", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane
+                        .showMessageDialog(
+                                null,
+                                "Sorry for the inconvenience but you need an XMPP account to create a conference room.",
+                                "Conference Room Created",
+                                JOptionPane.INFORMATION_MESSAGE);
             }
-            // if (!model.groupChatWindowOpen)  
+            // if (!model.groupChatWindowOpen)
             // new GroupChatConfigurationFrame(chatClient, model);
             // need to create a new conference chat room here
             // c.messageReceived("the left side panel in the chat window should be empty"
@@ -765,8 +790,10 @@ public class ChatPanel extends GPanel implements Observer{
             // }
 
             if (c.getAvailableRoom().size() > 0) {
-            	if (!model.groupChatWindowOpen)
-                	new GroupChatConfigurationFrame(c, model, chatFrame, buddyFrame);
+                if (!model.groupChatWindowOpen) {
+                    new GroupChatConfigurationFrame(c, model, chatFrame,
+                            buddyFrame);
+                }
             }
 
             else {
@@ -779,10 +806,11 @@ public class ChatPanel extends GPanel implements Observer{
 
     }
 
-	public void update(Observable o, Object arg) {
-		if(arg == UpdatedType.COLOR){
-			emoticonPanel.setGradientColors(model.primaryColor, model.secondaryColor);
-			emoticonPanel.updateUI();
-		}
-	}
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.COLOR) {
+            emoticonPanel.setGradientColors(model.primaryColor,
+                    model.secondaryColor);
+            emoticonPanel.updateUI();
+        }
+    }
 }

@@ -65,198 +65,205 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import org.jivesoftware.smack.XMPPException;
-
 import model.Model;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
-
+import view.styles.AvatarLabel;
+import view.styles.GPanel;
+import view.styles.PmLabel;
+import view.styles.StatusCombo;
 import controller.MainController;
 import controller.services.TwitterManager;
 
-import view.styles.AvatarLabel;
-import view.styles.GPanel;
-import view.styles.StatusCombo;
-import view.styles.PmLabel;
-
 /**
- * accountInfo display user name, avatar picture, account information for Parrot IM users.
+ * accountInfo display user name, avatar picture, account information for Parrot
+ * IM users.
  */
-public class AccountInfo extends GPanel implements Observer
-{
-	/* TODO AccInfo has:
-	 * WEST -- Avatar (and avatar settings)
-	 * Center -- New embedded Panel
-	 * 					Top: User Display name
-	 * 					Bottom: Status, and status messages (if applicable)			
-	 */
-   
-	// Selection
+public class AccountInfo extends GPanel implements Observer {
+    /*
+     * TODO AccInfo has: WEST -- Avatar (and avatar settings) Center -- New
+     * embedded Panel Top: User Display name Bottom: Status, and status messages
+     * (if applicable)
+     */
+
+    // Selection
     // I - non-static member
-	/**
-	 * avatarDisplay is for displaying user picture.
-	 */
-	public AvatarLabel avatarDisplay;
-	/**
-	 * displayName displays user's name.
-	 */
-	JLabel displayName;
-	/**
-	 * variable to handles all inputs from user interaction
-	 */
-	MainController chatClient;
-	
-	/**
-	 * user status message
-	 */
-	public PmLabel statusMessage;
-	/**
-	 * text area
-	 */
-	protected JTextArea textArea;
-	/**
-	 * text
-	 */
-	protected String text;
-	
-	public StatusCombo presence;
-	private JPanel presencePanel;
-	private Dimension dimension;
-	/**
-	 * variable model for extracting buddy list, each buddy's information and , conversation 
-	 */
-	private Model model;
-	//SELECTION
-	//II-Constructors
-	/**
-	 * Account information area, display user's information and avatar picture.
-	 * @param c
-	 * @param model
-	 * @throws SQLException 
-	 */
-	public AccountInfo(MainController c, Model model) throws ClassNotFoundException, SQLException 
-	{
-	    this.model = model;
-	    this.chatClient = c;
-	    setGradientColors(Color.BLACK, model.primaryColor);
-		setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
-		setLayout(new BorderLayout());
-		
-		//user diplay picture
-		try {
-			avatarDisplay = new AvatarLabel(chatClient, model,
-					model.getAvatarDirectory(model.getCurrentProfile().getName()), 80);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		
-		
-		JLabel name = new JLabel(model.getCurrentProfile().getName());
-		name.setFont(new Font("Arial", Font.BOLD, 17));
-		name.setForeground(Color.white);
-		
-		// Allowing users to change their status.
-		statusMessage = new PmLabel(c);
-		statusMessage.setFont(new Font("Arial", Font.BOLD, 15));
-		statusMessage.setOpaque(false);
-		if (!model.getCurrentProfile().getName().equals("Guest")){
-			statusMessage.setText(model.getStatusMessage(model.getCurrentProfile().getName()));
-		}
-		if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER)!=null){
-			TwitterManager twitterMan = 
-				(TwitterManager) model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER).
-									getConnection();
-		
-			statusMessage.setText(twitterMan.getMyRecentStatus());
-		}
-		statusMessage.changePM(false, false);
-		presence = new StatusCombo(chatClient, false);
-		presence.setForeground(new Color(38, 112, 140));
-		//presence.setBackground(new Color(224, 224, 224));
-		if (!model.getCurrentProfile().getName().equals("Guest")){
-			presence.setSelectedIndex(model.getStatus(model.getCurrentProfile().getName()));
-		}
-		
-		//name, status message (personal message) and status
-		JPanel textInfo = new JPanel();
-		textInfo.setBorder(BorderFactory.createEmptyBorder(0,0,4,0));
-		textInfo.setLayout(new BoxLayout(textInfo, BoxLayout.Y_AXIS));
-		textInfo.setOpaque(false);
-		textInfo.add(name);
-		textInfo.add(statusMessage);
-//		textInfo.add(presence);
-		
-		//combobox to change presence
-		presencePanel = new JPanel();
-		presencePanel.setOpaque(false);
-		presencePanel.add(presence);
-		
-		JPanel info = new JPanel ();
-		info.setOpaque(false);
-		info.setLayout(new BorderLayout ());
-		info.setBorder(BorderFactory.createEmptyBorder(0,15,0,0));
-		info.add(textInfo, BorderLayout.NORTH);
-		info.add(presencePanel, BorderLayout.WEST);
-		
-		add(avatarDisplay, BorderLayout.WEST);
-		add(info, BorderLayout.CENTER);
-		this.addMouseListener(new statusMouseListener());
-		this.dimension = new Dimension(this.getWidth(), 95);
-		this.setMaximumSize(dimension);
-		this.setMinimumSize(dimension);
-		this.setPreferredSize(dimension);
-		
-		System.out.println("ACCOUNTINFO: " + this.getWidth() + " " +this.getHeight() );
-		model.addObserver(this);
-	}
-   
-	// Section
+    /**
+     * avatarDisplay is for displaying user picture.
+     */
+    public AvatarLabel avatarDisplay;
+    /**
+     * displayName displays user's name.
+     */
+    JLabel displayName;
+    /**
+     * variable to handles all inputs from user interaction
+     */
+    MainController chatClient;
+
+    /**
+     * user status message
+     */
+    public PmLabel statusMessage;
+    /**
+     * text area
+     */
+    protected JTextArea textArea;
+    /**
+     * text
+     */
+    protected String text;
+
+    public StatusCombo presence;
+    private JPanel presencePanel;
+    private Dimension dimension;
+    /**
+     * variable model for extracting buddy list, each buddy's information and ,
+     * conversation
+     */
+    private Model model;
+
+    // SELECTION
+    // II-Constructors
+    /**
+     * Account information area, display user's information and avatar picture.
+     * 
+     * @param c
+     * @param model
+     * @throws SQLException
+     */
+    public AccountInfo(MainController c, Model model)
+            throws ClassNotFoundException, SQLException {
+        this.model = model;
+        this.chatClient = c;
+        setGradientColors(Color.BLACK, model.primaryColor);
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
+        setLayout(new BorderLayout());
+
+        // user diplay picture
+        try {
+            avatarDisplay =
+                    new AvatarLabel(chatClient, model, model
+                            .getAvatarDirectory(model.getCurrentProfile()
+                                    .getName()), 80);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+        JLabel name = new JLabel(model.getCurrentProfile().getName());
+        name.setFont(new Font("Arial", Font.BOLD, 17));
+        name.setForeground(Color.white);
+
+        // Allowing users to change their status.
+        statusMessage = new PmLabel(c);
+        statusMessage.setFont(new Font("Arial", Font.BOLD, 15));
+        statusMessage.setOpaque(false);
+        if (!model.getCurrentProfile().getName().equals("Guest")) {
+            statusMessage.setText(model.getStatusMessage(model
+                    .getCurrentProfile().getName()));
+        }
+        if (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER) != null) {
+            TwitterManager twitterMan =
+                    (TwitterManager) model.getCurrentProfile()
+                            .getAccountFromServer(ServerType.TWITTER)
+                            .getConnection();
+
+            statusMessage.setText(twitterMan.getMyRecentStatus());
+        }
+        statusMessage.changePM(false, false);
+        presence = new StatusCombo(chatClient, false);
+        presence.setForeground(new Color(38, 112, 140));
+        // presence.setBackground(new Color(224, 224, 224));
+        if (!model.getCurrentProfile().getName().equals("Guest")) {
+            presence.setSelectedIndex(model.getStatus(model.getCurrentProfile()
+                    .getName()));
+        }
+
+        // name, status message (personal message) and status
+        JPanel textInfo = new JPanel();
+        textInfo.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
+        textInfo.setLayout(new BoxLayout(textInfo, BoxLayout.Y_AXIS));
+        textInfo.setOpaque(false);
+        textInfo.add(name);
+        textInfo.add(statusMessage);
+        // textInfo.add(presence);
+
+        // combobox to change presence
+        presencePanel = new JPanel();
+        presencePanel.setOpaque(false);
+        presencePanel.add(presence);
+
+        JPanel info = new JPanel();
+        info.setOpaque(false);
+        info.setLayout(new BorderLayout());
+        info.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+        info.add(textInfo, BorderLayout.NORTH);
+        info.add(presencePanel, BorderLayout.WEST);
+
+        add(avatarDisplay, BorderLayout.WEST);
+        add(info, BorderLayout.CENTER);
+        this.addMouseListener(new statusMouseListener());
+        this.dimension = new Dimension(this.getWidth(), 95);
+        this.setMaximumSize(dimension);
+        this.setMinimumSize(dimension);
+        this.setPreferredSize(dimension);
+
+        System.out.println("ACCOUNTINFO: " + this.getWidth() + " "
+                + this.getHeight());
+        model.addObserver(this);
+    }
+
+    // Section
     // III - Accessors and Mutators
-	void IMpanelSelected(){
-		presence.setVisible(true);
-		statusMessage.setPreferredSize(new Dimension(70,20));
-	}
-	
-	void TwitterpanelSelected(){
-		presence.setVisible(false);
-		statusMessage.setPreferredSize(new Dimension(70,80));
-	}
-	
+    void IMpanelSelected() {
+        presence.setVisible(true);
+        statusMessage.setPreferredSize(new Dimension(70, 20));
+    }
+
+    void TwitterpanelSelected() {
+        presence.setVisible(false);
+        statusMessage.setPreferredSize(new Dimension(70, 80));
+    }
+
     public void update(Observable o, Object arg) {
-        if(arg == UpdatedType.COLOR){
-        	setGradientColors(Color.BLACK, model.primaryColor);
-        	updateUI();
+        if (arg == UpdatedType.COLOR) {
+            setGradientColors(Color.BLACK, model.primaryColor);
+            updateUI();
         }
 
         return;
     }
-	
-	/**
-	 * mouse listener for mouse to do actions
-	 *
-	 */
-	private class statusMouseListener implements MouseListener{
 
-		/* 
-		 * mouse click action
-		 */
-		public void mouseClicked(MouseEvent e) {
-			if (statusMessage.isEditable()){
-				statusMessage.changePM(false, true);
-			}
-		}
+    /**
+     * mouse listener for mouse to do actions
+     * 
+     */
+    private class statusMouseListener implements MouseListener {
 
-		/* 
-		 * mouse entered action
-		 * mouse exited action
-		 * mouse pressed action
-		 * mouse released action
-		 * 
-		 */
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-		
-	}
+        /*
+         * mouse click action
+         */
+        public void mouseClicked(MouseEvent e) {
+            if (statusMessage.isEditable()) {
+                statusMessage.changePM(false, true);
+            }
+        }
+
+        /*
+         * mouse entered action mouse exited action mouse pressed action mouse
+         * released action
+         */
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        public void mouseExited(MouseEvent e) {
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+
+    }
 }

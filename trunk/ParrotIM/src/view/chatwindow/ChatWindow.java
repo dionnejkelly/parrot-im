@@ -8,20 +8,18 @@
 
 package view.chatwindow;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import controller.MainController;
-
-import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
-import view.buddylist.BuddyList;
-import view.styles.ChatWindowListener;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import model.Model;
 import model.enumerations.UpdatedType;
+import view.buddylist.BuddyList;
+import view.styles.ChatWindowListener;
+import controller.MainController;
 
 /**
  * The ChatWindow contains the frame that holds the integrity of the chat
@@ -56,8 +54,8 @@ public class ChatWindow extends JFrame implements Observer {
         super("Chat Window");
 
         model.addObserver(this);
-        
-        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         this.model = model;
 
@@ -66,7 +64,7 @@ public class ChatWindow extends JFrame implements Observer {
 
         this.addWindowListener(new ChatWindowListener(this.model));
 
-        main = new MainPanel(c, model, this, buddyFrame);//////////////////////
+        main = new MainPanel(c, model, this, buddyFrame);// ////////////////////
 
         getContentPane().add(main);
 
@@ -112,10 +110,12 @@ public class ChatWindow extends JFrame implements Observer {
             if (model.numberOfConversations() > 0 && !this.isVisible()) {
                 this.setVisible(true);
             }
-        }else if(arg == UpdatedType.COLOR){
-        	main.side.listPane.setGradientColors(model.primaryColor, model.secondaryColor);
-        	main.chat.setGradientColors(model.primaryColor, model.secondaryColor);
-        	main.updateUI();
+        } else if (arg == UpdatedType.COLOR) {
+            main.side.listPane.setGradientColors(model.primaryColor,
+                    model.secondaryColor);
+            main.chat.setGradientColors(model.primaryColor,
+                    model.secondaryColor);
+            main.updateUI();
         }
         return;
     }

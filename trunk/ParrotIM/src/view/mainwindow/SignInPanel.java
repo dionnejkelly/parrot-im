@@ -82,15 +82,12 @@ import model.Model;
 import model.dataType.ProfileCollectionData;
 import model.dataType.ProfileData;
 import model.enumerations.UpdatedType;
-
-import controller.MainController;
-import controller.services.BadConnectionException;
-
+import view.buddylist.BuddyList;
 import view.styles.GPanel;
 import view.styles.LinkLabel;
 import view.styles.PopupWindowListener;
-
-import view.buddylist.BuddyList;
+import controller.MainController;
+import controller.services.BadConnectionException;
 
 /**
  * Sets the GUI component of MainWindow.
@@ -152,20 +149,18 @@ public class SignInPanel extends GPanel implements Observer {
      * includes a separator and help LinkLabel.
      */
     protected MiscPanel misc;
-    
+
     private LinkLabel createProfile;
 
     private LinkLabel manageAccount;
 
     private LinkLabel removeProfile;
-    
+
     private LinkLabel guestAccount;
 
     private JButton connectButton;
 
     private int lastSelectedIndex;
-
-    
 
     private Vector<Object> profileList;
 
@@ -179,15 +174,15 @@ public class SignInPanel extends GPanel implements Observer {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public SignInPanel
-    	(MainWindow frame, MainController chatClient, Model model, boolean allowAutoSignIn) {
-    	System.out.println("init auto sign in allowed: " + allowAutoSignIn);
-    	this.allowAutoSignIn = allowAutoSignIn;
+    public SignInPanel(MainWindow frame, MainController chatClient,
+            Model model, boolean allowAutoSignIn) {
+        System.out.println("init auto sign in allowed: " + allowAutoSignIn);
+        this.allowAutoSignIn = allowAutoSignIn;
         mainFrame = frame;
         core = chatClient;// CORE
         this.model = model;
         model.addObserver(this);
-        
+
         signin = this;
         this.profiles = model.getProfileCollection();
         this.profiles.addObserver(this);
@@ -195,13 +190,13 @@ public class SignInPanel extends GPanel implements Observer {
         header.setOpaque(false);
 
         setLayout(new BorderLayout());
-        manageAccountPanel();        
+        manageAccountPanel();
 
         this.setGradientColors(model.primaryColor, model.secondaryColor);
-        
+
         misc = new MiscPanel(model);
         misc.setOpaque(false);
-        
+
         add(header, BorderLayout.NORTH);
         add(misc, BorderLayout.SOUTH);
     }
@@ -233,7 +228,7 @@ public class SignInPanel extends GPanel implements Observer {
         account_select = new JComboBox(profilesModel);
         account_select.addActionListener((new AccountSelectItemListener()));
         account_select.setAlignmentY(Component.CENTER_ALIGNMENT);
-        
+
         // connect button
         JPanel connectPanel = new JPanel();
         connectPanel.setOpaque(false);
@@ -264,7 +259,8 @@ public class SignInPanel extends GPanel implements Observer {
 
         // guest account
         guestAccount = new LinkLabel("Connect Guest Account", true, model);
-        guestAccount.setToolTipText("Connect without creating a Profile, limited to only one account and disables chatlogging.");
+        guestAccount
+                .setToolTipText("Connect without creating a Profile, limited to only one account and disables chatlogging.");
         guestAccount.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         guestAccount.addMouseListener(new guestAccountListener());
 
@@ -285,9 +281,10 @@ public class SignInPanel extends GPanel implements Observer {
         accPanel.add(panel, BorderLayout.NORTH);
 
         add(accPanel, BorderLayout.CENTER);
-        
+
         if (profileList.contains(profiles.getDefaultProfile())) {
-            account_select.setSelectedIndex(profileList.indexOf(profiles.getDefaultProfile()));
+            account_select.setSelectedIndex(profileList.indexOf(profiles
+                    .getDefaultProfile()));
             manageAccount.setEnabled(true);
             removeProfile.setEnabled(true);
             connectButton.setEnabled(true);
@@ -297,33 +294,35 @@ public class SignInPanel extends GPanel implements Observer {
     /**
      * signIn_ActionPerformed is a function that helps the user to sign in to
      * the server
-     * @throws ClassNotFoundException 
+     * 
+     * @throws ClassNotFoundException
      * 
      */
     private void profileSignIn() {
         ProfileData profile = (ProfileData) account_select.getSelectedItem();
-        System.out.println(profile.getName()+" is signing in");
+        System.out.println(profile.getName() + " is signing in");
         try {
             // Login with server and set model info
-        	
+
             // TODO think of how to implement profile password
             core.loginProfile(profile);
 
-            if (profile.isAutoSignInEnabled())
-            	dontInstantiate = true;
+            if (profile.isAutoSignInEnabled()) {
+                dontInstantiate = true;
+            }
             // Handle the GUI changes
             new BuddyList(core, model, mainFrame.getLocation());
             mainFrame.dispose();
             System.out.println("got here!!");
         } catch (BadConnectionException e1) {
-        	
+
             header.displaySystemStatus("Sign in failed!");
             System.out.println("sign in failed!");
             mainFrame.setEnabled(true);
         } catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -334,12 +333,12 @@ public class SignInPanel extends GPanel implements Observer {
      */
     public void update(Observable o, Object arg) {
 
-        if(arg == UpdatedType.COLOR){
-        	this.setGradientColors(model.primaryColor, model.secondaryColor);
-        	
-        	updateUI();
-        }else{
-        	// Clear current list of profiles
+        if (arg == UpdatedType.COLOR) {
+            this.setGradientColors(model.primaryColor, model.secondaryColor);
+
+            updateUI();
+        } else {
+            // Clear current list of profiles
             this.profilesModel.removeAllElements();
 
             // Set up the "header" of the list
@@ -366,9 +365,8 @@ public class SignInPanel extends GPanel implements Observer {
          * @param evt
          */
         public void actionPerformed(ActionEvent evt) {
-      
-            	profileSignIn();
-			
+
+            profileSignIn();
 
             return;
         }
@@ -386,7 +384,8 @@ public class SignInPanel extends GPanel implements Observer {
                 System.out.println("enabled");
 
                 ManageAccountFrame manageAccount =
-                        new ManageAccountFrame((ProfileData) account_select.getSelectedItem(), model, core);
+                        new ManageAccountFrame((ProfileData) account_select
+                                .getSelectedItem(), model, core);
                 manageAccount.addWindowListener(new PopupWindowListener(
                         mainFrame, manageAccount));
             }
@@ -418,7 +417,7 @@ public class SignInPanel extends GPanel implements Observer {
         public void mouseClicked(MouseEvent evt) {
             // TODO: set this
             new NewProfileFrame(model, mainFrame, core);
-            
+
         }
 
         public void mouseEntered(MouseEvent e) {
@@ -492,42 +491,66 @@ public class SignInPanel extends GPanel implements Observer {
             int selectedIndex = account_select.getSelectedIndex();
             if (selectedIndex > 0 && lastSelectedIndex != selectedIndex) {
 
-                ProfileData selectedProfile = (ProfileData) account_select.getSelectedItem();
+                ProfileData selectedProfile =
+                        (ProfileData) account_select.getSelectedItem();
                 System.out.println(selectedProfile.getName());
-                //change avatar and colors
+                // change avatar and colors
                 try {
-					System.out.println(model.getAvatarDirectory(selectedProfile.getName()));
-					header.changeAvatar(model.getAvatarDirectory(selectedProfile.getName()));
-					
-					model.primaryColor = Color.decode("0x" + model.getColor(1, selectedProfile.getName()).toString());
-					model.secondaryColor = Color.decode("0x" + model.getColor(2, selectedProfile.getName()).toString());
-					model.tertiaryColor = Color.decode("0x" + model.getColor(3, selectedProfile.getName()).toString());
-					model.primaryTextColor = Color.decode("0x" + model.getColor(4, selectedProfile.getName()).toString());
-					model.textPaneColor = Color.decode("0x" + model.getColor(5, selectedProfile.getName()).toString());
-					
-					model.updateColors();
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+                    System.out.println(model.getAvatarDirectory(selectedProfile
+                            .getName()));
+                    header.changeAvatar(model
+                            .getAvatarDirectory(selectedProfile.getName()));
+
+                    model.primaryColor =
+                            Color.decode("0x"
+                                    + model.getColor(1,
+                                            selectedProfile.getName())
+                                            .toString());
+                    model.secondaryColor =
+                            Color.decode("0x"
+                                    + model.getColor(2,
+                                            selectedProfile.getName())
+                                            .toString());
+                    model.tertiaryColor =
+                            Color.decode("0x"
+                                    + model.getColor(3,
+                                            selectedProfile.getName())
+                                            .toString());
+                    model.primaryTextColor =
+                            Color.decode("0x"
+                                    + model.getColor(4,
+                                            selectedProfile.getName())
+                                            .toString());
+                    model.textPaneColor =
+                            Color.decode("0x"
+                                    + model.getColor(5,
+                                            selectedProfile.getName())
+                                            .toString());
+
+                    model.updateColors();
+                } catch (ClassNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
                 }
                 // Only pop up password if needed
                 if (selectedProfile.isPasswordEnabled() && allowAutoSignIn) {
-                	System.out.println("password enabled");
+                    System.out.println("password enabled");
                     new SimplifiedPasswordPrompt(selectedProfile);
-                    
 
                 } else {
                     // No password required
-                	System.out.println("password disabled");
+                    System.out.println("password disabled");
                     manageAccount.setEnabled(true);
                     removeProfile.setEnabled(true);
                     connectButton.setEnabled(true);
-                    //auto sign in
+                    // auto sign in
 
-                	System.out.println("auto sign in: " + selectedProfile.isAutoSignInEnabled());
-                    if (selectedProfile.isAutoSignInEnabled() && allowAutoSignIn){
-                    	profileSignIn();
+                    System.out.println("auto sign in: "
+                            + selectedProfile.isAutoSignInEnabled());
+                    if (selectedProfile.isAutoSignInEnabled()
+                            && allowAutoSignIn) {
+                        profileSignIn();
                     }
                 }
                 allowAutoSignIn = true;
@@ -641,21 +664,26 @@ public class SignInPanel extends GPanel implements Observer {
         }
 
         public void passwordChecker() {
-        	ProfileData selectedProfile = (ProfileData) account_select.getSelectedItem();
-        	String passwordMatch = selectedProfile.getPassword();
+            ProfileData selectedProfile =
+                    (ProfileData) account_select.getSelectedItem();
+            String passwordMatch = selectedProfile.getPassword();
             if (String.copyValueOf(passwordPrompt.getPassword()).equals(
                     passwordMatch)) {
                 lastSelectedIndex = account_select.getSelectedIndex();
-                
-                System.out.println("auto sign in: " + selectedProfile.isAutoSignInEnabled());
-                
-                //auto sign in
-                if (selectedProfile.isAutoSignInEnabled() && allowAutoSignIn)
-                	profileSignIn();
+
+                System.out.println("auto sign in: "
+                        + selectedProfile.isAutoSignInEnabled());
+
+                // auto sign in
+                if (selectedProfile.isAutoSignInEnabled() && allowAutoSignIn) {
+                    profileSignIn();
+                }
             } else {
-            	passwordFrame.setAlwaysOnTop(false);
-                JOptionPane.showMessageDialog(null,
-                        "Password for " + ((ProfileData) account_select.getSelectedItem()).getName() + " does not match ", "Failed", JOptionPane.ERROR_MESSAGE);
+                passwordFrame.setAlwaysOnTop(false);
+                JOptionPane.showMessageDialog(null, "Password for "
+                        + ((ProfileData) account_select.getSelectedItem())
+                                .getName() + " does not match ", "Failed",
+                        JOptionPane.ERROR_MESSAGE);
                 account_select.setSelectedIndex(0);
                 header.changeAvatar(null);
             }

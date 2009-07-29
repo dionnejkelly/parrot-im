@@ -16,14 +16,10 @@
 
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
-import controller.MainController;
-
-import view.mainwindow.MainWindow;
 import model.DatabaseFunctions;
 import model.Model;
-import model.dataType.ProfileData;
+import view.mainwindow.MainWindow;
+import controller.MainController;
 
 public class ParrotIM {
 
@@ -33,14 +29,15 @@ public class ParrotIM {
         DatabaseFunctions.setDatabaseName("parrot.db");
         Model model = new Model();
         MainController controller = new MainController(model);
-        MainWindow mainWindow = new MainWindow(controller, model);
+        new MainWindow(controller, model);
 
         // Mac OS Menubar optimization
         String lcOSName = System.getProperty("os.name").toLowerCase();
 
-        if (lcOSName.startsWith("mac"))
+        if (lcOSName.startsWith("mac")) {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
-        
+        }
+
         // XMPPConnection.DEBUG_ENABLED = true;
 
         return;

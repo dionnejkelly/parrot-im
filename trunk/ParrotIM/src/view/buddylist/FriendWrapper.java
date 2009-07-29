@@ -23,15 +23,19 @@ public class FriendWrapper implements Observer {
 
         this.user.addObserver(this);
     }
-    
+
     public FriendWrapper(UserData user, boolean twitterFriend) {
         this.user = user;
-        this.labelRepresentation = new JLabel(" " + this.getUser().getNickname()+ " - Last Updated " + ((TwitterUserData) this.getUser()).getMinutesSinceUpdate()+ " mins ago");
+        this.labelRepresentation =
+                new JLabel(" "
+                        + this.getUser().getNickname()
+                        + " - Last Updated "
+                        + ((TwitterUserData) this.getUser())
+                                .getMinutesSinceUpdate() + " mins ago");
         this.labelRepresentation.setForeground(Color.BLACK);
 
         this.user.addObserver(this);
     }
-
 
     public UserData getUser() {
         return this.user;
@@ -64,9 +68,11 @@ public class FriendWrapper implements Observer {
         } else if (user.getState() == UserStateType.AWAY) {
             labelColor = Color.ORANGE.darker();
 
-        } else if (user.getState() == UserStateType.BRB || user.getState() == UserStateType.PHONE || user.getState() == UserStateType.LUNCH) {
-        	labelColor = Color.CYAN.darker();
-        } 
+        } else if (user.getState() == UserStateType.BRB
+                || user.getState() == UserStateType.PHONE
+                || user.getState() == UserStateType.LUNCH) {
+            labelColor = Color.CYAN.darker();
+        }
         // revive me
         else {
 
@@ -84,8 +90,8 @@ public class FriendWrapper implements Observer {
         } else if (user instanceof TwitterUserData) {
             toReturn =
                     "  " + user.getNickname() + " -- " + user.getStatus()
-                            + " (Posted: " + ((TwitterUserData)user).getDatePosted()
-                            + " )";
+                            + " (Posted: "
+                            + ((TwitterUserData) user).getDatePosted() + " )";
         } else if (user.getState() == UserStateType.ONLINE) {
             if (user.getNickname().trim().equals("")) {
                 toReturn =

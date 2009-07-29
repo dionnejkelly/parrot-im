@@ -17,7 +17,6 @@
 package view.blockManager;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -43,16 +42,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-
-import view.styles.GPanel;
-
-import controller.MainController;
 
 import model.Model;
 import model.dataType.UserData;
 import model.enumerations.UpdatedType;
+import view.styles.GPanel;
+import controller.MainController;
 
 /**
  * Provides auto-mated messaging capability to users in the chat window. For the
@@ -91,12 +86,11 @@ public class BlockManager extends JFrame implements Observer {
      * Temporarily holds the integrity of user's buddylist model.
      */
     private DefaultListModel usersBuddyListModel;
-    
+
     /**
      * Temporarily holds the integrity of blocked users.
      */
     private DefaultListModel blockedBuddyListModel;
-
 
     /**
      * Temporarily holds the integrity of Parrot IM user's buddylist model.
@@ -132,7 +126,7 @@ public class BlockManager extends JFrame implements Observer {
     private MainController chatClient;
 
     private JLabel usersLabel, blockedLabel;
-    
+
     // Section
     // III - Constructors
 
@@ -146,9 +140,12 @@ public class BlockManager extends JFrame implements Observer {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.model = model;
         this.chatClient = c;
-        this.usersProfileBuddyList = this.model.getCurrentProfile().getAllFriends();
-        this.usersProfileBuddyList = UserData.cullBlocked(this.usersProfileBuddyList);
-        this.usersProfileBuddyList = UserData.sortAlphabetical(this.usersProfileBuddyList);
+        this.usersProfileBuddyList =
+                this.model.getCurrentProfile().getAllFriends();
+        this.usersProfileBuddyList =
+                UserData.cullBlocked(this.usersProfileBuddyList);
+        this.usersProfileBuddyList =
+                UserData.sortAlphabetical(this.usersProfileBuddyList);
         // this.bannedAccountList = bannedUsersList.getBannedUserList();
         this.bannedAccountList = model.getBannedUserList();
 
@@ -161,7 +158,8 @@ public class BlockManager extends JFrame implements Observer {
         setLocation(100, 100);
         setPreferredSize(new Dimension(510, 360));
         setResizable(false);
-        setIconImage(new ImageIcon("src/images/buddylist/block_user.png").getImage());
+        setIconImage(new ImageIcon("src/images/buddylist/block_user.png")
+                .getImage());
 
         // set main panel
         accMANPanel = new GPanel();
@@ -187,8 +185,7 @@ public class BlockManager extends JFrame implements Observer {
 
     private void leftPanelManager() {
         JPanel leftPanel = new JPanel();
-        leftPanel.setBorder(BorderFactory
-				.createEmptyBorder(5, 5, 5, 5));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         leftPanel.setLayout(new BorderLayout());
         leftPanel.setOpaque(false);
 
@@ -213,8 +210,9 @@ public class BlockManager extends JFrame implements Observer {
         JPanel addremovePanel = new JPanel();
         addremovePanel.setOpaque(false);
 
-        JButton blockButton = new JButton("Block", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/block_user.png")));
+        JButton blockButton =
+                new JButton("Block", new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/block_user.png")));
         blockButton.setPreferredSize(new Dimension(120, 25));
         // Removing Padding from buttons so text can be displayed properly
         Insets buttonInset = new Insets(0, 0, 0, 0);
@@ -271,14 +269,13 @@ public class BlockManager extends JFrame implements Observer {
             }
 
             else {
-//            	popup.setAlwaysOnTop(false);
+                // popup.setAlwaysOnTop(false);
                 String resultMessage =
                         "Sorry for the inconvenience but there is no one to block. Please click on the users you want to block on the list. Thank you for your co-operation.";
-               JOptionPane.showMessageDialog(null, resultMessage);
-               
-//               popup.setAlwaysOnTop(true);
-                
-                
+                JOptionPane.showMessageDialog(null, resultMessage);
+
+                // popup.setAlwaysOnTop(true);
+
             }
 
         }
@@ -333,8 +330,7 @@ public class BlockManager extends JFrame implements Observer {
     private void rightPanelManager() {
         // setting right panel
         JPanel rightPanel = new JPanel();
-        rightPanel.setBorder(BorderFactory
-        					.createEmptyBorder(5, 5, 5, 5));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         rightPanel.setLayout(new BorderLayout());
         rightPanel.setOpaque(false);
 
@@ -350,7 +346,7 @@ public class BlockManager extends JFrame implements Observer {
         for (int i = 0; i < bannedAccountList.size(); i++) {
             blockedBuddyListModel.addElement(bannedAccountList.get(i));
         }
-        
+
         usersBannedBuddyList = new JList(blockedBuddyListModel);
         usersBannedBuddyList
                 .setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -369,8 +365,9 @@ public class BlockManager extends JFrame implements Observer {
         // 0, 12));
 
         Insets buttonInset = new Insets(0, 0, 0, 0);
-        JButton unBlockButton = new JButton("Unblock", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/unblock_user.png")));
+        JButton unBlockButton =
+                new JButton("Unblock", new ImageIcon(this.getClass()
+                        .getResource("/images/buddylist/unblock_user.png")));
         unBlockButton.setPreferredSize(new Dimension(120, 25));
         unBlockButton.setMargin(buttonInset);
 
@@ -392,15 +389,16 @@ public class BlockManager extends JFrame implements Observer {
         buttonsPanel.setLayout(buttonsLayout);
 
         // OK and CANCEL Buttons
-        JButton okButton = new JButton("Done", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_ok.png")));
+        JButton okButton =
+                new JButton("Done", new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/button_ok.png")));
         buttonsPanel.add(okButton);
-//        JButton cancelButton = new JButton("Cancel");
+        // JButton cancelButton = new JButton("Cancel");
 
         okButton.addMouseListener(new okCancelButtonListener());
-       // cancelButton.addMouseListener(new okCancelButtonListener());
+        // cancelButton.addMouseListener(new okCancelButtonListener());
 
-      //  buttonsPanel.add(cancelButton);
+        // buttonsPanel.add(cancelButton);
 
         // adding to rightPanel
         blockedLabel = new JLabel("Blocked Parrot IM Accounts");
@@ -435,9 +433,12 @@ public class BlockManager extends JFrame implements Observer {
         if (arg == UpdatedType.BUDDY_BLOCK_MANAGER) {
 
             // Refresh the lists after a change
-            this.usersProfileBuddyList = this.model.getCurrentProfile().getAllFriends();
-            this.usersProfileBuddyList = UserData.cullBlocked(this.usersProfileBuddyList);
-            this.usersProfileBuddyList = UserData.sortAlphabetical(this.usersProfileBuddyList);
+            this.usersProfileBuddyList =
+                    this.model.getCurrentProfile().getAllFriends();
+            this.usersProfileBuddyList =
+                    UserData.cullBlocked(this.usersProfileBuddyList);
+            this.usersProfileBuddyList =
+                    UserData.sortAlphabetical(this.usersProfileBuddyList);
             this.bannedAccountList = model.getBannedUserList();
 
             usersBuddyListModel.removeAllElements();
@@ -449,16 +450,17 @@ public class BlockManager extends JFrame implements Observer {
             for (int i = 0; i < bannedAccountList.size(); i++) {
                 blockedBuddyListModel.addElement(bannedAccountList.get(i));
             }
-            
+
             return;
-        }else if(arg == UpdatedType.COLOR){
-        	usersLabel.setForeground(model.primaryTextColor);
-        	blockedLabel.setForeground(model.primaryTextColor);
-        	usersLabel.updateUI();
-        	blockedLabel.updateUI();
-        	
-        	accMANPanel.setGradientColors(model.primaryColor, model.secondaryColor);
-        	accMANPanel.updateUI();
-        }   
+        } else if (arg == UpdatedType.COLOR) {
+            usersLabel.setForeground(model.primaryTextColor);
+            blockedLabel.setForeground(model.primaryTextColor);
+            usersLabel.updateUI();
+            blockedLabel.updateUI();
+
+            accMANPanel.setGradientColors(model.primaryColor,
+                    model.secondaryColor);
+            accMANPanel.updateUI();
+        }
     }
 }

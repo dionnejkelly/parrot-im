@@ -26,17 +26,17 @@ public enum UserStateType {
     BUSY("Busy"),
 
     OFFLINE("Offline"),
-    
+
     NOT_AVAILABLE("not available"),
-    
+
     NOT_BE_DISTURBED("not to be disturbed"),
-    
-    INVISIBLE("Invisible"), 
-    
-    BRB("Be right back"), 
-    
-    PHONE("On the phone"), 
-    
+
+    INVISIBLE("Invisible"),
+
+    BRB("Be right back"),
+
+    PHONE("On the phone"),
+
     LUNCH("Lunch");
 
     /**

@@ -34,18 +34,16 @@
 
 package model.dataType;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
-
-import controller.services.BadConnectionException;
 
 import model.DatabaseFunctions;
 import model.Model;
 import model.dataType.tempData.AccountTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+import controller.services.BadConnectionException;
 
 /**
  * Holds the account information of the current account being used, whether it
@@ -77,7 +75,7 @@ public class ProfileData extends Observable {
     private boolean chatLogEnabled;
 
     private boolean soundsEnabled;
-    
+
     private boolean emailEnabled;
 
     /**
@@ -359,8 +357,9 @@ public class ProfileData extends Observable {
         DatabaseFunctions db = null;
         boolean removed = false;
         System.out.println("hello we got here: " + account.getUserID());
-        if (account.isConnected())
-        	account.getConnection().disconnect();
+        if (account.isConnected()) {
+            account.getConnection().disconnect();
+        }
         removed = this.accountData.remove(account);
 
         if (removed) {
@@ -414,34 +413,37 @@ public class ProfileData extends Observable {
     public ArrayList<UserData> getAllFriends() {
         ArrayList<UserData> friends = new ArrayList<UserData>();
         for (AccountData account : this.accountData) {
-        	if (account.isConnected()){
-	            for (UserData user : account.getFriends()) {
-	            	if (user.getServer() != ServerType.TWITTER)
-	                	friends.add(user);
-	            }
-        	}
-        }
-        return friends;
-    }
-    
-    public ArrayList<UserData> getTwitterFriends() {
-        ArrayList<UserData> friends = new ArrayList<UserData>();
-        for (AccountData account : this.accountData) {
-            for (UserData user : account.getFriends()) {
-            	if (user.getServer() == ServerType.TWITTER)
-                	friends.add(user);
+            if (account.isConnected()) {
+                for (UserData user : account.getFriends()) {
+                    if (user.getServer() != ServerType.TWITTER) {
+                        friends.add(user);
+                    }
+                }
             }
         }
         return friends;
     }
-    
+
+    public ArrayList<UserData> getTwitterFriends() {
+        ArrayList<UserData> friends = new ArrayList<UserData>();
+        for (AccountData account : this.accountData) {
+            for (UserData user : account.getFriends()) {
+                if (user.getServer() == ServerType.TWITTER) {
+                    friends.add(user);
+                }
+            }
+        }
+        return friends;
+    }
+
     public ArrayList<UserData> getTweets() throws BadConnectionException {
-        ArrayList<UserData> tweets = new ArrayList<UserData>();
+        new ArrayList<UserData>();
         AccountData temp = this.getAccountFromServer(ServerType.TWITTER);
-        if (temp != null && temp instanceof TwitterAccountData)
-        	return temp.getTweets();
-        else
-        	return null;
+        if (temp != null && temp instanceof TwitterAccountData) {
+            return temp.getTweets();
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -492,8 +494,9 @@ public class ProfileData extends Observable {
 
         // Add accounts to the profile.
         for (AccountTempData a : accounts) {
-            newAccount = Model.createAccount(a.getUserID(), a.getPassword(), a
-                    .getServer());
+            newAccount =
+                    Model.createAccount(a.getUserID(), a.getPassword(), a
+                            .getServer());
             this.addAccount(newAccount);
         }
 
@@ -529,10 +532,11 @@ public class ProfileData extends Observable {
 
         return areEqual;
     }
-    
+
     /**
-     * Sets email notification. This variable should be checked whenever a new email
-     * notification is receieved to determine whether the program display it.
+     * Sets email notification. This variable should be checked whenever a new
+     * email notification is receieved to determine whether the program display
+     * it.
      * 
      * @param chatbotEnabled
      */
@@ -542,31 +546,32 @@ public class ProfileData extends Observable {
         return;
     }
 
-	public boolean isEmailEnabled() {
-		
-		return this.emailEnabled;
-	}
+    public boolean isEmailEnabled() {
 
-	public Vector <ServerType> getAllAccountsServer(){
-		Vector<ServerType> serverList = new Vector<ServerType>();
-		
-		//FIXME: right now I only consider about one account per server
-		for (AccountData account : getAccountData()){
-			if (account.isConnected())
-				serverList.add(account.getServer());
-		}
-		return serverList;
-	}
-	
-	public boolean hasTwitter(){
-		return this.getAccountFromServer(ServerType.TWITTER) != null;
-	}
-	
-	public boolean hasTwitterOnly(){
-		return hasTwitter() && this.getAccountData().size()==1;
-	}
-	
-	public boolean isEmptyProfile(){
-		return this.getAccountData().size() == 0;
-	}
+        return this.emailEnabled;
+    }
+
+    public Vector<ServerType> getAllAccountsServer() {
+        Vector<ServerType> serverList = new Vector<ServerType>();
+
+        // FIXME: right now I only consider about one account per server
+        for (AccountData account : getAccountData()) {
+            if (account.isConnected()) {
+                serverList.add(account.getServer());
+            }
+        }
+        return serverList;
+    }
+
+    public boolean hasTwitter() {
+        return this.getAccountFromServer(ServerType.TWITTER) != null;
+    }
+
+    public boolean hasTwitterOnly() {
+        return hasTwitter() && this.getAccountData().size() == 1;
+    }
+
+    public boolean isEmptyProfile() {
+        return this.getAccountData().size() == 0;
+    }
 }

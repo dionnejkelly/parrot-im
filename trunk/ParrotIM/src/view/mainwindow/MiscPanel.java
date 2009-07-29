@@ -38,39 +38,40 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 import model.Model;
-
 import view.styles.LinkLabel;
 
-/** accPanel is a JPanel object.
- * It sets the bottom part of the MainWindow, which includes a separator and help LinkLabel.*/
-public class MiscPanel extends JPanel{
-	
-	/** MiscPanel constructor. It sets up the panel layout.*/
-	public MiscPanel(Model model){
-		setLayout (new BoxLayout(this, BoxLayout.Y_AXIS));
-		setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40));
-		this.setOpaque(false);
-		
-		//line separator
-		JSeparator line = new JSeparator();
-		
-		//guest account
-		LinkLabel help = new LinkLabel ("Help", true, model);
-		help.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            
-            /**
-        	 * When help is clicked, help frame will pop up.
-        	 * @param evt
-        	 */
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
+/**
+ * accPanel is a JPanel object. It sets the bottom part of the MainWindow, which
+ * includes a separator and help LinkLabel.
+ */
+public class MiscPanel extends JPanel {
 
-            	HelpPanel helpPanel = new HelpPanel("http://sites.google.com/site/parrotimhelp/Home");
+    /** MiscPanel constructor. It sets up the panel layout. */
+    public MiscPanel(Model model) {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 40));
+        this.setOpaque(false);
+
+        // line separator
+        JSeparator line = new JSeparator();
+
+        // guest account
+        LinkLabel help = new LinkLabel("Help", true, model);
+        help.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            /*
+             * * When help is clicked, help frame will pop up.
+             * 
+             * @param evt
+             */
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+                new HelpPanel("http://sites.google.com/site/parrotimhelp/Home");
             }
         });
-		
-		add (line);
-		add (help);
-	}
+
+        add(line);
+        add(help);
+    }
 
 }

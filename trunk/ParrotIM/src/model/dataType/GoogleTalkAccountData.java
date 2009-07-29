@@ -2,12 +2,11 @@ package model.dataType;
 
 import java.util.ArrayList;
 
+import model.enumerations.ServerType;
+import model.enumerations.UserStateType;
 import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
 import controller.services.GoogleTalkManager;
-
-import model.enumerations.ServerType;
-import model.enumerations.UserStateType;
 
 public class GoogleTalkAccountData extends AccountData implements
         GoogleTalkPerson {
@@ -113,28 +112,28 @@ public class GoogleTalkAccountData extends AccountData implements
 
         return removed;
     }
-    
+
     public void removeAllFriends() {
         this.friends.clear();
-        
+
         return;
     }
-    
+
     public int hashCode() {
         int hash = "Google Talk".hashCode();
-        
+
         hash = hash * 31 + super.hashCode();
-        
+
         return hash;
     }
-    
-    public boolean equals(Object o) {        
+
+    public boolean equals(Object o) {
         boolean areEqual = super.equals(o);
-        
+
         if (areEqual) {
             areEqual = o instanceof GoogleTalkAccountData;
         }
-        
+
         return areEqual;
     }
 
@@ -142,8 +141,8 @@ public class GoogleTalkAccountData extends AccountData implements
         return ServerType.GOOGLE_TALK;
     }
 
-	@Override
-	public ArrayList<UserData> getTweets() throws BadConnectionException {
-		return null;
-	}
+    @Override
+    public ArrayList<UserData> getTweets() throws BadConnectionException {
+        return null;
+    }
 }

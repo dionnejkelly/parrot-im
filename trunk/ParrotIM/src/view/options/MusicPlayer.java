@@ -1,8 +1,10 @@
 package view.options;
 
-import java.io.*;
-import javax.sound.sampled.*;
-import javax.swing.JOptionPane;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.SourceDataLine;
 
 import model.Model;
 
@@ -28,20 +30,23 @@ public class MusicPlayer {
     // parameter field.
     private void playAudio(String musicFile) {
 
-        try { //       this
-            //.getClass().getResource("/images/buddylist/delete_user.png"
-            //File soundFile = new File(this.getClass().getResource(musicFile).getPath());
-      
-            audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(musicFile));
+        try { // this
+            // .getClass().getResource("/images/buddylist/delete_user.png"
+            // File soundFile = new
+            // File(this.getClass().getResource(musicFile).getPath());
+
+            audioInputStream =
+                    AudioSystem.getAudioInputStream(this.getClass()
+                            .getResource(musicFile));
             audioFormat = audioInputStream.getFormat();
-      
-            //System.out.println(audioFormat);
+
+            // System.out.println(audioFormat);
 
             DataLine.Info dataLineInfo =
                     new DataLine.Info(SourceDataLine.class, audioFormat);
-      
+
             sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-      
+
             // Create a thread to play back the data and
             // start it running. It will run until the
             // end of file.

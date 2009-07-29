@@ -8,21 +8,29 @@
 
 package view.chatwindow;
 
-import java.awt.*;
-import java.util.*;
-import model.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.text.html.HTMLEditorKit;
+
+import model.Model;
 import model.dataType.ChatCollectionData;
 import model.dataType.ConversationData;
 import model.dataType.MultiConversationData;
 import model.dataType.UserData;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
-
-import javax.swing.*;
-import javax.swing.text.html.HTMLEditorKit;
-
-import org.jivesoftware.smackx.packet.VCard;
-
 import controller.MainController;
 
 /**
@@ -55,8 +63,6 @@ public class DisplayPanel extends JPanel implements Observer {
 
     private JLabel twitterLimit;
 
-    private MainController chatClient;
-
     private JLabel chatState;
 
     /**
@@ -71,7 +77,6 @@ public class DisplayPanel extends JPanel implements Observer {
         this.model = model;
         this.model.addObserver(this);
         this.model.getChatCollection().addObserver(this);
-        this.chatClient = c;
         // textPane's Properties
         txtPane = new JEditorPane();
         txtPane.setPreferredSize(new Dimension(250, 300));
@@ -86,7 +91,7 @@ public class DisplayPanel extends JPanel implements Observer {
         // ScrollPane's Properties
         chatWindowScroller = new JScrollPane(txtPane);
         chatWindowScroller
-                .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         chatWindowScroller.setPreferredSize(new Dimension(250, 300));
         chatWindowScroller.setMinimumSize(new Dimension(10, 10));
         chatWindowScroller.getInputContext();
@@ -220,11 +225,11 @@ public class DisplayPanel extends JPanel implements Observer {
                 } else if (model.getActiveConversation().getUser().getState() == UserStateType.ONLINE) {
                     title.setForeground(Color.GREEN.darker());
                 } else if (model.getActiveConversation().getUser().getState() == UserStateType.BUSY
-                		|| model.getActiveConversation().getUser().getState() == UserStateType.AWAY) {
+                        || model.getActiveConversation().getUser().getState() == UserStateType.AWAY) {
                     title.setForeground(Color.ORANGE.darker());
                 } else if (model.getActiveConversation().getUser().getState() == UserStateType.BRB
-                		|| model.getActiveConversation().getUser().getState() == UserStateType.LUNCH
-                		|| model.getActiveConversation().getUser().getState() == UserStateType.PHONE) {
+                        || model.getActiveConversation().getUser().getState() == UserStateType.LUNCH
+                        || model.getActiveConversation().getUser().getState() == UserStateType.PHONE) {
                     title.setForeground(Color.CYAN.darker());
                 } else {
                     title.setForeground(Color.RED.darker());
@@ -257,12 +262,12 @@ public class DisplayPanel extends JPanel implements Observer {
                         .getTypingState());
             }
         } else if (arg == UpdatedType.COLOR) {
-        	txtPane.setBackground(model.textPaneColor);
-        	bar2.setBackground(model.tertiaryColor);
-        	twitterLimit.setForeground(model.primaryTextColor);
-        	
-        	txtPane.updateUI();
-        	bar2.updateUI();
+            txtPane.setBackground(model.textPaneColor);
+            bar2.setBackground(model.tertiaryColor);
+            twitterLimit.setForeground(model.primaryTextColor);
+
+            txtPane.updateUI();
+            bar2.updateUI();
         }
 
         return;

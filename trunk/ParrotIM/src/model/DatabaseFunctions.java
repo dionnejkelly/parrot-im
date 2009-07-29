@@ -56,7 +56,6 @@
 
 package model;
 
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -67,16 +66,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
 import java.util.Random;
-
-import com.itbs.aimcer.bean.Status;
+import java.util.Vector;
 
 import model.dataType.tempData.AccountTempData;
 import model.dataType.tempData.ChatLogMessageTempData;
 import model.dataType.tempData.FriendTempData;
 import model.dataType.tempData.ProfileTempData;
-import model.enumerations.ServerType;
 
 /**
  * Interfaces between the program and the SQLite database. Handles all SQL
@@ -134,8 +130,9 @@ public class DatabaseFunctions {
      */
     public DatabaseFunctions() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        conn = DriverManager.getConnection("jdbc:sqlite:"
-                + DatabaseFunctions.getDatabaseName());
+        conn =
+                DriverManager.getConnection("jdbc:sqlite:"
+                        + DatabaseFunctions.getDatabaseName());
         stat = conn.createStatement();
 
         /*
@@ -211,28 +208,38 @@ public class DatabaseFunctions {
         conn.close();
         return;
     }
+
     /**
-     *  Replace all instances of a String in a String.
-     *   @param  s  String to alter.
-     *   @param  f  String to look for.
-     *   @param  r  String to replace it with, or null to just remove it.
-     */  
+     * Replace all instances of a String in a String.
+     * 
+     * @param s
+     *            String to alter.
+     * @param f
+     *            String to look for.
+     * @param r
+     *            String to replace it with, or null to just remove it.
+     */
 
-    public String replace( String s, String f, String r )
-    {
-       if (s == null)  return s;
-       if (f == null)  return s;
-       if (r == null)  r = "";
+    public String replace(String s, String f, String r) {
+        if (s == null) {
+            return s;
+        }
+        if (f == null) {
+            return s;
+        }
+        if (r == null) {
+            r = "";
+        }
 
-       int index01 = s.indexOf( f );
-       while (index01 != -1)
-       {
-          s = s.substring(0,index01) + r + s.substring(index01+f.length());
-          index01 += r.length();
-          index01 = s.indexOf( f, index01 );
-       }
-       return s;
+        int index01 = s.indexOf(f);
+        while (index01 != -1) {
+            s = s.substring(0, index01) + r + s.substring(index01 + f.length());
+            index01 += r.length();
+            index01 = s.indexOf(f, index01);
+        }
+        return s;
     }
+
     // Section
     // VI - Chat manipulation
 
@@ -250,11 +257,12 @@ public class DatabaseFunctions {
         Date date1 = new Date();
         String timeStamp = new SimpleDateFormat("yyMMddHHmmssS").format(date1);
         String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(date1);
-        String time = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(
-                date1);
+        String time =
+                DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date1);
 
-        prep = conn
-                .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into chatLog values (?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -287,23 +295,24 @@ public class DatabaseFunctions {
         Vector<String> profilesAccountList = new Vector<String>();
         searched = this.replace(searched, "'", "''");
         System.out.println(searched);
-        r3 = stat.executeQuery("select * from people where profile='" + profile
-                + "';");
+        r3 =
+                stat.executeQuery("select * from people where profile='"
+                        + profile + "';");
         while (r3.next()) {
             profilesAccountList.add(r3.getString("accountName"));
         }
-        rs = stat.executeQuery("select * from chatLog where profile='"
-                + profile + "' AND (message LIKE '%" + searched + "%'"
-                + " OR fromUser LIKE '%" + searched + "%' OR"
-                + " toUser LIKE '%" + searched + "%');");
+        rs =
+                stat.executeQuery("select * from chatLog where profile='"
+                        + profile + "' AND (message LIKE '%" + searched + "%'"
+                        + " OR fromUser LIKE '%" + searched + "%' OR"
+                        + " toUser LIKE '%" + searched + "%');");
         while (rs.next()) {
-            if (!accountList.contains(rs.getString("toUser")) && 
-            		!accountList.contains(rs.getString("fromUser"))) {
+            if (!accountList.contains(rs.getString("toUser"))
+                    && !accountList.contains(rs.getString("fromUser"))) {
                 if (profilesAccountList.contains(rs.getString("toUser"))) {
                     accountList.add(rs.getString("fromUser"));
-                }
-                else {
-                accountList.add(rs.getString("toUser"));
+                } else {
+                    accountList.add(rs.getString("toUser"));
                 }
             }
         }
@@ -328,11 +337,14 @@ public class DatabaseFunctions {
         Vector<String> accountList = new Vector<String>();
         searched = this.replace(searched, "'", "''");
         stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatLog where profile = '"
-                + profile + "' AND (toUser='" + buddyname + "' OR fromUser='"
-                + buddyname + "') AND (message LIKE '%" + searched
-                + "%' OR fromUser LIKE '%" + searched + "%' OR toUser LIKE '%"
-                + searched + "%') order by timestamp;");
+        rs =
+                stat.executeQuery("select * from chatLog where profile = '"
+                        + profile + "' AND (toUser='" + buddyname
+                        + "' OR fromUser='" + buddyname
+                        + "') AND (message LIKE '%" + searched
+                        + "%' OR fromUser LIKE '%" + searched
+                        + "%' OR toUser LIKE '%" + searched
+                        + "%') order by timestamp;");
         while (rs.next()) {
             if (!accountList.contains(rs.getString("date"))) {
                 accountList.add(rs.getString("date"));
@@ -358,11 +370,12 @@ public class DatabaseFunctions {
     public ArrayList<ChatLogMessageTempData> getMessageFromDate(
             String username, String buddyname, String date, String searched)
             throws SQLException {
-        ArrayList<ChatLogMessageTempData> messageList = new ArrayList<ChatLogMessageTempData>();
+        ArrayList<ChatLogMessageTempData> messageList =
+                new ArrayList<ChatLogMessageTempData>();
         ChatLogMessageTempData message = null;
         searched = this.replace(searched, "'", "''");
-        rs = stat
-                .executeQuery("select * from chatLog where (toUser='"
+        rs =
+                stat.executeQuery("select * from chatLog where (toUser='"
                         + buddyname + "' AND fromUser='" + username
                         + "') OR (toUser='" + username + "' AND fromUser='"
                         + buddyname + "') AND date='" + date
@@ -372,9 +385,10 @@ public class DatabaseFunctions {
                         + " order by timestamp;");
 
         while (rs.next()) {
-            message = new ChatLogMessageTempData(rs.getString("time"), rs
-                    .getString("fromUser"), rs.getString("toUser"), rs
-                    .getString("message"));
+            message =
+                    new ChatLogMessageTempData(rs.getString("time"), rs
+                            .getString("fromUser"), rs.getString("toUser"), rs
+                            .getString("message"));
             messageList.add(message);
         }
         rs.close();
@@ -382,6 +396,7 @@ public class DatabaseFunctions {
 
         return messageList;
     }
+
     // Section
     // VII - Profile Manipulation
 
@@ -406,8 +421,10 @@ public class DatabaseFunctions {
         String sounds = isSounds ? YES : NO;
         String chatbot = isChatbot ? YES : NO;
 
-        prep = conn.prepareStatement("insert into profiles values "
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into profiles values "
+                                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, name);
@@ -515,12 +532,13 @@ public class DatabaseFunctions {
 
         rs = stat.executeQuery("SELECT * FROM profiles;");
         while (rs.next()) {
-            isDefaultProfile = rs.getString("defaultProfile").equals(YES) ? true
-                    : false;
-            isChatWindowHistory = rs.getString("chatWindowHistory").equals(YES) ? true
-                    : false;
-            isAutoSignIn = rs.getString("autoSignIn").equals(YES) ? true
-                    : false;
+            isDefaultProfile =
+                    rs.getString("defaultProfile").equals(YES) ? true : false;
+            isChatWindowHistory =
+                    rs.getString("chatWindowHistory").equals(YES) ? true
+                            : false;
+            isAutoSignIn =
+                    rs.getString("autoSignIn").equals(YES) ? true : false;
             isChatLog = rs.getString("chatLog").equals(YES) ? true : false;
             isSounds = rs.getString("sounds").equals(YES) ? true : false;
             isChatbot = rs.getString("chatbot").equals(YES) ? true : false;
@@ -548,8 +566,9 @@ public class DatabaseFunctions {
     public String getAvatarDirectory(String profile) throws SQLException {
         String directory = null;
 
-        rs = stat.executeQuery("select * from profiles where name='" + profile
-                + "';");
+        rs =
+                stat.executeQuery("select * from profiles where name='"
+                        + profile + "';");
         if (rs.next()) {
             directory = rs.getString("avatarDirectory");
         }
@@ -561,42 +580,44 @@ public class DatabaseFunctions {
             return directory;
         }
     }
+
     // String emailNotification should be a String.
     public void setEmailNotification(String profile, String emailNotification)
-    throws SQLException {
-    	System.out.println("this is" + emailNotification);
-	// TODO: change so that it will return null if the avatar is not set
-	stat.executeUpdate("update profiles set emailNotification = '"
-			+ emailNotification + "'  where name='" + profile + "'");
-	conn.close();
-	}
-	
-	public String getEmailNotification(String profile) throws SQLException {
-	String emailNotification = "";
-	rs = stat.executeQuery("select * from profiles where name='" + profile
-	        + "';");
-	if (rs.next()) {
-	    emailNotification = rs.getString("emailNotification");
-	}
-	rs.close();
-	conn.close();
-	return emailNotification;
-	
-}
+            throws SQLException {
+        System.out.println("this is" + emailNotification);
+        // TODO: change so that it will return null if the avatar is not set
+        stat.executeUpdate("update profiles set emailNotification = '"
+                + emailNotification + "'  where name='" + profile + "'");
+        conn.close();
+    }
+
+    public String getEmailNotification(String profile) throws SQLException {
+        String emailNotification = "";
+        rs =
+                stat.executeQuery("select * from profiles where name='"
+                        + profile + "';");
+        if (rs.next()) {
+            emailNotification = rs.getString("emailNotification");
+        }
+        rs.close();
+        conn.close();
+        return emailNotification;
+
+    }
 
     public void setStatusMessage(String profile, String statusMessage)
             throws SQLException {
         statusMessage = this.replace(statusMessage, "'", "''");
         // TODO: change so that it will return null if the avatar is not set
-        stat.executeUpdate("upda" +
-        		"te profiles set statusMessage='"
+        stat.executeUpdate("upda" + "te profiles set statusMessage='"
                 + statusMessage + "' where name='" + profile + "'");
         conn.close();
     }
 
     public String getStatusMessage(String profile) throws SQLException {
-        rs = stat.executeQuery("select * from profiles where name='" + profile
-                + "';");
+        rs =
+                stat.executeQuery("select * from profiles where name='"
+                        + profile + "';");
         rs.next();
         String statusMessage = rs.getString("statusMessage");
         rs.close();
@@ -618,14 +639,15 @@ public class DatabaseFunctions {
 
     public int getStatus(String profile) throws SQLException {
         int status = 0;
-        rs = stat.executeQuery("select * from profiles where name='" + profile
-                + "';");
+        rs =
+                stat.executeQuery("select * from profiles where name='"
+                        + profile + "';");
         rs.next();
         // Integer.
         if (rs.getString("status").length() != 0) {
             status = Integer.parseInt(rs.getString("status"));
         }
-        System.out.println("DATABASE getStatus: "+status);
+        System.out.println("DATABASE getStatus: " + status);
 
         rs.close();
         conn.close();
@@ -648,8 +670,9 @@ public class DatabaseFunctions {
     public void addUsers(String profile, String serverType,
             String serverAddress, String accountName, String password)
             throws SQLException {
-        prep = conn
-                .prepareStatement("insert into people values (?, ?, ?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into people values (?, ?, ?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -693,8 +716,9 @@ public class DatabaseFunctions {
             throws ClassNotFoundException, SQLException {
         String password = null;
 
-        rs = stat.executeQuery("select * from people where accountName = '"
-                + accountName + "'");
+        rs =
+                stat.executeQuery("select * from people where accountName = '"
+                        + accountName + "'");
 
         if (rs.next()) {
             password = rs.getString("password");
@@ -738,18 +762,21 @@ public class DatabaseFunctions {
         String password = null;
         String serverAddress = null;
         AccountTempData account = null;
-        ArrayList<AccountTempData> accountList = new ArrayList<AccountTempData>();
+        ArrayList<AccountTempData> accountList =
+                new ArrayList<AccountTempData>();
 
-        rs = stat.executeQuery("SELECT * FROM people WHERE profile = '"
-                + profile + "';");
+        rs =
+                stat.executeQuery("SELECT * FROM people WHERE profile = '"
+                        + profile + "';");
         while (rs.next()) {
             accountName = rs.getString("accountName");
             password = rs.getString("password");
             server = rs.getString("serverType");
             serverAddress = rs.getString("serverAddress");
 
-            account = new AccountTempData(server, serverAddress, accountName,
-                    password);
+            account =
+                    new AccountTempData(server, serverAddress, accountName,
+                            password);
             accountList.add(account);
         }
         rs.close();
@@ -767,8 +794,9 @@ public class DatabaseFunctions {
      */
     public Vector<String> getProfilesUserList(String name) throws SQLException {
         Vector<String> accountList = new Vector<String>();
-        rs = stat.executeQuery("select * from people where profile='" + name
-                + "';");
+        rs =
+                stat.executeQuery("select * from people where profile='" + name
+                        + "';");
         while (rs.next()) {
             accountList.add(rs.getString("accountName"));
         }
@@ -789,8 +817,9 @@ public class DatabaseFunctions {
             throws SQLException {
         boolean exists = false;
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM people WHERE profile='" + profile
-                + "' and accountName='" + account + "';");
+        rs =
+                stat.executeQuery("SELECT * FROM people WHERE profile='"
+                        + profile + "' and accountName='" + account + "';");
 
         // Only check resultSet once
         if (rs.next()) {
@@ -818,8 +847,10 @@ public class DatabaseFunctions {
         boolean blocked = false;
 
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-                + accountName + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
+                                + accountName + "';");
 
         /* Only check resultSet once */
         while (rs.next()) {
@@ -855,8 +886,9 @@ public class DatabaseFunctions {
             blocked = "no";
         }
 
-        prep = conn
-                .prepareStatement("insert into friendList values (?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into friendList values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, accountName);
@@ -926,8 +958,12 @@ public class DatabaseFunctions {
             throws SQLException {
         boolean exists = false;
         stat = conn.createStatement();
-        rs = stat.executeQuery("SELECT * FROM friendList WHERE accountName='"
-                + accountName + "' and friendName='" + friendName + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM friendList WHERE accountName='"
+                                + accountName
+                                + "' and friendName='"
+                                + friendName + "';");
 
         // Only check resultSet once
         if (rs.next()) {
@@ -943,8 +979,9 @@ public class DatabaseFunctions {
 
     public void addQuestion(String profile, String question)
             throws SQLException {
-        prep = conn
-                .prepareStatement("insert into chatBotQuestions values (?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into chatBotQuestions values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -958,8 +995,9 @@ public class DatabaseFunctions {
 
     public void addAnswer(String profile, String question, String answer)
             throws SQLException {
-        prep = conn
-                .prepareStatement("insert into chatBotAnswers values (?, ?, ?);");
+        prep =
+                conn
+                        .prepareStatement("insert into chatBotAnswers values (?, ?, ?);");
         conn.setAutoCommit(false);
 
         prep.setString(1, profile);
@@ -976,8 +1014,14 @@ public class DatabaseFunctions {
         Vector<String> responseList = new Vector<String>();
         int counter = 0;
         int whichResponse = 0;
-        rs = stat.executeQuery("SELECT * FROM chatBotAnswers WHERE profile='"
-                + profile + "'" + " AND question='" + question + "';");
+        rs =
+                stat
+                        .executeQuery("SELECT * FROM chatBotAnswers WHERE profile='"
+                                + profile
+                                + "'"
+                                + " AND question='"
+                                + question
+                                + "';");
 
         // Only check resultSet once
         while (rs.next()) {
@@ -993,8 +1037,10 @@ public class DatabaseFunctions {
 
     public Vector<String> getQuestionList(String profile) throws SQLException {
         Vector<String> questionList = new Vector<String>();
-        rs = stat.executeQuery("select * from chatBotQuestions where profile='"
-                + profile + "';");
+        rs =
+                stat
+                        .executeQuery("select * from chatBotQuestions where profile='"
+                                + profile + "';");
         int counter = 0;
         while (rs.next()) {
             counter++;
@@ -1010,8 +1056,10 @@ public class DatabaseFunctions {
 
     public Vector<String> getAnswersList(String profile) throws SQLException {
         Vector<String> answersList = new Vector<String>();
-        rs = stat.executeQuery("select * from chatBotAnswers where profile='"
-                + profile + "';");
+        rs =
+                stat
+                        .executeQuery("select * from chatBotAnswers where profile='"
+                                + profile + "';");
         while (rs.next()) {
             answersList.add(rs.getString("answer"));
         }
@@ -1024,9 +1072,10 @@ public class DatabaseFunctions {
             throws SQLException {
         question = this.replace(question, "'", "''");
         Vector<String> answersList = new Vector<String>();
-        rs = stat.executeQuery("select * from chatBotAnswers "
-                + "where question='" + question + "' AND profile ='" + profile
-                + "';");
+        rs =
+                stat.executeQuery("select * from chatBotAnswers "
+                        + "where question='" + question + "' AND profile ='"
+                        + profile + "';");
         while (rs.next()) {
             answersList.add(rs.getString("answer"));
         }
@@ -1054,18 +1103,20 @@ public class DatabaseFunctions {
         questionsList.add(question);
         String afterQuestion = "";
         stat = conn.createStatement();
-        rs = stat.executeQuery("select * from chatBotQuestions "
-                + "where question='" + question + "' AND profile ='" + profile
-                + "';");
+        rs =
+                stat.executeQuery("select * from chatBotQuestions "
+                        + "where question='" + question + "' AND profile ='"
+                        + profile + "';");
         while (rs.getString("afterQuestion") != null
                 && !rs.getString("afterQuestion").equals("null")) {
             questionsList.add(rs.getString("afterQuestion"));
             afterQuestion = rs.getString("afterQuestion");
             stat = conn.createStatement();
             rs.close();
-            rs = stat.executeQuery("select * from chatBotQuestions "
-                    + "where question='" + afterQuestion + "' AND profile='"
-                    + profile + "';");
+            rs =
+                    stat.executeQuery("select * from chatBotQuestions "
+                            + "where question='" + afterQuestion
+                            + "' AND profile='" + profile + "';");
             rs.next();
         }
 
@@ -1078,14 +1129,16 @@ public class DatabaseFunctions {
     public void removeChatQuestion(String profile, String question)
             throws SQLException {
         boolean wasFirstQuestion = false;
-        rs = stat.executeQuery("select * from chatBotQuestions "
-                + "where question='" + question + "' AND profile='" + profile
-                + "';");
+        rs =
+                stat.executeQuery("select * from chatBotQuestions "
+                        + "where question='" + question + "' AND profile='"
+                        + profile + "';");
         rs.next();
         String questionAfter = rs.getString("afterQuestion");
-        rs = stat.executeQuery("select * from chatBotQuestions "
-                + "where afterQuestion='" + question + "' AND profile='"
-                + profile + "';");
+        rs =
+                stat.executeQuery("select * from chatBotQuestions "
+                        + "where afterQuestion='" + question
+                        + "' AND profile='" + profile + "';");
         rs.next();
         try {
             System.out.println(rs.getString("question"));
@@ -1173,52 +1226,47 @@ public class DatabaseFunctions {
 
         return name.contentEquals(profile);
     }
-    public void setColor(String profile, int whichOne, String color) throws SQLException
-    {
-    	if (whichOne == 1) {
-            stat.executeUpdate("update profiles set color1='" 
-            		+ color + "' where name='" + profile + "'");
-    	}
-    	else if (whichOne == 2) {
-            stat.executeUpdate("update profiles set color2='" 
-            		+ color + "' where name='" + profile + "'");
-    	}
-    	else if (whichOne == 3) {
-            stat.executeUpdate("update profiles set color3='" 
-            		+ color + "' where name='" + profile + "'");
-    	}
-    	else if (whichOne == 4) {
-            stat.executeUpdate("update profiles set color4='" 
-            		+ color + "' where name='" + profile + "'");
-    	}
-    	else {
-            stat.executeUpdate("update profiles set color5='" 
-            		+ color + "' where name='" + profile + "'");
-    	}
+
+    public void setColor(String profile, int whichOne, String color)
+            throws SQLException {
+        if (whichOne == 1) {
+            stat.executeUpdate("update profiles set color1='" + color
+                    + "' where name='" + profile + "'");
+        } else if (whichOne == 2) {
+            stat.executeUpdate("update profiles set color2='" + color
+                    + "' where name='" + profile + "'");
+        } else if (whichOne == 3) {
+            stat.executeUpdate("update profiles set color3='" + color
+                    + "' where name='" + profile + "'");
+        } else if (whichOne == 4) {
+            stat.executeUpdate("update profiles set color4='" + color
+                    + "' where name='" + profile + "'");
+        } else {
+            stat.executeUpdate("update profiles set color5='" + color
+                    + "' where name='" + profile + "'");
+        }
         conn.close();
     }
-    public String getColor(String profile, int whichOne) throws SQLException
-    {
-    	String color = "";
-        rs = stat.executeQuery("select * from profiles where name='" + profile + "';");
+
+    public String getColor(String profile, int whichOne) throws SQLException {
+        String color = "";
+        rs =
+                stat.executeQuery("select * from profiles where name='"
+                        + profile + "';");
         rs.next();
-    	if (whichOne == 1) {
-    		color = rs.getString("color1");
-    	}
-    	else if (whichOne == 2) {
-    		color = rs.getString("color2");
-    	}
-    	else if (whichOne == 3) {
-    		color = rs.getString("color3");
-    	}
-    	else if (whichOne == 4) {
-    		color = rs.getString("color4");
-    	}
-    	else {
-    		color = rs.getString("color5");
-    	}
+        if (whichOne == 1) {
+            color = rs.getString("color1");
+        } else if (whichOne == 2) {
+            color = rs.getString("color2");
+        } else if (whichOne == 3) {
+            color = rs.getString("color3");
+        } else if (whichOne == 4) {
+            color = rs.getString("color4");
+        } else {
+            color = rs.getString("color5");
+        }
         conn.close();
         return color;
     }
-    
+
 }

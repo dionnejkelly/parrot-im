@@ -32,7 +32,6 @@
 package view.mainwindow;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,13 +55,11 @@ import javax.swing.JTextField;
 import model.Model;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
-
-import controller.MainController;
-import controller.services.BadConnectionException;
-
 import view.buddylist.BuddyList;
 import view.styles.GPanel;
 import view.styles.PopupWindowListener;
+import controller.MainController;
+import controller.services.BadConnectionException;
 
 /**
  * The container frame of the guest account. User can use this frame to log in
@@ -70,7 +67,7 @@ import view.styles.PopupWindowListener;
  * 
  * This object inherits JFrame variables and methods
  */
-public class GuestAccountFrame extends JFrame implements Observer{
+public class GuestAccountFrame extends JFrame implements Observer {
 
     protected JTextField jabberServer;
     protected JPanel serverPanel;
@@ -115,7 +112,7 @@ public class GuestAccountFrame extends JFrame implements Observer{
      * connect to.
      */
     private JComboBox server;
-    
+
     private GPanel GALPanel;
 
     /**
@@ -147,8 +144,7 @@ public class GuestAccountFrame extends JFrame implements Observer{
         // select server
         GALPanel = new GPanel();
         GALPanel.setLayout(new BorderLayout());
-        GALPanel.setGradientColors(model.primaryColor,
-                model.secondaryColor);
+        GALPanel.setGradientColors(model.primaryColor, model.secondaryColor);
 
         // select server
         server = new JComboBox(model.getServerList());
@@ -207,11 +203,13 @@ public class GuestAccountFrame extends JFrame implements Observer{
         setupPanel.add(passwordPanel);
 
         /* BOTTOM PART: OK + CANCEL BUTTONs */
-        JButton okButton = new JButton("OK", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_ok.png")));
+        JButton okButton =
+                new JButton("OK", new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/button_ok.png")));
         okButton.addActionListener(new okButtonActionListener());
-        JButton cancelButton = new JButton("Cancel", new ImageIcon(this.getClass()
-                .getResource("/images/mainwindow/cancel.png")));
+        JButton cancelButton =
+                new JButton("Cancel", new ImageIcon(this.getClass()
+                        .getResource("/images/mainwindow/cancel.png")));
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
@@ -255,8 +253,9 @@ public class GuestAccountFrame extends JFrame implements Observer{
                 // depends on the ICQManager implementation
                 // || serverType == ServerType.ICQ
                 // || serverType == ServerType.AIM) {
-            	if (serverType == ServerType.AIM)
-            		serverType = ServerType.ICQ;
+                if (serverType == ServerType.AIM) {
+                    serverType = ServerType.ICQ;
+                }
                 core.loginAsGuest(serverType, username, password);
             } else if (serverType == ServerType.JABBER) {
                 core.loginAsGuest(serverType, username, password, jabberServer
@@ -269,8 +268,8 @@ public class GuestAccountFrame extends JFrame implements Observer{
                 throw new BadConnectionException();
             }
             new BuddyList(core, model, mainFrame.getLocation());// pops
-                                                                // buddylist
-                                                                // window
+            // buddylist
+            // window
             mainFrame.dispose(); // TODO: consider if the sign in fails
         } catch (BadConnectionException e1) {
             // e1.printStackTrace();
@@ -335,11 +334,11 @@ public class GuestAccountFrame extends JFrame implements Observer{
         }
     }
 
-	public void update(Observable o, Object arg) {
-		if(arg == UpdatedType.COLOR){
-			GALPanel.setGradientColors(model.primaryColor,
-	                model.secondaryColor);
-			GALPanel.updateUI();
-		}
-	}
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.COLOR) {
+            GALPanel
+                    .setGradientColors(model.primaryColor, model.secondaryColor);
+            GALPanel.updateUI();
+        }
+    }
 }

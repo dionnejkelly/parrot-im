@@ -15,7 +15,7 @@
  * 
  * License: GNU General Public License version 2.
  * Full license can be found in ParrotIM/LICENSE.txt.
-*/
+ */
 
 package view.buddylist;
 
@@ -40,19 +40,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.MainController;
-
-import view.options.MusicPlayer;
-import view.styles.GPanel;
-
 import model.Model;
 import model.dataType.AccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
+import view.options.MusicPlayer;
+import view.styles.GPanel;
+import controller.MainController;
 
 public class AddBuddyPanel extends GPanel implements Observer {
-	private JFrame popup;
+    private JFrame popup;
     private JTextField buddyField;
     private JComboBox selectableServer;
     private JPanel setupPanel;
@@ -60,130 +58,146 @@ public class AddBuddyPanel extends GPanel implements Observer {
     private MainController controller;
     private Model model;
 
-    public AddBuddyPanel(Model model, MainController controller, JFrame popup, ServerType server) {
-    	this.popup = popup;
+    public AddBuddyPanel(Model model, MainController controller, JFrame popup,
+            ServerType server) {
+        this.popup = popup;
         this.model = model;
         this.controller = controller;
         this.model.getCurrentProfile().addObserver(this);
-        
+
         // set main panel
         setLayout(new BorderLayout());
-        
+
         // manage account panel
         setupPanel(server);
-        
+
     }
-    
+
     private void setupPanel(ServerType server) {
 
         this.setGradientColors(model.primaryColor, model.secondaryColor);
         this.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
-        
-    	/*TOP PART*/
+
+        /* TOP PART */
         // select server
-        Vector <ServerType> serverList = model.getCurrentProfile().getAllAccountsServer();
+        Vector<ServerType> serverList =
+                model.getCurrentProfile().getAllAccountsServer();
         selectableServer = new JComboBox(serverList);
         selectableServer.setOpaque(false);
-        selectableServer.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
-        
-        if (server != null){
-	        for (int index=0; index < serverList.size(); index ++){
-	        	if (serverList.get(index).compareTo(server)==0){
-	        		selectableServer.setSelectedIndex(index);
-	        		break;
-	        	}
-	        }
+        selectableServer
+                .setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+
+        if (server != null) {
+            for (int index = 0; index < serverList.size(); index++) {
+                if (serverList.get(index).compareTo(server) == 0) {
+                    selectableServer.setSelectedIndex(index);
+                    break;
+                }
+            }
         }
 
         // buddy's address
         buddyField = new JTextField();
         buddyField.addKeyListener(new buddyFieldKeyListener());
-        JPanel buddyInfoPanel = new JPanel ();
-        buddyInfoPanel.setLayout(new BoxLayout(buddyInfoPanel, BoxLayout.Y_AXIS));
+        JPanel buddyInfoPanel = new JPanel();
+        buddyInfoPanel
+                .setLayout(new BoxLayout(buddyInfoPanel, BoxLayout.Y_AXIS));
         buddyInfoPanel.setOpaque(false);
         buddyInfoPanel.add(new JLabel("         Select server to add:"));
         buddyInfoPanel.add(selectableServer);
         buddyInfoPanel.add(new JLabel("Enter your buddy's email address:"));
         buddyInfoPanel.add(buddyField);
 
-        
         /* BOTTOM PART: OK + CANCEL BUTTONs */
-        okButton = new JButton("OK", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_ok.png")));
+        okButton =
+                new JButton("OK", new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/button_ok.png")));
         okButton.setEnabled(false);
         okButton.addActionListener(new okButtonActionListener());
-        JButton cancelButton = new JButton("Cancel", new ImageIcon(this.getClass()
-                .getResource("/images/mainwindow/cancel.png")));
+        JButton cancelButton =
+                new JButton("Cancel", new ImageIcon(this.getClass()
+                        .getResource("/images/mainwindow/cancel.png")));
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
         buttonsPanel.add(okButton);
         buttonsPanel.add(cancelButton);
-        
+
         // account setup Panel
         this.setLayout(new BorderLayout());
         this.add(buddyInfoPanel, BorderLayout.NORTH);
         this.add(buttonsPanel, BorderLayout.SOUTH);
-        
 
         model.addObserver(this);
 
     }
-    
+
     public void update(Observable o, Object arg) {
-		if(arg == UpdatedType.COLOR){
-			
-			setupPanel.setBackground(model.tertiaryColor);
-	        
-			setGradientColors(model.primaryColor, model.secondaryColor);
-			
-			this.updateUI();
-		}
-		
+        if (arg == UpdatedType.COLOR) {
+
+            setupPanel.setBackground(model.tertiaryColor);
+
+            setGradientColors(model.primaryColor, model.secondaryColor);
+
+            this.updateUI();
+        }
+
         return;
-	}
-
-    private class buddyFieldKeyListener implements KeyListener{
-
-		public void keyPressed(KeyEvent arg0) {}
-
-		public void keyReleased(KeyEvent arg0) {
-			if (buddyField.getText().length() > 0)
-				okButton.setEnabled(true);
-			else
-				okButton.setEnabled(false);
-		}
-
-		public void keyTyped(KeyEvent arg0) {}
-    	
     }
-    private class okButtonActionListener implements ActionListener{
 
-		public void actionPerformed(ActionEvent arg0) {
-			ServerType selectedServer = (ServerType)selectableServer.getSelectedItem();
-			AccountData account = model.getCurrentProfile().getAccountFromServer(selectedServer);
-			String buddyID = buddyField.getText().toLowerCase();
-			if (buddyID.equals(account.getUserID())) {
-				JOptionPane.showMessageDialog(null, 
-	            		   "Argh, you cannot add yourself! Please provide a different email address.");
-			} else if (userExist (buddyID, account.getFriends())){
-				JOptionPane.showMessageDialog(null, buddyField.getText()+" is an existing contact.\n"
-                      + "Please provide a non-existing friend's email address.");
-			} else {
-				 controller.addFriend(account, buddyField.getText());
-				 new MusicPlayer("/audio/buddy/addFriend.wav", model);
-				 popup.dispose();
-			}
-		}
-		
-		/**
+    private class buddyFieldKeyListener implements KeyListener {
+
+        public void keyPressed(KeyEvent arg0) {
+        }
+
+        public void keyReleased(KeyEvent arg0) {
+            if (buddyField.getText().length() > 0) {
+                okButton.setEnabled(true);
+            } else {
+                okButton.setEnabled(false);
+            }
+        }
+
+        public void keyTyped(KeyEvent arg0) {
+        }
+
+    }
+
+    private class okButtonActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent arg0) {
+            ServerType selectedServer =
+                    (ServerType) selectableServer.getSelectedItem();
+            AccountData account =
+                    model.getCurrentProfile().getAccountFromServer(
+                            selectedServer);
+            String buddyID = buddyField.getText().toLowerCase();
+            if (buddyID.equals(account.getUserID())) {
+                JOptionPane
+                        .showMessageDialog(null,
+                                "Argh, you cannot add yourself! Please provide a different email address.");
+            } else if (userExist(buddyID, account.getFriends())) {
+                JOptionPane
+                        .showMessageDialog(
+                                null,
+                                buddyField.getText()
+                                        + " is an existing contact.\n"
+                                        + "Please provide a non-existing friend's email address.");
+            } else {
+                controller.addFriend(account, buddyField.getText());
+                new MusicPlayer("/audio/buddy/addFriend.wav", model);
+                popup.dispose();
+            }
+        }
+
+        /**
          * check if buddyID exists
          * 
          * @param buddyID
          * @return boolean
          */
         private boolean userExist(String buddyID, ArrayList<UserData> buddies) {
-        	
+
             for (UserData buddy : buddies) {
                 if (buddy.getUserID().equals(buddyID)) {
                     return true;
@@ -193,12 +207,12 @@ public class AddBuddyPanel extends GPanel implements Observer {
             return false;
         }
     }
-    
-    private class cancelButtonActionListener implements ActionListener{
 
-		public void actionPerformed(ActionEvent arg0) {
-			popup.dispose();
-		}
-    	
+    private class cancelButtonActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent arg0) {
+            popup.dispose();
+        }
+
     }
 }

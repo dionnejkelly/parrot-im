@@ -2,15 +2,11 @@ package model.dataType;
 
 import java.util.ArrayList;
 
-import winterwell.jtwitter.Twitter.Status;
-
-import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+import winterwell.jtwitter.Twitter.Status;
 import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
-import controller.services.GoogleTalkManager;
-import controller.services.JabberManager;
 import controller.services.TwitterManager;
 
 public class TwitterAccountData extends AccountData implements TwitterPerson {
@@ -27,7 +23,7 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
     private TwitterManager connection;
 
     private int minutesSinceUpdate;
-    
+
     public TwitterAccountData(String userID, String password) {
         super(userID, password);
 
@@ -42,7 +38,7 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
         if (connection == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.friends = new ArrayList<TwitterUserData>();
         this.connection = connection;
     }
@@ -54,13 +50,14 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
 
         return genericFriends;
     }
-    
+
     public ArrayList<UserData> getTweets() throws BadConnectionException {
-    	tweets = new ArrayList<UserData>();
-    	for (Status temp : connection.retrieveRecentTweets()){
-    		tweets.add(new TwitterUserData(temp.getUser().getName(),temp.getText(),temp.getCreatedAt()));
-    	}
-    	return tweets;
+        tweets = new ArrayList<UserData>();
+        for (Status temp : connection.retrieveRecentTweets()) {
+            tweets.add(new TwitterUserData(temp.getUser().getName(), temp
+                    .getText(), temp.getCreatedAt()));
+        }
+        return tweets;
     }
 
     /**
@@ -76,10 +73,10 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
         if (connection != null && connection instanceof TwitterManager) {
             this.connection = (TwitterManager) connection;
         }
-        
+
         return;
     }
-    
+
     /**
      * Adds a friend by UserData. Will not add duplicate entries, checked by
      * userID.
@@ -102,7 +99,7 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
 
         setChanged();
         notifyObservers();
-        
+
         return notDuplicate;
     }
 
@@ -117,7 +114,7 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
     public boolean removeFriend(UserData exFriend) {
         setChanged();
         notifyObservers();
-        
+
         return this.friends.remove(exFriend);
     }
 
@@ -133,14 +130,14 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
 
         setChanged();
         notifyObservers();
-        
+
         return removed;
     }
-    
+
     public void removeAllFriends() {
         this.friends.clear();
         this.tweets.clear();
-        
+
         return;
     }
 
@@ -154,19 +151,19 @@ public class TwitterAccountData extends AccountData implements TwitterPerson {
 
     public int hashCode() {
         int hash = "Twitter".hashCode();
-        
+
         hash = hash * 31 + super.hashCode();
-        
+
         return hash;
     }
-    
+
     public boolean equals(Object o) {
         boolean areEqual = super.equals(o);
-        
+
         if (areEqual) {
             areEqual = o instanceof TwitterAccountData;
         }
-        
+
         return areEqual;
     }
 

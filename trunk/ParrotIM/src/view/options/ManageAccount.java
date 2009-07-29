@@ -22,7 +22,6 @@
 package view.options;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +32,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -42,7 +40,6 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -56,21 +53,17 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import view.buddylist.BuddyList;
-import view.styles.GPanel;
-import view.styles.WindowColors;
-
-import controller.MainController;
-import controller.services.BadConnectionException;
-
 import model.Model;
 import model.dataType.AccountData;
 import model.dataType.ProfileData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
+import view.buddylist.BuddyList;
+import view.styles.GPanel;
+import controller.MainController;
 
 public class ManageAccount extends GPanel implements Observer {
-	private BuddyList buddyFrame;
+    private BuddyList buddyFrame;
     private ProfileData profile;
     private JList accList;
     private JTextField UNField;
@@ -80,17 +73,18 @@ public class ManageAccount extends GPanel implements Observer {
     private JPanel rightPanel, jabberServerPanel, jabberServerLabelPanel;
     private JPanel usernamePanel, setupPanel, passwordPanel;
     private JLabel jabberServerLabel, UNLabel, pwdLabel;
-    
+
     protected JPanel serverPanel;
     protected JTextField jabberServer;
     protected JButton removeButton;
-    
+
     private Model model;
-    
+
     private MainController chatClient;
 
-    public ManageAccount(ProfileData profile, BuddyList buddyFrame, Model model, MainController controller) {
-    	this.buddyFrame = buddyFrame;
+    public ManageAccount(ProfileData profile, BuddyList buddyFrame,
+            Model model, MainController controller) {
+        this.buddyFrame = buddyFrame;
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.profile = profile;
         this.profile.addObserver(this);
@@ -103,8 +97,10 @@ public class ManageAccount extends GPanel implements Observer {
         // manage account panel
         leftPanelMAN();
         rightPanelMAN();
-        
-        if (model!=null) model.addObserver(this);
+
+        if (model != null) {
+            model.addObserver(this);
+        }
 
     }
 
@@ -137,11 +133,12 @@ public class ManageAccount extends GPanel implements Observer {
         });
 
         JScrollPane listScroller = new JScrollPane(accList);
-        
-        if (buddyFrame != null)
-        	listScroller.setPreferredSize(new Dimension(180, 200));
-        else 
-        	listScroller.setPreferredSize(new Dimension(180, 185));
+
+        if (buddyFrame != null) {
+            listScroller.setPreferredSize(new Dimension(180, 200));
+        } else {
+            listScroller.setPreferredSize(new Dimension(180, 185));
+        }
         listScroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -174,11 +171,11 @@ public class ManageAccount extends GPanel implements Observer {
         // add to account manager pop up main panel
         this.add(leftPanel, BorderLayout.WEST);
     }
-    
-    public JPanel getRightPanel(){
-    	return rightPanel;
+
+    public JPanel getRightPanel() {
+        return rightPanel;
     }
-    
+
     private void rightPanelMAN() {
 
         ProfileKeyListener keyListener = new ProfileKeyListener();
@@ -191,7 +188,7 @@ public class ManageAccount extends GPanel implements Observer {
         // textfield
         jabberServer = new JTextField();
         jabberServer.addKeyListener(keyListener);
-//        jabberServer.setPreferredSize(new Dimension(180, 20));
+        // jabberServer.setPreferredSize(new Dimension(180, 20));
         jabberServer.setToolTipText("specify jabber server");
         jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
@@ -246,7 +243,7 @@ public class ManageAccount extends GPanel implements Observer {
         setupPanel.add(usernamePanel);
         setupPanel.add(passwordPanel);
 
-        //setting right panel
+        // setting right panel
         rightPanel = new JPanel();
         rightPanel.setLayout(new BorderLayout());
         rightPanel.setOpaque(false);
@@ -257,13 +254,11 @@ public class ManageAccount extends GPanel implements Observer {
         add(rightPanel, BorderLayout.EAST);
     }
 
-   
-
     private class serverListener implements ItemListener {
 
         public void itemStateChanged(ItemEvent e) {
-//            UNField.setText(null);
-//            pwdField.setText(null);
+            // UNField.setText(null);
+            // pwdField.setText(null);
             if (server.getSelectedIndex() == 0) {
                 serverPanel.setVisible(true);
             } else {
@@ -292,22 +287,24 @@ public class ManageAccount extends GPanel implements Observer {
                 } else {
                     // AccountData is null: account of the selected
                     // serverType is not yet stored
-                	AccountData account;
+                    AccountData account;
                     if ((ServerType) server.getSelectedItem() == ServerType.JABBER) {
-                    	account = Model.createAccount(UNField
-                                .getText(), String.copyValueOf(pwdField
-                                        .getPassword()), (ServerType) server
-                                        .getSelectedItem(), jabberServer.getText());
+                        account =
+                                Model.createAccount(UNField.getText(), String
+                                        .copyValueOf(pwdField.getPassword()),
+                                        (ServerType) server.getSelectedItem(),
+                                        jabberServer.getText());
                     } else {
-                        account = Model.createAccount(UNField
-                                .getText(), String.copyValueOf(pwdField
-                                .getPassword()), (ServerType) server
-                                .getSelectedItem());
+                        account =
+                                Model.createAccount(UNField.getText(), String
+                                        .copyValueOf(pwdField.getPassword()),
+                                        (ServerType) server.getSelectedItem());
                     }
                     profile.addAccount(account);
-                    if (buddyFrame!=null){
-                    	System.out.println("This should never happen in the Main Window!!!");
-                    	buddyFrame.addAccountJMenu(account);
+                    if (buddyFrame != null) {
+                        System.out
+                                .println("This should never happen in the Main Window!!!");
+                        buddyFrame.addAccountJMenu(account);
                     }
                 }
                 UNField.setText("");
@@ -321,22 +318,26 @@ public class ManageAccount extends GPanel implements Observer {
     private class removeActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             int selected = accList.getSelectedIndex();
-            
-        	AccountData selectedAccount = (AccountData)accList.getSelectedValue();
- 
+
+            AccountData selectedAccount =
+                    (AccountData) accList.getSelectedValue();
+
             if (selected >= 0) {
-            	System.out.println("MANAGEACCOUNT: "+selected);
-            	System.out.println("MANAGEACCOUNT: "+((AccountData) accList.getSelectedValue()).getUserID());
-                if (buddyFrame !=null){
-                	System.out.println("This should never happen in the Main Window!!!");
-                	BuddyList.removeAccountJMenu(selectedAccount);
-                	chatClient.disconnect(selectedAccount);
+                System.out.println("MANAGEACCOUNT: " + selected);
+                System.out.println("MANAGEACCOUNT: "
+                        + ((AccountData) accList.getSelectedValue())
+                                .getUserID());
+                if (buddyFrame != null) {
+                    System.out
+                            .println("This should never happen in the Main Window!!!");
+                    BuddyList.removeAccountJMenu(selectedAccount);
+                    chatClient.disconnect(selectedAccount);
                 }
                 profile.removeAccount(selectedAccount);
                 System.out.println("GO HERE");
                 removeButton.setEnabled(false);
             }
-            
+
         }
     }
 
@@ -358,51 +359,53 @@ public class ManageAccount extends GPanel implements Observer {
         public void keyReleased(KeyEvent e) {
             if (UNField.getText().length() > 0
                     && pwdField.getPassword().length > 0) {
-                if (server.getSelectedIndex() > 0)
+                if (server.getSelectedIndex() > 0) {
                     addButton.setEnabled(true);
-                else {
-                    if (jabberServer.getText().length() > 0)
+                } else {
+                    if (jabberServer.getText().length() > 0) {
                         addButton.setEnabled(true);
-                    else
+                    } else {
                         addButton.setEnabled(false);
+                    }
                 }
-            } else
+            } else {
                 addButton.setEnabled(false);
+            }
 
         }
 
-        public void keyTyped(KeyEvent e) {}
+        public void keyTyped(KeyEvent e) {
+        }
 
     }
-    
+
     public void update(Observable o, Object arg) {
-		if(arg == UpdatedType.COLOR){
-			jabberServerPanel.setBackground(model.tertiaryColor);
-			
-			jabberServerLabelPanel.setBackground(model.tertiaryColor);
-			jabberServerLabel.setForeground(model.primaryTextColor);
-			serverPanel.setBackground(model.tertiaryColor);
-			
-			UNLabel.setBackground(model.tertiaryColor);
-	        UNLabel.setForeground(model.primaryTextColor);
-	        
-	        pwdLabel.setBackground(model.tertiaryColor);
-	        pwdLabel.setForeground(model.primaryTextColor);
-	        
-	        usernamePanel.setBackground(model.tertiaryColor);
-	        passwordPanel.setBackground(model.tertiaryColor);
-	        setupPanel.setBackground(model.tertiaryColor);
-	        
-			setGradientColors(model.primaryColor, model.secondaryColor);
-			
-			this.updateUI();
-		}
-		
-		accList.setListData(new Vector<AccountData>(profile.getAccountData()));
-//        accList.updateUI();
+        if (arg == UpdatedType.COLOR) {
+            jabberServerPanel.setBackground(model.tertiaryColor);
+
+            jabberServerLabelPanel.setBackground(model.tertiaryColor);
+            jabberServerLabel.setForeground(model.primaryTextColor);
+            serverPanel.setBackground(model.tertiaryColor);
+
+            UNLabel.setBackground(model.tertiaryColor);
+            UNLabel.setForeground(model.primaryTextColor);
+
+            pwdLabel.setBackground(model.tertiaryColor);
+            pwdLabel.setForeground(model.primaryTextColor);
+
+            usernamePanel.setBackground(model.tertiaryColor);
+            passwordPanel.setBackground(model.tertiaryColor);
+            setupPanel.setBackground(model.tertiaryColor);
+
+            setGradientColors(model.primaryColor, model.secondaryColor);
+
+            this.updateUI();
+        }
+
+        accList.setListData(new Vector<AccountData>(profile.getAccountData()));
+        // accList.updateUI();
 
         return;
-	}
-
+    }
 
 }

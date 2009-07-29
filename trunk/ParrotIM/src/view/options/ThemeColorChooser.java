@@ -24,8 +24,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -33,14 +31,13 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import view.styles.GPanel;
-
 import model.Model;
+import view.styles.GPanel;
 
 /**
  * The ThemeColorChooser contains the panel that holds the integrity of the
@@ -49,37 +46,39 @@ import model.Model;
  * This object inherits from JPanel
  */
 
-public class ThemeColorChooser extends GPanel implements ChangeListener  {
-	/** A chooser GUI.*/
-	protected JColorChooser colorChooser;
-	
-	/** A banner label.*/
+public class ThemeColorChooser extends GPanel implements ChangeListener {
+    /** A chooser GUI. */
+    protected JColorChooser colorChooser;
+
+    /** A banner label. */
     protected JLabel banner;
-    
-    /** Buttons label.*/
+
+    /** Buttons label. */
     protected JPanel buttonPanel;
-    
-    /** User's color preference.*/
+
+    /** User's color preference. */
     protected Color userColor;
-    
+
     /** pointer to the model */
     protected Model model;
-    
-    /** Color Chooser's main frame.*/
+
+    /** Color Chooser's main frame. */
     private JFrame mainFrame;
-    
+
     private JButton colorButton;
-    
-	public ThemeColorChooser(JFrame frame, JButton colorButton, Model model) {
-    	super(new BorderLayout());
-    	setGradientColors(model.primaryColor, model.secondaryColor);
-    	
-    	this.model = model;
-    	this.mainFrame = frame;
-    	this.colorButton = colorButton;
-    	
-        //Set up the banner at the top of the window
-        banner = new JLabel("Welcome to the Parrot IM Color Zone!", JLabel.CENTER);
+
+    public ThemeColorChooser(JFrame frame, JButton colorButton, Model model) {
+        super(new BorderLayout());
+        setGradientColors(model.primaryColor, model.secondaryColor);
+
+        this.model = model;
+        this.mainFrame = frame;
+        this.colorButton = colorButton;
+
+        // Set up the banner at the top of the window
+        banner =
+                new JLabel("Welcome to the Parrot IM Color Zone!",
+                        SwingConstants.CENTER);
         banner.setForeground(Color.BLACK);
         banner.setBackground(Color.WHITE);
         banner.setOpaque(true);
@@ -89,12 +88,12 @@ public class ThemeColorChooser extends GPanel implements ChangeListener  {
         JPanel bannerPanel = new JPanel(new BorderLayout());
         bannerPanel.add(banner, BorderLayout.CENTER);
         bannerPanel.setBorder(BorderFactory.createTitledBorder("Font Preview"));
-        
-        //Set up color chooser for setting text color
+
+        // Set up color chooser for setting text color
         colorChooser = new JColorChooser(banner.getForeground());
         colorChooser.getSelectionModel().addChangeListener(this);
-        colorChooser.setBorder(BorderFactory.createTitledBorder(
-                                             "Choose Text Color"));
+        colorChooser.setBorder(BorderFactory
+                .createTitledBorder("Choose Text Color"));
         colorChooser.setOpaque(false);
         colorChooser.setPreviewPanel(banner);
 
@@ -105,58 +104,59 @@ public class ThemeColorChooser extends GPanel implements ChangeListener  {
         buttonsLayout.setHgap(5);
         buttonPanel.setLayout(buttonsLayout);
         buttonPanel.setPreferredSize(new Dimension(170, 35));
-        
-        JButton okButton = new JButton("DONE", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_ok.png")));
-        
+
+        JButton okButton =
+                new JButton("DONE", new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/button_ok.png")));
+
         okButton.addActionListener(new okButtonListener());
-        
+
         buttonPanel.add(okButton);
-        
-        //add(bannerPanel, BorderLayout.CENTER);
+
+        // add(bannerPanel, BorderLayout.CENTER);
         add(colorChooser, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.PAGE_END);
-	}
-	
+    }
+
     /**
      * Check for the user's color preference.
      * 
      * @param e
      */
-    
+
     class okButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			mainFrame.setVisible(false);
-		}
+        public void actionPerformed(ActionEvent event) {
+            mainFrame.setVisible(false);
+        }
     }
 
-	public void stateChanged(ChangeEvent arg0) {
-		if(colorButton.getText().equals("1")){
-			model.primaryColor = colorChooser.getColor();
-			model.setColor(1, Integer.toHexString(
-					colorChooser.getColor().getRGB()).substring(2, 8));
-		}else if(colorButton.getText().equals("2")){
-			model.secondaryColor = colorChooser.getColor();
-			model.setColor(2, Integer.toHexString(
-					colorChooser.getColor().getRGB()).substring(2, 8));
-		}else if(colorButton.getText().equals("3")){
-			model.tertiaryColor = colorChooser.getColor();
-			model.setColor(3, Integer.toHexString(
-					colorChooser.getColor().getRGB()).substring(2, 8));
-		}else if(colorButton.getText().equals("text")){
-			model.primaryTextColor = colorChooser.getColor();
-			model.setColor(4, Integer.toHexString(
-					colorChooser.getColor().getRGB()).substring(2, 8));
-		}else if(colorButton.getText().equals("chat")){
-			model.textPaneColor = colorChooser.getColor();
-			model.setColor(5, Integer.toHexString(
-					colorChooser.getColor().getRGB()).substring(2, 8));
-		}
-		
-		colorButton.setBackground(colorChooser.getColor());
-		model.updateColors();
-		
-		setGradientColors(model.primaryColor, model.secondaryColor);
-		this.updateUI();
-	}
+    public void stateChanged(ChangeEvent arg0) {
+        if (colorButton.getText().equals("1")) {
+            model.primaryColor = colorChooser.getColor();
+            model.setColor(1, Integer.toHexString(
+                    colorChooser.getColor().getRGB()).substring(2, 8));
+        } else if (colorButton.getText().equals("2")) {
+            model.secondaryColor = colorChooser.getColor();
+            model.setColor(2, Integer.toHexString(
+                    colorChooser.getColor().getRGB()).substring(2, 8));
+        } else if (colorButton.getText().equals("3")) {
+            model.tertiaryColor = colorChooser.getColor();
+            model.setColor(3, Integer.toHexString(
+                    colorChooser.getColor().getRGB()).substring(2, 8));
+        } else if (colorButton.getText().equals("text")) {
+            model.primaryTextColor = colorChooser.getColor();
+            model.setColor(4, Integer.toHexString(
+                    colorChooser.getColor().getRGB()).substring(2, 8));
+        } else if (colorButton.getText().equals("chat")) {
+            model.textPaneColor = colorChooser.getColor();
+            model.setColor(5, Integer.toHexString(
+                    colorChooser.getColor().getRGB()).substring(2, 8));
+        }
+
+        colorButton.setBackground(colorChooser.getColor());
+        model.updateColors();
+
+        setGradientColors(model.primaryColor, model.secondaryColor);
+        this.updateUI();
+    }
 }

@@ -22,13 +22,10 @@
 package view.mainwindow;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -45,13 +42,11 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import controller.MainController;
-
-import view.styles.GPanel;
-import view.styles.PopupWindowListener;
-
 import model.Model;
 import model.dataType.ProfileData;
+import view.styles.GPanel;
+import view.styles.PopupWindowListener;
+import controller.MainController;
 
 public class NewProfileFrame extends JFrame {
     private Model model;
@@ -63,15 +58,16 @@ public class NewProfileFrame extends JFrame {
     private JFrame mainFrame;
     private JButton nextButton;
     private JCheckBox autoSigninCheck;
-    
+
     private MainController chatClient;
 
-    public NewProfileFrame(Model model,JFrame mainFrame, MainController controller) {
+    public NewProfileFrame(Model model, JFrame mainFrame,
+            MainController controller) {
         popupFrame = this;
         this.model = model;
         this.mainFrame = mainFrame;
         this.chatClient = controller;
-        
+
         this.addWindowListener(new PopupWindowListener(this.mainFrame, this));
 
         /* PROFILE Name is limited to __ characters */
@@ -90,9 +86,10 @@ public class NewProfileFrame extends JFrame {
         defaultCheck.setForeground(model.primaryTextColor);
         defaultCheck.setPreferredSize(new Dimension(375, 20));
         defaultCheck.setAlignmentX(LEFT_ALIGNMENT);
-//        defaultCheck
-//                .setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs."
-//                        + "<br>There can only be one Default Profile, checking this will set this profile as the new default");
+        // defaultCheck
+        // .setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs."
+        // +
+        // "<br>There can only be one Default Profile, checking this will set this profile as the new default");
 
         autoSigninCheck = new JCheckBox("Auto Signin");
         autoSigninCheck.setForeground(model.primaryTextColor);
@@ -141,13 +138,15 @@ public class NewProfileFrame extends JFrame {
         optionPanel.add(passwordOption);
 
         /* BUTTONS */
-        nextButton = new JButton("Next", new ImageIcon(this.getClass()
-                .getResource("/images/mainwindow/next.png")));
+        nextButton =
+                new JButton("Next", new ImageIcon(this.getClass().getResource(
+                        "/images/mainwindow/next.png")));
         nextButton.setEnabled(false);
         nextButton.addKeyListener(new NextCancelButtonKeyListener(true));
         nextButton.addActionListener(new nextButtonActionListener());
-        JButton cancelButton = new JButton("Cancel", new ImageIcon(this
-                .getClass().getResource("/images/mainwindow/cancel.png")));
+        JButton cancelButton =
+                new JButton("Cancel", new ImageIcon(this.getClass()
+                        .getResource("/images/mainwindow/cancel.png")));
         cancelButton.addKeyListener(new NextCancelButtonKeyListener(false));
         cancelButton.addActionListener(new cancelButtonActionListener());
         JPanel buttonsPanel = new JPanel();
@@ -177,14 +176,16 @@ public class NewProfileFrame extends JFrame {
 
     }
 
-    private void cancelButtonFunction(){
-    	popupFrame.dispose();
+    private void cancelButtonFunction() {
+        popupFrame.dispose();
     }
-    private void nextButtonFunction(){
+
+    private void nextButtonFunction() {
         ProfileData newProfile = null;
         if (profileName.getText().length() > 15) {
             popupFrame.setAlwaysOnTop(false);
-            String warning = "Please provide a profile name of no longer than 15 characters.";
+            String warning =
+                    "Please provide a profile name of no longer than 15 characters.";
             JOptionPane.showMessageDialog(null, warning);
         } else if (profileName.getText().length() > 0) {
             newProfile = new ProfileData(profileName.getText());
@@ -200,12 +201,14 @@ public class NewProfileFrame extends JFrame {
                 newProfile.setAutoSignInEnabled(true);
             }
 
-            ManageAccountFrame manageAccount = new ManageAccountFrame(newProfile, model, chatClient);
-            manageAccount.addWindowListener(new PopupWindowListener(
-                    mainFrame, manageAccount));
+            ManageAccountFrame manageAccount =
+                    new ManageAccountFrame(newProfile, model, chatClient);
+            manageAccount.addWindowListener(new PopupWindowListener(mainFrame,
+                    manageAccount));
             popupFrame.dispose();
         }
     }
+
     private class CheckListener implements ChangeListener {
         private JCheckBox check;
         private JPanel panel;
@@ -216,10 +219,11 @@ public class NewProfileFrame extends JFrame {
         }
 
         public void stateChanged(ChangeEvent e) {
-            if (check.isSelected())
+            if (check.isSelected()) {
                 panel.setVisible(true);
-            else
+            } else {
                 panel.setVisible(false);
+            }
         }
     }
 
@@ -232,7 +236,7 @@ public class NewProfileFrame extends JFrame {
 
     private class nextButtonActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        	nextButtonFunction();
+            nextButtonFunction();
         }
     }
 
@@ -243,10 +247,11 @@ public class NewProfileFrame extends JFrame {
         }
 
         public void keyReleased(KeyEvent arg0) {
-            if (profileName.getText().length() > 0)
+            if (profileName.getText().length() > 0) {
                 nextButton.setEnabled(true);
-            else
+            } else {
                 nextButton.setEnabled(false);
+            }
         }
 
         public void keyTyped(KeyEvent arg0) {
@@ -254,31 +259,33 @@ public class NewProfileFrame extends JFrame {
         }
 
     }
-    
-    private class NextCancelButtonKeyListener implements KeyListener{
-    	private boolean isNextButton;
-    	public NextCancelButtonKeyListener(boolean isNextButton){
-    		this.isNextButton = isNextButton;
-    	}
-		public void keyPressed(KeyEvent e) {}
-		
-		public void keyReleased(KeyEvent e) {
-			if (isNextButton && e.getKeyChar() == e.VK_ENTER){
-				System.out.println("next Button");
-				nextButtonFunction();
-			}
-			else{
-				if (e.getKeyChar() == e.VK_ENTER){
-					System.out.println("cancel button");
-					cancelButtonFunction();
-				}
-				
-			}
-		}
-		
-		public void keyTyped(KeyEvent e) {}
-		
-    	
+
+    private class NextCancelButtonKeyListener implements KeyListener {
+        private boolean isNextButton;
+
+        public NextCancelButtonKeyListener(boolean isNextButton) {
+            this.isNextButton = isNextButton;
+        }
+
+        public void keyPressed(KeyEvent e) {
+        }
+
+        public void keyReleased(KeyEvent e) {
+            if (isNextButton && e.getKeyChar() == KeyEvent.VK_ENTER) {
+                System.out.println("next Button");
+                nextButtonFunction();
+            } else {
+                if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                    System.out.println("cancel button");
+                    cancelButtonFunction();
+                }
+
+            }
+        }
+
+        public void keyTyped(KeyEvent e) {
+        }
+
     }
 
 }

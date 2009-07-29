@@ -57,61 +57,64 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controller.MainController;
-
-import view.options.ManageAccount;
-
 import model.Model;
 import model.dataType.ProfileData;
+import view.options.ManageAccount;
+import controller.MainController;
 
 public class ManageAccountFrame extends JFrame {
-	JFrame manageaccount;
-	
-	private MainController chatClient;
-	
-    public ManageAccountFrame(ProfileData profile, Model model, MainController controller) {
-    	manageaccount = this;
+    JFrame manageaccount;
+
+    private MainController chatClient;
+
+    public ManageAccountFrame(ProfileData profile, Model model,
+            MainController controller) {
+        manageaccount = this;
         setLocationRelativeTo(null);
 
         setTitle(profile + "\'s Account Manager");
         setLocationRelativeTo(null);
         this.chatClient = controller;
-        //mac/linux 
+        // mac/linux
         String lcOSName = System.getProperty("os.name").toLowerCase();
 
-        if (lcOSName.toLowerCase().contains("win") || lcOSName.toLowerCase().contains("mac"))
-        	setPreferredSize(new Dimension(530, 300));
-        else
-        	setPreferredSize(new Dimension(530, 270));
-        
+        if (lcOSName.toLowerCase().contains("win")
+                || lcOSName.toLowerCase().contains("mac")) {
+            setPreferredSize(new Dimension(530, 300));
+        } else {
+            setPreferredSize(new Dimension(530, 270));
+        }
+
         setResizable(false);
-        ManageAccount accountPanel = new ManageAccount(profile, null, model, chatClient);
+        ManageAccount accountPanel =
+                new ManageAccount(profile, null, model, chatClient);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(accountPanel);
-        
-        //DONE BUTTON
-        JButton doneButton = new JButton ("Done", new ImageIcon(this.getClass()
-                .getResource("/images/buddylist/button_ok.png")));
+
+        // DONE BUTTON
+        JButton doneButton =
+                new JButton("Done", new ImageIcon(this.getClass().getResource(
+                        "/images/buddylist/button_ok.png")));
         doneButton.setAlignmentX(RIGHT_ALIGNMENT);
         doneButton.addActionListener(new doneActionListener());
-        JPanel donePanel = new JPanel ();
-        donePanel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+        JPanel donePanel = new JPanel();
+        donePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
         donePanel.setAlignmentX(RIGHT_ALIGNMENT);
         donePanel.setLayout(new BorderLayout());
-        donePanel.setOpaque (false);
+        donePanel.setOpaque(false);
         donePanel.add(doneButton, BorderLayout.EAST);
         accountPanel.getRightPanel().add(donePanel, BorderLayout.SOUTH);
-        
+
         pack();
         setVisible(true);
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
-    
-    private class doneActionListener implements ActionListener{
 
-		public void actionPerformed(ActionEvent arg0) {
-			manageaccount.dispose();
-		}
-    	
+    private class doneActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent arg0) {
+            manageaccount.dispose();
+        }
+
     }
 }

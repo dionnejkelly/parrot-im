@@ -21,7 +21,11 @@ package test.unit;
  * 
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Vector;
 
@@ -59,13 +63,7 @@ public class ChatbotTest {
         // Show responses
         String q1 = "What is your name?";
         cb1.get_input(q1);
-        String expected = cb1.respond();
-//        for (int i = 0; i < cb1.get_knowledgebase()[0].length; i++) {
-//            if (expected.contains(cb1.get_knowledgebase()[0][i])) {
-//                assertSame(expected, cb1.get_knowledgebase()[0][i]);
-//                break;
-//            }
-//        }
+        cb1.respond();
 
     }
 
@@ -83,9 +81,9 @@ public class ChatbotTest {
 
         Vector<String> check = new Vector<String>();
 
-//        for (int i = 0; i < expected.size(); i++) {
-//            check.add(cb1.get_knowledgebase()[0][i]);
-//        }
+        // for (int i = 0; i < expected.size(); i++) {
+        // check.add(cb1.get_knowledgebase()[0][i]);
+        // }
 
         assertArrayEquals(expected.toArray(), check.toArray());
 
@@ -97,13 +95,7 @@ public class ChatbotTest {
         String q1 = "What is your name?";
         cb1.get_input(q1);
         cb1.find_match();
-        String expected = cb1.handle_repetition();
-//        for (int i = 0; i < cb1.get_knowledgebase()[0].length; i++) {
-//            if (expected.contains(cb1.get_knowledgebase()[0][i])) {
-//                assertSame(expected, cb1.get_knowledgebase()[0][i]);
-//                break;
-//            }
-//        }
+        cb1.handle_repetition();
 
     }
 
@@ -247,7 +239,8 @@ public class ChatbotTest {
         cb1.set_input(q1);
         cb1.preprocess_input();
 
-        System.out.println("my test"+ cb1.insert_space(cb1.cleanString(q1).toUpperCase()));
+        System.out.println("my test"
+                + cb1.insert_space(cb1.cleanString(q1).toUpperCase()));
 
         assertEquals(" WHAT IS YOUR NAME  ", cb1.getPreprocess_input());
     }
@@ -284,26 +277,29 @@ public class ChatbotTest {
 
     @Test
     public void testNull_input() throws Exception {
-    	// Here there are an error
+        // Here there are an error
         String q1 = "Hi";
         cb1.get_input(q1);
         // It is empty
         String q2 = "";
         cb1.get_input(q2);
         // But it will return false because we inserted two spaces
-        assertTrue(cb1.getPreprocess_input().length()==2 && cb1.getSave_prev_input().length()!=0);
-       assertTrue(cb1.null_input());
+        assertTrue(cb1.getPreprocess_input().length() == 2
+                && cb1.getSave_prev_input().length() != 0);
+        assertTrue(cb1.null_input());
     }
 
     @Test
     public void testNull_input_repetition() throws Exception {
-    	// Both are empty but it will return false because we've inserted two spaces to them
+        // Both are empty but it will return false because we've inserted two
+        // spaces to them
         String q1 = "";
         cb1.get_input(q1);
 
         String q2 = "";
         cb1.get_input(q2);
-        assertTrue(cb1.getPreprocess_input().length()==2 && cb1.getSave_prev_input().length()==2);
+        assertTrue(cb1.getPreprocess_input().length() == 2
+                && cb1.getSave_prev_input().length() == 2);
         assertTrue(cb1.null_input_repetition());
     }
 

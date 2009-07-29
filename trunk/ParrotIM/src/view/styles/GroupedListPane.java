@@ -3,7 +3,6 @@ package view.styles;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -15,13 +14,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.itbs.aimcer.bean.Group;
-
 import model.Model;
 import model.enumerations.UpdatedType;
 
 public class GroupedListPane extends JPanel implements Observer {
-	private int lastClickedGroup;
+    private int lastClickedGroup;
     Box boxes[] = new Box[1];
     private WindowColors colors = new WindowColors();
     private ArrayList<CustomListPane> groups = new ArrayList<CustomListPane>();
@@ -38,10 +35,10 @@ public class GroupedListPane extends JPanel implements Observer {
     private Model model;
 
     public GroupedListPane(Model model) {
-    	lastClickedGroup = -2;
-    	this.model = model;
-    	model.addObserver(this);
-    	
+        lastClickedGroup = -2;
+        this.model = model;
+        model.addObserver(this);
+
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
 
@@ -50,16 +47,18 @@ public class GroupedListPane extends JPanel implements Observer {
         add(boxes[0], BorderLayout.NORTH);
     }
 
-    public int getLastClickedGroup(){
-    	return lastClickedGroup;
+    public int getLastClickedGroup() {
+        return lastClickedGroup;
     }
-    
-    public void setLastClickedGroup(int index){
-    	lastClickedGroup = index;
+
+    public void setLastClickedGroup(int index) {
+        lastClickedGroup = index;
     }
-    public void resetSelectionLastClickedGroup(){
-    	if (lastClickedGroup >= 0)
-    		groups.get(lastClickedGroup).resetClickedSelection();
+
+    public void resetSelectionLastClickedGroup() {
+        if (lastClickedGroup >= 0) {
+            groups.get(lastClickedGroup).resetClickedSelection();
+        }
     }
 
     public int getGroupCount() {
@@ -67,15 +66,16 @@ public class GroupedListPane extends JPanel implements Observer {
     }
 
     public void addGroup(String name, ImageIcon img) {
-    	//Panel Settings
+        // Panel Settings
         GPanel newPanel = new GPanel();
-        newPanel.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
+        newPanel.setGradientColors(model.tertiaryColor.darker(),
+                model.tertiaryColor);
         newPanel.setLayout(new BorderLayout());
-        
-        //imageLabel
+
+        // imageLabel
         newPanel.add(new JLabel(img), BorderLayout.WEST);
-        
-        //textLabel
+
+        // textLabel
         JLabel textLabel = new JLabel(name);
         labels.add(textLabel);
         textLabel.setForeground(model.primaryTextColor);
@@ -92,18 +92,19 @@ public class GroupedListPane extends JPanel implements Observer {
         boxes[0].add(newPanel);
         boxes[0].add(collapsableListPane);
     }
-    
+
     public void addGroup(JLabel textLabel, ImageIcon img) {
-        //Panel Settings
+        // Panel Settings
         GPanel newPanel = new GPanel();
-        newPanel.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
+        newPanel.setGradientColors(model.tertiaryColor.darker(),
+                model.tertiaryColor);
         newPanel.setLayout(new BorderLayout());
-        
-        //imageLabel
+
+        // imageLabel
         newPanel.add(new JLabel(img), BorderLayout.WEST);
-        
-        //textLabel
-        //JLabel textLabel = new JLabel(name);
+
+        // textLabel
+        // JLabel textLabel = new JLabel(name);
         labels.add(textLabel);
         textLabel.setForeground(model.primaryTextColor);
         newPanel.add(textLabel, BorderLayout.CENTER);
@@ -119,7 +120,6 @@ public class GroupedListPane extends JPanel implements Observer {
         boxes[0].add(newPanel);
         boxes[0].add(collapsableListPane);
     }
-
 
     public void addGroupTop(String name) {
         GPanel newPanel = new GPanel();
@@ -127,7 +127,8 @@ public class GroupedListPane extends JPanel implements Observer {
         textLabel.setForeground(model.primaryTextColor);
         newPanel.add(textLabel);
         labels.add(textLabel);
-        newPanel.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
+        newPanel.setGradientColors(model.tertiaryColor.darker(),
+                model.tertiaryColor);
 
         CustomListPane collapsableListPane = new CustomListPane();
         groups.add(0, collapsableListPane);
@@ -138,11 +139,12 @@ public class GroupedListPane extends JPanel implements Observer {
         boxes[0].add(collapsableListPane, 1);
     }
 
-    private void setAllGroupIndex(){
-    	for (int index = 0; index < groups.size(); index++){
-    		groups.get(index).setGroupIndex(index);
-    	}
+    private void setAllGroupIndex() {
+        for (int index = 0; index < groups.size(); index++) {
+            groups.get(index).setGroupIndex(index);
+        }
     }
+
     public void addElement(int group, String name, ImageIcon img) {
         groups.get(group).addElement(name, img);
     }
@@ -150,11 +152,11 @@ public class GroupedListPane extends JPanel implements Observer {
     public void addElement(int group, JPanel externalFriendPanel) {
         groups.get(group).addElement(externalFriendPanel);
     }
-    
+
     public void addElement(int group, JPanel externalFriendPanel, int index) {
         groups.get(group).addElement(externalFriendPanel, index);
     }
-    
+
     public void removeElement(int group, JPanel externalFriendPanel) {
         groups.get(group).removeElement(externalFriendPanel);
 
@@ -173,7 +175,7 @@ public class GroupedListPane extends JPanel implements Observer {
     public Component getComponent(int group, int componentIndex) {
         return groups.get(group).boxes[0].getComponent(componentIndex);
     }
-    
+
     public CustomListPane getGroup(int group) {
         return groups.get(group);
     }
@@ -209,22 +211,30 @@ public class GroupedListPane extends JPanel implements Observer {
         /**
          * Unused methods
          */
-        public void mouseEntered(MouseEvent event) {}
-        public void mouseExited(MouseEvent event) {}
-        public void mousePressed(MouseEvent e) {}
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        public void mouseExited(MouseEvent event) {
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
     }
 
-	public void update(Observable o, Object arg) {
-		if(arg == UpdatedType.COLOR){
-			for(GPanel g : gPanels){
-				g.setGradientColors(model.tertiaryColor.darker(), model.tertiaryColor);
-				g.updateUI();
-			}
-			for(JLabel l : labels){
-				l.setForeground(model.primaryTextColor);
-				l.updateUI();
-			}
-		}
-	}
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.COLOR) {
+            for (GPanel g : gPanels) {
+                g.setGradientColors(model.tertiaryColor.darker(),
+                        model.tertiaryColor);
+                g.updateUI();
+            }
+            for (JLabel l : labels) {
+                l.setForeground(model.primaryTextColor);
+                l.updateUI();
+            }
+        }
+    }
 }

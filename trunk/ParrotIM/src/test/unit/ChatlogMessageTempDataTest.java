@@ -16,8 +16,7 @@
 
 package test.unit;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertSame;
 import model.dataType.tempData.ChatLogMessageTempData;
 
 import org.junit.After;
@@ -32,11 +31,10 @@ public class ChatlogMessageTempDataTest {
     @Before
     public void setUp() throws Exception {
         cl1 =
-                new ChatLogMessageTempData(
-                        "Thur13:00", "Ray", "Telia", "Clean it up!");
+                new ChatLogMessageTempData("Thur13:00", "Ray", "Telia",
+                        "Clean it up!");
         cl2 =
-                new ChatLogMessageTempData(
-                        "Fri1:17", "Vito", "Bonasera",
+                new ChatLogMessageTempData("Fri1:17", "Vito", "Bonasera",
                         "So what do you want?");
     }
 
@@ -50,8 +48,7 @@ public class ChatlogMessageTempDataTest {
     @Test
     public void testChatLogMessageTempData() {
         cl3 =
-                new ChatLogMessageTempData(
-                        "Sun16:20", "Clemenza", "Michael",
+                new ChatLogMessageTempData("Sun16:20", "Clemenza", "Michael",
                         "Your father was proud of you");
         assertSame("Sun16:20", cl3.getTime());
         assertSame("Clemenza", cl3.getFrom());

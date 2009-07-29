@@ -6,13 +6,13 @@ import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 
 public class TwitterUserData extends UserData implements TwitterPerson {
-    
+
     // Section
     // I - Data Members
 
     private int minutesSinceUpdate;
     private Date datePosted;
-    
+
     // Section
     // II - Constructors
 
@@ -25,7 +25,7 @@ public class TwitterUserData extends UserData implements TwitterPerson {
         super(userID);
         this.minutesSinceUpdate = 16384;
     }
-    
+
     /**
      * Creates a new user with a userID, nickname, and status.
      * 
@@ -49,13 +49,13 @@ public class TwitterUserData extends UserData implements TwitterPerson {
     public int getMinutesSinceUpdate() {
         return minutesSinceUpdate;
     }
-    
+
     public ServerType getServer() {
         return ServerType.TWITTER;
     }
-    
+
     public Date getDatePosted() {
-    	return datePosted;
+        return datePosted;
     }
-    
+
 }

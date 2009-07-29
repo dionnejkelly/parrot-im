@@ -53,18 +53,15 @@ package view.mainwindow;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import view.chatwindow.ChatWindow;
-
-import controller.MainController;
-
 import model.Model;
 import model.enumerations.UpdatedType;
+import controller.MainController;
 
 /**
  * The container frame of SignInPanel.
@@ -72,56 +69,60 @@ import model.enumerations.UpdatedType;
  * This class inherits JFrame methods and variables, and implements Observer.
  */
 public class MainWindow extends JFrame implements Observer {
-	private boolean allowAutoSignIn;
+    private boolean allowAutoSignIn;
+
     /**
-     * Sets the title of the window, size, and default close operation.
-     * called upon program start up
+     * Sets the title of the window, size, and default close operation. called
+     * upon program start up
+     * 
      * @param chatClient
      * @param model
      */
-    public MainWindow(MainController chatClient, Model model) { 
+    public MainWindow(MainController chatClient, Model model) {
         // set Main Window Frame
-//    	setLocationRelativeTo(null);
+        // setLocationRelativeTo(null);
 
-       allowAutoSignIn = true;
-       setFrame( chatClient, model);
+        allowAutoSignIn = true;
+        setFrame(chatClient, model);
     }
 
     /**
-     * sets the location to be at location
-     * called upon sign out
+     * sets the location to be at location called upon sign out
+     * 
      * @param chatClient
      * @param model
      * @param location
      * */
     public MainWindow(MainController chatClient, Model model, Point location) {
         // set Main Window Frame
-    	this.setLocation(location);
-    	allowAutoSignIn = false;
-    	setFrame( chatClient, model);
+        this.setLocation(location);
+        allowAutoSignIn = false;
+        setFrame(chatClient, model);
     }
-    
-    private void setFrame(MainController chatClient, Model model){
-    	 setTitle("Parrot-IM");
-         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         this.setMinimumSize(new Dimension(300, 500));
-//         setPreferredSize(new Dimension(300, 500));
-         setIconImage(new ImageIcon(this.getClass().getResource("/images/mainwindow/logo.png")).getImage());
 
-         SignInPanel signinPanel = new SignInPanel(this, chatClient, model, allowAutoSignIn);
-         // call SignIn Panel
-         getContentPane().add(signinPanel);
-         if (signinPanel.dontInstantiate){
-        	 this.dispose();
-         } else {
-	         pack();
-	         setVisible(true);
-	
-	         // Testing for model observers
-	         model.addObserver(this);
-         }
+    private void setFrame(MainController chatClient, Model model) {
+        setTitle("Parrot-IM");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setMinimumSize(new Dimension(300, 500));
+        // setPreferredSize(new Dimension(300, 500));
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
+
+        SignInPanel signinPanel =
+                new SignInPanel(this, chatClient, model, allowAutoSignIn);
+        // call SignIn Panel
+        getContentPane().add(signinPanel);
+        if (signinPanel.dontInstantiate) {
+            this.dispose();
+        } else {
+            pack();
+            setVisible(true);
+
+            // Testing for model observers
+            model.addObserver(this);
+        }
     }
-    
+
     /**
      * Links the MainWindow with the observer.
      * 
