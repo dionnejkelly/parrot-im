@@ -4,9 +4,8 @@
 
 Please have the user complete the following tasks outlined in "procedures", and then record all information in "reports." Thanks!
 
-  * [UserAcceptanceTest Testing procedures].
-
-  * [UserAcceptanceReports Reports].
+  * [UserAcceptanceTest Testing procedures]
+  * [UserAcceptanceReports Reports]
 
 = Details =
 
@@ -16,6 +15,7 @@ Please have the user complete the following tasks outlined in "procedures", and 
 = Data =
 
   * [a5_featuresImplemented Features Implemented]
+  * [a5_metrics Metrics for all versions]
 
 = Presentation = 
  
