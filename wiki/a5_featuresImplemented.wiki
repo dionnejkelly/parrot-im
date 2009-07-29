@@ -20,7 +20,7 @@
 || Emoticons || yes ||
 || Spellchecker || yes ||
 || Conference Chatting || yes ||
-|| File Transfer || no ||
+|| File Transfer || yes||
 || Sound Notification || yes ||
 || UI Customization || yes ||
 || Additional Protocol Modules || yes ||
@@ -32,8 +32,8 @@
 || Email Notification || yes ||
 || Slash Commands || yes ||
 
-  * Implemented: 25
-  * Unimplemented: 4
+  * Implemented: 26
+  * Unimplemented: 3
   * Total Features: 29
 
-  * *Percentage Implemented: 86.2%*
+  * *Percentage Implemented: 89.7%*
