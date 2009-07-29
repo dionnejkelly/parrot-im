@@ -4,16 +4,53 @@ Tools used:
   * loc (http://freshmeat.net/projects/loc/)
   * Eclipse Metrics plugin (http://metrics.sourceforge.net/)
 
+Definitions:
+  * Pure Source Lines
+    * Functional lines of code that do not have comments at the end.
+    * Blank lines are not included.
+    * Includes lines of little significance, such as curly braces.
+  * Pure Comment Lines
+    * Lines that consist of all comments, and no code.
+    * Can be Javadoc, C, or C++ style comments.
+    * Includes comment header blocks, such as "/**".
+  * Source with Comments Lines
+    * Includes lines with both source code and comments at the end.
+  * Blank lines
+    * Cannot contain any source code or comments.
+  * Classes
+    * Total number of classes coded by our members; does not include library classes.
+    * Includes inner classes.
+    * Excludes test case classes.
+  * Methods
+    * Includes overloaded methods.
+    * Excludes test case methods.
+  * Attributes
+    * Includes data members of all visibility.
+    * Excludes constants and static members.
+  * Test Cases
+    * Total number of test case methods in all test case classes.
+
 = Alpha =
 
 Code sampled from svn/tags/alpha for the following metrics:
+
+|| *Category* || *Value* ||
+|| Pure Source Lines || ||
+|| Pure Comment Lines ||  ||
+|| Source with Comment Lines || ||
+|| Blank Lines || ||
+|| Total Lines || ||
+|| Classes || 122 ||
+|| Methods || 620 ||
+|| Attributes || 323 ||
+|| Test Cases || 60 ||
 
 
 = Beta =
 
 Code sampled from svn/tags/beta for the following metrics:
 
-|| Category || Value ||
+|| *Category* || *Value* ||
 || Pure Source Lines || 15435 ||
 || Pure Comment Lines || 7099 ||
 || Source with Comment Lines || 80 ||
@@ -27,3 +64,14 @@ Code sampled from svn/tags/beta for the following metrics:
 = Final =
 
 Code sampled from svn/tags/final for the following metrics:
+
+|| *Category* || *Value* ||
+|| Pure Source Lines || ||
+|| Pure Comment Lines || ||
+|| Source with Comment Lines || ||
+|| Blank Lines || ||
+|| Total Lines || ||
+|| Classes || ||
+|| Methods || ||
+|| Attributes || ||
+|| Test Cases || ||
