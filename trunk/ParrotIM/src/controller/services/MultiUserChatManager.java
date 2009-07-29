@@ -74,15 +74,17 @@ public class MultiUserChatManager extends MultiUserChat  {
 	}
 	
 	
+	
+	
 	private class joinedListener implements ParticipantStatusListener {
 
 		public void adminGranted(String arg0) {
-			// TODO Auto-generated method stub
+			System.out.println("ADMIN GRANTED!!!");
 			
 		}
 
 		public void adminRevoked(String arg0) {
-			// TODO Auto-generated method stub
+			System.out.println("ADMIN REVOKED!!!");
 			
 		}
 
@@ -99,8 +101,19 @@ public class MultiUserChatManager extends MultiUserChat  {
 			//System.out.println("Who joined in the room: " +  delimitUserBack(user));
 		        System.out.println("User before surgery " +  user);
 		        user = delimitUserBack(user);
-		        index = user.lastIndexOf('_');
-		        user = user.substring(0, index) + "@" + user.substring(index + 1, user.length());
+		        System.out.println("User = " + user);
+		        
+		        
+		        if (user.contains("_gmail.com")) {
+		        	user = user.replace("_gmail.com", "@gmail.com");
+		        }
+		        
+		        else {
+		        	user = user + "@gmail.com";
+		        }
+//		        index = user.lastIndexOf('_');
+//		        user = user.substring(0, index) + "@" + user.substring(index + 1, user.length());
+		        
 		        System.out.println("Who joined in the room: " +  user);
 			users.add(user);
 			countUsers++;
@@ -123,9 +136,19 @@ public class MultiUserChatManager extends MultiUserChat  {
 			// Kevin is there a better function we can use from the StringUtil ?
 			System.out.println("Who left in the room: " + delimitUserBack(user));
 		    user = delimitUserBack(user);
-                    index = user.lastIndexOf('_');
-                    user = user.substring(0, index) + "@" + user.substring(index + 1, user.length());		    
-                    System.out.println("Who joined in the room: " +  user);
+//                    index = user.lastIndexOf('_');
+//                    user = user.substring(0, index) + "@" + user.substring(index + 1, user.length());		    
+                  
+                    
+                    if (user.contains("_gmail.com")) {
+    		        	user = user.replace("_gmail.com", "@gmail.com");
+    		        }
+    		        
+    		        else {
+    		        	user = user + "@gmail.com";
+    		        }
+                    
+            System.out.println("Who left the room: " +  user);     
 			users.remove(user);
 			countUsers--;
 			conversation = model.getChatCollection().findByRoomName(delimitRoom(roomName));
@@ -137,12 +160,12 @@ public class MultiUserChatManager extends MultiUserChat  {
 		}
 
 		public void membershipGranted(String arg0) {
-			// TODO Auto-generated method stub
+			System.out.println("MEMBERSHIP GRANTED!!!");
 			
 		}
 
 		public void membershipRevoked(String arg0) {
-			// TODO Auto-generated method stub
+			System.out.println("MEMBERSHIP GRANTED!!!");
 			
 		}
 

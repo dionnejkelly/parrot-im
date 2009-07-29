@@ -988,22 +988,36 @@ public class GoogleTalkManager implements GenericConnection {
             ChatCollectionData chatCollection = model.getChatCollection();
             Conversation conversation = null;
             
+            
             if (message.getType() == Message.Type.groupchat) {
                 isConferenceChat = true;
                 roomName = delimitRoom(message.getFrom());
                 fromUserID = delimitUserBack(message.getFrom());
                 System.out.println("From Group Chat:");
                 System.out.println(fromUserID + ": " + message.getBody());
-
-                conversation = chatCollection.findByRoomName(roomName);
-                messageObject = new MessageData(fromUserID, message.getBody());
-
-                if (chatCollection.isHidden(conversation)) {
-                    chatCollection.activateConversation(conversation);
+                
+                if (message.getBody() == null) {
+                	TypingStateType typingState = TypingStateType.TYPING;
+                	System.out.println("Mult Conference is Typing...");
+                	controller.typingStateUpdated(genericConnection, typingState, fromUserID);
                 }
                 
-                conversation.addMessage(messageObject);
-                chatCollection.forceUpdate();
+                else if (!fromUserID.contains("@conference.jabber.org")){
+                	System.out.println("NO CONFERENCE REPLY");
+                	conversation = chatCollection.findByRoomName(roomName);
+                    //messageObject = new MessageData(fromUserID, message.getBody());
+
+                    messageObject = new MessageData(fromUserID, message.getBody(), "font", "4", false, false,
+                            false, "#0000ff", true);
+                    
+                    if (chatCollection.isHidden(conversation)) {
+                        chatCollection.activateConversation(conversation);
+                    }
+                    
+                    conversation.addMessage(messageObject);
+                    chatCollection.forceUpdate();
+                }
+                
 
             } else {
                 fromUserID = StringUtils.parseBareAddress(message.getFrom());
