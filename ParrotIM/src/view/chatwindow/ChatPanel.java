@@ -370,8 +370,10 @@ public class ChatPanel extends GPanel implements Observer{
             		accinfo.presence.setSelectedIndex(4);
             	} else if (model.getCurrentProfile().getState() == UserStateType.BRB) {
             		accinfo.presence.setSelectedIndex(5);
-            	} else {
+            	} else if (model.getCurrentProfile().getState() == UserStateType.INVISIBLE){
             		accinfo.presence.setSelectedIndex(6);
+            	} else {
+            		accinfo.presence.setSelectedIndex(0);
             	}
         	} else{
   
