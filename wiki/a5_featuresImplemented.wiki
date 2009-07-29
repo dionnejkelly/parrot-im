@@ -31,3 +31,9 @@
 || Language Localization || no ||
 || Email Notification || yes ||
 || Slash Commands || yes ||
+
+  * Implemented: 25
+  * Unimplemented: 4
+  * Total Features: 29
+
+  * *Percentage Implemented: 86.2%*
