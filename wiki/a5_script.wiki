@@ -23,6 +23,7 @@ Features:
 ----
 
 *Section II: For the Developer*
+
 Components:
   * Show architectural diagram, compare to old one
   * Comment on MVC
