@@ -267,15 +267,15 @@ public class CustomListPane extends GPanel {
          * change background to color when mouse Entered
          */
         public void mouseEntered(MouseEvent event) {
-
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
                     System.out.println("this is i " + i);
                     lastSelectedComponent = boxes[0].getComponent(i);
                     lastSelectedPanel = userPanels.get(i);
+                    
                     lastSelectedComponent
                             .setBackground(new Color(225, 247, 247));
-                    lastSelectedPanel.setOpaque(false);
+                    lastSelectedPanel.setOpaque(true);
 
                     lastSelected = i;
                     try {
