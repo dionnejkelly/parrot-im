@@ -367,7 +367,7 @@ public class DatabaseFunctions {
      * @return An ArrayList of objects holding chat log messages.
      * @throws SQLException
      */
-    public ArrayList<ChatLogMessageTempData> getMessageFromDate(
+    public ArrayList<ChatLogMessageTempData> getMessageFromDate(String profile,
             String username, String buddyname, String date, String searched)
             throws SQLException {
         ArrayList<ChatLogMessageTempData> messageList =
@@ -375,7 +375,8 @@ public class DatabaseFunctions {
         ChatLogMessageTempData message = null;
         searched = this.replace(searched, "'", "''");
         rs =
-                stat.executeQuery("select * from chatLog where (toUser='"
+                stat.executeQuery("select * from chatLog where profile='" 
+                		+ profile + "' AND (toUser='"
                         + buddyname + "' AND fromUser='" + username
                         + "') OR (toUser='" + username + "' AND fromUser='"
                         + buddyname + "') AND date='" + date
