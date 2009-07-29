@@ -1079,8 +1079,9 @@ public class Model extends Observable {
         AccountData account = null;
 
         if (!userID.contains("@") && server == ServerType.JABBER) {
-            // userID = PersonData.delimitUserFront(userID, '@');
             userID = userID + "@" + serverAddress;
+        } else if (!userID.contains("@") && server == ServerType.GOOGLE_TALK) {
+            userID = userID + "@gmail.com";
         }
 
         switch (server) {
@@ -1112,6 +1113,10 @@ public class Model extends Observable {
     public static AccountData createAccount(String userID, String password,
             ServerType server) {
         AccountData account = null;
+        
+        if (!userID.contains("@") && server == ServerType.GOOGLE_TALK) {
+            userID = userID + "@gmail.com";
+        }
 
         switch (server) {
         case GOOGLE_TALK:
