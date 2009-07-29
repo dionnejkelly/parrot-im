@@ -1,36 +1,36 @@
 #summary List of all features, and shows the percentage implemented.
 
-|| *Feature* || *Implemented* ||
-|| Graphical User Interface || yes ||
-|| Friend List || yes ||
-|| Live Instant Messaging || yes ||
-|| XMPP Protocol || yes ||
-|| Chatbot || yes ||
-|| Profile System || yes ||
-|| Font Customization || yes ||
-|| Auto Sign-in || yes ||
-|| Avatar picture || yes ||
-|| Tabbed Windows || yes ||
-|| Blocking another user || yes ||
-|| Status || yes ||
-|| Chat Log || yes ||
-|| Search Engine || yes ||
-|| Twitter and ICQ Protocols || yes ||
-|| "Is Typing" Notification Option || yes ||
-|| Emoticons || yes ||
-|| Spellchecker || yes ||
-|| Conference Chatting || yes ||
-|| File Transfer || yes||
-|| Sound Notification || yes ||
-|| UI Customization || yes ||
-|| Additional Protocol Modules || yes ||
-|| Offline Messaging || yes ||
-|| Advanced/Simplified Modes || no ||
-|| Spam Filter || no ||
-|| Multiple OS Compatibility || yes ||
-|| Language Localization || no ||
-|| Email Notification || yes ||
-|| Slash Commands || yes ||
+|| *Feature* || *Implemented* || *Version that was implemented ||
+|| Graphical User Interface || yes || Alpha ||
+|| Friend List || yes || Alpha ||
+|| Live Instant Messaging || yes || Alpha ||
+|| XMPP Protocol || yes || Alpha ||
+|| Chatbot || yes || Alpha ||
+|| Profile System || yes || Alpha ||
+|| Font Customization || yes || Alpha ||
+|| Auto Sign-in || yes || Beta ||
+|| Avatar picture || yes || Beta ||
+|| Tabbed Windows || yes || Alpha ||
+|| Blocking another user || yes || Alpha ||
+|| Status || yes || Alpha ||
+|| Chat Log || yes || Alpha ||
+|| Search Engine || yes || Beta ||
+|| Twitter and ICQ Protocols || yes || Beta/Final ||
+|| "Is Typing" Notification Option || yes || Beta ||
+|| Emoticons || yes || Beta ||
+|| Spellchecker || yes || Beta ||
+|| Conference Chatting || yes || Beta ||
+|| File Transfer || yes|| Beta ||
+|| Sound Notification || yes || Beta ||
+|| UI Customization || yes || Beta/Final ||
+|| Additional Protocol Modules || yes || Beta/Final ||
+|| Offline Messaging || yes || Alpha ||
+|| Advanced/Simplified Modes || no || N/A ||
+|| Spam Filter || no || N/A ||
+|| Multiple OS Compatibility || yes || Final ||
+|| Language Localization || no || N/A ||
+|| Email Notification || yes || Final ||
+|| Slash Commands || yes || Final ||
 
   * Implemented: 26
   * Unimplemented: 3
