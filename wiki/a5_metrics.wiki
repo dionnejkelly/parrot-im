@@ -1,10 +1,12 @@
 #summary Code metrics for alpha, beta, and final versions of Parrot IM.
 
-Tools used:
+= Tools used =
+
   * loc (http://freshmeat.net/projects/loc/)
   * Eclipse Metrics plugin (http://metrics.sourceforge.net/)
 
-Definitions:
+= Definitions = 
+
   * Pure Source Lines
     * Functional lines of code that do not have comments at the end.
     * Blank lines are not included.
@@ -34,48 +36,15 @@ Definitions:
   * Test Cases
     * Total number of test case methods in all test case classes.
 
-= Alpha =
+= Metrics =
 
-Code sampled from svn/tags/alpha for the following metrics:
-
-|| *Category* || *Value* ||
-|| Pure Source Lines || 6196 ||
-|| Pure Comment Lines || 4866  ||
-|| Source with Comment Lines || 38 ||
-|| Blank Lines || 3034 ||
-|| Total Lines || 14134 ||
-|| Classes || 122 ||
-|| Methods || 620 ||
-|| Attributes || 323 ||
-|| Test Cases || 60 ||
-
-
-= Beta =
-
-Code sampled from svn/tags/beta for the following metrics:
-
-|| *Category* || *Value* ||
-|| Pure Source Lines || 15435 ||
-|| Pure Comment Lines || 7099 ||
-|| Source with Comment Lines || 80 ||
-|| Blank Lines || 5764 ||
-|| Total Lines || 28378 ||
-|| Classes || 227 ||
-|| Methods || 1433 ||
-|| Attributes || 630 ||
-|| Test Cases || 317 ||
-
-= Final =
-
-Code sampled from svn/tags/final for the following metrics:
-
-|| *Category* || *Value* ||
-|| Pure Source Lines || ||
-|| Pure Comment Lines || ||
-|| Source with Comment Lines || ||
-|| Blank Lines || ||
-|| Total Lines || ||
-|| Classes || ||
-|| Methods || ||
-|| Attributes || ||
-|| Test Cases || ||
+|| *Category* || *Alpha Value* || *Beta Value* || *Final Value* ||
+|| Pure Source Lines || 6196 || 13092 || ||
+|| Pure Comment Lines || 4866  || 6071 || ||
+|| Source with Comment Lines || 38 || 83 || ||
+|| Blank Lines || 3034 || 5231 || ||
+|| Total Lines || 14134 || 24477 || ||
+|| Classes || 122 || 215 || ||
+|| Methods || 620 || 1180 || ||
+|| Attributes || 323 || 489 || ||
+|| Test Cases || 60 || 317 || ||
