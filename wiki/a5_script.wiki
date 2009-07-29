@@ -37,6 +37,7 @@ Statistics:
 ----
 
 *Section III: Proof*
+
 Screenshots:
   * Compare the following:
 
