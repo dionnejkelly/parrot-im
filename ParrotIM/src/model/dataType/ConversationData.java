@@ -126,6 +126,10 @@ public class ConversationData extends Observable implements Conversation {
     public void addMessage(MessageData message) {
         this.text.add(message);
         this.messageCount++;
+        
+        setChanged();
+        notifyObservers();
+        
         return;
     }
 
@@ -165,7 +169,6 @@ public class ConversationData extends Observable implements Conversation {
         return areEqual;
     }
 
-    @Override
     public int hashCode() {
         int hash = 7;
 

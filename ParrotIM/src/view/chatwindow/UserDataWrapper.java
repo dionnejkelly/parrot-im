@@ -27,7 +27,11 @@ public class UserDataWrapper implements Observer {
         this.conversation = conversation;
         this.readMessages = 0;
         this.model = model;
-        this.model.addObserver(this);
+        // this.model.addObserver(this);
+        this.model.getChatCollection().addObserver(this);
+        if (this.conversation instanceof ConversationData) {
+            ((ConversationData) this.conversation).addObserver(this);
+        }
         this.labelRepresentation = new JLabel("  " + this.toString());
     }
 
@@ -118,12 +122,12 @@ public class UserDataWrapper implements Observer {
     }
 
     public void update(Observable o, Object arg) {
-        if (arg == UpdatedType.CHAT) {
-            if (model.getActiveConversation() == this.conversation) {
-                this.readMessages = this.conversation.getMessageCount();
-            }
-            this.labelRepresentation.setText("  " + this.toString());
+        // if (arg == UpdatedType.CHAT) {
+        if (model.getActiveConversation() == this.conversation) {
+            this.readMessages = this.conversation.getMessageCount();
         }
+        this.labelRepresentation.setText("  " + this.toString());
+        // }
 
         return;
     }
