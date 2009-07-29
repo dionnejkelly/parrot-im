@@ -24,6 +24,8 @@ package view.options;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,9 +38,10 @@ import javax.swing.event.ChangeListener;
 import model.Model;
 import model.dataType.ProfileData;
 import view.buddylist.BuddyList;
+import view.styles.GPanel;
 import controller.MainController;
 
-public class OptionPanel extends JPanel {
+public class OptionPanel extends GPanel implements Observer {
     // public WindowColors colors = new WindowColors();
     private int lastSelected;
     private JTabbedPane tabbedOptions;
@@ -47,7 +50,9 @@ public class OptionPanel extends JPanel {
     public OptionPanel(MainController c, Model model, JFrame optionframe,
             BuddyList buddyFrame) throws ClassNotFoundException, SQLException {
         this.setLayout(new BorderLayout());
+        this.setGradientColors(model.primaryColor, model.secondaryColor);
         this.model = model;
+        model.addObserver(this);
         lastSelected = 0;
         ProfileData profile = model.getCurrentProfile();
         // tabbed options
@@ -89,4 +94,9 @@ public class OptionPanel extends JPanel {
         }
 
     }
+
+	public void update(Observable o, Object arg) {
+		setGradientColors(model.primaryColor, model.secondaryColor);
+		updateUI();
+	}
 }
