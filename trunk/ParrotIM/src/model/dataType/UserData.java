@@ -408,14 +408,17 @@ public abstract class UserData extends PersonData implements Comparable {
             ArrayList<UserData> unsorted, String match) {
         ArrayList<UserData> friends = new ArrayList<UserData>();
         UserData candidate = null;
+        
+        // Change to lower case to make case insensitive
+        match = match.toLowerCase();
 
         try {
             for (UserData user : unsorted) {
-                if (user.getNickname().matches(".*" + match + ".*")) {
+                if (user.getNickname().toLowerCase().matches(".*" + match + ".*")) {
                     candidate = user;
-                } else if (user.getUserID().matches(".*" + match + ".*")) {
+                } else if (user.getUserID().toLowerCase().matches(".*" + match + ".*")) {
                     candidate = user;
-                } else if (user.getStatus().matches(".*" + match + ".*")) {
+                } else if (user.getStatus().toLowerCase().matches(".*" + match + ".*")) {
                     candidate = user;
                 } else {
                     // do nothing, next iteration please
