@@ -9,14 +9,18 @@ Definitions:
     * Functional lines of code that do not have comments at the end.
     * Blank lines are not included.
     * Includes lines of little significance, such as curly braces.
+    * Does not include test cases.
   * Pure Comment Lines
     * Lines that consist of all comments, and no code.
     * Can be Javadoc, C, or C++ style comments.
     * Includes comment header blocks, such as "/**".
+    * Does not include test cases.
   * Source with Comments Lines
     * Includes lines with both source code and comments at the end.
+    * Does not include test cases.
   * Blank lines
     * Cannot contain any source code or comments.
+    * Does not include test cases.
   * Classes
     * Total number of classes coded by our members; does not include library classes.
     * Includes inner classes.
@@ -35,10 +39,10 @@ Definitions:
 Code sampled from svn/tags/alpha for the following metrics:
 
 || *Category* || *Value* ||
-|| Pure Source Lines || ||
-|| Pure Comment Lines ||  ||
-|| Source with Comment Lines || ||
-|| Blank Lines || ||
+|| Pure Source Lines || 6196 ||
+|| Pure Comment Lines || 4866  ||
+|| Source with Comment Lines || 38 ||
+|| Blank Lines || 3034 ||
 || Total Lines || ||
 || Classes || 122 ||
 || Methods || 620 ||
