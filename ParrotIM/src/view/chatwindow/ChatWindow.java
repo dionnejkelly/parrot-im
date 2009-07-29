@@ -107,6 +107,8 @@ public class ChatWindow extends JFrame implements Observer {
      */
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.CHAT) {
+        	this.setAlwaysOnTop(true);
+            this.setAlwaysOnTop(false);
             if (model.numberOfConversations() > 0 && !this.isVisible()) {
                 this.setVisible(true);
             }
