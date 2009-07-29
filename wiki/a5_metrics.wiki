@@ -1,0 +1,29 @@
+#summary Code metrics for alpha, beta, and final versions of Parrot IM.
+
+Tools used:
+  * loc (http://freshmeat.net/projects/loc/)
+  * Eclipse Metrics plugin (http://metrics.sourceforge.net/)
+
+= Alpha =
+
+Code sampled from svn/tags/alpha for the following metrics:
+
+
+= Beta =
+
+Code sampled from svn/tags/beta for the following metrics:
+
+|| Category || Value ||
+|| Pure Source Lines || 15435 ||
+|| Pure Comment Lines || 7099 ||
+|| Source with Comment Lines || 80 ||
+|| Blank Lines || 5764 ||
+|| Total Lines || 28378 ||
+|| Classes || 227 ||
+|| Methods || 1433 ||
+|| Attributes || 630 ||
+|| Test Cases || 317 ||
+
+= Final =
+
+Code sampled from svn/tags/final for the following metrics:
