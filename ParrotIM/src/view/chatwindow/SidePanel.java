@@ -68,6 +68,8 @@ public class SidePanel extends GPanel implements Observer {
     private ArrayList<UserDataWrapper> users;
 
     private ChatCollectionData chatCollection;
+    
+    private Conversation conversationToRemove;     
 
     /**
      * This is the constructor of the SidePanel.
@@ -235,6 +237,8 @@ public class SidePanel extends GPanel implements Observer {
                 System.out.println("right clicked");
 
                 // rightClickMenu.setVisible(true);
+                conversationToRemove = listPane.getUserWrapper(
+                        listPane.getClickedIndex()).getConversation();
                 rightClickMenu.show(listPane, event.getX(), event.getY() + 150);//event.getYOnScreen() - 60);
             }
             return;
@@ -260,8 +264,9 @@ public class SidePanel extends GPanel implements Observer {
     private class removeConversationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (chatCollection.getConversations().size() > 1) {
-                chatCollection.removeConversation(listPane.getUserWrapper(
-                        listPane.getClickedIndex()).getConversation());
+                //chatCollection.removeConversation(listPane.getUserWrapper(
+                //        listPane.getClickedIndex()).getConversation());
+                chatCollection.removeConversation(conversationToRemove);
             }
 
             return;
