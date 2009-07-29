@@ -95,6 +95,7 @@ public class SidePanel extends GPanel implements Observer {
         listPane = new CustomListPane();
         listPane.setGradientColors(model.primaryColor, model.secondaryColor);
         listPane.textColor = model.primaryTextColor;
+        listPane.opaque = false;
 
         // rightclick menu
         rightClickMenu = new JPopupMenu();
@@ -244,21 +245,11 @@ public class SidePanel extends GPanel implements Observer {
             return;
         }
 
-        /**
-         * Unimplemented MouseListener Methods
-         */
-        public void mouseEntered(MouseEvent event) {
-
-        }
-
-        public void mouseExited(MouseEvent event) {
-        }
-
-        public void mouseClicked(MouseEvent event) {
-        }
-
-        public void mouseReleased(MouseEvent event) {
-        }
+        // Unimplemented MouseListener Methods
+        public void mouseEntered(MouseEvent event) {}
+        public void mouseExited(MouseEvent event) {}
+        public void mouseClicked(MouseEvent event) {}
+        public void mouseReleased(MouseEvent event) {}
     }
 
     private class removeConversationListener implements ActionListener {
