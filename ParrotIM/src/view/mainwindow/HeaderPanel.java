@@ -43,55 +43,60 @@ package view.mainwindow;
 import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import view.styles.AvatarLabel;
 
-/** HeaderPanel sets the top part of the MainWindow, which includes the avatar and the status of the system.
- * This object inherits JPanel variables and methods */
-public class HeaderPanel extends JPanel{
-	/** status is a JLabel object that shows the system's status (ie. whether it is connected or not) */
-	private JLabel status;
-	private AvatarLabel avatarDisplay ;
-	
-	/** MiscPanel constructor. It sets up the panel layout.*/
-	public HeaderPanel() {
-		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createEmptyBorder(50,50,0,50));
-		
-		//logo-avatar
-//		JLabel avatarDisplay = new JLabel ();
-		avatarDisplay = new AvatarLabel(null, 100);
-		
-		avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-//		ImageIcon avatar = new ImageIcon (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
-	
-		//TODO: set auto scaling + border later
-//		avatarDisplay.setIcon(avatar);
-		
-		status = new JLabel("Not signed in", SwingConstants.CENTER);
-		status.setBorder(BorderFactory.createEmptyBorder(7,0,8,0));
-		
-		//add to panel
-		add(avatarDisplay, BorderLayout.NORTH);
-		add(status, BorderLayout.CENTER);
-	}
-	
-	/** sets the status text to errormsg when the user fails to sign in
-	 * @param errormsg*/
-	protected void displaySystemStatus(String errormsg){
-		//avatarDisplay.setIcon(avatar);
-		status.setText("<html><FONT COLOR=RED>"+errormsg+"</FONT></html>");
-	}
-	
+/**
+ * HeaderPanel sets the top part of the MainWindow, which includes the avatar
+ * and the status of the system. This object inherits JPanel variables and
+ * methods
+ */
+public class HeaderPanel extends JPanel {
+    /**
+     * status is a JLabel object that shows the system's status (ie. whether it
+     * is connected or not)
+     */
+    private JLabel status;
+    private AvatarLabel avatarDisplay;
 
-	
-	
-	
-	protected void changeAvatar(String path){
-		avatarDisplay.changeAvatar(path);
-	}
+    /** MiscPanel constructor. It sets up the panel layout. */
+    public HeaderPanel() {
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(50, 50, 0, 50));
+
+        // logo-avatar
+        // JLabel avatarDisplay = new JLabel ();
+        avatarDisplay = new AvatarLabel(null, 100);
+
+        avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+        // ImageIcon avatar = new ImageIcon
+        // (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
+
+        // TODO: set auto scaling + border later
+        // avatarDisplay.setIcon(avatar);
+
+        status = new JLabel("Not signed in", SwingConstants.CENTER);
+        status.setBorder(BorderFactory.createEmptyBorder(7, 0, 8, 0));
+
+        // add to panel
+        add(avatarDisplay, BorderLayout.NORTH);
+        add(status, BorderLayout.CENTER);
+    }
+
+    /**
+     * sets the status text to errormsg when the user fails to sign in
+     * 
+     * @param errormsg
+     */
+    protected void displaySystemStatus(String errormsg) {
+        // avatarDisplay.setIcon(avatar);
+        status.setText("<html><FONT COLOR=RED>" + errormsg + "</FONT></html>");
+    }
+
+    protected void changeAvatar(String path) {
+        avatarDisplay.changeAvatar(path);
+    }
 }

@@ -9,24 +9,19 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-
-import org.jivesoftware.smack.XMPPException;
-
-import controller.MainController;
 
 import model.Model;
-import model.dataType.ChatCollectionData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
+
+import org.jivesoftware.smack.XMPPException;
 
 import view.styles.ProgressMonitorScreen;
 import winterwell.jtwitter.Twitter;
 import winterwell.jtwitter.TwitterException;
 import winterwell.jtwitter.Twitter.Status;
-import winterwell.jtwitter.Twitter.User;
+import controller.MainController;
 
 /**
  * Handles all connections involving Twitter protocol.
@@ -43,37 +38,32 @@ public class TwitterManager implements GenericConnection {
 
     private MainController controller;
 
-    private Model model;
-
     private ArrayList<Long> friendLastUpdates;
 
     private ArrayList<String> friendList;
 
-    private String thisScreenName;
-    
     private PollingThread poller;
 
     private volatile Thread stopBlinker;
-    
-    public static void main(String[] args) throws BadConnectionException	 {
-    	TwitterManager twit = new TwitterManager();
-    	twit.login("cmpt275testing", "abcdefghi");
-    	
-    	boolean doesit = twit.doesExist("parrotim");
-    	
-    	
-//    	if (twit.isFollowing("parrotimtest")) {
-//    		
-//    	}
-    	twit.removeFriend("abc");
-    	System.out.println("Does user exists? " + doesit);
-    	
+
+    public static void main(String[] args) throws BadConnectionException {
+        TwitterManager twit = new TwitterManager();
+        twit.login("cmpt275testing", "abcdefghi");
+
+        boolean doesit = twit.doesExist("parrotim");
+
+        // if (twit.isFollowing("parrotimtest")) {
+        //    		
+        // }
+        twit.removeFriend("abc");
+        System.out.println("Does user exists? " + doesit);
+
     }
-    
+
     public TwitterManager() {
-    	
+
     }
-    
+
     /**
      * Instantiates a new TwitterManager that should be associated with one
      * TwitterAccount. Provides all the methods to communicate with the Twitter
@@ -84,18 +74,16 @@ public class TwitterManager implements GenericConnection {
      *            The MainController object that handles the main program flow.
      */
     public TwitterManager(MainController controller, Model model) {
-//        PollingThread poller = null;
+        // PollingThread poller = null;
         this.twitter = null;
         this.genericConnection = this;
         this.controller = controller;
-        this.model = model;
         this.friendLastUpdates = new ArrayList<Long>();
         this.friendList = new ArrayList<String>();
-        this.thisScreenName = "";
 
-//        // Check server every 30 seconds for updates
-//        poller = new PollingThread();
-//        poller.start();
+        // // Check server every 30 seconds for updates
+        // poller = new PollingThread();
+        // poller.start();
     }
 
     /**
@@ -135,10 +123,10 @@ public class TwitterManager implements GenericConnection {
 
     public void disconnect() {
         twitter = null; // Cannot actually disconnect in Twitter
-      
-       // stop the thread safely
+
+        // stop the thread safely
         stopThread();
-		
+
         return;
     }
 
@@ -157,8 +145,6 @@ public class TwitterManager implements GenericConnection {
 
         try {
             twitter = new Twitter(userID, password);
-            thisScreenName = userID;
-            
             // start the polling only when it is logged in
             // Check server every 30 seconds for updates
             poller = new PollingThread();
@@ -213,31 +199,32 @@ public class TwitterManager implements GenericConnection {
         }
 
         for (Twitter.User f : friends) {
-            localFriends.add(new FriendTempData(new Long(f.getId()).toString(), f
-                    .getScreenName(), f.getStatus().getText(),
+            localFriends.add(new FriendTempData(new Long(f.getId()).toString(),
+                    f.getScreenName(), f.getStatus().getText(),
                     UserStateType.OFFLINE, false));
         }
 
         return localFriends;
     }
-    
-    public ArrayList<Twitter.Status> retrieveRecentTweets() throws BadConnectionException {
-    	List<Twitter.Status> tweets = null;
-    	//ArrayList<FriendTempData> recentTweets = null;
-    	
-    	//recentTweets = new ArrayList<FriendTempData>();
-    	try {
-    		tweets = twitter.getFriendsTimeline();
+
+    public ArrayList<Twitter.Status> retrieveRecentTweets()
+            throws BadConnectionException {
+        List<Twitter.Status> tweets = null;
+        // ArrayList<FriendTempData> recentTweets = null;
+
+        // recentTweets = new ArrayList<FriendTempData>();
+        try {
+            tweets = twitter.getFriendsTimeline();
         } catch (Exception e) {
             e.printStackTrace();
             throw new BadConnectionException();
         }
 
-    	/*for (Twitter.Status s : tweets) {
-    		recentTweets.add(new FriendTempData(s.user.getName(),s.user.getScreenName(),
-    				s.getText(),UserStateType.OFFLINE,false));
-    	}
-    	return recentTweets;*/
+        /*
+         * for (Twitter.Status s : tweets) { recentTweets.add(new
+         * FriendTempData(s.user.getName(),s.user.getScreenName(),
+         * s.getText(),UserStateType.OFFLINE,false)); } return recentTweets;
+         */
         return (ArrayList<Status>) tweets;
     }
 
@@ -258,12 +245,11 @@ public class TwitterManager implements GenericConnection {
         try {
             status = twitter.getStatus(userID).getText();
         } catch (TwitterException e) {
-            System.err.println("Server is not yet ready to get friends' status in twitter");
+            System.err
+                    .println("Server is not yet ready to get friends' status in twitter");
             e.printStackTrace();
             throw new BadConnectionException();
         }
-        
-        
 
         return status;
     }
@@ -314,18 +300,16 @@ public class TwitterManager implements GenericConnection {
     public ServerType getServerType() {
         return ServerType.TWITTER;
     }
-    
+
     private void stopThread() {
-    	stopBlinker = null;
+        stopBlinker = null;
     }
 
     // Section
     // Polling methods
 
     private class PollingThread extends Thread {
-    	
-    	
-    		
+
         public void run() {
             try {
                 sleep(10000); // Delay for 5 seconds
@@ -336,33 +320,26 @@ public class TwitterManager implements GenericConnection {
             Thread thisThread = Thread.currentThread();
 
             while (stopBlinker == thisThread) {
-            	
-				try {
-					//Thread.currentThread();
-					thisThread.sleep(30000);
-					controller.refreshFriends(genericConnection);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}  // Delay for 30 seconds
-                
+
+                try {
+                    // Thread.currentThread();
+                    Thread.sleep(30000);
+                    controller.refreshFriends(genericConnection);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } // Delay for 30 seconds
 
                 if (twitter != null) {
                     updateLocalFriendList();
                 }
-                
+
             }
         }
     }
 
-    private void addMessages(String userID) {
-
-    }
-
     private void updateLocalFriendList() {
         List<Twitter.User> friends = null; // from server
-        List<Twitter.Message> messages = null;
-        List<Twitter.Status> statuses = null;
         int index = -1;
 
         try {
@@ -372,7 +349,7 @@ public class TwitterManager implements GenericConnection {
             e.printStackTrace();
         }
 
-       // messages = twitter.getDirectMessages();
+        // messages = twitter.getDirectMessages();
 
         for (Twitter.User f : friends) {
 
@@ -390,30 +367,25 @@ public class TwitterManager implements GenericConnection {
                 index = friendList.size() - 1;
             }
 
-           /* statuses = twitter.getUserTimeline(f.getScreenName());
-            for (int i = statuses.size() - 1; i >= 0; i--) {
-                for (int j = messages.size() - 1; j >= 0
-                        && messages.get(j).getCreatedAt().compareTo(
-                                statuses.get(i).getCreatedAt()) < 0; j--) {
-                    if (messages.get(j).getUser().getScreenName()
-                            .equalsIgnoreCase(friendList.get(index))
-                            && friendLastUpdates.get(index) < messages.get(j)
-                                    .getCreatedAt().getTime()) {
-                        friendLastUpdates.set(index, messages.get(j)
-                                .getCreatedAt().getTime());
-                        controller.hiddenMessageReceived(f.getScreenName(),
-                                thisScreenName, "@" + thisScreenName + " "
-                                        + messages.get(j).getText());
-                    }
-                }
-                if (friendLastUpdates.get(index) < statuses.get(i)
-                        .getCreatedAt().getTime()) {
-                    friendLastUpdates.set(index, statuses.get(i).getCreatedAt()
-                            .getTime());
-                    controller.hiddenMessageReceived(f.getScreenName(),
-                            thisScreenName, statuses.get(i).getText());
-                }
-            }*/
+            /*
+             * statuses = twitter.getUserTimeline(f.getScreenName()); for (int i
+             * = statuses.size() - 1; i >= 0; i--) { for (int j =
+             * messages.size() - 1; j >= 0 &&
+             * messages.get(j).getCreatedAt().compareTo(
+             * statuses.get(i).getCreatedAt()) < 0; j--) { if
+             * (messages.get(j).getUser().getScreenName()
+             * .equalsIgnoreCase(friendList.get(index)) &&
+             * friendLastUpdates.get(index) < messages.get(j)
+             * .getCreatedAt().getTime()) { friendLastUpdates.set(index,
+             * messages.get(j) .getCreatedAt().getTime());
+             * controller.hiddenMessageReceived(f.getScreenName(),
+             * thisScreenName, "@" + thisScreenName + " " +
+             * messages.get(j).getText()); } } if (friendLastUpdates.get(index)
+             * < statuses.get(i) .getCreatedAt().getTime()) {
+             * friendLastUpdates.set(index, statuses.get(i).getCreatedAt()
+             * .getTime()); controller.hiddenMessageReceived(f.getScreenName(),
+             * thisScreenName, statuses.get(i).getText()); } }
+             */
         }
 
         return;
@@ -429,7 +401,7 @@ public class TwitterManager implements GenericConnection {
     public boolean isFollowing(String userID) {
         return twitter.isFollowing(userID);
     }
-    
+
     /**
      * This method is used to check if the user is a follower.
      * 
@@ -463,39 +435,6 @@ public class TwitterManager implements GenericConnection {
     }
 
     /**
-     * Returns the 20 most recent status posted in the last 24 hours from the
-     * authenticating user.
-     * 
-     * @return String
-     */
-
-    private List<Status> getMyStatus() {
-        return twitter.getUserTimeline();
-    }
-
-    /**
-     * Returns the 20 most recent replies/mentions in the last 24 hours from the
-     * authenticating user.
-     * 
-     * @return String
-     */
-
-    private List<Status> getMyReplies() {
-        return twitter.getReplies();
-    }
-
-    /**
-     * Returns the URL link of the user.
-     * 
-     * @param userID
-     * @return URL
-     */
-
-    private URI getTwitterAvatar(String userID) {
-        return twitter.getStatus(userID).getUser().getProfileImageUrl();
-    }
-
-    /**
      * This method is used to return a list of the direct messages sent to the
      * authenticating user.
      * 
@@ -504,52 +443,6 @@ public class TwitterManager implements GenericConnection {
 
     private List<Twitter.Message> receiveMessage() {
         return twitter.getDirectMessages();
-
-    }
-
-    /**
-     * This method is used to return the most recent direct message.
-     * 
-     * @return String
-     */
-
-    private String receiveRecentMessage() {
-        return receiveMessage().get(twitter.getDirectMessages().size() - 1)
-                .getText();
-    }
-
-    /**
-     * This method is used to return a list of the followers.
-     * 
-     * @return List<User>
-     */
-
-    private List<User> retrieveFollowerList() {
-        return twitter.getFollowers();
-
-    }
-
-    /**
-     * This method is used to return the 20 most recent statuses posted in the
-     * last 24 hours from the authenticating user.
-     * 
-     * @return List<Status>
-     */
-
-    private List<Status> getFriendsStatus() {
-        return twitter.getUserTimeline();
-
-    }
-
-    /**
-     * This method is used to return the most recent statuses posted in the last
-     * 24 hours from the given user.
-     * 
-     * @return List<Status>
-     */
-
-    private List<Status> getFriendsStatus(String userID) {
-        return twitter.getUserTimeline(userID);
 
     }
 
@@ -567,8 +460,8 @@ public class TwitterManager implements GenericConnection {
 
     public ImageIcon getAvatarPicture(String userID) throws XMPPException {
 
-        URI userAvatar = twitter.getStatus(userID).getUser()
-                .getProfileImageUrl();
+        URI userAvatar =
+                twitter.getStatus(userID).getUser().getProfileImageUrl();
         // JOptionPane.showInputDialog(userAvatar);
         System.out.println("URL: " + userAvatar);
         try {
@@ -716,7 +609,8 @@ public class TwitterManager implements GenericConnection {
 
     }
 
-    public void sendFile(String filePath, String userID, ProgressMonitorScreen progress) throws XMPPException {
+    public void sendFile(String filePath, String userID,
+            ProgressMonitorScreen progress) throws XMPPException {
         // TODO Auto-generated method stub
 
     }
@@ -727,24 +621,25 @@ public class TwitterManager implements GenericConnection {
     }
 
     public void createRoom(String room) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
+        // TODO Auto-generated method stub
 
-	public void inviteFriend(String userID, String roomName) throws XMPPException {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public boolean isConferenceChat() {
-    	return false;
     }
 
-	public void sendMultMessage(String message, String roomName)
-			throws BadConnectionException {
-		// TODO Auto-generated method stub
-		
-	}
+    public void inviteFriend(String userID, String roomName)
+            throws XMPPException {
+        // TODO Auto-generated method stub
+
+    }
+
+    public boolean isConferenceChat() {
+        return false;
+    }
+
+    public void sendMultMessage(String message, String roomName)
+            throws BadConnectionException {
+        // TODO Auto-generated method stub
+
+    }
 
     // public boolean isTyping() {
     // // TODO Auto-generated method stub

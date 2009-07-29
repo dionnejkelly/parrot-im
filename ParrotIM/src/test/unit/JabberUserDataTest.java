@@ -16,8 +16,8 @@
 
 package test.unit;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import model.dataType.JabberUserData;
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
@@ -33,7 +33,9 @@ public class JabberUserDataTest {
 
     @Before
     public void setUp() throws Exception {
-    	jabber3 = new JabberUserData("Khalid","K","Back home",UserStateType.ONLINE,false);
+        jabber3 =
+                new JabberUserData("Khalid", "K", "Back home",
+                        UserStateType.ONLINE, false);
     }
 
     @After
@@ -54,19 +56,20 @@ public class JabberUserDataTest {
         String expected1 = "rma";
         String expected2 = "ray";
         String expected3 = "away";
-        jabber2 = new JabberUserData(expected1, expected2, expected3,UserStateType.AWAY,true);
+        jabber2 =
+                new JabberUserData(expected1, expected2, expected3,
+                        UserStateType.AWAY, true);
         assertSame(expected1, jabber2.getUserID());
         assertSame(expected2, jabber2.getNickname());
         assertSame(expected3, jabber2.getStatus());
-        assertSame(UserStateType.AWAY,jabber2.getState());
+        assertSame(UserStateType.AWAY, jabber2.getState());
         assertTrue(jabber2.isBlocked());
-        assertSame(ServerType.JABBER,jabber2.getServer());
+        assertSame(ServerType.JABBER, jabber2.getServer());
 
     }
-   
-    
-    public void testGetServer(){
-    	assertSame(ServerType.JABBER,jabber3.getServer());
+
+    public void testGetServer() {
+        assertSame(ServerType.JABBER, jabber3.getServer());
     }
 
 }

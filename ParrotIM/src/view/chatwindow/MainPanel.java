@@ -8,24 +8,29 @@
 
 package view.chatwindow;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
+import model.Model;
 import view.buddylist.BuddyList;
 import view.mainwindow.AboutFrame;
 import view.mainwindow.HelpPanel;
 import view.styles.CustomSplitPane;
 import view.styles.GPanel;
-
 import controller.MainController;
 
-import model.Model;
 /**
  * The MainPanel contains the main panel that handles the integrity of the
  * panels and provides option.
@@ -34,11 +39,11 @@ import model.Model;
  */
 
 public class MainPanel extends JPanel implements Observer {
-    /** chatFrame is the container of this JPanel*/
-	protected JFrame chatFrame;
-	
+    /** chatFrame is the container of this JPanel */
+    protected JFrame chatFrame;
+
     /** JPanel for side and chat data type. */
-    public SidePanel side; 
+    public SidePanel side;
     public GPanel chat;
 
     /**
@@ -55,9 +60,10 @@ public class MainPanel extends JPanel implements Observer {
      * @param model
      * @param chatFrame
      */
-    public MainPanel(MainController c, Model model, JFrame chatFrame, BuddyList buddyFrame) {
+    public MainPanel(MainController c, Model model, JFrame chatFrame,
+            BuddyList buddyFrame) {
 
-    	this.chatFrame = chatFrame;
+        this.chatFrame = chatFrame;
         this.model = model;
         this.model.addObserver(this);
         setLayout(new BorderLayout());
@@ -67,21 +73,23 @@ public class MainPanel extends JPanel implements Observer {
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         menuBar.add(fileMenu);
-        JMenuItem exitItem1 = new JMenuItem("Exit", new ImageIcon(this.getClass().getResource(
-        "/images/chatwindow/chat_close.png")));
+        JMenuItem exitItem1 =
+                new JMenuItem("Exit", new ImageIcon(this.getClass()
+                        .getResource("/images/chatwindow/chat_close.png")));
         // KeyEvent.VK_N
         exitItem1.addActionListener(new exitListener());
         fileMenu.addSeparator();
         fileMenu.add(exitItem1);
 
-
         JMenu helpMenu = new JMenu("Help");
         fileMenu.setMnemonic(KeyEvent.VK_H);
         menuBar.add(helpMenu);
-        JMenuItem helpItem1 = new JMenuItem("Help Contents", new ImageIcon(this.getClass().getResource(
-        "/images/menu/information.png")));
-        JMenuItem helpItem2 = new JMenuItem("About",  new ImageIcon(this.getClass().getResource(
-        "/images/menu/report.png")));
+        JMenuItem helpItem1 =
+                new JMenuItem("Help Contents", new ImageIcon(this.getClass()
+                        .getResource("/images/menu/information.png")));
+        JMenuItem helpItem2 =
+                new JMenuItem("About", new ImageIcon(this.getClass()
+                        .getResource("/images/menu/report.png")));
         helpMenu.add(helpItem1);
         helpMenu.addSeparator();
         helpMenu.add(helpItem2);
@@ -91,11 +99,11 @@ public class MainPanel extends JPanel implements Observer {
 
         // Horizontal SplitPane Properties
         CustomSplitPane splitPane = new CustomSplitPane();
-        
+
         chat = new ChatPanel(c, model, chatFrame, buddyFrame);
         side = new SidePanel(c, model);
         side.setMinimumSize(new Dimension(500, 300));
-        
+
         splitPane.setRightPanel(chat);
         splitPane.setLeftPanel(side);
 
@@ -126,9 +134,9 @@ public class MainPanel extends JPanel implements Observer {
          * @param e
          */
         public void actionPerformed(ActionEvent e) {
-        //TODO!!!!
-        	chatFrame.setVisible(false);
-        	
+            // TODO!!!!
+            chatFrame.setVisible(false);
+
         }
     }
 

@@ -4,15 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 import model.Model;
 import model.dataType.tempData.FriendTempData;
@@ -41,7 +38,6 @@ import org.jivesoftware.smackx.ChatStateManager;
 import org.jivesoftware.smackx.packet.VCard;
 
 import view.styles.ProgressMonitorScreen;
-
 import controller.MainController;
 
 public class JabberManager implements GenericConnection {
@@ -53,8 +49,6 @@ public class JabberManager implements GenericConnection {
     private MainController controller;
 
     private GenericConnection genericConnection;
-
-    private Model model;
 
     private ArrayList<Chat> chats;
 
@@ -69,10 +63,8 @@ public class JabberManager implements GenericConnection {
     public JabberManager(MainController controller, Model model) {
         this.connection = null;
         this.controller = controller;
-        this.model = model;
         this.genericConnection = this;
         this.chats = new ArrayList<Chat>();
-        this.model = model;
     }
 
     public void addFriend(String userID) throws BadConnectionException {
@@ -536,7 +528,7 @@ public class JabberManager implements GenericConnection {
             curState.setCurrentState(ChatState.paused, lastChat);
         }
     }
-    
+
     private class DefaultChatStateListener implements ChatStateListener {
         public void stateChanged(Chat user, ChatState event) {
             String state = event.name();

@@ -16,8 +16,8 @@
 
 package test.unit;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import model.enumerations.ServerType;
 
 import org.junit.After;
@@ -40,7 +40,7 @@ public class ServerTypeTest {
     @Test
     public void testNumberOfValues() {
         int expected = 6;
-        assertSame(expected, server1.numberOfValues());
+        assertSame(expected, ServerType.numberOfValues());
     }
 
     @Test
@@ -58,10 +58,11 @@ public class ServerTypeTest {
         expected[3] = "ICQ";
         expected[4] = "MSN";
         expected[5] = "AIM";
-        for(int i=0;i<expected.length;i++){
-        	assertEquals(expected[i].toString(),server1.getServerList().get(i).toString());
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i].toString(), ServerType.getServerList()
+                    .get(i).toString());
         }
-        
+
     }
 
 }

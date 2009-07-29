@@ -2,7 +2,6 @@ package model.dataType;
 
 import java.util.ArrayList;
 
-
 import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 import controller.services.BadConnectionException;
@@ -111,28 +110,28 @@ public class ICQAccountData extends AccountData implements ICQPerson {
 
         return removed;
     }
-    
+
     public void removeAllFriends() {
         this.friends.clear();
-        
+
         return;
     }
-    
+
     public int hashCode() {
         int hash = "ICQ".hashCode();
-        
+
         hash = hash * 31 + super.hashCode();
-        
+
         return hash;
     }
-    
-    public boolean equals(Object o) {        
+
+    public boolean equals(Object o) {
         boolean areEqual = super.equals(o);
-        
+
         if (areEqual) {
             areEqual = o instanceof ICQAccountData;
         }
-        
+
         return areEqual;
     }
 
@@ -140,8 +139,8 @@ public class ICQAccountData extends AccountData implements ICQPerson {
         return ServerType.ICQ;
     }
 
-	@Override
-	public ArrayList<UserData> getTweets() throws BadConnectionException {
-		return null;
-	}
+    @Override
+    public ArrayList<UserData> getTweets() throws BadConnectionException {
+        return null;
+    }
 }

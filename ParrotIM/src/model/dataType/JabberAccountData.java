@@ -6,7 +6,6 @@ import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 import controller.services.BadConnectionException;
 import controller.services.GenericConnection;
-import controller.services.GoogleTalkManager;
 import controller.services.JabberManager;
 
 public class JabberAccountData extends AccountData implements JabberPerson {
@@ -35,7 +34,7 @@ public class JabberAccountData extends AccountData implements JabberPerson {
         if (connection == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.friends = new ArrayList<JabberUserData>();
         this.connection = connection;
     }
@@ -56,14 +55,14 @@ public class JabberAccountData extends AccountData implements JabberPerson {
     public GenericConnection getConnection() {
         return connection;
     }
-    
+
     public void setConnection(GenericConnection connection) {
         if (connection != null && connection instanceof JabberManager) {
             this.connection = (JabberManager) connection;
-        }        
+        }
         return;
     }
-    
+
     /**
      * Adds a friend by UserData. Will not add duplicate entries, checked by
      * userID.
@@ -111,28 +110,28 @@ public class JabberAccountData extends AccountData implements JabberPerson {
 
         return removed;
     }
-    
+
     public void removeAllFriends() {
         this.friends.clear();
-        
+
         return;
     }
 
     public int hashCode() {
         int hash = "Jabber".hashCode();
-        
+
         hash = hash * 31 + super.hashCode();
-        
+
         return hash;
     }
-    
+
     public boolean equals(Object o) {
         boolean areEqual = super.equals(o);
-        
+
         if (areEqual) {
             areEqual = o instanceof JabberAccountData;
         }
-        
+
         return areEqual;
     }
 
@@ -140,8 +139,8 @@ public class JabberAccountData extends AccountData implements JabberPerson {
         return ServerType.JABBER;
     }
 
-	@Override
-	public ArrayList<UserData> getTweets() throws BadConnectionException {
-		return null;
-	}
+    @Override
+    public ArrayList<UserData> getTweets() throws BadConnectionException {
+        return null;
+    }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface Conversation {
 
     public UserData getUser();
-    
+
     public AccountData getAccount();
 
     public ArrayList<MessageData> getText();

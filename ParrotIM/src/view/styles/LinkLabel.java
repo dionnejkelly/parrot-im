@@ -40,96 +40,123 @@ import model.Model;
 import model.enumerations.UpdatedType;
 
 /**
- * This object sets the style of the clickable labels on mainwindow (sign in window).
+ * This object sets the style of the clickable labels on mainwindow (sign in
+ * window).
  * 
  * It inherits JLabel methods and variables.
  */
-public class LinkLabel extends JLabel implements Observer{
-	/** text is a String with the name of the label that will be shown on the GUI*/
-	private String text;
-	
-	private boolean enabled;
-	
-	private Model model;
-	
-	/**
-	 * LinkLabel constructor. It takes a String object as its argument.
-	 * It sets up the String to be underlined and show it on the GUI.
-	 * @param text */
-	public LinkLabel (String text, boolean enable, Model model){
-		this.model = model;
-		model.addObserver(this);
-		
-		this.enabled = enable;
-		this.setHorizontalAlignment(CENTER);
-		this.text = text;
-		this.setEnabled(enabled);
+public class LinkLabel extends JLabel implements Observer {
+    /**
+     * text is a String with the name of the label that will be shown on the GUI
+     */
+    private String text;
+
+    private boolean enabled;
+
+    private Model model;
+
+    /**
+     * LinkLabel constructor. It takes a String object as its argument. It sets
+     * up the String to be underlined and show it on the GUI.
+     * 
+     * @param text
+     */
+    public LinkLabel(String text, boolean enable, Model model) {
+        this.model = model;
+        model.addObserver(this);
+
+        this.enabled = enable;
+        this.setHorizontalAlignment(CENTER);
+        this.text = text;
+        this.setEnabled(enabled);
         this.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
-        
-		this.addMouseListener(new labelMouseListener(this));
-	}
-	
-	public void setEnabled(boolean enabled){
-		this.enabled = enabled;
-		if (enabled){
-			String hex = Integer.toHexString(model.primaryTextColor.getRGB()).substring(2, 8);
-			this.setText("<html><Font Color=#" + hex + "><u>"+ text +"</u></Font></html>");
-		} else{
-			String hex = Integer.toHexString(Color.GRAY.getRGB()).substring(2, 8);
-			this.setText("<html><Font Color=#" + hex + "><u>"+ text +"</u></Font></html>");
-		}
-	}
-	
-	public boolean isEnabled(){
-		return enabled;
-	}
-	
-	/**
+
+        this.addMouseListener(new labelMouseListener(this));
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        if (enabled) {
+            String hex =
+                    Integer.toHexString(model.primaryTextColor.getRGB())
+                            .substring(2, 8);
+            this.setText("<html><Font Color=#" + hex + "><u>" + text
+                    + "</u></Font></html>");
+        } else {
+            String hex =
+                    Integer.toHexString(Color.GRAY.getRGB()).substring(2, 8);
+            this.setText("<html><Font Color=#" + hex + "><u>" + text
+                    + "</u></Font></html>");
+        }
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
      * Sets the behaviour with regard of mouse input and position.
      * 
      * This class inherits MouseListener methods and variables.
      */
-	private class labelMouseListener implements MouseListener{
-		/** label is a LinkLabel object. */
-		private LinkLabel label;
-		
-		/**
-		 * labelMouseListener constructor.
-		 * It takes a PmLabel object.
-		 * @param lbl
-		 */
-		public labelMouseListener (LinkLabel lbl){
-			label = lbl; 
-		}
+    private class labelMouseListener implements MouseListener {
+        /** label is a LinkLabel object. */
+        private LinkLabel label;
 
-		/** When the user hover on label, the text will be bolded.
-		 * It takes a MouseEvent argument
-		 * @param e */
-		public void mouseEntered(MouseEvent e) {
-			if (enabled){
-				String hex = Integer.toHexString(model.primaryTextColor.getRGB()).substring(2, 8);
-				label.setText("<html><Font Color=#" + hex + "><b>"+label.text+"</b></Font></html>");
-			}
-		}
-		
-		/** When the user hover on label, the text will be underlined.
-		 * It takes a MouseEvent argument 
-		 * @param e */
-		public void mouseExited(MouseEvent e) {
-			label.setEnabled(enabled);
-			label.setBackground(model.primaryTextColor);
-		}
+        /**
+         * labelMouseListener constructor. It takes a PmLabel object.
+         * 
+         * @param lbl
+         */
+        public labelMouseListener(LinkLabel lbl) {
+            label = lbl;
+        }
 
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-		public void mouseClicked(MouseEvent e) {}
-		
-	}
+        /**
+         * When the user hover on label, the text will be bolded. It takes a
+         * MouseEvent argument
+         * 
+         * @param e
+         */
+        public void mouseEntered(MouseEvent e) {
+            if (enabled) {
+                String hex =
+                        Integer.toHexString(model.primaryTextColor.getRGB())
+                                .substring(2, 8);
+                label.setText("<html><Font Color=#" + hex + "><b>" + label.text
+                        + "</b></Font></html>");
+            }
+        }
 
-	public void update(Observable o, Object arg) {
-		if(arg == UpdatedType.COLOR){
-			String hex = Integer.toHexString(model.primaryTextColor.getRGB()).substring(2, 8);
-			this.setText("<html><Font Color=#" + hex + "><u>"+ text +"</u></Font></html>");
-		}
-	}
+        /**
+         * When the user hover on label, the text will be underlined. It takes a
+         * MouseEvent argument
+         * 
+         * @param e
+         */
+        public void mouseExited(MouseEvent e) {
+            label.setEnabled(enabled);
+            label.setBackground(model.primaryTextColor);
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        public void mouseClicked(MouseEvent e) {
+        }
+
+    }
+
+    public void update(Observable o, Object arg) {
+        if (arg == UpdatedType.COLOR) {
+            String hex =
+                    Integer.toHexString(model.primaryTextColor.getRGB())
+                            .substring(2, 8);
+            this.setText("<html><Font Color=#" + hex + "><u>" + text
+                    + "</u></Font></html>");
+        }
+    }
 }

@@ -41,7 +41,6 @@ import javax.swing.JTextField;
 
 import view.buddylist.BuddyList;
 import view.options.PersonalProfileTab;
-
 import controller.MainController;
 
 /**
@@ -58,6 +57,7 @@ public class PmLabel extends JTextField {
     protected MainController core;
 
     protected JTextField pmLabelTextField;
+
     /**
      * PmLabel constructor. It takes a MainController object as its argument. It
      * also sets up some settings for the object.
@@ -108,7 +108,7 @@ public class PmLabel extends JTextField {
             this.setBorder(null);
             this.setText(this.getText());
             this.setOpaque(false);
-            
+
             this.setForeground(new Color(230, 243, 255));
             // send status to core
 
@@ -123,20 +123,22 @@ public class PmLabel extends JTextField {
         }
     }
 
-    public void setTextDisplay(String str){
-    	 if (str == null || str.length() == 0
-                 || str.equals("(Type your status message)")) {
-             this.setText("(Type your status message)");
-    	 }else {
-    		 this.setText(str);
-    	 }
+    public void setTextDisplay(String str) {
+        if (str == null || str.length() == 0
+                || str.equals("(Type your status message)")) {
+            this.setText("(Type your status message)");
+        } else {
+            this.setText(str);
+        }
     }
-    
-    public void synchOptions(){
-    	if (BuddyList.optionsIsVisible())
-    		PersonalProfileTab.personalMessage.setText(pmLabelTextField.getText());
+
+    public void synchOptions() {
+        if (BuddyList.optionsIsVisible()) {
+            PersonalProfileTab.personalMessage.setText(pmLabelTextField
+                    .getText());
+        }
     }
-    	 
+
     /**
      * Sets the behaviour with regard of mouse input and position.
      * 
@@ -209,14 +211,15 @@ public class PmLabel extends JTextField {
          * committed . It takes a KeyEvent argument
          */
         public void keyPressed(KeyEvent e) {
-        	
+
         }
 
         public void keyReleased(KeyEvent e) {
-        	if (BuddyList.optionsIsVisible()) {
-             	PersonalProfileTab.personalMessage.setText(pmLabelTextField.getText());
+            if (BuddyList.optionsIsVisible()) {
+                PersonalProfileTab.personalMessage.setText(pmLabelTextField
+                        .getText());
             }
-        	 
+
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 label.changePM(false, true);
             }

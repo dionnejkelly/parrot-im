@@ -34,10 +34,10 @@ public class AccountTempData {
      * the database, but will be represented as a ServerType enumeration in the
      * AccountData object.
      */
-    private ServerType server; 
+    private ServerType server;
 
     private String serverAddress;
-    
+
     /**
      * The userID is the account name, with the "@server.com" affixed to it.
      */
@@ -56,7 +56,8 @@ public class AccountTempData {
      * @param userID
      * @param password
      */
-    public AccountTempData(String server, String serverAddress, String userID, String password) {
+    public AccountTempData(String server, String serverAddress, String userID,
+            String password) {
         this.setServer(server);
         this.setServerAddress(serverAddress);
         this.setUserID(userID);
@@ -66,18 +67,20 @@ public class AccountTempData {
     /**
      * Change the server type.
      * 
-     * @param server Server as a ServerType enum.
+     * @param server
+     *            Server as a ServerType enum.
      */
     public void setServer(ServerType server) {
         this.server = server;
 
         return;
     }
-    
+
     /**
      * Change the server type.
      * 
-     * @param server Server as a String.
+     * @param server
+     *            Server as a String.
      */
     public void setServer(String server) {
         this.server = ServerType.serverStringToServerType(server);
@@ -96,7 +99,7 @@ public class AccountTempData {
 
     public void setServerAddress(String serverAddress) {
         this.serverAddress = serverAddress;
-        
+
         return;
     }
 
@@ -125,8 +128,7 @@ public class AccountTempData {
     }
 
     /**
-     * Changes the password. Note that it is not
-     * encrypted inside this object.
+     * Changes the password. Note that it is not encrypted inside this object.
      * 
      * @param password
      */
@@ -136,13 +138,13 @@ public class AccountTempData {
         return;
     }
 
-    /** 
-     * Gets the password. 
+    /**
+     * Gets the password.
      * 
      * @return The password of the user.
      */
     public String getPassword() {
         return password;
     }
-    
+
 }

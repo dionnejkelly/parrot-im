@@ -69,7 +69,7 @@ public class MultiConversationData extends Observable implements Conversation {
     public UserData getUser() {
         return this.users.size() >= 1 ? this.users.get(0) : null;
     }
-    
+
     /**
      * Gets the UserData of the external user.
      * 
@@ -158,7 +158,7 @@ public class MultiConversationData extends Observable implements Conversation {
 
         return;
     }
-    
+
     public String userList() {
         String toReturn = "";
         if (this.users.size() > 0) {
@@ -169,7 +169,7 @@ public class MultiConversationData extends Observable implements Conversation {
         } else {
             toReturn = "<Empty>";
         }
-        
+
         return toReturn;
     }
 
@@ -201,9 +201,9 @@ public class MultiConversationData extends Observable implements Conversation {
 
         if (o != null && o instanceof MultiConversationData) {
             externalConversation = (MultiConversationData) o;
-            areEqual = (this.roomName
-                    .equals(externalConversation.getRoomName()) && this.account
-                    .equals(externalConversation.getAccount()));
+            areEqual =
+                    (this.roomName.equals(externalConversation.getRoomName()) && this.account
+                            .equals(externalConversation.getAccount()));
         }
 
         return areEqual;

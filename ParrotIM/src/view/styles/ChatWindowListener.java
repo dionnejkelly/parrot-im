@@ -24,44 +24,66 @@ package view.styles;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import model.*;
+
+import model.Model;
 
 /**
- * This object is a WindowListener for ChatWindow objects.
- * It controls chatWindowOpen variable in model class.
+ * This object is a WindowListener for ChatWindow objects. It controls
+ * chatWindowOpen variable in model class.
  * 
  * This object inherits WindowListener variables and methods.
  */
 public class ChatWindowListener implements WindowListener {
-	/** model allows to store the state of ChatWindow (ie. whether it is opened or not). */
-	Model model;
-	
-	/** ChatWindowListener takes Model object as an argument.
-	 * @param model */
-	public ChatWindowListener(Model model){
-		this.model = model;
-	}
+    /**
+     * model allows to store the state of ChatWindow (ie. whether it is opened
+     * or not).
+     */
+    Model model;
 
-	/** Sets chatWindowOpen to false. It takes a WindowEvent argument. 
-	 * @param e */
-	public void windowClosed(WindowEvent e) {
-	try {
-		model.clearAllConversations();
-	}
-    catch (NullPointerException nullEvent) {
-    	System.out.println("No chat windows were opened");
+    /**
+     * ChatWindowListener takes Model object as an argument.
+     * 
+     * @param model
+     */
+    public ChatWindowListener(Model model) {
+        this.model = model;
     }
-	    
-	}
-	
-	/** Sets chatWindowOpen to false. It takes a WindowEvent argument.
-	 * @param e */
-	public void windowClosing(WindowEvent e) {
-	    model.clearAllConversations();
-	}
-	public void windowDeactivated(WindowEvent e) {}
-	public void windowDeiconified(WindowEvent e) {}
-	public void windowIconified(WindowEvent e) {}
-	public void windowOpened(WindowEvent e) {}
-	public void windowActivated(WindowEvent e) {}
+
+    /**
+     * Sets chatWindowOpen to false. It takes a WindowEvent argument.
+     * 
+     * @param e
+     */
+    public void windowClosed(WindowEvent e) {
+        try {
+            model.clearAllConversations();
+        } catch (NullPointerException nullEvent) {
+            System.out.println("No chat windows were opened");
+        }
+
+    }
+
+    /**
+     * Sets chatWindowOpen to false. It takes a WindowEvent argument.
+     * 
+     * @param e
+     */
+    public void windowClosing(WindowEvent e) {
+        model.clearAllConversations();
+    }
+
+    public void windowDeactivated(WindowEvent e) {
+    }
+
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    public void windowIconified(WindowEvent e) {
+    }
+
+    public void windowOpened(WindowEvent e) {
+    }
+
+    public void windowActivated(WindowEvent e) {
+    }
 }

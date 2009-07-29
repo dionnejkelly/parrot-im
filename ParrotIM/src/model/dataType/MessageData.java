@@ -30,7 +30,6 @@
 
 package model.dataType;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -70,43 +69,57 @@ public class MessageData {
      */
     private String size;
 
-    /** These are the font settings as set by the
-     * corresponding buttons on the chatPanel
+    /**
+     * These are the font settings as set by the corresponding buttons on the
+     * chatPanel
      */
     private boolean bold, italics, underlined;
-    
-    /** This is the users font color as a string
-     * of 6-digit hex codes ("#RRGGBB)
+
+    /**
+     * This is the users font color as a string of 6-digit hex codes ("#RRGGBB)
      */
     private String fontColor;
-    
+
     private String timeStamp;
-    
+
     private boolean isReceiving;
-    
-    /** String[][] emoticons is a 2-dimensional array of strings with
-	 * the first string being the regular expression of shortcuts which
-	 * will be replaced by an image, and the second string is the file
-	 * name of the image located within the "/images/emoticons/" folder
-	 */
-    private String[][] emoticons = {{"([^oO0\\<](=|:)[ ]*-?[ ]*([)]|]))|([(][ ]*-?[ ]*(:|=)[^oO0\\>])", "happy.png"},
-									{"((:|=)[ ]*-?([(]|c|C))|(([)]|])[ ]*-?[ ]*(:|=))", "sad.png"},
-									{"((:|=)-?[|])|([|]-?(:|=))", "neutral.png"},
-									{"(:[ ]*-?[ ]*D)", "joy.png"},
-									{"((:|=)[ ]*-?[ ]*(X|x|#))|((X|x|#)[ ]*-?[ ]*(:|=))", "zipper.png"},
-									{"((X|x)[ ]*-?[ ]*D)", "laugh.png"},
-									{"(B[ ]*-?[ ]*[)])", "cool.png"},
-									{"((:|=)[ ]*-?[ ]*(S|s))|((S|s)[ ]*-?[ ]*(:|=))", "sick.png"},
-									{"(8[ ]*-?[ ]*[)])", "glasses.png"},
-									{"((X|x)[ ]*-?[ ]*(P|p|b))|(q[ ]*-?[ ]*(X|x))", "dead.png"},
-									{"(;[ ]*-?[ ]*[)])|([(][ ]*-?[ ]*;)", "wink.png"},
-									{"([^o0O(][ ]*:[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*:[ ]*[^o0O)])", "surprise.png"},
-									{"(=[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*=)", "afraid.png"},
-									{"((:|=)[ ]*-?[ ]*(P|p|b))|((q|d)[ ]*-?[ ]*(:|=))", "tongue.png"},
-									{"<3", "heart.png"}, {"</3", "brokenheart.png"},
-									{"((o|0|O)[ ]*:[ ]*-?[ ]*[)])", "angel.png"},
-									{"(<[ ]*(:|=)[ ]*-?[ ]*[)])|([(][ ]*-?[ ]*(:|=)[ ]*>)", "party.png"}};
-    
+
+    /**
+     * String[][] emoticons is a 2-dimensional array of strings with the first
+     * string being the regular expression of shortcuts which will be replaced
+     * by an image, and the second string is the file name of the image located
+     * within the "/images/emoticons/" folder
+     */
+    private String[][] emoticons =
+            {
+                    {
+                            "([^oO0\\<](=|:)[ ]*-?[ ]*([)]|]))|([(][ ]*-?[ ]*(:|=)[^oO0\\>])",
+                            "happy.png" },
+                    { "((:|=)[ ]*-?([(]|c|C))|(([)]|])[ ]*-?[ ]*(:|=))",
+                            "sad.png" },
+                    { "((:|=)-?[|])|([|]-?(:|=))", "neutral.png" },
+                    { "(:[ ]*-?[ ]*D)", "joy.png" },
+                    { "((:|=)[ ]*-?[ ]*(X|x|#))|((X|x|#)[ ]*-?[ ]*(:|=))",
+                            "zipper.png" },
+                    { "((X|x)[ ]*-?[ ]*D)", "laugh.png" },
+                    { "(B[ ]*-?[ ]*[)])", "cool.png" },
+                    { "((:|=)[ ]*-?[ ]*(S|s))|((S|s)[ ]*-?[ ]*(:|=))",
+                            "sick.png" },
+                    { "(8[ ]*-?[ ]*[)])", "glasses.png" },
+                    { "((X|x)[ ]*-?[ ]*(P|p|b))|(q[ ]*-?[ ]*(X|x))", "dead.png" },
+                    { "(;[ ]*-?[ ]*[)])|([(][ ]*-?[ ]*;)", "wink.png" },
+                    {
+                            "([^o0O(][ ]*:[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*:[ ]*[^o0O)])",
+                            "surprise.png" },
+                    { "(=[ ]*-?[ ]*(0|O|o))|((0|O|o)[ ]*-?[ ]*=)", "afraid.png" },
+                    { "((:|=)[ ]*-?[ ]*(P|p|b))|((q|d)[ ]*-?[ ]*(:|=))",
+                            "tongue.png" },
+                    { "<3", "heart.png" },
+                    { "</3", "brokenheart.png" },
+                    { "((o|0|O)[ ]*:[ ]*-?[ ]*[)])", "angel.png" },
+                    { "(<[ ]*(:|=)[ ]*-?[ ]*[)])|([(][ ]*-?[ ]*(:|=)[ ]*>)",
+                            "party.png" } };
+
     // Section
     // II - Constructors
 
@@ -118,8 +131,9 @@ public class MessageData {
      * @param font
      * @param size
      */
-    public MessageData(String fromUser, String message, String font, String size,
-    		boolean bold, boolean italics, boolean underlined, String color, boolean receiving) {
+    public MessageData(String fromUser, String message, String font,
+            String size, boolean bold, boolean italics, boolean underlined,
+            String color, boolean receiving) {
         this.fromUser = fromUser;
         this.message = message;
         this.font = font;
@@ -129,7 +143,7 @@ public class MessageData {
         this.underlined = underlined;
         this.fontColor = color;
         this.isReceiving = receiving;
-        
+
         Date date1 = new Date();
         timeStamp = new SimpleDateFormat("HH:mm--").format(date1);
     }
@@ -137,11 +151,11 @@ public class MessageData {
     public MessageData(String fromUser, String message) {
         this.fromUser = fromUser;
         this.message = message;
-        
+
         Date date1 = new Date();
         timeStamp = new SimpleDateFormat("HH:mm--").format(date1);
     }
-    
+
     // Section
     // III - Accessors and Mutators
 
@@ -211,54 +225,60 @@ public class MessageData {
      * @return The message with HTML tags attached for display.
      */
     public String text() {
-        String toUserText = timeStamp + "<U><font face = \"Arial\">"
-            			+ this.fromUser + ":</font></U>";
-           
+        String toUserText =
+                timeStamp + "<U><font face = \"Arial\">" + this.fromUser
+                        + ":</font></U>";
+
         if (!isReceiving) {
-        	System.out.println("Never getting called...");
-        	toUserText = timeStamp + "<U><font face = \"Arial" + "\" color=\"" + "#ff00ff"
-            + "\">" + this.fromUser + ":</font></U>";
+            System.out.println("Never getting called...");
+            toUserText =
+                    timeStamp + "<U><font face = \"Arial" + "\" color=\""
+                            + "#ff00ff" + "\">" + this.fromUser
+                            + ":</font></U>";
         }
-        
+
         else {
-        	toUserText = timeStamp + "<U><font face = \"Arial" + "\" color=\"" + fontColor
-            + "\">" + this.fromUser + ":</font></U>";
+            toUserText =
+                    timeStamp + "<U><font face = \"Arial" + "\" color=\""
+                            + fontColor + "\">" + this.fromUser
+                            + ":</font></U>";
         }
-        
-        
-        
-        
-        String text =   "<font face=\"" + this.font + "\" size=\"" + this.size +
-        				"\" color=\"" + fontColor + "\"> " 
-                        + this.message + " </font><br><br>";
-        
-        if(this.bold){ 
-        	text = "<b>" + text + "</b>"; 
+
+        String text =
+                "<font face=\"" + this.font + "\" size=\"" + this.size
+                        + "\" color=\"" + fontColor + "\"> " + this.message
+                        + " </font><br><br>";
+
+        if (this.bold) {
+            text = "<b>" + text + "</b>";
         }
-        if(this.italics){ 
-        	text = "<i>" + text + "</i>"; 
+        if (this.italics) {
+            text = "<i>" + text + "</i>";
         }
-        if(this.underlined){ 
-        	text = "<u>" + text + "</u>"; 
+        if (this.underlined) {
+            text = "<u>" + text + "</u>";
         }
         text = toUserText + text;
         text = addEmoticons(text);
         return text;
     }
-    
+
     /**
-     * Searches for matches to emoticons using regular expressions and
-     * replaces with HTML tag for the emoticon
-     *  
+     * Searches for matches to emoticons using regular expressions and replaces
+     * with HTML tag for the emoticon
+     * 
      * @param text
      * @return The text with HTML tags for the emoticons added.
      */
-    private String addEmoticons(String text){
-    	for(int i = 0; i < emoticons.length; i++){
-	    	text = text.replaceAll(emoticons[i][0], "<img src=\"" + this.getClass().getResource(
-	        "/images/emoticons/" + emoticons[i][1]).toString() + "\" alt=\":)\" />");
-    	}
-    	return text;
+    private String addEmoticons(String text) {
+        for (String[] emoticon : emoticons) {
+            text =
+                    text.replaceAll(emoticon[0], "<img src=\""
+                            + this.getClass().getResource(
+                                    "/images/emoticons/" + emoticon[1])
+                                    .toString() + "\" alt=\":)\" />");
+        }
+        return text;
     }
 
     /**

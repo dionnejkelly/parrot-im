@@ -16,15 +16,15 @@
 
 package test.unit;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertSame;
 import model.dataType.tempData.AccountTempData;
 import model.enumerations.ServerType;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-	// Done
+
+// Done
 public class AccountTempDataTest {
     private AccountTempData ad1;
     private AccountTempData ad2;
@@ -33,10 +33,16 @@ public class AccountTempDataTest {
 
     @Before
     public void setUp() throws Exception {
-        ad1 = new AccountTempData(ServerType.GOOGLE_TALK.toString(), "", "Rakan", "1234");
+        ad1 =
+                new AccountTempData(ServerType.GOOGLE_TALK.toString(), "",
+                        "Rakan", "1234");
         ad2 = new AccountTempData(ServerType.ICQ.toString(), "", "Ross", "abc");
-        ad3 = new AccountTempData(ServerType.MSN.toString(), "", "Janice", "ohmygod");
-        ad4 = new AccountTempData(ServerType.TWITTER.toString(), "", "Joey", "Friends");
+        ad3 =
+                new AccountTempData(ServerType.MSN.toString(), "", "Janice",
+                        "ohmygod");
+        ad4 =
+                new AccountTempData(ServerType.TWITTER.toString(), "", "Joey",
+                        "Friends");
 
     }
 
@@ -50,7 +56,9 @@ public class AccountTempDataTest {
 
     @Test
     public void testAccountTempData() {
-        ad4 = new AccountTempData(ServerType.ICQ.toString(), "", "James", "007");
+        ad4 =
+                new AccountTempData(ServerType.ICQ.toString(), "", "James",
+                        "007");
         assertSame(ServerType.ICQ, ad4.getServer());
         assertSame("James", ad4.getUserID());
         assertSame("007", ad4.getPassword());
@@ -59,7 +67,8 @@ public class AccountTempDataTest {
     @Test
     public void testSetServer() {
         AccountTempData expected =
-                new AccountTempData(ServerType.JABBER.toString(), "", "Rakan", "1234");
+                new AccountTempData(ServerType.JABBER.toString(), "", "Rakan",
+                        "1234");
         ad1.setServer(ServerType.JABBER);
         assertSame(expected.getServer(), ad1.getServer());
     }
@@ -75,7 +84,8 @@ public class AccountTempDataTest {
     public void testSetUserID() {
         ad2.setUserID("Chandler");
         AccountTempData expected =
-                new AccountTempData(ServerType.ICQ.toString(), "", "Chandler", "abc");
+                new AccountTempData(ServerType.ICQ.toString(), "", "Chandler",
+                        "abc");
         assertSame(expected.getUserID(), ad2.getUserID());
     }
 
@@ -89,7 +99,8 @@ public class AccountTempDataTest {
     public void testSetPassword() {
         ad3.setPassword("qwerty");
         AccountTempData expected =
-                new AccountTempData(ServerType.MSN.toString(), "", "Janice", "qwerty");
+                new AccountTempData(ServerType.MSN.toString(), "", "Janice",
+                        "qwerty");
         assertSame(expected.getPassword(), ad3.getPassword());
     }
 

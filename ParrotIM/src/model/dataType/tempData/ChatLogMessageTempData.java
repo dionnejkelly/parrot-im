@@ -22,34 +22,33 @@
 package model.dataType.tempData;
 
 /**
- * Holds chat log message data from the database and transfers
- * it to other parts of the program.
+ * Holds chat log message data from the database and transfers it to other parts
+ * of the program.
  */
 public class ChatLogMessageTempData {
-    
+
     /**
      * The time the message was sent. Does not include the date.
      */
     private String time;
-    
+
     /**
-     * Who the message is being sent to. May not be used for
-     * display in the chat log.
+     * Who the message is being sent to. May not be used for display in the chat
+     * log.
      */
     private String from;
-    
+
     /**
-     * Who the message was sent from. The database is set
-     * to hold the userID of who it was sent from. This type
-     * does not change it to the nickname.
+     * Who the message was sent from. The database is set to hold the userID of
+     * who it was sent from. This type does not change it to the nickname.
      */
     private String to;
-    
+
     /**
      * The actual content of the message in string format.
      */
     private String text;
-    
+
     /**
      * Creates an object with all parameters.
      * 
@@ -81,7 +80,7 @@ public class ChatLogMessageTempData {
      * @param time
      */
     public void setTime(String time) {
-        this.time = time;      
+        this.time = time;
         return;
     }
 
@@ -123,7 +122,7 @@ public class ChatLogMessageTempData {
         return;
     }
 
-    /** 
+    /**
      * Gets the content of the message.
      * 
      * @return A string of the message text.
@@ -141,15 +140,15 @@ public class ChatLogMessageTempData {
         this.text = text;
         return;
     }
-    
+
     /**
      * Returns string.
      * 
      * @return the friend's account, the date, and the message
      */
-    
-    public String toString(){
-		return getFrom() + " (" + getTime() + "): " + getText() + "\n";
-    	
+
+    public String toString() {
+        return getFrom() + " (" + getTime() + "): " + getText() + "\n";
+
     }
 }

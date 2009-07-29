@@ -27,22 +27,21 @@ import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
-import view.buddylist.BuddyList;
+import javax.swing.WindowConstants;
 
 import model.Model;
-
+import view.buddylist.BuddyList;
 import controller.MainController;
 
 public class OptionFrame extends JFrame {
-	private OptionPanel mainPanel;
-	
+    private OptionPanel mainPanel;
+
     public OptionFrame(MainController c, Model model, BuddyList buddyFrame)
             throws ClassNotFoundException, SQLException {
         this.setTitle("User Preferences");
         this.setBackground(new Color(244, 244, 244));
-        
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         mainPanel = new OptionPanel(c, model, this, buddyFrame);
         getContentPane().add(mainPanel);
         setPreferredSize(new Dimension(520, 330));

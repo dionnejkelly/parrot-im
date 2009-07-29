@@ -2,14 +2,10 @@ package view.buddylist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,34 +13,29 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
-
-import org.jivesoftware.smack.XMPPException;
-
-import controller.MainController;
-import controller.services.BadConnectionException;
-
-import view.options.MusicPlayer;
-import view.styles.GPanel;
-import view.styles.GroupedListPane;
-import view.chatwindow.ChatWindow;
 
 import model.Model;
 import model.dataType.TwitterAccountData;
 import model.dataType.UserData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
+
+import org.jivesoftware.smack.XMPPException;
+
+import view.chatwindow.ChatWindow;
+import view.options.MusicPlayer;
+import view.styles.GPanel;
+import view.styles.GroupedListPane;
+import controller.MainController;
+import controller.services.BadConnectionException;
 
 /**
  * TwitterPanel display Twitter feeds and status panels for Parrot IM users.
@@ -123,24 +114,14 @@ public class TwitterPanel extends GPanel implements Observer {
 
     private ArrayList<ArrayList<UserData>> buddyArray;
 
-    private JTextField search;
-
-    private boolean searchEnabled;
-
-    private JButton searchButton;
-
-    private JButton googleSearchButton;
-
     private long lastUpdate;
 
     private PictureUpdateThread pictureUpdateThread;
 
     private ArrayList<FriendWrapper> friendWrappers;
 
-    private ArrayList<FriendPanel> friendPanels;
-
     private SelectListener selectListener;
-    
+
     private JLabel tempLabel;
 
     /**
@@ -152,36 +133,34 @@ public class TwitterPanel extends GPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
-
-//    public TwitterPanel(Model model){
-//    	this.model = model;
-//    	//model.addObserver(this);
-//        setLayout(new BorderLayout());
-//        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-//        setGradientColors(model.primaryColor, model.secondaryColor);
-//        
-//        JLabel tempLabel = new JLabel("Please Login to a Twitter Account first");
-//        add(tempLabel);
-//    }
-
-    public TwitterPanel(Model model){
-    	this.model = model;
-    	model.addObserver(this);
+    // public TwitterPanel(Model model){
+    // this.model = model;
+    // //model.addObserver(this);
+    // setLayout(new BorderLayout());
+    // setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+    // setGradientColors(model.primaryColor, model.secondaryColor);
+    //        
+    // JLabel tempLabel = new JLabel("Please Login to a Twitter Account first");
+    // add(tempLabel);
+    // }
+    public TwitterPanel(Model model) {
+        this.model = model;
+        model.addObserver(this);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         setGradientColors(model.primaryColor, model.secondaryColor);
-        
+
         tempLabel = new JLabel("Please Login to a Twitter Account first");
         tempLabel.setForeground(model.primaryTextColor);
         add(tempLabel);
     }
 
-    
     public TwitterPanel(MainController c, Model model, JFrame buddyWindow) {
         this.buddyWindow = buddyWindow;
-        if (model.getCurrentProfile().hasTwitter()){
-        model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER).addObserver(this);
-        model.addObserver(this);
+        if (model.getCurrentProfile().hasTwitter()) {
+            model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER)
+                    .addObserver(this);
+            model.addObserver(this);
         }
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -190,7 +169,6 @@ public class TwitterPanel extends GPanel implements Observer {
         this.chatClient = c;
         this.model = model;
         this.chat = null;
-        this.searchEnabled = false;
         this.lastUpdate = System.currentTimeMillis();
         this.friendWrappers = new ArrayList<FriendWrapper>();
         this.selectListener = new SelectListener();
@@ -221,13 +199,11 @@ public class TwitterPanel extends GPanel implements Observer {
         buddyListPane.addGroup("     Twitter Friends", twitterImage);
         // buddyListPane.addElement(0, "test", null);
 
-        
-        if (model.getCurrentProfile().hasTwitter())
-        {
-        pictureUpdateThread = new PictureUpdateThread();
-        pictureUpdateThread.start();
+        if (model.getCurrentProfile().hasTwitter()) {
+            pictureUpdateThread = new PictureUpdateThread();
+            pictureUpdateThread.start();
 
-        listRepopulate();
+            listRepopulate();
         }
 
         // friendList.add(boxes[0], BorderLayout.NORTH);
@@ -247,7 +223,7 @@ public class TwitterPanel extends GPanel implements Observer {
         } catch (BadConnectionException e1) {
             e1.printStackTrace();
         }
-        
+
         for (int i = 0; i < boxes.length; i++) {
             buddyArray.get(i).clear();
             buddyListPane.removeAllElements(i);
@@ -434,7 +410,7 @@ public class TwitterPanel extends GPanel implements Observer {
         System.out.println("thisistheupdate!: " + o);
         if (arg == UpdatedType.COLOR) {
             setGradientColors(model.primaryColor, model.secondaryColor);
-           // tempLabel.setForeground(model.primaryTextColor);
+            // tempLabel.setForeground(model.primaryTextColor);
             updateUI();
         } else if (o instanceof TwitterAccountData) {
             // Refresh if add/remove friends
@@ -452,8 +428,7 @@ public class TwitterPanel extends GPanel implements Observer {
          * boolean variable, indicate whether selected.
          */
         protected boolean selected;
-        
-        
+
         /**
          * SelectListener()
          */
@@ -471,13 +446,14 @@ public class TwitterPanel extends GPanel implements Observer {
                     System.out.println("j: " + j + "  and i: " + i);
                     if (event.getSource().equals(
                             buddyListPane.getComponent(j, i))) {
-                        if (event.getButton() == event.BUTTON1) {
+                        if (event.getButton() == MouseEvent.BUTTON1) {
                             // Left Click
                             selected = true;
 
                             /* Fix this to directly reference the GUI */
                             selectedFriend = buddyArray.get(j).get(i);
-                            System.out.println(selectedFriend + " in the woooos");
+                            System.out.println(selectedFriend
+                                    + " in the woooos");
 
                             if (event.getClickCount() == 2) {
                                 selected = false;
@@ -517,9 +493,7 @@ public class TwitterPanel extends GPanel implements Observer {
                 }
             }
 
-            MusicPlayer highlightMusic =
-                    new MusicPlayer("/audio/buddy/buddyHighlightedSound.wav",
-                            model);
+            new MusicPlayer("/audio/buddy/buddyHighlightedSound.wav", model);
         }
 
         // unimplemented mouselistener methods
@@ -553,5 +527,4 @@ public class TwitterPanel extends GPanel implements Observer {
         }
     }
 
-    
 }

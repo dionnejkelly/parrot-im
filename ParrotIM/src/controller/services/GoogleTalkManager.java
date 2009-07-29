@@ -14,7 +14,6 @@ import java.util.Vector;
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
 
 import model.Model;
 import model.dataType.ChatCollectionData;
@@ -23,22 +22,17 @@ import model.dataType.MessageData;
 import model.dataType.tempData.FriendTempData;
 import model.enumerations.ServerType;
 import model.enumerations.TypingStateType;
-import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.PacketCollector;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterListener;
-import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.PacketFilter;
-import org.jivesoftware.smack.filter.PacketIDFilter;
 import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
@@ -48,22 +42,15 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateListener;
 import org.jivesoftware.smackx.ChatStateManager;
-import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.filetransfer.FileTransfer;
 import org.jivesoftware.smackx.filetransfer.FileTransferManager;
 import org.jivesoftware.smackx.filetransfer.OutgoingFileTransfer;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
-import org.jivesoftware.smackx.muc.ParticipantStatusListener;
-import org.jivesoftware.smackx.muc.RoomInfo;
-import org.jivesoftware.smackx.muc.SubjectUpdatedListener;
 import org.jivesoftware.smackx.packet.VCard;
 
-import com.sun.image.codec.jpeg.ImageFormatException;
-
-import view.options.MusicPlayer; //import view.styles.ProgressMonitorScreen;
+import view.options.MusicPlayer;
 import view.styles.ProgressMonitorScreen;
-
 import controller.MainController;
 
 public class GoogleTalkManager implements GenericConnection {
@@ -101,10 +88,6 @@ public class GoogleTalkManager implements GenericConnection {
     private boolean isConferenceChat = false;
 
     // private Vector<String> availableRoom = new Vector<String>();
-
-    private String groupRoom;
-
-    private int countRoom = 0;
 
     private Vector<MultiUserChatManager> multiChatList =
             new Vector<MultiUserChatManager>();
@@ -410,7 +393,7 @@ public class GoogleTalkManager implements GenericConnection {
         roster.setSubscriptionMode(Roster.SubscriptionMode.manual);
         addSubscriptionListener();
 
-        multiUserChat.addInvitationListener(connection,
+        MultiUserChat.addInvitationListener(connection,
                 new invitationListener());
 
         fileTransferManager = new FileTransferManager(connection);
@@ -463,7 +446,7 @@ public class GoogleTalkManager implements GenericConnection {
                 String validateReason =
                         JOptionPane
                                 .showInputDialog("What would be your reason?");
-                multiUserChat.decline(connection, room,
+                MultiUserChat.decline(connection, room,
                         delimitUserFront(inviter), validateReason);
             }
 
@@ -725,11 +708,7 @@ public class GoogleTalkManager implements GenericConnection {
                             controller.modelAddFriend(parseName(packet
                                     .getFrom())
                                     + "@gmail.com");
-                            MusicPlayer addMusic =
-                                    new MusicPlayer(
-                                            "/audio/buddy/addFriend.wav", model);
-                            // System.out.println("Updated the roster ========================== "
-                            // + parseName(packet.getFrom()));
+                            new MusicPlayer("/audio/buddy/addFriend.wav", model);
                         }
 
                         else {
@@ -1113,7 +1092,8 @@ public class GoogleTalkManager implements GenericConnection {
 
             try {
                 Thread.sleep(100);
-                progress.counter = (int) fileTransfer.getProgress() * 100;
+                ProgressMonitorScreen.counter =
+                        (int) fileTransfer.getProgress() * 100;
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

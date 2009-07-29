@@ -21,21 +21,16 @@ import java.util.Vector;
 
 /**
  * Holds all popup windows that still enable the calling frame but do not allow
- * the user to call multiple windows of each of the popup window type. Provides a
- * standardized means of referencing them in a way that's easy for programmers
+ * the user to call multiple windows of each of the popup window type. Provides
+ * a standardized means of referencing them in a way that's easy for programmers
  * to understand.
  */
 public enum StatusType {
-	
-	// Section
+
+    // Section
     // I - Enumerated Types
-    AVAILABLE("Available"),
-    AWAY("Away"), 
-    BUSY("Busy"), 
-    PHONE("On the phone"), 
-    LUNCH("Lunch"), 
-    BRB("Be right back"), 
-    INVISIBLE("Invisible");
+    AVAILABLE("Available"), AWAY("Away"), BUSY("Busy"), PHONE("On the phone"),
+    LUNCH("Lunch"), BRB("Be right back"), INVISIBLE("Invisible");
 
     // Section
     // II - Constants
@@ -52,7 +47,7 @@ public enum StatusType {
 
     // Section
     // IV - Constructors
-    
+
     /**
      * Default constructor. Assigns a String name to each type for output on the
      * GUI.
@@ -65,7 +60,7 @@ public enum StatusType {
 
     // Section
     // V - Accessors and Mutators
-    
+
     /**
      * Returns how many enumerated types there are. This is currently set as a
      * constant that needs to be updated every type a type is added.
@@ -75,7 +70,7 @@ public enum StatusType {
     public static int numberOfValues() {
         return TOTAL_VALUES;
     }
-    
+
     // Section
     // VI - Information Request Methods
 
@@ -101,10 +96,9 @@ public enum StatusType {
         }
         return statusList;
     }
-    
 
-    public static String intToStatusType(int ordinal){
-    	return getStatusList().get(ordinal);
-    	
+    public static String intToStatusType(int ordinal) {
+        return getStatusList().get(ordinal);
+
     }
 }

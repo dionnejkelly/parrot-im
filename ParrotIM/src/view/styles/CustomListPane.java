@@ -3,12 +3,10 @@ package view.styles;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,54 +18,56 @@ import javax.swing.ScrollPaneConstants;
 
 import view.chatwindow.UserDataWrapper;
 
-public class CustomListPane extends GPanel{
-	private int groupIndex;
-	
-	private Component lastSelectedComponent;
-	private JPanel lastSelectedPanel;
-	
-	private Component lastClickedComponent;
-	private int lastClickedIndex;
-	
+public class CustomListPane extends GPanel {
+    private Component lastSelectedComponent;
+    private JPanel lastSelectedPanel;
+
+    private Component lastClickedComponent;
+    private int lastClickedIndex;
+
     private ArrayList<String> nicknames = new ArrayList<String>();
-    private ArrayList<UserDataWrapper> userWrappers = new ArrayList<UserDataWrapper>();
+    private ArrayList<UserDataWrapper> userWrappers =
+            new ArrayList<UserDataWrapper>();
     private ArrayList<JPanel> userPanels;
     private ArrayList<JLabel> userLabels = new ArrayList<JLabel>();
     Box boxes[] = new Box[1];
-    private ImageIcon defaultIcon = new ImageIcon(this.getClass().getResource(
-            "/images/chatwindow/personal.png"));
+    private ImageIcon defaultIcon =
+            new ImageIcon(this.getClass().getResource(
+                    "/images/chatwindow/personal.png"));
     private int lastSelected = 0;
     public boolean modifiableColors = false;
     public Color textColor = Color.BLACK;
-    
+
     public CustomListPane() {
         setGradientColors(Color.WHITE, Color.WHITE);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
-        //setOpaque(false);
-        
+        // setOpaque(false);
+
         userPanels = new ArrayList<JPanel>();
         boxes[0] = Box.createVerticalBox();
 
         add(boxes[0], BorderLayout.NORTH);
     }
-    public void setGroupIndex(int index){
-    	groupIndex = index;
+
+    public void setGroupIndex(int index) {
     }
-    public void resetClickedSelection(){
-    	if (lastClickedComponent != null && lastClickedIndex != -1){
-    		lastClickedComponent.setBackground(Color.WHITE);
-    		userPanels.get(lastClickedIndex).setOpaque(false);
-    	}
-    	lastClickedComponent = null;
-    	lastClickedIndex = -1;
+
+    public void resetClickedSelection() {
+        if (lastClickedComponent != null && lastClickedIndex != -1) {
+            lastClickedComponent.setBackground(Color.WHITE);
+            userPanels.get(lastClickedIndex).setOpaque(false);
+        }
+        lastClickedComponent = null;
+        lastClickedIndex = -1;
     }
+
     private JPanel friendPanel(String nickname, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
-        //friendPanel.setBackground(Color.WHITE);
+        // friendPanel.setBackground(Color.WHITE);
         friendPanel.setOpaque(false);
-        
+
         if (icon == null) {
             icon = defaultIcon;
         }
@@ -87,7 +87,7 @@ public class CustomListPane extends GPanel{
     private JPanel friendPanel(UserDataWrapper user, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
-        //friendPanel.setOpaque(false);
+        // friendPanel.setOpaque(false);
 
         if (icon == null) {
             icon = defaultIcon;
@@ -97,14 +97,14 @@ public class CustomListPane extends GPanel{
         ImageIcon newIcon = new ImageIcon(img);
 
         JLabel imageLabel = new JLabel(newIcon);
-        
+
         JLabel usernameLabel = user.getLabelRepresentation();
         usernameLabel.setForeground(this.textColor);
         userLabels.add(usernameLabel);
         friendPanel.add(imageLabel, BorderLayout.WEST);
         friendPanel.add(usernameLabel, BorderLayout.CENTER);
         friendPanel.setToolTipText(user.getToolTipText());
-        
+
         return friendPanel;
     }
 
@@ -134,12 +134,12 @@ public class CustomListPane extends GPanel{
     }
 
     public UserDataWrapper getUserWrapper(int i) {
-    	
-    	return userWrappers.get(i);
+
+        return userWrappers.get(i);
     }
 
     public void addElement(JPanel externalFriendPanel) {
-    	externalFriendPanel.setOpaque(false);
+        externalFriendPanel.setOpaque(false);
         userPanels.add(externalFriendPanel);
         boxes[0].add(externalFriendPanel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
@@ -149,7 +149,7 @@ public class CustomListPane extends GPanel{
     }
 
     public void addElement(JPanel externalFriendPanel, int index) {
-    	externalFriendPanel.setOpaque(false);
+        externalFriendPanel.setOpaque(false);
         userPanels.add(externalFriendPanel);
         boxes[0].add(externalFriendPanel, index);
         boxes[0].getComponent(index).addMouseListener(new SelectListener());
@@ -159,7 +159,7 @@ public class CustomListPane extends GPanel{
 
     public void addElement(String nickname, ImageIcon img,
             UserDataWrapper userWrapper, MouseListener externalListener) {
-    	System.out.println("SidePanel:" + nickname);
+        System.out.println("SidePanel:" + nickname);
         nicknames.add(nickname);
         userWrappers.add(userWrapper);
         JPanel panel = friendPanel(userWrapper, img);
@@ -230,14 +230,14 @@ public class CustomListPane extends GPanel{
     }
 
     public int getClickedIndex() {
-    	
-//    	for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-//            if (lastSelectedComponent.equals(boxes[0].getComponent(i))) {
-//            	return i;
-//            }
-//    	}
-//    	return 0;
-    	return lastSelected;
+
+        // for (int i = 0; i < boxes[0].getComponentCount(); i++) {
+        // if (lastSelectedComponent.equals(boxes[0].getComponent(i))) {
+        // return i;
+        // }
+        // }
+        // return 0;
+        return lastSelected;
     }
 
     public JScrollPane getWithScroller() {
@@ -258,30 +258,31 @@ public class CustomListPane extends GPanel{
          * highlights clicked element
          */
         public void mouseClicked(MouseEvent event) {
-        	if (lastSelectedComponent != null)
-        		lastSelectedComponent.setBackground(
-        				new Color(145, 200, 200));
+            if (lastSelectedComponent != null) {
+                lastSelectedComponent.setBackground(new Color(145, 200, 200));
+            }
         }
 
         /**
          * change background to color when mouse Entered
          */
         public void mouseEntered(MouseEvent event) {
-        	
+
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
-                	System.out.println("this is i "+ i);
-                	lastSelectedComponent = boxes[0].getComponent(i);
+                    System.out.println("this is i " + i);
+                    lastSelectedComponent = boxes[0].getComponent(i);
                     lastSelectedPanel = userPanels.get(i);
-                	lastSelectedComponent.setBackground(
-                            new Color(225, 247, 247));
-                	lastSelectedPanel.setOpaque(false);
-                    
-                	lastSelected = i;
+                    lastSelectedComponent
+                            .setBackground(new Color(225, 247, 247));
+                    lastSelectedPanel.setOpaque(false);
+
+                    lastSelected = i;
                     try {
                         userPanels.get(i).setOpaque(true);
                     } catch (IndexOutOfBoundsException e) {
-                        System.err.println("userPanel does not exist... i = " + i);
+                        System.err.println("userPanel does not exist... i = "
+                                + i);
                     }
                 }
             }
@@ -291,11 +292,12 @@ public class CustomListPane extends GPanel{
          * change background to white when mouse Exited
          */
         public void mouseExited(MouseEvent event) {
-        	if (lastSelectedComponent!= null){
-        		lastSelectedComponent.setBackground(Color.WHITE);
-        		lastSelectedPanel.setOpaque(false);
-        	}
+            if (lastSelectedComponent != null) {
+                lastSelectedComponent.setBackground(Color.WHITE);
+                lastSelectedPanel.setOpaque(false);
+            }
         }
+
         /**
          * Unused methods
          */
@@ -305,11 +307,11 @@ public class CustomListPane extends GPanel{
         public void mouseReleased(MouseEvent e) {
         }
     }
-    
-    public void updateTextColor(Color color){
-	    for(JLabel l : userLabels){
-	    	l.setForeground(color);
-	    	l.updateUI();
-	    }
+
+    public void updateTextColor(Color color) {
+        for (JLabel l : userLabels) {
+            l.setForeground(color);
+            l.updateUI();
+        }
     }
 }

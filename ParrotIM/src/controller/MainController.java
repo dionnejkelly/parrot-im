@@ -22,7 +22,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,30 +29,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.util.StringUtils;
-
-import com.sun.image.codec.jpeg.ImageFormatException;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
-import view.options.MusicPlayer;
-import view.styles.ProgressMonitorScreen;
-
-import controller.chatbot.Chatbot;
-import controller.services.BadConnectionException;
-import controller.services.GenericConnection;
-import controller.services.GoogleTalkManager;
-import controller.services.ICQManager;
-import controller.services.JabberManager;
-import controller.services.MSNManager;
-import controller.services.TwitterManager;
 
 import model.Model;
 import model.dataType.AccountData;
@@ -80,6 +61,25 @@ import model.enumerations.TypingStateType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.util.StringUtils;
+
+import view.options.MusicPlayer;
+import view.styles.ProgressMonitorScreen;
+
+import com.sun.image.codec.jpeg.ImageFormatException;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+
+import controller.chatbot.Chatbot;
+import controller.services.BadConnectionException;
+import controller.services.GenericConnection;
+import controller.services.GoogleTalkManager;
+import controller.services.ICQManager;
+import controller.services.JabberManager;
+import controller.services.MSNManager;
+import controller.services.TwitterManager;
+
 /**
  * Handles all connections involving XMPP protocol.
  */
@@ -100,8 +100,6 @@ public class MainController {
     private String groupRoom;
 
     private int countRoom = 0;
-
-    private DecimalFormat progressBar;
 
     /**
      * This is the constructor of Xmpp.
@@ -125,46 +123,48 @@ public class MainController {
      * @param status
      */
     public void setStatus(String status, boolean changeTwitter) {
-    	if (status == null || status.length() == 0)
-    		return;
+        if (status == null || status.length() == 0) {
+            return;
+        }
         // Updates status for all accounts
         // TODO may not wanted for twitter?
         for (AccountData a : model.getCurrentProfile().getAccountData()) {
-        	if (a.isConnected()){
-	            if (a.getServer() != ServerType.TWITTER) {
-	                try {
-	                    a.getConnection().changeStatus(
-	                            model.getCurrentProfile().getState(), status);
-	                    model.setStatusMessage(model.getCurrentProfile().getName(),
-	                            status);
-	                } catch (BadConnectionException e) {
-	                    // TODO Throw something back?
-	                } catch (ClassNotFoundException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
-	                } catch (SQLException e) {
-	                    // TODO Auto-generated catch block
-	                    e.printStackTrace();
-	                }
-	            } else {
-	                if (changeTwitter) {
-	                    try {
-	                        a.getConnection().changeStatus(
-	                                model.getCurrentProfile().getState(), status);
-	                        model.setStatusMessage(model.getCurrentProfile()
-	                                .getName(), status);
-	                    } catch (BadConnectionException e) {
-	                        // TODO Throw something back?
-	                    } catch (ClassNotFoundException e) {
-	                        // TODO Auto-generated catch block
-	                        e.printStackTrace();
-	                    } catch (SQLException e) {
-	                        // TODO Auto-generated catch block
-	                        e.printStackTrace();
-	                    }
-	                }
-	            }
-        	}
+            if (a.isConnected()) {
+                if (a.getServer() != ServerType.TWITTER) {
+                    try {
+                        a.getConnection().changeStatus(
+                                model.getCurrentProfile().getState(), status);
+                        model.setStatusMessage(model.getCurrentProfile()
+                                .getName(), status);
+                    } catch (BadConnectionException e) {
+                        // TODO Throw something back?
+                    } catch (ClassNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (changeTwitter) {
+                        try {
+                            a.getConnection().changeStatus(
+                                    model.getCurrentProfile().getState(),
+                                    status);
+                            model.setStatusMessage(model.getCurrentProfile()
+                                    .getName(), status);
+                        } catch (BadConnectionException e) {
+                            // TODO Throw something back?
+                        } catch (ClassNotFoundException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
         }
         model.getCurrentProfile().setStatus(status);
 
@@ -197,8 +197,6 @@ public class MainController {
 
     public String getAccount() {
         AccountData account = null; // Should be passed in!!
-        GenericConnection connection = null;
-
         // connection should be found from account!!
         account = model.getCurrentProfile().getAccountData().get(0);
 
@@ -207,38 +205,40 @@ public class MainController {
 
     public void setAvatarPicture(URL url) throws XMPPException, IOException,
             ClassNotFoundException, SQLException {
-    	
-    	if (model.getCurrentProfile().isEmptyProfile()) return;
-    	
+
+        if (model.getCurrentProfile().isEmptyProfile()) {
+            return;
+        }
+
         ImageIcon imageIcon = new ImageIcon(url);
         byte[] byeArray = toByte(imageIcon);
 
-        for (AccountData account : model.getCurrentProfile().getAccountData()){
-	        if (account.getServer().equals(ServerType.GOOGLE_TALK) && account.isConnected()){
-		        // connection should be found from account!!
-		        GenericConnection connection = account.getConnection();
-		
-		        System.out.println("Which connection = "+ account.getServer());
-		        connection.setAvatarPicture(byeArray);
-	        }
+        for (AccountData account : model.getCurrentProfile().getAccountData()) {
+            if (account.getServer().equals(ServerType.GOOGLE_TALK)
+                    && account.isConnected()) {
+                // connection should be found from account!!
+                GenericConnection connection = account.getConnection();
+
+                System.out.println("Which connection = " + account.getServer());
+                connection.setAvatarPicture(byeArray);
+            }
         }
-        	
-        
 
         // TODO make a more accurate Model.addFriend
 
     }
-    
+
     // Returns true if the profile contatins an XMPP account
-    
+
     public boolean isXMPP() {
-    	for (AccountData account : model.getCurrentProfile().getAccountData()){
-	        if (account.getServer() == ServerType.GOOGLE_TALK || account.getServer() == ServerType.JABBER){
-		        return true;
-	        }
+        for (AccountData account : model.getCurrentProfile().getAccountData()) {
+            if (account.getServer() == ServerType.GOOGLE_TALK
+                    || account.getServer() == ServerType.JABBER) {
+                return true;
+            }
         }
-    	
-    	return false;
+
+        return false;
     }
 
     private byte[] toByte(ImageIcon i) throws ImageFormatException, IOException {
@@ -271,7 +271,8 @@ public class MainController {
 
     }
 
-    public void setAvatarPicture(File file) throws XMPPException, MalformedURLException, ClassNotFoundException, SQLException {
+    public void setAvatarPicture(File file) throws XMPPException,
+            MalformedURLException, ClassNotFoundException, SQLException {
         // TODO create an account selection GUI
         AccountData account = null; // Should be passed in!!
         GenericConnection connection = null;
@@ -280,14 +281,13 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
-        System.out.println("Which connection = "
-                + connection.getServerType());
-        
-        
+        System.out.println("Which connection = " + connection.getServerType());
+
         connection.setAvatarPicture(file);
-        
+
         if (!model.getCurrentProfile().getName().equals("Guest")) {
-            model.setAvatarDirectory(model.getCurrentProfile().getName(), file.toURL().toString());
+            model.setAvatarDirectory(model.getCurrentProfile().getName(), file
+                    .toURL().toString());
         }
 
         // TODO make a more accurate Model.addFriend
@@ -308,17 +308,19 @@ public class MainController {
         // TODO may a user wants to go "invisible" in just one account?
         // TODO handle input from GUI, maybe enum type input?
         UserStateType state = null;
-       
-        if (stateString.equalsIgnoreCase("Online") ||
-        		stateString.equalsIgnoreCase("Available")) {
+
+        if (stateString.equalsIgnoreCase("Online")
+                || stateString.equalsIgnoreCase("Available")) {
             state = UserStateType.ONLINE;
             model.setStatus(model.getCurrentProfile().getName(), 0);
-        } else if (stateString.equalsIgnoreCase("Away") ||
-        		stateString.equalsIgnoreCase(UserStateType.NOT_AVAILABLE.toString())) {
+        } else if (stateString.equalsIgnoreCase("Away")
+                || stateString.equalsIgnoreCase(UserStateType.NOT_AVAILABLE
+                        .toString())) {
             state = UserStateType.AWAY;
             model.setStatus(model.getCurrentProfile().getName(), 1);
-        } else if (stateString.equalsIgnoreCase("Busy") ||
-        		stateString.equalsIgnoreCase(UserStateType.NOT_BE_DISTURBED.toString())) {
+        } else if (stateString.equalsIgnoreCase("Busy")
+                || stateString.equalsIgnoreCase(UserStateType.NOT_BE_DISTURBED
+                        .toString())) {
             state = UserStateType.BUSY;
             model.setStatus(model.getCurrentProfile().getName(), 2);
         } else if (stateString.equalsIgnoreCase("On the phone")) {
@@ -327,12 +329,12 @@ public class MainController {
         } else if (stateString.equalsIgnoreCase("Lunch")) {
             state = UserStateType.LUNCH;
             model.setStatus(model.getCurrentProfile().getName(), 4);
-        } else if (stateString.equalsIgnoreCase("Be right back") ||
-        		stateString.equalsIgnoreCase("brb")) {
+        } else if (stateString.equalsIgnoreCase("Be right back")
+                || stateString.equalsIgnoreCase("brb")) {
             state = UserStateType.BRB;
             model.setStatus(model.getCurrentProfile().getName(), 5);
         }
-        
+
         else {
             // TODO implement me : OFFLINE AND INVISIBLE
             state = UserStateType.INVISIBLE;
@@ -366,24 +368,29 @@ public class MainController {
     public void login(AccountData account) throws BadConnectionException {
         GenericConnection connection = null;
         MainController controller = this;
-		try {
-			if (!model.getCurrentProfile().isGuestAccount()) {
-			model.primaryColor = Color.decode("0x" + model.getColor(1).toString());
-			model.secondaryColor = Color.decode("0x" + model.getColor(2).toString());
-			model.tertiaryColor = Color.decode("0x" + model.getColor(3).toString());
-			model.primaryTextColor = Color.decode("0x" + model.getColor(4).toString());
-			model.textPaneColor = Color.decode("0x" + model.getColor(5).toString());
-			}
-		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+        try {
+            if (!model.getCurrentProfile().isGuestAccount()) {
+                model.primaryColor =
+                        Color.decode("0x" + model.getColor(1).toString());
+                model.secondaryColor =
+                        Color.decode("0x" + model.getColor(2).toString());
+                model.tertiaryColor =
+                        Color.decode("0x" + model.getColor(3).toString());
+                model.primaryTextColor =
+                        Color.decode("0x" + model.getColor(4).toString());
+                model.textPaneColor =
+                        Color.decode("0x" + model.getColor(5).toString());
+            }
+        } catch (NumberFormatException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (ClassNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         // Determine which type of connection the account requires, and add it
         if (account instanceof GoogleTalkAccountData) {
             connection = new GoogleTalkManager(controller, model);
@@ -397,8 +404,8 @@ public class MainController {
         } else if (account instanceof ICQAccountData) {
             connection = new ICQManager(controller, model);
         } else {
-        	// it is AIM's server which we can connect it to the ICQ server
-        	 connection = new ICQManager(controller, model);
+            // it is AIM's server which we can connect it to the ICQ server
+            connection = new ICQManager(controller, model);
         }
         account.setConnection(connection);
 
@@ -485,17 +492,18 @@ public class MainController {
 
         return;
     }
-    
+
     /**
      * disconnects one account only
      * */
-    public void disconnect(AccountData account){
-    	account.getConnection().disconnect();
-    	account.removeAllFriends();
-    	System.out.println("allfriends are here= " + account.getFriends().size());
-    	account.setConnected(false);
-    	
-    	model.forceUpdate(UpdatedType.BUDDY);
+    public void disconnect(AccountData account) {
+        account.getConnection().disconnect();
+        account.removeAllFriends();
+        System.out.println("allfriends are here= "
+                + account.getFriends().size());
+        account.setConnected(false);
+
+        model.forceUpdate(UpdatedType.BUDDY);
     }
 
     /**
@@ -720,7 +728,6 @@ public class MainController {
         UserData user = null;
         String userID = null;
         String nickname = null;
-        String group = null;
         GenericConnection connection = null;
 
         // Get friends from the database to cross reference against
@@ -738,7 +745,7 @@ public class MainController {
             // Decide which type of user to use
             userID = f.getUserID();
             nickname = f.getNickname();
-            group = f.getGroup();
+            f.getGroup();
 
             if (nickname == null || nickname.equals("")
                     || nickname.equalsIgnoreCase(userID)) {
@@ -760,7 +767,7 @@ public class MainController {
             } else if (account.getServer() == ServerType.ICQ) {
                 user = new ICQUserData(userID);
                 user.setNickname(f.getNickname());
-                //user.setGroup(group);
+                // user.setGroup(group);
             } else { // some other user
                 // TODO implement me!
             }
@@ -940,21 +947,20 @@ public class MainController {
         connection = conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
-        
+
         to = conversation.getUser().getUserID();
         System.out
                 .println("---------------------------------------------------- Who am I sending it to = "
                         + to);
 
         to = conversation.getUser().getUserID();
-        
+
         System.out.println("                 COLOR ME = " + color);
-        
-        
+
         messageObject =
                 new MessageData(fromUser, messageString, font, size, bold,
                         italics, underlined, color, false);
-        
+
         connection.sendMessage(to, messageString);
         model.sendMessage(conversation, messageObject);
 
@@ -1003,14 +1009,15 @@ public class MainController {
                         .setMinutesSinceUpdate(((TwitterManager) connection)
                                 .getMinutesSinceStatusChange(userID));
             } else if (connection instanceof ICQManager) {
-            	userToUpdate.setState(((ICQManager) connection).retrieveState(userID));	
+                userToUpdate.setState(((ICQManager) connection)
+                        .retrieveState(userID));
             }
-            
+
             else {
-            	userToUpdate.setState(((MSNManager) connection).retrieveState(userID));	
+                userToUpdate.setState(((MSNManager) connection)
+                        .retrieveState(userID));
             }
-            
-             
+
         } catch (BadConnectionException e) {
             status = "(loading...)";
         }
@@ -1104,7 +1111,7 @@ public class MainController {
 
         return;
     }
-    
+
     // Aligator
 
     public void messageReceived(String fromUserID, String toUserID,
@@ -1117,8 +1124,7 @@ public class MainController {
                         false, "#0000ff", true);
         account = model.findAccountByUserID(toUserID);
 
-        MusicPlayer receiveMusic =
-                new MusicPlayer("/audio/message/receiveMessage.wav", model);
+        new MusicPlayer("/audio/message/receiveMessage.wav", model);
         model.receiveMessage(account, messageData);
 
         // Automatically add chatbot reply, if enabled
@@ -1187,13 +1193,12 @@ public class MainController {
         GenericConnection connection = null;
 
         // connection should be found from account!!
-        
+
         if (model.getCurrentProfile().getAccountData().size() > 0) {
-        	account = model.getCurrentProfile().getAccountData().get(0);
+            account = model.getCurrentProfile().getAccountData().get(0);
             connection = account.getConnection();
         }
-        
-        
+
         return connection;
     }
 
@@ -1405,11 +1410,9 @@ public class MainController {
     public void sendMultMessage(String messageString, String roomName,
             String font, String size, boolean bold, boolean italics,
             boolean underlined, String color) throws BadConnectionException {
-        String to = null;
         MessageData messageObject = null;
         MultiConversationData conversation = null;
         String fromUser = null;
-        GenericConnection connection = null;
         ChatCollectionData chatCollection = null;
 
         // Default to sending to the active user
@@ -1424,7 +1427,7 @@ public class MainController {
             e.printStackTrace();
             throw new IllegalArgumentException();
         }
-        connection = conversation.getAccount().getConnection();
+        conversation.getAccount().getConnection();
 
         fromUser = conversation.getAccount().getUserID();
         // to = conversation.getUser().getUserID();
@@ -1442,5 +1445,5 @@ public class MainController {
 
         return;
     }
-    
+
 }
