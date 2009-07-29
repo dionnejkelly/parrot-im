@@ -1,6 +1,6 @@
 #summary List of all features, and shows the percentage implemented.
 
-|| Feature || Implemented ||
+|| *Feature* || *Implemented* ||
 || Graphical User Interface || yes ||
 || Friend List || yes ||
 || Live Instant Messaging || yes ||
