@@ -1,0 +1,40 @@
+#summary Script for presentation.
+
+Outline:
+  - For the user
+  - For the developer
+  - Proof
+  - Analysis
+
+Section I: For the User
+
+  Introduction:
+      - introduce team Pirate Captains, note people on floor
+
+  Summary:
+    - For the last 3 months, we have developed Parrot Instant Messenger
+    - It is an instant messenger that can connect to multiple networks: 
+      google, twitter, and msn, and provides fun communication with cool
+      features, such as chat bot, custom themes, and smart searching.
+
+Features:
+  - pair with ss, jihoon talk?
+
+Section II: For the Developer
+  Components:
+    - Show architectural diagram, compare to old one
+    - Comment on MVC
+  QA:
+    - ???
+  Statistics:
+    - Known bugs
+    - % implemented features
+    - Metrics
+
+Section III: Proof
+  Screenshots:
+    - Compare the following:
+
+  UA Feedback:
+
+Section IV: Analysis
