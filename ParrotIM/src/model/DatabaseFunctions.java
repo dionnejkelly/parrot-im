@@ -619,8 +619,11 @@ public class DatabaseFunctions {
         rs =
                 stat.executeQuery("select * from profiles where name='"
                         + profile + "';");
-        rs.next();
-        String statusMessage = rs.getString("statusMessage");
+        String statusMessage = "";
+        if (rs.next())
+        {
+        	statusMessage = rs.getString("statusMessage");
+        }
         rs.close();
         conn.close();
         if (statusMessage.length() == 0) {
@@ -643,12 +646,13 @@ public class DatabaseFunctions {
         rs =
                 stat.executeQuery("select * from profiles where name='"
                         + profile + "';");
-        rs.next();
-        // Integer.
-        if (rs.getString("status").length() != 0) {
-            status = Integer.parseInt(rs.getString("status"));
+        if (rs.next())
+        {
+        	// Integer.
+	        if (rs.getString("status").length() != 0) {
+	            status = Integer.parseInt(rs.getString("status"));
+	        }
         }
-        System.out.println("DATABASE getStatus: " + status);
 
         rs.close();
         conn.close();

@@ -130,6 +130,7 @@ public class AccountJMenu extends JMenu {
             try {
                 controller.login(account);
                 try {
+                	System.out.println("current profile: " + model.getCurrentProfile().getName());
                     controller.setStatus(model.getStatusMessage(model
                             .getCurrentProfile().getName()), false);
                     controller.setPresence(StatusType.intToStatusType(model
