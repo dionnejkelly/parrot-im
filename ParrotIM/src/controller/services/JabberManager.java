@@ -705,4 +705,9 @@ public class JabberManager implements GenericConnection {
         return false;
     }
 
+	public boolean isConnected() {
+		// TODO Auto-generated method stub
+		return connection.isConnected();
+	}
+
 }

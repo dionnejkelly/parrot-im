@@ -114,6 +114,9 @@ public interface GenericConnection {
     public boolean doesExist(String userID);
 
     public boolean isFollowing(String userID);
+    
+    public boolean isConnected();
+    
     // don't need this for now
     // public void setUserNickName(String name) throws XMPPException;
     //

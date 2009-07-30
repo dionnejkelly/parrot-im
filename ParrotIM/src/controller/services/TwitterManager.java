@@ -45,6 +45,8 @@ public class TwitterManager implements GenericConnection {
     private PollingThread poller;
 
     private volatile Thread stopBlinker;
+    
+    private boolean isConnected = false;
 
     public static void main(String[] args) throws BadConnectionException {
         TwitterManager twit = new TwitterManager();
@@ -149,9 +151,11 @@ public class TwitterManager implements GenericConnection {
             // Check server every 30 seconds for updates
             poller = new PollingThread();
             poller.start();
+            isConnected = true;
         } catch (Exception e) {
             System.err.println("Error logging into twitter");
             e.printStackTrace();
+            isConnected = false;
             throw new BadConnectionException();
         }
 
@@ -640,6 +644,11 @@ public class TwitterManager implements GenericConnection {
         // TODO Auto-generated method stub
 
     }
+
+	public boolean isConnected() {
+		// TODO Auto-generated method stub
+		return isConnected;
+	}
 
     // public boolean isTyping() {
     // // TODO Auto-generated method stub
