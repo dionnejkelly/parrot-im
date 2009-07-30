@@ -20,3 +20,8 @@ Please have the user complete the following tasks outlined in "procedures", and 
 = Presentation = 
  
   * [a5_script Script] for presentation. Delete this after done.
+
+= Documents =
+  * [a5_requirements Requirements Document]
+  * [a5_design Design Document]
+  * [a5_qa Quality Assurance Plan]
