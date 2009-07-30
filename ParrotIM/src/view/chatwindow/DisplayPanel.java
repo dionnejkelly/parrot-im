@@ -153,7 +153,7 @@ public class DisplayPanel extends JPanel implements Observer {
         bar1.add(chatState);
         // JLabel isTyping = new JLabel("140");
         
-	    twitterLimit = new JLabel("140");
+	    twitterLimit = new JLabel("Character Limits: 140");
 	    twitterLimit.setForeground(model.primaryTextColor);
         twitterLimit.setVisible(false);
         bar2.add(twitterLimit);
@@ -165,7 +165,7 @@ public class DisplayPanel extends JPanel implements Observer {
     }
 
     public void updateChar(int count) {
-        twitterLimit.setText("" + count);
+        twitterLimit.setText("Character Limits: " + count);
 
         if (20 <= count && count <= 140) {
             twitterLimit.setForeground(Color.GRAY.darker());
