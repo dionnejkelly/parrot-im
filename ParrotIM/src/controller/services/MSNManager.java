@@ -3,6 +3,7 @@ package controller.services;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -68,6 +69,8 @@ public class MSNManager extends AbstractMessageConnection implements
     private Model model;
 
     private PollingThread poller;
+    
+    private boolean isConnected = false;
 
     /**
      * Non-blocking call.
@@ -77,7 +80,6 @@ public class MSNManager extends AbstractMessageConnection implements
 
     public static void main(String[] args) throws Exception {
         MSNManager msn = new MSNManager();
-//        msn.connect("tuna_shichan@hotmail.com", "aloha0712?!");
         msn.connect("tuna_shichan@hotmail.com", "aloha0712?!");
         msn.retrieveFriendList();
         System.out.println(">");
@@ -257,15 +259,22 @@ public class MSNManager extends AbstractMessageConnection implements
     public void login(String userID, String password)
             throws BadConnectionException {
 
-        this.connect(userID, password);
-        System.out.println("User ID = " + userID);
-        System.out.println("Password = " + password);
-        poller = new PollingThread();
-        poller.start();
+   
+    		this.connect(userID, password);
+
+            poller = new PollingThread();
+            poller.start();
+    	
+    	
+    	
+        
 
         return;
     }
-
+    
+    public boolean isConnected() {
+    	return isConnected;
+    }
     // Section
     // Polling methods
 
@@ -289,7 +298,7 @@ public class MSNManager extends AbstractMessageConnection implements
     public void connect(String userID, String password)
             throws BadConnectionException {
         try {
-            super.connect();
+            //super.connect();
             sessions.clear();
             notifyConnectionInitiated();
 
@@ -307,11 +316,9 @@ public class MSNManager extends AbstractMessageConnection implements
             buddyList = connection.getBuddyGroup().getForwardList();
             // contacts = getContactFactory();
 
-        } catch (BadConnectionException e) {
-
-            notifyConnectionFailed(e.getMessage());
-            throw e;
-        } catch (Exception e) {
+        } 
+        
+        catch (Exception e) {
             // TODO Auto-generated catch block
 
             e.printStackTrace();
@@ -373,6 +380,17 @@ public class MSNManager extends AbstractMessageConnection implements
     }
 
     private class ConnectionListener extends MsnAdapter {
+    	
+    	public void loginComplete(MsnFriend own) {
+            // tell everyone we are now running connected
+            // use itertors b/c the size will change
+//            buddyListModified();
+    		isConnected = true;
+            JOptionPane.showMessageDialog(null, "Logged In Success");
+        }
+
+    	
+    	
         public void progressTyping(SwitchboardSession ss, MsnFriend friend,
                 String typingUser) {
             System.out.println(friend.getLoginName() + " is Typing...");
