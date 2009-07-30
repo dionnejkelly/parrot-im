@@ -56,6 +56,8 @@ QA (How do we know that Parrot IM is bug-free?):
 _Jordan -- 2 minutes_
 
 UA Feedback:
+  * Lead in from Ahmad's QA comments.
+  * Primarily use quotes from users, but use them (if possible) to show why we changed the GUI.
 
 Screenshots:
   * Compare the following:
