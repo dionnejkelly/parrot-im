@@ -1,6 +1,6 @@
 #summary User Acceptance Testing Reports
 
-= Person 1 = 
+= Person 1: John = 
 
   * Computer Familiarity: 5
   * Chat services used: Google Talk
@@ -24,7 +24,7 @@ General comments:
 
 ----
 
-= Person 2 = 
+= Person 2: Yukie = 
 
   * Computer Familiarity: 4
   * Chat services used: Google Talk
