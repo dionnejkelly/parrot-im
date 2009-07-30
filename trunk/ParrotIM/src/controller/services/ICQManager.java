@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -66,6 +67,7 @@ import net.kano.joustsim.oscar.oscar.service.ssi.MutableGroup;
 import net.kano.joustsim.oscar.oscar.service.ssi.SsiService;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.ChatState;
 
 import view.styles.ProgressMonitorScreen;
 import controller.MainController;
@@ -419,7 +421,7 @@ public class ICQManager implements GenericConnection {
     public void sendMessage(String toUserID, String message)
             throws BadConnectionException {
         Screenname receiver = new Screenname(toUserID);
-        ;
+        
         Conversation conversation =
                 connection.getIcbmService().getImConversation(receiver);
         SimpleMessage outgoingMessage = new SimpleMessage(message);
@@ -433,7 +435,25 @@ public class ICQManager implements GenericConnection {
 
     public void setTypingState(int state, String UserID)
             throws BadConnectionException, XMPPException {
-        // TODO Auto-generated method stub
+        
+    	Date currentDate= new Date();
+    	Screenname theSender=new Screenname(UserID);
+    	Screenname theReceiver=null;
+        TypingInfo senderTypingInfo;
+    	if (state == 1) {
+    		senderTypingInfo= new TypingInfo(null, null, null, null);
+        } else if (state == 2) {
+        	senderTypingInfo= new TypingInfo(null, null, null, null);
+
+        } else if (state == 3) {
+        	senderTypingInfo= new TypingInfo(null, null, null, null);
+        } else if (state == 4) {
+        	senderTypingInfo= new TypingInfo(null, null, null, null);
+        } else if (state == 5) {
+        	senderTypingInfo= new TypingInfo(null, null, null, null);
+        } else {
+
+        }
 
     }
 
@@ -719,6 +739,7 @@ public class ICQManager implements GenericConnection {
             return UserStateType.ONLINE;
         }
     }
+    
 
     /* *********************** Listeners************************** */
     private class TypingAdapter extends ConversationAdapter implements
