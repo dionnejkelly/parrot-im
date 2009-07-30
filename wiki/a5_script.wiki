@@ -38,11 +38,16 @@ Components:
   * Contrast to hold diagram, with no MVC... essentially we just categorized features in the old one, instead of designing an architecture.
 
 Statistics:
-  * Known bugs
   * % implemented features
   * Metrics
 QA (How do we know that Parrot IM is bug-free?):
-  * 
+  * Two main types of testing: automated test cases, user testing
+  * Automated testing allowed us to create test cases to ensure the logic of our program worked as intended.
+  * After changing our code, we could verify that the tests still passed.
+  * Automated Unit and Integration testing found many internal bugs.
+  * User Acceptance testing also found bugs, but also gave us design suggestions.
+  * Still have bugs, but testing helped to ensure that most are known issues.
+  * List known bugs, categorized in to server, gui, database, etc.
 
 ----
 
