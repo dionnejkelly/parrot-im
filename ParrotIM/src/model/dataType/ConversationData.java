@@ -152,9 +152,7 @@ public class ConversationData extends Observable implements Conversation {
         for (MessageData m : this.text) {
             messages += m.text();
         }
-        return "<table width='300' border='0' cellpadding='0' cellspacing='0'" +
-        		"> <tr><td style='word-break:break-all;'>"+messages+"</td>" +
-        				"</tr></table>";
+        return messages;
     }
 
     public boolean equals(Object o) {

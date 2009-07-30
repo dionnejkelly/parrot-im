@@ -85,7 +85,9 @@ public class DisplayPanel extends JPanel implements Observer {
         txtPane.setEditorKit(new HTMLEditorKit());
 
         if (model.getActiveConversation() != null) {
-            txtPane.setText(model.getActiveConversation().displayMessages());
+            txtPane.setText("<table width="+txtPane.getWidth()+" border='0' cellpadding='0' cellspacing='0'" +
+            		"> <tr><td style='word-break:break-all;'>"+model.getActiveConversation()
+            		.displayMessages()+"</td></tr></table>");
         } else {
             txtPane.setText("");
         }
