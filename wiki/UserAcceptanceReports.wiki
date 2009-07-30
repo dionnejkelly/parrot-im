@@ -57,7 +57,6 @@ General comments:
 
   * Computer Familiarity: 3
   * Chat services used: Google Talk
-
 Task: Create a profile and log in
   * Difficulty: 5
   * Speed: 4
@@ -65,8 +64,13 @@ Task: Create a profile and log in
   * Fun: 3
 Task: Find and use the buddy search:
   * Difficulty: 2
-  * Speed: 
-  * Intuitiveness: 
-  * Fun: 
+  * Speed: 4
+  * Intuitiveness: 2
+  * Fun: 3
+Task: Use the Chat bot
+  * Difficulty: 2
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 5
 
 ----
