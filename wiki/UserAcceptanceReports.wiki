@@ -53,6 +53,20 @@ General comments:
 
 ----
 
-= Person 3 = 
+= Person 3: XiaoQin= 
+
+  * Computer Familiarity: 3
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 2
+  * Speed: 
+  * Intuitiveness: 
+  * Fun: 
 
 ----
