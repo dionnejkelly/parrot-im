@@ -265,7 +265,8 @@ public class TwitterPanel extends GPanel implements Observer {
         }
 
         // add mouse listeners
-        for (int j = 0; j < 2; j++) {
+        // Note: Do not add listeners to j = 0
+        for (int j = 1; j < 2; j++) {
             for (int i = 0; i < boxes[j].getComponentCount(); i++) {
                 // System.out.println(boxes[j].getComponentCount() + ":" + i);
                 buddyListPane.addExternalMouseListener(j, i,
@@ -435,7 +436,6 @@ public class TwitterPanel extends GPanel implements Observer {
             updateUI();
         } else if (o instanceof TwitterAccountData) {
             // Refresh if add/remove friends
-            System.out.println("FKSDHFLKDJSKFLSJDFLF");
             listRepopulate();
         } else if (o instanceof ProfileData && !this.twitterPanelEnabled
                 && model.getCurrentProfile().hasTwitter()) {
