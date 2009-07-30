@@ -10,12 +10,16 @@ Outline:
 
 *Section I: For the User*
 
+_Kevin -- 45 seconds_
+
 Introduction:
   * introduce team Pirate Captains, note people on floor
 
 Summary:
   * For the last 3 months, we have developed Parrot Instant Messenger
   * It is an instant messenger that can connect to multiple networks: google, twitter, and msn, and provides fun communication with cool features, such as chat bot, custom themes, and smart searching.
+
+_Jihoon -- 4 minutes_
 
 Features:
   * pair with ss, jihoon talk?
@@ -25,25 +29,36 @@ Features:
 
 *Section II: For the Developer*
 
+_Ahmad -- 2 minutes_
+
 Components:
-  * Show architectural diagram, compare to old one
-  * Comment on MVC
-QA:
-  * ???
+  * Present new architectural diagram. Also show the old version.
+  * Highlight how our architecture is ordered with Model View Controller. 
+  * Note that the Controller works with libraries to connect via protocols, the View handles GUI input and output, and the Model holds data, and holds a Database.
+  * Contrast to hold diagram, with no MVC... essentially we just categorized features in the old one, instead of designing an architecture.
+
 Statistics:
   * Known bugs
   * % implemented features
   * Metrics
+QA (How do we know that Parrot IM is bug-free?):
+  * 
 
 ----
 
 *Section III: Proof*
 
+_Jordan -- 2 minutes_
+
+UA Feedback:
+
 Screenshots:
   * Compare the following:
 
-UA Feedback:
+
 
 ----
 
 *Section IV: Analysis*
+
+_Kevin -- 1 minute_
