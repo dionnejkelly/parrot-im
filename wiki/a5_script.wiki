@@ -3,7 +3,7 @@
 Outline:
   # For the user
   # For the developer
-  # Proof
+  # Growth
   # Analysis
 
 ----
@@ -46,7 +46,7 @@ QA (How do we know that Parrot IM is bug-free?):
 
 ----
 
-*Section III: Proof*
+*Section III: Growth*
 
 _Jordan -- 2 minutes_
 
