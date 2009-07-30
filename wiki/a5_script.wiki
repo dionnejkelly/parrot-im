@@ -13,11 +13,14 @@ Outline:
 _Kevin -- 45 seconds_
 
 Introduction:
-  * introduce team Pirate Captains, note people on floor
+  * Introduce team Pirate Captains, presenting Parrot Instant Messenger 
+  * Note people on floor: Jihoon (main logic, protocols, features), Ahmad (database guru), Jordan (GUI mastermind)
+  * Give outline of sections... first talk about features for the user, then get to development information, and finally discuss the evolution of the program.
 
 Summary:
-  * For the last 3 months, we have developed Parrot Instant Messenger
+  * For the last 3 months, we have developed Parrot IM
   * It is an instant messenger that can connect to multiple networks: google, twitter, and msn, and provides fun communication with cool features, such as chat bot, custom themes, and smart searching.
+  * Lead-in to Jihoon, to "demonstrate" some of these features.
 
 _Jihoon -- 4 minutes_
 
