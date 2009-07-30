@@ -85,7 +85,7 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
         gPanels.add(newPanel);
 
-        CustomListPane collapsableListPane = new CustomListPane();
+        CustomListPane collapsableListPane = new CustomListPane(groups.size(), this);
         groups.add(collapsableListPane);
 
         newPanel.addMouseListener(new CollapseListner());
@@ -113,7 +113,7 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.add(new JLabel(arrowIconDown), BorderLayout.EAST);
         gPanels.add(newPanel);
 
-        CustomListPane collapsableListPane = new CustomListPane();
+        CustomListPane collapsableListPane = new CustomListPane(groups.size(), this);
         groups.add(collapsableListPane);
 
         newPanel.addMouseListener(new CollapseListner());
@@ -130,7 +130,7 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.setGradientColors(model.tertiaryColor.darker(),
                 model.tertiaryColor);
 
-        CustomListPane collapsableListPane = new CustomListPane();
+        CustomListPane collapsableListPane = new CustomListPane(0, this);
         groups.add(0, collapsableListPane);
         setAllGroupIndex();
 

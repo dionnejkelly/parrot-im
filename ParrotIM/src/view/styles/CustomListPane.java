@@ -21,10 +21,13 @@ import view.chatwindow.UserDataWrapper;
 public class CustomListPane extends GPanel {
     private Component lastSelectedComponent;
     private JPanel lastSelectedPanel;
-
+  
     private Component lastClickedComponent;
-    private int lastClickedIndex;
+    private JPanel lastClickedPanel;
 
+    private int groupIndex;
+    private GroupedListPane groups;
+    
     private ArrayList<String> nicknames = new ArrayList<String>();
     private ArrayList<UserDataWrapper> userWrappers =
             new ArrayList<UserDataWrapper>();
@@ -40,7 +43,24 @@ public class CustomListPane extends GPanel {
     
     public boolean opaque = true;
 
+    /**
+     * This constructor is used if you use groups
+     * @param groupIndex */
+    public CustomListPane(int groupIndex, GroupedListPane groups) {
+        this.groupIndex = groupIndex;
+        this.groups = groups;
+        setUpCustomListPane();
+    }
+    
+    /**
+     * This constructor is used if you don't use groups
+     * */
     public CustomListPane() {
+        this.groupIndex = -1;
+        setUpCustomListPane();
+    }
+
+    private void setUpCustomListPane(){
         setGradientColors(Color.WHITE, Color.WHITE);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
@@ -51,19 +71,6 @@ public class CustomListPane extends GPanel {
 
         add(boxes[0], BorderLayout.NORTH);
     }
-
-    public void setGroupIndex(int index) {
-    }
-
-    public void resetClickedSelection() {
-        if (lastClickedComponent != null && lastClickedIndex != -1) {
-            lastClickedComponent.setBackground(Color.WHITE);
-            //userPanels.get(lastClickedIndex).setOpaque(false);
-        }
-        lastClickedComponent = null;
-        lastClickedIndex = -1;
-    }
-
     private JPanel friendPanel(String nickname, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
@@ -142,6 +149,9 @@ public class CustomListPane extends GPanel {
 
     public void addElement(JPanel externalFriendPanel) {
         //externalFriendPanel.setOpaque(false);
+    	externalFriendPanel.setBackground(Color.WHITE);
+    	if (!opaque)
+    		externalFriendPanel.setOpaque(false);
         userPanels.add(externalFriendPanel);
         boxes[0].add(externalFriendPanel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
@@ -152,6 +162,9 @@ public class CustomListPane extends GPanel {
 
     public void addElement(JPanel externalFriendPanel, int index) {
         //externalFriendPanel.setOpaque(false);
+    	externalFriendPanel.setBackground(Color.WHITE);
+    	if (!opaque)
+    		externalFriendPanel.setOpaque(false);
         userPanels.add(externalFriendPanel);
         boxes[0].add(externalFriendPanel, index);
         boxes[0].getComponent(index).addMouseListener(new SelectListener());
@@ -222,6 +235,10 @@ public class CustomListPane extends GPanel {
         boxes[0].remove(panel);
         updateUI();
 
+        if (userPanels.size() == 0 ){
+            lastClickedComponent = null;
+        }
+
         return;
     }
 
@@ -229,16 +246,10 @@ public class CustomListPane extends GPanel {
         userPanels.clear();
         boxes[0].removeAll();
         updateUI();
+        lastClickedComponent = null;
     }
 
     public int getClickedIndex() {
-
-        // for (int i = 0; i < boxes[0].getComponentCount(); i++) {
-        // if (lastSelectedComponent.equals(boxes[0].getComponent(i))) {
-        // return i;
-        // }
-        // }
-        // return 0;
         return lastSelected;
     }
 
@@ -253,15 +264,49 @@ public class CustomListPane extends GPanel {
     public Box getBoxes() {
         return boxes[0];
     }
+    
+    public void setGroupIndex(int index){
+        groupIndex = index;
+    }
+
+    public void resetClickedSelection() {
+        if (lastClickedComponent != null) {
+            lastClickedComponent.setBackground(Color.WHITE);
+            //userPanels.get(lastClickedIndex).setOpaque(false);
+        }
+        lastClickedComponent = null;
+    }
 
     private class SelectListener implements MouseListener {
+
+    	private boolean clicked;
+        
+        public SelectListener(){
+                clicked = false;
+        }
 
         /**
          * highlights clicked element
          */
         public void mouseClicked(MouseEvent event) {
+            clicked = true;
+            if (groupIndex > -1){
+                if (groups.getLastClickedGroup() != groupIndex){
+                        groups.resetSelectionLastClickedGroup();
+                        groups.setLastClickedGroup(groupIndex);
+                }
+            }
+            Component source = (Component) event.getSource();
+            if (lastClickedComponent != null && !lastClickedComponent.equals(source)) {
+                lastClickedComponent.setBackground(Color.WHITE);
+                if(!opaque){
+                	lastClickedPanel.setOpaque(false);
+                }
+            }
             if (lastSelectedComponent != null) {
                 lastSelectedComponent.setBackground(new Color(145, 200, 200));
+                lastClickedComponent = lastSelectedComponent;
+                lastClickedPanel = lastSelectedPanel;
             }
         }
 
@@ -271,21 +316,25 @@ public class CustomListPane extends GPanel {
         public void mouseEntered(MouseEvent event) {
             for (int i = 0; i < boxes[0].getComponentCount(); i++) {
                 if (event.getSource().equals(boxes[0].getComponent(i))) {
-                    System.out.println("this is i " + i);
                     lastSelectedComponent = boxes[0].getComponent(i);
                     lastSelectedPanel = userPanels.get(i);
-                    
-                    lastSelectedComponent
-                            .setBackground(new Color(225, 247, 247));
-                    lastSelectedPanel.setOpaque(true);
-
                     lastSelected = i;
-                    try {
-                        userPanels.get(i).setOpaque(true);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.err.println("userPanel does not exist... i = "
-                                + i);
+                    
+                    if ((lastClickedComponent == null) ||
+                    		(!clicked && !lastClickedComponent.equals(lastSelectedComponent))){
+	                    lastSelectedComponent.setBackground(new Color(225, 247, 247));
+	                    lastSelectedPanel.setOpaque(true);
+	
+	                    try {
+	                        lastSelectedPanel.setOpaque(true);
+	                    } catch (IndexOutOfBoundsException e) {
+	                        System.err.println("userPanel does not exist... i = "
+	                                + i);
+	                    }
+                    } else if (lastClickedComponent.equals(lastSelectedComponent)){
+                        clicked = true;
                     }
+
                 }
             }
         }
@@ -294,12 +343,15 @@ public class CustomListPane extends GPanel {
          * change background to white when mouse Exited
          */
         public void mouseExited(MouseEvent event) {
-            if (lastSelectedComponent != null) {
+            if (lastSelectedComponent != null && !clicked) {
                 lastSelectedComponent.setBackground(Color.WHITE);
                 if(!opaque){
                 	lastSelectedPanel.setOpaque(false);
                 }
+            } else {
+            	lastClickedComponent = lastSelectedComponent;
             }
+            clicked = false;
         }
 
         /**
