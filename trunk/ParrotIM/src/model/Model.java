@@ -220,6 +220,7 @@ public class Model extends Observable {
         super.setChanged();
         super.notifyObservers(UpdatedType.CHAT);
 
+
         return;
     }
 
