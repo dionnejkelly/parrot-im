@@ -77,8 +77,8 @@ public class MSNManager extends AbstractMessageConnection implements
 
     public static void main(String[] args) throws Exception {
         MSNManager msn = new MSNManager();
+//        msn.connect("tuna_shichan@hotmail.com", "aloha0712?!");
         msn.connect("tuna_shichan@hotmail.com", "aloha0712?!");
-
         msn.retrieveFriendList();
         System.out.println(">");
         Scanner optionScanner = new Scanner(System.in);
@@ -258,7 +258,8 @@ public class MSNManager extends AbstractMessageConnection implements
             throws BadConnectionException {
 
         this.connect(userID, password);
-
+        System.out.println("User ID = " + userID);
+        System.out.println("Password = " + password);
         poller = new PollingThread();
         poller.start();
 
@@ -393,6 +394,10 @@ public class MSNManager extends AbstractMessageConnection implements
             System.out.println("Session ID: " + ss.getSessionId());
             if (message != null) {
                 controller.messageReceived(fromUserID, toUserID, message);
+                TypingStateType typingState = TypingStateType.GONE;
+
+                controller.typingStateUpdated(genericConnection, typingState,
+                        friend.getLoginName());
             }
         }
 
