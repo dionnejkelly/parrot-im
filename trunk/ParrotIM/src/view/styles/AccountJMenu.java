@@ -194,12 +194,16 @@ public class AccountJMenu extends JMenu {
            
             try {
             	
-            	File file = new File(url.toString());
-            	 System.out.println("After the big action!!!!!!!!!!!!!!!!!!");
-                if (file.exists()) {
-                	 System.out.println("Setting the avatar picture!!!!!!!!!!!!!!!!!!");
-                    controller.setAvatarPicture(url);
+            	ImageIcon avatarPicture = new ImageIcon(url);
+            
+            	
+            	// the file is missing
+                if (avatarPicture.getIconHeight() != -1 && avatarPicture.getIconWidth() != -1) {
+                	System.out.println("Setting the avatar picture");
+                	controller.setAvatarPicture(url);
+                   
                 }
+                
             } catch (XMPPException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
