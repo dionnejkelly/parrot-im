@@ -3,19 +3,30 @@
 Outline:
   # For the user
   # For the developer
-  # Growth
+  # Program's Growth
   # Analysis
 
 ----
 
 *Section I: For the User*
 
-_Kevin -- 45 seconds_
+_Kevin -- 1 minute, 12 seconds_
 
-Introduction:
-  * Introduce team Pirate Captains, presenting Parrot Instant Messenger 
-  * Note people on floor: Jihoon (main logic, protocols, features), Ahmad (database guru), Jordan (GUI mastermind)
-  * Give outline of sections... first talk about features for the user, then get to development information, and finally discuss the evolution of the program.
+   (Timing: Assume 15 seconds of "set-up time")
+
+   (Timing: Introduction: 18 seconds)
+Introduction -- Title slide:
+  * "Hello everybody, and thank you for joining us as we release Parrot Instant Messenger"
+  * "We are a 10-person team called Pirate Captains. My name is Kevin, and I will be presenting to you today with Jihoon, our logic expert; Ahmad, our database specialist; and Jordan, our graphics mastermind."
+
+   (Timing: Outline: 19 seconds)
+Outline:
+  * "First we will demonstrate what Parrot IM actually allows you, the user, to do. Second, we will look into the architecture behind the project. Third, we will show you pictures of Parrot IM's evolution. And then finally, we will share with you our insights from developing Parrot IM.
+
+   (Timing: Description: 20 seconds)
+Description:
+  * "Parrot IM's appeal is that it allows you to instant message friends from 6 different networks. With this, it offers many useful and fun features. But, the best way to learn about Parrot IM is to have you experience it. For this, I'll hand it over to Jihoon. Thank you.
+
 
 Summary:
   * For the last 3 months, we have developed Parrot IM
