@@ -26,6 +26,31 @@ General comments:
 
 = Person 2 = 
 
+  * Computer Familiarity: 4
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Use the Chat bot
+  * Difficulty 3
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 2
+
+General comments:
+  * Encountered a bug with smack when logging in.
+  * Had difficulty creating profile; kept pressing OK instead of ADD.
+  * Liked the GUI, quote: "It's not bad, yeah, it's pretty good."
+  * Used the help feature to search "chat bot" to find and use the chatbot in our program.
+
 ----
 
 = Person 3 = 
