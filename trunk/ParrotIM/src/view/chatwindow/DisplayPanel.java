@@ -83,6 +83,7 @@ public class DisplayPanel extends JPanel implements Observer {
         txtPane.setPreferredSize(new Dimension(250, 300));
         txtPane.setEditable(false);
         txtPane.setEditorKit(new HTMLEditorKit());
+
         if (model.getActiveConversation() != null) {
             txtPane.setText(model.getActiveConversation().displayMessages());
         } else {
@@ -90,7 +91,8 @@ public class DisplayPanel extends JPanel implements Observer {
         }
 
         // ScrollPane's Properties
-        chatWindowScroller = new JScrollPane(txtPane);
+        chatWindowScroller = new JScrollPane();
+        chatWindowScroller.getViewport().setView(txtPane);
         chatWindowScroller
                 .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         chatWindowScroller.setPreferredSize(new Dimension(250, 300));
@@ -222,6 +224,8 @@ public class DisplayPanel extends JPanel implements Observer {
                 if(model.getActiveConversation().getAccount().getServer()
                 		== ServerType.TWITTER){
                 	twitterLimit.setVisible(true);
+                }else{
+                	twitterLimit.setVisible(false);
                 }
 
                 // VCard vcard = new VCard();
