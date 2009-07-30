@@ -554,10 +554,16 @@ public class ICQManager implements GenericConnection {
         connection.connect();
 
         chkConnection();
-
-        ClientSnacProcessor processor =
+        ClientSnacProcessor processor;
+        try{
+        	processor =
                 connection.getBosService().getOscarConnection()
                         .getSnacProcessor();
+        }catch (NullPointerException e){
+        	throw new BadConnectionException();
+        }
+        
+        
         rvProcessor = new RvProcessor(processor);
         rvProcessor.registerRvCmdFactory(new DefaultRvCommandFactory());
 
@@ -910,21 +916,21 @@ public class ICQManager implements GenericConnection {
                 if (errorCode == 5) {
                     // TO DO: have a qui popup window to show these error
                     // message
-                    errorMsg = "ERROR Invalid screenname or wrong password";
+                    errorMsg = "Invalid screenname or wrong password";
                     error = true;
                 } else if (errorCode == 17) {
-                    errorMsg = "ERROR Account has been suspended temporarily";
+                    errorMsg = "Account has been suspended temporarily";
                     error = true;
                 } else if (errorCode == 20) {
-                    errorMsg = "ERROR Account temporarily unavailable";
+                    errorMsg = "Account temporarily unavailable";
                     error = true;
                 } else if (errorCode == 24) {
                     errorMsg =
-                            "ERROR\nConnecting too frequently,\nTry"
+                            "Connecting too frequently,\nTry"
                                     + " waiting 10 minutes to reconnect.";
                     error = true;
                 } else if (errorCode == 28) {
-                    errorMsg = "ERROR Client software is too old to connect";
+                    errorMsg = "Client software is too old to connect";
                     error = true;
                 } else {
 
@@ -932,7 +938,15 @@ public class ICQManager implements GenericConnection {
                 }
                 // should integrate this in view
                 if (error == true) {
-                    JOptionPane.showMessageDialog(null, errorMsg);
+                	JOptionPane.showMessageDialog(null, 
+                			errorMsg, "Error", JOptionPane.ERROR_MESSAGE);
+                	try {
+						throw new BadConnectionException();
+					} catch (BadConnectionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    
                 }
             } else {
 
