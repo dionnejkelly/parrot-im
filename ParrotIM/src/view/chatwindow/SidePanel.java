@@ -241,6 +241,7 @@ public class SidePanel extends GPanel implements Observer {
                 // switching
                 controller.changeConversation(listPane.getUserWrapper(
                         listPane.getClickedIndex()).getConversation());
+                
             } 
             return;
         }

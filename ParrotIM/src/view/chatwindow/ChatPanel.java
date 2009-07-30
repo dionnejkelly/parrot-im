@@ -44,6 +44,7 @@ import javax.swing.event.DocumentListener;
 
 import model.Model;
 import model.dataType.MultiConversationData;
+import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 import view.buddylist.AccountInfo;
@@ -669,7 +670,13 @@ public class ChatPanel extends GPanel implements Observer {
 
         private boolean isMaxed() {
             // return keyCount >= 140;
-            return txt1.getText().length() > 140;
+        	if(model.getActiveConversation().getAccount().getServer()
+        			==ServerType.TWITTER){
+        		
+        		return txt1.getText().length() > 140;
+        		
+        	}
+        	return false;
         }
 
     }
@@ -709,15 +716,21 @@ public class ChatPanel extends GPanel implements Observer {
         }
 
         public void insertUpdate(DocumentEvent e) {
-            keyCount = keyCount + e.getLength();
-            System.out.println("Key count = " + keyCount);
-            displayPanel.updateChar(140 - keyCount);
+        	if(model.getActiveConversation().getAccount().getServer()
+        			== ServerType.TWITTER){
+	            keyCount = keyCount + e.getLength();
+	            System.out.println("Key count = " + keyCount);
+	            displayPanel.updateChar(140 - keyCount);
+        	}
         }
 
         public void removeUpdate(DocumentEvent e) {
-            keyCount = keyCount - e.getLength();
-            System.out.println("Key count = " + keyCount);
-            displayPanel.updateChar(140 - keyCount);
+        	if(model.getActiveConversation().getAccount().getServer()
+        			== ServerType.TWITTER){
+	            keyCount = keyCount - e.getLength();
+	            System.out.println("Key count = " + keyCount);
+	            displayPanel.updateChar(140 - keyCount);
+        	}
         }
 
     }

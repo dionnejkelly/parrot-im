@@ -29,6 +29,7 @@ import model.dataType.ChatCollectionData;
 import model.dataType.ConversationData;
 import model.dataType.MultiConversationData;
 import model.dataType.UserData;
+import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
 import model.enumerations.UserStateType;
 import controller.MainController;
@@ -149,8 +150,10 @@ public class DisplayPanel extends JPanel implements Observer {
 
         bar1.add(chatState);
         // JLabel isTyping = new JLabel("140");
-        twitterLimit = new JLabel("140");
-        twitterLimit.setForeground(model.primaryTextColor);
+        
+	    twitterLimit = new JLabel("140");
+	    twitterLimit.setForeground(model.primaryTextColor);
+        twitterLimit.setVisible(false);
         bar2.add(twitterLimit);
 
         // add to panel
@@ -216,6 +219,10 @@ public class DisplayPanel extends JPanel implements Observer {
                             + model.getActiveConversation().getUser()
                                     .getUserID());
                 }
+                if(model.getActiveConversation().getAccount().getServer()
+                		== ServerType.TWITTER){
+                	twitterLimit.setVisible(true);
+                }
 
                 // VCard vcard = new VCard();
                 // vcard.load(connection,model.getActiveConversation().getUser().getUserID());
@@ -269,6 +276,7 @@ public class DisplayPanel extends JPanel implements Observer {
             txtPane.updateUI();
             bar2.updateUI();
         }
+
 
         return;
     }
