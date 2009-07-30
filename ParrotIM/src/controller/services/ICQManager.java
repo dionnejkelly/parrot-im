@@ -440,17 +440,17 @@ public class ICQManager implements GenericConnection {
     	Screenname theSender=new Screenname(UserID);
     	Screenname theReceiver=null;
         TypingInfo senderTypingInfo;
-    	if (state == 1) {
-    		senderTypingInfo= new TypingInfo(null, null, null, null);
+    	
+        if (state == 1) {
+    		senderTypingInfo= new TypingInfo(theSender, null, currentDate, TypingState.TYPING);
         } else if (state == 2) {
-        	senderTypingInfo= new TypingInfo(null, null, null, null);
-
+        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, null);
         } else if (state == 3) {
-        	senderTypingInfo= new TypingInfo(null, null, null, null);
+        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, TypingState.NO_TEXT);
         } else if (state == 4) {
-        	senderTypingInfo= new TypingInfo(null, null, null, null);
+        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, null);
         } else if (state == 5) {
-        	senderTypingInfo= new TypingInfo(null, null, null, null);
+        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, TypingState.PAUSED);
         } else {
 
         }
