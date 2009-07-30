@@ -989,4 +989,9 @@ public class ICQManager implements GenericConnection {
 
     }
 
+	public boolean isConnected() {
+		// TODO Auto-generated method stub
+		return connection.isOnline();
+	}
+
 }

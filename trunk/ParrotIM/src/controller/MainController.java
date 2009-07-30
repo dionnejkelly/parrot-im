@@ -1445,5 +1445,21 @@ public class MainController {
 
         return;
     }
+    
+    public boolean isConnected(ServerType serverType) {
+    	  AccountData account = null; // Should be passed in!!
+          GenericConnection connection = null;
+
+          // connection should be found from account!!
+          account = model.getCurrentProfile().getAccountFromServer(serverType);
+          
+          System.out.println("                             IF I WERE = " + account.getNickname());
+          connection = account.getConnection();
+          
+          
+          return connection.isConnected();
+    	
+    	
+    }
 
 }

@@ -386,7 +386,7 @@ public class MSNManager extends AbstractMessageConnection implements
             // use itertors b/c the size will change
 //            buddyListModified();
     		isConnected = true;
-            JOptionPane.showMessageDialog(null, "Logged In Success");
+            //JOptionPane.showMessageDialog(null, "Logged In Success");
         }
 
     	
@@ -817,6 +817,7 @@ public class MSNManager extends AbstractMessageConnection implements
         }
         super.disconnect(intentional);
     }
+    
 
     public void reconnect() {
         disconnect(false);
@@ -1269,7 +1270,7 @@ public class MSNManager extends AbstractMessageConnection implements
     }
 
     public void disconnect() {
-        // TODO Auto-generated method stub
+       this.disconnect(true);
 
     }
 
