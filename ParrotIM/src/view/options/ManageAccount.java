@@ -148,6 +148,7 @@ public class ManageAccount extends GPanel implements Observer {
                         "/images/mainwindow/add.png")));
         addButton.setEnabled(false);
         addButton.addActionListener(new addActionListener());
+        addButton.addKeyListener(new AddRemoveButtonKeyListener(true));
 
         // remove button
         removeButton =
@@ -155,6 +156,7 @@ public class ManageAccount extends GPanel implements Observer {
                         .getResource("/images/mainwindow/remove.png")));
         removeButton.setEnabled(false);
         removeButton.addActionListener(new removeActionListener());
+        removeButton.addKeyListener(new AddRemoveButtonKeyListener(false));
 
         // add-remove button panel
         JPanel addremovePanel = new JPanel();
@@ -254,6 +256,71 @@ public class ManageAccount extends GPanel implements Observer {
         add(rightPanel, BorderLayout.EAST);
     }
 
+    public void addAccount(){
+        if (UNField.getText().length() != 0
+                && pwdField.getPassword().length != 0) {
+
+            // FOR BETA: we only support one account per server
+            if (profile.getAccountFromServer((ServerType) server
+                    .getSelectedItem()) != null) {
+                // AccountData is not null: account of the selected
+                // serverType is stored
+                String resultMessage =
+                        "We are only supporting one account per server. \n"
+                                + "Sorry for the inconvenience.";
+                JOptionPane.showMessageDialog(null, resultMessage,
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // AccountData is null: account of the selected
+                // serverType is not yet stored
+                AccountData account;
+                if ((ServerType) server.getSelectedItem() == ServerType.JABBER) {
+                    account =
+                            Model.createAccount(UNField.getText(), String
+                                    .copyValueOf(pwdField.getPassword()),
+                                    (ServerType) server.getSelectedItem(),
+                                    jabberServer.getText());
+                } else {
+                    account =
+                            Model.createAccount(UNField.getText(), String
+                                    .copyValueOf(pwdField.getPassword()),
+                                    (ServerType) server.getSelectedItem());
+                }
+                profile.addAccount(account);
+                if (buddyFrame != null) {
+                    System.out
+                            .println("This should never happen in the Main Window!!!");
+                    buddyFrame.addAccountJMenu(account);
+                }
+            }
+            UNField.setText("");
+            pwdField.setText("");
+            addButton.setEnabled(false);
+        }
+    }
+    
+    private void removeAccount(){
+    	int selected = accList.getSelectedIndex();
+
+        AccountData selectedAccount =
+                (AccountData) accList.getSelectedValue();
+
+        if (selected >= 0) {
+            System.out.println("MANAGEACCOUNT: " + selected);
+            System.out.println("MANAGEACCOUNT: "
+                    + ((AccountData) accList.getSelectedValue())
+                            .getUserID());
+            if (buddyFrame != null) {
+                System.out
+                        .println("This should never happen in the Main Window!!!");
+                BuddyList.removeAccountJMenu(selectedAccount);
+                chatClient.disconnect(selectedAccount);
+            }
+            profile.removeAccount(selectedAccount);
+            System.out.println("GO HERE");
+            removeButton.setEnabled(false);
+        }
+    }
     private class serverListener implements ItemListener {
 
         public void itemStateChanged(ItemEvent e) {
@@ -270,74 +337,14 @@ public class ManageAccount extends GPanel implements Observer {
     private class addActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent arg0) {
-
-            if (UNField.getText().length() != 0
-                    && pwdField.getPassword().length != 0) {
-
-                // FOR BETA: we only support one account per server
-                if (profile.getAccountFromServer((ServerType) server
-                        .getSelectedItem()) != null) {
-                    // AccountData is not null: account of the selected
-                    // serverType is stored
-                    String resultMessage =
-                            "We are only supporting one account per server. \n"
-                                    + "Sorry for the inconvenience.";
-                    JOptionPane.showMessageDialog(null, resultMessage,
-                            "Information", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    // AccountData is null: account of the selected
-                    // serverType is not yet stored
-                    AccountData account;
-                    if ((ServerType) server.getSelectedItem() == ServerType.JABBER) {
-                        account =
-                                Model.createAccount(UNField.getText(), String
-                                        .copyValueOf(pwdField.getPassword()),
-                                        (ServerType) server.getSelectedItem(),
-                                        jabberServer.getText());
-                    } else {
-                        account =
-                                Model.createAccount(UNField.getText(), String
-                                        .copyValueOf(pwdField.getPassword()),
-                                        (ServerType) server.getSelectedItem());
-                    }
-                    profile.addAccount(account);
-                    if (buddyFrame != null) {
-                        System.out
-                                .println("This should never happen in the Main Window!!!");
-                        buddyFrame.addAccountJMenu(account);
-                    }
-                }
-                UNField.setText("");
-                pwdField.setText("");
-                addButton.setEnabled(false);
-            }
+        	addAccount();
         }
 
     }
 
     private class removeActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            int selected = accList.getSelectedIndex();
-
-            AccountData selectedAccount =
-                    (AccountData) accList.getSelectedValue();
-
-            if (selected >= 0) {
-                System.out.println("MANAGEACCOUNT: " + selected);
-                System.out.println("MANAGEACCOUNT: "
-                        + ((AccountData) accList.getSelectedValue())
-                                .getUserID());
-                if (buddyFrame != null) {
-                    System.out
-                            .println("This should never happen in the Main Window!!!");
-                    BuddyList.removeAccountJMenu(selectedAccount);
-                    chatClient.disconnect(selectedAccount);
-                }
-                profile.removeAccount(selectedAccount);
-                System.out.println("GO HERE");
-                removeButton.setEnabled(false);
-            }
-
+            removeAccount();
         }
     }
 
@@ -372,6 +379,32 @@ public class ManageAccount extends GPanel implements Observer {
                 addButton.setEnabled(false);
             }
 
+        }
+
+        public void keyTyped(KeyEvent e) {
+        }
+
+    }
+    
+    private class AddRemoveButtonKeyListener implements KeyListener {
+        private boolean isAddButton;
+
+        public AddRemoveButtonKeyListener(boolean isAddButton) {
+            this.isAddButton = isAddButton;
+        }
+
+        public void keyPressed(KeyEvent e) {
+        }
+
+        public void keyReleased(KeyEvent e) {
+            if (isAddButton && e.getKeyChar() == KeyEvent.VK_ENTER) {
+                addAccount();
+            } else {
+                if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                    removeAccount();
+                }
+
+            }
         }
 
         public void keyTyped(KeyEvent e) {

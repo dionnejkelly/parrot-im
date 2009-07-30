@@ -50,6 +50,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -64,7 +66,7 @@ import controller.MainController;
 
 public class ManageAccountFrame extends JFrame {
     JFrame manageaccount;
-
+    ManageAccount accountPanel;
     private MainController chatClient;
 
     public ManageAccountFrame(ProfileData profile, Model model,
@@ -86,7 +88,7 @@ public class ManageAccountFrame extends JFrame {
         }
 
         setResizable(false);
-        ManageAccount accountPanel =
+        accountPanel =
                 new ManageAccount(profile, null, model, chatClient);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(accountPanel);
@@ -97,6 +99,7 @@ public class ManageAccountFrame extends JFrame {
                         "/images/buddylist/button_ok.png")));
         doneButton.setAlignmentX(RIGHT_ALIGNMENT);
         doneButton.addActionListener(new doneActionListener());
+        doneButton.addKeyListener(new DoneButtonKeyListener());
         JPanel donePanel = new JPanel();
         donePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
         donePanel.setAlignmentX(RIGHT_ALIGNMENT);
@@ -110,10 +113,26 @@ public class ManageAccountFrame extends JFrame {
         setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
 
+    private void done(){
+    	accountPanel.addAccount();
+        manageaccount.dispose();
+    }
     private class doneActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent arg0) {
-            manageaccount.dispose();
+        	done();
+        }
+    }
+    
+    private class DoneButtonKeyListener implements KeyListener {
+        public void keyPressed(KeyEvent e) {
+        }
+
+        public void keyReleased(KeyEvent e) {
+            done();
+        }
+
+        public void keyTyped(KeyEvent e) {
         }
 
     }

@@ -272,11 +272,9 @@ public class NewProfileFrame extends JFrame {
 
         public void keyReleased(KeyEvent e) {
             if (isNextButton && e.getKeyChar() == KeyEvent.VK_ENTER) {
-                System.out.println("next Button");
                 nextButtonFunction();
             } else {
                 if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                    System.out.println("cancel button");
                     cancelButtonFunction();
                 }
 
