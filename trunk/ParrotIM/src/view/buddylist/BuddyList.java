@@ -152,18 +152,6 @@ public class BuddyList extends JFrame implements Observer {
         }
         buddylistPanel.add(contactList, BorderLayout.CENTER);
 
-        contactList.addChangeListener(new ChangeListener() {
-            // Modifies info panel according to twitter/IM tab
-            public void stateChanged(ChangeEvent evt) {
-                JTabbedPane contactPane = (JTabbedPane) evt.getSource();
-                if (contactPane.getSelectedIndex() == 1) {
-                    accountInfo.TwitterpanelSelected();
-                } else {
-                    accountInfo.IMpanelSelected();
-                }
-            }
-        });
-
         buddylistPanel.setStartPosition(92);
         // add to buddylistPanel
         buddylistPanel.add(accountInfo, BorderLayout.NORTH);

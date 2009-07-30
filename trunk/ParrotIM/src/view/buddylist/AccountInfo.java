@@ -215,15 +215,6 @@ public class AccountInfo extends GPanel implements Observer {
 
     // Section
     // III - Accessors and Mutators
-    void IMpanelSelected() {
-        presence.setVisible(true);
-        statusMessage.setPreferredSize(new Dimension(70, 20));
-    }
-
-    void TwitterpanelSelected() {
-        presence.setVisible(false);
-        statusMessage.setPreferredSize(new Dimension(70, 80));
-    }
 
     public void update(Observable o, Object arg) {
         if (arg == UpdatedType.COLOR) {
