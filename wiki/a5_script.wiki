@@ -67,3 +67,14 @@ Screenshots:
 *Section IV: Analysis*
 
 _Kevin -- 1 minute_
+
+Review:
+  * Talk about meeting structure, work meetings.
+  * Main technical problems with libraries... most had bugs we unexpected.
+  * No real "people problems". Conflicting design ideas contributed to some frustration and tensions, but this is the fault of poor leadership, rather than poor attitudes.
+
+Hindsight:
+  * Would have designed better, thought about implementation sooner.
+  * Come up with MVC not so late.
+  * Should have used more project management tools, such as activity networks.
+  
