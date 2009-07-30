@@ -3,6 +3,7 @@ package view.styles;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -190,11 +191,13 @@ public class AccountJMenu extends JMenu {
                 e.printStackTrace();
             }
 
-            System.out.println("Muhahaha");
+           
             try {
-                if (url.toString().equals(
-                        model.getAvatarDirectory(model.getCurrentProfile()
-                                .getName()))) {
+            	
+            	File file = new File(url.toString());
+            	 System.out.println("After the big action!!!!!!!!!!!!!!!!!!");
+                if (file.exists()) {
+                	 System.out.println("Setting the avatar picture!!!!!!!!!!!!!!!!!!");
                     controller.setAvatarPicture(url);
                 }
             } catch (XMPPException e) {
