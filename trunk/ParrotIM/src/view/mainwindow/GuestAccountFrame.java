@@ -37,6 +37,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -209,10 +211,12 @@ public class GuestAccountFrame extends JFrame implements Observer {
                 new JButton("OK", new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/button_ok.png")));
         okButton.addActionListener(new okButtonActionListener());
+        okButton.addKeyListener(new OKCancelButtonKeyListener(true));
         JButton cancelButton =
                 new JButton("Cancel", new ImageIcon(this.getClass()
                         .getResource("/images/mainwindow/cancel.png")));
         cancelButton.addActionListener(new cancelButtonActionListener());
+        cancelButton.addKeyListener(new OKCancelButtonKeyListener(false));
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setOpaque(false);
         buttonsPanel.add(okButton);
@@ -234,6 +238,25 @@ public class GuestAccountFrame extends JFrame implements Observer {
 
     }
 
+    private void okFunction(){
+    	if (UNFieldGuest.getText().length() != 0
+                && PwdFieldGuest.getPassword().length != 0) {
+            setVisible(false);
+            try {
+                signIn_ActionPerformed();
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        else {
+            String resultMessage =
+                    "Please provide appropriate user ID and password in the field.";
+            JOptionPane.showMessageDialog(null, resultMessage);
+
+        }
+    }
     /**
      * This method is called when the guest login into parrot-im. The user will
      * allow to login to Google talk account only.
@@ -304,23 +327,7 @@ public class GuestAccountFrame extends JFrame implements Observer {
          * @param evt
          */
         public void actionPerformed(ActionEvent evt) {
-            if (UNFieldGuest.getText().length() != 0
-                    && PwdFieldGuest.getPassword().length != 0) {
-                setVisible(false);
-                try {
-                    signIn_ActionPerformed();
-                } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-            else {
-                String resultMessage =
-                        "Please provide appropriate user ID and password in the field.";
-                JOptionPane.showMessageDialog(null, resultMessage);
-
-            }
+            okFunction();
         }
     }
 
@@ -334,6 +341,33 @@ public class GuestAccountFrame extends JFrame implements Observer {
             popup.removeAll();
             popup.dispose();
         }
+    }
+    
+    private class OKCancelButtonKeyListener implements KeyListener {
+        private boolean isOkButton;
+
+        public OKCancelButtonKeyListener (boolean isOkButton) {
+            this.isOkButton = isOkButton;
+        }
+
+        public void keyPressed(KeyEvent e) {
+        }
+
+        public void keyReleased(KeyEvent e) {
+            if (isOkButton && e.getKeyChar() == KeyEvent.VK_ENTER) {
+                okFunction();
+            } else {
+                if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                	popup.removeAll();
+                    popup.dispose();
+                }
+
+            }
+        }
+
+        public void keyTyped(KeyEvent e) {
+        }
+
     }
 
     public void update(Observable o, Object arg) {

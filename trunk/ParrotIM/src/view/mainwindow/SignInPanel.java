@@ -238,6 +238,7 @@ public class SignInPanel extends GPanel implements Observer {
         connectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         connectPanel.add(connectButton);
         connectButton.addActionListener(new signInButtonActionListener());
+        connectButton.addKeyListener(new ConnectButtonKeyListener());
 
         // accOPTPanel (part of accPanel)
         JPanel accOptPanel = new JPanel();
@@ -356,7 +357,20 @@ public class SignInPanel extends GPanel implements Observer {
 
         return;
     }
+    private class ConnectButtonKeyListener implements KeyListener {
+        public void keyPressed(KeyEvent e) {
+        }
 
+        public void keyReleased(KeyEvent e) {
+        	if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+        		profileSignIn();
+        	}
+        }
+
+        public void keyTyped(KeyEvent e) {
+        }
+
+    }
     private class signInButtonActionListener implements ActionListener {
         /**
          * When the sign in button is clicked, the accounts of the currently
@@ -695,5 +709,4 @@ public class SignInPanel extends GPanel implements Observer {
             return;
         }
     }
-
 }
