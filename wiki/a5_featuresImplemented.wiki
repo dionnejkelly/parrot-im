@@ -1,6 +1,8 @@
 #summary List of all features, and shows the percentage implemented.
 
-|| *Feature* || *Implemented* || *Version that was implemented ||
+= Proposed Features =
+
+|| *Feature* || *Implemented* || *Version Implemented* ||
 || Graphical User Interface || yes || Alpha ||
 || Friend List || yes || Alpha ||
 || Live Instant Messaging || yes || Alpha ||
@@ -37,3 +39,25 @@
   * Total Features: 29
 
   * *Percentage Implemented: 89.7%*
+
+== Reasons for not implementing features ==
+
+  * Advanced/Simplified Modes 
+    * Not enough benefit to the user to use a "simplified" mode.
+    * Adds a layer of complexity and confusion to the user, rather than helping.
+    * Too complicated to edit the entire GUI for minimal gain.
+    * GUI plan changed over development; more features ended up in menus, rather than cluttered on screen.
+  * Spam Filter
+    * No feasible means of identifying what messages are "spam" without deleting legitimate messages.
+  * Language Localization
+    * A feature we'd like to still implement, but requires significant changes to the GUI, and not feasible for completion by release.
+    * Requires additional space to store all language information on the database.
+
+= New Features =
+
+Aside from the proposed features, we have implemented new, unplanned features throughout the development cycle:
+
+|| *Feature* || *Version Implemented* ||
+|| Customizable Chatbot || Beta ||
+|| Account selection while logged in || Final ||
+|| Preferences Menu || Beta ||
