@@ -436,24 +436,26 @@ public class ICQManager implements GenericConnection {
     public void setTypingState(int state, String UserID)
             throws BadConnectionException, XMPPException {
         
-    	Date currentDate= new Date();
-    	Screenname theSender=new Screenname(UserID);
-    	//Do you know how to get the receiver from the conversation?
-    	Screenname theReceiver=null;
-        TypingInfo senderTypingInfo;
-    	
+    	chkConnection();
+    	Screenname theReceiver=new Screenname(UserID);
+
+        TypingInfo typingInfo;
+        TypingState tState = null;
         if (state == 1) {
-    		senderTypingInfo= new TypingInfo(theSender, null, currentDate, TypingState.TYPING);
+        	tState = TypingState.NO_TEXT;
         } else if (state == 2) {
-        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, null);
+        	tState = TypingState.TYPING;
         } else if (state == 3) {
-        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, TypingState.NO_TEXT);
+        	tState = TypingState.NO_TEXT;
         } else if (state == 4) {
-        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, null);
+        	tState = TypingState.PAUSED;
         } else if (state == 5) {
-        	senderTypingInfo= new TypingInfo(theSender, null, currentDate, TypingState.PAUSED);
+        	tState = TypingState.PAUSED;
         } else {
         }
+    	connection.getIcbmService().getImConversation(theReceiver)
+    	.setTypingState(tState);
+
     }
 
     public ImageIcon getAvatarPicture(String userID) {
@@ -772,7 +774,7 @@ public class ICQManager implements GenericConnection {
                 typingState = TypingStateType.PAUSED;
             } else if (typingInfo.getTypingState().equals(TypingState.NO_TEXT)) {
                 controller.setTypingState(1);
-                typingState = TypingStateType.GONE;
+                typingState = TypingStateType.ACTIVE;
             }
 
             controller.typingStateUpdated(genericConnection, typingState,
