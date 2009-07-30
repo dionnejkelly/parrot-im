@@ -129,7 +129,9 @@ public class ManageAccountFrame extends JFrame {
         }
 
         public void keyReleased(KeyEvent e) {
-            done();
+        	if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+        		done();
+        	}
         }
 
         public void keyTyped(KeyEvent e) {
