@@ -135,35 +135,6 @@ public class DatabaseFunctions {
                         + DatabaseFunctions.getDatabaseName());
         stat = conn.createStatement();
 
-        /*
-         * Set up tables. Commented out are commands to delete the table, as to
-         * start a new table up fresh. Please do not remove comments from these
-         * commands unless necessary.
-         */
-
-        // stat.executeUpdate("drop table if exists people;");
-        // stat.executeUpdate("drop table if exists chatLog;");
-        // stat.executeUpdate("drop table if exists profiles;");
-        // stat.executeUpdate("drop table if exists friendList;");
-        // stat.executeUpdate("drop table if exists chatBotQuestions;");
-        // stat.executeUpdate("drop table if exists chatBotAnswers;");
-        stat.executeUpdate("create table if not exists people "
-                + "(profile, serverType, serverAddress, "
-                + "accountName, password);");
-        stat.executeUpdate("create table if not exists chatLog "
-                + "(profile, fromUser, toUser, message, "
-                + "date, time, timestamp);");
-        stat.executeUpdate("create table if not exists profiles "
-                + "(name, password, defaultProfile, chatWindowHistory, "
-                + "autoSignIn, chatLog, sounds, chatbot, avatarDirectory, "
-                + "statusMessage, status, emailNotification, color1, "
-                + "color2, color3, color4, color5);");
-        stat.executeUpdate("create table if not exists friendList "
-                + "(accountName, friendName, blocked);");
-        stat.executeUpdate("create table if not exists chatBotQuestions "
-                + "(profile, question, afterQuestion);");
-        stat.executeUpdate("create table if not exists chatBotAnswers "
-                + "(profile, question, answer);");
     }
 
     // Section
@@ -200,10 +171,35 @@ public class DatabaseFunctions {
      * @throws SQLException
      */
     public void dropTables() throws ClassNotFoundException, SQLException {
-        stat.executeUpdate("drop table if exists people;");
-        stat.executeUpdate("drop table if exists chatLog;");
-        stat.executeUpdate("drop table if exists profiles;");
-        stat.executeUpdate("drop table if exists friendList;");
+        /*
+         * Set up tables. Commented out are commands to delete the table, as to
+         * start a new table up fresh. Please do not remove comments from these
+         * commands unless necessary.
+         */
+
+        // stat.executeUpdate("drop table if exists people;");
+        // stat.executeUpdate("drop table if exists chatLog;");
+        // stat.executeUpdate("drop table if exists profiles;");
+        // stat.executeUpdate("drop table if exists friendList;");
+        // stat.executeUpdate("drop table if exists chatBotQuestions;");
+        // stat.executeUpdate("drop table if exists chatBotAnswers;");
+        stat.executeUpdate("create table if not exists people "
+                + "(profile, serverType, serverAddress, "
+                + "accountName, password);");
+        stat.executeUpdate("create table if not exists chatLog "
+                + "(profile, fromUser, toUser, message, "
+                + "date, time, timestamp);");
+        stat.executeUpdate("create table if not exists profiles "
+                + "(name, password, defaultProfile, chatWindowHistory, "
+                + "autoSignIn, chatLog, sounds, chatbot, avatarDirectory, "
+                + "statusMessage, status, emailNotification, color1, "
+                + "color2, color3, color4, color5);");
+        stat.executeUpdate("create table if not exists friendList "
+                + "(accountName, friendName, blocked);");
+        stat.executeUpdate("create table if not exists chatBotQuestions "
+                + "(profile, question, afterQuestion);");
+        stat.executeUpdate("create table if not exists chatBotAnswers "
+                + "(profile, question, answer);");
 
         conn.close();
         return;
