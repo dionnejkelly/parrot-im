@@ -337,7 +337,7 @@ public class SignInPanel extends GPanel implements Observer {
             this.setGradientColors(model.primaryColor, model.secondaryColor);
 
             updateUI();
-        } else {
+        } else if (o instanceof ProfileCollectionData) {
             // Clear current list of profiles
             this.profilesModel.removeAllElements();
 
