@@ -438,6 +438,7 @@ public class ICQManager implements GenericConnection {
         
     	Date currentDate= new Date();
     	Screenname theSender=new Screenname(UserID);
+    	//Do you know how to get the receiver from the conversation?
     	Screenname theReceiver=null;
         TypingInfo senderTypingInfo;
     	
@@ -452,9 +453,7 @@ public class ICQManager implements GenericConnection {
         } else if (state == 5) {
         	senderTypingInfo= new TypingInfo(theSender, null, currentDate, TypingState.PAUSED);
         } else {
-
         }
-
     }
 
     public ImageIcon getAvatarPicture(String userID) {
