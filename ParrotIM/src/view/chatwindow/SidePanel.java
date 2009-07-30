@@ -232,7 +232,8 @@ public class SidePanel extends GPanel implements Observer {
                 // rightClickMenu.setVisible(true);
                 conversationToRemove = listPane.getUserWrapper(
                         listPane.getClickedIndex()).getConversation();
-                rightClickMenu.show(listPane, event.getX() + 5, event.getYOnScreen() - 60);
+                rightClickMenu.show(listPane, event.getX() + 5, event.getYOnScreen());
+                rightClickMenu.setLocation(event.getXOnScreen(), event.getYOnScreen());
         	}   else if (event.getButton() == MouseEvent.BUTTON1) {
                 System.out.println("left clicked");
                 controller.setTypingState(1); // set to the default typing state
