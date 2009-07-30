@@ -72,5 +72,10 @@ Task: Use the Chat bot
   * Speed: 3
   * Intuitiveness: 2
   * Fun: 5
+General Comments:
+  *The Sign In panel looks beautiful
+  *A little bit slow when you sign in
+  *Likes the Google search function
+  *Do not need to show who is online or away behind the nickname
 
 ----
