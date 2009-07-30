@@ -149,7 +149,17 @@ public class Model extends Observable {
         for (ProfileData p : this.profileCollection.getProfiles()) {
             p.loadAccounts();
         }
-
+        DatabaseFunctions db;
+		try {
+			db = new DatabaseFunctions();
+	        db.dropTables();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return;
     }
 
