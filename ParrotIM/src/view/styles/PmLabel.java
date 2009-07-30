@@ -81,7 +81,7 @@ public class PmLabel extends JTextField {
         this.addMouseListener(new labelMouseListener(this));
         this.addKeyListener(new labelKeyListener(this));
     }
-
+    
     /**
      * changePM take a boolean as its argument. It is responsible for changing
      * the user's status message both on the GUI and the server.
