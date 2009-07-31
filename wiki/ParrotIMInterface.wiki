@@ -2,9 +2,6 @@
 
 = Introduction =
 
-
-
-
 = Details =
 
   * [Assignment_3_Screenshot    Assignment 3]
@@ -12,3 +9,7 @@
   * [Assignment_4_Screenshot    Assignment 4]
 
   * [Assignment_5_Screenshot    Assignment 5]
+
+=User Interface Progress=
+==Login Windows:==
+http://parrot-im.googlecode.com/files/compare_loginWindow.jpg
