@@ -1,5 +1,8 @@
 #summary Final Release of Parrot IM
 
+= Introduction =
+A clear one sentence summary...
+
 = Executable and Source Code =
 
   * (link to .jar)
@@ -30,3 +33,16 @@ Please have the user complete the following tasks outlined in "procedures", and 
   * [a5_requirements Requirements Document]
   * [a5_design Design Document]
   * [a5_qa Quality Assurance Plan]
+
+= Known Bugs =
+
+= Screen shots of how our user interface has progressed =
+
+= Feedback from real users =
+
+= A post-mortem analysis of our team and project =
+
+-What project management techniques worked well, and what worked not so well? 
+-What were the major technical problems you encountered? 
+-What were the major "human" problems you encountered while working as a team? 
+-If you were to do the project over again, what would you do differently? What would you have done the same? What advice would you give to next year's students? 
