@@ -7,8 +7,8 @@ Highlighted on this page are all changes since previous releases. At the bottom 
 
 = Executable and Source Code =
 
-  * (link to .jar)
-  * (link to tags/final)
+  * [http://parrot-im.googlecode.com/files/ParrotIM_final_rc6.jar executable file]
+  * [http://code.google.com/p/parrot-im/source/browse/tags/final/ Source Code]
 
 = Getting Started Screencast =
 
