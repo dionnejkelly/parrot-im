@@ -31,4 +31,4 @@ Final Version
 http://parrot-im.googlecode.com/files/final_ChatWindow1.jpg
 
 ==exit/ sign out methods==
-http://parrot-im.googlecode.com/files/compare_exit.jpg
+http://parrot-im.googlecode.com/files/compare_exit1.jpg
