@@ -264,7 +264,9 @@ public class MSNManager extends AbstractMessageConnection implements
 
             poller = new PollingThread();
             poller.start();
-    	
+            
+            
+            
     	
     	
         
@@ -283,7 +285,7 @@ public class MSNManager extends AbstractMessageConnection implements
         public void run() {
             try {
                 System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
-                sleep(6000); // Delay for 4 seconds
+                sleep(8000); // Delay for 7 seconds
             } catch (InterruptedException e) {
                 System.err.println("Threading error");
                 e.printStackTrace();
@@ -298,7 +300,7 @@ public class MSNManager extends AbstractMessageConnection implements
     public void connect(String userID, String password)
             throws BadConnectionException {
         try {
-            //super.connect();
+            super.connect();
             sessions.clear();
             notifyConnectionInitiated();
 
@@ -518,28 +520,29 @@ public class MSNManager extends AbstractMessageConnection implements
 
             try {
                 if (model.getEmailNotification().equals("Y")) {
-                    if (unread > 1) {
-                        option =
-                                JOptionPane
-                                        .showConfirmDialog(
-                                                null,
-                                                "You have "
-                                                        + unread
-                                                        + " unread emails.\nWould you like to read these emails right now?",
-                                                "Unread Email",
-                                                JOptionPane.INFORMATION_MESSAGE);
+                    if (0 < unread && unread <= 1) {
+                    	option =
+                            JOptionPane
+                                    .showConfirmDialog(
+                                            null,
+                                            "You have "
+                                                    + unread
+                                                    + " unread email.\nWould you like to read this email right now?",
+                                            "Unread Email",
+                                            JOptionPane.INFORMATION_MESSAGE);
+               
                     }
 
                     else {
                         option =
-                                JOptionPane
-                                        .showConfirmDialog(
-                                                null,
-                                                "You have "
-                                                        + unread
-                                                        + " unread email.\nWould you like to read this email right now?",
-                                                "Unread Email",
-                                                JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane
+                                    .showConfirmDialog(
+                                            null,
+                                            "You have "
+                                                    + unread
+                                                    + " unread emails.\nWould you like to read these emails right now?",
+                                            "Unread Email",
+                                            JOptionPane.INFORMATION_MESSAGE);
                     }
 
                     if (option == JOptionPane.OK_OPTION) {

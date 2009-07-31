@@ -382,6 +382,7 @@ public class GoogleTalkManager implements GenericConnection {
             connection.login(userID, password);
         } catch (XMPPException e) {
             System.err.println("Connection error in logging in.");
+            JOptionPane.showMessageDialog(null, "Error signing into GoogleTalk!\nUser name and password do not match.", "Error", JOptionPane.ERROR_MESSAGE);
             throw new BadConnectionException();
         }
 
