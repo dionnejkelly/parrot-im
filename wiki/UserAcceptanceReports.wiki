@@ -318,6 +318,36 @@ Task: change avatar picture
   * Intuitiveness: 5
   * Fun: 3
 
-  General Comments:
+General Comments:
   * Thought we should gray out or remove things you aren't allowed to do, rather than giving a pop up saying you aren't allowed.
   * Said account manager should show protocol next to account, as you could use the same account in multiple protocols.
+
+
+= Person 11: Matti = 
+
+  * Computer Familiarity: 5
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 3
+
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 2
+  * Fun: 4
+
+Task: Logout and login certain accounts while using the program. 
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+
+
+General Comments:
+  * Buddy search text box should have disappearing text onclick which says that the box is specifically for buddy searching.
+  * Liked how we let him log in and out while in a profile.
+  
