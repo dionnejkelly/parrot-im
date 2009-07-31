@@ -10,9 +10,7 @@ As our previous versions we had three phases for testing:
 
 3. *User Acceptance Testing*
 
-In this version, we focused more on testing that new features:
-
-Is all working, and doesn't cause problems when integrated with our system.
+In this version, we focused more on testing that new features is all working, and doesn't cause problems when integrated with our system.
 
 Also, we tested our user interface, by cognitive walkthrough by our team, and asking our users to use our system and give us what they thought about the interface.
 ---------------
