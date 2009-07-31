@@ -551,7 +551,7 @@ public class Chatbot {
             response = get_response();
         }
 
-        System.out.println("Customized Response = " + customizedAnswer);
+        //System.out.println("Customized Response = " + customizedAnswer);
         return response;
 
         // return customizedAnswer;
@@ -572,22 +572,7 @@ public class Chatbot {
      */
 
     public void find_match() {
-        // respList.clear();
-        // for(int i = 0; i < KnowledgeBase.length; ++i)
-        // {
-        //                   
-        // if(sInput.indexOf(KnowledgeBase[i][0]) != -1)
-        // {
-        // int respSize = KnowledgeBase[i].length - userMaxInput;
-        // for(int j = userMaxInput; j <= respSize; ++j)
-        // {
-        // respList.add(KnowledgeBase[i][j]);
-        // }
-        //                             
-        //                                
-        // break;
-        // }
-        // }
+
 
         respList.clear();
         // introduce thse new "string variable" to help
@@ -754,9 +739,9 @@ public class Chatbot {
     }
 
     public void getBuddy() {
-        for (int i = 0; i < this.KnowledgeBase[0].length; i++) {
-            System.out.println("Answer = " + KnowledgeBase[0][i].toString());
-        }
+//        for (int i = 0; i < this.KnowledgeBase[0].length; i++) {
+//            System.out.println("Answer = " + KnowledgeBase[0][i].toString());
+//        }
     }
 
     /**
@@ -881,7 +866,7 @@ public class Chatbot {
      */
 
     public void restore_input() {
-        System.out.println("========== Backup = " + sInputBackup);
+  
         sInput = sInputBackup;
     }
 
@@ -1083,7 +1068,7 @@ public class Chatbot {
      */
 
     public String getsInput() {
-        System.out.println("After  = " + sInput + ")");
+        
         return sInput;
     }
 
@@ -1190,9 +1175,8 @@ public class Chatbot {
                         Vector<String> answers =
                                 customizedModel.getQAObject(QAPos).getAnswers();
 
-                        System.out.println("answer size: " + answers.size());
                         int select = randInt(answers.size());
-                        System.out.println("select: " + select);
+
                         return answers.get(select);
                     }
                 }
@@ -1216,10 +1200,5 @@ public class Chatbot {
         // populateNoMatchCase();
     }
 
-    // private void populateNoMatchCase(){
-    // noMatchCase.add("I don't understand what you mean");
-    // noMatchCase.add("What are you trying to say?");
-    // noMatchCase.add("Hmmm....");
-    // noMatchCase.add("Err....");
-    // }
+
 }
