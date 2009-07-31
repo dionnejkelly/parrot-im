@@ -38,12 +38,14 @@
 
 = Metrics =
 
+
+
 || *Category* || *Alpha Value* || *Beta Value* || *Final Value* ||
-|| Pure Source Lines || 6196 || 13092 || ||
-|| Pure Comment Lines || 4866  || 6071 || ||
-|| Source with Comment Lines || 38 || 83 || ||
-|| Blank Lines || 3034 || 5231 || ||
-|| Total Lines || 14134 || 24477 || ||
+|| Pure Source Lines || 6196 || 13092 || 16713 ||
+|| Pure Comment Lines || 4866  || 6071 || 5722 ||
+|| Source with Comment Lines || 38 || 83 || 106 ||
+|| Blank Lines || 3034 || 5231 || 5594 ||
+|| Total Lines || 14134 || 24477 || 28135 ||
 || Model Classes || || || ||
 || View Classes || || || ||
 || Controller Classes || || || ||
