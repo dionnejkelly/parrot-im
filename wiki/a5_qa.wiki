@@ -1,10 +1,33 @@
 #summary Quality Assurance Plan
 
+= Introduction =
+
+As our previous versions we had three phases for testing:
+
+1. *Unit Testing*
+
+2. *Integration Testing*
+
+3. *User Acceptance Testing*
+
+In this version, we focused more on testing that new features:
+
+Is all working, and doesn't cause problems when integrated with our system.
+
+Also, we tested our user interface, by cognitive walkthrough by our team, and asking our users to use our system and give us what they thought about the interface.
+---------------
 = Testing Report =
 
 Testing for the Final release consisted of three parts:
 
 == Unit Testing ==
+
+As our previous versions, we used JUnit. We focused more on blackbox testing here more than whitebox because it's faster, but still for some test cases we needed to read the actual implementation. We added to our test cases package:
+
+SlashCommandTest.java
+
+To Check our test (steps to import our test cases or installing JUnit check our previous document).
+
 
 The low-level data types were checked for consistency, and each method was verified to return the expected results and make state changes to the objects as expected. The test cases are as follows:
 
@@ -59,7 +82,7 @@ We employed two main integration steps to test Parrot IM. First, we integrated t
     * Executes functions to mimic user interaction with Parrot IM. All calls come from the this main controller class, which currently only supports XMPP and Twitter functions. The Model and Database are, again, involved in processing the requests. The integrity of both are checked also.
 
 *Results:*
-Integration testing was useful in organizing and cleaning up the code. In designing, it was not completely clear which components of the program handled certain things. For instance, is it the controller, model, or database's job to deal with duplicate account additions? Is it all of them? Integration testing showed errors when we didn't handle these situations properly. Ultimately, the testing made us set a focus to handle data integrity, the Model.
+We walkthrough our system to see if the new features are integrating perfectly with our system. Integration testing was useful in organizing and cleaning up the code. In designing, it was not completely clear which components of the program handled certain things. For instance, is it the controller, model, or database's job to deal with duplicate account additions? Is it all of them? Integration testing showed errors when we didn't handle these situations properly. Ultimately, the testing made us set a focus to handle data integrity, the Model.
 
 In this phase, we tried to make sure that everything works well in practice. This includes testing the following:
 
