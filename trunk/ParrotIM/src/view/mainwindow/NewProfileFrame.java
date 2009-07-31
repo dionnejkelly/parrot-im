@@ -166,9 +166,8 @@ public class NewProfileFrame extends JFrame {
 
         this.pack();
         this.setVisible(true);
-        this.setIconImage(new ImageIcon("src/images/mainwindow/logo.png")
-                .getImage());
-
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
     }
 
     private void cancelButtonFunction() {

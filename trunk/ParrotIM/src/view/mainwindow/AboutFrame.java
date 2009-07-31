@@ -117,6 +117,7 @@ public class AboutFrame extends JFrame {
         this.getContentPane().add(aboutPanel);
         this.pack();
         this.setVisible(true);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
     }
 }
