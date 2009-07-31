@@ -197,7 +197,7 @@ General Comments:
   * In general, good program for messaging but bugs make the experience annoying.
 
 ---
-= Person 8: John = 
+= Person 8: John b = 
 
   * Computer Familiarity: 5
   * Chat services used: Google Talk
@@ -218,7 +218,7 @@ Task: Use the Chat bot
   * Fun: 1
 General Comments:
   * Could not find the button to enable the Chatbot.
-  * "I didn't know that the blank field was used for searching". 
-  * "I like using the customization feature.
+  * "I did not know that the blank field was used for searching". 
+  * "I like using the customization feature."
 
   
