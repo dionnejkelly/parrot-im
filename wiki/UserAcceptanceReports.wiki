@@ -79,3 +79,22 @@ General Comments:
   * Do not need to show who is online or away behind the nickname
 
 ----
+= Person 3: Bin = 
+
+  * Computer Familiarity: 3
+  * Chat services used: ICQ,Google Talk
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 4
+  * Fun: 3
+Task: Use the Chat bot
+  * Difficulty: 1
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 4
