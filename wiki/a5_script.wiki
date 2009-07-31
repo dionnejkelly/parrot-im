@@ -43,23 +43,32 @@ Parrot IM Features:
 
 *_Ahmad -- 2 minutes_*
 
-Components:
-  * Present new architectural diagram. Also show the old version.
-  * Highlight how our architecture is ordered with Model View Controller. 
-  * Note that the Controller works with libraries to connect via protocols, the View handles GUI input and output, and the Model holds data, and holds a Database.
-  * Contrast to hold diagram, with no MVC... essentially we just categorized features in the old one, instead of designing an architecture.
+Slide 1:
+  * We started off with a very rough idea of how parrot im is going to be set up, you can see our initial architectural diagram, turns out, our architectural diagram stayed quite accurate to what we ended up having
 
-Statistics:
-  * % implemented features
-  * Metrics
-QA (How do we know that Parrot IM is bug-free?):
-  * Two main types of testing: automated test cases, user testing
-  * Automated testing allowed us to create test cases to ensure the logic of our program worked as intended.
-  * After changing our code, we could verify that the tests still passed.
-  * Automated Unit and Integration testing found many internal bugs.
-  * User Acceptance testing also found bugs, but also gave us design suggestions.
-  * Still have bugs, but testing helped to ensure that most are known issues.
-  * List known bugs, categorized in to server, gui, database, etc.
+Slide 2:
+  * The main difference, as you can see, is the model view controller architecture that we later adopted.
+  * Note that the Controller works with libraries to connect via protocols, the View handles the GUI, and the Model holds data and interfaces with the Database. This architecture benefited us greatly because, for example, you could work on he logic without looking at the gui, and the gui without looking at the logic.
+
+Slide 3:
+  * We used an eclipse addon named Metrics which gave us some useful statistics for the program.
+  * As you can see, parrot im exploded in the time between alpha and beta, we more than doubled the amount of code we had in the alpha.
+  * this is because we had finished the core components of the program which tend to be trickier to code and started adding a lot of new features.
+
+Slide 4:
+  * We implemented about 90% of our planned features, though the features we didn't do were features that could potentially confuse users, and at the same time, would take far too much effort.
+
+Slide 5:
+  * Still have bugs, but testing helped to ensure that most are known issues, these bugs are things that required considerable effort to fix, but aren't anything that will detract considerably from the enjoyment of the program.
+
+Slide 6:
+  * An important thing for us was to minimize the amount of bugs we'd have to deal with, so we made sure to make testing a priority, we used automated test cases tested the logic of the program and found many internal bugs, and user testing, which not only found bugs, but led to better design decisions.
+
+And for that, we skip over to Jordan...
+
+
+*MY COMMENTS TO KEVIN: this will be between 2:00 and 2:30, if you don't want to take a risk, I can trim a bit off the MVC stuff, and maybe some other stuff too.
+I would also like the last slide and the second last slide to be switched to go with my script. Thanks!*
 
 ----
 
