@@ -3,6 +3,8 @@
 = Introduction =
 A desktop application that connects you to friends on multiple networks, and offers useful, fun features such as tabbed conversations, programmable chatbot, chatlog and buddy search, and custom UI.
 
+Highlighted on this page are all changes since previous releases. At the bottom of the page, you can find our updated Design, User Requirements, and QA documents, originally required from Assignment 2.
+
 = Executable and Source Code =
 
   * (link to .jar)
@@ -16,8 +18,6 @@ A desktop application that connects you to friends on multiple networks, and off
 
 
 = User Acceptance Test =
-
-Please have the user complete the following tasks outlined in "procedures", and then record all information in "reports." Thanks!
 
   * [UserAcceptanceTest Testing procedures]
   * [UserAcceptanceReports Reports]
@@ -55,7 +55,7 @@ Please have the user complete the following tasks outlined in "procedures", and 
 
 *What project management techniques worked well, and what worked not so well?* 
 
- * We used to depend on one leader only and it did not work out well. Later on we had another leader to organize our big team.
+ * We used to depend on one leader only, but during implementation found that we needed more leadership from our entire team. Later on, we used a more democratic approach in which everyone in our team demonstrated project management leadership skills.
 
 *What were the major technical problems you encountered?* 
 
