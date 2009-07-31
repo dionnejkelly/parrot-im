@@ -323,7 +323,7 @@ General Comments:
   * Said account manager should show protocol next to account, as you could use the same account in multiple protocols.
 
 
-= Person 11: Matti = 
+= Person 12: Matti = 
 
   * Computer Familiarity: 5
   * Chat services used: Google Talk
