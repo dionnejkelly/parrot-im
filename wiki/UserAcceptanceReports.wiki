@@ -318,4 +318,6 @@ Task: change avatar picture
   * Intuitiveness: 5
   * Fun: 3
 
-  
+  General Comments:
+  * Thought we should gray out or remove things you aren't allowed to do, rather than giving a pop up saying you aren't allowed.
+  * Said account manager should show protocol next to account, as you could use the same account in multiple protocols.
