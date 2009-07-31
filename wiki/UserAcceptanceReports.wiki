@@ -196,7 +196,7 @@ General Comments:
   * Smiley faces in chat window is disturbing (User didn't know about time and date feature because of it).
   * In general, good program for messaging but bugs make the experience annoying.
 
----
+-------
 = Person 8: John b = 
 
   * Computer Familiarity: 5
@@ -221,7 +221,7 @@ General Comments:
   * "I did not know that the blank field was used for searching". 
   * "I like using the customization feature."
 
----
+-------
 = Person 9: Brianna = 
 
   * Computer Familiarity: 4
