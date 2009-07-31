@@ -148,7 +148,7 @@ Task: Use the Chat bot
   * Intuitiveness: 4
   * Fun: 1
 General Comments:
-  * 
-  * 
-  * 
-  * 
+  * “ChatBot is not a useful tool”. 
+  * “When I am typing in the search box, it always do the buddy search, but in fact I just want to use the Google search.”
+  * Changing the theme is interesting. 
+  
