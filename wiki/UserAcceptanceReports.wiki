@@ -244,5 +244,6 @@ Task: Colour Customization
 General Comments:
   * She used her new GoogleTalk account, so she had to add a friend first.
   * "I like the design and colour customization"
+  * "The GUI is pretty easy to use"
 
   
