@@ -31,9 +31,6 @@ Highlighted on this page are all changes since previous releases. At the bottom 
   * [a5_featuresImplemented Features Implemented]
   * [a5_metrics Metrics for all versions]
 
-= Presentation = 
- 
-  * [a5_script Script] for presentation. Delete this after done.
 
 = Documents =
   * [a5_requirements Requirements Document]
