@@ -29,9 +29,13 @@ Description:
 
 *_Jihoon -- 3 minutes, 30 seconds_*
 
-Features:
-  * pair with ss, jihoon talk?
-  * (Note: this is our "demo"!)
+Parrot IM Features:
+  * Spell Checker
+  * Buddy Search
+  * Chat Log
+  * Bug Report
+  * Account Menu
+  * Theme Selection
 
 ----
 
@@ -86,15 +90,17 @@ User Feedback:
 
 *Section IV: Analysis*
 
-*_Kevin -- 1 minute_*
+*_Kevin -- 1 minute, 1 second_*
 
    _(Timing: Challenges: 29 seconds")_   
 Challenges:
   * "Thank you, Jordan. Our program's evolution was not without challenges. Most notably, we encountered many bugs not with our code, but with the libraries we used. That, and some were so poorly documented, that we had to read the source code to use them."
-  * "Also, we did not use many project management techniques, which resulted in some confusion during later stages of development. But by having regular work meetings, we accomplished most of our coding together, minimizing confusion."
+  * "Also, we did not use many project management techniques, which resulted in some confusion during later stages of development. But by having regular work meetings, we accomplished most of our coding together, which kept us coordinated."
+
+   _(Timing: Hindsight: 32 seconds")_
 
 Hindsight:
-  * Would have designed better, thought about implementation sooner.
-  * Come up with MVC not so late.
-  * Should have used more project management tools, such as activity networks.
+  * "If we had to make Parrot IM again, we would have taken the design more seriously. We learned that once you implement something, it is very hard to go back. We should have planned our classes and methods much more precisely."
+ * "But overall, we are very happy with how Parrot IM was developed. Everybody on our team made major contributions. Communication amongst our team was definitely one of our strengths, too. It kept us active, and it kept us happy while coding."
+ * "That concludes our presentation. Thank you very much, everybody. May we answer any of your questions?"
   
