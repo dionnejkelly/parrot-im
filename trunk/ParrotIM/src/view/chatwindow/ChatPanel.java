@@ -662,19 +662,19 @@ public class ChatPanel extends GPanel implements Observer {
         }
 
         public void insertUpdate(DocumentEvent e) {
-        	if(model.getActiveConversation().getAccount().getServer()
-        			== ServerType.TWITTER){
+//        	if(model.getActiveConversation().getAccount().getServer()
+//        			== ServerType.TWITTER){
 	            keyCount = keyCount + e.getLength();
 	            displayPanel.updateChar(140 - keyCount);
-        	}
+//        	}
         }
 
         public void removeUpdate(DocumentEvent e) {
-        	if(model.getActiveConversation().getAccount().getServer()
-        			== ServerType.TWITTER){
+//        	if(model.getActiveConversation().getAccount().getServer()
+//        			== ServerType.TWITTER){
 	            keyCount = keyCount - e.getLength();
 	            displayPanel.updateChar(140 - keyCount);
-        	}
+//        	}
         }
 
     }
@@ -757,17 +757,20 @@ public class ChatPanel extends GPanel implements Observer {
             emoticonPanel.setGradientColors(model.primaryColor,
                     model.secondaryColor);
             emoticonPanel.updateUI();
-        }else if(arg == UpdatedType.CHAT|| arg == UpdatedType.CHATNOTSIDEPANEL){
+        }
+        else if(arg == UpdatedType.CHAT|| arg == UpdatedType.CHATNOTSIDEPANEL){
         	if(model.getChatCollection().getActiveConversation()
-        			instanceof ConversationData)
+        			instanceof ConversationData){
         		if(model.getActiveConversation().getAccount().getServer()
-            		== ServerType.TWITTER){
-        		keyCount = txt1.getText().length();
-        		displayPanel.updateChar(140-keyCount);
-        		if(keyCount <= 140){
-        			sendButton.setEnabled(false);
+                		== ServerType.TWITTER){
+            			if(keyCount <= 140){
+            				sendButton.setEnabled(false);
+            			}
+            		}
+        		else{
+        			sendButton.setEnabled(true);
         		}
-            }
+        	}
         }
     }
 }
