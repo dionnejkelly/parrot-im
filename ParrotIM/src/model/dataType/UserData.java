@@ -249,8 +249,6 @@ public abstract class UserData extends PersonData implements Comparable {
                         candidate = user;
                     } else if (user.isMoreOnline(candidate)) {
                         candidate = user;
-                        // System.out.println("Online user: " +
-                        // user.getNickname());
                     } else {
                         // do nothing, next iteration
                     }

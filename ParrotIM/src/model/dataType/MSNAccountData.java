@@ -150,7 +150,6 @@ public class MSNAccountData extends AccountData implements MSNPerson {
         return ServerType.MSN;
     }
 
-    @Override
     public ArrayList<UserData> getTweets() throws BadConnectionException {
         return null;
     }

@@ -290,7 +290,6 @@ public class DatabaseFunctions {
         Vector<String> accountList = new Vector<String>();
         Vector<String> profilesAccountList = new Vector<String>();
         searched = this.replace(searched, "'", "''");
-        System.out.println(searched);
         r3 =
                 stat.executeQuery("select * from people where profile='"
                         + profile + "';");
@@ -554,7 +553,6 @@ public class DatabaseFunctions {
 
     public void setAvatarDirectory(String profile, String directory)
             throws SQLException {
-        // TODO: change so that it will return null if the avatar is not set
         stat.executeUpdate("update profiles set avatarDirectory='" + directory
                 + "' where name='" + profile + "'");
         conn.close();
@@ -578,11 +576,8 @@ public class DatabaseFunctions {
         }
     }
 
-    // String emailNotification should be a String.
     public void setEmailNotification(String profile, String emailNotification)
             throws SQLException {
-        System.out.println("this is" + emailNotification);
-        // TODO: change so that it will return null if the avatar is not set
         stat.executeUpdate("update profiles set emailNotification = '"
                 + emailNotification + "'  where name='" + profile + "'");
         conn.close();
@@ -605,7 +600,6 @@ public class DatabaseFunctions {
     public void setStatusMessage(String profile, String statusMessage)
             throws SQLException {
         statusMessage = this.replace(statusMessage, "'", "''");
-        // TODO: change so that it will return null if the avatar is not set
         stat.executeUpdate("upda" + "te profiles set statusMessage='"
                 + statusMessage + "' where name='" + profile + "'");
         conn.close();
@@ -631,7 +625,6 @@ public class DatabaseFunctions {
 
     public void setStatus(String profile, int status) throws SQLException {
         String theStatus = new Integer(status).toString();
-        // TODO: change so that it will return null if the avatar is not set
         stat.executeUpdate("update profiles set status='" + theStatus
                 + "' where name='" + profile + "'");
         conn.close();
@@ -916,7 +909,6 @@ public class DatabaseFunctions {
                 .executeUpdate("DELETE FROM friendList WHERE "
                         + "accountName = '" + accountName + "' and "
                         + "friendName = '" + friendName + "';");
-        System.out.println("here!");
 
         conn.close();
         return;
@@ -1085,7 +1077,6 @@ public class DatabaseFunctions {
         return answersList;
     }
 
-    // db.addAfter(questions.lastElement(), question);
     public void addAfter(String profile, String beforeQuestion,
             String afterQuestion) throws SQLException {
         stat.executeUpdate("update chatBotQuestions set afterQuestion = '"
@@ -1142,7 +1133,7 @@ public class DatabaseFunctions {
                         + "' AND profile='" + profile + "';");
         rs.next();
         try {
-            System.out.println(rs.getString("question"));
+            rs.getString("question");
         } catch (SQLException e) {
             wasFirstQuestion = true;
         }
@@ -1151,7 +1142,6 @@ public class DatabaseFunctions {
             String beforeQuestion = rs.getString("question");
             rs.close();
             if (questionAfter != null) {
-                System.out.println("bleh meh wuhh?");
                 stat
                         .executeUpdate("update chatBotQuestions set afterQuestion = '"
                                 + questionAfter
@@ -1185,10 +1175,6 @@ public class DatabaseFunctions {
     }
 
     public void printQADbContents() throws SQLException {
-        // stat.executeUpdate("create table if not exists chatBotQuestions "
-        // + "(profile, question, afterQuestion);");
-        // stat.executeUpdate("create table if not exists chatBotAnswers "
-        // + "(profile, question, answer);");
         r2 = stat.executeQuery("select * from chatBotQuestions;");
         while (r2.next()) {
             System.out.println("Profile: " + r2.getString("profile")

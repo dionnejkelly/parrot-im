@@ -26,11 +26,6 @@ public class ChatbotQADataType {
         this.model = model;
         questions.add(question);
         answers.add(answer);
-
-        // DatabaseFunctions db = new DatabaseFunctions();
-        // db.addQuestion("kevin", question);
-        // db = new DatabaseFunctions();
-        // db.addAnswer("kevin", question, answer);
     }
 
     public ChatbotQADataType(Model model, Vector<String> questions,

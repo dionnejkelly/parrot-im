@@ -209,7 +209,6 @@ public class MultiConversationData extends Observable implements Conversation {
         return areEqual;
     }
 
-    @Override
     public int hashCode() {
         int hash = 7;
 

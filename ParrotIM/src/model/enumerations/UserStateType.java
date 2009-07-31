@@ -59,7 +59,6 @@ public enum UserStateType {
      * 
      * @return The name of the enumerated type.
      */
-    @Override
     public String toString() {
         return this.name;
     }

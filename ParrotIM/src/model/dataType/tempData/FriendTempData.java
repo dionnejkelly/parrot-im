@@ -57,11 +57,6 @@ public class FriendTempData {
      */
     public FriendTempData() {
         this(null, null, null, null, null, false);
-        // this.setUserID(null);
-        // this.nickname = null;
-        // this.status = null;
-        // this.state = null;
-        // this.setBlocked(false);
     }
 
     /**
@@ -72,12 +67,6 @@ public class FriendTempData {
      */
     public FriendTempData(String userID, boolean blocked) {
         this(userID, null, null, null, null, blocked);
-        // this.setUserID(userID);
-        // this.nickname = null;
-        // this.status = null;
-        // this.state = null;
-        //        
-        // this.setBlocked(blocked);
     }
 
     /**
@@ -89,11 +78,6 @@ public class FriendTempData {
     public FriendTempData(String userID, String nickname, String status,
             UserStateType state, boolean blocked) {
         this(userID, nickname, status, state, null, blocked);
-        // this.setUserID(userID);
-        // this.nickname = nickname;
-        // this.status = status;
-        // this.state = state;
-        // this.setBlocked(blocked);
     }
 
     public FriendTempData(String userID, String nickname, String status,

@@ -230,7 +230,6 @@ public class MessageData {
                         + ":</font></U>";
 
         if (!isReceiving) {
-            System.out.println("Never getting called...");
             toUserText =
                     timeStamp + "<U><font face = \"Arial" + "\" color=\""
                             + "#ff00ff" + "\">" + this.fromUser
@@ -258,8 +257,10 @@ public class MessageData {
         if (this.underlined) {
             text = "<u>" + text + "</u>";
         }
-        text = toUserText + text;
+        
         text = addEmoticons(text);
+        text = toUserText + text;
+        
         return text;
     }
 

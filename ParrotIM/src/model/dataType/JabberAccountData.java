@@ -139,7 +139,6 @@ public class JabberAccountData extends AccountData implements JabberPerson {
         return ServerType.JABBER;
     }
 
-    @Override
     public ArrayList<UserData> getTweets() throws BadConnectionException {
         return null;
     }

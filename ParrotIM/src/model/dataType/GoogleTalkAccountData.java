@@ -141,7 +141,6 @@ public class GoogleTalkAccountData extends AccountData implements
         return ServerType.GOOGLE_TALK;
     }
 
-    @Override
     public ArrayList<UserData> getTweets() throws BadConnectionException {
         return null;
     }
