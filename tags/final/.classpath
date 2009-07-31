@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="lib" path="lib/smack.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/smackx.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/sqlitejdbc-v054.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/smack_3_1_0/smackx-debug.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/smack_3_1_0/smackx-jingle.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jtwitter.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jortho.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jclaim.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsocks.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/msnm.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-common.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joscar-protocol.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic_native_applet.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic_stub_unix.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic_stub_windows.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdic.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/browser.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
