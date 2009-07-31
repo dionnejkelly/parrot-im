@@ -103,3 +103,27 @@ General Comments:
   * It is a little bit slow when you change the status in personal profile panel.
   * The “Change Text Color” panel do not have “cancel” button.
 ----
+
+= Person 5: Michelle = 
+
+  * Computer Familiarity: 3
+  * Chat services used: MSN,Google Talk
+Task: Create a profile and log in
+  * Difficulty: 2
+  * Speed: 3
+  * Intuitiveness: 3
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Use the Chat bot
+  * Difficulty: 1
+  * Speed: 3
+  * Intuitiveness: 1
+  * Fun: 1
+General Comments:
+  * The program is a new of kind and interesting.
+  * It is a little bit difficult to know how to enable chatbot. 
+  * "A fresh IM that I have never seen it before!".
