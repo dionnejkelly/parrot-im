@@ -7,10 +7,10 @@
 = Tasks for the user to perform = 
 
 We will ask the user to do the following actions, and the user can report back on the following characteristics on a 1 to 5 scale:
-  * Difficulty
-  * Speed
-  * Intuitiveness
-  * Fun
+  * Difficulty (1 = Difficult/ 5 = Easy)
+  * Speed (1 = Slow / 5 = Fast)
+  * Intuitiveness (1 = Complicated / 5 = No brainer)
+  * Fun (1 = Boring / 5 = Entertaining)
 
 Tasks (have the user complete as many as possible):
   * Create a profile with your accounts, and log in.
