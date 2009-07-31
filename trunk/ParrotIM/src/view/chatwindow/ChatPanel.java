@@ -763,7 +763,7 @@ public class ChatPanel extends GPanel implements Observer {
         			instanceof ConversationData){
         		if(model.getActiveConversation().getAccount().getServer()
                 		== ServerType.TWITTER){
-            			if(txt1.getDocument().getLength() >= 140){
+            			if(keyCount >= 140){
             				sendButton.setEnabled(false);
             			}
             		}
