@@ -13,3 +13,22 @@
 =User Interface Progress=
 ==Login Windows:==
 http://parrot-im.googlecode.com/files/compare_loginWindow.jpg
+
+==Buddy list==
+http://parrot-im.googlecode.com/files/compare_BuddyList.jpg
+
+==Chat Window==
+First Version
+
+http://parrot-im.googlecode.com/files/chatwindow.jpg
+
+Second Version
+
+http://parrot-im.googlecode.com/files/ChatWindow2.jpg
+
+Final Version
+
+http://parrot-im.googlecode.com/files/final_ChatWindow1.jpg
+
+==exit/ sign out methods==
+http://parrot-im.googlecode.com/files/compare_exit.jpg
