@@ -87,7 +87,6 @@ public class ICQManager implements GenericConnection {
     private RvProcessor rvProcessor;
 
     private State connectionState;
-    // private UserStateType curState;
 
     private MainController controller;
     private GenericConnection genericConnection;
@@ -96,7 +95,7 @@ public class ICQManager implements GenericConnection {
 
     private BasicConnection iconConnection;
 
-    // private PollingThread poller;
+
 
     /*
      * public static void main(String[] args) { ICQManager i = new
@@ -125,52 +124,13 @@ public class ICQManager implements GenericConnection {
      * }
      */
 
-    // public void setPresence(String status) {
-    //		 
-    // if (connection != null && connection.getInfoService() != null) {
-    // System.out.println("Trying to change the presence...");
-    // connection.getInfoService().setAwayMessage(status);
-    // }
-    //	            
-    //	        
-    // }
-    //	 
-    // public void setProfile(String profile) {
-    //	       
-    //		  
-    // if (connection != null && connection.getInfoService() != null) {
-    // System.out.println("Trying to change the profile...");
-    // connection.getInfoService().setUserProfile(profile);
-    // }
-    //	        	
-    // }
-    // public void setStatus(String status) {
-    // if (connection != null && connection.getInfoService() != null) {
-    // System.out.println("Trying to change the status...");
-    // connection.getBosService().setStatusMessage(status);
-    // connection.getBosService().setStatusMessageSong("¸ô¶ó1", status, "¸ô¶ó3",
-    // "¸ô¶ó4");
-    // }
-    // }
-    //	 
-    // public void setOnline(boolean online) {
-    // if (connection != null && connection.getInfoService() != null) {
-    // connection.getBosService().setVisibleStatus(online);
-    // }
-    // }
+   
     public void setState(long state) {
         if (connection != null && connection.getInfoService() != null) {
             connection.getBosService().setIcqStatus(state);
 
         }
     }
-
-    // public void setIdle(long idle) {
-    // if (connection != null && connection.getInfoService() != null) {
-    // Date date = new Date();
-    // connection.getBosService().setIdleSince(date);
-    // }
-    // }
 
     public ICQManager(MainController controller, Model model) {
         this.controller = controller;
@@ -338,7 +298,6 @@ public class ICQManager implements GenericConnection {
     // @Override
     public boolean removeFriend(String userID) throws BadConnectionException {
 
-        System.out.println("remove this buddy " + userID);
         java.util.List<? extends net.kano.joustsim.oscar.oscar.service.ssi.Group> groupList =
                 connection.getSsiService().getBuddyList().getGroups();
         for (Group g : groupList) {
@@ -386,18 +345,6 @@ public class ICQManager implements GenericConnection {
     // @Override
     public UserStateType retrieveState(String userID)
             throws BadConnectionException {
-        // StatusResponseRetriever responseRetriever =
-        // new StatusResponseRetriever();
-        // UserStateType userState = UserStateType.OFFLINE;
-        //    	
-        // Long bitFlag = connection.getBuddyInfoManager()
-        // .getBuddyInfo(new Screenname(userID)).getIcqStatus();
-        //    	
-
-        // GetInfoCmd getInfoCmd =
-        // new GetInfoCmd(GetInfoCmd.CMD_USER_INFO, contactIdentifier);
-        // connection.getInfoService().getOscarConnection()
-        // .sendSnacRequest();
 
         this.chkConnection();
         BuddyInfo bInfo =
@@ -489,10 +436,7 @@ public class ICQManager implements GenericConnection {
             }
 
             public void handleTimeout(SnacRequestTimeoutEvent event) {
-                // for (ConnectionEventListener eventHandler : eventHandlers) {
-                // eventHandler.errorOccured("Timed out trying to set an icon.",
-                // null);
-                // }
+
             }
         };
 
@@ -505,8 +449,6 @@ public class ICQManager implements GenericConnection {
                 ByteBlock.createByteBlock(new FileWritable(file
                         .getAbsolutePath())));
 
-        // connection.getExternalServiceManager().getIconServiceArbiter().uploadIcon(new
-        // Writable(""));
 
     }
 
@@ -526,9 +468,6 @@ public class ICQManager implements GenericConnection {
         };
         Screenname screenName = new Screenname(userID);
 
-        System.out.println("Screen Name = " + screenName);
-        System.out.println("Screen Normal = " + screenName.getNormal());
-        System.out.println("Screen Formatted = " + screenName.getFormatted());
 
         AimSession session = app.openAimSession(screenName);
 
@@ -598,7 +537,7 @@ public class ICQManager implements GenericConnection {
                             Screenname buddy) {
                         // curState = UserStateType.OFFLINE;
                         try {
-                            // System.out.println("buddy offline");
+           
                             // for testing purpose only
                             System.out.println(buddy.getFormatted()
                                     + " state: "
@@ -634,59 +573,10 @@ public class ICQManager implements GenericConnection {
 
                 });
 
-        // poller = new PollingThread();
-        // poller.start();
+     
     }
 
-    // Section
-    // Polling methods
-
-    // private class PollingThread extends Thread {
-    //    	
-    //    	
-    //    		
-    // public void run() {
-    // try {
-    // System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
-    // sleep(4500); // Delay for 4 seconds
-    // } catch (InterruptedException e) {
-    // System.err.println("Threading error");
-    // e.printStackTrace();
-    // }
-    //            
-    // System.out.println("Muhahaha");
-    // controller.refreshFriends(controller.getConnection());
-    //			
-    // }
-    // }
-
-    // private class SnacRequestAdapterListener extends SnacRequestAdapter {
-    // public void handleResponse(SnacResponseEvent e) {
-    // try {
-    // if (e.getSnacCommand() instanceof ServiceRedirect) {
-    // ServiceRedirect sr = (ServiceRedirect) e.getSnacCommand();
-    // iconConnection = new BasicConnection(sr.getRedirectHost(),
-    // sr.getRedirectPort() > 0 ? sr.getRedirectPort() :
-    // connectionProperties.getLoginPort());
-    // iconConnection.setCookie(sr.getCookie());
-    //                    
-    // iconConnection.getClientFlapConn().getFlapProcessor().addExceptionHandler(new
-    // ConnProcessorExceptionHandler() {
-    // public void handleException(ConnProcessorExceptionEvent event) {
-    // event.getException().printStackTrace();
-    // }
-    //
-    //						
-    // });
-    // iconConnection.connect();
-    // }
-    // } catch (Exception e1) {
-    //                
-    // }
-    // }
-    //    
-    //
-    // }
+    
 
     /* private methods */
     private void chkConnection() {
@@ -753,11 +643,7 @@ public class ICQManager implements GenericConnection {
             TypingListener {
 
         public void gotMessage(Conversation c, final MessageInfo minfo) {
-            System.out.println("Who are you? " + c.getBuddy().getNormal());
-            System.out.println("To who "
-                    + connection.getScreenname().getNormal());
-            System.out.println("Message = "
-                    + minfo.getMessage().getMessageBody());
+
             // connection.getLocalPrefs().getScreenname().getNormal()
             controller.messageReceived(c.getBuddy().getNormal(), connection
                     .getScreenname().getNormal(), minfo.getMessage()
@@ -770,8 +656,7 @@ public class ICQManager implements GenericConnection {
                 TypingInfo typingInfo) {
             TypingStateType typingState = TypingStateType.ACTIVE;
             if (typingInfo.getTypingState().equals(TypingState.TYPING)) {
-                System.out.println(conversation.getBuddy().getNormal()
-                        + " is typing");
+       
                 controller.setTypingState(2);
                 typingState = TypingStateType.TYPING;
 
@@ -795,31 +680,30 @@ public class ICQManager implements GenericConnection {
         public void buddiesReordered(BuddyList bList, Group group,
                 List<? extends Buddy> oldList, List<? extends Buddy> newList) {
 
-            System.out.println("buddiesRe: " + group.getName());
-            for (Buddy b : group.getBuddiesCopy()) {
-                System.out.println("buddiesRe: " + group.getName() + ": "
-                        + b.getScreenname().toString());
-            }
-            for (Buddy b : newList) {
-                System.out
-                        .println("buddiesRe: " + b.getScreenname().toString());
-            }
+//            for (Buddy b : group.getBuddiesCopy()) {
+//                System.out.println("buddiesRe: " + group.getName() + ": "
+//                        + b.getScreenname().toString());
+//            }
+//            for (Buddy b : newList) {
+//                System.out
+//                        .println("buddiesRe: " + b.getScreenname().toString());
+//            }
         }
 
         public void buddyAdded(BuddyList bList, Group group,
                 List<? extends Buddy> oldList, List<? extends Buddy> newList,
                 Buddy buddy) {
             // JOptionPane.showMessageDialog(null, subscriptionRequest);
-            for (Group g : buddy.getBuddyList().getGroups()) {
-                for (Buddy b : g.getBuddiesCopy()) {
-                    System.out.println("badded: " + g.getName() + ": "
-                            + b.getScreenname().toString());
-                }
-            }
-            for (Buddy b : newList) {
-                System.out.println("buddyadded: "
-                        + b.getScreenname().toString());
-            }
+//            for (Group g : buddy.getBuddyList().getGroups()) {
+//                for (Buddy b : g.getBuddiesCopy()) {
+//                    System.out.println("badded: " + g.getName() + ": "
+//                            + b.getScreenname().toString());
+//                }
+//            }
+//            for (Buddy b : newList) {
+//                System.out.println("buddyadded: "
+//                        + b.getScreenname().toString());
+//            }
         }
 
         public void buddyRemoved(BuddyList bList, Group group,
@@ -831,36 +715,36 @@ public class ICQManager implements GenericConnection {
         public void groupAdded(BuddyList arg0, List<? extends Group> arg1,
                 List<? extends Group> arg2, Group arg3,
                 List<? extends Buddy> arg4) {
-            System.out.println("gadded: " + arg3.toString() + "\n"
-                    + arg4.toString() + "\n" + arg2.toString());
-            for (Buddy b : arg4) {
-                System.out.println("gadded2: " + b.getScreenname().toString());
-            }
-            for (Group g : arg1) {
-                for (Buddy b : g.getBuddiesCopy()) {
-                    System.out.println("gadded3: " + g.getName() + ": "
-                            + b.getScreenname().toString());
-                }
-            }
+//            System.out.println("gadded: " + arg3.toString() + "\n"
+//                    + arg4.toString() + "\n" + arg2.toString());
+//            for (Buddy b : arg4) {
+//                System.out.println("gadded2: " + b.getScreenname().toString());
+//            }
+//            for (Group g : arg1) {
+//                for (Buddy b : g.getBuddiesCopy()) {
+//                    System.out.println("gadded3: " + g.getName() + ": "
+//                            + b.getScreenname().toString());
+//                }
+//            }
         }
 
         public void groupRemoved(BuddyList arg0, List<? extends Group> arg1,
                 List<? extends Group> arg2, Group arg3) {
 
-            System.out.println("gRemove: " + arg3.toString());
+//            System.out.println("gRemove: " + arg3.toString());
         }
 
         public void groupsReordered(BuddyList arg0, List<? extends Group> arg1,
                 List<? extends Group> arg2) {
 
-            System.out.println("gReorder: " + arg1.toString());
-            for (Group g : arg1) {
-                for (Buddy b : g.getBuddiesCopy()) {
-                    System.out.println("gReorder2: " + g.getName() + ": "
-                            + b.getScreenname().toString());
-                }
-
-            }
+//            System.out.println("gReorder: " + arg1.toString());
+//            for (Group g : arg1) {
+//                for (Buddy b : g.getBuddiesCopy()) {
+//                    System.out.println("gReorder2: " + g.getName() + ": "
+//                            + b.getScreenname().toString());
+//                }
+//
+//            }
         }
     }
 
@@ -896,9 +780,7 @@ public class ICQManager implements GenericConnection {
         public void handleStateChange(StateEvent event) {
             connectionState = event.getNewState();
             if (connectionState == State.ONLINE) {
-                System.out.println("is now online");
 
-                // System.out.println(connection.getSsiService().getBuddyList().getGroups());
             }
 
         }
@@ -934,7 +816,7 @@ public class ICQManager implements GenericConnection {
                     error = true;
                 } else {
 
-                    System.out.println(errorCode);
+                    //System.out.println(errorCode);
                 }
                 // should integrate this in view
                 if (error == true) {
