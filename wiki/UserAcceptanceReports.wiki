@@ -322,6 +322,7 @@ General Comments:
   * Thought we should gray out or remove things you aren't allowed to do, rather than giving a pop up saying you aren't allowed.
   * Said account manager should show protocol next to account, as you could use the same account in multiple protocols.
 
+----
 
 = Person 12: Matti = 
 
@@ -350,4 +351,93 @@ Task: Logout and login certain accounts while using the program.
 General Comments:
   * Buddy search text box should have disappearing text onclick which says that the box is specifically for buddy searching.
   * Liked how we let him log in and out while in a profile.
+
+----
+
+= Person 13: Allan = 
+
+  * Computer Familiarity: 3
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Find and use the buddy search:
+  * Difficulty: 3
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 4
+Task: Change theme and colour
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 5
+
+General comments:
+  * Liked the parrot, nice and colourful
+  * Don't usually use IM services, so not familiar, but found it Parrot to use
+
+----
+
+= Person 14: Ferdinant = 
+
+  * Computer Familiarity: 4
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 5
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Change buddylist colour:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Search Chatlog:
+  * Difficulty: 4
+  * Speed: 5
+  * Intuitiveness: 4
+  * Fun: 4
+
+General comments:
+  * Impressed with GUI.
+  * Found MSN service does not function properly
+
+----
+
+= Person 15: Makoto = 
+
+  * Computer Familiarity: 3
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 2
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 1
+Task: Change themes and colour:
+  * Difficulty: 2
+  * Speed: 2 (slow)
+  * Intuitiveness: 2
+  * Fun: 5
+
+General comments:
+  * Naming of colour themes 1, 2, and 3 is no good.
+  * Mistaken the "check" with "checkbox" for options icons
+  * Hidden some tabs.
+
+----
   
