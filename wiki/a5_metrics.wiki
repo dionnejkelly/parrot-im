@@ -41,12 +41,6 @@
 
 = Metrics =
 
-tot:
-class: 270 - 7 - 2 - 11 - 10
-met: 1724 - 70 - 103 - 180
-att: 684 - 24 - 25 - 12
-
-
 || *Category* || *Alpha Value* || *Beta Value* || *Final Value* ||
 || Pure Source Lines || 6196 || 13092 || 16713 ||
 || Pure Comment Lines || 4866  || 6071 || 5722 ||
@@ -57,7 +51,7 @@ att: 684 - 24 - 25 - 12
 || View Classes || 83 || 152|| 173 ||
 || Controller Classes || 7 || 28 || 32 ||
 || Total Classes || 122 || 215 || 235 ||
-|| Number of files || || || 289 ||
+|| Number of files || 102 || 254 || 289 ||
 || File Size || 3.69 MB || 7.44 MB || 12.45 MB ||
 || Methods || 620 || 1180 || 1338 ||
 || Attributes || 323 || 489 || 611 ||
