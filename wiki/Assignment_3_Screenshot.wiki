@@ -19,7 +19,7 @@ http://parrot-im.googlecode.com/files/create%20new%20profile.jpg
 
 http://parrot-im.googlecode.com/files/add%20new%20account.jpg
 
-==Buddy list:==
+==Buddy list==
 
 In this version, we use color to define status in buddy list. online: green; away: brown; offline: red
 
