@@ -1,8 +1,6 @@
 #screen shots of how Parrot-IM user interface has progressed
 
-= Introduction =
-
-= Details =
+= GUI Details =
 
   * [Assignment_3_Screenshot    Assignment 3]
 
@@ -36,7 +34,5 @@ http://parrot-im.googlecode.com/files/compare_options.jpg
 
 ==Exit/ Sign out methods==
 http://parrot-im.googlecode.com/files/compare_exit1.jpg
-
-
 
 
