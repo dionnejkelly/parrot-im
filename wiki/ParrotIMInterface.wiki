@@ -2,11 +2,11 @@
 
 = GUI Details =
 
-  * [Assignment_3_Screenshot    Assignment 3]
+  * [Assignment_3_Screenshot    Assignment 3 version]
 
-  * [Assignment_4_Screenshot    Assignment 4]
+  * [Assignment_4_Screenshot    Assignment 4 version]
 
-  * [Assignment_5_Screenshot    Assignment 5]
+  * [Assignment_5_Screenshot    Assignment 5 final version]
 
 =User Interface Progress=
 <compare user interface of each version>
