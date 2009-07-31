@@ -34,5 +34,3 @@ http://parrot-im.googlecode.com/files/compare_options.jpg
 
 ==Exit/ Sign out methods==
 http://parrot-im.googlecode.com/files/compare_exit1.jpg
-
-
