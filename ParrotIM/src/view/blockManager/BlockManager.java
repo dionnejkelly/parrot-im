@@ -158,8 +158,8 @@ public class BlockManager extends JFrame implements Observer {
         setLocation(100, 100);
         setPreferredSize(new Dimension(510, 360));
         setResizable(false);
-        setIconImage(new ImageIcon("src/images/buddylist/block_user.png")
-                .getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
 
         // set main panel
         accMANPanel = new GPanel();
@@ -173,7 +173,6 @@ public class BlockManager extends JFrame implements Observer {
         getContentPane().add(accMANPanel);
         pack();
         setVisible(true);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
     }
 
     /**
@@ -284,7 +283,7 @@ public class BlockManager extends JFrame implements Observer {
             int selected = usersBannedBuddyList.getSelectedIndex();
 
             if (selected != -1) {
-                UserData unBlockedUser = bannedAccountList.get(selected); 
+                UserData unBlockedUser = bannedAccountList.get(selected);
                 chatClient.unblockFriend(unBlockedUser);
 
             }
@@ -335,7 +334,7 @@ public class BlockManager extends JFrame implements Observer {
         JPanel addRemoveAcctPanel = new JPanel();
         addRemoveAcctPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         addRemoveAcctPanel.setOpaque(false);
-        
+
         Insets buttonInset = new Insets(0, 0, 0, 0);
         JButton unBlockButton =
                 new JButton("Unblock", new ImageIcon(this.getClass()

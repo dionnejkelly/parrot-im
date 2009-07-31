@@ -75,7 +75,8 @@ public class ChatbotQA extends JFrame implements Observer {
         pack();
         getContentPane().add(mainPanel);
         setVisible(true);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
     }
 
     public ChatbotQADataType getQAObject() {

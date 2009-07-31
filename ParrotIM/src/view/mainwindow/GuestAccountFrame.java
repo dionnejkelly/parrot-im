@@ -140,8 +140,8 @@ public class GuestAccountFrame extends JFrame implements Observer {
         setTitle("Guest Account Login");
         setPreferredSize(new Dimension(400, 250));
         setResizable(false);
-        setIconImage(new ImageIcon("imagesimage/mainwindow/logo.png")
-                .getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
 
         // select server
         GALPanel = new GPanel();
@@ -167,8 +167,7 @@ public class GuestAccountFrame extends JFrame implements Observer {
         jabberServerLabel.setOpaque(false);
         JLabel jabberServerLabelLabel = new JLabel("Jabber server:  ");
         jabberServerLabelLabel.setForeground(model.primaryTextColor);
-        jabberServerLabel.add(jabberServerLabelLabel,
-                BorderLayout.NORTH);
+        jabberServerLabel.add(jabberServerLabelLabel, BorderLayout.NORTH);
 
         serverPanel = new JPanel();
         serverPanel.setLayout(new BorderLayout());
@@ -238,8 +237,8 @@ public class GuestAccountFrame extends JFrame implements Observer {
 
     }
 
-    private void okFunction(){
-    	if (UNFieldGuest.getText().length() != 0
+    private void okFunction() {
+        if (UNFieldGuest.getText().length() != 0
                 && PwdFieldGuest.getPassword().length != 0) {
             setVisible(false);
             try {
@@ -256,6 +255,7 @@ public class GuestAccountFrame extends JFrame implements Observer {
 
         }
     }
+
     /**
      * This method is called when the guest login into parrot-im. The user will
      * allow to login to Google talk account only.
@@ -333,11 +333,11 @@ public class GuestAccountFrame extends JFrame implements Observer {
             popup.dispose();
         }
     }
-    
+
     private class OKCancelButtonKeyListener implements KeyListener {
         private boolean isOkButton;
 
-        public OKCancelButtonKeyListener (boolean isOkButton) {
+        public OKCancelButtonKeyListener(boolean isOkButton) {
             this.isOkButton = isOkButton;
         }
 
@@ -349,7 +349,7 @@ public class GuestAccountFrame extends JFrame implements Observer {
                 okFunction();
             } else {
                 if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-                	popup.removeAll();
+                    popup.removeAll();
                     popup.dispose();
                 }
 

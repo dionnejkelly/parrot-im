@@ -64,6 +64,7 @@ public class ChatLogFrame extends JFrame {
         this.setMinimumSize(new Dimension(400, 300));
         this.pack();
         this.setVisible(true); // might want to change this
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
     }
 }

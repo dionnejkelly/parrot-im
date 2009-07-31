@@ -50,7 +50,8 @@ public class OptionFrame extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
 
     }
 

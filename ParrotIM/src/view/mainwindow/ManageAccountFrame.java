@@ -88,8 +88,7 @@ public class ManageAccountFrame extends JFrame {
         }
 
         setResizable(false);
-        accountPanel =
-                new ManageAccount(profile, null, model, chatClient);
+        accountPanel = new ManageAccount(profile, null, model, chatClient);
         accountPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(accountPanel);
 
@@ -110,28 +109,30 @@ public class ManageAccountFrame extends JFrame {
 
         pack();
         setVisible(true);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
     }
 
-    private void done(){
-    	accountPanel.addAccount();
+    private void done() {
+        accountPanel.addAccount();
         manageaccount.dispose();
     }
+
     private class doneActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent arg0) {
-        	done();
+            done();
         }
     }
-    
+
     private class DoneButtonKeyListener implements KeyListener {
         public void keyPressed(KeyEvent e) {
         }
 
         public void keyReleased(KeyEvent e) {
-        	if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-        		done();
-        	}
+            if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+                done();
+            }
         }
 
         public void keyTyped(KeyEvent e) {

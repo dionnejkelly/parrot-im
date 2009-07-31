@@ -45,7 +45,8 @@ public class AddBuddyFrame extends JFrame {
 
         pack();
         setVisible(true);
-        setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource(
+                "/images/mainwindow/logo.png")).getImage());
     }
 
 }
