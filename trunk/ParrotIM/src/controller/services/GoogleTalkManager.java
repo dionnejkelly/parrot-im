@@ -399,7 +399,7 @@ public class GoogleTalkManager implements GenericConnection {
     }
 
     public void leaveRoom(String roomName) {
-        int roomNumber = availableRoom.indexOf(roomName);
+        int roomNumber = availableRoom.indexOf(roomName + "@conference.jabber.org");
 
         multiChatList.get(roomNumber).leaveRoom();
         multiChatList.remove(roomNumber);
