@@ -7,7 +7,7 @@
     * MSNM (library for MSN) lacked many features, as it was intended for an earlier version of MSN. 
   * Rare authentication failure on Google Talk
     * Smack (library for XMPP) sometimes returned a bad connection exception upon attempting to log in with a valid userID and password.
-  * With msn, if you connect with guest account it will alow you in!
+  * With msn, if you connect with guest account it will alow you in even with a false password. But apparently it is an empty account so you can't see anyone in the e-mail contact list nor you can add any contact.
 
 = Major Issues =
   * Friend Avatar Mismatch
