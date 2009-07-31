@@ -7,11 +7,16 @@
     * MSNM (library for MSN) lacked many features, as it was intended for an earlier version of MSN. 
   * Rare authentication failure on Google Talk
     * Smack (library for XMPP) sometimes returned a bad connection exception upon attempting to log in with a valid userID and password.
+  * With msn, if you connect with guest account it will alow you in!
 
 = Major Issues =
   * Friend Avatar Mismatch
   * MSN Buddy list sometimes does not load upon connecting
   * If connected on multiple accounts that have the same friend, you cannot chat to the friend "from" both accounts; only one will be accepted.
   * Multi-user chat for Google Talk occasionally will not receive invites to chat.
+  * If you hover on your contacts in the buddy list, it will tell you in the blue background that status are offline! that's for all contacts in buddy list.
 
 = Minor Issues =
+  * When type :D it becomes :D>
+  * For Linux, sometimes the window shortcut for parrotIM.jar will hide.
+  * As you chat with another user, the font color will keep changing.
