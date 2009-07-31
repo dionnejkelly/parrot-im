@@ -79,7 +79,6 @@ public enum StatusType {
      * 
      * @return The name of the enumerated type.
      */
-    @Override
     public String toString() {
         return this.name;
     }

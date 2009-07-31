@@ -174,7 +174,6 @@ public class ProfileData extends Observable {
     }
 
     public String getStatus() {
-        // Temporary, need to incorporate all accounts
         return this.accountData.get(0).getStatus();
     }
 
@@ -335,7 +334,6 @@ public class ProfileData extends Observable {
                 db.addUsers(this.getName(), account.getServer().toString(), "",
                         account.getUserID(), account.getPassword());
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -356,7 +354,6 @@ public class ProfileData extends Observable {
     public boolean removeAccount(AccountData account) {
         DatabaseFunctions db = null;
         boolean removed = false;
-        System.out.println("hello we got here: " + account.getUserID());
         if (account.isConnected()) {
             account.getConnection().disconnect();
         }
@@ -369,7 +366,6 @@ public class ProfileData extends Observable {
                         .removeAccountFromProfile(this.getName(), account
                                 .getUserID());
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -554,7 +550,6 @@ public class ProfileData extends Observable {
     public Vector<ServerType> getAllAccountsServer() {
         Vector<ServerType> serverList = new Vector<ServerType>();
 
-        // FIXME: right now I only consider about one account per server
         for (AccountData account : getAccountData()) {
             if (account.isConnected()) {
                 serverList.add(account.getServer());

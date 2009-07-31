@@ -272,7 +272,6 @@ public abstract class PersonData extends Observable {
         return hash;
     }
 
-    @Override
     public boolean equals(Object o) {
         boolean areEqual = false;
         PersonData otherPerson = null;

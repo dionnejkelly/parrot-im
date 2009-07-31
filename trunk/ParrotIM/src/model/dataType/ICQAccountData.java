@@ -139,7 +139,6 @@ public class ICQAccountData extends AccountData implements ICQPerson {
         return ServerType.ICQ;
     }
 
-    @Override
     public ArrayList<UserData> getTweets() throws BadConnectionException {
         return null;
     }

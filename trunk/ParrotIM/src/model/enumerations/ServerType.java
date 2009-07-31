@@ -83,7 +83,6 @@ public enum ServerType {
      * 
      * @return The name of the enumerated type.
      */
-    @Override
     public String toString() {
         return this.name;
     }

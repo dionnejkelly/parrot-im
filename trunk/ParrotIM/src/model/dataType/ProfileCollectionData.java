@@ -64,13 +64,9 @@ public class ProfileCollectionData extends Observable {
         DatabaseFunctions db = null;
         try {
             db = new DatabaseFunctions();
-        } catch (ClassNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
         profile.setName(db.replace(profile.getName(), "'", ""));
         if (!this.duplicateName(profile.getName())) {
             this.profiles.add(profile);

@@ -103,23 +103,16 @@ public class Model extends Observable {
      */
     private ProfileCollectionData profileCollection;
 
-    // This is clumsy. Can we integrate this into conversations? The chat
-    // window should not show if there are no conversations active. This
-    // variable should be phased out.
-    // TODO Phase this variable out.
     public boolean bugReportWindowOpen;
     public boolean aboutWindowOpen;
     public boolean groupChatWindowOpen;
 
     // These are the default colors
-    // public Color primaryDark = new Color(0x0c455b);
     public Color primaryColor = new Color(0x57a6c4);
     public Color secondaryColor = new Color(0xffffff);
     public Color tertiaryColor = new Color(0x88eb5d);
     public Color primaryTextColor = new Color(0x000000);
     public Color textPaneColor = new Color(0xffffff);
-
-    // public Color inComingMessageColor = new Color(0x000000);
 
     // Section
     // II - Constructors
@@ -150,16 +143,12 @@ public class Model extends Observable {
             p.loadAccounts();
         }
         DatabaseFunctions db;
-		try {
-			db = new DatabaseFunctions();
-	        db.dropTables();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            db = new DatabaseFunctions();
+            db.dropTables();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return;
     }
 
@@ -230,7 +219,6 @@ public class Model extends Observable {
         super.setChanged();
         super.notifyObservers(UpdatedType.CHAT);
 
-
         return;
     }
 
@@ -292,7 +280,6 @@ public class Model extends Observable {
         this.chatCollection.addConversation(modifiedConversation);
         setChanged();
         notifyObservers(UpdatedType.CHAT);
-        // notifyObservers(UpdatedType.RECEIVECHAT);
 
         return;
     }
@@ -330,7 +317,6 @@ public class Model extends Observable {
     }
 
     public void updateColors() {
-        System.out.println("updateCalled");
         setChanged();
         notifyObservers(UpdatedType.COLOR);
     }
@@ -412,11 +398,7 @@ public class Model extends Observable {
                 db.addUsers(profile, serverType, serverAddress, accountName,
                         password);
             }
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -438,11 +420,7 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             db.removeAccountFromProfile(profile, account);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -468,11 +446,7 @@ public class Model extends Observable {
             db = new DatabaseFunctions();
             db.addProfiles(name, pwd, defaultProfile, true, false, true, true,
                     false);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -493,11 +467,7 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             db.removeProfile(name);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -592,11 +562,6 @@ public class Model extends Observable {
      *            is responsible to place this user into a UserData object.
      */
     public void addFriend(AccountData account, String accountName) {
-        /*
-         * In future, change ServerType to AccountData... should be passed into
-         * the controller. This solution will not work if there are multiple
-         * gmail accounts, for example.
-         */
         FriendTempData friend = null;
         DatabaseFunctions db = null;
         UserData userToAdd = null;
@@ -626,11 +591,7 @@ public class Model extends Observable {
                 db = new DatabaseFunctions();
                 db.addFriend(account.getUserID(), friend);
             }
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -665,11 +626,7 @@ public class Model extends Observable {
                 db = new DatabaseFunctions();
                 db.addFriend(account.getUserID(), friend);
             }
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -707,11 +664,7 @@ public class Model extends Observable {
                 db = new DatabaseFunctions();
                 db.removeFriend(account.getUserID(), friendName);
             }
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -815,16 +768,12 @@ public class Model extends Observable {
      */
     public void blockFriend(UserData friend) {
         DatabaseFunctions db = null;
-        friend.setBlocked(true); // TODO: Make exception for if null
+        friend.setBlocked(true); 
 
         try {
             db = new DatabaseFunctions();
             db.changeBlocked(friend.getUserID(), true);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -844,16 +793,12 @@ public class Model extends Observable {
      */
     public void unblockFriend(UserData friend) {
         DatabaseFunctions db = null;
-        friend.setBlocked(false); // TODO: Make exception for if null
+        friend.setBlocked(false); 
 
         try {
             db = new DatabaseFunctions();
             db.changeBlocked(friend.getUserID(), false);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -921,12 +866,7 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             friends = db.getFriendListByAccountName(accountName);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            friends = new Vector<FriendTempData>();
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             friends = new Vector<FriendTempData>();
             e.printStackTrace();
         }
@@ -979,11 +919,7 @@ public class Model extends Observable {
         try {
             db = new DatabaseFunctions();
             chats = db.getChatDatesFromName(profile, buddyname, search);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -1011,16 +947,11 @@ public class Model extends Observable {
                 db = new DatabaseFunctions();
                 // Iterates over all accounts, and adds the messages from the
                 // database of all accounts into messages
-                messages.addAll(db.getMessageFromDate(
-                		this.getCurrentProfile().getName(),
-                		account.getUserID(),
-                        buddyname, date, search));
+                messages.addAll(db.getMessageFromDate(this.getCurrentProfile()
+                        .getName(), account.getUserID(), buddyname, date,
+                        search));
             }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -1074,13 +1005,10 @@ public class Model extends Observable {
      */
     public void updatePopupState(PopupEnableWindowType popupInt, boolean state) {
         if (popupInt == PopupEnableWindowType.ABOUT) {
-            System.out.println("Model:  About");
             this.aboutWindowOpen = state;
         } else if (popupInt == PopupEnableWindowType.BUGREPORT) {
-            System.out.println("Model: Bug report ");
             this.bugReportWindowOpen = state;
         } else if (popupInt == PopupEnableWindowType.GROUPCHAT) {
-            System.out.println("Model: Group chat");
             this.groupChatWindowOpen = state;
         }
     }
@@ -1301,17 +1229,12 @@ public class Model extends Observable {
         DatabaseFunctions db = null;
         try {
             db = new DatabaseFunctions();
-        } catch (ClassNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         try {
             db.setColor(this.getCurrentProfile().getName(), whichOne, color);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
