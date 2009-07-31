@@ -25,8 +25,7 @@ Highlighted on this page are all changes since previous releases. At the bottom 
 = Details =
 
   * [ParrotIMInterface  User interface progress]
-  * [Testing  Changes to Testing Document]
-
+ 
 = Data =
 
   * [a5_featuresImplemented Features Implemented]
