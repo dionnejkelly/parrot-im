@@ -43,6 +43,8 @@ Please have the user complete the following tasks outlined in "procedures", and 
 
 = Known Bugs =
 
+ * [a5_knownIssues Known Bugs]
+
  * Smack (for XMPP) had authentication bugs
  * JOscar (for AIM and ICQ) had poor documentation such that not all the features are available
  * MSNM (for MSN) rarely threw exceptions on errors such that users cannot distinguish if they are actually connected it or not. It can only retrieve up to 115 contacts, after that it will throw a null exception.
