@@ -61,16 +61,26 @@ QA (How do we know that Parrot IM is bug-free?):
 
 *Section III: Growth*
 
-*_Jordan -- 2 minutes_*
+*_Jordan -- <2 minutes_*
 
-UA Feedback:
-  * Lead in from Ahmad's QA comments.
-  * Primarily use quotes from users, but use them (if possible) to show why we changed the GUI.
+Note: Im still working on this but I had to leave campus halfway through writting and Its not finished.
 
-Screenshots:
-  * Compare the following:
+Lead in
+  * ...
 
+BuddyList Progression:
+  * This is how our buddylist has change across the 3 versions
+  * From the alpha to beta we added avatar images and grouping via protocol
+  * For the final we changed to grouping by status to make communication between protocols more uniform
+  * Gradient background was added to all of our windows
 
+ChatWindow Progression:
+  * One of our early problems that we recieved alot of feedback about was the minimizing of the side panel. The buttons were really tiny.
+  * In the beta we replaced java's split pane with a custom split pane that uses a single large button.
+
+Customizable Themes:
+
+User Feedback:
 
 ----
 
