@@ -3,11 +3,15 @@
 = Introduction =
 A desktop application that connects you to friends on multiple networks, and offers useful, fun features such as tabbed conversations, programmable chatbot, chatlog and buddy search, and custom UI.
 
-
 = Executable and Source Code =
 
   * (link to .jar)
   * (link to tags/final)
+
+= Getting Started Screencast =
+
+http://www.youtube.com/watch?v=d2xIbUwfJuw
+
 
 = User Acceptance Test =
 
