@@ -62,7 +62,7 @@ http://parrot-im.googlecode.com/files/blockuserIcon.jpg
 http://parrot-im.googlecode.com/files/AddUser2.jpg
 http://parrot-im.googlecode.com/files/AddUser3.jpg
 
-"Dedlete friend"
+"Delete friend"
 
 http://parrot-im.googlecode.com/files/RemoveUser1.jpg
 
