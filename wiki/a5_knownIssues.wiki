@@ -2,16 +2,16 @@
 
 = Critical Issues =
   * Twitter Server Rejections
+    * After too many connections to the Twitter server, it would reject our requests for any information. Our library has no way of throttling requests upon approaching the limit.
   * MSN Add/Remove Friend delay
+    * MSNM (library for MSN) lacked many features, as it was intended for an earlier version of MSN. 
   * Rare authentication failure on Google Talk
+    * Smack (library for XMPP) sometimes returned a bad connection exception upon attempting to log in with a valid userID and password.
 
 = Major Issues =
   * Friend Avatar Mismatch
+  * MSN Buddy list sometimes does not load upon connecting
+  * If connected on multiple accounts that have the same friend, you cannot chat to the friend "from" both accounts; only one will be accepted.
+  * Multi-user chat for Google Talk occasionally will not receive invites to chat.
 
 = Minor Issues =
-
-
-
- * Smack (for XMPP) had authentication bugs
- * JOscar (for AIM and ICQ) had poor documentation such that not all the features are available
- * MSNM (for MSN) rarely threw exceptions on errors such that users cannot distinguish if they are actually connected it or not. It can only retrieve up to 115 contacts, after that it will throw a null exception.
