@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import model.Model;
 import model.dataType.tempData.FriendTempData;
@@ -117,6 +118,7 @@ public class JabberManager implements GenericConnection {
             connection.login(userID, password);
         } catch (XMPPException e) {
             System.err.println("Connection error in logging in.");
+            JOptionPane.showMessageDialog(null, "Error signing into Jabber!\nUser name and password do not match.", "Error", JOptionPane.ERROR_MESSAGE);
             throw new BadConnectionException();
         }
 

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import model.Model;
 import model.dataType.tempData.FriendTempData;
@@ -152,10 +153,16 @@ public class TwitterManager implements GenericConnection {
             poller = new PollingThread();
             poller.start();
             isConnected = true;
+            
+            this.getMyRecentStatus();
+           
         } catch (Exception e) {
-            System.err.println("Error logging into twitter");
+            System.err.println("");
             e.printStackTrace();
             isConnected = false;
+            ImageIcon twitterIcon = new ImageIcon(this.getClass().getResource(
+            "/images/buddylist/twitter_logo.png"));
+            JOptionPane.showMessageDialog(null, "Error signing into Twitter!\nUser name and password do not match.", "Error", JOptionPane.ERROR_MESSAGE);
             throw new BadConnectionException();
         }
 
