@@ -1,7 +1,8 @@
 #summary Final Release of Parrot IM
 
 = Introduction =
-A clear one sentence summary...
+A desktop application that connects you to friends on multiple networks, and offers useful, fun features such as tabbed conversations, programmable chatbot, chatlog and buddy search, and custom UI.
+
 
 = Executable and Source Code =
 
