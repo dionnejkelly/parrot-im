@@ -124,7 +124,6 @@ public class ChatLogPanel extends GPanel implements Observer {
                     + htmlTail };
     private JTextField searchField;
     // Added the database
-    private DatabaseFunctions db;
 
     /**
      * The constructor of ChatLogPanel. It takes model and currently used
@@ -141,7 +140,6 @@ public class ChatLogPanel extends GPanel implements Observer {
         // model stub
         this.model = model;
         this.profile = model.getCurrentProfile().getName();
-        db = new DatabaseFunctions();
 
         // settings
         this.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -176,7 +174,6 @@ public class ChatLogPanel extends GPanel implements Observer {
         logPane = new JSplitPane();
         logPane.setBorder(null);
         logPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        // logPane.setGradientColors(Color.BLACK, Color.WHITE);
         logPane.setDividerLocation(140);
         logPane.setTopComponent(datesScroll);
         logPane.setBottomComponent(chatlog);
@@ -197,7 +194,7 @@ public class ChatLogPanel extends GPanel implements Observer {
                         "/images/buddylist/document_preview.png")));
         searchButton.setToolTipText("Start searching");
         searchButton.setPreferredSize(new Dimension(30, 30));
-        //
+        
         searchButton.addMouseListener(new searchListener());
         JPanel searchBarPanel = new JPanel();
         searchBarPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0));
@@ -369,11 +366,7 @@ public class ChatLogPanel extends GPanel implements Observer {
     }
 
     public void update(Observable arg0, Object arg) {
-        System.out
-                .println("CHAT LOG *************************************** Who are you? "
-                        + arg);
         if (arg == UpdatedType.COLOR) {
-            System.out.println("Jordan I am getting called...");
             this.setGradientColors(model.primaryColor, model.secondaryColor);
             this.updateUI();
         }

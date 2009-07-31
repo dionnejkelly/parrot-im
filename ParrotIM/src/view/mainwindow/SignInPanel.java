@@ -176,7 +176,6 @@ public class SignInPanel extends GPanel implements Observer {
      */
     public SignInPanel(MainWindow frame, MainController chatClient,
             Model model, boolean allowAutoSignIn) {
-        System.out.println("init auto sign in allowed: " + allowAutoSignIn);
         this.allowAutoSignIn = allowAutoSignIn;
         mainFrame = frame;
         core = chatClient;// CORE
@@ -301,7 +300,6 @@ public class SignInPanel extends GPanel implements Observer {
      */
     private void profileSignIn() {
         ProfileData profile = (ProfileData) account_select.getSelectedItem();
-        System.out.println(profile.getName() + " is signing in");
         try {
             // Login with server and set model info
 
@@ -314,11 +312,9 @@ public class SignInPanel extends GPanel implements Observer {
             // Handle the GUI changes
             new BuddyList(core, model, mainFrame.getLocation());
             mainFrame.dispose();
-            System.out.println("got here!!");
         } catch (BadConnectionException e1) {
 
             header.displaySystemStatus("Sign in failed!");
-            System.out.println("sign in failed!");
             mainFrame.setEnabled(true);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
@@ -395,8 +391,6 @@ public class SignInPanel extends GPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             if (manageAccount.isEnabled()) {
-                System.out.println("enabled");
-
                 ManageAccountFrame manageAccount =
                         new ManageAccountFrame((ProfileData) account_select
                                 .getSelectedItem(), model, core);
@@ -456,7 +450,6 @@ public class SignInPanel extends GPanel implements Observer {
          */
         public void mouseClicked(MouseEvent evt) {
             if (removeProfile.isEnabled()) {
-                System.out.println("enabled");
                 profiles.removeProfile((ProfileData) account_select
                         .getSelectedItem());
             }
@@ -507,11 +500,8 @@ public class SignInPanel extends GPanel implements Observer {
 
                 ProfileData selectedProfile =
                         (ProfileData) account_select.getSelectedItem();
-                System.out.println(selectedProfile.getName());
                 // change avatar and colors
                 try {
-                    System.out.println(model.getAvatarDirectory(selectedProfile
-                            .getName()));
                     header.changeAvatar(model
                             .getAvatarDirectory(selectedProfile.getName()));
 
@@ -549,19 +539,15 @@ public class SignInPanel extends GPanel implements Observer {
                 }
                 // Only pop up password if needed
                 if (selectedProfile.isPasswordEnabled() && allowAutoSignIn) {
-                    System.out.println("password enabled");
                     new SimplifiedPasswordPrompt(selectedProfile);
 
                 } else {
                     // No password required
-                    System.out.println("password disabled");
                     manageAccount.setEnabled(true);
                     removeProfile.setEnabled(true);
                     connectButton.setEnabled(true);
                     // auto sign in
 
-                    System.out.println("auto sign in: "
-                            + selectedProfile.isAutoSignInEnabled());
                     if (selectedProfile.isAutoSignInEnabled()
                             && allowAutoSignIn) {
                         profileSignIn();
@@ -684,10 +670,6 @@ public class SignInPanel extends GPanel implements Observer {
             if (String.copyValueOf(passwordPrompt.getPassword()).equals(
                     passwordMatch)) {
                 lastSelectedIndex = account_select.getSelectedIndex();
-
-                System.out.println("auto sign in: "
-                        + selectedProfile.isAutoSignInEnabled());
-
                 // auto sign in
                 if (selectedProfile.isAutoSignInEnabled() && allowAutoSignIn) {
                     profileSignIn();

@@ -92,9 +92,7 @@ public class UserDataWrapper implements Observer {
         String message = "";
         if (this.conversation.getMessageCount() - this.readMessages > 0) {
             message +=
-                    "("
-                            + (this.conversation.getMessageCount() - this.readMessages)
-                            + ") ";
+                    "(" + (this.conversation.getMessageCount() - this.readMessages) + ") ";
         }
         if (this.conversation instanceof ConversationData) {
             String displayedName = this.conversation.getUser().getNickname();

@@ -126,12 +126,6 @@ public class ManageAccount extends GPanel implements Observer {
         accList.addListSelectionListener(new accListSelectionListener());
         accList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        accList.addFocusListener(new FocusAdapter() {
-            public void focusLost(FocusEvent e) {
-                // ((JList) e.getSource()).clearSelection();
-            }
-        });
-
         JScrollPane listScroller = new JScrollPane(accList);
 
         if (buddyFrame != null) {
@@ -190,7 +184,6 @@ public class ManageAccount extends GPanel implements Observer {
         // textfield
         jabberServer = new JTextField();
         jabberServer.addKeyListener(keyListener);
-        // jabberServer.setPreferredSize(new Dimension(180, 20));
         jabberServer.setToolTipText("specify jabber server");
         jabberServerPanel = new JPanel();
         jabberServerPanel.setLayout(new BorderLayout());
@@ -288,8 +281,6 @@ public class ManageAccount extends GPanel implements Observer {
                 }
                 profile.addAccount(account);
                 if (buddyFrame != null) {
-                    System.out
-                            .println("This should never happen in the Main Window!!!");
                     buddyFrame.addAccountJMenu(account);
                 }
             }
@@ -306,26 +297,17 @@ public class ManageAccount extends GPanel implements Observer {
                 (AccountData) accList.getSelectedValue();
 
         if (selected >= 0) {
-            System.out.println("MANAGEACCOUNT: " + selected);
-            System.out.println("MANAGEACCOUNT: "
-                    + ((AccountData) accList.getSelectedValue())
-                            .getUserID());
             if (buddyFrame != null) {
-                System.out
-                        .println("This should never happen in the Main Window!!!");
                 BuddyList.removeAccountJMenu(selectedAccount);
                 chatClient.disconnect(selectedAccount);
             }
             profile.removeAccount(selectedAccount);
-            System.out.println("GO HERE");
             removeButton.setEnabled(false);
         }
     }
     private class serverListener implements ItemListener {
 
         public void itemStateChanged(ItemEvent e) {
-            // UNField.setText(null);
-            // pwdField.setText(null);
             if (server.getSelectedIndex() == 0) {
                 serverPanel.setVisible(true);
             } else {
@@ -436,8 +418,6 @@ public class ManageAccount extends GPanel implements Observer {
         }
 
         accList.setListData(new Vector<AccountData>(profile.getAccountData()));
-        // accList.updateUI();
-
         return;
     }
 

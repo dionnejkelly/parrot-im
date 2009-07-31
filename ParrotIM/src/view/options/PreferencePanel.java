@@ -272,7 +272,6 @@ public class PreferencePanel extends GPanel implements Observer {
 
         public void actionPerformed(ActionEvent e) {
 
-            System.out.println("Combo = " + themeMenu.getSelectedIndex());
             LookAndFeelManager themeSelector = new LookAndFeelManager();
             LookAndFeelManager.setLookAndFeel(themeMenu.getSelectedIndex());
         }

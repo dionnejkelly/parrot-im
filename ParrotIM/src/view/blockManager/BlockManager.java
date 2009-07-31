@@ -165,10 +165,8 @@ public class BlockManager extends JFrame implements Observer {
         accMANPanel = new GPanel();
         accMANPanel.setLayout(new BorderLayout());
         accMANPanel.setGradientColors(model.primaryColor, model.secondaryColor);
-        // accMANPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20,
-        // 30));
+
         // manage account panel
-        // TODO: split them into different panels
         leftPanelManager();
         rightPanelManager();
 
@@ -251,30 +249,17 @@ public class BlockManager extends JFrame implements Observer {
 
             int selected = usersBuddyList.getSelectedIndex();
 
-            System.out.println("What are you clicking = " + selected);
-
             if (selected != -1) {
 
                 UserData blockedUser = usersProfileBuddyList.get(selected);
-
-                System.out.println("Blocked user = " + blockedUser);
-
                 chatClient.blockFriend(blockedUser);
-                // usersBuddyListModel.remove(selected);
-                // usersBuddyList.updateUI();
-
-                // bannedAccountList.add(blockedUser);
-                // usersBannedBuddyList.updateUI();
 
             }
 
             else {
-                // popup.setAlwaysOnTop(false);
                 String resultMessage =
-                        "Sorry for the inconvenience but there is no one to block. Please click on the users you want to block on the list. Thank you for your co-operation.";
+                        "There is selected user to block. Please click on the user you want to block on the list.";
                 JOptionPane.showMessageDialog(null, resultMessage);
-
-                // popup.setAlwaysOnTop(true);
 
             }
 
@@ -299,23 +284,14 @@ public class BlockManager extends JFrame implements Observer {
             int selected = usersBannedBuddyList.getSelectedIndex();
 
             if (selected != -1) {
-                UserData unBlockedUser = bannedAccountList.get(selected);
-
-                System.out.println("Unblocked user = " + unBlockedUser);
-
+                UserData unBlockedUser = bannedAccountList.get(selected); 
                 chatClient.unblockFriend(unBlockedUser);
-                // bannedAccountList.remove(selected);
-                // usersBannedBuddyList.updateUI();
-
-                // usersProfileBuddyList.add(unBlockedUser);
-                // usersBuddyListModel.addElement(unBlockedUser);
-                // usersBuddyList.updateUI();
 
             }
 
             else {
                 String resultMessage =
-                        "Sorry for the inconvenience but there is no one to unblock. Please click on the users you want to unblock on the list. Thank you for your co-operation.";
+                        "There is selected user to unblock. Please click on the user you want to block on the list.";
                 JOptionPane.showMessageDialog(null, resultMessage);
             }
 
@@ -339,10 +315,8 @@ public class BlockManager extends JFrame implements Observer {
         JPanel topRight = new JPanel();
         topRight.setLayout(new BorderLayout());
         topRight.setOpaque(false);
-        // bannedAccountList = bannedUsersList.getBannedUserList();
 
         blockedBuddyListModel = new DefaultListModel();
-        // usersProfileBuddyList = model.getCurrentProfile().getAllFriends();
         for (int i = 0; i < bannedAccountList.size(); i++) {
             blockedBuddyListModel.addElement(bannedAccountList.get(i));
         }
@@ -361,9 +335,7 @@ public class BlockManager extends JFrame implements Observer {
         JPanel addRemoveAcctPanel = new JPanel();
         addRemoveAcctPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         addRemoveAcctPanel.setOpaque(false);
-        // addRemoveAcctPanel.setBorder(BorderFactory.createEmptyBorder(5, 12,
-        // 0, 12));
-
+        
         Insets buttonInset = new Insets(0, 0, 0, 0);
         JButton unBlockButton =
                 new JButton("Unblock", new ImageIcon(this.getClass()
@@ -393,12 +365,7 @@ public class BlockManager extends JFrame implements Observer {
                 new JButton("Done", new ImageIcon(this.getClass().getResource(
                         "/images/buddylist/button_ok.png")));
         buttonsPanel.add(okButton);
-        // JButton cancelButton = new JButton("Cancel");
-
         okButton.addMouseListener(new okCancelButtonListener());
-        // cancelButton.addMouseListener(new okCancelButtonListener());
-
-        // buttonsPanel.add(cancelButton);
 
         // adding to rightPanel
         blockedLabel = new JLabel("Blocked Parrot IM Accounts");

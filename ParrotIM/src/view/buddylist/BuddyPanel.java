@@ -177,8 +177,6 @@ public class BuddyPanel extends GPanel implements Observer {
             buddyArray.add(new ArrayList<UserData>());
         }
 
-        // Test code, make it hide at the start
-        // this.chat = new ChatWindow(chatClient, model);
         buddies = null;
 
         friendList = new JPanel();
@@ -204,10 +202,6 @@ public class BuddyPanel extends GPanel implements Observer {
         ImageIcon userBlockImage =
                 new ImageIcon(this.getClass().getResource(
                         "/images/status/user_gray.png"));
-        // ImageIcon icqImage = new ImageIcon(this.getClass().getResource(
-        // "/images/buddylist/statusIcons/ICQ/ICQ-AvailableSM.png"));
-        // ImageIcon msnImage = new ImageIcon(this.getClass().getResource(
-        // "/images/buddylist/statusIcons/MSN/MSN-AvailableSM.png"));
         ImageIcon userAwayImage =
                 new ImageIcon(this.getClass().getResource(
                         "/images/status/user_orange.png"));
@@ -224,16 +218,6 @@ public class BuddyPanel extends GPanel implements Observer {
         buddyListPane.addGroup(groupNames.get(2), userOfflineImage);
         buddyListPane.addGroup(groupNames.get(3), userBlockImage);
 
-        // buddyListPane.addGroup("     Online     " + UserData.getCountOnline()
-        // + "/" + buddies.size(), userOnlineImage);
-        // buddyListPane.addGroup("     Away/Busy     " +
-        // UserData.getCountAway()
-        // + "/" + buddies.size(), userAwayImage);
-        // buddyListPane.addGroup("     Offline     " +
-        // UserData.getCountOffline()
-        // + "/" + buddies.size(), userOfflineImage);
-        // buddyListPane.addGroup("     Blocked     " + UserData.getCountBlock()
-        // + "/" + buddies.size(), userBlockImage);
 
         pictureUpdateThread = new PictureUpdateThread();
         pictureUpdateThread.start();
@@ -255,16 +239,11 @@ public class BuddyPanel extends GPanel implements Observer {
         menuItem4 =
                 new JMenuItem("Block Friend", new ImageIcon(this.getClass()
                         .getResource("/images/buddylist/block_user.png")));
-        // menuItem5 =
-        // new JMenuItem("Send Email", new ImageIcon(this.getClass()
-        // .getResource("/images/buddylist/mail_generic.png")));
 
         menuItem1.addMouseListener(new RightCickMenuListener());
         menuItem2.addMouseListener(new inviteFriendListener());
         menuItem3.addMouseListener(new RightClickMenuRemoveFriendListener());
         menuItem4.addMouseListener(new RightClickMenuBlockFriendListener());
-        // menuItem5
-        // .addMouseListener(new RightClickMenuViewProfileFriendListener());
 
         rightClickMenu.add(menuItem1);
         rightClickMenu.add(menuItem2);
@@ -272,9 +251,7 @@ public class BuddyPanel extends GPanel implements Observer {
         rightClickMenu.add(menuItem3);
         rightClickMenu.add(menuItem4);
         rightClickMenu.addSeparator();
-        // rightClickMenu.add(menuItem5);
-
-        // friendList.add(boxes[0], BorderLayout.NORTH);
+        
         scroller = new JScrollPane(buddyListPane);
         scroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -380,7 +357,6 @@ public class BuddyPanel extends GPanel implements Observer {
     }
 
     public void listRepopulate() {
-        System.out.println("Hi hi I am called.. haha");
         FriendPanel tempPanel = null;
         int boxIndex = -1;
 
@@ -411,7 +387,6 @@ public class BuddyPanel extends GPanel implements Observer {
             groupNames.get(j).setText(
                     this.groupToName(j) + boxes[j].getComponentCount());
             for (int i = 0; i < boxes[j].getComponentCount(); i++) {
-                // System.out.println(boxes[j].getComponentCount() + ":" + i);
                 buddyListPane.addExternalMouseListener(j, i,
                         this.selectListener);
             }
@@ -510,7 +485,6 @@ public class BuddyPanel extends GPanel implements Observer {
         public void mousePressed(MouseEvent event) {
             Object source = event.getSource();
 
-            System.out.println("Event = " + event);
             if (search.getText().length() > 0) {
 
                 if (source == searchButton) {
@@ -642,8 +616,6 @@ public class BuddyPanel extends GPanel implements Observer {
          * mousePressed, display feedback when pressing mouse
          */
         public void mousePressed(MouseEvent event) {
-            System.out.println("Add Friend Clicked");
-
             if (model.getCurrentProfile().getAllAccountsServer().size() > 0) {
                 AddBuddyFrame addbuddyFrame =
                         new AddBuddyFrame(model, chatClient, null);
@@ -698,28 +670,9 @@ public class BuddyPanel extends GPanel implements Observer {
         friendItem.add(label, BorderLayout.WEST);
         pictureUpdateThread.addUserAndLabel(user, label);
 
-        /*
-         * if(server == "Google Talk"){ if(user.getState() ==
-         * UserStateType.ONLINE){ friendItem.add(new JLabel(new
-         * ImageIcon(this.getClass().getResource(
-         * "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png"
-         * ))), BorderLayout.WEST); }else if(user.getState() ==
-         * UserStateType.AWAY || user.getState() == UserStateType.BUSY){
-         * friendItem.add(new JLabel(new ImageIcon(this.getClass().getResource(
-         * "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Away.png"))),
-         * BorderLayout.WEST); }else{ friendItem.add(new JLabel(new
-         * ImageIcon(this.getClass().getResource(
-         * "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Offline.png"))),
-         * BorderLayout.WEST); } }else{ friendName.setText(server +
-         * friendName.getText()); }
-         */
-
         friendItem.add(tempWrapper.getLabelRepresentation(),
                 BorderLayout.CENTER);
         friendItem.setWrapper(tempWrapper);
-
-        // friendItem.add(friendStatus,BorderLayout.CENTER);
-
         return friendItem;
     }
 
@@ -810,8 +763,6 @@ public class BuddyPanel extends GPanel implements Observer {
         buddies = UserData.sortAlphabetical(buddies);
         buddies = UserData.sortMostOnline(buddies);
 
-        // buddyListPane.removeAllElements(0);
-
         // Now check to see if there is a search going on
         if (this.searchEnabled) {
             this.searchBuddies();
@@ -828,7 +779,6 @@ public class BuddyPanel extends GPanel implements Observer {
         // Only repopulate if count changed
         if (guiFriendCount != buddies.size()) {
             this.listRepopulate();
-            System.out.println("ZOMG WTF REFRESHED FOR NO REASON");
         } else {
             // Simply reorder, if not changed
             this.reorderFriends();
@@ -860,7 +810,6 @@ public class BuddyPanel extends GPanel implements Observer {
         public void mouseClicked(MouseEvent event) {
             for (int j = 0; j < buddyArray.size(); j++) {
                 for (int i = 0; i < boxes[j].getComponentCount(); i++) {
-                    // System.out.println("j: " + j + "  and i: " + i);
                     if (event.getSource().equals(
                             buddyListPane.getComponent(j, i))) {
                         if (event.getButton() == MouseEvent.BUTTON1) {
@@ -954,32 +903,21 @@ public class BuddyPanel extends GPanel implements Observer {
         public void keyReleased(KeyEvent e) {
             if (search.getText().length() < 1) {
                 searchEnabled = false;
-                // boxes[0].getComponent(0).setBackground(Color.WHITE);
                 refreshBuddyList();
             } else { // we have text! search!
                 searchEnabled = true;
 
                 refreshBuddyList();
-                // boxes[0].getComponent(0)
-                // .setBackground(new Color(145, 200, 200));
 
             }
-
-            // listRepopulate();
-            // refreshBuddyList(); // automatically factors in the search
-
             return;
         }
 
         public void keyTyped(KeyEvent e) {
-            // Do nothing
-
-            return;
         }
     }
 
     private void searchBuddies() {
-        // buddies = UserData.sortByStringMatch(buddies, search.getText());
         buddies = UserData.cullByStringMatch(buddies, search.getText());
 
         return;

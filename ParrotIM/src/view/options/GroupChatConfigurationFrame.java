@@ -58,33 +58,6 @@ public class GroupChatConfigurationFrame extends JFrame {
      * @param edit
      * */
 
-    // public static void main(String[] args) {
-    // GroupChatConfigurationFrame group = new GroupChatConfigurationFrame();
-    // }
-
-    // public GroupChatConfigurationFrame(MainController c, Model model){
-    // mainFrame = this;
-    // this.model = model;
-    // this.controller = c;
-    // this.addWindowListener(new PopupEnableMainWindowListener(model,
-    // PopupEnableWindowType.GROUPCHAT));
-    // this.setTitle("Group Chat Configuration");
-    //		
-    // setRoomPanels();
-    // this.setPreferredSize(new Dimension(330,120));
-    // setResizable(false);
-    // setLocationRelativeTo(null);
-    //
-    //		
-    //		
-    //		
-    // pack();
-    // getContentPane().add(mainPanel);
-    // setVisible(true);
-    // setIconImage(new ImageIcon("src/images/mainwindow/logo.png").getImage());
-    // this.setLocation(600 ,200);
-    //		
-    // }
     public GroupChatConfigurationFrame(MainController c, Model model,
             JFrame chatFrame, JFrame buddyFrame) {
         this.mainFrame = chatFrame;
@@ -119,9 +92,6 @@ public class GroupChatConfigurationFrame extends JFrame {
                 PopupEnableWindowType.GROUPCHAT));
         usersToInvite = new JLabel("Users to invite: ");
         usersToInvite.setForeground(model.primaryTextColor);
-        // String[] usersList = {"Only online users should be displayed here",
-        // "kevin.fahy@gmail.com", "parroim.test@gmail.com",
-        // "jrfox02@gmail.com"};
 
         usersGroup = new JComboBox(UserData.getOnlineBuddy());
         usersGroup.setPreferredSize(new Dimension(265, 25));
@@ -134,11 +104,6 @@ public class GroupChatConfigurationFrame extends JFrame {
         inviteButton.addActionListener(new inviteActionListener());
         cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new cancelActionListener());
-
-        // this should be extract from the list of current conferrence rooms
-        // String[] listGroupRoom =
-        // {"Empty if there exists no conferrence room",
-        // "ParrotsOnly@conferrence.jabber.org"};
 
         groupRoom = new JComboBox(controller.getAvailableRoom());
         groupRoom.setPreferredSize(new Dimension(265, 25));
@@ -160,42 +125,6 @@ public class GroupChatConfigurationFrame extends JFrame {
         mainPanel.add(QButtonsPanel);
     }
 
-    // private void setRoomPanels(){
-    //		
-    //	
-    // groupChatRoomLabel = new JLabel("Group Chat Room: ");
-    //	
-    //
-    // inviteButton = new JButton ("Invite");
-    // inviteButton.addActionListener(new inviteActionListener());
-    // cancelButton = new JButton("Cancel");
-    // cancelButton.addActionListener(new cancelActionListener());
-    //		
-    // // this should be extract from the list of current conferrence rooms
-    // //String[] listGroupRoom = {"Empty if there exists no conferrence room",
-    // "ParrotsOnly@conferrence.jabber.org"};
-    // groupRoom = new JComboBox(controller.getAvailableRoom());
-    // groupRoom.setPreferredSize(new Dimension(265, 25));
-    // groupRoom.addActionListener(new StyleListener());
-    //		
-    //
-    //		
-    // JPanel QButtonsPanel = new JPanel();
-    // QButtonsPanel.setAlignmentX(LEFT_ALIGNMENT);
-    // QButtonsPanel.setLayout(new BoxLayout(QButtonsPanel, BoxLayout.X_AXIS));
-    // QButtonsPanel.add(inviteButton);
-    // QButtonsPanel.add(cancelButton);
-    //		
-    //		
-    // /*WRAP UP*/
-    // mainPanel = new JPanel();
-    // mainPanel.add(groupChatRoomLabel);
-    // mainPanel.add(groupRoom);
-    // mainPanel.add(QButtonsPanel);
-    //
-    //
-    // }
-
     private class StyleListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
 
@@ -204,7 +133,6 @@ public class GroupChatConfigurationFrame extends JFrame {
 
     private class cancelActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // mainFrame.dispose();
             popUpFrame.dispose();
         }
     }
@@ -240,15 +168,10 @@ public class GroupChatConfigurationFrame extends JFrame {
             if (onlineBuddy.size() > 0) {
                 String friend = onlineBuddy.get(usersGroup.getSelectedIndex());
 
-                System.out.println("Room Name = " + roomName);
-                System.out.println("Friend to invite = " + friend);
-
                 if (roomName.contains("Parrot")) {
-                    System.out.println("The room does contain Parrot");
                     controller.inviteFriend(friend, roomName
                             + "@conference.jabber.org");
                 } else {
-                    System.out.println("The room doesn't contain Parrot");
                     controller.inviteFriend(friend, roomName);
                 }
             }

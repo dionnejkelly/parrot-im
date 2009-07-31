@@ -43,8 +43,6 @@ import controller.MainController;
 
 public class SidePanel extends GPanel implements Observer {
 
-    // private JPanel chattingWith;
-    // private Box boxes[] = new Box[1];
 
     /**
      * Model stores the needed data of the system. It also connects it with
@@ -119,11 +117,7 @@ public class SidePanel extends GPanel implements Observer {
     private void addNewConversationsToList() throws XMPPException {
         UserDataWrapper userWrapper = null;
 
-        // int loopIterationNumber = 0;
-        // for (ConversationData cd1 : model.getConversations()) {
         for (Conversation c : this.chatCollection.getVisibleConversations()) {
-            // if (loopIterationNumber > listPane.getNicknameList().size() - 1)
-            // {
             userWrapper = null;
             for (UserDataWrapper u : this.users) {
                 if (u.getConversation().getUser() != null) {
@@ -146,8 +140,6 @@ public class SidePanel extends GPanel implements Observer {
                         userWrapper, new SelectListener());
             }
 
-            // }
-            // loopIterationNumber++;
         }
 
         // refreshes the list on the screen with the new data
@@ -193,8 +185,6 @@ public class SidePanel extends GPanel implements Observer {
      */
 
     public void update(Observable t, Object o) {
-        // if ((o == UpdatedType.CHAT && o != UpdatedType.CHATNOTSIDEPANEL)
-        // || o == UpdatedType.CHAT_STATE) {
         if (t instanceof ChatCollectionData) {
             try {
                 addNewConversationsToList();
@@ -203,7 +193,6 @@ public class SidePanel extends GPanel implements Observer {
                 e.printStackTrace();
             }
         }
-        // }
 
         if (o == UpdatedType.COLOR) {
             listPane.textColor = model.primaryTextColor;
@@ -227,15 +216,11 @@ public class SidePanel extends GPanel implements Observer {
          */
         public void mousePressed(MouseEvent event) {
         	if (event.getButton() == MouseEvent.BUTTON3 || (event.isControlDown() == true && event.getButton() == MouseEvent.BUTTON1)) {
-                System.out.println("right clicked");
-
-                // rightClickMenu.setVisible(true);
                 conversationToRemove = listPane.getUserWrapper(
                         listPane.getClickedIndex()).getConversation();
                 rightClickMenu.show(listPane, event.getX() + 5, event.getYOnScreen());
                 rightClickMenu.setLocation(event.getXOnScreen(), event.getYOnScreen());
         	}   else if (event.getButton() == MouseEvent.BUTTON1) {
-                System.out.println("left clicked");
                 controller.setTypingState(1); // set to the default typing state
                 // before
                 rightClickMenu.setVisible(false);
@@ -257,8 +242,6 @@ public class SidePanel extends GPanel implements Observer {
     private class removeConversationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (chatCollection.getConversations().size() > 1) {
-                //chatCollection.removeConversation(listPane.getUserWrapper(
-                //        listPane.getClickedIndex()).getConversation());
                 chatCollection.removeConversation(conversationToRemove);
             }
 

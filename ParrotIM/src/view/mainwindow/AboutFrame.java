@@ -92,7 +92,6 @@ public class AboutFrame extends JFrame {
         GridLayout infoLayout = new GridLayout(infoArray.length, 1);
         informations.setLayout(infoLayout);
         informations.setOpaque(false);
-        // infoLayout.setVgap(3);
 
         for (String element : infoArray) {
             JLabel infoLabel = new JLabel(element);

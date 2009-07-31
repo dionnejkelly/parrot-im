@@ -3,7 +3,6 @@ package view.styles;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -131,7 +130,6 @@ public class AccountJMenu extends JMenu {
             try {
                 controller.login(account);
                 try {
-                	System.out.println("current profile: " + model.getCurrentProfile().getName());
                     controller.setStatus(model.getStatusMessage(model
                             .getCurrentProfile().getName()), false);
                     controller.setPresence(StatusType.intToStatusType(model
@@ -161,8 +159,6 @@ public class AccountJMenu extends JMenu {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                System.out.println("account is now online");
-                // signMenu.setText("Sign out");
                 signMenu.setEnabled(false);
                 signOutMenu.setEnabled(true);
             } catch (BadConnectionException e) {
@@ -170,7 +166,6 @@ public class AccountJMenu extends JMenu {
                 // new JOptionPane (account.getUserID()+ " failed signing in.");
             }
         } else { // disconnect
-            System.out.println("account is now offline");
             signMenu.setEnabled(true);
             signOutMenu.setEnabled(false);
         }
@@ -184,7 +179,6 @@ public class AccountJMenu extends JMenu {
 
         public void run() {
             try {
-                System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
                 sleep(10000); // Delay for 4 seconds
             } catch (InterruptedException e) {
                 System.err.println("Threading error");
@@ -199,7 +193,6 @@ public class AccountJMenu extends JMenu {
             	
             	// the file is missing
                 if (avatarPicture.getIconHeight() != -1 && avatarPicture.getIconWidth() != -1) {
-                	System.out.println("Setting the avatar picture");
                 	controller.setAvatarPicture(url);
                    
                 }
@@ -217,7 +210,6 @@ public class AccountJMenu extends JMenu {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            // controller.refreshFriends(controller.getConnection());
 
         }
     }
@@ -245,13 +237,9 @@ public class AccountJMenu extends JMenu {
 
         public void actionPerformed(ActionEvent arg0) {
             if (account.isConnected()) {
-                System.out
-                        .println("account is online and we have to disconnect it");
                 controller.disconnect(account);
                 connectAccount(false);
             } else {
-                System.out
-                        .println("account is offline and we have to connect it");
                 connectAccount(true);
             }
         }

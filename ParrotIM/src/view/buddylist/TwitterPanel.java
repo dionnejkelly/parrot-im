@@ -136,16 +136,6 @@ public class TwitterPanel extends GPanel implements Observer {
      */
     // SELECTION
     // II-Constructors
-    // public TwitterPanel(Model model){
-    // this.model = model;
-    // //model.addObserver(this);
-    // setLayout(new BorderLayout());
-    // setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-    // setGradientColors(model.primaryColor, model.secondaryColor);
-    //        
-    // JLabel tempLabel = new JLabel("Please Login to a Twitter Account first");
-    // add(tempLabel);
-    // }
     public TwitterPanel(Model model) {
         this.model = model;
         model.addObserver(this);
@@ -186,7 +176,6 @@ public class TwitterPanel extends GPanel implements Observer {
         }
 
         // Test code, make it hide at the start
-        // this.chat = new ChatWindow(chatClient, model);
         tweets = null;
 
         tweetList = new JPanel();
@@ -204,7 +193,6 @@ public class TwitterPanel extends GPanel implements Observer {
         buddyListPane = new GroupedListPane(model);
         buddyListPane.addGroup("     Recent Tweets", twitterImage);
         buddyListPane.addGroup("     Twitter Friends", twitterImage);
-        // buddyListPane.addElement(0, "test", null);
 
         if (model.getCurrentProfile().hasTwitter()) {
             pictureUpdateThread = new PictureUpdateThread();
@@ -213,7 +201,6 @@ public class TwitterPanel extends GPanel implements Observer {
             listRepopulate();
         }
 
-        // friendList.add(boxes[0], BorderLayout.NORTH);
         scroller = new JScrollPane(buddyListPane);
         scroller
                 .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -238,7 +225,6 @@ public class TwitterPanel extends GPanel implements Observer {
         try {
             tweets = model.getCurrentProfile().getTweets();
             buddies = model.getCurrentProfile().getTwitterFriends();
-            System.out.println(buddies.size() + " FJSDFLJSFLF");
         } catch (BadConnectionException e1) {
             e1.printStackTrace();
         }
@@ -268,20 +254,11 @@ public class TwitterPanel extends GPanel implements Observer {
         // Note: Do not add listeners to j = 0
         for (int j = 1; j < 2; j++) {
             for (int i = 0; i < boxes[j].getComponentCount(); i++) {
-                // System.out.println(boxes[j].getComponentCount() + ":" + i);
                 buddyListPane.addExternalMouseListener(j, i,
                         this.selectListener);
             }
         }
 
-        /*
-         * for(UserData user : model.getCurrentProfile().getTwitterFriends()){
-         * buddyListPane.addElement(1, user.getNickname(), null); } try {
-         * for(UserData user : model.getCurrentProfile().getTweets())
-         * buddyListPane.addElement(0,user.getNickname() + " - " +
-         * user.getStatus(), null); } catch (BadConnectionException e) { // TODO
-         * Auto-generated catch block e.printStackTrace(); }
-         */
     }
 
     /**
@@ -409,7 +386,6 @@ public class TwitterPanel extends GPanel implements Observer {
                         ImageIcon newIcon = new ImageIcon(img);
                         label.setIcon(newIcon);
                     } catch (XMPPException e) {
-                        System.err.println("Error in picture thread");
                         e.printStackTrace();
                     }
                 } else {
@@ -429,7 +405,6 @@ public class TwitterPanel extends GPanel implements Observer {
     public void update(Observable o, Object arg) {
         boolean breakLoop = false;
 
-        System.out.println("thisistheupdate!: " + o);
         if (arg == UpdatedType.COLOR) {
             setGradientColors(model.primaryColor, model.secondaryColor);
             // tempLabel.setForeground(model.primaryTextColor);
@@ -457,7 +432,6 @@ public class TwitterPanel extends GPanel implements Observer {
          * SelectListener()
          */
         public SelectListener() {
-            System.out.println("I am being made!!!!");
             selected = false;
         }
 
@@ -467,7 +441,6 @@ public class TwitterPanel extends GPanel implements Observer {
         public void mouseClicked(MouseEvent event) {
             for (int j = 0; j < buddyArray.size(); j++) {
                 for (int i = 0; i < boxes[j].getComponentCount(); i++) {
-                    System.out.println("j: " + j + "  and i: " + i);
                     if (event.getSource().equals(
                             buddyListPane.getComponent(j, i))) {
                         if (event.getButton() == MouseEvent.BUTTON1) {
@@ -476,8 +449,6 @@ public class TwitterPanel extends GPanel implements Observer {
 
                             /* Fix this to directly reference the GUI */
                             selectedFriend = buddyArray.get(j).get(i);
-                            System.out.println(selectedFriend
-                                    + " in the woooos");
 
                             if (event.getClickCount() == 2) {
                                 selected = false;

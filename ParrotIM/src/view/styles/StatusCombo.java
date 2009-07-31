@@ -83,9 +83,6 @@ public class StatusCombo extends JComboBox {
                 try {
                     chatClient.setPresence(userStatus);
 
-                    System.out.println("StatusCombo | optionsIsVisible: "
-                            + BuddyList.optionsIsVisible()
-                            + " | !optionStatus: " + !optionStatus);
                     if (BuddyList.optionsIsVisible() && !optionStatus) {
                         PersonalProfileTab.status
                                 .setSelectedIndex(getSelectedIndex());

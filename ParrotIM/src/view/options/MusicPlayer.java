@@ -30,17 +30,11 @@ public class MusicPlayer {
     // parameter field.
     private void playAudio(String musicFile) {
 
-        try { // this
-            // .getClass().getResource("/images/buddylist/delete_user.png"
-            // File soundFile = new
-            // File(this.getClass().getResource(musicFile).getPath());
-
+        try { 
             audioInputStream =
                     AudioSystem.getAudioInputStream(this.getClass()
                             .getResource(musicFile));
             audioFormat = audioInputStream.getFormat();
-
-            // System.out.println(audioFormat);
 
             DataLine.Info dataLineInfo =
                     new DataLine.Info(SourceDataLine.class, audioFormat);
@@ -94,7 +88,6 @@ public class MusicPlayer {
 
             catch (Exception e) {
                 e.printStackTrace();
-                // System.exit(0);
             }
         }
     }

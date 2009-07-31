@@ -207,9 +207,6 @@ public class AccountInfo extends GPanel implements Observer {
         this.setMaximumSize(dimension);
         this.setMinimumSize(dimension);
         this.setPreferredSize(dimension);
-
-        System.out.println("ACCOUNTINFO: " + this.getWidth() + " "
-                + this.getHeight());
         model.addObserver(this);
     }
 

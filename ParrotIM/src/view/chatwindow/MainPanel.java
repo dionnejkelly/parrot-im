@@ -76,7 +76,6 @@ public class MainPanel extends JPanel implements Observer {
         JMenuItem exitItem1 =
                 new JMenuItem("Exit", new ImageIcon(this.getClass()
                         .getResource("/images/chatwindow/chat_close.png")));
-        // KeyEvent.VK_N
         exitItem1.addActionListener(new exitListener());
         fileMenu.addSeparator();
         fileMenu.add(exitItem1);
