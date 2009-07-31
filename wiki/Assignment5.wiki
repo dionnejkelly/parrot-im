@@ -39,7 +39,7 @@ Please have the user complete the following tasks outlined in "procedures", and 
 
  * Smack (for XMPP) had authentication bugs
  * JOscar (for AIM and ICQ) had poor documentation such that not all the features are available
- * MSNM (for MSN) rarely threw exceptions on errors such that users cannot distguinsh if they are actually connected it or not
+ * MSNM (for MSN) rarely threw exceptions on errors such that users cannot distinguish if they are actually connected it or not
 
 
 = Screen shots of how our user interface has progressed =
@@ -53,9 +53,18 @@ Please have the user complete the following tasks outlined in "procedures", and 
 
 *What project management techniques worked well, and what worked not so well?* 
 
+ * We used to depend on one leader only and it did not work out well. Later on we had another leader to organize our big team.
+
 *What were the major technical problems you encountered?* 
+
+ * We were not familiar with the libraries that we had to use at first. It took awhile to figure out how to use them. Sometimes we encountered some weird bugs and apparently they were caused by our API.
 
 *What were the major "human" problems you encountered while working as a team?* 
 
+ * Miscommunication is a big issue, and that happens sometimes.
 
 *If you were to do the project over again, what would you do differently? What would you have done the same? What advice would you give to next year's students?* 
+
+ * Keep the working environment fun and friendly. Everyone should feel rewarded of what they have done. Every single person in the team has a precious existence for the final product no matter what role they play.
+
+ * This is a really fun team. We have fun together, tease each other while doing all the work. If I were to do the same, I would really love to keep this cheerful environment.
