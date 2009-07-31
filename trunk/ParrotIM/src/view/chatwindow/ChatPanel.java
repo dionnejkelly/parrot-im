@@ -43,6 +43,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import model.Model;
+import model.dataType.ChatCollectionData;
+import model.dataType.ConversationData;
 import model.dataType.MultiConversationData;
 import model.enumerations.ServerType;
 import model.enumerations.UpdatedType;
@@ -94,6 +96,8 @@ public class ChatPanel extends GPanel implements Observer {
     /** Allows users to see the messages in the DisplayPanel. */
 
     private DisplayPanel displayPanel;
+    
+    protected int keyCount = 0;
 
     /**
      * Maintains the Parrot IM XMPP Protocol.
@@ -364,7 +368,9 @@ public class ChatPanel extends GPanel implements Observer {
     public JComboBox getFontSelect() {
         return fontSelect;
     }
+    
 
+    
     /**
      * The sendMessage Method calls the model to send a message. This function
      * also Updates the display Text to show the message that you just sent.
@@ -613,7 +619,6 @@ public class ChatPanel extends GPanel implements Observer {
 
         public void keyReleased(KeyEvent e) {
             previousTime = System.currentTimeMillis();
-
             if (!shiftPressed && e.getKeyCode() == KeyEvent.VK_ENTER
                     && sendButton.isEnabled()) {
                 System.out
@@ -707,10 +712,10 @@ public class ChatPanel extends GPanel implements Observer {
      * 
      */
     private class TextAreaDocListener implements DocumentListener {
-        private int keyCount = 0;
 
         public void changedUpdate(DocumentEvent arg0) {
             // send isTyping signal
+        	
             System.out.println("hey, I am typing");
 
         }
@@ -824,6 +829,17 @@ public class ChatPanel extends GPanel implements Observer {
             emoticonPanel.setGradientColors(model.primaryColor,
                     model.secondaryColor);
             emoticonPanel.updateUI();
+        }else if(arg == UpdatedType.CHAT|| arg == UpdatedType.CHATNOTSIDEPANEL){
+        	if(model.getChatCollection().getActiveConversation()
+        			instanceof ConversationData)
+        		if(model.getActiveConversation().getAccount().getServer()
+            		== ServerType.TWITTER){
+        		keyCount = txt1.getText().length();
+        		displayPanel.updateChar(140-keyCount);
+        		if(keyCount <= 140){
+        			sendButton.setEnabled(false);
+        		}
+            }
         }
     }
 }
