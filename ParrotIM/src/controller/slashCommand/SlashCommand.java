@@ -2,12 +2,8 @@ package controller.slashCommand;
 
 import java.sql.SQLException;
 import java.util.StringTokenizer;
-
-import model.Model;
-import model.enumerations.ServerType;
 import model.enumerations.UserStateType;
 import controller.MainController;
-import controller.services.BadConnectionException;
 
 public class SlashCommand {
 
@@ -90,20 +86,15 @@ public class SlashCommand {
             }
         }
 
-        //System.out.println("hasSetPresence: " + hasSetPresence);
-
         if (hasSetPresence) { // set up the status
             // eg. /away I am away
             // new presence: away
             // new status msg: I am away
             try {
                 controller.setPresence(token);
-                //System.out.println("Status: " + token);
 
                 if (tokenizer.countTokens() > 0) {
                     // will be used to set the status message
-//                    System.out.println("status msg: "
-//                            + str.substring(token.length() + 1));
                     controller.setStatus(str.substring(token.length() + 1),
                             false);
                 }
@@ -114,90 +105,9 @@ public class SlashCommand {
                 e.printStackTrace();
             }
         } else {
-            //System.out.println("status msg: " + str);
             controller.setStatus(str, false);
         }
 
         return true;
-    }
-
-    public static void main(String[] args) {
-        MainController c = new MainController(new Model());
-        try {
-            c.loginAsGuest(ServerType.GOOGLE_TALK, "cmpt275testing@gmail.com",
-                    "abcdefghi");
-
-            SlashCommand cmd = new SlashCommand(c);
-
-            // non slash command
-            //System.out.println(cmd.isSlashCommand("non slash command"));
-   
-
-            // status message only
-           // System.out.println(cmd
-            //        .isSlashCommand("/I am changing my status message"));
-
-            // presence only
-            // one token
-            //System.out.println(cmd.isSlashCommand("/online"));
-  
-
-           // System.out.println(cmd.isSlashCommand("/available"));
-      
-
-           // System.out.println(cmd.isSlashCommand("/away"));
-          
-
-//            System.out.println(cmd.isSlashCommand("/brb"));
-//            System.out.println();
-//
-//            System.out.println(cmd.isSlashCommand("/busy"));
-//            System.out.println();
-//
-//            System.out.println(cmd.isSlashCommand("/invisible"));
-//            System.out.println();
-//
-//            System.out.println(cmd.isSlashCommand("/lunch"));
-//            System.out.println();
-//
-//            System.out.println(cmd.isSlashCommand("/offline"));
-//            System.out.println();
-//
-//            // two tokens
-//            System.out.println(cmd.isSlashCommand("/not available"));
-//            System.out.println();
-
-            // three tokens
-//            System.out.println(cmd.isSlashCommand("/be right back"));
-//            System.out.println();
-//
-//            System.out.println(cmd.isSlashCommand("/on the phone"));
-//            System.out.println();
-//
-//            // four tokens
-//            System.out.println(cmd.isSlashCommand("/not to be disturbed"));
-//            System.out.println();
-//
-//            // status + presence
-//            System.out.println(cmd
-//                    .isSlashCommand("/not available I am so awesome"));
-//            System.out.println();
-//
-//            System.out.println(cmd.isSlashCommand("/brb another brb"));
-//            System.out.println();
-//
-//            System.out.println(cmd
-//                    .isSlashCommand("/be right back this is supposed to work"));
-//            System.out.println();
-//
-//            System.out
-//                    .println(cmd
-//                            .isSlashCommand("/not to be disturbed hahaha this is my message!"));
-//            System.out.println();
-        } catch (BadConnectionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
     }
 }
