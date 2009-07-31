@@ -151,4 +151,48 @@ General Comments:
   * “ChatBot is not a useful tool”. 
   * “When I am typing in the search box, it always do the buddy search, but in fact I just want to use the Google search.”
   * Changing the theme is interesting. 
+------
+= Person 7: Hamad =
+
+  * Computer Familiarity: 2
+  * Chat service used: MSN
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 2
+  * Intutiveness: 1
+  * Fun: 1
+Task: Message
+  * Difficulty: 1
+  * Speed: 1
+  * Intutiveness: 3
+  * Fun: 1
+Task: Search for buddy
+  * Difficulty: 4
+  * Speed: 2
+  * Intutivness: 3
+  * Fun: 2
+Task: View Chatlog
+  * Difficulty: 2
+  * Speed: 2
+  * Intutivness: 1
+  * Fun: 3
+Task: Change Themes
+  * Difficulty: 2
+  * Speed: 4
+  * Intuttivness: 2
+  * Fun: 1
+Task: Sign out
+  * Difficulty: 2
+  * Speed: 5
+  * Intutivness: 3
+  * Fun: 2
+General Comments:
+  * Creating profile is not easy to complete (Needed help from our team to complete it), couldn't know what are you asking for in username and password.
+  * Search bar is kinda difficult to find
+  * The buddy list was empty first time login
+  * Not familiar with Chatbot (User never used such thing)
+  * Login speed wasn't that bad comparing to actual msn messanger!
+  * Changing colors/themes and chatlog was not that difficult but didn't know in chatlog you are searching conversations! (User never used it with messanger)
+  * Smiley faces in chat window is disturbing (User didn't know about time and date feature because of it).
+  * In general, good program for messaging but bugs make the experience annoying.
   
