@@ -30,7 +30,7 @@ http://parrot-im.googlecode.com/files/final_ChatWindow1.jpg
 
 ==User Preference (Options)==
 
-http://parrot-im.googlecode.com/files/compare_options.jpg
+http://parrot-im.googlecode.com/files/compare_options1.jpg
 
 ==Exit/ Sign out methods==
 http://parrot-im.googlecode.com/files/compare_exit1.jpg
