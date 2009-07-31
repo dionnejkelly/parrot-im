@@ -26,6 +26,7 @@ import javax.swing.JPopupMenu;
 import model.Model;
 import model.dataType.ChatCollectionData;
 import model.dataType.Conversation;
+import model.dataType.MultiConversationData;
 import model.enumerations.UpdatedType;
 
 import org.jivesoftware.smack.XMPPException;
@@ -33,6 +34,7 @@ import org.jivesoftware.smack.XMPPException;
 import view.styles.CustomListPane;
 import view.styles.GPanel;
 import controller.MainController;
+import controller.services.GoogleTalkManager;
 
 /**
  * The SidePanel contains the list of users that are currently visible in chat
@@ -42,7 +44,6 @@ import controller.MainController;
  */
 
 public class SidePanel extends GPanel implements Observer {
-
 
     /**
      * Model stores the needed data of the system. It also connects it with
@@ -66,8 +67,8 @@ public class SidePanel extends GPanel implements Observer {
     private ArrayList<UserDataWrapper> users;
 
     private ChatCollectionData chatCollection;
-    
-    private Conversation conversationToRemove;     
+
+    private Conversation conversationToRemove;
 
     /**
      * This is the constructor of the SidePanel.
@@ -215,34 +216,58 @@ public class SidePanel extends GPanel implements Observer {
          * @param event
          */
         public void mousePressed(MouseEvent event) {
-        	if (event.getButton() == MouseEvent.BUTTON3 || (event.isControlDown() == true && event.getButton() == MouseEvent.BUTTON1)) {
-                conversationToRemove = listPane.getUserWrapper(
-                        listPane.getClickedIndex()).getConversation();
-                rightClickMenu.show(listPane, event.getX() + 5, event.getYOnScreen());
-                rightClickMenu.setLocation(event.getXOnScreen(), event.getYOnScreen());
-        	}   else if (event.getButton() == MouseEvent.BUTTON1) {
+            if (event.getButton() == MouseEvent.BUTTON3
+                    || (event.isControlDown() == true && event.getButton() == MouseEvent.BUTTON1)) {
+                conversationToRemove =
+                        listPane.getUserWrapper(listPane.getClickedIndex())
+                                .getConversation();
+                rightClickMenu.show(listPane, event.getX() + 5, event
+                        .getYOnScreen());
+                rightClickMenu.setLocation(event.getXOnScreen(), event
+                        .getYOnScreen());
+            } else if (event.getButton() == MouseEvent.BUTTON1) {
                 controller.setTypingState(1); // set to the default typing state
                 // before
                 rightClickMenu.setVisible(false);
                 // switching
                 controller.changeConversation(listPane.getUserWrapper(
                         listPane.getClickedIndex()).getConversation());
-                
-            } 
+
+            }
             return;
         }
 
         // Unimplemented MouseListener Methods
-        public void mouseEntered(MouseEvent event) {}
-        public void mouseExited(MouseEvent event) {}
-        public void mouseClicked(MouseEvent event) {}
-        public void mouseReleased(MouseEvent event) {}
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        public void mouseExited(MouseEvent event) {
+        }
+
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        public void mouseReleased(MouseEvent event) {
+        }
     }
 
     private class removeConversationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (chatCollection.getConversations().size() > 1) {
+            if (chatCollection.getConversations().size()
+                    + chatCollection.getMultiConversations().size() > 1) {
                 chatCollection.removeConversation(conversationToRemove);
+                try {
+                    if (conversationToRemove instanceof MultiConversationData) {
+                        ((GoogleTalkManager) ((MultiConversationData) conversationToRemove)
+                                .getAccount().getConnection())
+                                .leaveRoom(((MultiConversationData) conversationToRemove)
+                                        .getRoomName());
+                    }
+                } catch (Exception ex) {
+                    System.err
+                            .println("error with account-->GoogleTalkManager");
+                    ex.printStackTrace();
+                }
             }
 
             return;

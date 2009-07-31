@@ -79,7 +79,7 @@ public class DatabaseFunctionsTest {
     @Test
     public void testGetMessageFromDate() throws SQLException {
         ArrayList<ChatLogMessageTempData> test =
-                db1.getMessageFromDate("cmpt275testing", "rmamnk", "", "hi");
+                db1.getMessageFromDate("profile" ,"cmpt275testing", "rmamnk", "", "hi");
         for (int i = 0; i < test.size(); i++) {
             System.out.println(test.get(i));
         }
