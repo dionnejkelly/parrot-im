@@ -86,10 +86,6 @@ public class NewProfileFrame extends JFrame {
         defaultCheck.setForeground(model.primaryTextColor);
         defaultCheck.setPreferredSize(new Dimension(375, 20));
         defaultCheck.setAlignmentX(LEFT_ALIGNMENT);
-        // defaultCheck
-        // .setToolTipText("<html>Enables auto-login to this profile whenever ParrotIM runs."
-        // +
-        // "<br>There can only be one Default Profile, checking this will set this profile as the new default");
 
         autoSigninCheck = new JCheckBox("Auto Signin");
         autoSigninCheck.setForeground(model.primaryTextColor);
@@ -129,7 +125,6 @@ public class NewProfileFrame extends JFrame {
 
         JPanel optionPanel = new JPanel();
         optionPanel.setAlignmentX(LEFT_ALIGNMENT);
-        // optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.Y_AXIS));
         optionPanel.setOpaque(false);
         optionPanel.setLayout(new FlowLayout());
         optionPanel.add(defaultCheck);

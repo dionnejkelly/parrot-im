@@ -162,11 +162,6 @@ public class ColorUserSelect extends GPanel implements ChangeListener, Observer 
     public void stateChanged(ChangeEvent e) {
         userColor = colorChooser.getColor();
         banner.setForeground(userColor);
-
-        // System.out.println("User Red color = " + newColor.getRed());
-        // System.out.println("User Green color = " + newColor.getGreen());
-        // System.out.println("Hex = " + getColorHex());
-
         hexColor = getColorHex();
         colorButton.setBackground(userColor);
     }

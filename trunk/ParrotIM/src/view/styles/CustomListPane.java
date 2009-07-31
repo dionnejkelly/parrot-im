@@ -64,7 +64,6 @@ public class CustomListPane extends GPanel {
         setGradientColors(Color.WHITE, Color.WHITE);
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
-        // setOpaque(false);
 
         userPanels = new ArrayList<JPanel>();
         boxes[0] = Box.createVerticalBox();
@@ -74,8 +73,6 @@ public class CustomListPane extends GPanel {
     private JPanel friendPanel(String nickname, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
-        // friendPanel.setBackground(Color.WHITE);
-        //friendPanel.setOpaque(false);
 
         if (icon == null) {
             icon = defaultIcon;
@@ -85,7 +82,6 @@ public class CustomListPane extends GPanel {
         ImageIcon newIcon = new ImageIcon(img);
 
         JLabel IconLabel = new JLabel(newIcon);
-        //IconLabel.setOpaque(false);
         friendPanel.add(IconLabel, BorderLayout.WEST);
         JLabel nicknameLabel = new JLabel(" " + nickname);
         userLabels.add(nicknameLabel);
@@ -96,7 +92,6 @@ public class CustomListPane extends GPanel {
     private JPanel friendPanel(UserDataWrapper user, ImageIcon icon) {
         JPanel friendPanel = new JPanel();
         friendPanel.setLayout(new BorderLayout());
-        // friendPanel.setOpaque(false);
 
         if (icon == null) {
             icon = defaultIcon;
@@ -148,7 +143,6 @@ public class CustomListPane extends GPanel {
     }
 
     public void addElement(JPanel externalFriendPanel) {
-        //externalFriendPanel.setOpaque(false);
     	externalFriendPanel.setBackground(Color.WHITE);
     	if (!opaque)
     		externalFriendPanel.setOpaque(false);
@@ -157,11 +151,9 @@ public class CustomListPane extends GPanel {
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(new SelectListener());
         updateUI();
-        // this.repaint();
     }
 
     public void addElement(JPanel externalFriendPanel, int index) {
-        //externalFriendPanel.setOpaque(false);
     	externalFriendPanel.setBackground(Color.WHITE);
     	if (!opaque)
     		externalFriendPanel.setOpaque(false);
@@ -169,12 +161,10 @@ public class CustomListPane extends GPanel {
         boxes[0].add(externalFriendPanel, index);
         boxes[0].getComponent(index).addMouseListener(new SelectListener());
         updateUI();
-        // this.repaint();
     }
 
     public void addElement(String nickname, ImageIcon img,
             UserDataWrapper userWrapper, MouseListener externalListener) {
-        System.out.println("SidePanel:" + nickname);
         nicknames.add(nickname);
         userWrappers.add(userWrapper);
         JPanel panel = friendPanel(userWrapper, img);
@@ -211,7 +201,6 @@ public class CustomListPane extends GPanel {
     public void addElement(String nickname, ImageIcon img) {
         nicknames.add(nickname);
         JPanel panel = friendPanel(nickname, img);
-        //panel.setOpaque(false);
         boxes[0].add(panel);
         boxes[0].getComponent(boxes[0].getComponentCount() - 1)
                 .addMouseListener(new SelectListener());
@@ -272,7 +261,6 @@ public class CustomListPane extends GPanel {
     public void resetClickedSelection() {
         if (lastClickedComponent != null) {
             lastClickedComponent.setBackground(Color.WHITE);
-            //userPanels.get(lastClickedIndex).setOpaque(false);
         }
         lastClickedComponent = null;
     }

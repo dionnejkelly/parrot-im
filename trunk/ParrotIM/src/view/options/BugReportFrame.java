@@ -208,13 +208,11 @@ public class BugReportFrame extends JFrame {
     private class StyleListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             frequencyReport = frequency.getSelectedItem().toString();
-            System.out.println(frequencyReport);
             severityReport = event.getActionCommand();
 
             if (severityReport.contains("comboBoxChanged")) {
                 severityReport = "Unspecified";
             }
-            System.out.println(severityReport);
         }
     }
 
@@ -255,8 +253,6 @@ public class BugReportFrame extends JFrame {
                 JOptionPane.showMessageDialog(null, resultMessage);
                 mainFrame.dispose();
             } catch (Exception e1) {
-                System.out
-                        .println("An error has occured in the event of reporting.");
                 e1.printStackTrace();
             }
 

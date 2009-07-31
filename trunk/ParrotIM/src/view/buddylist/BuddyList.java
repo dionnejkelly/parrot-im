@@ -124,23 +124,10 @@ public class BuddyList extends JFrame implements Observer {
         mainListPanel = new BuddyPanel(c, model, this);
         mainTwitterPanel = new TwitterPanel(c, model, this);
 
-        // if
-        // (model.getCurrentProfile().getAccountFromServer(ServerType.TWITTER)
-        // != null)
-        // mainTwitterPanel = new TwitterPanel(c,model,this);
-        // else
-        // mainTwitterPanel = new TwitterPanel(model);
-
         // If twitter exists, make tabbed buddy frame ; add to buddylistpanel
         contactList = new JTabbedPane();
-        contactList
-                .addTab(
-                        "IM",
-                        new ImageIcon(
-                                this
-                                        .getClass()
-                                        .getResource(
-                                                "/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")),
+        contactList.addTab("IM", new ImageIcon(this.getClass().getResource
+                        		("/images/buddylist/statusIcons/GoogleTalk/GoogleTalk-Available.png")),
                         mainListPanel, "Instant Messaging Contact List");
         contactList.addTab("Twitter", new ImageIcon(this.getClass()
                 .getResource("/images/buddylist/twitter_logo.png")),
@@ -162,7 +149,6 @@ public class BuddyList extends JFrame implements Observer {
         setIconImage(new ImageIcon(this.getClass().getResource(
                 "/images/mainwindow/logo.png")).getImage());
 
-        // buddylistPanel.add(mainListPanel, BorderLayout.CENTER);
         getContentPane().add(buddylistPanel);
         pack();
         setVisible(true);
@@ -337,7 +323,6 @@ public class BuddyList extends JFrame implements Observer {
         * 
         */
         public void actionPerformed(ActionEvent e) {
-            // new HelpPanel("http://code.google.com/p/parrot-im/issues/entry");
 
             if (!model.bugReportWindowOpen) {
                 new BugReportFrame(model);

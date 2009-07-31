@@ -79,9 +79,6 @@ public class MainWindow extends JFrame implements Observer {
      * @param model
      */
     public MainWindow(MainController chatClient, Model model) {
-        // set Main Window Frame
-        // setLocationRelativeTo(null);
-
         allowAutoSignIn = true;
         setFrame(chatClient, model);
     }
@@ -104,7 +101,6 @@ public class MainWindow extends JFrame implements Observer {
         setTitle("Parrot-IM");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(300, 500));
-        // setPreferredSize(new Dimension(300, 500));
         setIconImage(new ImageIcon(this.getClass().getResource(
                 "/images/mainwindow/logo.png")).getImage());
 

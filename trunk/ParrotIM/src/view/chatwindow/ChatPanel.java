@@ -169,13 +169,6 @@ public class ChatPanel extends GPanel implements Observer {
         // the input textarea properties
         SpellCheck createTextArea = new SpellCheck();
         txt1 = createTextArea.getTextArea();
-        // txt1 = new JTextArea();
-        // txt1.setColumns(25);
-        // txt1.setRows(2);
-        // txt1.setAutoscrolls(true);
-        // txt1.setLineWrap(true);
-        // txt1.setWrapStyleWord(true);
-        // txt1.setToolTipText("Enter text and HTML tags here");
         txt1.addKeyListener(new TextBoxListener());
         txt1.getDocument().addDocumentListener(new TextAreaDocListener());
         txt1.addFocusListener(new TextAreaFocusListener());
@@ -186,8 +179,6 @@ public class ChatPanel extends GPanel implements Observer {
         typingT.start();
         sendButton = new JButton("Send");
         sendButton.addActionListener(new SendButtonPressed());
-        // displayPanel.addMessage(incoming messages); //TODO
-
         // Editing button properties
         // bold Button
         final JButton boldButton =
@@ -308,11 +299,6 @@ public class ChatPanel extends GPanel implements Observer {
         groupChatAddButton.addActionListener(new GroupChatAddActionListener());
         groupChatAddButton
                 .setToolTipText("Add users to an already existing conference chat");
-        // themeMenu = new ThemeOptionsComboBox();
-        // themeMenu.setToolTipText("Select your own Theme");
-
-        // themeMenu.setAutoscrolls(true);
-
         // Text editing toolbar
         JToolBar bar1 = new JToolBar();
         bar1.add(fontSelect);
@@ -383,15 +369,10 @@ public class ChatPanel extends GPanel implements Observer {
 
             msg = Model.removeNewLinesAndSpaces(msg);
 
-            System.out
-                    .println("********************************************* The text area = "
-                            + txt1.getText());
             if (slashCommand.isSlashCommand(msg)) {
                 accinfo.statusMessage.setTextDisplay(model.getCurrentProfile()
                         .getStatus());
                 accinfo.statusMessage.synchOptions();
-                System.out.println("This is status from model "
-                        + model.getCurrentProfile().getState().toString());
 
                 if (model.getCurrentProfile().getState() == UserStateType.ONLINE
                         || model.getCurrentProfile().getState() == UserStateType.AWAY
@@ -429,15 +410,11 @@ public class ChatPanel extends GPanel implements Observer {
                                 .toString(), fontSizemodel.getValue()
                                 .toString(), bold, italics, underlined,
                                 "#000000");
-                        // c.sendMultMessage(msg,
-                        // "Parrot0@conference.jabber.org");
                     } catch (BadConnectionException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 } else { // Single Conversation
-                    System.out.println(msg);
-                    System.out.println(msg.length());
                     try {
                         if (oldContentPane == null) {
                             c.sendMessage(msg, fontSelect.getSelectedItem()
@@ -453,7 +430,6 @@ public class ChatPanel extends GPanel implements Observer {
 
                     } catch (BadConnectionException e) {
                         e.printStackTrace();
-                        System.out.println("failed in sending text");
                     }
                 }
             }
@@ -476,7 +452,6 @@ public class ChatPanel extends GPanel implements Observer {
          */
         public void mouseClicked(MouseEvent m) {
             emoticonChooser.setLocation(300, 300);
-            System.out.println(m.getX() + " " + m.getY());
 
             emoticonChooser.setVisible(true);
         }
@@ -507,32 +482,7 @@ public class ChatPanel extends GPanel implements Observer {
          */
 
         public void actionPerformed(ActionEvent evt) {
-
-            // String userID = "solidworktesting@gmail.com";
-            //        	
-            // if (c.isValidUserID(userID)) {
-            // System.out.println("Start Transfering File... " + userID);
-            //           		
-            // ImageFileFilter filefilter = new ImageFileFilter();
-            // JFileChooser fileChooser = new JFileChooser();
-            // fileChooser.setFileFilter(filefilter);
-            // fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            // fileChooser.setMultiSelectionEnabled(false);
-            //        		
-            // int fileConfirmation = fileChooser.showOpenDialog(null);
-            //            	
-            // if(fileConfirmation == JFileChooser.APPROVE_OPTION) {
-            // String filePath = fileChooser.getSelectedFile().getPath();
             c.sendFile();
-            // }
-            // }
-
-            // else {
-            // JOptionPane.showMessageDialog(null, "Cannot send file because " +
-            // userID + "does not support file receiving.",
-            // "Failed", JOptionPane.ERROR_MESSAGE);
-            // }
-
         }
 
     }
@@ -555,7 +505,6 @@ public class ChatPanel extends GPanel implements Observer {
             JFrame frame = new JFrame("Color Chooser");
             oldContentPane = new ColorUserSelect(frame, colorButton, model);
 
-            // frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.addWindowListener(new PopupWindowListener(chatFrame, frame));
 
             // Create and set up the content pane.
@@ -621,18 +570,12 @@ public class ChatPanel extends GPanel implements Observer {
             previousTime = System.currentTimeMillis();
             if (!shiftPressed && e.getKeyCode() == KeyEvent.VK_ENTER
                     && sendButton.isEnabled()) {
-                System.out
-                        .println("-------------------NOT PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 e.setKeyCode(KeyEvent.VK_BEGIN);
-                // txt1.setText(txt1.getText().substring(
-                // 0, txt1.getText().length() - 1));
                 sendMessage();
                 sendButton.setEnabled(true);
             }
 
             else if (shiftPressed && (e.getKeyCode() == e.VK_ENTER)) {
-                System.out
-                        .println("-------------------PRESSED!!!!!!!!!!!!!!!!!!!!!");
                 txt1.setText(txt1.getText() + "\n");
                 shiftPressed = false;
             }
@@ -644,13 +587,11 @@ public class ChatPanel extends GPanel implements Observer {
             }
 
             if (isMaxed()) {
-                System.out.println("Maxed out");
                 sendButton.setEnabled(false);
 
             }
 
             else {
-                System.out.println("Haven't reached the capacity");
                 sendButton.setEnabled(true);
 
             }
@@ -716,7 +657,7 @@ public class ChatPanel extends GPanel implements Observer {
         public void changedUpdate(DocumentEvent arg0) {
             // send isTyping signal
         	
-            System.out.println("hey, I am typing");
+            //System.out.println("hey, I am typing");
 
         }
 
@@ -724,7 +665,6 @@ public class ChatPanel extends GPanel implements Observer {
         	if(model.getActiveConversation().getAccount().getServer()
         			== ServerType.TWITTER){
 	            keyCount = keyCount + e.getLength();
-	            System.out.println("Key count = " + keyCount);
 	            displayPanel.updateChar(140 - keyCount);
         	}
         }
@@ -733,7 +673,6 @@ public class ChatPanel extends GPanel implements Observer {
         	if(model.getActiveConversation().getAccount().getServer()
         			== ServerType.TWITTER){
 	            keyCount = keyCount - e.getLength();
-	            System.out.println("Key count = " + keyCount);
 	            displayPanel.updateChar(140 - keyCount);
         	}
         }
@@ -786,12 +725,6 @@ public class ChatPanel extends GPanel implements Observer {
                                 "Conference Room Created",
                                 JOptionPane.INFORMATION_MESSAGE);
             }
-            // if (!model.groupChatWindowOpen)
-            // new GroupChatConfigurationFrame(chatClient, model);
-            // need to create a new conference chat room here
-            // c.messageReceived("the left side panel in the chat window should be empty"
-            // ,model.getCurrentProfile().getName(),
-            // " has created a conference chat room!");
         }
 
     }
@@ -801,11 +734,6 @@ public class ChatPanel extends GPanel implements Observer {
         // @Override
         public void actionPerformed(ActionEvent event) {
             // if the group chat conference room doesn't exist create one
-            System.out.println("Invite a friend...");
-
-            // for (String room: c.getAvailableRoom()) {
-            // System.out.println("From main controller Room = " + room);
-            // }
 
             if (c.getAvailableRoom().size() > 0) {
                 if (!model.groupChatWindowOpen) {

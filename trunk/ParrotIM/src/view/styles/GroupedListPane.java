@@ -104,7 +104,6 @@ public class GroupedListPane extends JPanel implements Observer {
         newPanel.add(new JLabel(img), BorderLayout.WEST);
 
         // textLabel
-        // JLabel textLabel = new JLabel(name);
         labels.add(textLabel);
         textLabel.setForeground(model.primaryTextColor);
         newPanel.add(textLabel, BorderLayout.CENTER);

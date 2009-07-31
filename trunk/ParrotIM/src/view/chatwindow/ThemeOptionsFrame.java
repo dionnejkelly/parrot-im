@@ -68,7 +68,6 @@ public class ThemeOptionsFrame extends JFrame {
 
         // @Override
         public void mouseClicked(MouseEvent arg0) {
-            // TODO Auto-generated method stub
             themeFrame.dispose();
         }
 

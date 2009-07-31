@@ -41,7 +41,6 @@ import view.styles.GPanel;
 import controller.MainController;
 
 public class OptionPanel extends GPanel implements Observer {
-    // public WindowColors colors = new WindowColors();
     private int lastSelected;
     private JTabbedPane tabbedOptions;
     private Model model;

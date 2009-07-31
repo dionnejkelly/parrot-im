@@ -58,7 +58,6 @@ public class ChatWindowListener implements WindowListener {
         try {
             model.clearAllConversations();
         } catch (NullPointerException nullEvent) {
-            System.out.println("No chat windows were opened");
         }
 
     }

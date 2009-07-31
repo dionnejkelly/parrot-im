@@ -245,7 +245,6 @@ public class GuestAccountFrame extends JFrame implements Observer {
             try {
                 signIn_ActionPerformed();
             } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -274,10 +273,6 @@ public class GuestAccountFrame extends JFrame implements Observer {
                     || serverType == ServerType.MSN
                     || serverType == ServerType.ICQ
                     || serverType == ServerType.AIM) {
-
-                // depends on the ICQManager implementation
-                // || serverType == ServerType.ICQ
-                // || serverType == ServerType.AIM) {
                 if (serverType == ServerType.AIM) {
                     serverType = ServerType.ICQ;
                 }
@@ -292,15 +287,11 @@ public class GuestAccountFrame extends JFrame implements Observer {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                 throw new BadConnectionException();
             }
-            new BuddyList(core, model, mainFrame.getLocation());// pops
-            // buddylist
-            // window
+            new BuddyList(core, model, mainFrame.getLocation());
             mainFrame.dispose(); // TODO: consider if the sign in fails
         } catch (BadConnectionException e1) {
-            // e1.printStackTrace();
             mainPanel.header.displaySystemStatus("Sign in failed!");
             mainFrame.setEnabled(true);
-            System.out.println("sign in failed!");
 
         }
 

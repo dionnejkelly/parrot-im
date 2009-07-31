@@ -68,16 +68,9 @@ public class HeaderPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(50, 50, 0, 50));
 
         // logo-avatar
-        // JLabel avatarDisplay = new JLabel ();
         avatarDisplay = new AvatarLabel(null, 100);
 
         avatarDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-        // ImageIcon avatar = new ImageIcon
-        // (getClass().getClassLoader().getResource("images/buddylist/logoBox.png"));
-
-        // TODO: set auto scaling + border later
-        // avatarDisplay.setIcon(avatar);
-
         status = new JLabel("Not signed in", SwingConstants.CENTER);
         status.setBorder(BorderFactory.createEmptyBorder(7, 0, 8, 0));
 
@@ -92,7 +85,6 @@ public class HeaderPanel extends JPanel {
      * @param errormsg
      */
     protected void displaySystemStatus(String errormsg) {
-        // avatarDisplay.setIcon(avatar);
         status.setText("<html><FONT COLOR=RED>" + errormsg + "</FONT></html>");
     }
 

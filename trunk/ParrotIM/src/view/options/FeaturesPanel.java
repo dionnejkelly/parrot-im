@@ -62,8 +62,6 @@ public class FeaturesPanel extends GPanel implements Observer {
     private JCheckBox chatbotCheck;
     private JCheckBox soundCheck;
 
-    // private JCheckBox spellingCheck;
-
     private JCheckBox emailCheck;
     private JCheckBox chatLogCheck;
     private JCheckBox chatWindowHistoryCheck;
@@ -86,14 +84,6 @@ public class FeaturesPanel extends GPanel implements Observer {
         this.optionframe = optionframe;
 
         /* CHATBOT */
-
-        System.out.println("=================================");
-        System.out.println("           From the feature panel");
-        System.out.println("Chatbot =  "
-                + model.getCurrentProfile().isChatbotEnabled());
-        System.out.println("Chat Log =  "
-                + model.getCurrentProfile().isChatLogEnabled());
-        System.out.println("=================================");
 
         if (model.getCurrentProfile().isChatbotEnabled()) {
             chatbotCheck =
@@ -300,13 +290,6 @@ public class FeaturesPanel extends GPanel implements Observer {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
 
             }
-            System.out.println("=================================");
-            System.out.println("           From the chatbotListener");
-            System.out.println("Chatbot =  "
-                    + model.getCurrentProfile().isChatbotEnabled());
-            System.out.println("Chat Log =  "
-                    + model.getCurrentProfile().isChatLogEnabled());
-            System.out.println("=================================");
             return;
 
         }
@@ -419,7 +402,6 @@ public class FeaturesPanel extends GPanel implements Observer {
 
         public void itemStateChanged(ItemEvent event) {
             if (event.getStateChange() == ItemEvent.SELECTED) {
-                // model.getCurrentProfile().setEmailEnabled(true);
                 try {
                     model.setEmailNotification("Y");
                 } catch (ClassNotFoundException e) {
@@ -432,7 +414,6 @@ public class FeaturesPanel extends GPanel implements Observer {
                 emailCheck.setIcon(new ImageIcon(this.getClass().getResource(
                         "/images/menu/email_add.png")));
             } else {
-                // model.getCurrentProfile().setEmailEnabled(false);
                 try {
                     model.setEmailNotification("N");
                 } catch (ClassNotFoundException e) {
@@ -477,13 +458,6 @@ public class FeaturesPanel extends GPanel implements Observer {
                         "/images/menu/note_delete.png")));
             }
 
-            System.out.println("=================================");
-            System.out.println("           From the chatLogListener");
-            System.out.println("Chatbot =  "
-                    + model.getCurrentProfile().isChatbotEnabled());
-            System.out.println("Chat Log =  "
-                    + model.getCurrentProfile().isChatLogEnabled());
-            System.out.println("=================================");
 
         }
 

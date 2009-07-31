@@ -55,7 +55,6 @@ public class AvatarLabel extends JLabel {
     private int size;
 
     /** avatarlbl is this component itself */
-    // private static AvatarLabel avatarlbl;
     private MainController chatClient;
 
     /**
@@ -143,10 +142,7 @@ public class AvatarLabel extends JLabel {
 
             // synch
             if (synch) {
-                System.out.println("synching");
                 avatarToSynch.changeAvatar(avatarPath);
-            } else {
-                System.out.println("not synching");
             }
 
             try {
@@ -160,22 +156,15 @@ public class AvatarLabel extends JLabel {
                     }
 
                     else if (serverType == ServerType.ICQ) {
-                        System.out.println("Calling ICQ");
                         chatClient.setAvatarPicture(file);
                     }
 
-                    else {
-                        System.out.println("Calling MSN/Twitter");
-                    }
                 }
 
-                System.out
-                        .println("      FROM THE MAIN CONTROLLER I GOT SAVED IN THE DATABASE!!!");
                 model.setAvatarDirectory(model.getCurrentProfile().getName(),
                         avatarPath);
 
                 // will change the avatar once the chatClient done uploading
-                System.out.println("Succesfully uploaded the avatar picture.");
             } catch (XMPPException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -186,8 +175,6 @@ public class AvatarLabel extends JLabel {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("Attachment cancelled by user.");
         }
 
         fileChooser.setVisible(false);// DISPOSE!!!
@@ -208,9 +195,6 @@ public class AvatarLabel extends JLabel {
                             "images/buddylist/logoBox.png").toString();
         }
 
-        // URL url = new URL(avatarPath);
-        // Image img = new Image();
-        // ImageIcon icon = new ImageIcon (img);
         this.setText("<html><img src=\"" + avatarPath + "\" height=\"" + size
                 + "\" width=\"" + size + "\" ></html>");
         path = avatarPath;
