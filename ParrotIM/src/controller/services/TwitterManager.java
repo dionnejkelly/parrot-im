@@ -49,19 +49,19 @@ public class TwitterManager implements GenericConnection {
     
     private boolean isConnected = false;
 
-    public static void main(String[] args) throws BadConnectionException {
-        TwitterManager twit = new TwitterManager();
-        twit.login("cmpt275testing", "abcdefghi");
-
-        boolean doesit = twit.doesExist("parrotim");
-
-        // if (twit.isFollowing("parrotimtest")) {
-        //    		
-        // }
-        twit.removeFriend("abc");
-        System.out.println("Does user exists? " + doesit);
-
-    }
+//    public static void main(String[] args) throws BadConnectionException {
+//        TwitterManager twit = new TwitterManager();
+//        twit.login("cmpt275testing", "abcdefghi");
+//
+//        boolean doesit = twit.doesExist("parrotim");
+//
+//        // if (twit.isFollowing("parrotimtest")) {
+//        //    		
+//        // }
+//        twit.removeFriend("abc");
+//        System.out.println("Does user exists? " + doesit);
+//
+//    }
 
     public TwitterManager() {
 
@@ -98,7 +98,6 @@ public class TwitterManager implements GenericConnection {
         try {
             twitter.follow(userID);
         } catch (Exception e) {
-            System.err.println("Error in adding friend in Twitter");
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -117,7 +116,6 @@ public class TwitterManager implements GenericConnection {
         try {
             twitter.updateStatus(status);
         } catch (TwitterException e) {
-            System.err.println("Error posting status in twitter upon log-in.");
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -157,7 +155,6 @@ public class TwitterManager implements GenericConnection {
             this.getMyRecentStatus();
            
         } catch (Exception e) {
-            System.err.println("");
             e.printStackTrace();
             isConnected = false;
             ImageIcon twitterIcon = new ImageIcon(this.getClass().getResource(
@@ -180,7 +177,6 @@ public class TwitterManager implements GenericConnection {
         try {
             friend = twitter.stopFollowing(userID);
         } catch (Exception e) {
-            System.err.println("Error removing a friend in twitter");
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -204,7 +200,6 @@ public class TwitterManager implements GenericConnection {
         try {
             friends = twitter.getFriends();
         } catch (Exception e) {
-            System.err.println("Error getting friend list in twitter");
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -256,8 +251,7 @@ public class TwitterManager implements GenericConnection {
         try {
             status = twitter.getStatus(userID).getText();
         } catch (TwitterException e) {
-            System.err
-                    .println("Server is not yet ready to get friends' status in twitter");
+
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -276,7 +270,6 @@ public class TwitterManager implements GenericConnection {
         try {
             twitter.sendMessage(toUserID, message);
         } catch (Exception e) {
-            System.err.println("Error in sendMessage in Twitter");
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -293,7 +286,7 @@ public class TwitterManager implements GenericConnection {
         try {
             createdAt = twitter.getStatus(userID).getCreatedAt();
         } catch (Exception e) {
-            System.err.println("No user to get minutes of.");
+//            System.err.println("No user to get minutes of.");
             e.printStackTrace();
             throw new BadConnectionException();
         }
@@ -325,7 +318,7 @@ public class TwitterManager implements GenericConnection {
             try {
                 sleep(10000); // Delay for 5 seconds
             } catch (InterruptedException e) {
-                System.err.println("Threading error");
+                //System.err.println("Threading error");
                 e.printStackTrace();
             }
             Thread thisThread = Thread.currentThread();
@@ -356,7 +349,7 @@ public class TwitterManager implements GenericConnection {
         try {
             friends = twitter.getFriends();
         } catch (Exception e) {
-            System.err.println("Error getting friend list in twitter");
+            //System.err.println("Error getting friend list in twitter");
             e.printStackTrace();
         }
 
@@ -474,7 +467,7 @@ public class TwitterManager implements GenericConnection {
         URI userAvatar =
                 twitter.getStatus(userID).getUser().getProfileImageUrl();
         // JOptionPane.showInputDialog(userAvatar);
-        System.out.println("URL: " + userAvatar);
+       // System.out.println("URL: " + userAvatar);
         try {
             URL where = new URL(userAvatar.toString());
             ImageIcon userImageAvatar = new ImageIcon(where);

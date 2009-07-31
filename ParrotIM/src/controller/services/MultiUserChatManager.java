@@ -64,12 +64,12 @@ public class MultiUserChatManager extends MultiUserChat {
     private class joinedListener implements ParticipantStatusListener {
 
         public void adminGranted(String arg0) {
-            System.out.println("ADMIN GRANTED!!!");
+
 
         }
 
         public void adminRevoked(String arg0) {
-            System.out.println("ADMIN REVOKED!!!");
+
 
         }
 
@@ -80,12 +80,12 @@ public class MultiUserChatManager extends MultiUserChat {
 
         public void joined(String user) {
             MultiConversationData conversation = null;
-            // Kevin is there a better function we can use from the StringUtil ?
+           
             // System.out.println("Who joined in the room: " +
             // delimitUserBack(user));
-            System.out.println("User before surgery " + user);
+//            System.out.println("User before surgery " + user);
             user = delimitUserBack(user);
-            System.out.println("User = " + user);
+           // System.out.println("User = " + user);
 
             if (user.contains("_gmail.com")) {
                 user = user.replace("_gmail.com", "@gmail.com");
@@ -98,7 +98,7 @@ public class MultiUserChatManager extends MultiUserChat {
             // user = user.substring(0, index) + "@" + user.substring(index + 1,
             // user.length());
 
-            System.out.println("Who joined in the room: " + user);
+            //System.out.println("Who joined in the room: " + user);
             users.add(user);
             countUsers++;
             conversation =
@@ -107,7 +107,7 @@ public class MultiUserChatManager extends MultiUserChat {
             conversation.addUser(model.findUserByUserID(user));
             // int roomCount = multiUserChat.getOccupantsCount();
             model.getChatCollection().forceUpdate();
-            System.out.println("Count: " + countUsers);
+          //  System.out.println("Count: " + countUsers);
 
         }
 
@@ -118,9 +118,8 @@ public class MultiUserChatManager extends MultiUserChat {
 
         public void left(String user) {
             MultiConversationData conversation = null;
-            // Kevin is there a better function we can use from the StringUtil ?
-            System.out
-                    .println("Who left in the room: " + delimitUserBack(user));
+            
+           // System.out.println("Who left in the room: " + delimitUserBack(user));
             user = delimitUserBack(user);
             // index = user.lastIndexOf('_');
             // user = user.substring(0, index) + "@" + user.substring(index + 1,
@@ -134,7 +133,7 @@ public class MultiUserChatManager extends MultiUserChat {
                 user = user + "@gmail.com";
             }
 
-            System.out.println("Who left the room: " + user);
+            //System.out.println("Who left the room: " + user);
             users.remove(user);
             countUsers--;
             conversation =
@@ -143,17 +142,17 @@ public class MultiUserChatManager extends MultiUserChat {
             conversation.removeUser(conversation.findUserByUserID(user));
             // int roomCount = multiUserChat.getOccupantsCount();
             model.getChatCollection().forceUpdate();
-            System.out.println("Count: " + countUsers);
+           // System.out.println("Count: " + countUsers);
 
         }
 
         public void membershipGranted(String arg0) {
-            System.out.println("MEMBERSHIP GRANTED!!!");
+           // System.out.println("MEMBERSHIP GRANTED!!!");
 
         }
 
         public void membershipRevoked(String arg0) {
-            System.out.println("MEMBERSHIP GRANTED!!!");
+            //System.out.println("MEMBERSHIP GRANTED!!!");
 
         }
 

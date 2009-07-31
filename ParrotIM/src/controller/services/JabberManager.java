@@ -79,7 +79,7 @@ public class JabberManager implements GenericConnection {
             try {
                 roster.createEntry(userID, nickname, null);
             } catch (XMPPException e) {
-                System.err.println("Error in adding friend");
+                
                 throw new BadConnectionException();
             }
         }
@@ -108,16 +108,13 @@ public class JabberManager implements GenericConnection {
                         this.domain);
         config.setSocketFactory(SSLSocketFactory.getDefault());
 
-        System.out.println("userID: " + userID);
-        System.out.println("server " + server);
-        System.out.println("domain " + domain);
 
         connection = new XMPPConnection(config);
         try {
             connection.connect();
             connection.login(userID, password);
         } catch (XMPPException e) {
-            System.err.println("Connection error in logging in.");
+            
             JOptionPane.showMessageDialog(null, "Error signing into Jabber!\nUser name and password do not match.", "Error", JOptionPane.ERROR_MESSAGE);
             throw new BadConnectionException();
         }
@@ -139,7 +136,6 @@ public class JabberManager implements GenericConnection {
                 try {
                     roster.removeEntry(r);
                 } catch (XMPPException e) {
-                    System.err.println("Error in removing friend.");
                     throw new BadConnectionException();
                 }
                 removed = true;
@@ -175,8 +171,7 @@ public class JabberManager implements GenericConnection {
             userStatus =
                     this.connection.getRoster().getPresence(userID).getStatus();
         } catch (NullPointerException e) {
-            System.err.println("Invalid connection or "
-                    + "user in retrieveStatus()");
+        	// Invalid connection or user status
             userStatus = "";
         }
 
@@ -230,7 +225,6 @@ public class JabberManager implements GenericConnection {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("---------------------------Done and done!!!");
 
         vcard.save(connection);
     }
@@ -337,8 +331,7 @@ public class JabberManager implements GenericConnection {
                 userState = UserStateType.OFFLINE;
             }
         } catch (NullPointerException e) {
-            System.err.println("Invalid connection or "
-                    + "user in retrieveState()");
+            // Invalid connection or user in the retrieve state
             userState = UserStateType.OFFLINE;
         }
 
@@ -392,7 +385,7 @@ public class JabberManager implements GenericConnection {
         try {
             ourChat.sendMessage(message);
         } catch (XMPPException e) {
-            System.err.println("Error in sending message.");
+            // Error in sending the message
             throw new BadConnectionException();
         }
 
@@ -428,7 +421,6 @@ public class JabberManager implements GenericConnection {
          */
         public void entriesAdded(Collection<String> addresses) {
             // Fix me!
-            System.out.println(addresses + " from entriesAdded");
             return;
         }
 
@@ -439,7 +431,6 @@ public class JabberManager implements GenericConnection {
          */
         public void entriesUpdated(Collection<String> addresses) {
             // Fix me!
-            System.out.println(addresses + " from entriesUpdated");
             return;
         }
 
@@ -450,7 +441,6 @@ public class JabberManager implements GenericConnection {
          */
         public void entriesDeleted(Collection<String> addresses) {
             // Fix me!
-            System.out.println(addresses + " from entriesDeleted");
             return;
         }
 

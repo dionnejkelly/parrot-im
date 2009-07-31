@@ -141,9 +141,7 @@ public class MSNManager extends AbstractMessageConnection implements
         BuddyList blist = connection.getBuddyGroup().getForwardList();
         for (int i = 0; i < blist.size(); i++) {
             MsnFriend friend = blist.get(i);
-            // System.out.println("Users = " + getUserStatus(friend));
 
-            System.out.println("buddies = " + friend.getLoginName());
 
         }
 
@@ -164,8 +162,7 @@ public class MSNManager extends AbstractMessageConnection implements
     public void addFriend(String userID) throws BadConnectionException {
         try {
             connection.addFriend(userID);
-            // connection = new MSNMessenger(this.userID, this.password);
-            // connection.login(this.userID, this.password);
+
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -176,8 +173,7 @@ public class MSNManager extends AbstractMessageConnection implements
     public boolean removeFriend(String userID) throws BadConnectionException {
         try {
             connection.removeFriend(userID);
-            // connection = new MSNMessenger(this.userID, this.password);
-            // connection.login(this.userID, this.password);
+
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -213,27 +209,6 @@ public class MSNManager extends AbstractMessageConnection implements
 
         return;
 
-        // if (session == null) {
-        // try {
-        // connection.sendMessage(userID, mimeMsg,
-        // getSession(userID).getSessionId());
-        //				
-        // } catch (IOException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        // }
-        //    	
-        // else {
-        // try {
-        // connection.sendMessage(userID, mimeMsg, session.getSessionId());
-        //    			
-        // } catch (IOException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        // }
-
     }
 
     public String getUserStatus(MsnFriend userID) {
@@ -265,11 +240,6 @@ public class MSNManager extends AbstractMessageConnection implements
             poller = new PollingThread();
             poller.start();
             
-            
-            
-    	
-    	
-        
 
         return;
     }
@@ -284,14 +254,12 @@ public class MSNManager extends AbstractMessageConnection implements
 
         public void run() {
             try {
-                System.out.println("Before the big action!!!!!!!!!!!!!!!!!!");
-                sleep(8000); // Delay for 7 seconds
+                sleep(8000); // Delay for 8 seconds
             } catch (InterruptedException e) {
                 System.err.println("Threading error");
                 e.printStackTrace();
             }
 
-            System.out.println("Muhahaha");
             controller.refreshFriends(controller.getConnection());
 
         }
@@ -334,9 +302,9 @@ public class MSNManager extends AbstractMessageConnection implements
 
         while (count < target) {
 
-            System.out.println("Friends = "
-                    + connection.getBuddyGroup().getAllowList().get(count)
-                            .getLoginName());
+//            System.out.println("Friends = "
+//                    + connection.getBuddyGroup().getAllowList().get(count)
+//                            .getLoginName());
             count++;
         }
     }
@@ -347,13 +315,12 @@ public class MSNManager extends AbstractMessageConnection implements
 
         ArrayList<String> buddies = new ArrayList<String>();
 
-        System.out.println(connection);
         int target = connection.getBuddyGroup().getForwardList().size();
 
         int count = 0;
 
         String msnFriendLoginName;
-        System.out.println("Vera's total friend = " + target);
+
         MsnFriend msnFriend;
 
         while (count < target && count < maximumCapacity) {
@@ -361,14 +328,11 @@ public class MSNManager extends AbstractMessageConnection implements
             msnFriendLoginName =
                     connection.getBuddyGroup().getForwardList().get(count)
                             .getLoginName();
-            System.out.println("MSN Friend = " + msnFriendLoginName);
+
             msnFriend = msnFriend(msnFriendLoginName);
             buddies.add(connection.getBuddyGroup().getForwardList().get(count)
                     .getLoginName());
-            System.out.println("*** Status = " + getUserStatus(msnFriend));
-            System.out.println("Count = " + count);
-            System.out.println(msnFriend);
-            System.out.println(msnFriend.getLoginName());
+
             localFriends.add(new FriendTempData(msnFriendLoginName,
                     msnFriendLoginName, this.retrieveStatus(msnFriend
                             .getLoginName()), this.retrieveState(msnFriend
@@ -377,7 +341,7 @@ public class MSNManager extends AbstractMessageConnection implements
             count++;
         }
 
-        System.out.println("Never Count = " + count);
+
         return localFriends;
     }
 
@@ -386,16 +350,15 @@ public class MSNManager extends AbstractMessageConnection implements
     	public void loginComplete(MsnFriend own) {
             // tell everyone we are now running connected
             // use itertors b/c the size will change
-//            buddyListModified();
     		isConnected = true;
-            //JOptionPane.showMessageDialog(null, "Logged In Success");
+ 
         }
 
     	
     	
         public void progressTyping(SwitchboardSession ss, MsnFriend friend,
                 String typingUser) {
-            System.out.println(friend.getLoginName() + " is Typing...");
+     
             TypingStateType typingState = TypingStateType.TYPING;
 
             controller.typingStateUpdated(genericConnection, typingState,
@@ -408,10 +371,6 @@ public class MSNManager extends AbstractMessageConnection implements
             String message = mime.getMessage();
             String toUserID = connection.getLoginName();
 
-            System.out.println("From: " + fromUserID);
-            System.out.println("Message: " + message);
-
-            System.out.println("Session ID: " + ss.getSessionId());
             if (message != null) {
                 controller.messageReceived(fromUserID, toUserID, message);
                 TypingStateType typingState = TypingStateType.GONE;
@@ -425,10 +384,7 @@ public class MSNManager extends AbstractMessageConnection implements
             // Contact contact = getContactFactory().get(friend.getLoginName(),
             // MSNManager.this);
             String user = friend.getLoginName();
-            System.out.println("User: " + user);
-            System.out.println(user + " status: " + getUserStatus(friend));
-            System.out.println(user + " presence status: "
-                    + getUserFormattedFriendlyName(friend));
+
             // if (contact != null) {
             // contact.setDisplayName(GeneralUtils.stripHTML(friend.getFormattedFriendlyName()));
             // Status oldStatus = (Status) contact.getStatus().clone();
@@ -445,7 +401,7 @@ public class MSNManager extends AbstractMessageConnection implements
         }
 
         public void userOffline(String loginName) {
-            System.out.println("Offline: " + loginName);
+
             controller.friendUpdated(genericConnection, loginName);
         }
 
@@ -453,8 +409,7 @@ public class MSNManager extends AbstractMessageConnection implements
                 String filename, int filesize) {
             super.filePosted(ss, cookie, filename, filesize); // Todo change
             log.fine("MSNConnection$ConnectionListener.filePosted");
-            System.out.println("File is posted by: "
-                    + ss.getMsnFriend().getLoginName());
+
         }
 
         public void fileSendAccepted(SwitchboardSession ss, int cookie) {
@@ -466,15 +421,15 @@ public class MSNManager extends AbstractMessageConnection implements
                 String reason) {
             super.fileSendRejected(ss, cookie, reason); // Todo change
             log.fine("MSNConnection$ConnectionListener.fileSendRejected");
-            System.out.println("File is rejected by: "
-                    + ss.getMsnFriend().getLoginName());
+//            System.out.println("File is rejected by: "
+//                    + ss.getMsnFriend().getLoginName());
         }
 
         public void fileSendStarted(VolatileTransferServer server) {
             super.fileSendStarted(server); // Todo change
             log.fine("MSNConnection$ConnectionListener.fileSendStarted");
-            System.out.println("File is started by: "
-                    + server.getCommitPercent());
+//            System.out.println("File is started by: "
+//                    + server.getCommitPercent());
         }
 
         public void fileSendEnded(VolatileTransferServer server) {
@@ -486,8 +441,8 @@ public class MSNManager extends AbstractMessageConnection implements
             log.fine("MSNConnection$ConnectionListener.fileReceiveStarted");
             // Todo verify
 
-            System.out.println(downloader.getFilename()
-                    + "is sending a file...");
+//            System.out.println(downloader.getFilename()
+//                    + "is sending a file...");
             Contact contact =
                     getContactFactory().get(downloader.getName(),
                             MSNManager.this);
@@ -500,21 +455,19 @@ public class MSNManager extends AbstractMessageConnection implements
 
         public void switchboardSessionStarted(SwitchboardSession ss) {
             sessions.put(ss.getMsnFriend().getLoginName(), ss);
-            System.out.println("Session started: "
-                    + ss.getMsnFriend().getLoginName());
+//            System.out.println("Session started: "
+//                    + ss.getMsnFriend().getLoginName());
             session = ss;
         }
 
         public void switchboardSessionEnded(SwitchboardSession ss) {
             sessions.remove(ss.getName());
-            System.out.println("Session ended: "
-                    + ss.getMsnFriend().getLoginName());
+//            System.out.println("Session ended: "
+//                    + ss.getMsnFriend().getLoginName());
         }
 
         public void notifyUnreadMail(Properties Prop, int unread) {
-            String text = "Unread Email Count: " + unread;
-            System.out.println(text);
-            System.out.println("User: " + connection.getLoginName());
+    
 
             int option;
 
@@ -568,250 +521,6 @@ public class MSNManager extends AbstractMessageConnection implements
 
     }
 
-    // class ConnectionListener extends MsnAdapter {
-    // public void loginComplete(MsnFriend own) {
-    // // tell everyone we are now running connected
-    // // use itertors b/c the size will change
-    // // buddyListModified();
-    // notifyConnectionEstablished();
-    // }
-    //
-    // public void progressTyping(SwitchboardSession ss, MsnFriend friend,
-    // String typingUser) {
-    // sessions.put(friend.getLoginName(), ss);
-    // for (ConnectionEventListener connectionEventListener : eventHandlers) {
-    // connectionEventListener.typingNotificationReceived(MSNConnection.this,
-    // getContactFactory().create(friend.getLoginName(), MSNConnection.this));
-    // }
-    // }
-    //
-    // public void notifyUnreadMail( Properties Prop, int unread )
-    // {
-    // final String text = "Unread Email Count: " + unread;
-    //            
-    // // Message message = new
-    // MessageImpl(getContactFactory().create(getUserName(),
-    // MSNConnection.this), false, text);
-    // // notifyEmailReceived(message);
-    // }
-    //
-    // public void userOnline(MsnFriend friend) {
-    // Contact contact = getContactFactory().get(friend.getLoginName(),
-    // MSNConnection.this);
-    // if (contact != null) {
-    // contact.setDisplayName(GeneralUtils.stripHTML(friend.getFormattedFriendlyName()));
-    // Status oldStatus = (Status) contact.getStatus().clone();
-    // contact.getStatus().setOnline(true);
-    // contact.getStatus().setAway(false);
-    // contact.getStatus().setIdleTime(0);
-    // notifyStatusChanged(contact, oldStatus);
-    // } else {
-    // log.fine("got MSN contact status w/o it being in the list");
-    // }
-    // }
-    //
-    // public void userOffline(String loginName) {
-    // Contact contact = getContactFactory().get(loginName, MSNConnection.this);
-    //
-    // if (contact != null) {
-    // Status oldStatus = (Status) contact.getStatus().clone();
-    // contact.getStatus().setOnline(false);
-    // notifyStatusChanged(contact, oldStatus);
-    // } else {
-    // log.fine("got MSN contact status w/o it being in the list");
-    // }
-    // }
-    //
-    // public void loginError(String header) {
-    // String message;
-    // if("911".equals(header) )
-    // message = "Incorrect logon name or password.";
-    // else if ("921".equals(header))
-    // message = "Can't connect to server - too many users.";
-    // else
-    // message = "Connection failed.";
-    // connection.logout();
-    // for (ConnectionEventListener eventHandler : eventHandlers) {
-    // eventHandler.connectionFailed(MSNConnection.this, message);
-    // }
-    // }
-    //
-    // public void listAdd(MsnFriend friend) {
-    // System.out.println("Friend = " + friend.getLoginName());
-    //           
-    // try {
-    // System.out.println("connection = " + MSNConnection.this);
-    // Contact cw = getContactFactory().create(friend.getLoginName(),
-    // MSNConnection.this);
-    // cw.getStatus().setOnline(!friend.getStatus().equals(UserStatus.OFFLINE));
-    // cw.setDisplayName(GeneralUtils.stripHTML(friend.getFormattedFriendlyName()));
-    // log.fine("friend " + friend.getStatus() + " group index " +
-    // friend.getGroupIndex());
-    // rath.msnm.entity.Group msnGroup =
-    // connection.getBuddyGroup().getGroupList().getGroup(friend.getGroupIndex());
-    // if (msnGroup!=null) {
-    // Group gw = getGroupFactory().create(msnGroup.getName());
-    // gw.add(cw);
-    // getGroupList().add(gw);
-    // } else {
-    // // todo SOMETHING! Default group!?
-    // }
-    // } catch (NullPointerException e) { // looking for a bug!
-    // String bug = "Bug in msn implementation. ";
-    // System.out.println("--------------------- " + bug);
-    // // try {
-    // // bug = "Bug in msn implementation: "
-    // // + (connection==null?" connection is null":
-    // // (connection.getBuddyGroup()==null?"connection.getBuddyGroup()==null":
-    // //
-    // (connection.getBuddyGroup().getGroupList()==null?"connection.getBuddyGroup().getGroupList() is null":
-    // // (friend.getGroupIndex()==null?"friend.getGroupIndex() is null":
-    // //
-    // (connection.getBuddyGroup().getGroupList().getGroup(friend.getGroupIndex())==null?"connection.getBuddyGroup().getGroupList().getGroup(friend.getGroupIndex()) is null":"unknown problem")))));
-    // // } catch (NullPointerException ex) {
-    // // // DOUGH!
-    // // }
-    // // log.log(Level.SEVERE, "Bug!", e);
-    // // for (ConnectionEventListener eventHandler : eventHandlers) {
-    // //
-    // eventHandler.errorOccured("Found a bug in MSN protocol, please report back to us:\n"+bug,
-    // e);
-    // // }
-    // }
-    // }
-    //
-    // public void instantMessageReceived(SwitchboardSession ss, MsnFriend
-    // friend, MimeMessage mime) {
-    // sessions.put(friend.getLoginName(), ss);
-    // Message message = new
-    // MessageImpl(getContactFactory().create(friend.getLoginName(),
-    // MSNConnection.this),
-    // false, false, mime.getMessage());
-    // for (ConnectionEventListener eventHandler : eventHandlers) {
-    // try {
-    // eventHandler.messageReceived(MSNConnection.this, message);
-    // } catch (Exception e) {
-    // notifyErrorOccured("Failure while receiving a message", e);
-    // }
-    // }
-    // }
-    //
-    // public void buddyListModified() {
-    // BuddyList blist = connection.getBuddyGroup().getForwardList();
-    // for (int i = 0; i < blist.size(); i++) {
-    // MsnFriend friend = blist.get(i);
-    // listAdd(friend);
-    // }
-    // for (ConnectionEventListener eventHandler : eventHandlers) {
-    // eventHandler.statusChanged(MSNConnection.this);
-    // }
-    // }
-    //
-    // public void addFailed(int errorCode) {
-    // notifyErrorOccured("Failed to add.  Error code " + errorCode, null);
-    // }
-    //
-    //       
-    // public void listOnline(MsnFriend friend) {
-    //        	
-    // try {
-    // Contact contact = getContactFactory().create(friend.getLoginName(),
-    // MSNConnection.this);
-    // contact.setDisplayName(GeneralUtils.stripHTML(friend.getFriendlyName()));
-    // //contact.setOnline(true);
-    // Status status = (Status) contact.getStatus().clone();
-    // contact.getStatus().setOnline(true);
-    // contact.getStatus().setAway(false);
-    // contact.getStatus().setIdleTime(0);
-    // notifyStatusChanged(contact, status);
-    // }
-    //        	
-    // catch (NullPointerException e) {
-    // System.out.println("Null pointed");
-    // }
-    // }
-    //
-    // public void switchboardSessionStarted(SwitchboardSession ss) {
-    // sessions.put(ss.getMsnFriend().getLoginName(), ss);
-    // }
-    //
-    // public void switchboardSessionEnded(SwitchboardSession ss) {
-    // sessions.remove(ss.getName());
-    // }
-    //
-    //       
-    // public void allListUpdated() {
-    // buddyListModified();
-    // }
-    //
-    // public void logoutNotify() {
-    // notifyConnectionLost();
-    // }
-    //
-    //       
-    // public void filePosted(SwitchboardSession ss, int cookie, String
-    // filename, int filesize) {
-    // super.filePosted(ss, cookie, filename, filesize); //Todo change
-    // log.fine("MSNConnection$ConnectionListener.filePosted");
-    // }
-    //
-    //       
-    // public void fileSendAccepted(SwitchboardSession ss, int cookie) {
-    // super.fileSendAccepted(ss, cookie); //Todo change
-    // log.fine("MSNConnection$ConnectionListener.fileSendAccepted");
-    // }
-    //
-    //      
-    // public void fileSendRejected(SwitchboardSession ss, int cookie, String
-    // reason) {
-    // super.fileSendRejected(ss, cookie, reason); //Todo change
-    // log.fine("MSNConnection$ConnectionListener.fileSendRejected");
-    // }
-    //
-    //       
-    // public void fileSendStarted(VolatileTransferServer server) {
-    // super.fileSendStarted(server); //Todo change
-    // log.fine("MSNConnection$ConnectionListener.fileSendStarted");
-    // }
-    //
-    //        
-    // public void fileSendEnded(VolatileTransferServer server) {
-    // super.fileSendEnded(server); //Todo change
-    // log.fine("MSNConnection$ConnectionListener.fileSendEnded");
-    // }
-    //
-    //       
-    // public void fileReceiveStarted(VolatileDownloader downloader) {
-    // log.fine("MSNConnection$ConnectionListener.fileReceiveStarted");
-    // //Todo verify
-    // Contact contact = getContactFactory().get(downloader.getName(),
-    // MSNConnection.this);
-    // for (ConnectionEventListener eventHandler : eventHandlers) {
-    // // eventHandler.fileReceiveRequested(MSNConnection.this, contact,
-    // downloader.getFilename(), "", downloader);
-    // }
-    // }
-    //
-    //      
-    // public void fileSendError(VolatileTransferServer server, Throwable e) {
-    // log.fine("MSNConnection$ConnectionListener.fileSendError");
-    // for (ConnectionEventListener eventHandler : eventHandlers) {
-    // eventHandler.errorOccured("ERROR while transfering file: " +
-    // server.getFilename() + " " + e.getMessage(), null);
-    // }
-    // }
-    //
-    //      
-    // public void fileReceiveError(VolatileDownloader downloader, Throwable e)
-    // {
-    // log.log(Level.SEVERE, "fileReceiveError", e);
-    // for (ConnectionEventListener eventHandler : eventHandlers) {
-    // eventHandler.errorOccured("ERROR while transfering file: " +
-    // downloader.getFilename() + " " + e.getMessage(), null);
-    // }
-    // }
-    //
-    // } // class ConnectionListener
 
     public void disconnect(boolean intentional) {
         sessions.clear();
@@ -1129,7 +838,7 @@ public class MSNManager extends AbstractMessageConnection implements
         final MimeMessage msg = new MimeMessage(message.getText());
         msg.setKind(MimeMessage.KIND_MESSAGE);
         SwitchboardSession ss = getSession("");
-        System.out.println("Message = " + msg.getMessage());
+
         if (ss == null) {
             for (ConnectionEventListener eventHandler : eventHandlers) {
                 eventHandler
@@ -1229,8 +938,6 @@ public class MSNManager extends AbstractMessageConnection implements
     public void changeStatus(UserStateType state, String status)
             throws BadConnectionException {
 
-        System.out.println("MSN Status = " + status);
-        System.out.println("State = " + state);
 
         if (connection.isLoggedIn()) {
             try {

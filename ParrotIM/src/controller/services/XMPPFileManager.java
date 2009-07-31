@@ -130,12 +130,12 @@ public class XMPPFileManager {
                                                     JOptionPane.ERROR_MESSAGE);
                                     return;
                                 } else {
-                                    System.out
-                                            .println("Transferring Progress: "
-                                                    + progressBar
-                                                            .format(transfer
-                                                                    .getProgress() * 100)
-                                                    + "% transferred.");
+//                                    System.out
+//                                            .println("Transferring Progress: "
+//                                                    + progressBar
+//                                                            .format(transfer
+//                                                                    .getProgress() * 100)
+//                                                    + "% transferred.");
                                 }
 
                                 try {
@@ -148,8 +148,8 @@ public class XMPPFileManager {
                                     e.printStackTrace();
                                 }
                             }
-                            System.out.println(request.getFileName()
-                                    + "has been successfully received.");
+//                            System.out.println(request.getFileName()
+//                                    + "has been successfully received.");
 
                         } catch (XMPPException e1) {
                             e1.printStackTrace();
