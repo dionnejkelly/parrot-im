@@ -67,24 +67,36 @@ QA (How do we know that Parrot IM is bug-free?):
 
 *_Jordan -- <2 minutes_*
 
-Note: Im still working on this but I had to leave campus halfway through writting and Its not finished.
-
 Lead in
   * ...
 
-BuddyList Progression:
+Buddylist Progression:
   * This is how our buddylist has change across the 3 versions
   * From the alpha to beta we added avatar images and grouping via protocol
   * For the final we changed to grouping by status to make communication between protocols more uniform
   * Gradient background was added to all of our windows
 
-ChatWindow Progression:
+Chatwindow Progression:
   * One of our early problems that we recieved alot of feedback about was the minimizing of the side panel. The buttons were really tiny.
   * In the beta we replaced java's split pane with a custom split pane that uses a single large button.
 
 Customizable Themes:
+  * For our final release we wanted to make our user interface more visually appealing as wells as give the user the ability to customize the colors.
+  * We added a gradient to all of our windows
+  * We added user customizable colors that when change are applied to all of the windows throughout the program.
+  * there are a couple of preset themes or the user can customize further.
+  * The customize able colors are stored in the database with the users profile data.
+  * When a profile is selected from the main menu drop box the programs colors are changed. Even before loggin in.
 
 User Feedback:
+  * many of the changes that we have made to our interface has been influenced by user feedback and feedback from members in the group.
+  * one example of this is the profile manager.
+  * initially it was very confusing, and I personally when back the other day and tryed to use the old profile manager and it took me several trys to figure out how to use it.
+  * several of the buttons arent labeled.
+  * the difference between accounts and profiles is anbigious
+  * this was changed in beta, and the only difference between beta and final is the colors and the addition of the done button.
+
+Note: I touch on user feedback regarding the buddylist and the chatwindow when I talk about the changes that we made.
 
 ----
 
