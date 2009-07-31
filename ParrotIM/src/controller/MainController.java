@@ -219,7 +219,6 @@ public class MainController {
                 // connection should be found from account!!
                 GenericConnection connection = account.getConnection();
 
-                System.out.println("Which connection = " + account.getServer());
                 connection.setAvatarPicture(byeArray);
             }
         }
@@ -281,7 +280,6 @@ public class MainController {
         account = model.getCurrentProfile().getAccountData().get(0);
         connection = account.getConnection();
 
-        System.out.println("Which connection = " + connection.getServerType());
 
         connection.setAvatarPicture(file);
 
@@ -499,8 +497,7 @@ public class MainController {
     public void disconnect(AccountData account) {
         account.getConnection().disconnect();
         account.removeAllFriends();
-        System.out.println("allfriends are here= "
-                + account.getFriends().size());
+
         account.setConnected(false);
 
         model.forceUpdate(UpdatedType.BUDDY);
@@ -532,8 +529,6 @@ public class MainController {
             // it must be Twitter
             else {
                 // need to check if a user exists or is already being followed
-                System.out.println("Twitter adding a friend...");
-                System.out.println("Twitting = " + userID);
 
                 if (doesExist(userID)) {
 
@@ -594,10 +589,6 @@ public class MainController {
                 e.printStackTrace();
             }
             if (removed || friendToRemove.isBlocked()) {
-                System.out.println("GOOGLETALK removing a friend...");
-                System.out
-                        .println("**************************************************** =============== Twitting = "
-                                + friendToRemove.getUserID());
 
                 model.removeFriend(friendToRemove);
             }
@@ -608,33 +599,20 @@ public class MainController {
         // it must be Twitter
         else {
             // need to check if a user exists or is already being followed
-            System.out.println("Twitter removing a friend...");
-            System.out
-                    .println("**************************************************** =============== Twitting = "
-                            + friendToRemove.getUserID());
+
 
             // if (isFollowing(friendToRemove.getUserID())) {
             try {
                 removed = connection.removeFriend(friendToRemove.getUserID());
                 if (removed || friendToRemove.isBlocked()) {
-                    System.out
-                            .println("***************** &^^^^^^^^^^^^^^^^^^^^^^^^ ==================== Is this called?");
+
                     model.removeFriend(friendToRemove);
                 }
             } catch (BadConnectionException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            //        		
-            //        	
-            // }
-            //        
-            //        	
-            // else {
-            // JOptionPane.showMessageDialog(null,
-            // "Sorry could not add the user because the user does not exist or has been suspended.",
-            // "Notice", JOptionPane.INFORMATION_MESSAGE);
-            // }
+
 
         }
 
@@ -710,7 +688,7 @@ public class MainController {
 
             model.unblockFriend(friendToUnblock);
         } catch (BadConnectionException e) {
-            System.err.println("Error in unblocking friend.");
+            //System.err.println("Error in unblocking friend.");
             e.printStackTrace();
         }
 
@@ -949,13 +927,9 @@ public class MainController {
         fromUser = conversation.getAccount().getUserID();
 
         to = conversation.getUser().getUserID();
-        System.out
-                .println("---------------------------------------------------- Who am I sending it to = "
-                        + to);
+    
 
         to = conversation.getUser().getUserID();
-
-        System.out.println("                 COLOR ME = " + color);
 
         messageObject =
                 new MessageData(fromUser, messageString, font, size, bold,
@@ -1138,7 +1112,7 @@ public class MainController {
                 }
                 sendMessage(response, fromUserID, account);
             } catch (Exception e) {
-                System.err.println("Error with chatbot: messageReceived()");
+                //System.err.println("Error with chatbot: messageReceived()");
                 e.printStackTrace();
             }
         }
@@ -1219,7 +1193,7 @@ public class MainController {
                 // connection should be found from account!!
                 account = model.getCurrentProfile().getAccountData().get(0);
                 connection = account.getConnection();
-                System.out.println("Start Transfering File... " + to);
+               // System.out.println("Start Transfering File... " + to);
 
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -1232,7 +1206,7 @@ public class MainController {
                     File selectedFile = fileChooser.getSelectedFile();
 
                     long fileSize = selectedFile.length() / 1000;
-                    System.out.println("The file size = " + fileSize + " KB");
+                   // System.out.println("The file size = " + fileSize + " KB");
 
                     if (fileSize < 64) {
                         ProgressMonitorScreen progress =
@@ -1297,8 +1271,8 @@ public class MainController {
         groupRoom = "Parrot" + countRoom;
         availableRoom.add(groupRoom);
 
-        System.out.println("From main controller = "
-                + availableRoom.get(countRoom));
+//        System.out.println("From main controller = "
+//                + availableRoom.get(countRoom));
         countRoom++;
 
         AccountData account = null; // Should be passed in!!
@@ -1422,8 +1396,8 @@ public class MainController {
                     (MultiConversationData) chatCollection
                             .getActiveConversation();
         } catch (ClassCastException e) {
-            System.err
-                    .println("sendMultMessage took in a single conversation. Oops?");
+//            System.err
+//                    .println("sendMultMessage took in a single conversation. Oops?");
             e.printStackTrace();
             throw new IllegalArgumentException();
         }
@@ -1453,7 +1427,6 @@ public class MainController {
           // connection should be found from account!!
           account = model.getCurrentProfile().getAccountFromServer(serverType);
           
-          System.out.println("                             IF I WERE = " + account.getNickname());
           connection = account.getConnection();
           
           
