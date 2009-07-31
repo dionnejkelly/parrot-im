@@ -1,5 +1,10 @@
 #summary Final Release of Parrot IM
 
+= Executable and Source Code =
+
+  * (link to .jar)
+  * (link to tags/final)
+
 = User Acceptance Test =
 
 Please have the user complete the following tasks outlined in "procedures", and then record all information in "reports." Thanks!
