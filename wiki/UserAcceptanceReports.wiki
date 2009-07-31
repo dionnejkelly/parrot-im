@@ -270,13 +270,13 @@ Task: view chat log
   * Intuitiveness: 3
   * Fun: 1
 
-Task: Change Themes
+Task: change themes
   * Difficulty: 1
   * Speed: 5
   * Intuttivness: 3
   * Fun: 3
 
-Task: avatar picture
+Task: change avatar picture
   * Difficulty: 1
   * Speed: 5
   * Intuttivness: 3
