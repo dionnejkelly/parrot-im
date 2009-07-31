@@ -79,7 +79,7 @@ General Comments:
   * Do not need to show who is online or away behind the nickname
 
 ----
-= Person 3: Bin = 
+= Person 4: Bin = 
 
   * Computer Familiarity: 3
   * Chat services used: ICQ,Google Talk
