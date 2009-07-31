@@ -130,23 +130,23 @@ General Comments:
 ----
 = Person 6: Xing  = 
 
-  * Computer Familiarity: 
-  * Chat services used: 
+  * Computer Familiarity: 4
+  * Chat services used: ICQ,Google Talk
 Task: Create a profile and log in
-  * Difficulty: 
-  * Speed: 
-  * Intuitiveness: 
-  * Fun: 
+  * Difficulty: 5
+  * Speed: 2
+  * Intuitiveness: 1 
+  * Fun: 1
 Task: Find and use the buddy search:
-  * Difficulty: 
-  * Speed: 
-  * Intuitiveness: 
-  * Fun: 
+  * Difficulty: 2
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 2
 Task: Use the Chat bot
-  * Difficulty: 
-  * Speed: 
-  * Intuitiveness: 
-  * Fun: 
+  * Difficulty: 1
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 1
 General Comments:
   * 
   * 
