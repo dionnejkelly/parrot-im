@@ -31,6 +31,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -221,18 +222,21 @@ public class PreferencePanel extends GPanel implements Observer {
                 model.updateColors();
             }
         });
-
+        presetColorPanel.setAlignmentX(LEFT_ALIGNMENT);
         presetColorPanel.add(presetLabel);
         presetColorPanel.add(presets);
 
+        colorPanel.setAlignmentX(LEFT_ALIGNMENT);
         colorPanel.add(colorLabel);
         colorPanel.add(colorButton);
         colorPanel.add(colorButton2);
         colorPanel.add(colorButton3);
 
+        textColorPanel.setAlignmentX(LEFT_ALIGNMENT);
         textColorPanel.add(textColorLabel);
         textColorPanel.add(textButton);
 
+        chatPaneColorPanel.setAlignmentX(LEFT_ALIGNMENT);
         chatPaneColorPanel.add(chatPaneColorLabel);
         chatPaneColorPanel.add(chatButton);
 
@@ -243,7 +247,9 @@ public class PreferencePanel extends GPanel implements Observer {
         labels.add(themeLabel);
         labels.add(chatPaneColorLabel);
 
-        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 225));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setAlignmentX(LEFT_ALIGNMENT);
         this.add(presetColorPanel);
         this.add(colorPanel);
         this.add(textColorPanel);
