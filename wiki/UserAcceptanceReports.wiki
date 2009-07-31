@@ -273,13 +273,13 @@ Task: view chat log
 Task: change themes
   * Difficulty: 1
   * Speed: 5
-  * Intuttivness: 3
+  * Intuitiveness: 3
   * Fun: 3
 
 Task: change avatar picture
   * Difficulty: 1
   * Speed: 5
-  * Intuttivness: 3
+  * Intuitiveness: 3
   * Fun: 3
 
 General comments:
@@ -289,5 +289,33 @@ General comments:
   
 ----
 
+= Person 11: Gareth = 
+
+  * Computer Familiarity: 4
+  * Chat services used: Google Talk, MSN
+
+Task: Create a profile and log in
+  * Difficulty: 2
+  * Speed: 2
+  * Intuitiveness: 2
+  * Fun: 2
+
+Task: Talk to some friends with the chatbot, and try to make some custom messages.
+  * Difficulty: 3
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 5
+
+Task: change themes
+  * Difficulty: 2
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 4
+
+Task: change avatar picture
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
 
   
