@@ -10,7 +10,9 @@ A desktop application that connects you to friends on multiple networks, and off
 
 = Getting Started Screencast =
 
-http://www.youtube.com/watch?v=d2xIbUwfJuw
+<wiki:video url="http://www.youtube.com/watch?v=d2xIbUwfJuw"/>
+
+<wiki:video url="http://www.youtube.com/watch?v=8oAv3Gb0CSM"/>
 
 
 = User Acceptance Test =
