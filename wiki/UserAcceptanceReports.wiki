@@ -246,4 +246,48 @@ General Comments:
   * "I like the design and colour customization"
   * "The GUI is pretty easy to use"
 
+---
+= Person 10: Kent = 
+
+  * Computer Familiarity: 4
+  * Chat services used: MSN
+
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
+
+Task: Find and use the buddy search:
+  * Difficulty: 2
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 4
+
+Task: view chat log
+  * Difficulty: 1
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 1
+
+Task: Change Themes
+  * Difficulty: 1
+  * Speed: 5
+  * Intuttivness: 3
+  * Fun: 3
+
+Task: avatar picture
+  * Difficulty: 1
+  * Speed: 5
+  * Intuttivness: 3
+  * Fun: 3
+
+General comments:
+  * like the change theme.
+  * take long time to wait when sign in
+  * icons in feature setting is too small (hard to see the difference when click it)
+  
+----
+
+
   
