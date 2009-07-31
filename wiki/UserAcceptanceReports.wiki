@@ -221,4 +221,28 @@ General Comments:
   * "I did not know that the blank field was used for searching". 
   * "I like using the customization feature."
 
+---
+= Person 9: Brianna = 
+
+  * Computer Familiarity: 4
+  * Chat services used: GoogleTalk
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
+Task: Colour Customization
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 5
+General Comments:
+  * She used her new GoogleTalk account, so she had to add a friend first.
+  * "I like the design and colour customization"
+
   
