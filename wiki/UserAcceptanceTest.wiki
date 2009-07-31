@@ -1,7 +1,7 @@
 #summary Testing procedures for the user acceptance test
 
 = Background information from user = 
-  * Rank of computer familiarity (1 to 5)
+  * Rank of computer familiarity (1 = Not familiar to 5 = Very familiar)
   * Number of chat services used (MSN, Google Talk, Jabber, Twitter, ICQ, AIM)
 
 = Tasks for the user to perform = 
