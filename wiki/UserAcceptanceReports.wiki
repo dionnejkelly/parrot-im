@@ -99,7 +99,7 @@ Task: Use the Chat bot
   * Intuitiveness: 2
   * Fun: 4
 General Comments:
-  * 
-  * 
-  * 
-  *
+  * The program is clean and feature-rich.
+  * It is a little bit slow when you change the status in personal profile panel.
+  * The “Change Text Color” panel do not have “cancel” button.
+----
