@@ -916,7 +916,7 @@ public class ICQManager implements GenericConnection {
                 if (errorCode == 5) {
                     // TO DO: have a qui popup window to show these error
                     // message
-                    errorMsg = "Invalid screenname or wrong password";
+                    errorMsg = "Error signing into GoogleTalk!\nUser name and password do not match";
                     error = true;
                 } else if (errorCode == 17) {
                     errorMsg = "Account has been suspended temporarily";
