@@ -572,6 +572,11 @@ public class ChatPanel extends GPanel implements Observer {
                     && sendButton.isEnabled()) {
                 e.setKeyCode(KeyEvent.VK_BEGIN);
                 sendMessage();
+                
+                if(model.getActiveConversation().getAccount().getServer()
+            			== ServerType.TWITTER){
+                	System.out.println("************ Hey I am a twitter");
+                }
                 sendButton.setEnabled(true);
             }
 
@@ -763,13 +768,17 @@ public class ChatPanel extends GPanel implements Observer {
         			instanceof ConversationData){
         		if(model.getActiveConversation().getAccount().getServer()
                 		== ServerType.TWITTER){
-            			if(keyCount >= 140){
+        			System.out.println(" ********* Key count == " + keyCount);
+            			if(txt1.getDocument().getLength() > 140){
+            				
             				sendButton.setEnabled(false);
             			}
             		}
-        		else{
+        		
+        		else {
         			sendButton.setEnabled(true);
         		}
+        		
         	}
         }
     }
