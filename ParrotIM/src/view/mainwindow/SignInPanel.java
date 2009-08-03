@@ -311,6 +311,7 @@ public class SignInPanel extends GPanel implements Observer {
             }
             // Handle the GUI changes
             new BuddyList(core, model, mainFrame.getLocation());
+            ((MainWindow)mainFrame).removeTray();
             mainFrame.dispose();
         } catch (BadConnectionException e1) {
 

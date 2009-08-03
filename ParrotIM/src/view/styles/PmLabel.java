@@ -94,7 +94,7 @@ public class PmLabel extends JTextField {
      */
     public void changePM(boolean b, boolean changeTwitter) {
         if (b) {// editable
-            if (!this.getText().equals("Type your status message")) {
+            if (this.getText().equals("(Type your status message)")) {
                 this.setText("");
             }
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
