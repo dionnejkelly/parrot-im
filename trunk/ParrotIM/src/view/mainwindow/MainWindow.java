@@ -51,8 +51,18 @@
 
 package view.mainwindow;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.MenuItem;
 import java.awt.Point;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -70,7 +80,9 @@ import controller.MainController;
  */
 public class MainWindow extends JFrame implements Observer {
     private boolean allowAutoSignIn;
-
+    private JFrame mainwindow;
+    private TrayIcon trayIcon;
+    private SystemTray tray;
     /**
      * Sets the title of the window, size, and default close operation. called
      * upon program start up
@@ -99,7 +111,8 @@ public class MainWindow extends JFrame implements Observer {
 
     private void setFrame(MainController chatClient, Model model) {
         setTitle("Parrot-IM");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainwindow = this;
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(300, 500));
         setIconImage(new ImageIcon(this.getClass().getResource(
                 "/images/mainwindow/logo.png")).getImage());
@@ -116,7 +129,67 @@ public class MainWindow extends JFrame implements Observer {
 
             // Testing for model observers
             model.addObserver(this);
+            
+
+            //SYSTEM TRAY
+            if (SystemTray.isSupported()) {
+
+                tray = SystemTray.getSystemTray();
+                Image image = new ImageIcon(this.getClass().getResource("/images/mainwindow/logo.png")).getImage();
+       
+                PopupMenu popup = new PopupMenu();
+                MenuItem defaultItem = new MenuItem("Exit");
+                defaultItem.addActionListener(new SysTrayExitListener());
+                popup.add(defaultItem);
+
+                trayIcon = new TrayIcon(image, "Parrot IM", popup);  
+                trayIcon.setImageAutoSize(true);
+                trayIcon.addMouseListener(new SysTrayMouseListener());
+                try {
+                    tray.add(trayIcon);
+                } catch (AWTException e) {
+                    System.err.println("TrayIcon could not be added.");
+                }
+            }
         }
+    }
+    
+    private class SysTrayExitListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    }
+    private class SysTrayMouseListener implements MouseListener{
+        public void mouseClicked(MouseEvent e) {
+        	trayIcon.displayMessage("ParrotIM", "ParrotIM is not Signed in",
+                    TrayIcon.MessageType.INFO);
+        	System.out.println("Tray Icon - Mouse clicked!"); 
+        }
+
+        public void mouseEntered(MouseEvent e) {
+        	trayIcon.displayMessage("ParrotIM", "ParrotIM is not Signed in",
+                    TrayIcon.MessageType.INFO);
+        	System.out.println("Tray Icon - Mouse entered!");
+        }
+
+        public void mouseExited(MouseEvent e) {
+        	System.out.println("Tray Icon - Mouse exited!");
+        }
+
+        public void mousePressed(MouseEvent e) {
+        	System.out.println("Tray Icon - Mouse pressed!"); 
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        	mainwindow.setVisible(true);      
+        	System.out.println("Tray Icon - Mouse released!"); 
+        }
+    }
+    
+    protected void removeTray (){
+    	if (tray != null){
+            tray.remove(trayIcon);
+    	}
     }
 
     /**

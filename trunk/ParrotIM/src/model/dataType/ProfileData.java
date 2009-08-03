@@ -174,6 +174,7 @@ public class ProfileData extends Observable {
     }
 
     public String getStatus() {
+    	if (this.isEmptyProfile()) return "";
         return this.accountData.get(0).getStatus();
     }
 

@@ -7,12 +7,20 @@
 
 package view.buddylist;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.MenuItem;
 import java.awt.Point;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
@@ -33,6 +41,7 @@ import javax.swing.event.ChangeListener;
 import model.Model;
 import model.dataType.AccountData;
 import model.enumerations.UpdatedType;
+import model.enumerations.UserStateType;
 import view.chatLog.ChatLogFrame;
 import view.chatwindow.ChatWindow;
 import view.mainwindow.AboutFrame;
@@ -53,6 +62,8 @@ public class BuddyList extends JFrame implements Observer {
     private static ArrayList<AccountJMenu> accountMenuList;
     private BuddyPanel mainListPanel;
     private TwitterPanel mainTwitterPanel;
+    private TrayIcon trayIcon;
+    private SystemTray tray;
     /**
      * menu bar in buddy list
      */
@@ -145,7 +156,7 @@ public class BuddyList extends JFrame implements Observer {
 
         // Attach the top text menu
         this.setJMenuBar(this.createMenu());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(this.getClass().getResource(
                 "/images/mainwindow/logo.png")).getImage());
 
@@ -154,6 +165,27 @@ public class BuddyList extends JFrame implements Observer {
         setVisible(true);
 
         new MusicPlayer("/audio/startup/parrotOpening.wav", model);
+        
+        //SYSTEM TRAY
+        if (SystemTray.isSupported()) {
+
+            tray = SystemTray.getSystemTray();
+            Image image = new ImageIcon(this.getClass().getResource("/images/mainwindow/logo.png")).getImage();
+   
+            PopupMenu popup = new PopupMenu();
+            MenuItem defaultItem = new MenuItem("Exit");
+            defaultItem.addActionListener(new SysTrayExitListener());
+            popup.add(defaultItem);
+
+            trayIcon = new TrayIcon(image, "Parrot IM - " + model.getCurrentProfile().getName(), popup);
+            trayIcon.setImageAutoSize(true);
+            trayIcon.addMouseListener(new SysTrayMouseListener());
+            try {
+                tray.add(trayIcon);
+            } catch (AWTException e) {
+                System.err.println("TrayIcon could not be added.");
+            }
+        }
 
     }
 
@@ -251,6 +283,25 @@ public class BuddyList extends JFrame implements Observer {
         return menuBar;
     }
 
+    private String getStatusMessage() throws ClassNotFoundException, SQLException{
+    	String status = model.getStatusMessage(model.getCurrentProfile().getName());
+    	if (status == null)
+    		return "(Type your status message)";
+    	return status;
+    }
+    private String getStatus() throws ClassNotFoundException, SQLException{
+    	int state = model.getStatus(model.getCurrentProfile().getName());
+    	switch(state){
+    	case 0 : return UserStateType.ONLINE.toString();
+    	case 1 : return UserStateType.AWAY.toString();
+    	case 2 : return UserStateType.BUSY.toString();
+    	case 3 : return UserStateType.PHONE.toString();
+    	case 4 : return UserStateType.LUNCH.toString();
+    	case 5 : return UserStateType.BRB.toString();
+    	case 6 : return UserStateType.INVISIBLE.toString();
+    	}
+    	return UserStateType.ONLINE.toString();
+    }
     public static void removeAccountJMenu(AccountData account) {
         int pos = 0;
         for (pos = 0; pos < accountMenuList.size(); pos++) {
@@ -327,7 +378,6 @@ public class BuddyList extends JFrame implements Observer {
             if (!model.bugReportWindowOpen) {
                 new BugReportFrame(model);
             }
-
             return;
         }
     }
@@ -369,27 +419,17 @@ public class BuddyList extends JFrame implements Observer {
 
     private class ChatLogWindowListener implements WindowListener {
 
-        public void windowActivated(WindowEvent e) {
-        }
+        public void windowActivated(WindowEvent e) {}
 
         public void windowClosed(WindowEvent e) {
             chatlog = null;
-        }
+            }
 
-        public void windowClosing(WindowEvent e) {
-        }
-
-        public void windowDeactivated(WindowEvent e) {
-        }
-
-        public void windowDeiconified(WindowEvent e) {
-        }
-
-        public void windowIconified(WindowEvent e) {
-        }
-
-        public void windowOpened(WindowEvent e) {
-        }
+        public void windowClosing(WindowEvent e) {}
+        public void windowDeactivated(WindowEvent e) {}
+        public void windowDeiconified(WindowEvent e) {}
+        public void windowIconified(WindowEvent e) {}
+        public void windowOpened(WindowEvent e) {}
     }
 
     /**
@@ -494,6 +534,7 @@ public class BuddyList extends JFrame implements Observer {
             new MainWindow(new MainController(newModel), newModel, buddywindow
                     .getLocation());
             // TODO: might want to reset the data/variables/list in model
+            buddywindow.removeTray();
             buddywindow.dispose();
             new MusicPlayer("/audio/exit/parrotExit.wav", model);
 
@@ -547,6 +588,54 @@ public class BuddyList extends JFrame implements Observer {
                 buddylistPanel.updateUI();
             }
         }
+    }
+    protected void removeTray (){
+    	if (tray != null){
+            tray.remove(trayIcon);
+    	}
+    }
+    private class SysTrayExitListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    }
+    private class SysTrayMouseListener implements MouseListener{
+        public void mouseClicked(MouseEvent e) {
+        	try {
+				trayIcon.displayMessage("ParrotIM - " + model.getCurrentProfile().getName(), 
+					"Status: " + getStatusMessage() + "\n" + 
+					"(" + getStatus() + ")",
+				    TrayIcon.MessageType.INFO);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
 
+        public void mouseEntered(MouseEvent e) {
+        	try {
+				trayIcon.displayMessage("ParrotIM - " + model.getCurrentProfile().getName(), 
+					"Status: " + getStatusMessage() + "\n" + 
+					"(" + getStatus() + ")",
+				    TrayIcon.MessageType.INFO);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
+
+        public void mouseExited(MouseEvent e) {}
+
+        public void mousePressed(MouseEvent e) {}
+
+        public void mouseReleased(MouseEvent e) {
+        	buddywindow.setVisible(true);                
+        }
     }
 }
