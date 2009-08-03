@@ -340,7 +340,7 @@ public class SignInPanel extends GPanel implements Observer {
             this.profilesModel.removeAllElements();
 
             // Set up the "header" of the list
-            if (profiles.getProfiles().size() > 1) {
+            if (profiles.getProfiles().size() >= 1) {
                 this.profilesModel.addElement("Select a Profile");
             } else {
                 this.profilesModel.addElement("Create a Profile");
