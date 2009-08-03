@@ -110,6 +110,6 @@ We acheived the testing by following a simple tasks that users normally do. We p
 
 == User Acceptance Testing ==
 
-User Acceptance testing for the final version was a week-long test. The procedures and results are as follows:
+User Acceptance testing for the final version was a week-long test. The procedures and results which includs observations on user interface are as follows:
   * [UserAcceptanceTest Testing procedures]
   * [UserAcceptanceReports Reports]
