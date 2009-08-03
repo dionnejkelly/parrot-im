@@ -23,3 +23,4 @@
   * When type :D it becomes :D>
   * For Linux, sometimes the window shortcut for parrotIM.jar will hide.
   * As you chat with another user, the font color will keep changing.
+  * Sometimes when you send a message via msn, it will follow by an empty message.
