@@ -84,7 +84,7 @@ public class ManageAccountFrame extends JFrame {
                 || lcOSName.toLowerCase().contains("mac")) {
             setPreferredSize(new Dimension(530, 300));
         } else {
-            setPreferredSize(new Dimension(530, 270));
+            setPreferredSize(new Dimension(540, 270));
         }
 
         setResizable(false);
