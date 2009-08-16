@@ -61,7 +61,7 @@ public class SelectingJListSample {
       {
         JList theList = (JList) mouseEvent.getSource();
         if (mouseEvent.getClickCount() == 2) {
-          int index = theList.locationToIndex(mouseEvent.getPoint());
+          int index = theList.locationToIndex(mouseEvent.getPoint()); //a
           if (index >= 0) {
             Object o = theList.getModel().getElementAt(index);
             System.out.println("Double-clicked on: " + o.toString());
