@@ -174,8 +174,15 @@ public class BuddyList extends JFrame implements Observer {
    
             PopupMenu popup = new PopupMenu();
             MenuItem defaultItem = new MenuItem("Exit");
+    
             defaultItem.addActionListener(new SysTrayExitListener());
+            
+            MenuItem defaultItem2 = new MenuItem("Sign Out");
+            defaultItem2.addActionListener(new signoutActionListener());
+           
             popup.add(defaultItem);
+            popup.add(defaultItem2);
+            
 
             trayIcon = new TrayIcon(image, "Parrot IM - " + model.getCurrentProfile().getName(), popup);
             trayIcon.setImageAutoSize(true);
