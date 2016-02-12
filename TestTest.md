@@ -1,0 +1,1 @@
+![http://parrot-im.googlecode.com/files/usb-parrot.jpg](http://parrot-im.googlecode.com/files/usb-parrot.jpg)

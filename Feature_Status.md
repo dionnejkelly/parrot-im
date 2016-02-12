@@ -1,0 +1,3 @@
+Status is a feature that allows users to set their current situation (e.g. available, busy, away, custom message) to be shown to all friends. To change your status, click on the Status box on the Friend List. Each person on your Friend List will immediately be able to see your status. The Friend List will also show the statuses of all your friends.
+
+If you are connected on the Twitter network, you also have the option to publish your status on your Twitter page.

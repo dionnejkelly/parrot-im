@@ -1,0 +1,37 @@
+## Creating a user account ##
+
+Upon opening Parrot IM, you will see the following window:
+
+![http://parrot-im.googlecode.com/files/login.jpg](http://parrot-im.googlecode.com/files/login.jpg)
+
+At the middle of the window, it shows an existing account with an associated avatar picture above it. Below that, there are several options:
+  * Add/Manage Accounts
+  * Connect Guest Account
+  * Sign In
+  * Help
+
+1. Click the Add/Manage Accounts option.
+
+![http://parrot-im.googlecode.com/files/create%20new%20profile.jpg](http://parrot-im.googlecode.com/files/create%20new%20profile.jpg)
+
+A new Account Manager window will appear. The left-hand side shows the accounts saved to the program, with the information on the right-hand side of the window.
+
+2. Click the "add" button at the bottom-left part of the window. A new entry will appear in the list:
+
+3. Select the protocol you with to use (e.g. Jabber, Twitter, ICQ) by clicking the Service drop-down box and selecting whichever one you'd like.
+
+4. Enter your account's username below, in the Username field.
+
+5. Enter in your password in the Password field.
+
+6. If you wish the program to save your password so that you do not have to enter it in every time you log in, check the "Remember Password" box.
+
+7. To skip the log-in window when you open the program and automatically sign in with this account check the "Auto Sign-in" box.
+
+![http://parrot-im.googlecode.com/files/add%20new%20account.jpg](http://parrot-im.googlecode.com/files/add%20new%20account.jpg)
+
+8. You're now finished adding your account! To proceed, click the OK button.
+
+![http://parrot-im.googlecode.com/files/signin2.jpg](http://parrot-im.googlecode.com/files/signin2.jpg)
+
+9. Now, you will see just the log-in screen. Your new account should show in the drop-down box at the middle.

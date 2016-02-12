@@ -1,0 +1,320 @@
+# Guidelines #
+
+## Technical Guidelines ##
+
+Parrot IM will be constructed using the following technical tools:
+  * Java 5
+    * Version 5 of the Java programming language, also known as J2SE 1.5.
+  * Java Swing
+    * Built-in graphics library in the Java standard library.
+  * Eclipse IDE 3.4.2.
+    * By using the same IDE, we minimize the chance that we upload incompatible code.
+  * Metrics 1.3.6
+    * A plug-in for Eclipse that provides software metrics of a project.
+  * Java [coding conventions](http://java.sun.com/docs/codeconv/) as advised by Sun
+    * With ten members editing the code, it is important to write using the same coding conventions so that we will be more productive in reading and adding to other members' code.
+  * JUnit 4.6
+    * An industry-standard automatic testing framework primarily used to aid unit testing.
+  * SQLite 3.6.14.2
+    * A relational database used to store user profiles in Parrot IM.
+  * SQLiteJDBC v054
+    * A driver used to interface SQLite with Java.
+  * Smack 3.1.0
+    * A Java library that provides XMPP interfacing methods.
+  * Google Code Hosting
+    * We will use Google Code Hosting to manage our source code.
+  * Subversion
+    * Google Code provides subversion to serve as version control for our code.
+
+## Ethical or Legal Issues ##
+
+  * The program should not use our technical skills and abilities to behave in a dishonest way that misuses other people's computers.
+  * The program should not contain any external code without citing properly.
+  * The Parrot IM software engineers shall act consistently in a manner that is in the interests with the public users.
+  * The Parrot IM software engineers shall ensure that their products and related modifications meet the highest professional standards possible.
+  * The Parrot IM software engineers shall be fair to and supportive of their competitive colleagues.
+  * The Parrot IM software engineers shall participate in lifelong learning regarding the pratice of their profession and shall promote an ethical approach to the pratice of the profession.
+
+
+---
+
+
+# System Diagrams #
+
+A Sequence Diagram:
+  * To model the behavior of Parrot IM objects, the sequence diagram has been used to show the sequence of messages exchanged by objects.
+  * Objects and actors are aligned along the top of the diagram.
+  * Labelled arrows indicate operations (the sequeunce of operations is from top to bottom).
+  * In this scenario, the Parrot IM user accesses the software to create ID, login, add/delete, chat, and exit under the user requests.
+
+![http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram.png](http://parrot-im.googlecode.com/files/CMPT_275_Assignment_2_Sequence_Diagram.png)
+
+A UML diagram that shows how the major modules, classes, and functions of our system relate and share data:
+  * Object-oriented modelling is used to identify the classes of object that are important in the Parrot IM domain.
+  * The classes of object are organized into a taxonomy to show how an object class is related to other classes through common attributes and services.
+  * To display this taxonomy, the classes are organized into an inheritance hierarchy with the most general object classes at the top of the hierarchy.
+  * Specialized objects inherit the attributes and services from their top hiearchy class and may have their own attributes and services as well.
+
+![http://parrot-im.googlecode.com/files/classDiagram_v2.png](http://parrot-im.googlecode.com/files/classDiagram_v2.png)
+
+
+---
+
+
+# Data Requirements #
+
+This is a summary of all the I/O for our system, including exact definitions of file and database formats, what other systems (if any) ours interacts with, and how the user interacts with the system via the mouse/keyboard/wii-mote/etc.
+
+## File Formats ##
+
+The following data will be saved locally:
+
+  * User Profiles
+    * Accounts
+      * Protocol
+      * Username
+      * Password
+    * Font
+    * Chatbot settings
+    * UI customization
+    * Chatlog
+    * Avatar Picture
+    * Local Friend Information
+
+Each account saves its friend list and other profile information on their own servers, so there is no need to store it in the local database.
+
+To store the above data locally, we will use the relational database SQLite, which will use the following file format:
+  * File Name: parrot.db
+Only one file is required to store all the user profiles.
+
+
+The chat log will initially be stored in the profile, but an option will be given to export the log to a text file:
+  * File Name: chatlog_`<`profileName>.txt
+This file will contain all chats that were saved under the corresponding user profile._
+
+### Save Users Profile File Format ###
+User profile will be organized in the following manner.
+
+Descriptions: Saves users information such as their name, gender, age, occupation, contact information, email address, and profile pictures.
+
+Format:
+```
+   <Last Name>
+   <First Name>
+   <Gender>
+   <Age>
+   <Occupation>
+   <Phone Number>
+   <Email Address>
+   <Picture Directory>
+```
+Example:
+```
+   <Bits>
+   <Jenny>
+   <Female>
+   <7>
+   <Student>
+   <6045671234>
+   <jennybits@gmail.com>
+   <C:\Documents and Settings\Desktop\Jenny.png>
+```
+
+### Save Users Chat Log File Format ###
+
+Chat log information is saved in the following manner in the database.
+
+Descriptions: Saves users chatting log history.
+
+Format:
+```
+   <Time>
+   <Day>
+   <Month>
+   <Year>
+   <Sender ID>
+   <Sender Email Address>
+   <Messages>
+```
+Example:
+```
+   <13:23>
+   <23>
+   <May>
+   <2009>
+   <JamesPower>
+   <jpower@gmail.com>
+   <I was wondering what will you be doing tomorrow.>
+```
+
+### Save Users Block List File Format ###
+Block lists will be saved as follows in the database.
+
+Descriptions: Saves users block list.
+Format:
+```
+   <userID>
+```
+
+Example:
+```
+   <jrParrot>
+   <srParrot>
+   <dk10>
+```
+
+### Save Users Customization File Format ###
+Customization options will be saved in the following manner.
+
+Descriptions: Saves users font type, font size, theme, avatar picture, and their Advanced/Simplified Modes.
+
+Format:
+```
+   <Simplified = 0;Advanced = 1>
+   <Spam Filter = 0(off)/1(on)>
+   <Chat Bot = 0(off)/1(on)>
+   <Auto Sign-In = 0(off)/1(on)>
+   <Spell Checker = 0(off)/1(on)>
+   <Sound Notification = 0(off)/1(on)>
+   <Email Notification = 0(off)/1(on)>
+   <Slash Commands = 0(off)/1(on)>
+   <Font Type>
+   <Font Size>
+```
+
+Example:
+```
+   <Simplified = 0>
+   <Spam Filter = 1>
+   <Chat Bot = 0>
+   <Auto Sign-In = 1>
+   <Spell Checker = 0>
+   <Sound Notification = 1>
+   <Email Notification = 1>
+   <Slash Commands = 0>
+   <Arial>
+   <12>
+```
+
+### Users Input/Output Interaction ###
+  * The users of Parrot IM will interact with our program by using their compatible keyboard and mouse on their Operating System.
+  * Users interaction with Parrot IM GUI is displayed on their monitor (CLT/LCD/TV) screen.
+  * The users' information will be stored on their own server.
+
+
+---
+
+
+# Feature Priority #
+
+We will be going through three implementation iterations during the course of this project -- version 1, version 2, and version 3. An ordered list of the Release Scope is designed from the implementable priorities to the complex priorities.
+
+## Alpha ##
+
+Basic Protocol Program capable of person-to-person chatting, presence information, and simple GUI interfaces. All high-priority features, with as many medium-priority features included as possible.
+
+Features:
+  * [GUI](Feature_GUI.md) - friendly graphical user interface that allows the users to interact with the program with their keyboard and mouse (e.g. type box, text output box).
+    * The GUI is a necessary component of Parrot IM. It will be implemented in numerous classes, with a View class that controls the functionality of the whole GUI. The core communication classes rely on the view class to get input from the user and to display the output on the various windows.
+  * [Friend List](Feature_FriendList.md) - tracks the list of users' friends, family, co-workers, and associates in an organized manner.
+    * The Friend List requires information from the database, core, and GUI to operate. The user profile information and all friends are stored in the database, the core classes are used to interact with the friends on the list, and the GUI displays the friend list. This is another integral part of the program that's necessary to begin chatting with other users. Also implemented in the Friend List is the ability to add and remove users, which will require additional GUI windows to be constructed.
+  * [Live Instant Messaging](Feature_LiveInstantMessaging.md) - ability to hold a one-on-one conversation with a buddy on given protocol.
+    * This is the primary feature of Parrot IM, and the reason why anybody would use it. It is triggered by two methods. First, another user can send a message that is interpreted by the core as a chat, and will cause an instant messaging session to occur. Secondly, this window can be opened after the user clicks on a friend on the Friend List. This essential feature again relies on the database, core, and GUI to function for the same reasons as the Friend List.
+  * [XMPP Protocol](Feature_XMPP.md) - the same protocol as Google Talk has used. Several servers and clients have support for this. Anyone can setup their own IM network using a XMPP server.
+    * This is mainly a feature that will be coded in the core communication classes, although the database needs to be ready to accept data involving XMPP clients. The core class needs to interface with the XMPP protocol, and will do this by using the Smack library. This is the primary protocol to implement, and needs to be in place before friends can be added or conversations can be had.
+  * [Chatbot](Feature_Chatbot.md) - allows users to enable an auto-reply message that is designed to simulate an intelligent conversation with other human users (i.e. away messages).
+    * The Chatbot is a non-essential feature to basic communication on Parrot IM, but is a useful and important feature, so it will be released in the alpha version so that it is fully refined for the final. We anticipate that user feedback may change the functionality of the chatbot, so we want this feature to experience a high amount of user acceptance testing. It is a feature that will be built off the core, and will essentially create a Chatbot object that will interpret both input from other users and determine output. It requires a complex options window to define which keywords it looks for and what responses to give. Therefore, new GUI windows will be added to accommodate the chatbot. The database needs to keep the configuration settings of the chatbot.
+  * [Avatar picture](Feature_AvatarPicture.md) - allow user to set avatar picture.
+    * The display picture requires mostly GUI support to set and display the image in the program's windows. However, a smaller amount of work will be done with the core classes so that other users can see the picture also. Also, the core will need to fetch avatar pictures of other users. This is a non-essential feature, but one that users have come to expect as standard in instant messaging clients. The database will store these pictures locally.
+  * [Tabbed Windows](Feature_TabbedWindows.md) - collapse multiple conversations into a single window separated into tabs.
+    * Tabbed windows are an alternative to opening chats in multiple windows. We have to implement one of these two methods of holding multiple conversations. This is purely a GUI device, and is an essential feature.
+  * [Blocking another user](Feature_BlockingAnotherUser.md) - allows users to block other user(s) from contacting them.
+    * Blocking users requires the core communication class to selectively send the user's online status to only certain users. The GUI needs to be updated to reflect these changes.
+  * [Status](Feature_Status.md) - allows users to set their status (i.e. available, busy, away, etc.).
+    * Status messages are one of the essential features of an instant messenger. The GUI needs to display the messages fetched from other users from the core, and also the core needs to send the local user's status.
+  * [Profile System](Feature_ProfileSystem.md) - allows user to log-in with multiple protocols
+    * While this is not an essential feature, it is one that will help with testing, and will make the program easier to run. Therefore, we will implement it early so that the users can more easily test other aspects of the program. Aside from this, the profile system allows for a more speedy and hassle-free log-in use of Parrot IM when more than one people use a computer. It requires the database to allow multiple users to be stored, which will allow the core and GUI to reflect the configuration settings and friend relations for each user profile.
+
+Main Clases to Implement:
+
+  * Core
+  * Database
+  * GUI
+  * Chatbot
+  * UserProfile
+  * JabberUser
+  * GoogleTalkUser
+  * FriendList
+  * Friends
+  * Account
+
+## Beta ##
+
+More features will be added, and the database will be made as efficient as possible. The GUI may still lack polish at this stage, but will be completely functional. All high and medium-priority features will be implemented, with as many low-priority features included as possible. Adjustments to features may be done due to user feedback from the alpha release.
+
+Features:
+
+  * [Sound Notification](Feature_SoundNotification.md) - plays a short sound clip upon certain events occurring, such as receiving a message.
+    * Requires a new main class, SoundEngine. The core has the ability to call for sounds to be played, and the GUI can communicate with the SoundEngine to synchronize the audio and visual aspects of the program. Java's Sound Sampled library allows for wave files to be played. The SoundEngine will rely on this class to handle the output of sound to the user.
+  * [Search Engine](Feature_SearchEngine.md) - allows users to efficiently and intuitively search previous conversations or the friends list for anything.
+    * The search is a feature that we'd like to have as refined and polished as possible, but is pushed back to a beta release because of its complexity. We will implement multiple search methods to scan information in the database and return it in intuitive locations in the GUI. This will primarily be a function of the database classes, with minimal involvement of the core.
+  * [Twitter and ICQ Protocol](Feature_TwitterAndICQProtocols.md) - allows users to communicate to people using Twitter and ICQ.
+    * These protocols will be implemented similarly to XMPP. The XMPP protocol is implemented in a modular fashion so that adding the Twitter and ICQ protocols only require minor modifications to the core. Some of the core's methods will only work when users of a certain protocol are given as parameters, as each network is capable of different functions. The UserProfile class will be updated with TwitterUsers and ICQUsers which inherit methods and parameters from the UserProfile. Using inheritance, the model and core classes will not have to change methods that return or use UserProfiles as parameters, but code will be added to check the instance of the UserProfiles to determine their type.
+  * ["Is Typing" Notification Option](Feature_IsTyping.md) - tells users whether the person they are chatting in the prompt window. This information will be displayed at the bottom of the chat window.
+    * This feature requires the GUI to communicate with the core when the user is in the process of inputting text. Also, the core must send messages and receive messages that indicate whether each user is typing or not.
+  * [Spellchecker](Feature_Spellchecker.md) - adds a red underline for text that is not in the dictionary. Assists user in selecting the correct word. Aids the search function in identifying "close" matches to words.
+    * With the help of Softcorporation's Suggester Spellcheck, the GUI will be updated to show errors in words that are currently being typed by the user. A right-click menu will also be implemented to show the suggestions for erroneous words. All of this will occur in any GUI classes that have user typing capability.
+  * [Offline Messaging](Feature_OfflineMessaging.md) - allows users to leave messages to another user.
+    * The core communication class will rely on methods from the implemented protocol libraries to send offline messages. The GUI must be updated to show that these messages were not received by the user yet.
+  * [Conference Chatting](Feature_ConferenceChatting.md) - allows users to create their own chat room for private conference with more than one user
+    * Requires both core and GUI methods to be created to represent both a chat with multiple users and to allow for the communication with them.
+  * [Chat Log](Feature_ChatLog.md) - logs all chat history with friends.
+    * The database will store all chat logs. A new interface for viewing chat history must be constructed in the GUI.
+  * [Emoticons](Feature_Emoticons.md) - translates text smilies into images representing them for users.
+    * Emoticons are a GUI tool that translates text into icons. No other involvement is required from the core or database.
+  * [Font Customization](Feature_FontCustomization.md) - allows users to customize font size, font, family, and colour of their typing font.
+    * The GUI will need to display text from a variety of fonts specified by both the local user and his or her friends. Additionally, other clients must recognize the local user's choice of font. Therefore, additional font information will be sent and received by the core, and displayed by the GUI. An interface will be provided by the GUI to allow the user to select different fonts.
+  * [Auto Sign-in](Feature_AutoSignIn.md) - automatic sign-in upon start up.
+    * This is a minor feature, but it is a convenience for the user. A database entry will be made for auto sign-in, and upon program start up, the core will interpret the auto sign-in entry to determine whether to show the log-in screen or automatically log-in.
+  * [Spam Filter](Feature_SpamFilter.md) - Temporarily blocks user after suspected spamming. This is mainly to help prevent the spread of viruses.
+    * The core will have methods that direct the messages received to the GUI. The spam filter will fit in these methods to filter out the ones that come from unknown senders, and will call different GUI methods to instead display notifications rather than messages. The "spam" messages will always be known by the core, but will be hidden from the user.
+
+Main Clases to Implement:
+
+  * SoundEngine
+  * TwitterUser
+  * ICQUser
+  * SearchAlgorithms
+  * Spellchecker
+  * ChatLog
+  * SpamFilter
+
+## Final ##
+
+All features will be added, including GUI features in which the user interface customization of colors, fonts and window formats will be allowed. Help pages will be polished and usable, and the program will be as bug-free as possible.
+
+Features:
+  * [Email Notification](Feature_EmailNotification.md) - if the user is connected to any networks in which he or she also has an email account, an email notification will display upon new emails being received.
+    * Requires interfacing of the core to the email notifications received in other networks. The core needs to gather the number of new emails and the sender of them. The core must communicate this data to the GUI, which provides buttons to check the email. The GUI must also cause the default internet browser to open so that the user can look at the email.
+  * [Advanced/Simplified Modes](Feature_AdvancedAndSimplifiedModes.md) - To use all the program's features, advanced mode must be turned on. This helps to prevent the user from being overwhelmed with all the options upon first using the program.
+    * The current mode is saved in the database, and the GUI must be configured to check this mode before displaying certain features. The features themselves do not have to be disabled, but the means for accessing them need to be disabled in simplified mode.
+  * [Slash Commands](Feature_SlashCommands.md) - allow user to type /command (eg. /me blah = `*`user name blah)
+    * Although the GUI receives the commands, the core will decode them. When gathering input in the chatbox, the core will check for slash commands before sending the message to the user. If a slash command is detected, then another method will be called to determine what the slash command is, and the action that it requires. Essentially, these slash commands will end up calling methods that would normally be accessed through user's mouse clicks, so minimal extra coding will have to be done aside from making a slash command handler method.
+  * [File Transfer](Feature_FileTransfer.md) - allows users to send their files to another user.
+    * This is a feature that we will rely on protocol libraries to implement. The core will have to specify a location to receive fies and also the files to send. Therefore, the GUI will have to be expanded to allow for the configuration of these two fields.
+  * [UI Customization](Feature_UICustomization.md) - allows for the customization of background images and window colours.
+    * This is primarily a GUI device that will display different types of windows. These window configurations will be stored in the user profile in the database. The GUI will be designed so that the colours and designs are not hardcoded, but instead defined as constants or variables so that this feature can be easily implemented.
+  * [Multiple OS Compatibility](Feature_MultipleOSCompatibility.md) - Parrot IM will run on Windows and Mac operating environments, and Linux compatibility will also be added.
+    * This is not so much a coding challenge as it is a packaging. For Windows, we will create an .exe file. Mac requires a .dmg file, and Linux will use .tar.gz files. There will be minor changes for each version's GUI in how the GUI calls the operating system's windows. Coding the project in Java guarantees that we will not have to make substantial changes to the code for different operating systems because Java is inherently cross-platform.
+  * [Language Localization](Feature_LanguageLocalization.md) - shows menu options notifications in a user-specified language.
+    * All text must not be hardcoded, but instead read from the database. This database will carry multiple versions of the text, and by selecting a language, the GUI will display text from the selected language.
+  * [Additional Protocol Modules](Feature_AdditionalProtocolModules.md) - Includes possible addition of MSN and AIM, and more chat protocols.
+    * Additional protocols will be added that do not require reverse-engineering to operate. If the protocols can be communicated with via a library, the same way XMPP and Twitter can be, adding them to Parrot IM will be easy. However, adding protocols that do not have existing Java libraries to interface with will be more challenging, and our project may not have enough time to implement them all. Additional protocols are not guaranteed to be added.
+
+Main Clases to Implement:
+
+  * MSNUser
+  * AIMUser
+  * EmailNotifier
+  * FileProgress
+  * UIType

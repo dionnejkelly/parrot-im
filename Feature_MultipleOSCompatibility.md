@@ -1,0 +1,1 @@
+Parrot IM will run on Windows XP, Windows Vista, Windows 7, and Mac OS X. Each version will have the same basic functionality, but the look and feel of the windows will be different due to the nature of the operating system. Additionally, we plan to support Linux operating systems also in later releases.

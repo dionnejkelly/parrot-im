@@ -1,0 +1,40 @@
+#Screen shot of Parrot-IM upto Assignment 3
+
+# Introduction #
+
+
+# Details #
+
+## Login Windows: ##
+
+![http://parrot-im.googlecode.com/files/login.jpg](http://parrot-im.googlecode.com/files/login.jpg)
+
+Guest login windows
+
+![http://parrot-im.googlecode.com/files/connectguestaccount.jpg](http://parrot-im.googlecode.com/files/connectguestaccount.jpg)
+
+## Create and manage account windows: ##
+
+![http://parrot-im.googlecode.com/files/create%20new%20profile.jpg](http://parrot-im.googlecode.com/files/create%20new%20profile.jpg)
+
+![http://parrot-im.googlecode.com/files/add%20new%20account.jpg](http://parrot-im.googlecode.com/files/add%20new%20account.jpg)
+
+## Buddy list ##
+
+In this version, we use color to define status in buddy list. online: green; away: brown; offline: red
+
+![http://parrot-im.googlecode.com/files/buddy%20list.jpg](http://parrot-im.googlecode.com/files/buddy%20list.jpg)
+
+### _Right Click menu_ ###
+
+![http://parrot-im.googlecode.com/files/rightClickMenu.jpg](http://parrot-im.googlecode.com/files/rightClickMenu.jpg)
+
+## Chat Window: ##
+
+![http://parrot-im.googlecode.com/files/chatwindow.jpg](http://parrot-im.googlecode.com/files/chatwindow.jpg)
+
+## Sign out and exit: ##
+
+user can choose sign out  or exit from Parrot-IM under "Home menu"
+
+![http://parrot-im.googlecode.com/files/signout.jpg](http://parrot-im.googlecode.com/files/signout.jpg)

@@ -1,0 +1,23 @@
+# Background information from user #
+  * Rank of computer familiarity (1 = Not familiar to 5 = Very familiar)
+  * Number of chat services used (MSN, Google Talk, Jabber, Twitter, ICQ, AIM)
+
+# Tasks for the user to perform #
+
+We will ask the user to do the following actions, and the user can report back on the following characteristics on a 1 to 5 scale:
+  * Difficulty (1 = Difficult/ 5 = Easy)
+  * Speed (1 = Slow / 5 = Fast)
+  * Intuitiveness (1 = Complicated / 5 = No brainer)
+  * Fun (1 = Boring / 5 = Entertaining)
+
+Tasks (have the user complete as many as possible):
+  * Create a profile with your accounts, and log in.
+  * Talk to some friends with the chatbot, and try to make some custom messages.
+  * Find and use the buddy search.
+  * Use the chatlog to look at a previous conversation.
+  * Change the themes/colours of the program.
+  * Logout and login certain accounts while using the program.
+
+# User Feedback #
+
+Allow the user to make comments, and record them.

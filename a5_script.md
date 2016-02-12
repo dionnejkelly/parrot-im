@@ -1,0 +1,132 @@
+Outline:
+  1. For the user
+  1. For the developer
+  1. Program's Growth
+  1. Analysis
+
+
+---
+
+
+**Section I: For the User**
+
+**_Kevin -- 1 minute, 12 seconds_**
+
+> _(Timing: Assume 15 seconds of "set-up time")_
+
+> _(Timing: Introduction: 18 seconds)_
+Introduction -- Title slide:
+  * "Hello everybody, and thank you for joining us as we release Parrot Instant Messenger"
+  * "We are a 10-person team called Pirate Captains. My name is Kevin, and I will be presenting to you today with Jihoon, our logic expert; Ahmad, our database specialist; and Jordan, our graphics mastermind."
+
+> _(Timing: Outline: 19 seconds)_
+Outline:
+  * "First we will demonstrate what Parrot IM actually allows you, the user, to do. Second, we will look into the architecture behind the project. Third, we will show you pictures of Parrot IM's evolution. And then finally, we will share with you our insights from developing Parrot IM.
+
+> _(Timing: Description: 20 seconds)_
+Description:
+  * "Parrot IM's appeal is that it allows you to instant message friends from 6 different networks. With this, it offers many useful and fun features. But, the best way to learn about Parrot IM is to have you experience it. For this, I'll hand it over to Jihoon. Thank you.
+
+**_Jihoon -- 3 minutes, 30 seconds_**
+
+Parrot IM Features:
+  * Spell Checker
+  * Buddy Search
+  * Chat Log
+  * Bug Report
+  * Account Menu
+  * Theme Selection
+
+
+---
+
+
+**Section II: For the Developer**
+
+**_Ahmad -- 2 minutes_**
+
+Slide 1:
+  * We started off with a very rough idea of how parrot im is going to be set up, you can see our initial architectural diagram, turns out, our architectural diagram stayed quite accurate to what we ended up having
+
+Slide 2:
+  * The main difference, as you can see, is the model view controller architecture that we later adopted.
+  * Note that the Controller works with libraries to connect via protocols, the View handles the GUI, and the Model holds data and interfaces with the Database. This architecture benefited us greatly because, for example, you could work on he logic without looking at the gui, and the gui without looking at the logic.
+
+Slide 3:
+  * We used an eclipse addon named Metrics which gave us some useful statistics for the program.
+  * As you can see, parrot im exploded in the time between alpha and beta, we more than doubled the amount of code we had in the alpha.
+  * this is because we had finished the core components of the program which tend to be trickier to code and started adding a lot of new features.
+
+Slide 4:
+  * We implemented about 90% of our planned features, though the features we didn't do were features that could potentially confuse users, and at the same time, would take far too much effort.
+
+Slide 5:
+  * Still have bugs, but testing helped to ensure that most are known issues, these bugs are things that required considerable effort to fix, but aren't anything that will detract considerably from the enjoyment of the program.
+
+Slide 6:
+  * An important thing for us was to minimize the amount of bugs we'd have to deal with, so we made sure to make testing a priority, we used automated test cases tested the logic of the program and found many internal bugs, and user testing, which not only found bugs, but led to better design decisions.
+
+And for that, we skip over to Jordan...
+
+
+**MY COMMENTS TO KEVIN: this will be between 2:00 and 2:30, if you don't want to take a risk, I can trim a bit off the MVC stuff, and maybe some other stuff too.
+I would also like the last slide and the second last slide to be switched to go with my script. Thanks!**
+
+
+---
+
+
+**Section III: Growth**
+
+**_Jordan -- <2 minutes_**
+
+Lead in
+  * ...
+
+Buddylist Progression:
+  * This is how our buddylist has change across the 3 versions
+  * From the alpha to beta we added avatar images and grouping via protocol
+  * For the final we changed to grouping by status to make communication between protocols more uniform
+  * Gradient background was added to all of our windows
+
+Chatwindow Progression:
+  * One of our early problems that we recieved alot of feedback about was the minimizing of the side panel. The buttons were really tiny.
+  * In the beta we replaced java's split pane with a custom split pane that uses a single large button.
+
+Customizable Themes:
+  * For our final release we wanted to make our user interface more visually appealing as wells as give the user the ability to customize the colors.
+  * We added a gradient to all of our windows
+  * We added user customizable colors that when change are applied to all of the windows throughout the program.
+  * there are a couple of preset themes or the user can customize further.
+  * The customize able colors are stored in the database with the users profile data.
+  * When a profile is selected from the main menu drop box the programs colors are changed. Even before loggin in.
+
+User Feedback:
+  * many of the changes that we have made to our interface has been influenced by user feedback and feedback from members in the group.
+  * one example of this is the profile manager.
+  * initially it was very confusing, and I personally when back the other day and tryed to use the old profile manager and it took me several trys to figure out how to use it.
+  * several of the buttons arent labeled.
+  * the difference between accounts and profiles is anbigious
+  * this was changed in beta, and the only difference between beta and final is the colors and the addition of the done button.
+
+Note: I touch on user feedback regarding the buddylist and the chatwindow when I talk about the changes that we made.
+
+
+---
+
+
+**Section IV: Analysis**
+
+**_Kevin -- 1 minute, 1 second_**
+
+> _(Timing: Challenges: 29 seconds")_
+Challenges:
+  * "Thank you, Jordan. Our program's evolution was not without challenges. Most notably, we encountered many bugs not with our code, but with the libraries we used. That, and some were so poorly documented, that we had to read the source code to use them."
+  * "Also, we did not use many project management techniques, which resulted in some confusion during later stages of development. But by having regular work meetings, we accomplished most of our coding together, which kept us coordinated."
+
+> _(Timing: Hindsight: 32 seconds")_
+
+Hindsight:
+  * "If we had to make Parrot IM again, we would have taken the design more seriously. We learned that once you implement something, it is very hard to go back. We should have planned our classes and methods much more precisely."
+  * "But overall, we are very happy with how Parrot IM was developed. Everybody on our team made major contributions. Communication amongst our team was definitely one of our strengths, too. It kept us active, and it kept us happy while coding."
+  * "That concludes our presentation. Thank you very much, everybody. May we answer any of your questions?"

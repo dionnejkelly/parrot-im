@@ -1,0 +1,11 @@
+Slash commands are advanced feature of Parrot IM that allows you to execute certain features and options by typing them in the chat window. For example, when talking to any friend, you can type commands prefixed by the '/' symbol to perform functions. For example, here are some commands you can execute in this manner:
+  * /status `<`message> - Changes your current status message.
+  * /chat `<`display name> or /chat `<`username> - Starts a new conversation with another friend on your list.
+  * /close - Closes the current chat.
+  * /search `<`keywords> - Searches your chat log and contact list for keywords.
+  * /away - Sets your availability to "away".
+  * /chatbot on|off - Turns the chatbot on or off.
+  * /options - Brings up the options menu.
+  * /me `<`message> - Shows an emote, which will prefix your username on the message to show an action or emotion you are expressing.
+
+This feature is turned off by default, but can be changed in the options menu.

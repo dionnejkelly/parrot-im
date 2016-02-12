@@ -1,0 +1,5 @@
+**Aaron Siu**
+  * Contact: khs2(at)sfu(dot)ca, msn: nubpotato(at)hotmail(dot)com
+  * Student number: 301065638
+  * 2nd year of Software Systems Computer Science
+  * Aaron started off at SFU doing Mechatronics Engineering, but realized that his lack of interest in physics was not a very good thing. So, he landed himself into computer science since programming was more his thing. So far, in terms of programming languages, he has used C++ and Java, and he's also done a little bit of Photoshop graphics, HTML, CSS, and Javascript in elective IAT courses. He is a good writer, which will help the documentation of the project immensely.

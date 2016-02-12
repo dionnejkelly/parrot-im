@@ -1,0 +1,138 @@
+#Parrot-IM user interface screen shot up to Assignment 4
+
+# Introduction #
+
+
+
+# Details #
+
+## Login Windows: ##
+
+![http://parrot-im.googlecode.com/files/loginPage.jpg](http://parrot-im.googlecode.com/files/loginPage.jpg)
+
+Enter password of the profile to sign in
+
+![http://parrot-im.googlecode.com/files/Login.jpg](http://parrot-im.googlecode.com/files/Login.jpg)
+
+
+## Create account into profile: ##
+
+### _Create new profile window_ ###
+
+![http://parrot-im.googlecode.com/files/createNewProfile.jpg](http://parrot-im.googlecode.com/files/createNewProfile.jpg)
+![http://parrot-im.googlecode.com/files/createNewProfile2.jpg](http://parrot-im.googlecode.com/files/createNewProfile2.jpg)
+
+
+### _Account manager window_ ###
+
+add accout of each server into the profile just created.
+
+![http://parrot-im.googlecode.com/files/createNewProfile3.jpg](http://parrot-im.googlecode.com/files/createNewProfile3.jpg)
+![http://parrot-im.googlecode.com/files/createNewProfile4.jpg](http://parrot-im.googlecode.com/files/createNewProfile4.jpg)
+
+![http://parrot-im.googlecode.com/files/createNewProfile5.jpg](http://parrot-im.googlecode.com/files/createNewProfile5.jpg)
+
+  * Manage Profile & Remove Account functions are not implement in this version yet.
+
+## Guest Login: ##
+
+![http://parrot-im.googlecode.com/files/LoginGuest.jpg](http://parrot-im.googlecode.com/files/LoginGuest.jpg)
+![http://parrot-im.googlecode.com/files/LoginGuest2.jpg](http://parrot-im.googlecode.com/files/LoginGuest2.jpg)
+![http://parrot-im.googlecode.com/files/LoginGuest3.jpg](http://parrot-im.googlecode.com/files/LoginGuest3.jpg)
+
+## Buddy list: ##
+In this version, Parrot-IM buddy list is separated by server types.
+
+![http://parrot-im.googlecode.com/files/BuddyList.jpg](http://parrot-im.googlecode.com/files/BuddyList.jpg)
+
+## Chat Window: ##
+In this version, avatar picture of each buddy is shown on the list.
+
+![http://parrot-im.googlecode.com/files/ChatWindow2.jpg](http://parrot-im.googlecode.com/files/ChatWindow2.jpg)
+
+### _Add / Delete / Block function:_ ###
+In this version, we implement add/delete/block function in Parrot-IM.
+
+User can modify their Buddy list by clicking icons ![http://parrot-im.googlecode.com/files/adduserIcon.jpg](http://parrot-im.googlecode.com/files/adduserIcon.jpg)
+![http://parrot-im.googlecode.com/files/deleteuserIcon.jpg](http://parrot-im.googlecode.com/files/deleteuserIcon.jpg)
+![http://parrot-im.googlecode.com/files/blockuserIcon.jpg](http://parrot-im.googlecode.com/files/blockuserIcon.jpg)
+
+"Add friend"
+
+![http://parrot-im.googlecode.com/files/AddUser2.jpg](http://parrot-im.googlecode.com/files/AddUser2.jpg)
+![http://parrot-im.googlecode.com/files/AddUser3.jpg](http://parrot-im.googlecode.com/files/AddUser3.jpg)
+
+"Delete friend"
+
+![http://parrot-im.googlecode.com/files/RemoveUser1.jpg](http://parrot-im.googlecode.com/files/RemoveUser1.jpg)
+
+
+### _Chat Log window:_ ###
+conversation history
+
+![http://parrot-im.googlecode.com/files/viewconversation.jpg](http://parrot-im.googlecode.com/files/viewconversation.jpg)
+![http://parrot-im.googlecode.com/files/viewconversation2.jpg](http://parrot-im.googlecode.com/files/viewconversation2.jpg)
+### _Avatar Picture:_ ###
+
+![http://parrot-im.googlecode.com/files/avatarPicture.jpg](http://parrot-im.googlecode.com/files/avatarPicture.jpg)
+
+![http://parrot-im.googlecode.com/files/avatarPicture3.jpg](http://parrot-im.googlecode.com/files/avatarPicture3.jpg)
+
+### _Status:_ ###
+
+![http://parrot-im.googlecode.com/files/status.jpg](http://parrot-im.googlecode.com/files/status.jpg)
+
+### _Options window (user preference):_ ###
+
+![http://parrot-im.googlecode.com/files/parrotPresference.jpg](http://parrot-im.googlecode.com/files/parrotPresference.jpg)
+
+
+  * Personal Profile
+
+> In this section you can modify :
+
+> -your personal message.
+
+> -your status.
+
+> -your avatar picture.
+
+![http://parrot-im.googlecode.com/files/personalProfile2.jpg](http://parrot-im.googlecode.com/files/personalProfile2.jpg)
+
+  * Manage Accounts
+
+> -Add new Account
+
+> -Remove old Account
+
+> -Edit Account
+
+![http://parrot-im.googlecode.com/files/manageAccount2.jpg](http://parrot-im.googlecode.com/files/manageAccount2.jpg)
+
+  * Features Settings
+
+> -Enable ChatBot
+
+> -Enable Sound Notification
+
+> -Enable ChatLog
+
+![http://parrot-im.googlecode.com/files/featureSetting3.jpg](http://parrot-im.googlecode.com/files/featureSetting3.jpg)
+
+  * Preference
+
+> -Parrot-IM skin
+
+![http://parrot-im.googlecode.com/files/Preference1.jpg](http://parrot-im.googlecode.com/files/Preference1.jpg)
+
+## Sound notification: ##
+we implement sound notification in this version.
+
+![http://parrot-im.googlecode.com/files/enableSooundEffect.jpg](http://parrot-im.googlecode.com/files/enableSooundEffect.jpg)
+
+
+## Sign out and Exit: ##
+different with previous version, we move sign out under "Account menu".
+
+![http://parrot-im.googlecode.com/files/exit3.jpg](http://parrot-im.googlecode.com/files/exit3.jpg)
+![http://parrot-im.googlecode.com/files/logout.jpg](http://parrot-im.googlecode.com/files/logout.jpg)

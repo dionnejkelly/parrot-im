@@ -1,0 +1,470 @@
+# Person 1: John #
+
+  * Computer Familiarity: 5
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 3
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 4
+  * Fun: 4
+
+General comments:
+  * Liked the graphics of the user interface.
+  * Wished the accounts could be edited.
+  * Wants to use just the username, minus the @gmail.com, to log in.
+  * Searching did not work for nicknames.
+
+
+---
+
+
+# Person 2: Yukie #
+
+  * Computer Familiarity: 4
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Use the Chat bot
+  * Difficulty 3
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 2
+
+General comments:
+  * Encountered a bug with smack when logging in.
+  * Had difficulty creating profile; kept pressing OK instead of ADD.
+  * Liked the GUI, quote: "It's not bad, yeah, it's pretty good."
+  * Used the help feature to search "chat bot" to find and use the chatbot in our program.
+
+
+---
+
+
+# Person 3: Xiao Qing #
+
+  * Computer Familiarity: 3
+  * Chat services used: Google Talk
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 2
+  * Speed: 4
+  * Intuitiveness: 2
+  * Fun: 3
+Task: Use the Chat bot
+  * Difficulty: 2
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 5
+General Comments:
+  * The Sign In panel looks beautiful
+  * A little bit slow when you sign in
+  * Likes the Google search function
+  * Do not need to show who is online or away behind the nickname
+
+
+---
+
+# Person 4: Bin #
+
+  * Computer Familiarity: 3
+  * Chat services used: ICQ,Google Talk
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 4
+  * Fun: 3
+Task: Use the Chat bot
+  * Difficulty: 1
+  * Speed: 3
+  * Intuitiveness: 2
+  * Fun: 4
+General Comments:
+  * The program is clean and feature-rich.
+  * It is a little bit slow when you change the status in personal profile panel.
+  * The “Change Text Color” panel do not have “cancel” button.
+
+---
+
+
+# Person 5: Michelle #
+
+  * Computer Familiarity: 3
+  * Chat services used: MSN,Google Talk
+Task: Create a profile and log in
+  * Difficulty: 2
+  * Speed: 3
+  * Intuitiveness: 3
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Use the Chat bot
+  * Difficulty: 1
+  * Speed: 3
+  * Intuitiveness: 1
+  * Fun: 1
+General Comments:
+  * The program is a new of kind and interesting.
+  * It is a little bit difficult to know how to enable chatbot.
+  * "A fresh IM that I have never seen it before!".
+
+---
+
+# Person 6: Xing #
+
+  * Computer Familiarity: 4
+  * Chat services used: ICQ,Google Talk
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 2
+  * Intuitiveness: 1
+  * Fun: 1
+Task: Find and use the buddy search:
+  * Difficulty: 2
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 2
+Task: Use the Chat bot
+  * Difficulty: 1
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 1
+General Comments:
+  * “ChatBot is not a useful tool”.
+  * “When I am typing in the search box, it always do the buddy search, but in fact I just want to use the Google search.”
+  * Changing the theme is interesting.
+
+---
+
+# Person 7: Hamad #
+
+  * Computer Familiarity: 2
+  * Chat service used: MSN
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 2
+  * Intutiveness: 1
+  * Fun: 1
+Task: Message
+  * Difficulty: 1
+  * Speed: 1
+  * Intutiveness: 3
+  * Fun: 1
+Task: Search for buddy
+  * Difficulty: 4
+  * Speed: 2
+  * Intutivness: 3
+  * Fun: 2
+Task: View Chatlog
+  * Difficulty: 2
+  * Speed: 2
+  * Intutivness: 1
+  * Fun: 3
+Task: Change Themes
+  * Difficulty: 2
+  * Speed: 4
+  * Intuttivness: 2
+  * Fun: 1
+Task: Sign out
+  * Difficulty: 2
+  * Speed: 5
+  * Intutivness: 3
+  * Fun: 2
+General Comments:
+  * Creating profile is not easy to complete (Needed help from our team to complete it), couldn't know what are you asking for in username and password.
+  * Search bar is kinda difficult to find
+  * The buddy list was empty first time login
+  * Not familiar with Chatbot (User never used such thing)
+  * Login speed wasn't that bad comparing to actual msn messanger!
+  * Changing colors/themes and chatlog was not that difficult but didn't know in chatlog you are searching conversations! (User never used it with messanger)
+  * Smiley faces in chat window is disturbing (User didn't know about time and date feature because of it).
+  * In general, good program for messaging but bugs make the experience annoying.
+
+
+---
+
+# Person 8: John b #
+
+  * Computer Familiarity: 5
+  * Chat services used: Google Talk
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 2
+  * Fun: 2
+Task: Use the Chat bot
+  * Difficulty: 1
+  * Speed: 3
+  * Intuitiveness: 1
+  * Fun: 1
+General Comments:
+  * Could not find the button to enable the Chatbot.
+  * "I did not know that the blank field was used for searching".
+  * "I like using the customization feature."
+
+
+---
+
+# Person 9: Brianna #
+
+  * Computer Familiarity: 4
+  * Chat services used: GoogleTalk
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 3
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
+Task: Colour Customization
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 5
+General Comments:
+  * She used her new GoogleTalk account, so she had to add a friend first.
+  * "I like the design and colour customization"
+  * "The GUI is pretty easy to use"
+
+
+---
+
+# Person 10: Kent #
+
+  * Computer Familiarity: 4
+  * Chat services used: MSN
+
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
+
+Task: Find and use the buddy search:
+  * Difficulty: 2
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 4
+
+Task: view chat log
+  * Difficulty: 1
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 1
+
+Task: change themes
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 3
+
+Task: change avatar picture
+  * Difficulty: 1
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 3
+
+General comments:
+  * like the change theme.
+  * take long time to wait when sign in
+  * icons in feature setting is too small (hard to see the difference when click it)
+
+
+---
+
+
+# Person 11: Gareth #
+
+  * Computer Familiarity: 4
+  * Chat services used: Google Talk, MSN
+
+Task: Create a profile and log in
+  * Difficulty: 2
+  * Speed: 2
+  * Intuitiveness: 2
+  * Fun: 2
+
+Task: Talk to some friends with the chatbot, and try to make some custom messages.
+  * Difficulty: 3
+  * Speed: 5
+  * Intuitiveness: 3
+  * Fun: 5
+
+Task: change themes
+  * Difficulty: 2
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 4
+
+Task: change avatar picture
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 3
+
+General Comments:
+  * Thought we should gray out or remove things you aren't allowed to do, rather than giving a pop up saying you aren't allowed.
+  * Said account manager should show protocol next to account, as you could use the same account in multiple protocols.
+
+
+---
+
+
+# Person 12: Matti #
+
+  * Computer Familiarity: 5
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 3
+
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 2
+  * Fun: 4
+
+Task: Logout and login certain accounts while using the program.
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+
+
+General Comments:
+  * Buddy search text box should have disappearing text onclick which says that the box is specifically for buddy searching.
+  * Liked how we let him log in and out while in a profile.
+
+
+---
+
+
+# Person 13: Allan #
+
+  * Computer Familiarity: 3
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Find and use the buddy search:
+  * Difficulty: 3
+  * Speed: 4
+  * Intuitiveness: 3
+  * Fun: 4
+Task: Change theme and colour
+  * Difficulty: 5
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 5
+
+General comments:
+  * Liked the parrot, nice and colourful
+  * Don't usually use IM services, so not familiar, but found it Parrot to use
+
+
+---
+
+
+# Person 14: Ferdinant #
+
+  * Computer Familiarity: 4
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 5
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Change buddylist colour:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 5
+Task: Search Chatlog:
+  * Difficulty: 4
+  * Speed: 5
+  * Intuitiveness: 4
+  * Fun: 4
+
+General comments:
+  * Impressed with GUI.
+  * Found MSN service does not function properly
+
+
+---
+
+
+# Person 15: Makoto #
+
+  * Computer Familiarity: 3
+  * Chat services used: Google Talk
+
+Task: Create a profile and log in
+  * Difficulty: 4
+  * Speed: 4
+  * Intuitiveness: 4
+  * Fun: 2
+Task: Find and use the buddy search:
+  * Difficulty: 5
+  * Speed: 5
+  * Intuitiveness: 5
+  * Fun: 1
+Task: Change themes and colour:
+  * Difficulty: 2
+  * Speed: 2 (slow)
+  * Intuitiveness: 2
+  * Fun: 5
+
+General comments:
+  * Naming of colour themes 1, 2, and 3 is no good.
+  * Mistaken the "check" with "checkbox" for options icons
+  * Hidden some tabs.
+
+
+---
+

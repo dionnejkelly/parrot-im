@@ -1,0 +1,1 @@
+The Search Engine can be accessed via a search box on the Friend List, and it will search both your contacts and chat logs for key words. After submitting the search, any relevant friends will be highlighted and temporarily moved to the top of the friends list. Also, another window will appear with the search results, showing links to certain parts of the chat logs.

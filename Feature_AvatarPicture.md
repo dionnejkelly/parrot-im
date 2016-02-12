@@ -1,0 +1,1 @@
+You can associate an Avatar Picture to your user account that shows your picture to everybody you chat with. This picture will also display next to your profile on both the Log-In Window and the main Friends List. To change your Avatar Picture, simply click the "Change Avatar Picture" option in the options menu.

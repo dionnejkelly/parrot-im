@@ -1,0 +1,24 @@
+# Critical Issues #
+  * Twitter Server Rejections
+    * After too many connections to the Twitter server, it would reject our requests for any information. Our library has no way of throttling requests upon approaching the limit.
+  * MSN Add/Remove Friend delay
+    * MSNM (library for MSN) lacked many features, as it was intended for an earlier version of MSN.
+  * Rare authentication failure on Google Talk
+    * Smack (library for XMPP) sometimes returned a bad connection exception upon attempting to log in with a valid userID and password.
+  * If you connect with any MSN account it will allow you in, even with a false password!
+
+# Major Issues #
+  * Friend Avatar Mismatch
+  * MSN Buddy list sometimes does not load upon connecting
+  * If connected on multiple accounts that have the same friend, you cannot chat to the friend "from" both accounts; only one will be accepted.
+  * Multi-user chat for Google Talk occasionally will not receive invites to chat.
+  * If you hover on your contacts in the buddy list, it will tell you in the blue background that status are offline! that's for all contacts in buddy list.
+  * MSN does not work on computers without Korean language support.
+    * The library we use was coded with Korean filenames, and so it throws exceptions upon connecting on computers without the language.
+  * In excutable file, if you made a profile then you sign out from profile, you will not find your profile again (you have to create it again because it's not saved)
+
+# Minor Issues #
+  * When type :D it becomes :D>
+  * For Linux, sometimes the window shortcut for parrotIM.jar will hide.
+  * As you chat with another user, the font color will keep changing.
+  * Sometimes when you send a message via msn, it will follow by an empty message.

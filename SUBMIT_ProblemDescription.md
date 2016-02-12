@@ -1,0 +1,68 @@
+## Project Background ##
+Currently, many messaging clients exist, and a wide variety are used by the world's population. With so many different clients, effectively speaking different languages (i.e. using different protocols), it is challenging to allow everybody to communicate with each other. However, there are programs that can connect to multiple networks. The goal of this project is to make a program that can do just that, but do so most effectively; the resulting program must be natural and intuitive to use without sacrificing functionality.
+
+The goal of this project is to create a well-tested and bug-free communication program that:
+  * Can connect to multiple networks simultaneously
+  * Has simple, useful features but no useless features
+  * Is easy to learn and intuitive to use
+
+## Stakeholders ##
+  * Our programming team members.
+  * The client that requested a communication program to be built, namely Professor Donaldson.
+
+## Users ##
+  * The users of our feature-rich instant messaging program that is compatible with multiple protocols, including XMPP, are available to everyone who would like to use our software. Our software is meant to provide an easy-to-use and friendly instant messaging program that allows the users to share their conversation with other registered users.
+  * Example users, along with the features they demand in a messaging program.
+    * Meet Joshua. He is a busy university student that also works on the side. He is very knowledgeable about computers, and enjoys online games whenever he has free time. However, his free time is limited, and when he wants to communicate with his friends, he wants to do so effortlessly and effectively.
+      * Relies on multiple-network functionality; does not have the time to open multiple programs to track down his friends.
+      * Makes heavy use of the search function to find contacts or important details from previous conversations.
+      * Uses slash-commands to speed up his messaging experience.
+      * Employs Chatbot to send different messages to different groups of friends while he is away.
+      * Appreciates the simple and clean user interface to boost his productivity.
+    * Meet Phyllis. She is a grandmother who is looking forward to see her grandchildren graduate from university. She enjoys staying in touch with her grandchildren and loves seeing their pictures. She cannot type quickly, and has never fully grasped the new computer technology.
+      * Pleased that the chat program's interface is simple and easy to navigate. It only takes a few mouse clicks on clear, well-defined buttons to see her grandchildren.
+      * Enjoys seeing her grandchildren's display pictures when she's talking to them.
+      * Impressed with the ease of seeing pictures that her grandchildren send to her while chatting.
+    * Meet Timmy. He is currently in grade four, and really likes to play soccer. He also likes kangaroos. He often talks to his friends about topics such as these, and thinks it's so cool that he can chat with them on a computer, too.
+      * Learns new words or proper spellings to words through the spellcheck function.
+      * Likes the cool fonts and emoticons that he can use in his chats.
+      * Is not bored by the user interface.
+      * Thinks the %&#$ symbols are really cool-looking! (Profanity filter)
+      * Is annoyed that he can't chat after 9pm on school nights! His parents must have made the program not work after this time.
+
+
+## Risks ##
+| **Risk** | **Likelihood of the risk occurring** | **Severity of the risk** | **Prevention** | **Resolution** |
+|:---------|:-------------------------------------|:-------------------------|:---------------|:---------------|
+| Poor time management| High chance                          | Catastrophic             | Obey the schedule. Those who don't obey will be penalized (e.g. treat the whole group for lunch) | Have a group meeting to find out the solution |
+| Lack of technology experience   | High chance                          | Serious                  | Try to find out what tool or software we will be used in this project | Try to use other tools which we are familiar and comfortable with |
+| Unsolvable technical issue | Medium chance                        | Tolerable                | Stay ahead of schedule so that unsolvable issues can be identified quickly | Try a different approach, research other methods, or alter design to work around the issue |
+| One or more member(s) leaves for vacation| Low chance                           | Serious                  | Have each member of the group inform their schedules in advance | Reassign role  |
+| One or more member(s) is sick| Medium chance                        | Serious                  | Stay healthy (e.g. rest) | Reassign role  |
+| Team members not coming to consensus | Medium chance                        | Serious                  | Strive to be as democratic as possible in our meetings| Voting         |
+| All source code being lost | Low chance                           | Catastrophic             | Store back-up data in repository | Check our own local copies |
+| Team members having trouble with their assigned role | High chance                          | Tolerable                | Team members inform each other in advance | Team members help each other |
+| SVN Repository is down | Low chance                           | Serious                  | Team members store back-up data in their local computers| Team members come up with consensus and use our own local copies to update |
+| Team members having trouble with implementation | High chance                          | Serious                  | Prepare good project management with well thought out plans | Team members help each other and as a last resort consult the TA or the instructor |
+| Forget to implement a feature | Low chance                           | Serious                  | Regularly review the design documents | Dedicate more resources to implement the feature |
+| Integration of components is difficult | High chance                          | Tolerable                | Communicate accurately to teammates from other groups about design | Review code together and determine a better method of integration |
+| Program runs slowly | Low chance                           | Catastrophic             | Test for speed throughout production on as many machines as possible | Reexamine low-level code and determine methods to make the code more efficient |
+| Program does not function the way users want | Medium chance                        | Catastrophic             | Design from the users' perspective and have as many people test the program as possible | Review the specifications, then remove and add features to implement |
+| A member uploads the wrong code | Medium chance                        | Tolerable                | Ensure that working copy is up to date and that one file at a time is being worked on | Revert the repository to a previous version |
+
+## Assumptions: ##
+The list of all the important assumptions can be divided into three different categories:<br>
+<ul><li><b>The programmers (our team members):</b>
+<ul><li>Our team members having passion and eagerness to thoroughly complete this project.<br>
+</li><li>Our team members putting a maximum effort to finish the project.<br>
+</li><li>Our team members understanding more about the software development as we go along with the project.<br>
+</li><li>Our team members assuming that the software will be primarily used by an English-speaking population.<br>
+</li><li>Our team members are assuming that XMPP is the main protocol we will need in order for the instant messaging client to function to our needs.<br>
+</li></ul></li><li><b>The client:</b>
+<ul><li>The client is assuming that the project is capable of implementing the specifications.<br>
+</li><li>The client is assuming that the project will be thoroughly completed within the due date.<br>
+</li><li>The client is assumed to have users in mind that will use the software.<br>
+</li></ul></li><li><b>The users:</b>
+<ul><li>The users are assuming that the program will be updated occasionally with new features and bug-free software.<br>
+</li><li>The users are assuming that the software is not harmful or provoke any negative effects to influence their health or behaviors while using the program.<br>
+</li><li>The users are assumed to have XMPP accounts that allow them to use the software.

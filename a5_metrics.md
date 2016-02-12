@@ -1,0 +1,57 @@
+# Tools used #
+
+  * loc (http://freshmeat.net/projects/loc/)
+  * Eclipse Metrics plugin (http://metrics.sourceforge.net/)
+
+# Definitions #
+
+  * Pure Source Lines
+    * Functional lines of code that do not have comments at the end.
+    * Blank lines are not included.
+    * Includes lines of little significance, such as curly braces.
+    * Does not include test cases.
+  * Pure Comment Lines
+    * Lines that consist of all comments, and no code.
+    * Can be Javadoc, C, or C++ style comments.
+    * Includes comment header blocks, such as "/".
+    * Does not include test cases.
+  * Source with Comments Lines
+    * Includes lines with both source code and comments at the end.
+    * Does not include test cases.
+  * Blank lines
+    * Cannot contain any source code or comments.
+    * Does not include test cases.
+  * Classes
+    * Total number of classes coded by our members; does not include library classes.
+    * Includes inner classes.
+    * Excludes test case classes.
+  * Total Files
+    * Includes all database, source code, image, dictionary, and audio files.
+    * Excludes documentation, libraries, and eclipse or svn hidden files.
+  * Methods
+    * Includes overloaded methods.
+    * Excludes test case methods.
+  * Attributes
+    * Includes data members of all visibility.
+    * Excludes constants and static members.
+  * Test Cases
+    * Total number of test case methods in all test case classes.
+
+# Metrics #
+
+| **Category** | **Alpha Value** | **Beta Value** | **Final Value** |
+|:-------------|:----------------|:---------------|:----------------|
+| Pure Source Lines | 6196            | 13092          | 16713           |
+| Pure Comment Lines | 4866            | 6071           | 5722            |
+| Source with Comment Lines | 38              | 83             | 106             |
+| Blank Lines  | 3034            | 5231           | 5594            |
+| Total Lines  | 14134           | 24477          | 28135           |
+| Model Classes | 13              | 29             | 29              |
+| View Classes | 83              | 152            | 173             |
+| Controller Classes | 7               | 28             | 32              |
+| Total Classes | 122             | 215            | 235             |
+| Number of files | 102             | 254            | 289             |
+| File Size    | 3.69 MB         | 7.44 MB        | 12.45 MB        |
+| Methods      | 620             | 1180           | 1338            |
+| Attributes   | 323             | 489            | 611             |
+| Test Cases   | 60              | 317            | 353             |

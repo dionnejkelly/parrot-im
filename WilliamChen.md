@@ -1,0 +1,5 @@
+**William(Wei-Lun) Chen**
+  * Contact: wca20(at)sfu(dot)ca, msn: deviozc(at)gmail(dot)com
+  * Student number: 301080781
+  * 2nd year of Computing Science
+  * William is familiar with Java, C++, and Python. He also has some experience in django, html, and CSS. He is interested in website development and operating systems.
